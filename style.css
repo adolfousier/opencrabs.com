@@ -110,7 +110,11 @@ nav .container {
 }
 
 .nav-logo .crab-icon {
-    font-size: 1.4rem;
+    width: 44px;
+    height: 44px;
+    object-fit: contain;
+    position: relative;
+    top: 1px;
 }
 
 .nav-links {
@@ -154,23 +158,15 @@ nav .container {
 }
 
 .hero-crab {
-    font-size: 5rem;
+    width: 240px;
+    height: auto;
     margin-bottom: 0;
     display: block;
+    margin-left: auto;
+    margin-right: auto;
     filter: drop-shadow(0 0 40px var(--accent-glow));
-    animation: crab-wiggle 2s ease-in-out infinite;
 }
 
-@keyframes crab-wiggle {
-    0%, 100% { transform: rotate(0deg) translateY(0); }
-    25% { transform: rotate(-8deg) translateY(-4px); }
-    75% { transform: rotate(8deg) translateY(-4px); }
-}
-
-.nav-logo .crab-icon {
-    display: inline-block;
-    animation: crab-wiggle 2s ease-in-out infinite;
-}
 
 .hero h1 {
     font-size: 4rem;

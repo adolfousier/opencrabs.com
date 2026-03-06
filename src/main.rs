@@ -27,7 +27,7 @@ fn Nav() -> impl IntoView {
         <nav>
             <div class="container">
                 <a href="/" class="nav-logo">
-                    <span class="crab-icon">"🦀"</span>
+                    <img class="crab-icon" src="public/opencrabs-logo.png" alt="" />
                     "OpenCrabs"
                 </a>
                 <ul class="nav-links">
@@ -52,7 +52,7 @@ fn Hero() -> impl IntoView {
     view! {
         <section class="hero">
             <div class="container">
-                <span class="hero-crab">"🦀"</span>
+                <img class="hero-crab" src="public/opencrabs-logo.png" alt="OpenCrabs" />
                 <h1>"OpenCrabs"</h1>
                 <p class="hero-tagline">"THE AI AGENT THAT LIVES IN YOUR TERMINAL."</p>
                 <p class="hero-description">
