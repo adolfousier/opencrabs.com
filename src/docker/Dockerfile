@@ -1,4 +1,4 @@
-FROM rust:1.85-bookworm AS builder
+FROM rust:1.93-bookworm AS builder
 
 RUN rustup target add wasm32-unknown-unknown
 RUN cargo install trunk
