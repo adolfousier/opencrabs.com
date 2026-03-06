@@ -1,0 +1,8 @@
+services:
+  crabsland:
+    build:
+      context: ../..
+      dockerfile: src/docker/Dockerfile
+    ports:
+      - "19283:19283"
+    restart: unless-stopped
