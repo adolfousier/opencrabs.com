@@ -28,9 +28,13 @@ Output goes to the `dist/` directory.
 
 ## Stack
 
-- **Leptos 0.7** — Rust reactive UI framework (CSR mode)
+- **Leptos 0.8** — Rust reactive UI framework (CSR mode)
 - **Trunk** — WASM build tool and dev server
 - **CSS** — Custom styles, no framework dependencies
+
+## Screenshot
+
+![OpenCrabs Landing Page](src/public/opencrabs-landing.png)
 
 ## License
 
