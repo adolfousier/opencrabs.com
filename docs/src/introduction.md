@@ -16,7 +16,7 @@ OpenCrabs is an open-source AI agent that runs in your terminal. It connects to 
 
 ## Core Capabilities
 
-- **Multi-provider AI** — Anthropic Claude, OpenAI, Google Gemini, OpenRouter (400+ models), MiniMax, Ollama, LM Studio, or any OpenAI-compatible API
+- **Multi-provider AI** — Anthropic Claude, OpenAI, Google Gemini, OpenRouter (400+ models), MiniMax, Ollama, LM Studio, or any OpenAI-compatible API. Fallback provider chain for automatic failover
 - **Every channel** — Telegram, Discord, Slack, WhatsApp, or the built-in TUI
 - **40+ tools** — File ops, bash, web search, code execution, image gen, document parsing, and more
 - **Persistent memory** — 3-tier memory system: daily notes, long-term memory, semantic search

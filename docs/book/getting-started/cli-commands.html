@@ -34,7 +34,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-fc7ce848.js";
+            window.path_to_searchindex_js = "../searchindex-68f3eb54.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-7be76d13.js"></script>
@@ -224,12 +224,12 @@ opencrabs cron add \
   --thinking off \
   --deliver-to telegram:123456
 
-# Remove a cron job
-opencrabs cron remove --name "Daily Report"
+# Remove a cron job (accepts name or ID)
+opencrabs cron remove "Daily Report"
 
-# Enable/disable
-opencrabs cron enable --name "Daily Report"
-opencrabs cron disable --name "Daily Report"
+# Enable/disable (accepts name or ID)
+opencrabs cron enable "Daily Report"
+opencrabs cron disable "Daily Report"
 </code></pre>
 <h2 id="tui-keyboard-shortcuts"><a class="header" href="#tui-keyboard-shortcuts">TUI Keyboard Shortcuts</a></h2>
 <div class="table-wrapper">
@@ -240,12 +240,13 @@ opencrabs cron disable --name "Daily Report"
 <tbody>
 <tr><td><code>Enter</code></td><td>Send message</td></tr>
 <tr><td><code>Esc</code></td><td>Cancel / dismiss</td></tr>
-<tr><td><code>Ctrl+S</code></td><td>Toggle sessions screen</td></tr>
-<tr><td><code>Ctrl+H</code></td><td>Toggle help screen</td></tr>
 <tr><td><code>Ctrl+N</code></td><td>New session</td></tr>
+<tr><td><code>Ctrl+L</code></td><td>Sessions screen</td></tr>
+<tr><td><code>Ctrl+K</code></td><td>Clear current session</td></tr>
+<tr><td><code>Ctrl+O</code></td><td>Toggle tool group collapse</td></tr>
 <tr><td><code>Tab</code></td><td>Accept autocomplete</td></tr>
 <tr><td><code>Up/Down</code></td><td>Navigate suggestions / sessions</td></tr>
-<tr><td><code>/</code></td><td>Start slash command</td></tr>
+<tr><td><code>/</code></td><td>Start slash command (e.g. <code>/help</code>, <code>/models</code>)</td></tr>
 <tr><td><code>:</code></td><td>Start emoji picker</td></tr>
 </tbody>
 </table>

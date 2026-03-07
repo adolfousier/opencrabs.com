@@ -16,12 +16,12 @@ opencrabs cron add \
 # List all jobs
 opencrabs cron list
 
-# Enable/disable
-opencrabs cron enable --name "Morning Report"
-opencrabs cron disable --name "Morning Report"
+# Enable/disable (accepts name or ID)
+opencrabs cron enable "Morning Report"
+opencrabs cron disable "Morning Report"
 
-# Remove
-opencrabs cron remove --name "Morning Report"
+# Remove (accepts name or ID)
+opencrabs cron remove "Morning Report"
 ```
 
 ## Agent Management

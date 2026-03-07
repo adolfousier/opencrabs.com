@@ -53,12 +53,12 @@ opencrabs cron add \
   --thinking off \
   --deliver-to telegram:123456
 
-# Remove a cron job
-opencrabs cron remove --name "Daily Report"
+# Remove a cron job (accepts name or ID)
+opencrabs cron remove "Daily Report"
 
-# Enable/disable
-opencrabs cron enable --name "Daily Report"
-opencrabs cron disable --name "Daily Report"
+# Enable/disable (accepts name or ID)
+opencrabs cron enable "Daily Report"
+opencrabs cron disable "Daily Report"
 ```
 
 ## TUI Keyboard Shortcuts
@@ -67,10 +67,11 @@ opencrabs cron disable --name "Daily Report"
 |-----|--------|
 | `Enter` | Send message |
 | `Esc` | Cancel / dismiss |
-| `Ctrl+S` | Toggle sessions screen |
-| `Ctrl+H` | Toggle help screen |
 | `Ctrl+N` | New session |
+| `Ctrl+L` | Sessions screen |
+| `Ctrl+K` | Clear current session |
+| `Ctrl+O` | Toggle tool group collapse |
 | `Tab` | Accept autocomplete |
 | `Up/Down` | Navigate suggestions / sessions |
-| `/` | Start slash command |
+| `/` | Start slash command (e.g. `/help`, `/models`) |
 | `:` | Start emoji picker |

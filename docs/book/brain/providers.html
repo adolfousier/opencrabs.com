@@ -34,7 +34,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-fc7ce848.js";
+            window.path_to_searchindex_js = "../searchindex-68f3eb54.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-7be76d13.js"></script>
@@ -268,6 +268,35 @@ default_model = "moonshotai/kimi-k2.5"
 [providers.custom.nvidia]
 api_key = "nvapi-..."
 </code></pre>
+<h2 id="fallback-provider-chain"><a class="header" href="#fallback-provider-chain">Fallback Provider Chain</a></h2>
+<p>Configure automatic failover when the primary provider fails (rate limits, outages, errors). Fallbacks are tried in order until one succeeds.</p>
+<pre><code class="language-toml"># config.toml
+[providers.fallback]
+enabled = true
+providers = ["openrouter", "anthropic"]  # Tried in order on failure
+</code></pre>
+<p>Each fallback provider must have its API key configured in <code>keys.toml</code>. Both <code>complete()</code> and <code>stream()</code> calls are retried transparently — no changes needed downstream.</p>
+<p>Single fallback shorthand:</p>
+<pre><code class="language-toml">[providers.fallback]
+enabled = true
+provider = "openrouter"
+</code></pre>
+<p>Or just ask your Crab: <em>“Set up fallback providers using openrouter and anthropic”</em> — it will configure <code>config.toml</code> for you at runtime.</p>
+<h2 id="vision-model"><a class="header" href="#vision-model">Vision Model</a></h2>
+<p>When your default chat model doesn’t support vision, set <code>vision_model</code> to a vision-capable model on the same provider. This registers a vision tool that the agent can call — it sends the image to the vision model, gets a description back, and the chat model uses that context to reply.</p>
+<pre><code class="language-toml"># config.toml
+[providers.minimax]
+enabled = true
+default_model = "MiniMax-M2.5"
+vision_model = "MiniMax-Text-01"  # Agent calls vision tool → this model describes image → M2.5 replies
+</code></pre>
+<pre><code class="language-toml">[providers.openai]
+enabled = true
+default_model = "gpt-5-nano"
+vision_model = "gpt-5-nano"
+</code></pre>
+<p>MiniMax auto-configures <code>vision_model = "MiniMax-Text-01"</code> on first run. You can also ask your Crab to set it up: <em>“Configure vision model for MiniMax”</em> — it will update <code>config.toml</code> at runtime.</p>
+<p>This is separate from the <a href="./images.html">Gemini image tools</a> which provide dedicated <code>generate_image</code> and <code>analyze_image</code> tools.</p>
 <h2 id="per-session-providers"><a class="header" href="#per-session-providers">Per-Session Providers</a></h2>
 <p>Each session remembers its provider and model. Switch to Claude in one session, Gemini in another — switching sessions restores the provider automatically.</p>
 

@@ -131,6 +131,52 @@ default_model = "moonshotai/kimi-k2.5"
 api_key = "nvapi-..."
 ```
 
+## Fallback Provider Chain
+
+Configure automatic failover when the primary provider fails (rate limits, outages, errors). Fallbacks are tried in order until one succeeds.
+
+```toml
+# config.toml
+[providers.fallback]
+enabled = true
+providers = ["openrouter", "anthropic"]  # Tried in order on failure
+```
+
+Each fallback provider must have its API key configured in `keys.toml`. Both `complete()` and `stream()` calls are retried transparently — no changes needed downstream.
+
+Single fallback shorthand:
+
+```toml
+[providers.fallback]
+enabled = true
+provider = "openrouter"
+```
+
+Or just ask your Crab: *"Set up fallback providers using openrouter and anthropic"* — it will configure `config.toml` for you at runtime.
+
+## Vision Model
+
+When your default chat model doesn't support vision, set `vision_model` to a vision-capable model on the same provider. This registers a vision tool that the agent can call — it sends the image to the vision model, gets a description back, and the chat model uses that context to reply.
+
+```toml
+# config.toml
+[providers.minimax]
+enabled = true
+default_model = "MiniMax-M2.5"
+vision_model = "MiniMax-Text-01"  # Agent calls vision tool → this model describes image → M2.5 replies
+```
+
+```toml
+[providers.openai]
+enabled = true
+default_model = "gpt-5-nano"
+vision_model = "gpt-5-nano"
+```
+
+MiniMax auto-configures `vision_model = "MiniMax-Text-01"` on first run. You can also ask your Crab to set it up: *"Configure vision model for MiniMax"* — it will update `config.toml` at runtime.
+
+This is separate from the [Gemini image tools](./images.md) which provide dedicated `generate_image` and `analyze_image` tools.
+
 ## Per-Session Providers
 
 Each session remembers its provider and model. Switch to Claude in one session, Gemini in another — switching sessions restores the provider automatically.

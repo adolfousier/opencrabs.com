@@ -35,7 +35,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-f82c7b70.js";
+            window.path_to_searchindex_js = "searchindex-68f3eb54.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-7be76d13.js"></script>
@@ -197,7 +197,7 @@
 </div>
 <h2 id="core-capabilities"><a class="header" href="#core-capabilities">Core Capabilities</a></h2>
 <ul>
-<li><strong>Multi-provider AI</strong> — Anthropic Claude, OpenAI, Google Gemini, OpenRouter (400+ models), MiniMax, Ollama, LM Studio, or any OpenAI-compatible API</li>
+<li><strong>Multi-provider AI</strong> — Anthropic Claude, OpenAI, Google Gemini, OpenRouter (400+ models), MiniMax, Ollama, LM Studio, or any OpenAI-compatible API. Fallback provider chain for automatic failover</li>
 <li><strong>Every channel</strong> — Telegram, Discord, Slack, WhatsApp, or the built-in TUI</li>
 <li><strong>40+ tools</strong> — File ops, bash, web search, code execution, image gen, document parsing, and more</li>
 <li><strong>Persistent memory</strong> — 3-tier memory system: daily notes, long-term memory, semantic search</li>
@@ -441,12 +441,12 @@ opencrabs cron add \
   --thinking off \
   --deliver-to telegram:123456
 
-# Remove a cron job
-opencrabs cron remove --name "Daily Report"
+# Remove a cron job (accepts name or ID)
+opencrabs cron remove "Daily Report"
 
-# Enable/disable
-opencrabs cron enable --name "Daily Report"
-opencrabs cron disable --name "Daily Report"
+# Enable/disable (accepts name or ID)
+opencrabs cron enable "Daily Report"
+opencrabs cron disable "Daily Report"
 </code></pre>
 <h2 id="tui-keyboard-shortcuts"><a class="header" href="#tui-keyboard-shortcuts">TUI Keyboard Shortcuts</a></h2>
 <div class="table-wrapper">
@@ -457,12 +457,13 @@ opencrabs cron disable --name "Daily Report"
 <tbody>
 <tr><td><code>Enter</code></td><td>Send message</td></tr>
 <tr><td><code>Esc</code></td><td>Cancel / dismiss</td></tr>
-<tr><td><code>Ctrl+S</code></td><td>Toggle sessions screen</td></tr>
-<tr><td><code>Ctrl+H</code></td><td>Toggle help screen</td></tr>
 <tr><td><code>Ctrl+N</code></td><td>New session</td></tr>
+<tr><td><code>Ctrl+L</code></td><td>Sessions screen</td></tr>
+<tr><td><code>Ctrl+K</code></td><td>Clear current session</td></tr>
+<tr><td><code>Ctrl+O</code></td><td>Toggle tool group collapse</td></tr>
 <tr><td><code>Tab</code></td><td>Accept autocomplete</td></tr>
 <tr><td><code>Up/Down</code></td><td>Navigate suggestions / sessions</td></tr>
-<tr><td><code>/</code></td><td>Start slash command</td></tr>
+<tr><td><code>/</code></td><td>Start slash command (e.g. <code>/help</code>, <code>/models</code>)</td></tr>
 <tr><td><code>:</code></td><td>Start emoji picker</td></tr>
 </tbody>
 </table>
@@ -557,6 +558,35 @@ default_model = "moonshotai/kimi-k2.5"
 [providers.custom.nvidia]
 api_key = "nvapi-..."
 </code></pre>
+<h2 id="fallback-provider-chain"><a class="header" href="#fallback-provider-chain">Fallback Provider Chain</a></h2>
+<p>Configure automatic failover when the primary provider fails (rate limits, outages, errors). Fallbacks are tried in order until one succeeds.</p>
+<pre><code class="language-toml"># config.toml
+[providers.fallback]
+enabled = true
+providers = ["openrouter", "anthropic"]  # Tried in order on failure
+</code></pre>
+<p>Each fallback provider must have its API key configured in <code>keys.toml</code>. Both <code>complete()</code> and <code>stream()</code> calls are retried transparently — no changes needed downstream.</p>
+<p>Single fallback shorthand:</p>
+<pre><code class="language-toml">[providers.fallback]
+enabled = true
+provider = "openrouter"
+</code></pre>
+<p>Or just ask your Crab: <em>“Set up fallback providers using openrouter and anthropic”</em> — it will configure <code>config.toml</code> for you at runtime.</p>
+<h2 id="vision-model"><a class="header" href="#vision-model">Vision Model</a></h2>
+<p>When your default chat model doesn’t support vision, set <code>vision_model</code> to a vision-capable model on the same provider. This registers a vision tool that the agent can call — it sends the image to the vision model, gets a description back, and the chat model uses that context to reply.</p>
+<pre><code class="language-toml"># config.toml
+[providers.minimax]
+enabled = true
+default_model = "MiniMax-M2.5"
+vision_model = "MiniMax-Text-01"  # Agent calls vision tool → this model describes image → M2.5 replies
+</code></pre>
+<pre><code class="language-toml">[providers.openai]
+enabled = true
+default_model = "gpt-5-nano"
+vision_model = "gpt-5-nano"
+</code></pre>
+<p>MiniMax auto-configures <code>vision_model = "MiniMax-Text-01"</code> on first run. You can also ask your Crab to set it up: <em>“Configure vision model for MiniMax”</em> — it will update <code>config.toml</code> at runtime.</p>
+<p>This is separate from the <a href="#image-generation--vision">Gemini image tools</a> which provide dedicated <code>generate_image</code> and <code>analyze_image</code> tools.</p>
 <h2 id="per-session-providers"><a class="header" href="#per-session-providers">Per-Session Providers</a></h2>
 <p>Each session remembers its provider and model. Switch to Claude in one session, Gemini in another — switching sessions restores the provider automatically.</p>
 <div style="break-before: page; page-break-before: always;"></div>
@@ -609,6 +639,10 @@ model = "gemini-3.1-flash-image-preview"
 </ul>
 <h2 id="model"><a class="header" href="#model">Model</a></h2>
 <p>Both tools use <code>gemini-3.1-flash-image-preview</code> — Gemini’s dedicated image model that supports both vision input and image output in a single request.</p>
+<h2 id="per-provider-vision-model"><a class="header" href="#per-provider-vision-model">Per-Provider Vision Model</a></h2>
+<p>Separately from the Gemini <code>analyze_image</code> tool, any provider can have its own vision tool via <code>vision_model</code>. When the user sends an image and the chat model can’t handle it natively, the agent calls the provider’s vision tool — which sends the image to the <code>vision_model</code> on the same provider, gets a text description back, and uses that context to reply.</p>
+<p>Example: User sends an image to MiniMax M2.5 (no native vision). The agent calls the vision tool, which sends the image to MiniMax-Text-01, gets the description, and M2.5 replies using that context.</p>
+<p>See <a href="#vision-model">Provider Setup — Vision Model</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="telegram"><a class="header" href="#telegram">Telegram</a></h1>
 <p>Connect OpenCrabs to Telegram for DMs and group chats.</p>
@@ -1021,7 +1055,7 @@ value = "System is operational. All channels connected."
 </ul>
 <h2 id="switching-sessions"><a class="header" href="#switching-sessions">Switching Sessions</a></h2>
 <ul>
-<li><strong>TUI:</strong> Press <code>Ctrl+S</code> to open the sessions screen, navigate with arrow keys, press <code>Enter</code> to select</li>
+<li><strong>TUI:</strong> Press <code>Ctrl+L</code> to open the sessions screen, navigate with arrow keys, press <code>Enter</code> to select</li>
 <li><strong>Channels:</strong> Type <code>/sessions</code> to see recent sessions with inline buttons</li>
 </ul>
 <h2 id="session-screen"><a class="header" href="#session-screen">Session Screen</a></h2>
@@ -1051,7 +1085,7 @@ value = "System is operational. All channels connected."
 </thead>
 <tbody>
 <tr><td>New</td><td><code>Ctrl+N</code> / <code>/new</code></td><td><code>/new</code></td></tr>
-<tr><td>Switch</td><td><code>Ctrl+S</code> + Enter</td><td><code>/sessions</code></td></tr>
+<tr><td>Switch</td><td><code>Ctrl+L</code> + Enter</td><td><code>/sessions</code></td></tr>
 <tr><td>Rename</td><td><code>R</code> on sessions screen</td><td>—</td></tr>
 <tr><td>Delete</td><td><code>D</code> on sessions screen</td><td>—</td></tr>
 </tbody>
@@ -1079,12 +1113,12 @@ opencrabs cron add \
 # List all jobs
 opencrabs cron list
 
-# Enable/disable
-opencrabs cron enable --name "Morning Report"
-opencrabs cron disable --name "Morning Report"
+# Enable/disable (accepts name or ID)
+opencrabs cron enable "Morning Report"
+opencrabs cron disable "Morning Report"
 
-# Remove
-opencrabs cron remove --name "Morning Report"
+# Remove (accepts name or ID)
+opencrabs cron remove "Morning Report"
 </code></pre>
 <h2 id="agent-management"><a class="header" href="#agent-management">Agent Management</a></h2>
 <p>The agent can also manage cron jobs via the <code>cron_manage</code> tool:</p>
@@ -1564,6 +1598,18 @@ cargo test --all-features
 <h1 id="changelog"><a class="header" href="#changelog">Changelog</a></h1>
 <p>For the full changelog, see <a href="https://github.com/adolfousier/opencrabs/blob/main/CHANGELOG.md">CHANGELOG.md on GitHub</a>.</p>
 <h2 id="recent-releases"><a class="header" href="#recent-releases">Recent Releases</a></h2>
+<h3 id="v0259-2026-03-07"><a class="header" href="#v0259-2026-03-07">v0.2.59 (2026-03-07)</a></h3>
+<p><strong>Added:</strong></p>
+<ul>
+<li>Fallback provider chain — Configure multiple fallback providers tried in sequence on failure</li>
+<li>Per-provider <code>vision_model</code> — Auto-swap model when images are present</li>
+<li>Session working directory persistence — <code>/cd</code> changes persist to DB, restored on session switch</li>
+</ul>
+<p><strong>Fixed:</strong></p>
+<ul>
+<li>Update checker uses proper semver comparison instead of string inequality</li>
+<li>Home directory collapsed to <code>~/...</code> in TUI footer and help screen</li>
+</ul>
 <h3 id="v0258-2026-03-07"><a class="header" href="#v0258-2026-03-07">v0.2.58 (2026-03-07)</a></h3>
 <p><strong>Fixed:</strong></p>
 <ul>

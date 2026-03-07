@@ -4,6 +4,17 @@ For the full changelog, see [CHANGELOG.md on GitHub](https://github.com/adolfous
 
 ## Recent Releases
 
+### v0.2.59 (2026-03-07)
+
+**Added:**
+- Fallback provider chain — Configure multiple fallback providers tried in sequence on failure
+- Per-provider `vision_model` — Auto-swap model when images are present
+- Session working directory persistence — `/cd` changes persist to DB, restored on session switch
+
+**Fixed:**
+- Update checker uses proper semver comparison instead of string inequality
+- Home directory collapsed to `~/...` in TUI footer and help screen
+
 ### v0.2.58 (2026-03-07)
 
 **Fixed:**

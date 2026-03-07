@@ -50,3 +50,11 @@ When a user sends an image from any channel, it arrives as `<<IMG:/tmp/path>>` i
 ## Model
 
 Both tools use `gemini-3.1-flash-image-preview` — Gemini's dedicated image model that supports both vision input and image output in a single request.
+
+## Per-Provider Vision Model
+
+Separately from the Gemini `analyze_image` tool, any provider can have its own vision tool via `vision_model`. When the user sends an image and the chat model can't handle it natively, the agent calls the provider's vision tool — which sends the image to the `vision_model` on the same provider, gets a text description back, and uses that context to reply.
+
+Example: User sends an image to MiniMax M2.5 (no native vision). The agent calls the vision tool, which sends the image to MiniMax-Text-01, gets the description, and M2.5 replies using that context.
+
+See [Provider Setup — Vision Model](./providers.md#vision-model).

@@ -9,7 +9,7 @@ OpenCrabs supports multiple concurrent sessions, each with its own conversation 
 
 ## Switching Sessions
 
-- **TUI:** Press `Ctrl+S` to open the sessions screen, navigate with arrow keys, press `Enter` to select
+- **TUI:** Press `Ctrl+L` to open the sessions screen, navigate with arrow keys, press `Enter` to select
 - **Channels:** Type `/sessions` to see recent sessions with inline buttons
 
 ## Session Screen
@@ -36,7 +36,7 @@ Each session remembers:
 | Action | TUI | Channels |
 |--------|-----|----------|
 | New | `Ctrl+N` / `/new` | `/new` |
-| Switch | `Ctrl+S` + Enter | `/sessions` |
+| Switch | `Ctrl+L` + Enter | `/sessions` |
 | Rename | `R` on sessions screen | — |
 | Delete | `D` on sessions screen | — |
 

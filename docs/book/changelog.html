@@ -34,7 +34,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-fc7ce848.js";
+            window.path_to_searchindex_js = "searchindex-68f3eb54.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-7be76d13.js"></script>
@@ -182,6 +182,18 @@
                         <h1 id="changelog"><a class="header" href="#changelog">Changelog</a></h1>
 <p>For the full changelog, see <a href="https://github.com/adolfousier/opencrabs/blob/main/CHANGELOG.md">CHANGELOG.md on GitHub</a>.</p>
 <h2 id="recent-releases"><a class="header" href="#recent-releases">Recent Releases</a></h2>
+<h3 id="v0259-2026-03-07"><a class="header" href="#v0259-2026-03-07">v0.2.59 (2026-03-07)</a></h3>
+<p><strong>Added:</strong></p>
+<ul>
+<li>Fallback provider chain — Configure multiple fallback providers tried in sequence on failure</li>
+<li>Per-provider <code>vision_model</code> — Auto-swap model when images are present</li>
+<li>Session working directory persistence — <code>/cd</code> changes persist to DB, restored on session switch</li>
+</ul>
+<p><strong>Fixed:</strong></p>
+<ul>
+<li>Update checker uses proper semver comparison instead of string inequality</li>
+<li>Home directory collapsed to <code>~/...</code> in TUI footer and help screen</li>
+</ul>
 <h3 id="v0258-2026-03-07"><a class="header" href="#v0258-2026-03-07">v0.2.58 (2026-03-07)</a></h3>
 <p><strong>Fixed:</strong></p>
 <ul>
