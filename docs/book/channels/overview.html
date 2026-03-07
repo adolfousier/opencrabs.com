@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Image Generation &amp; Vision - OpenCrabs</title>
+        <title>Overview - OpenCrabs</title>
 
 
         <!-- Custom HTML head -->
@@ -177,69 +177,73 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="image-generation--vision"><a class="header" href="#image-generation--vision">Image Generation &amp; Vision</a></h1>
-<p>OpenCrabs supports image generation and vision analysis via Google Gemini. These features are independent of the main chat provider — use Claude for chat and Gemini for images.</p>
-<h2 id="setup"><a class="header" href="#setup">Setup</a></h2>
-<ol>
-<li>Get a free API key from <a href="https://aistudio.google.com">aistudio.google.com</a></li>
-<li>Run <code>/onboard:image</code> in chat to configure interactively</li>
-<li>Or add manually:</li>
-</ol>
-<pre><code class="language-toml"># keys.toml
-[image]
-api_key = "AIza..."
-</code></pre>
-<pre><code class="language-toml"># config.toml
-[image.generation]
-enabled = true
-model = "gemini-3.1-flash-image-preview"
-
-[image.vision]
-enabled = true
-model = "gemini-3.1-flash-image-preview"
-</code></pre>
-<h2 id="agent-tools"><a class="header" href="#agent-tools">Agent Tools</a></h2>
-<p>When enabled, two tools become available automatically:</p>
+                        <h1 id="channel-integrations"><a class="header" href="#channel-integrations">Channel Integrations</a></h1>
+<p>OpenCrabs connects to multiple messaging platforms simultaneously. All channels share the TUI session by default, with per-user sessions for non-owners.</p>
+<h2 id="supported-channels"><a class="header" href="#supported-channels">Supported Channels</a></h2>
 <div class="table-wrapper">
 <table>
 <thead>
-<tr><th>Tool</th><th>Description</th></tr>
+<tr><th>Channel</th><th>Protocol</th><th>Images In</th><th>Voice In</th><th>Image Gen Out</th><th>Setup</th></tr>
 </thead>
 <tbody>
-<tr><td><code>generate_image</code></td><td>Generate an image from a text prompt — saves to <code>~/.opencrabs/images/</code></td></tr>
-<tr><td><code>analyze_image</code></td><td>Analyze an image file or URL via Gemini vision</td></tr>
+<tr><td><a href="./telegram.html">Telegram</a></td><td>Long polling</td><td>Vision pipeline</td><td>STT</td><td>Native photo</td><td>Bot token</td></tr>
+<tr><td><a href="./discord.html">Discord</a></td><td>WebSocket</td><td>Vision pipeline</td><td>STT</td><td>File attachment</td><td>Bot token</td></tr>
+<tr><td><a href="./slack.html">Slack</a></td><td>Socket Mode</td><td>Vision pipeline</td><td>STT</td><td>File upload</td><td>Bot + App token</td></tr>
+<tr><td><a href="./whatsapp.html">WhatsApp</a></td><td>QR pairing</td><td>Vision pipeline</td><td>STT</td><td>Native image</td><td>QR code</td></tr>
+<tr><td><a href="./trello.html">Trello</a></td><td>REST API</td><td>Card attachments</td><td>—</td><td>Card attachment</td><td>API key + token</td></tr>
 </tbody>
 </table>
 </div>
-<p><strong>Example prompts:</strong></p>
+<h2 id="common-features"><a class="header" href="#common-features">Common Features</a></h2>
+<p>All messaging channels support:</p>
 <ul>
-<li><em>“Generate a pixel art crab logo”</em> — agent calls <code>generate_image</code>, returns file path</li>
-<li><em>“What’s in this image: /tmp/screenshot.png”</em> — agent calls <code>analyze_image</code> via Gemini</li>
+<li><strong>Shared session</strong> with TUI (owner) or per-user sessions (non-owners)</li>
+<li><strong>Slash commands</strong> — <code>/help</code>, <code>/models</code>, <code>/new</code>, <code>/sessions</code>, custom commands</li>
+<li><strong>Inline buttons</strong> — Provider picker, model picker, session switcher (Telegram, Discord, Slack)</li>
+<li><strong>User allowlists</strong> — Restrict access by user ID, chat ID, or phone number</li>
+<li><strong><code>respond_to</code> filter</strong> — <code>all</code>, <code>dm_only</code>, or <code>mention</code> (respond only when @mentioned)</li>
 </ul>
-<h2 id="incoming-images"><a class="header" href="#incoming-images">Incoming Images</a></h2>
-<p>When a user sends an image from any channel, it arrives as <code>&lt;&lt;IMG:/tmp/path&gt;&gt;</code> in the message. The file is already downloaded — the agent can:</p>
-<ul>
-<li>See it directly (if the model supports vision)</li>
-<li>Pass the path to <code>analyze_image</code> for Gemini analysis</li>
-<li>Use the path in <code>bash</code> commands or any tool that accepts file paths</li>
-<li>Reference it in replies with <code>&lt;&lt;IMG:path&gt;&gt;</code> to forward to channels</li>
-</ul>
-<h2 id="model"><a class="header" href="#model">Model</a></h2>
-<p>Both tools use <code>gemini-3.1-flash-image-preview</code> — Gemini’s dedicated image model that supports both vision input and image output in a single request.</p>
-<h2 id="per-provider-vision-model"><a class="header" href="#per-provider-vision-model">Per-Provider Vision Model</a></h2>
-<p>Separately from the Gemini <code>analyze_image</code> tool, any provider can have its own vision tool via <code>vision_model</code>. When the user sends an image and the chat model can’t handle it natively, the agent calls the provider’s vision tool — which sends the image to the <code>vision_model</code> on the same provider, gets a text description back, and uses that context to reply.</p>
-<p>Example: User sends an image to MiniMax M2.5 (no native vision). The agent calls the vision tool, which sends the image to MiniMax-Text-01, gets the description, and M2.5 replies using that context.</p>
-<p>See <a href="./providers.html#vision-model">Provider Setup — Vision Model</a>.</p>
+<h2 id="file--media-support"><a class="header" href="#file--media-support">File &amp; Media Support</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Channel</th><th>Images (in)</th><th>Text files (in)</th><th>Documents (in)</th><th>Audio (in)</th><th>Image gen (out)</th></tr>
+</thead>
+<tbody>
+<tr><td>Telegram</td><td>Vision pipeline</td><td>Extracted inline</td><td>PDF note</td><td>STT</td><td>Native photo</td></tr>
+<tr><td>WhatsApp</td><td>Vision pipeline</td><td>Extracted inline</td><td>PDF note</td><td>STT</td><td>Native image</td></tr>
+<tr><td>Discord</td><td>Vision pipeline</td><td>Extracted inline</td><td>PDF note</td><td>STT</td><td>File attachment</td></tr>
+<tr><td>Slack</td><td>Vision pipeline</td><td>Extracted inline</td><td>PDF note</td><td>STT</td><td>File upload</td></tr>
+<tr><td>Trello</td><td>Card attachments → vision</td><td>Extracted inline</td><td>—</td><td>—</td><td>Card attachment</td></tr>
+<tr><td>TUI</td><td>Paste path → vision</td><td>Paste path → inline</td><td>—</td><td>STT</td><td><code>[IMG: name]</code> display</td></tr>
+</tbody>
+</table>
+</div>
+<p>Images are passed to the active model’s vision pipeline if it supports multimodal input, or routed to the <code>analyze_image</code> tool (Google Gemini vision) otherwise. Text files are extracted as UTF-8 and included inline up to 8,000 characters.</p>
+<h2 id="proactive-channel-tools"><a class="header" href="#proactive-channel-tools">Proactive Channel Tools</a></h2>
+<p>The agent can send messages and take actions proactively:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Tool</th><th>Actions</th></tr>
+</thead>
+<tbody>
+<tr><td><code>discord_send</code></td><td>17 actions: send, reply, react, edit, delete, pin, create_thread, send_embed, etc.</td></tr>
+<tr><td><code>slack_send</code></td><td>17 actions: send, reply, react, edit, delete, pin, set_topic, send_blocks, etc.</td></tr>
+<tr><td><code>trello_send</code></td><td>22 actions: create_card, move_card, add_comment, add_checklist, search, etc.</td></tr>
+</tbody>
+</table>
+</div>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../brain/providers.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../brain/images.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="../channels/overview.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../channels/telegram.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -249,11 +253,11 @@ model = "gemini-3.1-flash-image-preview"
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../brain/providers.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../brain/images.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="../channels/overview.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../channels/telegram.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>

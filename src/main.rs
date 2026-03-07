@@ -64,6 +64,7 @@ fn Nav(stars: Signal<u32>) -> impl IntoView {
                     "OpenCrabs"
                 </a>
                 <ul class="nav-links">
+                    <li><a href="https://docs.opencrabs.com" target="_blank">"Docs"</a></li>
                     <li><a href="#features">"Features"</a></li>
                     <li><a href="#integrations">"Integrations"</a></li>
                     <li><a href="#community">"Community"</a></li>
@@ -317,7 +318,7 @@ fn Integrations() -> impl IntoView {
                     }).collect::<Vec<_>>()}
                 </div>
                 <div class="integrations-links">
-                    <a href="https://github.com/adolfousier/opencrabs#features">"View all integrations →"</a>
+                    <a href="https://docs.opencrabs.com/channels/overview.html" target="_blank">"View all integrations →"</a>
                 </div>
             </div>
         </section>
@@ -396,7 +397,7 @@ fn Community() -> impl IntoView {
                         <h3>"Changelog"</h3>
                         <p>"See what's new"</p>
                     </a>
-                    <a href="https://github.com/adolfousier/opencrabs#readme" class="community-card" target="_blank">
+                    <a href="https://docs.opencrabs.com" class="community-card" target="_blank">
                         <span class="icon">"📖"</span>
                         <h3>"Documentation"</h3>
                         <p>"Learn the ropes"</p>
@@ -450,6 +451,7 @@ fn Footer(stars: Signal<u32>) -> impl IntoView {
                     {star_cta}
                 </a>
                 <div class="footer-links">
+                    <a href="https://docs.opencrabs.com" target="_blank">"Docs"</a>
                     <a href="https://github.com/adolfousier/opencrabs">"GitHub"</a>
                     <a href="https://github.com/adolfousier/opencrabs/blob/main/CHANGELOG.md">"Changelog"</a>
                     <a href="https://github.com/adolfousier/opencrabs/blob/main/LICENSE">"MIT License"</a>

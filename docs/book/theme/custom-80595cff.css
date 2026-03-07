@@ -1,0 +1,27 @@
+/* Centered crab logo in the menu bar */
+.menu-bar .center-logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    color: var(--fg);
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.menu-bar .center-logo img {
+    height: 24px;
+    width: 24px;
+}
+
+.menu-bar .center-logo:hover {
+    opacity: 0.8;
+}
+
+/* Make menu-bar position relative for absolute centering */
+.menu-bar {
+    position: relative;
+}

@@ -1,5 +1,5 @@
 [book]
-title = "OpenCrabs Documentation"
+title = "OpenCrabs"
 authors = ["Adolfo Usier"]
 language = "en"
 src = "src"
@@ -12,9 +12,10 @@ build-dir = "book"
 default-theme = "ayu"
 preferred-dark-theme = "ayu"
 git-repository-url = "https://github.com/adolfousier/opencrabs"
-edit-url-template = "https://github.com/adolfousier/opencrabs.com/edit/main/docs/src/{path}"
 site-url = "https://docs.opencrabs.com/"
 no-section-label = false
+additional-css = ["theme/custom.css"]
+additional-js = ["theme/custom.js"]
 cname = "docs.opencrabs.com"
 
 [output.html.search]

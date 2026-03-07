@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>OpenCrabs Documentation</title>
+        <title>OpenCrabs</title>
         <meta name="robots" content="noindex">
 
 
@@ -28,6 +28,7 @@
         <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
 
         <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme/custom-80595cff.css">
 
 
         <!-- Provide site root and default themes to javascript -->
@@ -35,10 +36,10 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-68f3eb54.js";
+            window.path_to_searchindex_js = "searchindex-6fc43810.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-7be76d13.js"></script>
+        <script src="toc-076bab17.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -137,7 +138,7 @@
                         </button>
                     </div>
 
-                    <h1 class="menu-title">OpenCrabs Documentation</h1>
+                    <h1 class="menu-title">OpenCrabs</h1>
 
                     <div class="right-buttons">
                         <a href="print.html" title="Print this book" aria-label="Print this book">
@@ -644,6 +645,64 @@ model = "gemini-3.1-flash-image-preview"
 <p>Example: User sends an image to MiniMax M2.5 (no native vision). The agent calls the vision tool, which sends the image to MiniMax-Text-01, gets the description, and M2.5 replies using that context.</p>
 <p>See <a href="#vision-model">Provider Setup — Vision Model</a>.</p>
 <div style="break-before: page; page-break-before: always;"></div>
+<h1 id="channel-integrations"><a class="header" href="#channel-integrations">Channel Integrations</a></h1>
+<p>OpenCrabs connects to multiple messaging platforms simultaneously. All channels share the TUI session by default, with per-user sessions for non-owners.</p>
+<h2 id="supported-channels"><a class="header" href="#supported-channels">Supported Channels</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Channel</th><th>Protocol</th><th>Images In</th><th>Voice In</th><th>Image Gen Out</th><th>Setup</th></tr>
+</thead>
+<tbody>
+<tr><td><a href="#telegram">Telegram</a></td><td>Long polling</td><td>Vision pipeline</td><td>STT</td><td>Native photo</td><td>Bot token</td></tr>
+<tr><td><a href="#discord">Discord</a></td><td>WebSocket</td><td>Vision pipeline</td><td>STT</td><td>File attachment</td><td>Bot token</td></tr>
+<tr><td><a href="#slack">Slack</a></td><td>Socket Mode</td><td>Vision pipeline</td><td>STT</td><td>File upload</td><td>Bot + App token</td></tr>
+<tr><td><a href="#whatsapp">WhatsApp</a></td><td>QR pairing</td><td>Vision pipeline</td><td>STT</td><td>Native image</td><td>QR code</td></tr>
+<tr><td><a href="#trello">Trello</a></td><td>REST API</td><td>Card attachments</td><td>—</td><td>Card attachment</td><td>API key + token</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="common-features"><a class="header" href="#common-features">Common Features</a></h2>
+<p>All messaging channels support:</p>
+<ul>
+<li><strong>Shared session</strong> with TUI (owner) or per-user sessions (non-owners)</li>
+<li><strong>Slash commands</strong> — <code>/help</code>, <code>/models</code>, <code>/new</code>, <code>/sessions</code>, custom commands</li>
+<li><strong>Inline buttons</strong> — Provider picker, model picker, session switcher (Telegram, Discord, Slack)</li>
+<li><strong>User allowlists</strong> — Restrict access by user ID, chat ID, or phone number</li>
+<li><strong><code>respond_to</code> filter</strong> — <code>all</code>, <code>dm_only</code>, or <code>mention</code> (respond only when @mentioned)</li>
+</ul>
+<h2 id="file--media-support"><a class="header" href="#file--media-support">File &amp; Media Support</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Channel</th><th>Images (in)</th><th>Text files (in)</th><th>Documents (in)</th><th>Audio (in)</th><th>Image gen (out)</th></tr>
+</thead>
+<tbody>
+<tr><td>Telegram</td><td>Vision pipeline</td><td>Extracted inline</td><td>PDF note</td><td>STT</td><td>Native photo</td></tr>
+<tr><td>WhatsApp</td><td>Vision pipeline</td><td>Extracted inline</td><td>PDF note</td><td>STT</td><td>Native image</td></tr>
+<tr><td>Discord</td><td>Vision pipeline</td><td>Extracted inline</td><td>PDF note</td><td>STT</td><td>File attachment</td></tr>
+<tr><td>Slack</td><td>Vision pipeline</td><td>Extracted inline</td><td>PDF note</td><td>STT</td><td>File upload</td></tr>
+<tr><td>Trello</td><td>Card attachments → vision</td><td>Extracted inline</td><td>—</td><td>—</td><td>Card attachment</td></tr>
+<tr><td>TUI</td><td>Paste path → vision</td><td>Paste path → inline</td><td>—</td><td>STT</td><td><code>[IMG: name]</code> display</td></tr>
+</tbody>
+</table>
+</div>
+<p>Images are passed to the active model’s vision pipeline if it supports multimodal input, or routed to the <code>analyze_image</code> tool (Google Gemini vision) otherwise. Text files are extracted as UTF-8 and included inline up to 8,000 characters.</p>
+<h2 id="proactive-channel-tools"><a class="header" href="#proactive-channel-tools">Proactive Channel Tools</a></h2>
+<p>The agent can send messages and take actions proactively:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Tool</th><th>Actions</th></tr>
+</thead>
+<tbody>
+<tr><td><code>discord_send</code></td><td>17 actions: send, reply, react, edit, delete, pin, create_thread, send_embed, etc.</td></tr>
+<tr><td><code>slack_send</code></td><td>17 actions: send, reply, react, edit, delete, pin, set_topic, send_blocks, etc.</td></tr>
+<tr><td><code>trello_send</code></td><td>22 actions: create_card, move_card, add_comment, add_checklist, search, etc.</td></tr>
+</tbody>
+</table>
+</div>
+<div style="break-before: page; page-break-before: always;"></div>
 <h1 id="telegram"><a class="header" href="#telegram">Telegram</a></h1>
 <p>Connect OpenCrabs to Telegram for DMs and group chats.</p>
 <h2 id="setup-1"><a class="header" href="#setup-1">Setup</a></h2>
@@ -809,6 +868,69 @@ enabled = true
 <li>Optionally generates TTS audio response</li>
 </ol>
 <div style="break-before: page; page-break-before: always;"></div>
+<h1 id="trello"><a class="header" href="#trello">Trello</a></h1>
+<p>OpenCrabs integrates with Trello for board and card management via the <code>trello_send</code> tool.</p>
+<h2 id="setup-5"><a class="header" href="#setup-5">Setup</a></h2>
+<ol>
+<li>Get an API Key and Token from <a href="https://trello.com/power-ups/admin">trello.com/power-ups/admin</a></li>
+<li>Configure in <code>keys.toml</code>:</li>
+</ol>
+<pre><code class="language-toml"># keys.toml
+[channels.trello]
+api_key = "your-api-key"
+token = "your-token"
+</code></pre>
+<ol start="3">
+<li>Configure boards and access:</li>
+</ol>
+<pre><code class="language-toml"># config.toml
+[channels.trello]
+enabled = true
+boards = ["Board Name or ID"]
+member_id = "your-member-id"
+# poll_interval_secs = 300  # Optional: poll for @mentions
+</code></pre>
+<h2 id="tool-actions"><a class="header" href="#tool-actions">Tool Actions</a></h2>
+<p>The <code>trello_send</code> tool supports 22 actions:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Action</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>create_card</code></td><td>Create a new card</td></tr>
+<tr><td><code>get_card</code></td><td>Get card details</td></tr>
+<tr><td><code>update_card</code></td><td>Update card fields</td></tr>
+<tr><td><code>move_card</code></td><td>Move card to another list</td></tr>
+<tr><td><code>archive_card</code></td><td>Archive a card</td></tr>
+<tr><td><code>find_cards</code></td><td>Search for cards</td></tr>
+<tr><td><code>add_comment</code></td><td>Add a comment to a card</td></tr>
+<tr><td><code>get_card_comments</code></td><td>Read card comments</td></tr>
+<tr><td><code>add_checklist</code></td><td>Add a checklist to a card</td></tr>
+<tr><td><code>add_checklist_item</code></td><td>Add an item to a checklist</td></tr>
+<tr><td><code>complete_checklist_item</code></td><td>Mark checklist item done</td></tr>
+<tr><td><code>add_label_to_card</code></td><td>Add a label</td></tr>
+<tr><td><code>remove_label_from_card</code></td><td>Remove a label</td></tr>
+<tr><td><code>add_member_to_card</code></td><td>Assign a member</td></tr>
+<tr><td><code>remove_member_from_card</code></td><td>Unassign a member</td></tr>
+<tr><td><code>add_attachment</code></td><td>Attach a file or URL</td></tr>
+<tr><td><code>list_boards</code></td><td>List accessible boards</td></tr>
+<tr><td><code>list_lists</code></td><td>List columns in a board</td></tr>
+<tr><td><code>get_board_members</code></td><td>Get board members</td></tr>
+<tr><td><code>search</code></td><td>Search across boards</td></tr>
+<tr><td><code>get_notifications</code></td><td>Get notifications</td></tr>
+<tr><td><code>mark_notifications_read</code></td><td>Mark notifications read</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="behavior"><a class="header" href="#behavior">Behavior</a></h2>
+<ul>
+<li><strong>Tool-only by default</strong> — The agent acts on Trello only when explicitly asked</li>
+<li><strong>Optional polling</strong> — Set <code>poll_interval_secs</code> to enable monitoring for <code>@bot_username</code> mentions</li>
+<li><strong>Image attachments</strong> — Generated images are sent as card attachments with embedded previews</li>
+<li><strong>File attachments</strong> — Card attachments (images, documents) are fetched and processed through the vision pipeline</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
 <h1 id="built-in-tools"><a class="header" href="#built-in-tools">Built-in Tools</a></h1>
 <p>OpenCrabs ships with 40+ tools available to the agent out of the box.</p>
 <h2 id="file-operations"><a class="header" href="#file-operations">File Operations</a></h2>
@@ -876,7 +998,7 @@ enabled = true
 </tbody>
 </table>
 </div>
-<h2 id="channel-integrations"><a class="header" href="#channel-integrations">Channel Integrations</a></h2>
+<h2 id="channel-integrations-1"><a class="header" href="#channel-integrations-1">Channel Integrations</a></h2>
 <div class="table-wrapper">
 <table>
 <thead>
@@ -1702,6 +1824,7 @@ cargo test --all-features
         <script src="book-a0b12cfe.js"></script>
 
         <!-- Custom JS scripts -->
+        <script src="theme/custom-b45449c4.js"></script>
 
         <script>
         window.addEventListener('load', function() {

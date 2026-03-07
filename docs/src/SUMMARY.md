@@ -14,12 +14,14 @@
 - [Provider Setup](./brain/providers.md)
 - [Image Generation & Vision](./brain/images.md)
 
-# Channels
+# Channels & Integrations
 
+- [Overview](./channels/overview.md)
 - [Telegram](./channels/telegram.md)
 - [Discord](./channels/discord.md)
 - [Slack](./channels/slack.md)
 - [WhatsApp](./channels/whatsapp.md)
+- [Trello](./channels/trello.md)
 
 # Brain & Tools
 
