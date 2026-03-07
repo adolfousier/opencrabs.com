@@ -200,54 +200,60 @@ fn QuickStart() -> impl IntoView {
                         </div>
                         <span class="terminal-platform">"macOS / Linux"</span>
                     </div>
-                    <div class="terminal-body" style:display=move || if active_tab.get() == 0 { "block" } else { "none" }>
-                        <div>
-                            <span class="terminal-comment">"# Download latest release for your platform"</span>
+                    <Show when=move || active_tab.get() == 0>
+                        <div class="terminal-body">
+                            <div>
+                                <span class="terminal-comment">"# Download latest release for your platform"</span>
+                            </div>
+                            <div>
+                                <span class="terminal-prompt">"$ "</span>
+                                <span class="terminal-cmd">
+                                    "curl -fsSL https://github.com/adolfousier/opencrabs/releases/latest/download/opencrabs-$(uname -m)-$(uname -s | tr A-Z a-z).tar.gz | tar xz"
+                                </span>
+                            </div>
+                            <div>
+                                <span class="terminal-prompt">"$ "</span>
+                                <span class="terminal-cmd">"./opencrabs"</span>
+                            </div>
                         </div>
-                        <div>
-                            <span class="terminal-prompt">"$ "</span>
-                            <span class="terminal-cmd">
-                                "curl -fsSL https://github.com/adolfousier/opencrabs/releases/latest/download/opencrabs-$(uname -m)-$(uname -s | tr A-Z a-z).tar.gz | tar xz"
-                            </span>
+                    </Show>
+                    <Show when=move || active_tab.get() == 1>
+                        <div class="terminal-body">
+                            <div>
+                                <span class="terminal-comment">"# Install via cargo (requires Rust nightly)"</span>
+                            </div>
+                            <div>
+                                <span class="terminal-prompt">"$ "</span>
+                                <span class="terminal-cmd">"cargo install opencrabs"</span>
+                            </div>
+                            <div>
+                                <span class="terminal-prompt">"$ "</span>
+                                <span class="terminal-cmd">"opencrabs"</span>
+                            </div>
                         </div>
-                        <div>
-                            <span class="terminal-prompt">"$ "</span>
-                            <span class="terminal-cmd">"./opencrabs"</span>
+                    </Show>
+                    <Show when=move || active_tab.get() == 2>
+                        <div class="terminal-body">
+                            <div>
+                                <span class="terminal-comment">"# Install all deps + Rust nightly (macOS, Debian, Fedora, Arch)"</span>
+                            </div>
+                            <div>
+                                <span class="terminal-prompt">"$ "</span>
+                                <span class="terminal-cmd">"curl -fsSL https://raw.githubusercontent.com/adolfousier/opencrabs/main/scripts/setup.sh | bash"</span>
+                            </div>
+                            <div>
+                                <span class="terminal-comment">"# Then clone and build"</span>
+                            </div>
+                            <div>
+                                <span class="terminal-prompt">"$ "</span>
+                                <span class="terminal-cmd">"git clone https://github.com/adolfousier/opencrabs.git && cd opencrabs"</span>
+                            </div>
+                            <div>
+                                <span class="terminal-prompt">"$ "</span>
+                                <span class="terminal-cmd">"cargo build --release && ./target/release/opencrabs"</span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="terminal-body" style:display=move || if active_tab.get() == 1 { "block" } else { "none" }>
-                        <div>
-                            <span class="terminal-comment">"# Install via cargo (requires Rust nightly)"</span>
-                        </div>
-                        <div>
-                            <span class="terminal-prompt">"$ "</span>
-                            <span class="terminal-cmd">"cargo install opencrabs"</span>
-                        </div>
-                        <div>
-                            <span class="terminal-prompt">"$ "</span>
-                            <span class="terminal-cmd">"opencrabs"</span>
-                        </div>
-                    </div>
-                    <div class="terminal-body" style:display=move || if active_tab.get() == 2 { "block" } else { "none" }>
-                        <div>
-                            <span class="terminal-comment">"# Install all deps + Rust nightly (macOS, Debian, Fedora, Arch)"</span>
-                        </div>
-                        <div>
-                            <span class="terminal-prompt">"$ "</span>
-                            <span class="terminal-cmd">"curl -fsSL https://raw.githubusercontent.com/adolfousier/opencrabs/main/scripts/setup.sh | bash"</span>
-                        </div>
-                        <div>
-                            <span class="terminal-comment">"# Then clone and build"</span>
-                        </div>
-                        <div>
-                            <span class="terminal-prompt">"$ "</span>
-                            <span class="terminal-cmd">"git clone https://github.com/adolfousier/opencrabs.git && cd opencrabs"</span>
-                        </div>
-                        <div>
-                            <span class="terminal-prompt">"$ "</span>
-                            <span class="terminal-cmd">"cargo build --release && ./target/release/opencrabs"</span>
-                        </div>
-                    </div>
+                    </Show>
                 </div>
                 <p class="terminal-note">
                     "Works on macOS, Linux & Windows. After install, type "
