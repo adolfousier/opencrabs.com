@@ -1,0 +1,50 @@
+# OpenCrabs
+
+> Open-source AI agent that runs in your terminal. Single Rust binary. Every channel.
+
+OpenCrabs is an autonomous AI agent built in Rust. It connects to any LLM provider (Anthropic Claude, OpenAI, Google Gemini, OpenRouter with 400+ models, MiniMax, Ollama, LM Studio), orchestrates 40+ built-in tools, and works from Telegram, Discord, Slack, WhatsApp, or the built-in TUI.
+
+## Key Features
+- Multi-provider AI with fallback chain for automatic failover
+- Per-provider vision model — agent tool for image understanding on any provider
+- 40+ built-in tools: file ops, bash, web search, code execution, image gen, document parsing
+- 3-tier persistent memory: brain files, daily logs, semantic vector search
+- Cron job scheduler for recurring tasks
+- Structured plans with TUI progress widget and approval workflow
+- Agent-to-Agent (A2A) protocol gateway
+- Voice: speech-to-text and text-to-speech
+- Self-evolving via /evolve command
+
+## Links
+- Website: https://opencrabs.com
+- Documentation: https://docs.opencrabs.com
+- GitHub: https://github.com/adolfousier/opencrabs
+- License: MIT
+
+## Documentation Pages
+- Getting Started: https://docs.opencrabs.com/getting-started/installation.html
+- Configuration: https://docs.opencrabs.com/getting-started/configuration.html
+- First Session: https://docs.opencrabs.com/getting-started/first-session.html
+- CLI Commands: https://docs.opencrabs.com/getting-started/cli-commands.html
+- Provider Setup: https://docs.opencrabs.com/brain/providers.html
+- Image Generation & Vision: https://docs.opencrabs.com/brain/images.html
+- Built-in Tools: https://docs.opencrabs.com/brain/tools.html
+- Custom Commands: https://docs.opencrabs.com/brain/commands.html
+- Memory System: https://docs.opencrabs.com/brain/memory.html
+- Brain Files: https://docs.opencrabs.com/brain/brain-files.html
+- Channel Integrations: https://docs.opencrabs.com/channels/overview.html
+- Telegram: https://docs.opencrabs.com/channels/telegram.html
+- Discord: https://docs.opencrabs.com/channels/discord.html
+- Slack: https://docs.opencrabs.com/channels/slack.html
+- WhatsApp: https://docs.opencrabs.com/channels/whatsapp.html
+- Trello: https://docs.opencrabs.com/channels/trello.html
+- Sessions: https://docs.opencrabs.com/features/sessions.html
+- Cron Jobs: https://docs.opencrabs.com/features/cron-jobs.html
+- Plans: https://docs.opencrabs.com/features/plans.html
+- Agent-to-Agent (A2A): https://docs.opencrabs.com/features/a2a.html
+- Voice (TTS & STT): https://docs.opencrabs.com/features/voice.html
+- Building from Source: https://docs.opencrabs.com/development/building.html
+- Architecture: https://docs.opencrabs.com/development/architecture.html
+- Contributing: https://docs.opencrabs.com/development/contributing.html
+- Security: https://docs.opencrabs.com/development/security.html
+- Changelog: https://docs.opencrabs.com/changelog.html
