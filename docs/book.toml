@@ -1,0 +1,23 @@
+[book]
+title = "OpenCrabs Documentation"
+authors = ["Adolfo Usier"]
+language = "en"
+src = "src"
+description = "Documentation for OpenCrabs — the autonomous AI agent that lives in your terminal."
+
+[build]
+build-dir = "book"
+
+[output.html]
+default-theme = "ayu"
+preferred-dark-theme = "ayu"
+git-repository-url = "https://github.com/adolfousier/opencrabs"
+edit-url-template = "https://github.com/adolfousier/opencrabs.com/edit/main/docs/src/{path}"
+site-url = "https://docs.opencrabs.com/"
+no-section-label = false
+cname = "docs.opencrabs.com"
+
+[output.html.search]
+enable = true
+limit-results = 20
+boost-hierarchy = 2
