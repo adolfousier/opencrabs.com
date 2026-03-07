@@ -14,8 +14,6 @@ preferred-dark-theme = "ayu"
 git-repository-url = "https://github.com/adolfousier/opencrabs"
 site-url = "https://docs.opencrabs.com/"
 no-section-label = false
-additional-css = ["theme/custom.css"]
-additional-js = ["theme/custom.js"]
 cname = "docs.opencrabs.com"
 
 [output.html.search]
