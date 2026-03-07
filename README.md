@@ -26,6 +26,22 @@ trunk build --release
 
 Output goes to the `dist/` directory.
 
+## Documentation Site
+
+The `docs/` directory contains an [mdBook](https://rust-lang.github.io/mdBook/) documentation site served at [docs.opencrabs.com](https://docs.opencrabs.com).
+
+```bash
+# Preview locally with live reload
+cd docs && mdbook serve
+# Opens at http://localhost:3000
+
+# Or just build
+cd docs && mdbook build
+# Open docs/book/index.html in your browser
+```
+
+Install mdBook: `cargo install mdbook`
+
 ## Stack
 
 - **Leptos 0.8** — Rust reactive UI framework (CSR mode)
