@@ -38,7 +38,7 @@ fn App() -> impl IntoView {
         <Features />
         <Integrations />
         <Community />
-        <Newsletter />
+        // <Newsletter /> — coming soon
         <Footer stars=stars_signal />
     }
 }
@@ -408,28 +408,28 @@ fn Community() -> impl IntoView {
     }
 }
 
-// ── Newsletter ──────────────────────────────────────────────────────────────
-
-#[component]
-fn Newsletter() -> impl IntoView {
-    view! {
-        <section>
-            <div class="container">
-                <div class="newsletter">
-                    <h2>
-                        <span class="chevron">"› "</span>
-                        "Stay in the Loop"
-                    </h2>
-                    <p>"Get updates on new features, integrations, and crab wisdom. No spam, unsubscribe anytime."</p>
-                    <div class="newsletter-form">
-                        <input type="email" placeholder="your@email.com" />
-                        <button>"Subscribe →"</button>
-                    </div>
-                </div>
-            </div>
-        </section>
-    }
-}
+// ── Newsletter (coming soon — self-hosted on droplet with Resend) ───────────
+//
+// #[component]
+// fn Newsletter() -> impl IntoView {
+//     view! {
+//         <section>
+//             <div class="container">
+//                 <div class="newsletter">
+//                     <h2>
+//                         <span class="chevron">"› "</span>
+//                         "Stay in the Loop"
+//                     </h2>
+//                     <p>"Get updates on new features, integrations, and crab wisdom. No spam, unsubscribe anytime."</p>
+//                     <div class="newsletter-form">
+//                         <input type="email" placeholder="your@email.com" />
+//                         <button>"Subscribe →"</button>
+//                     </div>
+//                 </div>
+//             </div>
+//         </section>
+//     }
+// }
 
 // ── Footer ──────────────────────────────────────────────────────────────────
 
