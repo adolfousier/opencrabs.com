@@ -22,20 +22,36 @@ The onboarding wizard handles everything on first run.
 
 Required for `/rebuild`, adding custom tools, or modifying the agent.
 
-**Prerequisites:**
+### Quick setup (recommended)
+
+The setup script auto-detects your platform (macOS, Debian/Ubuntu, Fedora/RHEL, Arch) and installs all build dependencies + Rust nightly:
+
+```bash
+# Install all dependencies
+curl -fsSL https://raw.githubusercontent.com/adolfousier/opencrabs/main/scripts/setup.sh | bash
+
+# Clone and build
+git clone https://github.com/adolfousier/opencrabs.git
+cd opencrabs
+cargo build --release
+./target/release/opencrabs
+```
+
+### Manual setup
+
+If you prefer to install dependencies yourself:
+
 - **Rust nightly (2024 edition)** — [Install Rust](https://rustup.rs/), then `rustup toolchain install nightly`
 - **An API key** from at least one supported provider
 - **SQLite** (bundled via sqlx)
-- **Linux:** `build-essential`, `pkg-config`, `libssl-dev`, `libchafa-dev`
+- **macOS:** `brew install cmake pkg-config`
+- **Debian/Ubuntu:** `sudo apt install build-essential pkg-config libssl-dev cmake`
+- **Fedora/RHEL:** `sudo dnf install gcc gcc-c++ make pkg-config openssl-devel cmake`
+- **Arch:** `sudo pacman -S base-devel pkg-config openssl cmake`
 
 ```bash
 git clone https://github.com/adolfousier/opencrabs.git
 cd opencrabs
-
-# Build & run (development)
-cargo run --bin opencrabs
-
-# Or build release and run directly
 cargo build --release
 ./target/release/opencrabs
 ```

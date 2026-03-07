@@ -15,6 +15,7 @@ git-repository-url = "https://github.com/adolfousier/opencrabs"
 site-url = "https://docs.opencrabs.com/"
 no-section-label = false
 cname = "docs.opencrabs.com"
+additional-js = ["theme/custom.js"]
 
 [output.html.search]
 enable = true

@@ -168,6 +168,8 @@ fn Hero() -> impl IntoView {
 
 #[component]
 fn QuickStart() -> impl IntoView {
+    let (active_tab, set_active_tab) = signal(0u8);
+
     view! {
         <section id="quickstart">
             <div class="container">
@@ -183,13 +185,22 @@ fn QuickStart() -> impl IntoView {
                             <span class="green"></span>
                         </div>
                         <div class="terminal-tabs">
-                            <button class="active">"Binary"</button>
-                            <button>"Cargo"</button>
-                            <button>"Source"</button>
+                            <button
+                                class:active=move || active_tab.get() == 0
+                                on:click=move |_| set_active_tab.set(0)
+                            >"Binary"</button>
+                            <button
+                                class:active=move || active_tab.get() == 1
+                                on:click=move |_| set_active_tab.set(1)
+                            >"Cargo"</button>
+                            <button
+                                class:active=move || active_tab.get() == 2
+                                on:click=move |_| set_active_tab.set(2)
+                            >"Source"</button>
                         </div>
                         <span class="terminal-platform">"macOS / Linux"</span>
                     </div>
-                    <div class="terminal-body">
+                    <div class="terminal-body" style:display=move || if active_tab.get() == 0 { "block" } else { "none" }>
                         <div>
                             <span class="terminal-comment">"# Download latest release for your platform"</span>
                         </div>
@@ -201,7 +212,40 @@ fn QuickStart() -> impl IntoView {
                         </div>
                         <div>
                             <span class="terminal-prompt">"$ "</span>
-                            <span class="terminal-cmd">"./opencrabs chat"</span>
+                            <span class="terminal-cmd">"./opencrabs"</span>
+                        </div>
+                    </div>
+                    <div class="terminal-body" style:display=move || if active_tab.get() == 1 { "block" } else { "none" }>
+                        <div>
+                            <span class="terminal-comment">"# Install via cargo (requires Rust nightly)"</span>
+                        </div>
+                        <div>
+                            <span class="terminal-prompt">"$ "</span>
+                            <span class="terminal-cmd">"cargo install opencrabs"</span>
+                        </div>
+                        <div>
+                            <span class="terminal-prompt">"$ "</span>
+                            <span class="terminal-cmd">"opencrabs"</span>
+                        </div>
+                    </div>
+                    <div class="terminal-body" style:display=move || if active_tab.get() == 2 { "block" } else { "none" }>
+                        <div>
+                            <span class="terminal-comment">"# Install all deps + Rust nightly (macOS, Debian, Fedora, Arch)"</span>
+                        </div>
+                        <div>
+                            <span class="terminal-prompt">"$ "</span>
+                            <span class="terminal-cmd">"curl -fsSL https://raw.githubusercontent.com/adolfousier/opencrabs/main/scripts/setup.sh | bash"</span>
+                        </div>
+                        <div>
+                            <span class="terminal-comment">"# Then clone and build"</span>
+                        </div>
+                        <div>
+                            <span class="terminal-prompt">"$ "</span>
+                            <span class="terminal-cmd">"git clone https://github.com/adolfousier/opencrabs.git && cd opencrabs"</span>
+                        </div>
+                        <div>
+                            <span class="terminal-prompt">"$ "</span>
+                            <span class="terminal-cmd">"cargo build --release && ./target/release/opencrabs"</span>
                         </div>
                     </div>
                 </div>
@@ -339,8 +383,8 @@ fn Testimonials() -> impl IntoView {
             "@meetneuraai",
         ),
         (
-            "/evolve is genius. The agent literally updates itself mid-conversation and picks up where it left off.",
-            "@ItsYourTimeDev",
+            "As a user of your project, I'm impressed by the speed and the quality. It feels like you have a 10 person team.",
+            "@opryshok",
         ),
         (
             "Every day I tweak Crabs to help me do things faster. BTW Trello integration is amazing. My agent now has a board with tasks it manages on its own.",

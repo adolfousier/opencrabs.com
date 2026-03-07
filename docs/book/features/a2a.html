@@ -54,7 +54,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-b31df3be.js";
+            window.path_to_searchindex_js = "../searchindex-f9691ee4.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-076bab17.js"></script>
@@ -202,11 +202,26 @@
 <pre><code class="language-toml"># config.toml
 [a2a]
 enabled = true
-bind = "127.0.0.1"   # Loopback only (default)
+bind = "127.0.0.1"   # Loopback only (default) — use "0.0.0.0" to expose externally
 port = 18790
+# api_key = "your-secret"  # Optional Bearer token auth for incoming requests
 # allowed_origins = ["http://localhost:3000"]  # CORS
 </code></pre>
-<p>No API keys required — A2A is config-only.</p>
+<h3 id="configuration-options"><a class="header" href="#configuration-options">Configuration Options</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Option</th><th>Default</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>enabled</code></td><td><code>false</code></td><td>Enable the A2A gateway</td></tr>
+<tr><td><code>bind</code></td><td><code>127.0.0.1</code></td><td>Bind address — use <code>0.0.0.0</code> to accept external connections</td></tr>
+<tr><td><code>port</code></td><td><code>18790</code></td><td>Gateway port</td></tr>
+<tr><td><code>api_key</code></td><td><em>(none)</em></td><td>Bearer token for authenticating incoming requests. If set, all JSON-RPC requests must include <code>Authorization: Bearer &lt;key&gt;</code></td></tr>
+<tr><td><code>allowed_origins</code></td><td><code>[]</code></td><td>CORS allowed origins — no cross-origin requests unless explicitly set</td></tr>
+</tbody>
+</table>
+</div>
 <h2 id="endpoints"><a class="header" href="#endpoints">Endpoints</a></h2>
 <div class="table-wrapper">
 <table>
@@ -214,19 +229,76 @@ port = 18790
 <tr><th>Endpoint</th><th>Method</th><th>Description</th></tr>
 </thead>
 <tbody>
-<tr><td><code>/.well-known/agent.json</code></td><td>GET</td><td>Agent Card — discover capabilities</td></tr>
-<tr><td><code>/a2a/v1</code></td><td>POST</td><td>JSON-RPC 2.0 — <code>message/send</code>, <code>tasks/get</code>, <code>tasks/cancel</code></td></tr>
+<tr><td><code>/.well-known/agent.json</code></td><td>GET</td><td>Agent Card — discover capabilities (auto-populated from tool registry)</td></tr>
+<tr><td><code>/a2a/v1</code></td><td>POST</td><td>JSON-RPC 2.0 — <code>message/send</code>, <code>message/stream</code>, <code>tasks/get</code>, <code>tasks/cancel</code></td></tr>
 <tr><td><code>/a2a/health</code></td><td>GET</td><td>Health check</td></tr>
 </tbody>
 </table>
 </div>
+<h3 id="methods"><a class="header" href="#methods">Methods</a></h3>
+<ul>
+<li><strong><code>message/send</code></strong> — Send a message to the agent, creates a task. Returns the task with result.</li>
+<li><strong><code>message/stream</code></strong> — Same as <code>message/send</code> but returns an SSE stream with real-time status updates and artifact chunks as the agent works.</li>
+<li><strong><code>tasks/get</code></strong> — Poll a task by ID to check status and retrieve results.</li>
+<li><strong><code>tasks/cancel</code></strong> — Cancel a running task.</li>
+</ul>
+<p>Active tasks are persisted to the database and restored on restart.</p>
+<h2 id="the-a2a_send-tool"><a class="header" href="#the-a2a_send-tool">The <code>a2a_send</code> Tool</a></h2>
+<p>The agent has a built-in <code>a2a_send</code> tool that lets it proactively communicate with remote A2A agents. This enables true bidirectional agent-to-agent communication.</p>
+<p><strong>Actions:</strong></p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Action</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>discover</code></td><td>Fetch a remote agent’s Agent Card to see its capabilities and skills</td></tr>
+<tr><td><code>send</code></td><td>Send a task to a remote agent and wait for the result</td></tr>
+<tr><td><code>get</code></td><td>Poll a task by ID on a remote agent</td></tr>
+<tr><td><code>cancel</code></td><td>Cancel a running task on a remote agent</td></tr>
+</tbody>
+</table>
+</div>
+<p>The agent can use this tool autonomously — for example, delegating subtasks to a specialized remote agent.</p>
+<h2 id="connecting-two-agents"><a class="header" href="#connecting-two-agents">Connecting Two Agents</a></h2>
+<h3 id="example-vps--local-machine"><a class="header" href="#example-vps--local-machine">Example: VPS + Local Machine</a></h3>
+<p><strong>On VPS</strong> (<code>~/.opencrabs/config.toml</code>):</p>
+<pre><code class="language-toml">[a2a]
+enabled = true
+bind = "0.0.0.0"
+port = 18790
+api_key = "your-shared-secret"
+</code></pre>
+<p><strong>On local machine</strong> (<code>~/.opencrabs/config.toml</code>):</p>
+<pre><code class="language-toml">[a2a]
+enabled = true
+bind = "127.0.0.1"
+port = 18790
+</code></pre>
+<h3 id="connectivity-options"><a class="header" href="#connectivity-options">Connectivity Options</a></h3>
+<ol>
+<li>
+<p><strong>SSH tunnel</strong> (recommended) — No ports to open, encrypted:</p>
+<pre><code class="language-bash"># From local machine, tunnel VPS A2A to localhost:18791
+ssh -L 18791:127.0.0.1:18790 user@your-vps
+</code></pre>
+<p>Local agent talks to <code>http://127.0.0.1:18791/a2a/v1</code></p>
+</li>
+<li>
+<p><strong>Direct</strong> — Open port 18790 on VPS firewall. Simple but exposes the port. Always use <code>api_key</code> with this approach.</p>
+</li>
+<li>
+<p><strong>Reverse proxy</strong> — Nginx/Caddy on VPS with TLS + Bearer auth via <code>api_key</code>.</p>
+</li>
+</ol>
 <h2 id="examples"><a class="header" href="#examples">Examples</a></h2>
 <pre><code class="language-bash"># Discover the agent
 curl http://127.0.0.1:18790/.well-known/agent.json | jq .
 
-# Send a message (creates a task)
+# Send a message (with Bearer auth)
 curl -X POST http://127.0.0.1:18790/a2a/v1 \
   -H "Content-Type: application/json" \
+  -H "Authorization: Bearer your-shared-secret" \
   -d '{
     "jsonrpc": "2.0",
     "id": 1,
@@ -234,7 +306,23 @@ curl -X POST http://127.0.0.1:18790/a2a/v1 \
     "params": {
       "message": {
         "role": "user",
-        "parts": [{"kind": "text", "text": "What tools do you have?"}]
+        "parts": [{"text": "What tools do you have?"}]
+      }
+    }
+  }'
+
+# Stream a task (SSE)
+curl -N -X POST http://127.0.0.1:18790/a2a/v1 \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer your-shared-secret" \
+  -d '{
+    "jsonrpc": "2.0",
+    "id": 2,
+    "method": "message/stream",
+    "params": {
+      "message": {
+        "role": "user",
+        "parts": [{"text": "Analyze the system status"}]
       }
     }
   }'
@@ -242,15 +330,26 @@ curl -X POST http://127.0.0.1:18790/a2a/v1 \
 # Poll a task
 curl -X POST http://127.0.0.1:18790/a2a/v1 \
   -H "Content-Type: application/json" \
-  -d '{"jsonrpc":"2.0","id":2,"method":"tasks/get","params":{"id":"TASK_ID"}}'
+  -H "Authorization: Bearer your-shared-secret" \
+  -d '{"jsonrpc":"2.0","id":3,"method":"tasks/get","params":{"id":"TASK_ID"}}'
+
+# Cancel a task
+curl -X POST http://127.0.0.1:18790/a2a/v1 \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer your-shared-secret" \
+  -d '{"jsonrpc":"2.0","id":4,"method":"tasks/cancel","params":{"id":"TASK_ID"}}'
+
+# Health check
+curl http://127.0.0.1:18790/a2a/health | jq .
 </code></pre>
 <h2 id="bee-colony-debate"><a class="header" href="#bee-colony-debate">Bee Colony Debate</a></h2>
 <p>Multi-agent structured debate via confidence-weighted voting (based on <a href="https://arxiv.org/abs/2309.13007">ReConcile, ACL 2024</a>). Multiple “bee” agents argue across configurable rounds, enriched with knowledge context, then converge on a consensus answer.</p>
 <h2 id="security"><a class="header" href="#security">Security</a></h2>
 <ul>
 <li><strong>Loopback only</strong> by default — binds to <code>127.0.0.1</code></li>
+<li><strong>Bearer auth</strong> — set <code>api_key</code> to require <code>Authorization: Bearer &lt;key&gt;</code> on all JSON-RPC requests</li>
 <li><strong>CORS locked down</strong> — no cross-origin requests unless <code>allowed_origins</code> is set</li>
-<li><strong>No authentication</strong> — do not expose to public internet without a reverse proxy + auth layer</li>
+<li>For public exposure, use a reverse proxy with TLS + the <code>api_key</code> Bearer auth</li>
 </ul>
 
                     </main>
@@ -288,22 +387,6 @@ curl -X POST http://127.0.0.1:18790/a2a/v1 \
         <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
         <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
 
-        <!-- Livereload script (if served using the cli tool) -->
-        <script>
-            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
-            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
-            const socket = new WebSocket(wsAddress);
-            socket.onmessage = function (event) {
-                if (event.data === "reload") {
-                    socket.close();
-                    location.reload();
-                }
-            };
-
-            window.onbeforeunload = function() {
-                socket.close();
-            }
-        </script>
 
 
         <script>
@@ -320,6 +403,7 @@ curl -X POST http://127.0.0.1:18790/a2a/v1 \
         <script src="../book-a0b12cfe.js"></script>
 
         <!-- Custom JS scripts -->
+        <script src="../theme/custom-c947b2ed.js"></script>
 
 
 
