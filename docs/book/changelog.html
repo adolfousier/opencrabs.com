@@ -55,7 +55,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-6fc43810.js";
+            window.path_to_searchindex_js = "searchindex-b31df3be.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-076bab17.js"></script>
@@ -198,72 +198,43 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="changelog"><a class="header" href="#changelog">Changelog</a></h1>
-<p>For the full changelog, see <a href="https://github.com/adolfousier/opencrabs/blob/main/CHANGELOG.md">CHANGELOG.md on GitHub</a>.</p>
-<h2 id="recent-releases"><a class="header" href="#recent-releases">Recent Releases</a></h2>
-<h3 id="v0259-2026-03-07"><a class="header" href="#v0259-2026-03-07">v0.2.59 (2026-03-07)</a></h3>
-<p><strong>Added:</strong></p>
-<ul>
-<li>Fallback provider chain — Configure multiple fallback providers tried in sequence on failure</li>
-<li>Per-provider <code>vision_model</code> — Auto-swap model when images are present</li>
-<li>Session working directory persistence — <code>/cd</code> changes persist to DB, restored on session switch</li>
-</ul>
-<p><strong>Fixed:</strong></p>
-<ul>
-<li>Update checker uses proper semver comparison instead of string inequality</li>
-<li>Home directory collapsed to <code>~/...</code> in TUI footer and help screen</li>
-</ul>
-<h3 id="v0258-2026-03-07"><a class="header" href="#v0258-2026-03-07">v0.2.58 (2026-03-07)</a></h3>
-<p><strong>Fixed:</strong></p>
-<ul>
-<li>Vision images in OpenAI-compatible providers — <code>ContentBlock::Image</code> was silently dropped. Changed <code>OpenAIMessage.content</code> to <code>serde_json::Value</code> for polymorphic content support</li>
-</ul>
-<p><strong>Docs:</strong></p>
-<ul>
-<li>Image &amp; file handling in brain templates — Added <code>&lt;&lt;IMG:path&gt;&gt;</code> documentation to AGENTS.md and TOOLS.md</li>
-</ul>
-<h3 id="v0257-2026-03-07"><a class="header" href="#v0257-2026-03-07">v0.2.57 (2026-03-07)</a></h3>
-<p><strong>Added:</strong></p>
-<ul>
-<li>Two-step <code>/models</code> flow — Provider picker first, then model picker</li>
-<li><code>/new</code> and <code>/sessions</code> commands for all channels</li>
-<li>User-defined slash commands on channels</li>
-<li>Custom commands visible in <code>/help</code></li>
-<li>Emoji picker in TUI (<code>:</code> trigger)</li>
-<li>VOICE.md template</li>
-</ul>
-<p><strong>Fixed:</strong></p>
-<ul>
-<li>Context counter accuracy — System brain tokens now counted</li>
-<li>Stream bleed between sessions</li>
-<li>Session switch shows name instead of UUID</li>
-</ul>
-<h3 id="v0256-2026-03-06"><a class="header" href="#v0256-2026-03-06">v0.2.56 (2026-03-06)</a></h3>
-<p><strong>Added:</strong></p>
-<ul>
-<li>Daily release check notification</li>
-</ul>
-<p><strong>Fixed:</strong></p>
-<ul>
-<li>Context counter showing 243/200K when real usage was 19K</li>
-<li>Streaming stop_reason overwritten by deferred usage delta</li>
-</ul>
-<h3 id="v0255-2026-03-06"><a class="header" href="#v0255-2026-03-06">v0.2.55 (2026-03-06)</a></h3>
-<p><strong>Added:</strong></p>
-<ul>
-<li>Cumulative usage ledger — Deleting sessions no longer resets usage stats</li>
-</ul>
-<p><strong>Fixed:</strong></p>
-<ul>
-<li>Compaction overhaul — Zero-truncation, DB persistence, exhaustive summaries</li>
-</ul>
-<h3 id="v0254-2026-03-05"><a class="header" href="#v0254-2026-03-05">v0.2.54 (2026-03-05)</a></h3>
-<p><strong>Added:</strong></p>
-<ul>
-<li>Agent-to-Agent (A2A) protocol gateway</li>
-<li>Bee Colony structured debate</li>
-<li>Plans system with approval workflow</li>
-</ul>
-<p>For older releases, see the <a href="https://github.com/adolfousier/opencrabs/blob/main/CHANGELOG.md">full changelog</a>.</p>
+<div id="changelog-content">Loading changelog from GitHub...</div>
+
+<script>
+(function() {
+    fetch('https://api.github.com/repos/adolfousier/opencrabs/contents/CHANGELOG.md', {
+        headers: { 'Accept': 'application/vnd.github.v3.raw' }
+    })
+    .then(function(r) { return r.text(); })
+    .then(function(md) {
+        // Strip the "# Changelog" header and preamble lines
+        var lines = md.split('\n');
+        var start = 0;
+        for (var i = 0; i < lines.length; i++) {
+            if (lines[i].match(/^## \[/)) { start = i; break; }
+        }
+        var body = lines.slice(start).join('\n');
+
+        // Simple markdown to HTML
+        body = body
+            .replace(/^### (.+)$/gm, '<h3>$1</h3>')
+            .replace(/^## (.+)$/gm, '<h2>$1</h2>')
+            .replace(/^\*\*(.+?)\*\*/gm, '<strong>$1</strong>')
+            .replace(/^- (.+)$/gm, '<li>$1</li>')
+            .replace(/`([^`]+)`/g, '<code>$1</code>')
+            .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>')
+            .replace(/^> (.+)$/gm, '<blockquote>$1</blockquote>')
+            .replace(/(<li>.*<\/li>\n?)+/g, function(m) { return '<ul>' + m + '</ul>'; })
+            .replace(/\n\n/g, '<br/>');
+
+        document.getElementById('changelog-content').innerHTML = body;
+    })
+    .catch(function() {
+        document.getElementById('changelog-content').innerHTML =
+            '<p>Failed to load changelog. <a href="https://github.com/adolfousier/opencrabs/blob/main/CHANGELOG.md">View on GitHub</a></p>';
+    });
+})();
+</script>
 
                     </main>
 

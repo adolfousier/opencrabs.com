@@ -1,65 +1,39 @@
 # Changelog
 
-For the full changelog, see [CHANGELOG.md on GitHub](https://github.com/adolfousier/opencrabs/blob/main/CHANGELOG.md).
+<div id="changelog-content">Loading changelog from GitHub...</div>
 
-## Recent Releases
+<script>
+(function() {
+    fetch('https://api.github.com/repos/adolfousier/opencrabs/contents/CHANGELOG.md', {
+        headers: { 'Accept': 'application/vnd.github.v3.raw' }
+    })
+    .then(function(r) { return r.text(); })
+    .then(function(md) {
+        // Strip the "# Changelog" header and preamble lines
+        var lines = md.split('\n');
+        var start = 0;
+        for (var i = 0; i < lines.length; i++) {
+            if (lines[i].match(/^## \[/)) { start = i; break; }
+        }
+        var body = lines.slice(start).join('\n');
 
-### v0.2.59 (2026-03-07)
+        // Simple markdown to HTML
+        body = body
+            .replace(/^### (.+)$/gm, '<h3>$1</h3>')
+            .replace(/^## (.+)$/gm, '<h2>$1</h2>')
+            .replace(/^\*\*(.+?)\*\*/gm, '<strong>$1</strong>')
+            .replace(/^- (.+)$/gm, '<li>$1</li>')
+            .replace(/`([^`]+)`/g, '<code>$1</code>')
+            .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>')
+            .replace(/^> (.+)$/gm, '<blockquote>$1</blockquote>')
+            .replace(/(<li>.*<\/li>\n?)+/g, function(m) { return '<ul>' + m + '</ul>'; })
+            .replace(/\n\n/g, '<br/>');
 
-**Added:**
-- Fallback provider chain — Configure multiple fallback providers tried in sequence on failure
-- Per-provider `vision_model` — Auto-swap model when images are present
-- Session working directory persistence — `/cd` changes persist to DB, restored on session switch
-
-**Fixed:**
-- Update checker uses proper semver comparison instead of string inequality
-- Home directory collapsed to `~/...` in TUI footer and help screen
-
-### v0.2.58 (2026-03-07)
-
-**Fixed:**
-- Vision images in OpenAI-compatible providers — `ContentBlock::Image` was silently dropped. Changed `OpenAIMessage.content` to `serde_json::Value` for polymorphic content support
-
-**Docs:**
-- Image & file handling in brain templates — Added `<<IMG:path>>` documentation to AGENTS.md and TOOLS.md
-
-### v0.2.57 (2026-03-07)
-
-**Added:**
-- Two-step `/models` flow — Provider picker first, then model picker
-- `/new` and `/sessions` commands for all channels
-- User-defined slash commands on channels
-- Custom commands visible in `/help`
-- Emoji picker in TUI (`:` trigger)
-- VOICE.md template
-
-**Fixed:**
-- Context counter accuracy — System brain tokens now counted
-- Stream bleed between sessions
-- Session switch shows name instead of UUID
-
-### v0.2.56 (2026-03-06)
-
-**Added:**
-- Daily release check notification
-
-**Fixed:**
-- Context counter showing 243/200K when real usage was 19K
-- Streaming stop_reason overwritten by deferred usage delta
-
-### v0.2.55 (2026-03-06)
-
-**Added:**
-- Cumulative usage ledger — Deleting sessions no longer resets usage stats
-
-**Fixed:**
-- Compaction overhaul — Zero-truncation, DB persistence, exhaustive summaries
-
-### v0.2.54 (2026-03-05)
-
-**Added:**
-- Agent-to-Agent (A2A) protocol gateway
-- Bee Colony structured debate
-- Plans system with approval workflow
-
-For older releases, see the [full changelog](https://github.com/adolfousier/opencrabs/blob/main/CHANGELOG.md).
+        document.getElementById('changelog-content').innerHTML = body;
+    })
+    .catch(function() {
+        document.getElementById('changelog-content').innerHTML =
+            '<p>Failed to load changelog. <a href="https://github.com/adolfousier/opencrabs/blob/main/CHANGELOG.md">View on GitHub</a></p>';
+    });
+})();
+</script>
