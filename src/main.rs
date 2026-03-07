@@ -2,14 +2,36 @@ use leptos::prelude::*;
 use gloo_net::http::Request;
 use serde::Deserialize;
 
+#[derive(Deserialize, Clone, Debug)]
+struct GitHubRepo {
+    stargazers_count: u32,
+}
+
+async fn fetch_star_count() -> Option<u32> {
+    Request::get("https://api.github.com/repos/adolfousier/opencrabs")
+        .header("Accept", "application/vnd.github+json")
+        .send()
+        .await
+        .ok()?
+        .json::<GitHubRepo>()
+        .await
+        .ok()
+        .map(|r| r.stargazers_count)
+}
+
 fn main() {
     mount_to_body(App);
 }
 
 #[component]
 fn App() -> impl IntoView {
+    let stars = LocalResource::new(|| fetch_star_count());
+    let stars_signal = Signal::derive(move || {
+        stars.get().flatten().unwrap_or(0)
+    });
+
     view! {
-        <Nav />
+        <Nav stars=stars_signal />
         <Hero />
         <Testimonials />
         <QuickStart />
@@ -17,14 +39,23 @@ fn App() -> impl IntoView {
         <Integrations />
         <Community />
         <Newsletter />
-        <Footer />
+        <Footer stars=stars_signal />
     }
 }
 
 // ── Navigation ──────────────────────────────────────────────────────────────
 
 #[component]
-fn Nav() -> impl IntoView {
+fn Nav(stars: Signal<u32>) -> impl IntoView {
+    let star_label = move || {
+        let count = stars.get();
+        if count > 0 {
+            format!(" ★ {}", count)
+        } else {
+            String::new()
+        }
+    };
+
     view! {
         <nav>
             <div class="container">
@@ -39,6 +70,7 @@ fn Nav() -> impl IntoView {
                     <li>
                         <a href="https://github.com/adolfousier/opencrabs" class="btn-github" target="_blank">
                             "GitHub"
+                            <span class="github-stars">{star_label}</span>
                         </a>
                     </li>
                 </ul>
@@ -401,10 +433,22 @@ fn Newsletter() -> impl IntoView {
 // ── Footer ──────────────────────────────────────────────────────────────────
 
 #[component]
-fn Footer() -> impl IntoView {
+fn Footer(stars: Signal<u32>) -> impl IntoView {
+    let star_cta = move || {
+        let count = stars.get();
+        if count > 0 {
+            format!("★ {} stars on GitHub — give us one more!", count)
+        } else {
+            "★ Star us on GitHub!".to_string()
+        }
+    };
+
     view! {
         <footer>
             <div class="container">
+                <a href="https://github.com/adolfousier/opencrabs" class="footer-star-cta" target="_blank">
+                    {star_cta}
+                </a>
                 <div class="footer-links">
                     <a href="https://github.com/adolfousier/opencrabs">"GitHub"</a>
                     <a href="https://github.com/adolfousier/opencrabs/blob/main/CHANGELOG.md">"Changelog"</a>
