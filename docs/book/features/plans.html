@@ -34,7 +34,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-fc7ce848.js";
+            window.path_to_searchindex_js = "../searchindex-f82c7b70.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-7be76d13.js"></script>
@@ -180,12 +180,12 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="plans"><a class="header" href="#plans">Plans</a></h1>
-<p>Plans provide structured multi-step task execution with approval workflow.</p>
+<p>Plans provide structured multi-step task execution with a live progress widget in the TUI.</p>
 <h2 id="creating-a-plan"><a class="header" href="#creating-a-plan">Creating a Plan</a></h2>
 <p>Ask the agent to plan a complex task:</p>
 <pre><code>"Plan the migration from PostgreSQL to SQLite"
 </code></pre>
-<p>The agent creates a plan with:</p>
+<p>The agent uses the <code>plan</code> tool internally to create a plan with:</p>
 <ul>
 <li>Title and description</li>
 <li>Technical stack</li>
@@ -195,35 +195,40 @@
 </ul>
 <h2 id="plan-lifecycle"><a class="header" href="#plan-lifecycle">Plan Lifecycle</a></h2>
 <ol>
-<li><strong>Draft</strong> — Agent creates the plan</li>
-<li><strong>Pending Approval</strong> — Plan is presented for your review</li>
-<li><strong>Approved</strong> — You approve, agent begins execution</li>
+<li><strong>Draft</strong> — Agent creates the plan and adds tasks</li>
+<li><strong>Finalize</strong> — Agent calls <code>finalize</code> which triggers the tool approval dialog</li>
+<li><strong>Approved</strong> — You approve in the tool dialog, plan status becomes <code>Approved</code>, and the agent begins executing tasks immediately</li>
 <li><strong>In Progress</strong> — Tasks execute in dependency order</li>
 <li><strong>Completed</strong> — All tasks done</li>
 </ol>
+<p>In <strong>ask mode</strong> (default), the <code>finalize</code> step triggers the tool approval dialog — you review the full plan before execution begins. In <strong>auto-approve mode</strong>, finalize is auto-approved and the agent plans and executes without pausing.</p>
 <h2 id="task-states"><a class="header" href="#task-states">Task States</a></h2>
 <p>Each task in a plan can be:</p>
 <ul>
-<li><code>Pending</code> — Waiting for dependencies</li>
-<li><code>InProgress</code> — Currently executing</li>
-<li><code>Completed</code> — Done</li>
-<li><code>Skipped</code> — Manually skipped</li>
-<li><code>Failed</code> — Execution failed</li>
-<li><code>Blocked</code> — Dependencies not met</li>
+<li><code>Pending</code> (·) — Waiting for dependencies</li>
+<li><code>InProgress</code> (▶) — Currently executing</li>
+<li><code>Completed</code> (✓) — Done</li>
+<li><code>Skipped</code> (✓) — Manually skipped</li>
+<li><code>Failed</code> (✗) — Execution failed</li>
+<li><code>Blocked</code> (·) — Dependencies not met</li>
 </ul>
-<h2 id="commands"><a class="header" href="#commands">Commands</a></h2>
-<div class="table-wrapper">
-<table>
-<thead>
-<tr><th>Command</th><th>Description</th></tr>
-</thead>
-<tbody>
-<tr><td><code>/plan</code></td><td>View current plan status</td></tr>
-<tr><td><code>/plan approve</code></td><td>Approve pending plan</td></tr>
-<tr><td><code>/plan reject</code></td><td>Reject pending plan</td></tr>
-</tbody>
-</table>
-</div>
+<h2 id="tui-plan-widget"><a class="header" href="#tui-plan-widget">TUI Plan Widget</a></h2>
+<p>When a plan is active, a live checklist panel appears above the input box showing:</p>
+<ul>
+<li><strong>Plan title</strong> and progress counter (e.g. <code>3/7</code>)</li>
+<li><strong>Progress bar</strong> — Visual <code>██████░░░░</code> bar with percentage</li>
+<li><strong>Task list</strong> — Up to 6 tasks visible with status icons and task numbers</li>
+<li><strong>Overflow indicator</strong> — <code>... (N more)</code> when tasks exceed the visible limit</li>
+</ul>
+<p>The widget updates in real-time as the agent completes each task.</p>
+<h2 id="managing-plans"><a class="header" href="#managing-plans">Managing Plans</a></h2>
+<p>Plans are managed through natural language:</p>
+<pre><code>"Approve the plan"
+"Reject the plan"
+"What's the plan status?"
+"Skip task 3"
+</code></pre>
+<p>The agent handles plan creation, approval, execution, and status reporting through the <code>plan</code> tool.</p>
 
                     </main>
 
