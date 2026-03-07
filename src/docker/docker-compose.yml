@@ -1,8 +1,7 @@
 services:
   crabsland:
-    build:
-      context: ../..
-      dockerfile: src/docker/Dockerfile
+    image: opencrabs/landing:latest
+    container_name: opencrabs-landing
     ports:
       - "19283:19283"
     restart: unless-stopped
