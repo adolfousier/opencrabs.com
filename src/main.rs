@@ -1,4 +1,6 @@
 use leptos::prelude::*;
+use gloo_net::http::Request;
+use serde::Deserialize;
 
 fn main() {
     mount_to_body(App);
@@ -47,8 +49,67 @@ fn Nav() -> impl IntoView {
 
 // ── Hero ────────────────────────────────────────────────────────────────────
 
+#[derive(Deserialize, Clone, Debug)]
+struct GitHubRelease {
+    tag_name: String,
+    name: Option<String>,
+    published_at: Option<String>,
+}
+
+async fn fetch_latest_release() -> Option<GitHubRelease> {
+    Request::get("https://api.github.com/repos/adolfousier/opencrabs/releases/latest")
+        .header("Accept", "application/vnd.github+json")
+        .send()
+        .await
+        .ok()?
+        .json::<GitHubRelease>()
+        .await
+        .ok()
+}
+
+fn format_release_date(published_at: &str) -> String {
+    // "2026-03-07T01:44:48Z" → "Mar 7, 2026"
+    let parts: Vec<&str> = published_at.split('T').next().unwrap_or("").split('-').collect();
+    if parts.len() == 3 {
+        let month = match parts[1] {
+            "01" => "Jan", "02" => "Feb", "03" => "Mar", "04" => "Apr",
+            "05" => "May", "06" => "Jun", "07" => "Jul", "08" => "Aug",
+            "09" => "Sep", "10" => "Oct", "11" => "Nov", "12" => "Dec",
+            _ => parts[1],
+        };
+        let day = parts[2].trim_start_matches('0');
+        format!("{} {}, {}", month, day, parts[0])
+    } else {
+        published_at.to_string()
+    }
+}
+
 #[component]
 fn Hero() -> impl IntoView {
+    let release = LocalResource::new(|| fetch_latest_release());
+
+    let badge_text = move || {
+        match release.get() {
+            Some(Some(r)) => {
+                let version = r.tag_name.clone();
+                let name = r.name.as_deref().unwrap_or("").to_string();
+                let date = r
+                    .published_at
+                    .as_deref()
+                    .map(format_release_date)
+                    .unwrap_or_default();
+
+                // Use release name if available, otherwise just version + date
+                if name.is_empty() || name == version {
+                    format!("{} — {}", version, date)
+                } else {
+                    format!("{} — {} — {}", version, date, name)
+                }
+            }
+            _ => "Loading latest release...".to_string(),
+        }
+    };
+
     view! {
         <section class="hero">
             <div class="container">
@@ -61,8 +122,8 @@ fn Hero() -> impl IntoView {
                     "All from your terminal or any chat app."
                 </p>
                 <a href="https://github.com/adolfousier/opencrabs/releases/latest" class="hero-badge">
-                    <span class="badge-new">"NEW"</span>
-                    "v0.2.54 — /evolve self-update, smarter compaction"
+                    <span class="badge-new">"LATEST"</span>
+                    {badge_text}
                     <span class="arrow">" →"</span>
                 </a>
             </div>
