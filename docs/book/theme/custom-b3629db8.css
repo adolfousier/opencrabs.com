@@ -1,27 +1,30 @@
 /* Centered crab logo in the menu bar */
+.menu-bar {
+    position: relative;
+}
+
 .menu-bar .center-logo {
     position: absolute;
     left: 50%;
-    transform: translateX(-50%);
+    top: 50%;
+    transform: translate(-50%, -50%);
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.4rem;
     text-decoration: none;
     color: var(--fg);
     font-weight: 600;
-    font-size: 1rem;
+    font-size: 0.95rem;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
 }
 
 .menu-bar .center-logo img {
-    height: 24px;
-    width: 24px;
+    height: 22px;
+    width: 22px;
+    border-radius: 4px;
 }
 
 .menu-bar .center-logo:hover {
-    opacity: 0.8;
-}
-
-/* Make menu-bar position relative for absolute centering */
-.menu-bar {
-    position: relative;
+    opacity: 0.7;
 }
