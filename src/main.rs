@@ -373,22 +373,26 @@ fn Integrations() -> impl IntoView {
 
 #[component]
 fn Testimonials() -> impl IntoView {
-    let quotes = vec![
+    let quotes: Vec<(&str, &str, &str)> = vec![
         (
             "One thing Crabs does better — when I change config and send messages while restarting, it always picks up and replies as soon as it wakes up. Hot reload at runtime. Other agents just hang and leave you waiting forever.",
             "@adolfousier",
+            "",
         ),
         (
-            "Built a full cron scheduler, channel message capture, and 700 tests in one session. The crab doesn't sleep.",
-            "@meetneuraai",
+            "Local STT + TTS in ~135MB is impressive. Feels like the voice layer for local agents is getting a lot more practical.",
+            "@AlexBuildsCo",
+            "https://x.com/AlexBuildsCo/status/2031037889094562160",
         ),
         (
             "As a user of your project, I'm impressed by the speed and the quality. It feels like you have a 10 person team.",
             "@opryshok",
+            "https://x.com/opryshok/status/2030282770912522288",
         ),
         (
             "Every day I tweak Crabs to help me do things faster. BTW Trello integration is amazing. My agent now has a board with tasks it manages on its own.",
             "@opryshok",
+            "",
         ),
     ];
 
@@ -402,10 +406,14 @@ fn Testimonials() -> impl IntoView {
                     </h2>
                 </div>
                 <div class="testimonials-grid">
-                    {quotes.into_iter().map(|(quote, author)| view! {
+                    {quotes.into_iter().map(|(quote, author, link)| view! {
                         <div class="testimonial-card">
                             <p>"\""{ quote }"\""</p>
-                            <span class="testimonial-author">{author}</span>
+                            {if link.is_empty() {
+                                view! { <span class="testimonial-author">{author}</span> }.into_any()
+                            } else {
+                                view! { <a class="testimonial-author" href={link} target="_blank" rel="noopener">{author}</a> }.into_any()
+                            }}
                         </div>
                     }).collect::<Vec<_>>()}
                 </div>
