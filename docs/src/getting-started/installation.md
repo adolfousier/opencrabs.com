@@ -43,7 +43,7 @@ If you prefer to install dependencies yourself:
 
 - **Rust nightly (2024 edition)** — [Install Rust](https://rustup.rs/), then `rustup toolchain install nightly`
 - **An API key** from at least one supported provider
-- **SQLite** (bundled via sqlx)
+- **SQLite** (bundled via rusqlite)
 - **macOS:** `brew install cmake pkg-config`
 - **Debian/Ubuntu:** `sudo apt install build-essential pkg-config libssl-dev cmake`
 - **Fedora/RHEL:** `sudo dnf install gcc gcc-c++ make pkg-config openssl-devel cmake`

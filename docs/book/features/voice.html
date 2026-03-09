@@ -54,7 +54,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-f9691ee4.js";
+            window.path_to_searchindex_js = "../searchindex-8608bf97.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-076bab17.js"></script>
@@ -197,55 +197,127 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="voice-tts--stt"><a class="header" href="#voice-tts--stt">Voice (TTS &amp; STT)</a></h1>
-<p>OpenCrabs supports text-to-speech and speech-to-text for voice interactions.</p>
-<h2 id="text-to-speech-tts"><a class="header" href="#text-to-speech-tts">Text-to-Speech (TTS)</a></h2>
-<h3 id="supported-providers"><a class="header" href="#supported-providers">Supported Providers</a></h3>
+<p>OpenCrabs supports text-to-speech and speech-to-text with three modes: <strong>Off</strong>, <strong>API</strong> (cloud), or <strong>Local</strong> (on-device, zero cost).</p>
+<h2 id="quick-setup"><a class="header" href="#quick-setup">Quick Setup</a></h2>
+<p>Run <code>/onboard:voice</code> in the TUI to configure everything interactively — model downloads, voice previews, and API keys are all handled by the wizard.</p>
+<h2 id="speech-to-text-stt"><a class="header" href="#speech-to-text-stt">Speech-to-Text (STT)</a></h2>
+<h3 id="modes"><a class="header" href="#modes">Modes</a></h3>
 <div class="table-wrapper">
 <table>
 <thead>
-<tr><th>Provider</th><th>Voices</th><th>Setup</th></tr>
+<tr><th>Mode</th><th>Engine</th><th>Cost</th><th>Latency</th><th>Setup</th></tr>
 </thead>
 <tbody>
-<tr><td>ElevenLabs</td><td>Rachel, Adam, Antoni, Bella, etc.</td><td>API key in <code>keys.toml</code></td></tr>
-<tr><td>OpenAI</td><td>alloy, echo, fable, onyx, nova, shimmer</td><td>API key in <code>keys.toml</code></td></tr>
-<tr><td>Coqui</td><td>Open-source voices</td><td>Local installation</td></tr>
-<tr><td>GTTS</td><td>Google Translate voices</td><td>No key needed</td></tr>
+<tr><td><strong>API</strong></td><td>Groq Whisper (<code>whisper-large-v3-turbo</code>)</td><td>Per-minute pricing</td><td>~1s</td><td>API key in <code>keys.toml</code></td></tr>
+<tr><td><strong>Local</strong></td><td>whisper.cpp (on-device)</td><td>Free</td><td>~2-5s</td><td>Auto-downloads model</td></tr>
 </tbody>
 </table>
 </div>
+<h3 id="local-stt-models"><a class="header" href="#local-stt-models">Local STT Models</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Model</th><th>Size</th><th>Quality</th><th>Speed</th></tr>
+</thead>
+<tbody>
+<tr><td><code>local-tiny</code></td><td>~75 MB</td><td>Good for short messages</td><td>Fastest</td></tr>
+<tr><td><code>local-base</code></td><td>~142 MB</td><td>Better accuracy</td><td>Fast</td></tr>
+<tr><td><code>local-small</code></td><td>~466 MB</td><td>High accuracy</td><td>Moderate</td></tr>
+<tr><td><code>local-medium</code></td><td>~1.5 GB</td><td>Best accuracy</td><td>Slower</td></tr>
+</tbody>
+</table>
+</div>
+<p>Models auto-download from HuggingFace to <code>~/.local/share/opencrabs/models/whisper/</code> on first use.</p>
 <h3 id="configuration"><a class="header" href="#configuration">Configuration</a></h3>
 <pre><code class="language-toml"># config.toml
-[voice.tts]
-provider = "elevenlabs"
-voice_id = "Rachel"
-speed = 1.0
+[voice]
+stt_enabled = true
+stt_mode = "local"              # "api" or "local"
+local_stt_model = "local-tiny"  # local-tiny, local-base, local-small, local-medium
+</code></pre>
+<p>For API mode:</p>
+<pre><code class="language-toml"># keys.toml
+[providers.stt.groq]
+api_key = "your-groq-key"       # From console.groq.com
+</code></pre>
+<h2 id="text-to-speech-tts"><a class="header" href="#text-to-speech-tts">Text-to-Speech (TTS)</a></h2>
+<h3 id="modes-1"><a class="header" href="#modes-1">Modes</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Mode</th><th>Engine</th><th>Cost</th><th>Voices</th><th>Setup</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>API</strong></td><td>OpenAI TTS (<code>gpt-4o-mini-tts</code>)</td><td>Per-character pricing</td><td>alloy, echo, fable, onyx, nova, shimmer</td><td>API key in <code>keys.toml</code></td></tr>
+<tr><td><strong>Local</strong></td><td>Piper (on-device)</td><td>Free</td><td>6 voices</td><td>Auto-downloads model</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="local-tts-voices-piper"><a class="header" href="#local-tts-voices-piper">Local TTS Voices (Piper)</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Voice</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>ryan</code></td><td>US Male (default)</td></tr>
+<tr><td><code>amy</code></td><td>US Female</td></tr>
+<tr><td><code>lessac</code></td><td>US Female</td></tr>
+<tr><td><code>kristin</code></td><td>US Female</td></tr>
+<tr><td><code>joe</code></td><td>US Male</td></tr>
+<tr><td><code>cori</code></td><td>UK Female</td></tr>
+</tbody>
+</table>
+</div>
+<p>Models auto-download from HuggingFace to <code>~/.local/share/opencrabs/models/piper/</code>. A Python venv is created automatically for the Piper runtime.</p>
+<h3 id="configuration-1"><a class="header" href="#configuration-1">Configuration</a></h3>
+<pre><code class="language-toml"># config.toml
+[voice]
+tts_enabled = true
+tts_mode = "local"              # "api" or "local"
+local_tts_voice = "ryan"        # ryan, amy, lessac, kristin, joe, cori
+</code></pre>
+<p>For API mode:</p>
+<pre><code class="language-toml"># config.toml
+[voice]
+tts_mode = "api"
+tts_voice = "echo"              # OpenAI voice name
+tts_model = "gpt-4o-mini-tts"   # OpenAI model
 </code></pre>
 <pre><code class="language-toml"># keys.toml
-[voice]
-elevenlabs_api_key = "your-key"
+[providers.tts.openai]
+api_key = "your-openai-key"
 </code></pre>
-<h2 id="speech-to-text-stt"><a class="header" href="#speech-to-text-stt">Speech-to-Text (STT)</a></h2>
-<h3 id="whispercrabs"><a class="header" href="#whispercrabs">WhisperCrabs</a></h3>
-<p>OpenCrabs integrates with WhisperCrabs for floating voice-to-text input in the TUI. Type <code>/whisper</code> to launch.</p>
-<p><strong>Supported backends:</strong></p>
-<ul>
-<li>OpenAI Whisper API</li>
-<li>Local whisper.cpp</li>
-<li>FasterWhisper</li>
-</ul>
-<h3 id="voice-messages"><a class="header" href="#voice-messages">Voice Messages</a></h3>
-<p>When receiving a voice message on WhatsApp or Telegram:</p>
-<ol>
-<li>Audio is downloaded and transcribed via STT</li>
-<li>Text response is sent first (keeps chat searchable)</li>
-<li>TTS audio response is generated and sent</li>
-</ol>
-<h2 id="per-user-voice-preferences"><a class="header" href="#per-user-voice-preferences">Per-User Voice Preferences</a></h2>
+<h2 id="full-configuration-reference"><a class="header" href="#full-configuration-reference">Full Configuration Reference</a></h2>
 <pre><code class="language-toml"># config.toml
-[voice.preferences.username]
-voice_id = "Adam"
-speed = 1.2
+[voice]
+# Speech-to-Text
+stt_enabled = true
+stt_mode = "local"              # "api" or "local"
+local_stt_model = "local-tiny"  # local-tiny, local-base, local-small, local-medium
+
+# Text-to-Speech
+tts_enabled = true
+tts_mode = "local"              # "api" or "local"
+tts_voice = "echo"              # API mode: OpenAI voice
+tts_model = "gpt-4o-mini-tts"   # API mode: OpenAI model
+local_tts_voice = "ryan"        # Local mode: Piper voice
 </code></pre>
+<h2 id="how-voice-messages-work"><a class="header" href="#how-voice-messages-work">How Voice Messages Work</a></h2>
+<p>When a voice message arrives on Telegram, WhatsApp, Discord, or Slack:</p>
+<ol>
+<li>Audio is decoded (OGG/Opus or WAV)</li>
+<li>Transcribed via STT (local whisper.cpp or Groq API)</li>
+<li>Agent processes the text and generates a response</li>
+<li>Response is converted to speech via TTS (local Piper or OpenAI API)</li>
+<li>Audio is encoded as OGG/Opus and sent back as a voice message</li>
+</ol>
+<p>Local mode handles everything on-device — no API calls, no cost, no data leaves your machine.</p>
+<h2 id="building-without-voice"><a class="header" href="#building-without-voice">Building Without Voice</a></h2>
+<p>Voice features are enabled by default. To build without them (smaller binary):</p>
+<pre><code class="language-bash">cargo build --release --no-default-features --features telegram,whatsapp,discord,slack,trello
+</code></pre>
+<p>Feature flags: <code>local-stt</code> (whisper.cpp), <code>local-tts</code> (Piper).</p>
 
                     </main>
 

@@ -151,8 +151,8 @@ fn Hero() -> impl IntoView {
                 <p class="hero-tagline">"THE AI AGENT THAT LIVES IN YOUR TERMINAL."</p>
                 <p class="hero-description">
                     "Runs code, manages files, searches the web, schedules tasks, "
-                    "and connects to Telegram, Discord, Slack, and WhatsApp. "
-                    "All from your terminal or any chat app."
+                    "and connects to Telegram, Discord, Slack, WhatsApp, and Trello. "
+                    "Local STT & TTS. All from your terminal or any chat app."
                 </p>
                 <a href="https://github.com/adolfousier/opencrabs/releases/latest" class="hero-badge">
                     <span class="badge-new">"LATEST"</span>
@@ -272,7 +272,7 @@ fn Features() -> impl IntoView {
         (
             "💬",
             "Any Chat App",
-            "Talk to it on Telegram, Discord, Slack, or WhatsApp. Works in DMs and group chats. Or just use the TUI.",
+            "Talk to it on Telegram, Discord, Slack, WhatsApp, or Trello. Works in DMs and group chats. Or just use the TUI.",
         ),
         (
             "🧠",
@@ -282,7 +282,7 @@ fn Features() -> impl IntoView {
         (
             "⚡",
             "40+ Built-in Tools",
-            "File ops, bash, web search, code execution, image gen, document parsing. No plugins needed for the basics.",
+            "File ops, bash, web search, code execution, image gen, document parsing, local voice STT & TTS. No plugins needed.",
         ),
         (
             ">_",
@@ -321,7 +321,7 @@ fn Features() -> impl IntoView {
 
 #[component]
 fn Integrations() -> impl IntoView {
-    let channels = vec!["📱 Telegram", "💬 Discord", "🔔 Slack", "📞 WhatsApp"];
+    let channels = vec!["📱 Telegram", "💬 Discord", "🔔 Slack", "📞 WhatsApp", "📋 Trello"];
     let providers = vec![
         "🤖 Anthropic",
         "🧠 OpenAI",
@@ -332,11 +332,11 @@ fn Integrations() -> impl IntoView {
     ];
     let tools = vec![
         "🐙 GitHub",
-        "📋 Trello",
         "📧 Gmail",
         "📅 Calendar",
         "🐦 Twitter",
         "🔍 Brave Search",
+        "🎙️ Local STT/TTS",
     ];
 
     view! {

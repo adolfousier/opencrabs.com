@@ -60,7 +60,7 @@ src/
 | Crate | Purpose |
 |-------|---------|
 | `ratatui` + `crossterm` | Terminal UI rendering and input |
-| `sqlx` (SQLite) | Database with compile-time checked queries |
+| `rusqlite` + `deadpool-sqlite` | SQLite database with connection pooling |
 | `reqwest` | HTTP client for LLM APIs |
 | `axum` + `tower-http` | A2A HTTP gateway |
 | `crabrace` | Provider registry and routing |
@@ -68,6 +68,8 @@ src/
 | `serenity` | Discord gateway |
 | `slack-morphism` | Slack API |
 | `qmd` + `llama-cpp-2` | Memory search (FTS5 + embeddings) |
+| `whisper-rs` | Local STT via whisper.cpp |
+| `piper` (Python venv) | Local TTS with OGG/Opus encoding |
 | `syntect` | Syntax highlighting in TUI |
 | `tiktoken-rs` | Token counting |
 
