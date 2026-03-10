@@ -54,7 +54,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-1828832a.js";
+            window.path_to_searchindex_js = "../searchindex-3f3d234a.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-bffe8afd.js"></script>
@@ -245,13 +245,14 @@ chmod +x /path/to/opencrabs
 <tbody>
 <tr><td>Local embeddings (memory search)</td><td>AVX (Sandy Bridge 2011+)</td><td>FTS-only keyword search (still works)</td></tr>
 <tr><td>Local STT (rwhisper/candle)</td><td>AVX2 (Haswell 2013+)</td><td>API mode (Groq Whisper) or disabled</td></tr>
-<tr><td>Local TTS (Piper)</td><td>None</td><td>Works on any CPU</td></tr>
+<tr><td>Local TTS (Piper)</td><td>None — tested on 2007 iMac</td><td>Works on any x86/ARM CPU</td></tr>
 </tbody>
 </table>
 </div>
 <h3 id="symptoms"><a class="header" href="#symptoms">Symptoms</a></h3>
 <ul>
-<li>Local STT/TTS options don’t appear in <code>/onboard:voice</code> — your CPU doesn’t support them</li>
+<li>Local STT option doesn’t appear in <code>/onboard:voice</code> — your CPU lacks AVX2</li>
+<li>Local TTS (Piper) should always be available — no CPU restrictions, works on machines as old as 2007</li>
 <li>Memory search falls back to text-only FTS silently</li>
 <li>Crash with “illegal instruction” on very old CPUs</li>
 </ul>

@@ -69,11 +69,12 @@ Some features require AVX/AVX2 instructions. Since v0.2.67, OpenCrabs **detects 
 |---------|----------------|----------|
 | Local embeddings (memory search) | AVX (Sandy Bridge 2011+) | FTS-only keyword search (still works) |
 | Local STT (rwhisper/candle) | AVX2 (Haswell 2013+) | API mode (Groq Whisper) or disabled |
-| Local TTS (Piper) | None | Works on any CPU |
+| Local TTS (Piper) | None — tested on 2007 iMac | Works on any x86/ARM CPU |
 
 ### Symptoms
 
-- Local STT/TTS options don't appear in `/onboard:voice` — your CPU doesn't support them
+- Local STT option doesn't appear in `/onboard:voice` — your CPU lacks AVX2
+- Local TTS (Piper) should always be available — no CPU restrictions, works on machines as old as 2007
 - Memory search falls back to text-only FTS silently
 - Crash with "illegal instruction" on very old CPUs
 

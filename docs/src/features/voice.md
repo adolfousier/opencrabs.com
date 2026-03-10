@@ -120,6 +120,16 @@ When a voice message arrives on Telegram, WhatsApp, Discord, or Slack:
 
 Local mode handles everything on-device — no API calls, no cost, no data leaves your machine.
 
+## Hardware Requirements
+
+| Feature | CPU Requirement | Notes |
+|---------|----------------|-------|
+| Local STT (rwhisper) | AVX2 (Haswell 2013+) | Metal GPU on macOS Apple Silicon |
+| Local TTS (Piper) | No restrictions | Tested on 2007 iMac — works on any x86/ARM |
+| Local embeddings | AVX (Sandy Bridge 2011+) | Falls back to FTS-only search |
+
+OpenCrabs detects CPU capabilities at runtime and hides unavailable options in the onboarding wizard. Local TTS (Piper) has no CPU limitations and should work on virtually any machine.
+
 ## Building Without Voice
 
 Voice features are enabled by default. To build without them (smaller binary):

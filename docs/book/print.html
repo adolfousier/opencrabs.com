@@ -55,7 +55,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-1828832a.js";
+            window.path_to_searchindex_js = "searchindex-3f3d234a.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-bffe8afd.js"></script>
@@ -548,13 +548,14 @@ chmod +x /path/to/opencrabs
 <tbody>
 <tr><td>Local embeddings (memory search)</td><td>AVX (Sandy Bridge 2011+)</td><td>FTS-only keyword search (still works)</td></tr>
 <tr><td>Local STT (rwhisper/candle)</td><td>AVX2 (Haswell 2013+)</td><td>API mode (Groq Whisper) or disabled</td></tr>
-<tr><td>Local TTS (Piper)</td><td>None</td><td>Works on any CPU</td></tr>
+<tr><td>Local TTS (Piper)</td><td>None — tested on 2007 iMac</td><td>Works on any x86/ARM CPU</td></tr>
 </tbody>
 </table>
 </div>
 <h3 id="symptoms"><a class="header" href="#symptoms">Symptoms</a></h3>
 <ul>
-<li>Local STT/TTS options don’t appear in <code>/onboard:voice</code> — your CPU doesn’t support them</li>
+<li>Local STT option doesn’t appear in <code>/onboard:voice</code> — your CPU lacks AVX2</li>
+<li>Local TTS (Piper) should always be available — no CPU restrictions, works on machines as old as 2007</li>
 <li>Memory search falls back to text-only FTS silently</li>
 <li>Crash with “illegal instruction” on very old CPUs</li>
 </ul>
@@ -1908,6 +1909,20 @@ local_tts_voice = "ryan"        # Local mode: Piper voice
 <li>Audio is encoded as OGG/Opus and sent back as a voice message</li>
 </ol>
 <p>Local mode handles everything on-device — no API calls, no cost, no data leaves your machine.</p>
+<h2 id="hardware-requirements"><a class="header" href="#hardware-requirements">Hardware Requirements</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Feature</th><th>CPU Requirement</th><th>Notes</th></tr>
+</thead>
+<tbody>
+<tr><td>Local STT (rwhisper)</td><td>AVX2 (Haswell 2013+)</td><td>Metal GPU on macOS Apple Silicon</td></tr>
+<tr><td>Local TTS (Piper)</td><td>No restrictions</td><td>Tested on 2007 iMac — works on any x86/ARM</td></tr>
+<tr><td>Local embeddings</td><td>AVX (Sandy Bridge 2011+)</td><td>Falls back to FTS-only search</td></tr>
+</tbody>
+</table>
+</div>
+<p>OpenCrabs detects CPU capabilities at runtime and hides unavailable options in the onboarding wizard. Local TTS (Piper) has no CPU limitations and should work on virtually any machine.</p>
 <h2 id="building-without-voice"><a class="header" href="#building-without-voice">Building Without Voice</a></h2>
 <p>Voice features are enabled by default. To build without them (smaller binary):</p>
 <pre><code class="language-bash">cargo build --release --no-default-features --features telegram,whatsapp,discord,slack,trello
