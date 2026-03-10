@@ -375,9 +375,9 @@ fn Integrations() -> impl IntoView {
 fn Testimonials() -> impl IntoView {
     let quotes: Vec<(&str, &str, &str)> = vec![
         (
-            "One thing Crabs does better — when I change config and send messages while restarting, it always picks up and replies as soon as it wakes up. Hot reload at runtime. Other agents just hang and leave you waiting forever.",
-            "@adolfousier",
-            "",
+            "You just handed the Rust nay sayers the least objectionable way possible to start playing with agents.",
+            "@mariodian",
+            "https://x.com/mariodian/status/2031201714376945686",
         ),
         (
             "Local STT + TTS in ~135MB is impressive. Feels like the voice layer for local agents is getting a lot more practical.",
