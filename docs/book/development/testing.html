@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Plans - OpenCrabs</title>
+        <title>Testing - OpenCrabs</title>
 
 
         <!-- Custom HTML head -->
@@ -196,66 +196,189 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="plans"><a class="header" href="#plans">Plans</a></h1>
-<p>Plans provide structured multi-step task execution with a live progress widget in the TUI.</p>
-<h2 id="creating-a-plan"><a class="header" href="#creating-a-plan">Creating a Plan</a></h2>
-<p>Ask the agent to plan a complex task:</p>
-<pre><code>"Plan the migration from PostgreSQL to SQLite"
+                        <h1 id="testing-guide"><a class="header" href="#testing-guide">Testing Guide</a></h1>
+<p>Comprehensive test coverage for OpenCrabs. All tests run with:</p>
+<pre><code class="language-bash">cargo test --all-features
 </code></pre>
-<p>The agent uses the <code>plan</code> tool internally to create a plan with:</p>
+<h2 id="quick-reference"><a class="header" href="#quick-reference">Quick Reference</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Category</th><th style="text-align: right">Tests</th><th>Location</th></tr>
+</thead>
+<tbody>
+<tr><td>CLI Parsing</td><td style="text-align: right">28</td><td><code>src/tests/cli_test.rs</code></td></tr>
+<tr><td>Cron Jobs &amp; Scheduling</td><td style="text-align: right">45</td><td><code>src/tests/cron_test.rs</code></td></tr>
+<tr><td>Channel Search</td><td style="text-align: right">23</td><td><code>src/tests/channel_search_test.rs</code></td></tr>
+<tr><td>Voice STT Dispatch</td><td style="text-align: right">22</td><td><code>src/tests/voice_stt_dispatch_test.rs</code></td></tr>
+<tr><td>Voice Onboarding</td><td style="text-align: right">48</td><td><code>src/tests/voice_onboarding_test.rs</code></td></tr>
+<tr><td>Local Whisper (inline)</td><td style="text-align: right">25</td><td><code>src/channels/voice/local_whisper.rs</code></td></tr>
+<tr><td>Candle Whisper</td><td style="text-align: right">6</td><td><code>src/tests/candle_whisper_test.rs</code></td></tr>
+<tr><td>Evolve (Self-Update)</td><td style="text-align: right">12</td><td><code>src/tests/evolve_test.rs</code></td></tr>
+<tr><td>Session &amp; Working Dir</td><td style="text-align: right">12</td><td><code>src/tests/session_working_dir_test.rs</code></td></tr>
+<tr><td>Message Compaction</td><td style="text-align: right">14</td><td><code>src/tests/compaction_test.rs</code></td></tr>
+<tr><td>Fallback Vision</td><td style="text-align: right">17</td><td><code>src/tests/fallback_vision_test.rs</code></td></tr>
+<tr><td>Onboarding Keys</td><td style="text-align: right">4</td><td><code>src/tests/onboarding_keys_test.rs</code></td></tr>
+<tr><td><strong>Total</strong></td><td style="text-align: right"><strong>256+</strong></td><td></td></tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="test-modules"><a class="header" href="#test-modules">Test Modules</a></h2>
+<h3 id="cli-parsing-srctestscli_testrs"><a class="header" href="#cli-parsing-srctestscli_testrs">CLI Parsing (<code>src/tests/cli_test.rs</code>)</a></h3>
+<p>Validates argument parsing for all CLI commands and flags.</p>
 <ul>
-<li>Title and description</li>
-<li>Technical stack</li>
-<li>Risk assessment</li>
-<li>Test strategy</li>
-<li>Ordered tasks with dependencies and complexity ratings</li>
+<li><code>chat</code>, <code>run</code>, <code>init</code>, <code>config</code>, <code>db</code>, <code>daemon</code> subcommands</li>
+<li>Flag combinations: <code>--debug</code>, <code>--config</code>, <code>--format</code>, <code>--auto-approve</code></li>
+<li>Error cases: invalid format, missing prompt, invalid subcommand</li>
 </ul>
-<h2 id="plan-lifecycle"><a class="header" href="#plan-lifecycle">Plan Lifecycle</a></h2>
-<ol>
-<li><strong>Draft</strong> — Agent creates the plan and adds tasks</li>
-<li><strong>Finalize</strong> — Agent calls <code>finalize</code> which triggers the tool approval dialog</li>
-<li><strong>Approved</strong> — You approve in the tool dialog, plan status becomes <code>Approved</code>, and the agent begins executing tasks immediately</li>
-<li><strong>In Progress</strong> — Tasks execute in dependency order</li>
-<li><strong>Completed</strong> — All tasks done</li>
-</ol>
-<p>In <strong>ask mode</strong> (default), the <code>finalize</code> step triggers the tool approval dialog — you review the full plan before execution begins. In <strong>auto-approve mode</strong>, finalize is auto-approved and the agent plans and executes without pausing.</p>
-<h2 id="task-states"><a class="header" href="#task-states">Task States</a></h2>
-<p>Each task in a plan can be:</p>
+<h3 id="cron-jobs--scheduling-srctestscron_testrs"><a class="header" href="#cron-jobs--scheduling-srctestscron_testrs">Cron Jobs &amp; Scheduling (<code>src/tests/cron_test.rs</code>)</a></h3>
+<p>Full coverage of the cron job system across 4 test modules.</p>
+<p><strong>CLI parsing</strong> (15 tests) — <code>/cron add</code>, <code>/cron list</code>, <code>/cron remove</code>, <code>/cron enable/disable</code>, missing/invalid args</p>
+<p><strong>Database</strong> (9 async tests) — insert, find by ID/name, list all/enabled, delete, set enabled, update last run, full field round-trip</p>
+<p><strong>Cron expressions</strong> (3 tests) — valid/invalid expression validation, next-run calculation</p>
+<p><strong>Service</strong> (15 async tests) — create/list, missing fields, invalid cron, duplicate names, enable/disable, approval requirements, deliver-to routing, due-time calculation</p>
+<p><strong>Session tracking</strong> (4 tests) — follows user to current session, fallback to initial session, shared session ID updates</p>
+<h3 id="channel-search-srctestschannel_search_testrs"><a class="header" href="#channel-search-srctestschannel_search_testrs">Channel Search (<code>src/tests/channel_search_test.rs</code>)</a></h3>
+<p>Tests the channel message search repository and tool.</p>
+<p><strong>Repository</strong> (11 async tests) — insert/recent, limit, channel filter, content search, cross-chat search, list chats, duplicate handling, field round-trip</p>
+<p><strong>Tool</strong> (12 async tests) — list chats (empty/with data/filtered), recent messages (requires chat_id, returns messages, empty, n-limit), search (requires query, finds messages, channel filter, no match, unknown operation)</p>
+<h3 id="voice-stt-dispatch-srctestsvoice_stt_dispatch_testrs"><a class="header" href="#voice-stt-dispatch-srctestsvoice_stt_dispatch_testrs">Voice STT Dispatch (<code>src/tests/voice_stt_dispatch_test.rs</code>)</a></h3>
+<p>Tests STT routing logic, audio decoding, and codec support.</p>
+<p><strong>Dispatch routing</strong> (5 async tests)</p>
 <ul>
-<li><code>Pending</code> (·) — Waiting for dependencies</li>
-<li><code>InProgress</code> (▶) — Currently executing</li>
-<li><code>Completed</code> (✓) — Done</li>
-<li><code>Skipped</code> (✓) — Manually skipped</li>
-<li><code>Failed</code> (✗) — Execution failed</li>
-<li><code>Blocked</code> (·) — Dependencies not met</li>
+<li>API mode: requires key, empty key fails, provider-no-key fails</li>
+<li>Local mode: unknown model fails, model-not-downloaded fails (feature-gated)</li>
 </ul>
-<h2 id="tui-plan-widget"><a class="header" href="#tui-plan-widget">TUI Plan Widget</a></h2>
-<p>When a plan is active, a live checklist panel appears above the input box showing:</p>
+<p><strong>VoiceConfig</strong> (3 tests) — default is API mode, local STT from providers TOML, empty config defaults</p>
+<p><strong>Audio decoding</strong> (4 tests, <code>local-stt</code> feature) — empty bytes fails, WAV magic detection, WAV sine generation + decode, resampler identity</p>
+<p><strong>Codec support</strong> (3 tests, <code>local-stt</code> feature) — Opus decoder registration, symphonia OGG probe, model preset validation</p>
+<p><strong>API mock</strong> (3 async tests) — Groq dispatch, mode selection routing, local whisper dispatch</p>
+<p><strong>Quick-jump</strong> (3 tests) — quick-jump done triggers flag, Esc returns cancel, non-quick-jump advances step</p>
+<h3 id="voice-onboarding-srctestsvoice_onboarding_testrs"><a class="header" href="#voice-onboarding-srctestsvoice_onboarding_testrs">Voice Onboarding (<code>src/tests/voice_onboarding_test.rs</code>)</a></h3>
+<p>Tests the voice setup wizard step: STT/TTS mode selection, key input, model picker, navigation, config persistence, availability-gated cycling.</p>
+<p><strong>STT mode selection</strong> (6 tests) — starts on SttModeSelect, cycles Up/Down, Off/API/Local Tab targets, Enter same as Tab</p>
+<p><strong>Groq API key</strong> (4 tests) — typing appends, backspace removes, Tab/BackTab navigation</p>
+<p><strong>Local model selection</strong> (5 tests) — Tab/BackTab navigation, Enter triggers download or advances, Enter during download is no-op</p>
+<p><strong>TTS mode selection</strong> (7 tests) — cycles Up/Down, tts_enabled flag, Off/API enter advances, Local enter goes to voice picker, BackTab targets</p>
+<p><strong>TTS local voice</strong> (5 tests) — BackTab to TTS mode, Tab advances step, Enter triggers download, Enter during download is no-op, Up/Down cycles voices</p>
+<p><strong>Capability detection</strong> (3 tests)</p>
 <ul>
-<li><strong>Plan title</strong> and progress counter (e.g. <code>3/7</code>)</li>
-<li><strong>Progress bar</strong> — Visual <code>██████░░░░</code> bar with percentage</li>
-<li><strong>Task list</strong> — Up to 6 tasks visible with status icons and task numbers</li>
-<li><strong>Overflow indicator</strong> — <code>... (N more)</code> when tasks exceed the visible limit</li>
+<li><code>local_stt_available</code> matches compile-time feature flag</li>
+<li><code>local_tts_available</code> matches feature + python3 probe</li>
+<li><code>local_tts_available</code> is cached via OnceLock</li>
 </ul>
-<p>The widget updates in real-time as the agent completes each task.</p>
-<h2 id="managing-plans"><a class="header" href="#managing-plans">Managing Plans</a></h2>
-<p>Plans are managed through natural language:</p>
-<pre><code>"Approve the plan"
-"Reject the plan"
-"What's the plan status?"
-"Skip task 3"
+<p><strong>Availability-gated cycling</strong> (5 tests)</p>
+<ul>
+<li>STT cycles to Local when <code>local-stt</code> feature enabled</li>
+<li>STT Up from Off goes to Local when available</li>
+<li>TTS cycles to Local when <code>local-tts</code> + python3 available</li>
+<li>TTS skips Local when unavailable</li>
+<li>STT skips Local when unavailable</li>
+</ul>
+<p><strong>Wizard reset</strong> (2 tests)</p>
+<ul>
+<li><code>from_config</code> resets saved Local STT to Off when unavailable</li>
+<li><code>from_config</code> resets saved Local TTS to Off when unavailable</li>
+</ul>
+<p><strong>Config persistence</strong> (4 tests) — SttMode/TtsMode serde round-trip, TuiEvent variants</p>
+<p><strong>Navigation flow</strong> (4 tests) — full API flow, Channels-&gt;Voice-&gt;Image step transitions</p>
+<p><strong>Rendering smoke tests</strong> (5 tests) — produces lines, API mode shows Groq field, Local mode shows model selector, TTS section, voice list</p>
+<h3 id="local-whisper-inline-tests-srcchannelsvoicelocal_whisperrs"><a class="header" href="#local-whisper-inline-tests-srcchannelsvoicelocal_whisperrs">Local Whisper Inline Tests (<code>src/channels/voice/local_whisper.rs</code>)</a></h3>
+<p>Unit tests co-located with the local STT engine (gated behind <code>local-stt</code> feature).</p>
+<p><strong>Transcript cleaning</strong> (3 tests) — whitespace collapse, newlines/tabs, empty input</p>
+<p><strong>PcmSource (rodio::Source)</strong> (4 tests) — iterates all samples, empty source, channels/sample_rate/duration metadata, frame_len decreases</p>
+<p><strong>Whisper source parsing</strong> (2 tests) — all presets parse successfully, unknown source fails</p>
+<p><strong>Model management</strong> (3 tests) — <code>is_model_downloaded</code> always true (rwhisper auto-downloads), unique preset IDs, model path under opencrabs dir</p>
+<p><strong>Audio decoding</strong> (4 tests) — empty bytes fails, garbage bytes fails, WAV sine decode, stereo-to-mono mixdown</p>
+<p><strong>Resampling</strong> (2 tests) — 48kHz to 16kHz ratio, resampled audio is non-silent</p>
+<p><strong>Audio sanitization</strong> (4 tests) — NaN/Inf scrubbing, short audio padded to 16000 samples, at-minimum not padded, above-minimum not padded</p>
+<p><strong>Download progress</strong> (2 tests) — done state, error state</p>
+<p><strong>Preset validation</strong> (1 test) — default preset is QuantizedTiny (multilingual)</p>
+<h3 id="candle-whisper-srctestscandle_whisper_testrs"><a class="header" href="#candle-whisper-srctestscandle_whisper_testrs">Candle Whisper (<code>src/tests/candle_whisper_test.rs</code>)</a></h3>
+<p>Validates mel filterbank computation and model presets for the rwhisper integration.</p>
+<ul>
+<li>Mel filters: correct shape (80 and 128 bins), non-zero values, no NaN/Inf/negative</li>
+<li>Model presets: required fields, find by ID</li>
+</ul>
+<h3 id="evolve--self-update-srctestsevolve_testrs"><a class="header" href="#evolve--self-update-srctestsevolve_testrs">Evolve / Self-Update (<code>src/tests/evolve_test.rs</code>)</a></h3>
+<p>Tests version comparison and asset naming for the self-update system.</p>
+<p><strong>Version comparison</strong> (7 tests) — major/minor/patch bumps, equal returns false, older returns false, different semver lengths, non-numeric segments</p>
+<p><strong>Asset naming</strong> (3 tests) — single binary format (<code>opencrabs-v{tag}-{platform}.tar.gz</code>), Windows <code>.zip</code>, legacy fallback without version</p>
+<p><strong>Binary identity</strong> (1 test) — binary name is always <code>opencrabs</code></p>
+<p><strong>Platform support</strong> (1 test) — current platform has a recognized suffix</p>
+<h3 id="session--working-directory-srctestssession_working_dir_testrs"><a class="header" href="#session--working-directory-srctestssession_working_dir_testrs">Session &amp; Working Directory (<code>src/tests/session_working_dir_test.rs</code>)</a></h3>
+<p><strong>Working directory</strong> (4 async tests) — new session has no dir, update persists, default has no dir, multiple sessions have independent dirs</p>
+<p><strong>Update checker</strong> (8 tests) — newer patch/minor/major, same version, older version, two-segment versions</p>
+<h3 id="message-compaction-srctestscompaction_testrs"><a class="header" href="#message-compaction-srctestscompaction_testrs">Message Compaction (<code>src/tests/compaction_test.rs</code>)</a></h3>
+<p><strong>Snapshot formatting</strong> (14 tests) — empty messages, user/assistant text, system messages, tool use/result blocks, image blocks, long text truncation at 500 chars</p>
+<h3 id="fallback-vision-srctestsfallback_vision_testrs"><a class="header" href="#fallback-vision-srctestsfallback_vision_testrs">Fallback Vision (<code>src/tests/fallback_vision_test.rs</code>)</a></h3>
+<p><strong>Fallback chain</strong> (9+ tests) — empty config, legacy single provider, providers array, array+legacy dedup, TOML deserialization variants</p>
+<h3 id="onboarding-keys-srctestsonboarding_keys_testrs"><a class="header" href="#onboarding-keys-srctestsonboarding_keys_testrs">Onboarding Keys (<code>src/tests/onboarding_keys_test.rs</code>)</a></h3>
+<ul>
+<li>Provider count matches constants</li>
+<li>Custom provider detection</li>
+<li>All providers use api_key_input</li>
+<li>keys.toml has all provider sections</li>
+</ul>
+<hr>
+<h2 id="feature-gated-tests"><a class="header" href="#feature-gated-tests">Feature-Gated Tests</a></h2>
+<p>Some tests only compile/run with specific feature flags:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Feature</th><th>Tests</th></tr>
+</thead>
+<tbody>
+<tr><td><code>local-stt</code></td><td>Local whisper inline tests, candle whisper tests, STT dispatch local-mode tests, codec tests, availability cycling tests</td></tr>
+<tr><td><code>local-tts</code></td><td>TTS voice cycling, Piper voice Up/Down</td></tr>
+</tbody>
+</table>
+</div>
+<p>All feature-gated tests use <code>#[cfg(feature = "...")]</code> and are automatically included when running with <code>--all-features</code>.</p>
+<hr>
+<h2 id="running-tests"><a class="header" href="#running-tests">Running Tests</a></h2>
+<pre><code class="language-bash"># Run all tests (recommended)
+cargo test --all-features
+
+# Run a specific test module
+cargo test --all-features -- voice_onboarding_test
+
+# Run a single test
+cargo test --all-features -- is_newer_major_bump
+
+# Run with output (for debugging)
+cargo test --all-features -- --nocapture
+
+# Run only local-stt tests
+cargo test --features local-stt -- local_whisper
 </code></pre>
-<p>The agent handles plan creation, approval, execution, and status reporting through the <code>plan</code> tool.</p>
+<hr>
+<h2 id="disabled-test-modules"><a class="header" href="#disabled-test-modules">Disabled Test Modules</a></h2>
+<p>These modules exist but are commented out in <code>src/tests/mod.rs</code> (require network or external services):</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Module</th><th>Reason</th></tr>
+</thead>
+<tbody>
+<tr><td><code>error_scenarios_test</code></td><td>Requires mock API server</td></tr>
+<tr><td><code>integration_test</code></td><td>End-to-end with LLM provider</td></tr>
+<tr><td><code>plan_mode_integration_test</code></td><td>End-to-end plan workflow</td></tr>
+<tr><td><code>streaming_test</code></td><td>Requires streaming API endpoint</td></tr>
+</tbody>
+</table>
+</div>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../features/cron-jobs.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../development/architecture.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="../features/a2a.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../development/contributing.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -265,11 +388,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../features/cron-jobs.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../development/architecture.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="../features/a2a.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../development/contributing.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>

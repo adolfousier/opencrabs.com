@@ -8,6 +8,7 @@
 - [Configuration](./getting-started/configuration.md)
 - [First Session](./getting-started/first-session.md)
 - [CLI Commands](./getting-started/cli-commands.md)
+- [Troubleshooting](./getting-started/troubleshooting.md)
 
 # AI Providers
 
@@ -42,6 +43,7 @@
 
 - [Building from Source](./development/building.md)
 - [Architecture](./development/architecture.md)
+- [Testing](./development/testing.md)
 - [Contributing](./development/contributing.md)
 - [Security](./development/security.md)
 

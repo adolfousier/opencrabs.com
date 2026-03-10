@@ -55,10 +55,10 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-8608bf97.js";
+            window.path_to_searchindex_js = "searchindex-1828832a.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-076bab17.js"></script>
+        <script src="toc-bffe8afd.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -499,6 +499,281 @@ opencrabs cron disable "Daily Report"
 </table>
 </div>
 <div style="break-before: page; page-break-before: always;"></div>
+<h1 id="troubleshooting"><a class="header" href="#troubleshooting">Troubleshooting</a></h1>
+<p>Common issues and how to fix them.</p>
+<h2 id="binary-wont-start-or-crashes"><a class="header" href="#binary-wont-start-or-crashes">Binary Won’t Start or Crashes</a></h2>
+<h3 id="startup-errors"><a class="header" href="#startup-errors">Startup Errors</a></h3>
+<p>Run with debug logging to see what’s failing:</p>
+<pre><code class="language-bash">opencrabs -d chat
+</code></pre>
+<p>Logs are written to <code>~/.opencrabs/logs/</code>.</p>
+<h3 id="download-a-previous-version"><a class="header" href="#download-a-previous-version">Download a Previous Version</a></h3>
+<p>If the latest release crashes on your machine, download a previous working version from <a href="https://github.com/adolfousier/opencrabs/releases">GitHub Releases</a>:</p>
+<pre><code class="language-bash"># List all releases
+gh release list -R adolfousier/opencrabs
+
+# Download a specific version
+gh release download v0.2.66 -R adolfousier/opencrabs -p "opencrabs-*$(uname -m)*$(uname -s | tr A-Z a-z)*"
+</code></pre>
+<hr>
+<h2 id="evolve--update--rollback"><a class="header" href="#evolve--update--rollback">/evolve — Update &amp; Rollback</a></h2>
+<p><code>/evolve</code> downloads the latest release from GitHub and hot-swaps the binary. It has built-in safety checks:</p>
+<ol>
+<li><strong>Download</strong> — Fetches the platform-specific binary from GitHub Releases</li>
+<li><strong>Pre-swap health check</strong> — Runs <code>opencrabs health-check</code> on the new binary (10s timeout). If it fails, the new binary is deleted and your current version stays untouched.</li>
+<li><strong>Backup</strong> — Creates a backup at <code>&lt;binary-path&gt;.evolve_backup</code></li>
+<li><strong>Atomic swap</strong> — Replaces the current binary</li>
+<li><strong>Post-swap health check</strong> — Verifies the swapped binary works. If it fails, <strong>auto-rolls back</strong> to the backup.</li>
+<li><strong>Restart</strong> — exec()-restarts into the new version</li>
+</ol>
+<h3 id="if-evolve-fails"><a class="header" href="#if-evolve-fails">If /evolve Fails</a></h3>
+<p>The most common reason is the health check caught an issue — your current version stays safe. If something went wrong after the swap:</p>
+<pre><code class="language-bash"># Restore the backup manually
+cp /path/to/opencrabs.evolve_backup /path/to/opencrabs
+chmod +x /path/to/opencrabs
+</code></pre>
+<h3 id="check-only-mode"><a class="header" href="#check-only-mode">Check-Only Mode</a></h3>
+<p>The agent can check for updates without installing:</p>
+<pre><code>/evolve check_only=true
+</code></pre>
+<hr>
+<h2 id="older-cpus-pre-2011--no-avx"><a class="header" href="#older-cpus-pre-2011--no-avx">Older CPUs (Pre-2011 / No AVX)</a></h2>
+<p>Some features require AVX/AVX2 instructions. Since v0.2.67, OpenCrabs <strong>detects CPU capabilities at runtime</strong> and automatically hides unavailable options in the onboarding wizard.</p>
+<h3 id="whats-affected"><a class="header" href="#whats-affected">What’s Affected</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Feature</th><th>CPU Requirement</th><th>Fallback</th></tr>
+</thead>
+<tbody>
+<tr><td>Local embeddings (memory search)</td><td>AVX (Sandy Bridge 2011+)</td><td>FTS-only keyword search (still works)</td></tr>
+<tr><td>Local STT (rwhisper/candle)</td><td>AVX2 (Haswell 2013+)</td><td>API mode (Groq Whisper) or disabled</td></tr>
+<tr><td>Local TTS (Piper)</td><td>None</td><td>Works on any CPU</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="symptoms"><a class="header" href="#symptoms">Symptoms</a></h3>
+<ul>
+<li>Local STT/TTS options don’t appear in <code>/onboard:voice</code> — your CPU doesn’t support them</li>
+<li>Memory search falls back to text-only FTS silently</li>
+<li>Crash with “illegal instruction” on very old CPUs</li>
+</ul>
+<h3 id="fix-build-from-source-with-cpu-targeting"><a class="header" href="#fix-build-from-source-with-cpu-targeting">Fix: Build from Source with CPU Targeting</a></h3>
+<pre><code class="language-bash"># For your specific CPU (best performance)
+RUSTFLAGS="-C target-cpu=native" cargo build --release
+
+# For Sandy Bridge (AVX but no AVX2)
+RUSTFLAGS="-C target-cpu=sandybridge" cargo build --release
+</code></pre>
+<h3 id="macos-with-apple-silicon"><a class="header" href="#macos-with-apple-silicon">macOS with Apple Silicon</a></h3>
+<p>Local STT uses <strong>Metal GPU acceleration</strong> on macOS — no CPU flags needed. Works out of the box on M1/M2/M3/M4.</p>
+<hr>
+<h2 id="config-issues"><a class="header" href="#config-issues">Config Issues</a></h2>
+<h3 id="config-wont-load"><a class="header" href="#config-wont-load">Config Won’t Load</a></h3>
+<p>If <code>config.toml</code> has a syntax error, OpenCrabs will fail to start. Restore from backup:</p>
+<pre><code class="language-bash"># Check if a backup exists
+ls ~/.opencrabs/config.toml.backup
+
+# Restore it
+cp ~/.opencrabs/config.toml.backup ~/.opencrabs/config.toml
+</code></pre>
+<p>Or reinitialize with defaults:</p>
+<pre><code class="language-bash">opencrabs init --force
+</code></pre>
+<blockquote>
+<p><strong>Warning:</strong> <code>--force</code> overwrites your config. Back up <code>keys.toml</code> first — it contains your API keys.</p>
+</blockquote>
+<h3 id="manual-backup"><a class="header" href="#manual-backup">Manual Backup</a></h3>
+<p>Always keep a backup of your critical files:</p>
+<pre><code class="language-bash">cp ~/.opencrabs/config.toml ~/.opencrabs/config.toml.backup
+cp ~/.opencrabs/keys.toml ~/.opencrabs/keys.toml.backup
+cp ~/.opencrabs/commands.toml ~/.opencrabs/commands.toml.backup
+</code></pre>
+<hr>
+<h2 id="channel-issues"><a class="header" href="#channel-issues">Channel Issues</a></h2>
+<h3 id="telegram"><a class="header" href="#telegram">Telegram</a></h3>
+<p><strong>Bot not responding:</strong></p>
+<ol>
+<li>Verify token from @BotFather is in <code>keys.toml</code></li>
+<li>Check your numeric user ID is in <code>allowed_users</code></li>
+<li>If <code>respond_to = "mention"</code>, you must @mention the bot in groups</li>
+</ol>
+<p><strong>Regenerate bot token:</strong></p>
+<ol>
+<li>Open @BotFather on Telegram</li>
+<li><code>/mybots</code> → select bot → API Token → Revoke</li>
+<li>Copy new token to <code>keys.toml</code> under <code>[channels.telegram]</code></li>
+<li>Restart OpenCrabs</li>
+</ol>
+<p><strong>Re-setup from scratch:</strong> Run <code>/onboard:channels</code> in the TUI.</p>
+<h3 id="whatsapp"><a class="header" href="#whatsapp">WhatsApp</a></h3>
+<p><strong>QR code / session expired:</strong></p>
+<p>WhatsApp sessions are stored at <code>~/.opencrabs/whatsapp/session.db</code>. To reconnect:</p>
+<pre><code class="language-bash"># Delete the session file
+rm ~/.opencrabs/whatsapp/session.db
+
+# Re-pair via onboarding
+opencrabs chat --onboard
+</code></pre>
+<p>Or press <code>R</code> on the WhatsApp onboarding screen to reset and get a fresh QR code.</p>
+<p><strong>Messages not received:</strong></p>
+<ul>
+<li>Verify phone number is in <code>allowed_phones</code> using E.164 format: <code>"+15551234567"</code></li>
+<li>Empty <code>allowed_phones = []</code> means accept from everyone</li>
+</ul>
+<h3 id="discord"><a class="header" href="#discord">Discord</a></h3>
+<p><strong>Bot not receiving messages:</strong></p>
+<ol>
+<li>Ensure <strong>Message Content Intent</strong> is enabled in Discord Developer Portal → Bot settings</li>
+<li>Required intents: <code>gateway</code>, <code>guild_messages</code>, <code>direct_messages</code>, <code>message_content</code></li>
+<li>Use the <strong>bot token</strong> (starts with <code>MTk...</code>), not the application ID</li>
+</ol>
+<p><strong>Regenerate token:</strong> Discord Developer Portal → Bot → Regenerate Token</p>
+<h3 id="slack"><a class="header" href="#slack">Slack</a></h3>
+<p><strong>Both tokens required:</strong></p>
+<ul>
+<li><strong>Bot token</strong> (<code>xoxb-...</code>): For sending messages</li>
+<li><strong>App token</strong> (<code>xapp-...</code>): For Socket Mode (receiving events)</li>
+</ul>
+<p>Without the app token, the bot can send but not receive messages.</p>
+<p><strong>Socket Mode:</strong> Must be enabled in app settings → Features → Socket Mode → ON</p>
+<h3 id="trello"><a class="header" href="#trello">Trello</a></h3>
+<p><strong>Setup:</strong></p>
+<ol>
+<li>Get API key: <a href="https://trello.com/app-key">trello.com/app-key</a></li>
+<li>Generate token from the same page</li>
+<li>Add <code>board_ids</code> to config — the bot only monitors listed boards</li>
+<li>Set <code>poll_interval_secs &gt; 0</code> to enable polling (default 0 = disabled)</li>
+</ol>
+<h3 id="general-re-run-channel-setup"><a class="header" href="#general-re-run-channel-setup">General: Re-run Channel Setup</a></h3>
+<p>For any channel issues, re-run the onboarding wizard:</p>
+<pre><code class="language-bash">opencrabs chat --onboard
+</code></pre>
+<p>Or type <code>/onboard:channels</code> in the TUI.</p>
+<hr>
+<h2 id="local-stt-speech-to-text"><a class="header" href="#local-stt-speech-to-text">Local STT (Speech-to-Text)</a></h2>
+<p>Since v0.2.67, local STT uses <strong>rwhisper</strong> (candle, pure Rust) instead of whisper-rs/ggml. On macOS, it uses <strong>Metal GPU acceleration</strong> automatically.</p>
+<h3 id="models"><a class="header" href="#models">Models</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Model</th><th>Size</th><th>Quality</th></tr>
+</thead>
+<tbody>
+<tr><td><code>quantized-tiny</code></td><td>~42 MB</td><td>Good for short messages</td></tr>
+<tr><td><code>base-en</code></td><td>~142 MB</td><td>Better accuracy (English)</td></tr>
+<tr><td><code>small-en</code></td><td>~466 MB</td><td>High accuracy</td></tr>
+<tr><td><code>medium-en</code></td><td>~1.5 GB</td><td>Best accuracy</td></tr>
+</tbody>
+</table>
+</div>
+<p>Models download automatically from HuggingFace on first use.</p>
+<h3 id="common-issues"><a class="header" href="#common-issues">Common Issues</a></h3>
+<p><strong>Local STT option not showing in wizard:</strong> Your CPU lacks AVX2. Use API mode (Groq Whisper) instead, or build from source with <code>RUSTFLAGS="-C target-cpu=native"</code>.</p>
+<p><strong>“No audio samples decoded”:</strong> Audio file is corrupt or unsupported format. Supported: OGG/Opus, WAV.</p>
+<p><strong>Transcription hangs:</strong> Times out after 300 seconds. Try a smaller model (<code>quantized-tiny</code>).</p>
+<p><strong>Model download fails:</strong> Check network connection. Models are fetched from HuggingFace.</p>
+<p><strong>Audio too short:</strong> Messages under 1 second are automatically padded to prevent tensor errors.</p>
+<h3 id="disabling"><a class="header" href="#disabling">Disabling</a></h3>
+<pre><code class="language-toml">[voice]
+stt_enabled = false
+</code></pre>
+<hr>
+<h2 id="local-tts-text-to-speech"><a class="header" href="#local-tts-text-to-speech">Local TTS (Text-to-Speech)</a></h2>
+<h3 id="requirements"><a class="header" href="#requirements">Requirements</a></h3>
+<ul>
+<li><strong>Python 3</strong> must be installed and in PATH</li>
+<li>Piper installs automatically in a venv at <code>~/.opencrabs/models/piper/venv/</code></li>
+</ul>
+<h3 id="voices"><a class="header" href="#voices">Voices</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Voice</th><th>Description</th><th>Size</th></tr>
+</thead>
+<tbody>
+<tr><td><code>ryan</code></td><td>US Male (default)</td><td>~200-400 MB</td></tr>
+<tr><td><code>amy</code></td><td>US Female</td><td>~200-400 MB</td></tr>
+<tr><td><code>lessac</code></td><td>US Female</td><td>~200-400 MB</td></tr>
+<tr><td><code>kristin</code></td><td>US Female</td><td>~200-400 MB</td></tr>
+<tr><td><code>joe</code></td><td>US Male</td><td>~200-400 MB</td></tr>
+<tr><td><code>cori</code></td><td>UK Female</td><td>~200-400 MB</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="common-issues-1"><a class="header" href="#common-issues-1">Common Issues</a></h3>
+<p><strong>“python3 -m venv failed”:</strong> Install Python 3. On Ubuntu: <code>sudo apt install python3 python3-venv</code>. On macOS: <code>brew install python3</code>.</p>
+<p><strong>“pip install piper-tts failed”:</strong> Network issue or pip corrupted. Fix pip first:</p>
+<pre><code class="language-bash">python3 -m pip install --upgrade pip
+</code></pre>
+<p><strong>Telegram voice messages show no waveform:</strong> This was fixed in v0.2.64 — audio is now properly encoded as OGG/Opus (RFC 7845). Update to latest version.</p>
+<p><strong>Voice preview not playing:</strong> Preview uses <code>afplay</code> (macOS), <code>aplay</code> (Linux), or <code>powershell</code> (Windows). Ensure audio output is available.</p>
+<h3 id="re-setup"><a class="header" href="#re-setup">Re-setup</a></h3>
+<p>Run <code>/onboard:voice</code> in the TUI to reconfigure STT/TTS mode and re-download models.</p>
+<h3 id="disabling-1"><a class="header" href="#disabling-1">Disabling</a></h3>
+<pre><code class="language-toml">[voice]
+tts_mode = "off"
+</code></pre>
+<hr>
+<h2 id="local-embeddings-memory-search"><a class="header" href="#local-embeddings-memory-search">Local Embeddings (Memory Search)</a></h2>
+<p>The memory search engine uses a ~300 MB embedding model (llama.cpp) for semantic search. It requires <strong>AVX</strong> on x86 CPUs.</p>
+<h3 id="fallback"><a class="header" href="#fallback">Fallback</a></h3>
+<p>If embeddings can’t initialize (no AVX, download failed, disk full), memory search falls back to <strong>FTS-only</strong> (keyword matching). It still works, just less semantic.</p>
+<h3 id="fix-for-older-cpus"><a class="header" href="#fix-for-older-cpus">Fix for Older CPUs</a></h3>
+<p>Build from source with CPU targeting (see <a href="#older-cpus-pre-2011--no-avx">Older CPUs</a> above).</p>
+<h3 id="model-location"><a class="header" href="#model-location">Model Location</a></h3>
+<p>Models are stored in <code>~/.local/share/opencrabs/models/</code> (platform-specific data directory).</p>
+<hr>
+<h2 id="database-issues"><a class="header" href="#database-issues">Database Issues</a></h2>
+<h3 id="location"><a class="header" href="#location">Location</a></h3>
+<ul>
+<li><strong>Main database:</strong> <code>~/.opencrabs/opencrabs.db</code> (SQLite + WAL)</li>
+<li><strong>WhatsApp session:</strong> <code>~/.opencrabs/whatsapp/session.db</code></li>
+</ul>
+<h3 id="database-corruption"><a class="header" href="#database-corruption">Database Corruption</a></h3>
+<p>SQLite with WAL mode is very resilient, but if corruption occurs:</p>
+<pre><code class="language-bash"># Back up the corrupted file first
+cp ~/.opencrabs/opencrabs.db ~/.opencrabs/opencrabs.db.corrupt
+
+# Reinitialize (WARNING: loses all history)
+opencrabs db init
+</code></pre>
+<h3 id="migration-errors"><a class="header" href="#migration-errors">Migration Errors</a></h3>
+<p>The database automatically migrates on startup (11 migrations). If migrating from an older version with sqlx, the transition is handled automatically — no manual steps needed.</p>
+<hr>
+<h2 id="building-from-source"><a class="header" href="#building-from-source">Building from Source</a></h2>
+<h3 id="quick-setup"><a class="header" href="#quick-setup">Quick Setup</a></h3>
+<pre><code class="language-bash">curl -fsSL https://raw.githubusercontent.com/adolfousier/opencrabs/main/scripts/setup.sh | bash
+git clone https://github.com/adolfousier/opencrabs.git &amp;&amp; cd opencrabs
+cargo build --release
+</code></pre>
+<h3 id="build-without-voice-smaller-binary"><a class="header" href="#build-without-voice-smaller-binary">Build Without Voice (Smaller Binary)</a></h3>
+<pre><code class="language-bash">cargo build --release --no-default-features --features telegram,whatsapp,discord,slack,trello
+</code></pre>
+<h3 id="feature-flags-1"><a class="header" href="#feature-flags-1">Feature Flags</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Flag</th><th>Default</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>local-stt</code></td><td>On</td><td>whisper.cpp for local speech-to-text</td></tr>
+<tr><td><code>local-tts</code></td><td>On</td><td>Piper for local text-to-speech</td></tr>
+<tr><td><code>telegram</code></td><td>On</td><td>Telegram channel</td></tr>
+<tr><td><code>whatsapp</code></td><td>On</td><td>WhatsApp channel</td></tr>
+<tr><td><code>discord</code></td><td>On</td><td>Discord channel</td></tr>
+<tr><td><code>slack</code></td><td>On</td><td>Slack channel</td></tr>
+<tr><td><code>trello</code></td><td>On</td><td>Trello channel</td></tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="debug-mode"><a class="header" href="#debug-mode">Debug Mode</a></h2>
+<p>Run with <code>-d</code> for verbose logging:</p>
+<pre><code class="language-bash">opencrabs -d chat
+</code></pre>
+<p>Logs go to <code>~/.opencrabs/logs/</code> with 7-day retention.</p>
+<div style="break-before: page; page-break-before: always;"></div>
 <h1 id="ai-provider-setup"><a class="header" href="#ai-provider-setup">AI Provider Setup</a></h1>
 <p>OpenCrabs supports multiple AI providers. Configure them in <code>config.toml</code> and <code>keys.toml</code> at <code>~/.opencrabs/</code>.</p>
 <h2 id="anthropic-claude"><a class="header" href="#anthropic-claude">Anthropic Claude</a></h2>
@@ -683,11 +958,11 @@ model = "gemini-3.1-flash-image-preview"
 <tr><th>Channel</th><th>Protocol</th><th>Images In</th><th>Voice In</th><th>Image Gen Out</th><th>Setup</th></tr>
 </thead>
 <tbody>
-<tr><td><a href="#telegram">Telegram</a></td><td>Long polling</td><td>Vision pipeline</td><td>STT</td><td>Native photo</td><td>Bot token</td></tr>
-<tr><td><a href="#discord">Discord</a></td><td>WebSocket</td><td>Vision pipeline</td><td>STT</td><td>File attachment</td><td>Bot token</td></tr>
-<tr><td><a href="#slack">Slack</a></td><td>Socket Mode</td><td>Vision pipeline</td><td>STT</td><td>File upload</td><td>Bot + App token</td></tr>
-<tr><td><a href="#whatsapp">WhatsApp</a></td><td>QR pairing</td><td>Vision pipeline</td><td>STT</td><td>Native image</td><td>QR code</td></tr>
-<tr><td><a href="#trello">Trello</a></td><td>REST API</td><td>Card attachments</td><td>—</td><td>Card attachment</td><td>API key + token</td></tr>
+<tr><td><a href="#telegram-1">Telegram</a></td><td>Long polling</td><td>Vision pipeline</td><td>STT</td><td>Native photo</td><td>Bot token</td></tr>
+<tr><td><a href="#discord-1">Discord</a></td><td>WebSocket</td><td>Vision pipeline</td><td>STT</td><td>File attachment</td><td>Bot token</td></tr>
+<tr><td><a href="#slack-1">Slack</a></td><td>Socket Mode</td><td>Vision pipeline</td><td>STT</td><td>File upload</td><td>Bot + App token</td></tr>
+<tr><td><a href="#whatsapp-1">WhatsApp</a></td><td>QR pairing</td><td>Vision pipeline</td><td>STT</td><td>Native image</td><td>QR code</td></tr>
+<tr><td><a href="#trello-1">Trello</a></td><td>REST API</td><td>Card attachments</td><td>—</td><td>Card attachment</td><td>API key + token</td></tr>
 </tbody>
 </table>
 </div>
@@ -732,7 +1007,7 @@ model = "gemini-3.1-flash-image-preview"
 </table>
 </div>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="telegram"><a class="header" href="#telegram">Telegram</a></h1>
+<h1 id="telegram-1"><a class="header" href="#telegram-1">Telegram</a></h1>
 <p>Connect OpenCrabs to Telegram for DMs and group chats.</p>
 <h2 id="setup-1"><a class="header" href="#setup-1">Setup</a></h2>
 <ol>
@@ -789,7 +1064,7 @@ owner_chat_id = 123456789  # Your Telegram user ID
 <li>Tracks context from group messages passively</li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="discord"><a class="header" href="#discord">Discord</a></h1>
+<h1 id="discord-1"><a class="header" href="#discord-1">Discord</a></h1>
 <p>Connect OpenCrabs to Discord for server and DM interactions.</p>
 <h2 id="setup-2"><a class="header" href="#setup-2">Setup</a></h2>
 <ol>
@@ -827,7 +1102,7 @@ enabled = true
 <li>Wrap multiple links in <code>&lt;url&gt;</code> to suppress embeds</li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="slack"><a class="header" href="#slack">Slack</a></h1>
+<h1 id="slack-1"><a class="header" href="#slack-1">Slack</a></h1>
 <p>Connect OpenCrabs to Slack workspaces.</p>
 <h2 id="setup-3"><a class="header" href="#setup-3">Setup</a></h2>
 <ol>
@@ -860,7 +1135,7 @@ enabled = true
 <h2 id="socket-mode"><a class="header" href="#socket-mode">Socket Mode</a></h2>
 <p>Slack uses Socket Mode (WebSocket) instead of HTTP webhooks — no public URL or ngrok needed. The connection is outbound from your machine.</p>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="whatsapp"><a class="header" href="#whatsapp">WhatsApp</a></h1>
+<h1 id="whatsapp-1"><a class="header" href="#whatsapp-1">WhatsApp</a></h1>
 <p>Connect OpenCrabs to WhatsApp via QR code pairing.</p>
 <h2 id="setup-4"><a class="header" href="#setup-4">Setup</a></h2>
 <ol>
@@ -897,7 +1172,7 @@ enabled = true
 <li>Optionally generates TTS audio response</li>
 </ol>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="trello"><a class="header" href="#trello">Trello</a></h1>
+<h1 id="trello-1"><a class="header" href="#trello-1">Trello</a></h1>
 <p>OpenCrabs integrates with Trello for board and card management via the <code>trello_send</code> tool.</p>
 <h2 id="setup-5"><a class="header" href="#setup-5">Setup</a></h2>
 <ol>
@@ -1518,7 +1793,7 @@ curl http://127.0.0.1:18790/a2a/health | jq .
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="voice-tts--stt"><a class="header" href="#voice-tts--stt">Voice (TTS &amp; STT)</a></h1>
 <p>OpenCrabs supports text-to-speech and speech-to-text with three modes: <strong>Off</strong>, <strong>API</strong> (cloud), or <strong>Local</strong> (on-device, zero cost).</p>
-<h2 id="quick-setup"><a class="header" href="#quick-setup">Quick Setup</a></h2>
+<h2 id="quick-setup-1"><a class="header" href="#quick-setup-1">Quick Setup</a></h2>
 <p>Run <code>/onboard:voice</code> in the TUI to configure everything interactively — model downloads, voice previews, and API keys are all handled by the wizard.</p>
 <h2 id="speech-to-text-stt"><a class="header" href="#speech-to-text-stt">Speech-to-Text (STT)</a></h2>
 <h3 id="modes"><a class="header" href="#modes">Modes</a></h3>
@@ -1639,7 +1914,7 @@ local_tts_voice = "ryan"        # Local mode: Piper voice
 </code></pre>
 <p>Feature flags: <code>local-stt</code> (whisper.cpp), <code>local-tts</code> (Piper).</p>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="building-from-source"><a class="header" href="#building-from-source">Building from Source</a></h1>
+<h1 id="building-from-source-1"><a class="header" href="#building-from-source-1">Building from Source</a></h1>
 <h2 id="prerequisites"><a class="header" href="#prerequisites">Prerequisites</a></h2>
 <ul>
 <li><strong>Rust 1.93+</strong> (nightly not required)</li>
@@ -1662,7 +1937,7 @@ cd opencrabs
 cargo build --release
 </code></pre>
 <p>The binary is at <code>target/release/opencrabs</code>.</p>
-<h2 id="feature-flags-1"><a class="header" href="#feature-flags-1">Feature Flags</a></h2>
+<h2 id="feature-flags-2"><a class="header" href="#feature-flags-2">Feature Flags</a></h2>
 <p>OpenCrabs uses Cargo features to toggle channel support:</p>
 <div class="table-wrapper">
 <table>
@@ -1807,6 +2082,180 @@ panic = "abort"
 <li>Tool execution uses <code>tokio::task::block_in_place</code> for sync operations</li>
 <li>A2A gateway runs as a separate axum server task</li>
 </ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="testing-guide"><a class="header" href="#testing-guide">Testing Guide</a></h1>
+<p>Comprehensive test coverage for OpenCrabs. All tests run with:</p>
+<pre><code class="language-bash">cargo test --all-features
+</code></pre>
+<h2 id="quick-reference"><a class="header" href="#quick-reference">Quick Reference</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Category</th><th style="text-align: right">Tests</th><th>Location</th></tr>
+</thead>
+<tbody>
+<tr><td>CLI Parsing</td><td style="text-align: right">28</td><td><code>src/tests/cli_test.rs</code></td></tr>
+<tr><td>Cron Jobs &amp; Scheduling</td><td style="text-align: right">45</td><td><code>src/tests/cron_test.rs</code></td></tr>
+<tr><td>Channel Search</td><td style="text-align: right">23</td><td><code>src/tests/channel_search_test.rs</code></td></tr>
+<tr><td>Voice STT Dispatch</td><td style="text-align: right">22</td><td><code>src/tests/voice_stt_dispatch_test.rs</code></td></tr>
+<tr><td>Voice Onboarding</td><td style="text-align: right">48</td><td><code>src/tests/voice_onboarding_test.rs</code></td></tr>
+<tr><td>Local Whisper (inline)</td><td style="text-align: right">25</td><td><code>src/channels/voice/local_whisper.rs</code></td></tr>
+<tr><td>Candle Whisper</td><td style="text-align: right">6</td><td><code>src/tests/candle_whisper_test.rs</code></td></tr>
+<tr><td>Evolve (Self-Update)</td><td style="text-align: right">12</td><td><code>src/tests/evolve_test.rs</code></td></tr>
+<tr><td>Session &amp; Working Dir</td><td style="text-align: right">12</td><td><code>src/tests/session_working_dir_test.rs</code></td></tr>
+<tr><td>Message Compaction</td><td style="text-align: right">14</td><td><code>src/tests/compaction_test.rs</code></td></tr>
+<tr><td>Fallback Vision</td><td style="text-align: right">17</td><td><code>src/tests/fallback_vision_test.rs</code></td></tr>
+<tr><td>Onboarding Keys</td><td style="text-align: right">4</td><td><code>src/tests/onboarding_keys_test.rs</code></td></tr>
+<tr><td><strong>Total</strong></td><td style="text-align: right"><strong>256+</strong></td><td></td></tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="test-modules"><a class="header" href="#test-modules">Test Modules</a></h2>
+<h3 id="cli-parsing-srctestscli_testrs"><a class="header" href="#cli-parsing-srctestscli_testrs">CLI Parsing (<code>src/tests/cli_test.rs</code>)</a></h3>
+<p>Validates argument parsing for all CLI commands and flags.</p>
+<ul>
+<li><code>chat</code>, <code>run</code>, <code>init</code>, <code>config</code>, <code>db</code>, <code>daemon</code> subcommands</li>
+<li>Flag combinations: <code>--debug</code>, <code>--config</code>, <code>--format</code>, <code>--auto-approve</code></li>
+<li>Error cases: invalid format, missing prompt, invalid subcommand</li>
+</ul>
+<h3 id="cron-jobs--scheduling-srctestscron_testrs"><a class="header" href="#cron-jobs--scheduling-srctestscron_testrs">Cron Jobs &amp; Scheduling (<code>src/tests/cron_test.rs</code>)</a></h3>
+<p>Full coverage of the cron job system across 4 test modules.</p>
+<p><strong>CLI parsing</strong> (15 tests) — <code>/cron add</code>, <code>/cron list</code>, <code>/cron remove</code>, <code>/cron enable/disable</code>, missing/invalid args</p>
+<p><strong>Database</strong> (9 async tests) — insert, find by ID/name, list all/enabled, delete, set enabled, update last run, full field round-trip</p>
+<p><strong>Cron expressions</strong> (3 tests) — valid/invalid expression validation, next-run calculation</p>
+<p><strong>Service</strong> (15 async tests) — create/list, missing fields, invalid cron, duplicate names, enable/disable, approval requirements, deliver-to routing, due-time calculation</p>
+<p><strong>Session tracking</strong> (4 tests) — follows user to current session, fallback to initial session, shared session ID updates</p>
+<h3 id="channel-search-srctestschannel_search_testrs"><a class="header" href="#channel-search-srctestschannel_search_testrs">Channel Search (<code>src/tests/channel_search_test.rs</code>)</a></h3>
+<p>Tests the channel message search repository and tool.</p>
+<p><strong>Repository</strong> (11 async tests) — insert/recent, limit, channel filter, content search, cross-chat search, list chats, duplicate handling, field round-trip</p>
+<p><strong>Tool</strong> (12 async tests) — list chats (empty/with data/filtered), recent messages (requires chat_id, returns messages, empty, n-limit), search (requires query, finds messages, channel filter, no match, unknown operation)</p>
+<h3 id="voice-stt-dispatch-srctestsvoice_stt_dispatch_testrs"><a class="header" href="#voice-stt-dispatch-srctestsvoice_stt_dispatch_testrs">Voice STT Dispatch (<code>src/tests/voice_stt_dispatch_test.rs</code>)</a></h3>
+<p>Tests STT routing logic, audio decoding, and codec support.</p>
+<p><strong>Dispatch routing</strong> (5 async tests)</p>
+<ul>
+<li>API mode: requires key, empty key fails, provider-no-key fails</li>
+<li>Local mode: unknown model fails, model-not-downloaded fails (feature-gated)</li>
+</ul>
+<p><strong>VoiceConfig</strong> (3 tests) — default is API mode, local STT from providers TOML, empty config defaults</p>
+<p><strong>Audio decoding</strong> (4 tests, <code>local-stt</code> feature) — empty bytes fails, WAV magic detection, WAV sine generation + decode, resampler identity</p>
+<p><strong>Codec support</strong> (3 tests, <code>local-stt</code> feature) — Opus decoder registration, symphonia OGG probe, model preset validation</p>
+<p><strong>API mock</strong> (3 async tests) — Groq dispatch, mode selection routing, local whisper dispatch</p>
+<p><strong>Quick-jump</strong> (3 tests) — quick-jump done triggers flag, Esc returns cancel, non-quick-jump advances step</p>
+<h3 id="voice-onboarding-srctestsvoice_onboarding_testrs"><a class="header" href="#voice-onboarding-srctestsvoice_onboarding_testrs">Voice Onboarding (<code>src/tests/voice_onboarding_test.rs</code>)</a></h3>
+<p>Tests the voice setup wizard step: STT/TTS mode selection, key input, model picker, navigation, config persistence, availability-gated cycling.</p>
+<p><strong>STT mode selection</strong> (6 tests) — starts on SttModeSelect, cycles Up/Down, Off/API/Local Tab targets, Enter same as Tab</p>
+<p><strong>Groq API key</strong> (4 tests) — typing appends, backspace removes, Tab/BackTab navigation</p>
+<p><strong>Local model selection</strong> (5 tests) — Tab/BackTab navigation, Enter triggers download or advances, Enter during download is no-op</p>
+<p><strong>TTS mode selection</strong> (7 tests) — cycles Up/Down, tts_enabled flag, Off/API enter advances, Local enter goes to voice picker, BackTab targets</p>
+<p><strong>TTS local voice</strong> (5 tests) — BackTab to TTS mode, Tab advances step, Enter triggers download, Enter during download is no-op, Up/Down cycles voices</p>
+<p><strong>Capability detection</strong> (3 tests)</p>
+<ul>
+<li><code>local_stt_available</code> matches compile-time feature flag</li>
+<li><code>local_tts_available</code> matches feature + python3 probe</li>
+<li><code>local_tts_available</code> is cached via OnceLock</li>
+</ul>
+<p><strong>Availability-gated cycling</strong> (5 tests)</p>
+<ul>
+<li>STT cycles to Local when <code>local-stt</code> feature enabled</li>
+<li>STT Up from Off goes to Local when available</li>
+<li>TTS cycles to Local when <code>local-tts</code> + python3 available</li>
+<li>TTS skips Local when unavailable</li>
+<li>STT skips Local when unavailable</li>
+</ul>
+<p><strong>Wizard reset</strong> (2 tests)</p>
+<ul>
+<li><code>from_config</code> resets saved Local STT to Off when unavailable</li>
+<li><code>from_config</code> resets saved Local TTS to Off when unavailable</li>
+</ul>
+<p><strong>Config persistence</strong> (4 tests) — SttMode/TtsMode serde round-trip, TuiEvent variants</p>
+<p><strong>Navigation flow</strong> (4 tests) — full API flow, Channels-&gt;Voice-&gt;Image step transitions</p>
+<p><strong>Rendering smoke tests</strong> (5 tests) — produces lines, API mode shows Groq field, Local mode shows model selector, TTS section, voice list</p>
+<h3 id="local-whisper-inline-tests-srcchannelsvoicelocal_whisperrs"><a class="header" href="#local-whisper-inline-tests-srcchannelsvoicelocal_whisperrs">Local Whisper Inline Tests (<code>src/channels/voice/local_whisper.rs</code>)</a></h3>
+<p>Unit tests co-located with the local STT engine (gated behind <code>local-stt</code> feature).</p>
+<p><strong>Transcript cleaning</strong> (3 tests) — whitespace collapse, newlines/tabs, empty input</p>
+<p><strong>PcmSource (rodio::Source)</strong> (4 tests) — iterates all samples, empty source, channels/sample_rate/duration metadata, frame_len decreases</p>
+<p><strong>Whisper source parsing</strong> (2 tests) — all presets parse successfully, unknown source fails</p>
+<p><strong>Model management</strong> (3 tests) — <code>is_model_downloaded</code> always true (rwhisper auto-downloads), unique preset IDs, model path under opencrabs dir</p>
+<p><strong>Audio decoding</strong> (4 tests) — empty bytes fails, garbage bytes fails, WAV sine decode, stereo-to-mono mixdown</p>
+<p><strong>Resampling</strong> (2 tests) — 48kHz to 16kHz ratio, resampled audio is non-silent</p>
+<p><strong>Audio sanitization</strong> (4 tests) — NaN/Inf scrubbing, short audio padded to 16000 samples, at-minimum not padded, above-minimum not padded</p>
+<p><strong>Download progress</strong> (2 tests) — done state, error state</p>
+<p><strong>Preset validation</strong> (1 test) — default preset is QuantizedTiny (multilingual)</p>
+<h3 id="candle-whisper-srctestscandle_whisper_testrs"><a class="header" href="#candle-whisper-srctestscandle_whisper_testrs">Candle Whisper (<code>src/tests/candle_whisper_test.rs</code>)</a></h3>
+<p>Validates mel filterbank computation and model presets for the rwhisper integration.</p>
+<ul>
+<li>Mel filters: correct shape (80 and 128 bins), non-zero values, no NaN/Inf/negative</li>
+<li>Model presets: required fields, find by ID</li>
+</ul>
+<h3 id="evolve--self-update-srctestsevolve_testrs"><a class="header" href="#evolve--self-update-srctestsevolve_testrs">Evolve / Self-Update (<code>src/tests/evolve_test.rs</code>)</a></h3>
+<p>Tests version comparison and asset naming for the self-update system.</p>
+<p><strong>Version comparison</strong> (7 tests) — major/minor/patch bumps, equal returns false, older returns false, different semver lengths, non-numeric segments</p>
+<p><strong>Asset naming</strong> (3 tests) — single binary format (<code>opencrabs-v{tag}-{platform}.tar.gz</code>), Windows <code>.zip</code>, legacy fallback without version</p>
+<p><strong>Binary identity</strong> (1 test) — binary name is always <code>opencrabs</code></p>
+<p><strong>Platform support</strong> (1 test) — current platform has a recognized suffix</p>
+<h3 id="session--working-directory-srctestssession_working_dir_testrs"><a class="header" href="#session--working-directory-srctestssession_working_dir_testrs">Session &amp; Working Directory (<code>src/tests/session_working_dir_test.rs</code>)</a></h3>
+<p><strong>Working directory</strong> (4 async tests) — new session has no dir, update persists, default has no dir, multiple sessions have independent dirs</p>
+<p><strong>Update checker</strong> (8 tests) — newer patch/minor/major, same version, older version, two-segment versions</p>
+<h3 id="message-compaction-srctestscompaction_testrs"><a class="header" href="#message-compaction-srctestscompaction_testrs">Message Compaction (<code>src/tests/compaction_test.rs</code>)</a></h3>
+<p><strong>Snapshot formatting</strong> (14 tests) — empty messages, user/assistant text, system messages, tool use/result blocks, image blocks, long text truncation at 500 chars</p>
+<h3 id="fallback-vision-srctestsfallback_vision_testrs"><a class="header" href="#fallback-vision-srctestsfallback_vision_testrs">Fallback Vision (<code>src/tests/fallback_vision_test.rs</code>)</a></h3>
+<p><strong>Fallback chain</strong> (9+ tests) — empty config, legacy single provider, providers array, array+legacy dedup, TOML deserialization variants</p>
+<h3 id="onboarding-keys-srctestsonboarding_keys_testrs"><a class="header" href="#onboarding-keys-srctestsonboarding_keys_testrs">Onboarding Keys (<code>src/tests/onboarding_keys_test.rs</code>)</a></h3>
+<ul>
+<li>Provider count matches constants</li>
+<li>Custom provider detection</li>
+<li>All providers use api_key_input</li>
+<li>keys.toml has all provider sections</li>
+</ul>
+<hr>
+<h2 id="feature-gated-tests"><a class="header" href="#feature-gated-tests">Feature-Gated Tests</a></h2>
+<p>Some tests only compile/run with specific feature flags:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Feature</th><th>Tests</th></tr>
+</thead>
+<tbody>
+<tr><td><code>local-stt</code></td><td>Local whisper inline tests, candle whisper tests, STT dispatch local-mode tests, codec tests, availability cycling tests</td></tr>
+<tr><td><code>local-tts</code></td><td>TTS voice cycling, Piper voice Up/Down</td></tr>
+</tbody>
+</table>
+</div>
+<p>All feature-gated tests use <code>#[cfg(feature = "...")]</code> and are automatically included when running with <code>--all-features</code>.</p>
+<hr>
+<h2 id="running-tests-1"><a class="header" href="#running-tests-1">Running Tests</a></h2>
+<pre><code class="language-bash"># Run all tests (recommended)
+cargo test --all-features
+
+# Run a specific test module
+cargo test --all-features -- voice_onboarding_test
+
+# Run a single test
+cargo test --all-features -- is_newer_major_bump
+
+# Run with output (for debugging)
+cargo test --all-features -- --nocapture
+
+# Run only local-stt tests
+cargo test --features local-stt -- local_whisper
+</code></pre>
+<hr>
+<h2 id="disabled-test-modules"><a class="header" href="#disabled-test-modules">Disabled Test Modules</a></h2>
+<p>These modules exist but are commented out in <code>src/tests/mod.rs</code> (require network or external services):</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Module</th><th>Reason</th></tr>
+</thead>
+<tbody>
+<tr><td><code>error_scenarios_test</code></td><td>Requires mock API server</td></tr>
+<tr><td><code>integration_test</code></td><td>End-to-end with LLM provider</td></tr>
+<tr><td><code>plan_mode_integration_test</code></td><td>End-to-end plan workflow</td></tr>
+<tr><td><code>streaming_test</code></td><td>Requires streaming API endpoint</td></tr>
+</tbody>
+</table>
+</div>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="contributing"><a class="header" href="#contributing">Contributing</a></h1>
 <h2 id="getting-started"><a class="header" href="#getting-started">Getting Started</a></h2>
