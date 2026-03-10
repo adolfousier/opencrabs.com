@@ -3,4 +3,3 @@ dist/
 .DS_Store
 commands.md
 opencrabs.com
-src/docker/nginx.conf
