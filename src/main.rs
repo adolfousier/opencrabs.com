@@ -385,14 +385,14 @@ fn Testimonials() -> impl IntoView {
             "https://x.com/AlexBuildsCo/status/2031037889094562160",
         ),
         (
-            "As a user of your project, I'm impressed by the speed and the quality. It feels like you have a 10 person team.",
+            "Every day I tweak Crabs to help me do things faster. BTW Trello integration is amazing. My agent now has a board with tasks it manages on its own.",
             "@opryshok",
             "https://x.com/opryshok/status/2030282770912522288",
         ),
         (
-            "Every day I tweak Crabs to help me do things faster. BTW Trello integration is amazing. My agent now has a board with tasks it manages on its own.",
-            "@opryshok",
-            "",
+            "That 130MB all-in path is a big deal for folks who want voice agents without API burn.",
+            "@CurrentlyKI",
+            "https://x.com/CurrentlyKI/status/2031188774483538125",
         ),
     ];
 
