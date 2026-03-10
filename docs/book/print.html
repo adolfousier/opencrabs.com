@@ -55,7 +55,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-3f3d234a.js";
+            window.path_to_searchindex_js = "searchindex-a3cac853.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-bffe8afd.js"></script>
@@ -2109,120 +2109,76 @@ panic = "abort"
 <tr><th>Category</th><th style="text-align: right">Tests</th><th>Location</th></tr>
 </thead>
 <tbody>
-<tr><td>CLI Parsing</td><td style="text-align: right">28</td><td><code>src/tests/cli_test.rs</code></td></tr>
-<tr><td>Cron Jobs &amp; Scheduling</td><td style="text-align: right">45</td><td><code>src/tests/cron_test.rs</code></td></tr>
-<tr><td>Channel Search</td><td style="text-align: right">23</td><td><code>src/tests/channel_search_test.rs</code></td></tr>
-<tr><td>Voice STT Dispatch</td><td style="text-align: right">22</td><td><code>src/tests/voice_stt_dispatch_test.rs</code></td></tr>
-<tr><td>Voice Onboarding</td><td style="text-align: right">48</td><td><code>src/tests/voice_onboarding_test.rs</code></td></tr>
-<tr><td>Local Whisper (inline)</td><td style="text-align: right">25</td><td><code>src/channels/voice/local_whisper.rs</code></td></tr>
-<tr><td>Candle Whisper</td><td style="text-align: right">6</td><td><code>src/tests/candle_whisper_test.rs</code></td></tr>
-<tr><td>Evolve (Self-Update)</td><td style="text-align: right">12</td><td><code>src/tests/evolve_test.rs</code></td></tr>
-<tr><td>Session &amp; Working Dir</td><td style="text-align: right">12</td><td><code>src/tests/session_working_dir_test.rs</code></td></tr>
-<tr><td>Message Compaction</td><td style="text-align: right">14</td><td><code>src/tests/compaction_test.rs</code></td></tr>
-<tr><td>Fallback Vision</td><td style="text-align: right">17</td><td><code>src/tests/fallback_vision_test.rs</code></td></tr>
-<tr><td>Onboarding Keys</td><td style="text-align: right">4</td><td><code>src/tests/onboarding_keys_test.rs</code></td></tr>
-<tr><td><strong>Total</strong></td><td style="text-align: right"><strong>256+</strong></td><td></td></tr>
+<tr><td><strong>Brain — Agent Service</strong></td><td style="text-align: right">42</td><td><code>src/brain/agent/service.rs</code></td></tr>
+<tr><td><strong>Brain — Prompt Builder</strong></td><td style="text-align: right">20</td><td><code>src/brain/prompt_builder.rs</code></td></tr>
+<tr><td><strong>Brain — Agent Context</strong></td><td style="text-align: right">12</td><td><code>src/brain/agent/context.rs</code></td></tr>
+<tr><td><strong>Brain — Provider (Anthropic)</strong></td><td style="text-align: right">9</td><td><code>src/brain/provider/anthropic.rs</code></td></tr>
+<tr><td><strong>Brain — Provider (Retry)</strong></td><td style="text-align: right">9</td><td><code>src/brain/provider/retry.rs</code></td></tr>
+<tr><td><strong>Brain — Provider (Custom OpenAI)</strong></td><td style="text-align: right">5</td><td><code>src/brain/provider/custom_openai_compatible.rs</code></td></tr>
+<tr><td><strong>Brain — Provider (Factory)</strong></td><td style="text-align: right">4</td><td><code>src/brain/provider/factory.rs</code></td></tr>
+<tr><td><strong>Brain — Provider (Types/Error/Trait)</strong></td><td style="text-align: right">7</td><td><code>src/brain/provider/</code></td></tr>
+<tr><td><strong>Brain — Tokenizer</strong></td><td style="text-align: right">8</td><td><code>src/brain/tokenizer.rs</code></td></tr>
+<tr><td><strong>Brain — Commands</strong></td><td style="text-align: right">6</td><td><code>src/brain/commands.rs</code></td></tr>
+<tr><td><strong>Brain — Self-Update</strong></td><td style="text-align: right">1</td><td><code>src/brain/self_update.rs</code></td></tr>
+<tr><td><strong>Brain Tools — Plan Security</strong></td><td style="text-align: right">20</td><td><code>src/brain/tools/plan_tool.rs</code></td></tr>
+<tr><td><strong>Brain Tools — Exa Search</strong></td><td style="text-align: right">18</td><td><code>src/brain/tools/exa_search.rs</code></td></tr>
+<tr><td><strong>Brain Tools — Write File</strong></td><td style="text-align: right">17</td><td><code>src/brain/tools/write_opencrabs_file.rs</code></td></tr>
+<tr><td><strong>Brain Tools — A2A Send</strong></td><td style="text-align: right">16</td><td><code>src/brain/tools/a2a_send.rs</code></td></tr>
+<tr><td><strong>Brain Tools — Load Brain File</strong></td><td style="text-align: right">14</td><td><code>src/brain/tools/load_brain_file.rs</code></td></tr>
+<tr><td><strong>Brain Tools — Brave Search</strong></td><td style="text-align: right">12</td><td><code>src/brain/tools/brave_search.rs</code></td></tr>
+<tr><td><strong>Brain Tools — Doc Parser</strong></td><td style="text-align: right">10</td><td><code>src/brain/tools/doc_parser.rs</code></td></tr>
+<tr><td><strong>Brain Tools — Registry</strong></td><td style="text-align: right">7</td><td><code>src/brain/tools/registry.rs</code></td></tr>
+<tr><td><strong>Brain Tools — Slash Command</strong></td><td style="text-align: right">6</td><td><code>src/brain/tools/slash_command.rs</code></td></tr>
+<tr><td><strong>Brain Tools — Bash</strong></td><td style="text-align: right">6</td><td><code>src/brain/tools/bash.rs</code></td></tr>
+<tr><td><strong>Brain Tools — Write/Read/Config/Memory/Error</strong></td><td style="text-align: right">16</td><td><code>src/brain/tools/</code></td></tr>
+<tr><td><strong>Channels — Voice Service</strong></td><td style="text-align: right">14</td><td><code>src/channels/voice/service.rs</code></td></tr>
+<tr><td><strong>Channels — Voice Local TTS</strong></td><td style="text-align: right">14</td><td><code>src/channels/voice/local_tts.rs</code></td></tr>
+<tr><td><strong>Channels — Voice Local Whisper</strong></td><td style="text-align: right">25</td><td><code>src/channels/voice/local_whisper.rs</code></td></tr>
+<tr><td><strong>Channels — Commands</strong></td><td style="text-align: right">14</td><td><code>src/channels/commands.rs</code></td></tr>
+<tr><td><strong>Channels — WhatsApp Store</strong></td><td style="text-align: right">15</td><td><code>src/channels/whatsapp/store.rs</code></td></tr>
+<tr><td><strong>Channels — WhatsApp Handler</strong></td><td style="text-align: right">5</td><td><code>src/channels/whatsapp/handler.rs</code></td></tr>
+<tr><td><strong>Channels — Telegram Handler</strong></td><td style="text-align: right">8</td><td><code>src/channels/telegram/handler.rs</code></td></tr>
+<tr><td><strong>Channels — Slack Handler</strong></td><td style="text-align: right">2</td><td><code>src/channels/slack/handler.rs</code></td></tr>
+<tr><td><strong>Channels — Discord Handler</strong></td><td style="text-align: right">2</td><td><code>src/channels/discord/handler.rs</code></td></tr>
+<tr><td><strong>Channels — General</strong></td><td style="text-align: right">5</td><td><code>src/channels/</code></td></tr>
+<tr><td><strong>Config — Types</strong></td><td style="text-align: right">19</td><td><code>src/config/types.rs</code></td></tr>
+<tr><td><strong>Config — Secrets</strong></td><td style="text-align: right">5</td><td><code>src/config/secrets.rs</code></td></tr>
+<tr><td><strong>Config — Update</strong></td><td style="text-align: right">4</td><td><code>src/config/update.rs</code></td></tr>
+<tr><td><strong>Config — Crabrace</strong></td><td style="text-align: right">3</td><td><code>src/config/crabrace.rs</code></td></tr>
+<tr><td><strong>DB — Repository (Plan)</strong></td><td style="text-align: right">15</td><td><code>src/db/repository/plan.rs</code></td></tr>
+<tr><td><strong>DB — Retry</strong></td><td style="text-align: right">8</td><td><code>src/db/retry.rs</code></td></tr>
+<tr><td><strong>DB — Database</strong></td><td style="text-align: right">5</td><td><code>src/db/database.rs</code></td></tr>
+<tr><td><strong>DB — Models</strong></td><td style="text-align: right">4</td><td><code>src/db/models.rs</code></td></tr>
+<tr><td><strong>DB — Repository (Other)</strong></td><td style="text-align: right">9</td><td><code>src/db/repository/</code></td></tr>
+<tr><td><strong>Services — Plan</strong></td><td style="text-align: right">11</td><td><code>src/services/plan.rs</code></td></tr>
+<tr><td><strong>Services — File</strong></td><td style="text-align: right">11</td><td><code>src/services/file.rs</code></td></tr>
+<tr><td><strong>Services — Message</strong></td><td style="text-align: right">10</td><td><code>src/services/message.rs</code></td></tr>
+<tr><td><strong>Services — Session</strong></td><td style="text-align: right">9</td><td><code>src/services/session.rs</code></td></tr>
+<tr><td><strong>Services — Context</strong></td><td style="text-align: right">2</td><td><code>src/services/context.rs</code></td></tr>
+<tr><td><strong>A2A — Debate</strong></td><td style="text-align: right">8</td><td><code>src/a2a/debate.rs</code></td></tr>
+<tr><td><strong>A2A — Types</strong></td><td style="text-align: right">6</td><td><code>src/a2a/types.rs</code></td></tr>
+<tr><td><strong>A2A — Server/Handler/Agent Card</strong></td><td style="text-align: right">7</td><td><code>src/a2a/</code></td></tr>
+<tr><td><strong>Memory — Store</strong></td><td style="text-align: right">6</td><td><code>src/memory/store.rs</code></td></tr>
+<tr><td><strong>Memory — Search</strong></td><td style="text-align: right">3</td><td><code>src/memory/search.rs</code></td></tr>
+<tr><td><strong>Pricing</strong></td><td style="text-align: right">7</td><td><code>src/pricing.rs</code></td></tr>
+<tr><td><strong>Logging</strong></td><td style="text-align: right">4</td><td><code>src/logging/logger.rs</code></td></tr>
+<tr><td><strong>Utils</strong></td><td style="text-align: right">1</td><td><code>src/utils/</code></td></tr>
+<tr><td><strong>CLI</strong></td><td style="text-align: right">1</td><td><code>src/cli.rs</code></td></tr>
+<tr><td>Tests — CLI Parsing</td><td style="text-align: right">28</td><td><code>src/tests/cli_test.rs</code></td></tr>
+<tr><td>Tests — Cron Jobs &amp; Scheduling</td><td style="text-align: right">49</td><td><code>src/tests/cron_test.rs</code></td></tr>
+<tr><td>Tests — Channel Search</td><td style="text-align: right">24</td><td><code>src/tests/channel_search_test.rs</code></td></tr>
+<tr><td>Tests — Voice STT Dispatch</td><td style="text-align: right">7</td><td><code>src/tests/voice_stt_dispatch_test.rs</code></td></tr>
+<tr><td>Tests — Voice Onboarding</td><td style="text-align: right">7</td><td><code>src/tests/voice_onboarding_test.rs</code></td></tr>
+<tr><td>Tests — Candle Whisper</td><td style="text-align: right">6</td><td><code>src/tests/candle_whisper_test.rs</code></td></tr>
+<tr><td>Tests — Evolve (Self-Update)</td><td style="text-align: right">12</td><td><code>src/tests/evolve_test.rs</code></td></tr>
+<tr><td>Tests — Session &amp; Working Dir</td><td style="text-align: right">15</td><td><code>src/tests/session_working_dir_test.rs</code></td></tr>
+<tr><td>Tests — Message Compaction</td><td style="text-align: right">24</td><td><code>src/tests/compaction_test.rs</code></td></tr>
+<tr><td>Tests — Fallback Vision</td><td style="text-align: right">35</td><td><code>src/tests/fallback_vision_test.rs</code></td></tr>
+<tr><td>Tests — General</td><td style="text-align: right">100</td><td><code>src/tests/</code></td></tr>
+<tr><td><strong>Total</strong></td><td style="text-align: right"><strong>950</strong></td><td></td></tr>
 </tbody>
 </table>
 </div>
-<hr>
-<h2 id="test-modules"><a class="header" href="#test-modules">Test Modules</a></h2>
-<h3 id="cli-parsing-srctestscli_testrs"><a class="header" href="#cli-parsing-srctestscli_testrs">CLI Parsing (<code>src/tests/cli_test.rs</code>)</a></h3>
-<p>Validates argument parsing for all CLI commands and flags.</p>
-<ul>
-<li><code>chat</code>, <code>run</code>, <code>init</code>, <code>config</code>, <code>db</code>, <code>daemon</code> subcommands</li>
-<li>Flag combinations: <code>--debug</code>, <code>--config</code>, <code>--format</code>, <code>--auto-approve</code></li>
-<li>Error cases: invalid format, missing prompt, invalid subcommand</li>
-</ul>
-<h3 id="cron-jobs--scheduling-srctestscron_testrs"><a class="header" href="#cron-jobs--scheduling-srctestscron_testrs">Cron Jobs &amp; Scheduling (<code>src/tests/cron_test.rs</code>)</a></h3>
-<p>Full coverage of the cron job system across 4 test modules.</p>
-<p><strong>CLI parsing</strong> (15 tests) — <code>/cron add</code>, <code>/cron list</code>, <code>/cron remove</code>, <code>/cron enable/disable</code>, missing/invalid args</p>
-<p><strong>Database</strong> (9 async tests) — insert, find by ID/name, list all/enabled, delete, set enabled, update last run, full field round-trip</p>
-<p><strong>Cron expressions</strong> (3 tests) — valid/invalid expression validation, next-run calculation</p>
-<p><strong>Service</strong> (15 async tests) — create/list, missing fields, invalid cron, duplicate names, enable/disable, approval requirements, deliver-to routing, due-time calculation</p>
-<p><strong>Session tracking</strong> (4 tests) — follows user to current session, fallback to initial session, shared session ID updates</p>
-<h3 id="channel-search-srctestschannel_search_testrs"><a class="header" href="#channel-search-srctestschannel_search_testrs">Channel Search (<code>src/tests/channel_search_test.rs</code>)</a></h3>
-<p>Tests the channel message search repository and tool.</p>
-<p><strong>Repository</strong> (11 async tests) — insert/recent, limit, channel filter, content search, cross-chat search, list chats, duplicate handling, field round-trip</p>
-<p><strong>Tool</strong> (12 async tests) — list chats (empty/with data/filtered), recent messages (requires chat_id, returns messages, empty, n-limit), search (requires query, finds messages, channel filter, no match, unknown operation)</p>
-<h3 id="voice-stt-dispatch-srctestsvoice_stt_dispatch_testrs"><a class="header" href="#voice-stt-dispatch-srctestsvoice_stt_dispatch_testrs">Voice STT Dispatch (<code>src/tests/voice_stt_dispatch_test.rs</code>)</a></h3>
-<p>Tests STT routing logic, audio decoding, and codec support.</p>
-<p><strong>Dispatch routing</strong> (5 async tests)</p>
-<ul>
-<li>API mode: requires key, empty key fails, provider-no-key fails</li>
-<li>Local mode: unknown model fails, model-not-downloaded fails (feature-gated)</li>
-</ul>
-<p><strong>VoiceConfig</strong> (3 tests) — default is API mode, local STT from providers TOML, empty config defaults</p>
-<p><strong>Audio decoding</strong> (4 tests, <code>local-stt</code> feature) — empty bytes fails, WAV magic detection, WAV sine generation + decode, resampler identity</p>
-<p><strong>Codec support</strong> (3 tests, <code>local-stt</code> feature) — Opus decoder registration, symphonia OGG probe, model preset validation</p>
-<p><strong>API mock</strong> (3 async tests) — Groq dispatch, mode selection routing, local whisper dispatch</p>
-<p><strong>Quick-jump</strong> (3 tests) — quick-jump done triggers flag, Esc returns cancel, non-quick-jump advances step</p>
-<h3 id="voice-onboarding-srctestsvoice_onboarding_testrs"><a class="header" href="#voice-onboarding-srctestsvoice_onboarding_testrs">Voice Onboarding (<code>src/tests/voice_onboarding_test.rs</code>)</a></h3>
-<p>Tests the voice setup wizard step: STT/TTS mode selection, key input, model picker, navigation, config persistence, availability-gated cycling.</p>
-<p><strong>STT mode selection</strong> (6 tests) — starts on SttModeSelect, cycles Up/Down, Off/API/Local Tab targets, Enter same as Tab</p>
-<p><strong>Groq API key</strong> (4 tests) — typing appends, backspace removes, Tab/BackTab navigation</p>
-<p><strong>Local model selection</strong> (5 tests) — Tab/BackTab navigation, Enter triggers download or advances, Enter during download is no-op</p>
-<p><strong>TTS mode selection</strong> (7 tests) — cycles Up/Down, tts_enabled flag, Off/API enter advances, Local enter goes to voice picker, BackTab targets</p>
-<p><strong>TTS local voice</strong> (5 tests) — BackTab to TTS mode, Tab advances step, Enter triggers download, Enter during download is no-op, Up/Down cycles voices</p>
-<p><strong>Capability detection</strong> (3 tests)</p>
-<ul>
-<li><code>local_stt_available</code> matches compile-time feature flag</li>
-<li><code>local_tts_available</code> matches feature + python3 probe</li>
-<li><code>local_tts_available</code> is cached via OnceLock</li>
-</ul>
-<p><strong>Availability-gated cycling</strong> (5 tests)</p>
-<ul>
-<li>STT cycles to Local when <code>local-stt</code> feature enabled</li>
-<li>STT Up from Off goes to Local when available</li>
-<li>TTS cycles to Local when <code>local-tts</code> + python3 available</li>
-<li>TTS skips Local when unavailable</li>
-<li>STT skips Local when unavailable</li>
-</ul>
-<p><strong>Wizard reset</strong> (2 tests)</p>
-<ul>
-<li><code>from_config</code> resets saved Local STT to Off when unavailable</li>
-<li><code>from_config</code> resets saved Local TTS to Off when unavailable</li>
-</ul>
-<p><strong>Config persistence</strong> (4 tests) — SttMode/TtsMode serde round-trip, TuiEvent variants</p>
-<p><strong>Navigation flow</strong> (4 tests) — full API flow, Channels-&gt;Voice-&gt;Image step transitions</p>
-<p><strong>Rendering smoke tests</strong> (5 tests) — produces lines, API mode shows Groq field, Local mode shows model selector, TTS section, voice list</p>
-<h3 id="local-whisper-inline-tests-srcchannelsvoicelocal_whisperrs"><a class="header" href="#local-whisper-inline-tests-srcchannelsvoicelocal_whisperrs">Local Whisper Inline Tests (<code>src/channels/voice/local_whisper.rs</code>)</a></h3>
-<p>Unit tests co-located with the local STT engine (gated behind <code>local-stt</code> feature).</p>
-<p><strong>Transcript cleaning</strong> (3 tests) — whitespace collapse, newlines/tabs, empty input</p>
-<p><strong>PcmSource (rodio::Source)</strong> (4 tests) — iterates all samples, empty source, channels/sample_rate/duration metadata, frame_len decreases</p>
-<p><strong>Whisper source parsing</strong> (2 tests) — all presets parse successfully, unknown source fails</p>
-<p><strong>Model management</strong> (3 tests) — <code>is_model_downloaded</code> always true (rwhisper auto-downloads), unique preset IDs, model path under opencrabs dir</p>
-<p><strong>Audio decoding</strong> (4 tests) — empty bytes fails, garbage bytes fails, WAV sine decode, stereo-to-mono mixdown</p>
-<p><strong>Resampling</strong> (2 tests) — 48kHz to 16kHz ratio, resampled audio is non-silent</p>
-<p><strong>Audio sanitization</strong> (4 tests) — NaN/Inf scrubbing, short audio padded to 16000 samples, at-minimum not padded, above-minimum not padded</p>
-<p><strong>Download progress</strong> (2 tests) — done state, error state</p>
-<p><strong>Preset validation</strong> (1 test) — default preset is QuantizedTiny (multilingual)</p>
-<h3 id="candle-whisper-srctestscandle_whisper_testrs"><a class="header" href="#candle-whisper-srctestscandle_whisper_testrs">Candle Whisper (<code>src/tests/candle_whisper_test.rs</code>)</a></h3>
-<p>Validates mel filterbank computation and model presets for the rwhisper integration.</p>
-<ul>
-<li>Mel filters: correct shape (80 and 128 bins), non-zero values, no NaN/Inf/negative</li>
-<li>Model presets: required fields, find by ID</li>
-</ul>
-<h3 id="evolve--self-update-srctestsevolve_testrs"><a class="header" href="#evolve--self-update-srctestsevolve_testrs">Evolve / Self-Update (<code>src/tests/evolve_test.rs</code>)</a></h3>
-<p>Tests version comparison and asset naming for the self-update system.</p>
-<p><strong>Version comparison</strong> (7 tests) — major/minor/patch bumps, equal returns false, older returns false, different semver lengths, non-numeric segments</p>
-<p><strong>Asset naming</strong> (3 tests) — single binary format (<code>opencrabs-v{tag}-{platform}.tar.gz</code>), Windows <code>.zip</code>, legacy fallback without version</p>
-<p><strong>Binary identity</strong> (1 test) — binary name is always <code>opencrabs</code></p>
-<p><strong>Platform support</strong> (1 test) — current platform has a recognized suffix</p>
-<h3 id="session--working-directory-srctestssession_working_dir_testrs"><a class="header" href="#session--working-directory-srctestssession_working_dir_testrs">Session &amp; Working Directory (<code>src/tests/session_working_dir_test.rs</code>)</a></h3>
-<p><strong>Working directory</strong> (4 async tests) — new session has no dir, update persists, default has no dir, multiple sessions have independent dirs</p>
-<p><strong>Update checker</strong> (8 tests) — newer patch/minor/major, same version, older version, two-segment versions</p>
-<h3 id="message-compaction-srctestscompaction_testrs"><a class="header" href="#message-compaction-srctestscompaction_testrs">Message Compaction (<code>src/tests/compaction_test.rs</code>)</a></h3>
-<p><strong>Snapshot formatting</strong> (14 tests) — empty messages, user/assistant text, system messages, tool use/result blocks, image blocks, long text truncation at 500 chars</p>
-<h3 id="fallback-vision-srctestsfallback_vision_testrs"><a class="header" href="#fallback-vision-srctestsfallback_vision_testrs">Fallback Vision (<code>src/tests/fallback_vision_test.rs</code>)</a></h3>
-<p><strong>Fallback chain</strong> (9+ tests) — empty config, legacy single provider, providers array, array+legacy dedup, TOML deserialization variants</p>
-<h3 id="onboarding-keys-srctestsonboarding_keys_testrs"><a class="header" href="#onboarding-keys-srctestsonboarding_keys_testrs">Onboarding Keys (<code>src/tests/onboarding_keys_test.rs</code>)</a></h3>
-<ul>
-<li>Provider count matches constants</li>
-<li>Custom provider detection</li>
-<li>All providers use api_key_input</li>
-<li>keys.toml has all provider sections</li>
-</ul>
 <hr>
 <h2 id="feature-gated-tests"><a class="header" href="#feature-gated-tests">Feature-Gated Tests</a></h2>
 <p>Some tests only compile/run with specific feature flags:</p>
