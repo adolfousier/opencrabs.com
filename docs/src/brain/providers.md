@@ -64,6 +64,20 @@ default_model = "gemini-2.5-flash"
 
 > Gemini also powers the separate image generation and vision tools. See [Image Generation & Vision](./images.md).
 
+## GitHub Copilot
+
+Use your existing GitHub Copilot subscription — no separate API charges. Authenticates via OAuth device flow.
+
+```toml
+# config.toml
+[providers.github_copilot]
+enabled = true
+```
+
+**Setup:** Run `/onboard:providers` → select GitHub Copilot → follow the device code flow at `github.com/login/device`. Models are fetched live from the Copilot API.
+
+**Requirements:** An active [GitHub Copilot](https://github.com/features/copilot) subscription (Individual, Business, or Enterprise).
+
 ## MiniMax
 
 **Models:** `MiniMax-M2.5`, `MiniMax-M2.1`, `MiniMax-Text-01`

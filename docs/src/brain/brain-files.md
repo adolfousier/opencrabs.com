@@ -10,8 +10,9 @@ Brain files define the agent's personality, knowledge, and behavior. They live a
 4. `MEMORY.md` — Long-term memory
 5. `AGENTS.md` — Agent behavior guidelines
 6. `TOOLS.md` — Tool reference and custom notes
-7. `SECURITY.md` — Security policies
-8. `HEARTBEAT.md` — Periodic check tasks
+7. `CODE.md` — Coding standards and file organization
+8. `SECURITY.md` — Security policies
+9. `HEARTBEAT.md` — Periodic check tasks
 
 ## File Reference
 
@@ -29,6 +30,9 @@ Comprehensive agent behavior docs: memory system, safety rules, git rules, works
 
 ### TOOLS.md
 Tool parameter reference, system CLI tools, provider configuration, integration details for all channels and services.
+
+### CODE.md
+Coding standards brain template. Enforces: no file over 500 lines (target 100–250), types in `types.rs`, one responsibility per file, mandatory tests for every feature, security-first patterns. Rust-first philosophy — single binary, no runtime dependencies. The agent follows these rules when writing or reviewing code.
 
 ### SECURITY.md
 Security policies: third-party code review, attack playbook awareness, network security, data handling, incident response.

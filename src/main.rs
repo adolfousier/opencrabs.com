@@ -290,6 +290,11 @@ fn Features() -> impl IntoView {
             "Read and write files, run shell commands, execute scripts. Full access or sandboxed — your choice.",
         ),
         (
+            "📐",
+            "CODE.md — Built-in Coding Standards",
+            "Ships with a brain template that enforces modular files, strict size limits, test coverage, and security-first patterns. Your agent writes production code, not prototypes.",
+        ),
+        (
             "🔧",
             "Self-Evolving",
             "Type /evolve to download the latest version. Type /rebuild to build from source. The crab upgrades itself.",
@@ -327,6 +332,7 @@ fn Integrations() -> impl IntoView {
         "🧠 OpenAI",
         "💎 Gemini",
         "🌐 OpenRouter",
+        "🐙 GitHub Copilot",
         "🏠 Ollama",
         "📡 LM Studio",
     ];

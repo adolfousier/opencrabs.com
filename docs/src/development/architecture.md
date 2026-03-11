@@ -68,7 +68,7 @@ src/
 | `serenity` | Discord gateway |
 | `slack-morphism` | Slack API |
 | `qmd` + `llama-cpp-2` | Memory search (FTS5 + embeddings) |
-| `whisper-rs` | Local STT via whisper.cpp |
+| `rwhisper` (candle) | Local STT — pure Rust, Metal GPU on macOS |
 | `piper` (Python venv) | Local TTS with OGG/Opus encoding |
 | `syntect` | Syntax highlighting in TUI |
 | `tiktoken-rs` | Token counting |

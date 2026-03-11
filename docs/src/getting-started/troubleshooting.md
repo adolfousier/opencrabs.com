@@ -49,6 +49,10 @@ cp /path/to/opencrabs.evolve_backup /path/to/opencrabs
 chmod +x /path/to/opencrabs
 ```
 
+### Cargo Install Fallback
+
+When `/evolve` uses `cargo install` (building from source), it tries the **stable** toolchain first. If that fails, it automatically falls back to `cargo +nightly`. The progress message shows which toolchain succeeded.
+
 ### Check-Only Mode
 
 The agent can check for updates without installing:
@@ -56,6 +60,21 @@ The agent can check for updates without installing:
 ```
 /evolve check_only=true
 ```
+
+---
+
+## Bash Tool Safety
+
+The bash tool includes a **hard command blocklist** that prevents catastrophic commands even if accidentally approved:
+
+- `rm -rf /`, `sudo rm -rf .`
+- `mkfs`, `dd` to `/dev/`
+- Fork bombs
+- `/etc` overwrites, `/proc` writes
+- Sensitive file exfiltration
+- Crypto mining commands
+
+These are blocked at the tool level — no configuration needed.
 
 ---
 

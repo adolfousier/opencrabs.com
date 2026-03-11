@@ -17,6 +17,7 @@ cargo test --all-features
 | **Brain — Provider (Retry)** | 9 | `src/brain/provider/retry.rs` |
 | **Brain — Provider (Custom OpenAI)** | 9 | `src/brain/provider/custom_openai_compatible.rs` |
 | **Brain — Provider (Factory)** | 4 | `src/brain/provider/factory.rs` |
+| **Brain — Provider (Copilot)** | 8 | `src/brain/provider/copilot.rs` |
 | **Brain — Provider (Types/Error/Trait)** | 7 | `src/brain/provider/` |
 | **Brain — Tokenizer** | 8 | `src/brain/tokenizer.rs` |
 | **Brain — Commands** | 6 | `src/brain/commands.rs` |
@@ -30,7 +31,7 @@ cargo test --all-features
 | **Brain Tools — Doc Parser** | 10 | `src/brain/tools/doc_parser.rs` |
 | **Brain Tools — Registry** | 7 | `src/brain/tools/registry.rs` |
 | **Brain Tools — Slash Command** | 6 | `src/brain/tools/slash_command.rs` |
-| **Brain Tools — Bash** | 6 | `src/brain/tools/bash.rs` |
+| **Brain Tools — Bash** | 21 | `src/brain/tools/bash.rs` |
 | **Brain Tools — Write/Read/Config/Memory/Error** | 16 | `src/brain/tools/` |
 | **Channels — Voice Service** | 14 | `src/channels/voice/service.rs` |
 | **Channels — Voice Local TTS** | 14 | `src/channels/voice/local_tts.rs` |
@@ -61,7 +62,7 @@ cargo test --all-features
 | **A2A — Server/Handler/Agent Card** | 7 | `src/a2a/` |
 | **Memory — Store** | 6 | `src/memory/store.rs` |
 | **Memory — Search** | 3 | `src/memory/search.rs` |
-| **Pricing** | 7 | `src/pricing.rs` |
+| **Pricing** | 13 | `src/pricing.rs` |
 | **Logging** | 4 | `src/logging/logger.rs` |
 | **Utils — Install** | 6 | `src/utils/install.rs` |
 | **Utils** | 1 | `src/utils/` |
@@ -69,23 +70,28 @@ cargo test --all-features
 | Tests — CLI Parsing | 28 | `src/tests/cli_test.rs` |
 | Tests — Cron Jobs & Scheduling | 49 | `src/tests/cron_test.rs` |
 | Tests — Channel Search | 24 | `src/tests/channel_search_test.rs` |
-| Tests — Voice STT Dispatch | 7 | `src/tests/voice_stt_dispatch_test.rs` |
-| Tests — Voice Onboarding | 7 | `src/tests/voice_onboarding_test.rs` |
+| Tests — Voice STT Dispatch | 11 | `src/tests/voice_stt_dispatch_test.rs` |
+| Tests — Voice Onboarding | 62 | `src/tests/voice_onboarding_test.rs` |
 | Tests — Candle Whisper | 6 | `src/tests/candle_whisper_test.rs` |
-| Tests — Evolve (Self-Update) | 16 | `src/tests/evolve_test.rs` |
+| Tests — Evolve (Self-Update) | 23 | `src/tests/evolve_test.rs` |
 | Tests — Session & Working Dir | 15 | `src/tests/session_working_dir_test.rs` |
 | Tests — Message Compaction | 24 | `src/tests/compaction_test.rs` |
 | Tests — Fallback Vision | 35 | `src/tests/fallback_vision_test.rs` |
-| Tests — General | 100 | `src/tests/` |
-| Tests — File Extract | 10 | `src/tests/file_extract_test.rs` |
+| Tests — GitHub Copilot Provider | 38 | `src/tests/github_provider_test.rs` |
+| Tests — File Extract | 36 | `src/tests/file_extract_test.rs` |
 | Tests — Image Utils | 9 | `src/tests/image_util_test.rs` |
-| Tests — Onboarding Brain | 16 | `src/tests/onboarding_brain_test.rs` |
-| Tests — Onboarding Navigation | 22 | `src/tests/onboarding_navigation_test.rs` |
-| Tests — Onboarding Types | 19 | `src/tests/onboarding_types_test.rs` |
+| Tests — Onboarding Brain | 21 | `src/tests/onboarding_brain_test.rs` |
+| Tests — Onboarding Navigation | 26 | `src/tests/onboarding_navigation_test.rs` |
+| Tests — Onboarding Types | 16 | `src/tests/onboarding_types_test.rs` |
+| Tests — Onboarding Keys | 4 | `src/tests/onboarding_keys_test.rs` |
+| Tests — OpenAI Provider | 16 | `src/tests/openai_provider_test.rs` |
 | Tests — Plan Document | 15 | `src/tests/plan_document_test.rs` |
 | Tests — TUI Error | 16 | `src/tests/tui_error_test.rs` |
 | Tests — Queued Messages | 15 | `src/tests/queued_message_test.rs` |
-| **Total** | **1,118** | |
+| Tests — Custom Provider | 27 | `src/tests/custom_provider_test.rs` |
+| Tests — Context Window | 14 | `src/tests/context_window_test.rs` |
+| Tests — Onboarding Field Nav | 46 | `src/tests/onboarding_field_nav_test.rs` |
+| **Total** | **1,286** | |
 
 ---
 
