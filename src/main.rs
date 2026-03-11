@@ -375,9 +375,9 @@ fn Integrations() -> impl IntoView {
 fn Testimonials() -> impl IntoView {
     let quotes: Vec<(&str, &str, &str)> = vec![
         (
-            "You just handed the Rust nay sayers the least objectionable way possible to start playing with agents.",
+            "I tested OpenCrabs with OpenRouter and a random Nvidia free model, and right off the bat I like it more than the alternatives. Setup was a lot easier.",
             "@mariodian",
-            "https://x.com/mariodian/status/2031201714376945686",
+            "https://x.com/mariodian/status/2031545206559170847",
         ),
         (
             "Local STT + TTS in ~135MB is impressive. Feels like the voice layer for local agents is getting a lot more practical.",
