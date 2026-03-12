@@ -2,6 +2,26 @@
 
 Common issues and how to fix them.
 
+## Windows Defender Blocking OpenCrabs
+
+Windows Defender may flag `opencrabs.exe` as suspicious because it's an unsigned binary that executes shell commands and makes network requests. This is a false positive.
+
+**Add an exclusion:**
+
+1. Open **Windows Security** → **Virus & threat protection**
+2. **Virus & threat protection settings** → **Manage settings**
+3. **Exclusions** → **Add or remove exclusions**
+4. **Add an exclusion** → **File** → select `opencrabs.exe`
+
+**Or via PowerShell (admin):**
+```powershell
+Add-MpPreference -ExclusionPath "C:\path\to\opencrabs.exe"
+```
+
+If SmartScreen blocks the first run, click **More info** → **Run anyway**.
+
+---
+
 ## Binary Won't Start or Crashes
 
 ### Startup Errors

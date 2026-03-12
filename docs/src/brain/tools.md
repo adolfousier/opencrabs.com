@@ -63,11 +63,59 @@ OpenCrabs ships with 40+ tools available to the agent out of the box.
 
 ## System CLI Tools
 
-The agent can also use CLI tools available on the system through `bash`:
+OpenCrabs runs in a TUI with full terminal access. The agent can execute **any CLI tool** installed on the host via the `bash` tool — no plugins, no wrappers. If it's on your system, the agent can use it. Common ones:
 
-- `gh` — GitHub CLI (PRs, issues, releases)
-- `docker` — Container management
-- `ssh` — Remote server access
-- `node` / `python3` — Script execution
-- `curl` — HTTP requests
-- `ffmpeg` — Media processing
+| Tool | Purpose | Check |
+|------|---------|-------|
+| `gh` | GitHub CLI — issues, PRs, repos, releases, actions | `gh --version` |
+| `gog` | Google CLI — Gmail, Calendar (OAuth) | `gog --version` |
+| `docker` | Container management | `docker --version` |
+| `ssh` | Remote server access | `ssh -V` |
+| `node` | Run JavaScript/TypeScript tools | `node --version` |
+| `python3` | Run Python scripts and tools | `python3 --version` |
+| `ffmpeg` | Audio/video processing | `ffmpeg -version` |
+| `curl` | HTTP requests (fallback when `http_request` insufficient) | `curl --version` |
+
+### GitHub CLI (gh)
+
+Authenticated GitHub CLI for full repo management:
+
+```bash
+gh issue list / view / create / close / comment
+gh pr list / view / create / merge / checks
+gh release list / create
+gh run list / view / watch
+```
+
+### Google CLI (gog)
+
+OAuth-authenticated Google Workspace CLI. Supports Gmail and Calendar:
+
+```bash
+gog calendar events --max 10
+gog gmail search "is:unread" --max 20
+gog gmail send --to user@email.com --subject "Subject" --body "Body"
+```
+
+Requires `GOG_KEYRING_PASSWORD` and `GOG_ACCOUNT` env vars.
+
+## Companion Tools
+
+### SocialCrabs — Social Media Automation
+
+[SocialCrabs](https://github.com/adolfousier/socialcrabs) is a social media automation tool with human-like behavior simulation (Playwright). Supports **Twitter/X**, **Instagram**, and **LinkedIn**.
+
+The agent calls SocialCrabs CLI commands via `bash`:
+
+```bash
+node dist/cli.js x tweet "Hello world"
+node dist/cli.js x mentions -n 5
+node dist/cli.js ig like <post-url>
+node dist/cli.js linkedin connect <profile-url>
+```
+
+Read operations are safe. Write operations (tweet, like, follow, comment) require explicit user approval.
+
+### WhisperCrabs — Floating Voice-to-Text
+
+[WhisperCrabs](https://github.com/adolfousier/whispercrabs) is a floating voice-to-text widget controllable via D-Bus. Click to record, click to stop, text goes to clipboard. The agent can start/stop recording, switch providers, and view transcription history via D-Bus commands.

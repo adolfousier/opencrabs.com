@@ -266,8 +266,8 @@ fn Features() -> impl IntoView {
     let features = vec![
         (
             "🖥️",
-            "Runs on Your Machine",
-            "Mac, Windows, or Linux. Anthropic, OpenAI, Gemini, or any local model. Private by default — your data stays yours.",
+            "~23 MB Single Binary",
+            "Mac, Windows, or Linux. Anthropic, OpenAI, Gemini, GitHub Copilot, or any local model. Private by default — your data stays yours.",
         ),
         (
             "💬",
@@ -286,8 +286,8 @@ fn Features() -> impl IntoView {
         ),
         (
             ">_",
-            "Full System Access",
-            "Read and write files, run shell commands, execute scripts. Full access or sandboxed — your choice.",
+            "Full Terminal Access",
+            "A TUI with full shell access. Any CLI tool on your system — gh, docker, ssh, git, node, python — the agent can use it. No plugins needed.",
         ),
         (
             "📐",
@@ -337,12 +337,15 @@ fn Integrations() -> impl IntoView {
         "📡 LM Studio",
     ];
     let tools = vec![
-        "🐙 GitHub",
+        "🐙 GitHub CLI",
         "📧 Gmail",
         "📅 Calendar",
-        "🐦 Twitter",
+        "🐦 Twitter/X",
+        "📸 Instagram",
+        "💼 LinkedIn",
         "🔍 Brave Search",
         "🎙️ Local STT/TTS",
+        "🐳 Docker",
     ];
 
     view! {

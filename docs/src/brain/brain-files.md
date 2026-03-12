@@ -47,4 +47,6 @@ Startup procedures: check git log, verify build, greet human with context awaren
 
 These files are **yours**. The agent reads them but you control the content. Templates are at `src/docs/reference/templates/` in the source repo — compare your local files against templates when updating to pick up new sections without losing custom content.
 
-> **Upgrading:** Brain files are never overwritten by `/evolve` or `/rebuild`. After updating, ask your agent to compare templates against local files and patch in new sections.
+> **New installs (v0.2.72+):** CODE.md and SECURITY.md are automatically seeded on first run. Existing users can ask their crab: *"Check my brain templates and update them if any are missing or outdated."*
+>
+> **Upgrading:** Brain files are never overwritten by `/evolve` or `/rebuild`. After updating, ask your crab to compare templates against local files and patch in new sections.
