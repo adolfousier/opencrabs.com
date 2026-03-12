@@ -58,6 +58,7 @@ gh release download v0.2.66 -R adolfousier/opencrabs -p "opencrabs-*$(uname -m)*
 4. **Atomic swap** — Replaces the current binary
 5. **Post-swap health check** — Verifies the swapped binary works. If it fails, **auto-rolls back** to the backup.
 6. **Restart** — exec()-restarts into the new version
+7. **Brain update prompt** — After restart, your crab announces the new version, diffs brain templates against your local files, and offers to update them
 
 ### If /evolve Fails
 

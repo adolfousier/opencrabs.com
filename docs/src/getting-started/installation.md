@@ -70,6 +70,85 @@ docker compose -f src/docker/compose.yml up --build
 
 Config, workspace, and memory DB persist in a Docker volume across restarts. API keys in `keys.toml` are mounted into the container at runtime — never baked into the image.
 
+## Autostart on Boot
+
+Keep OpenCrabs running as a background daemon that starts with your system.
+
+### Linux (systemd)
+
+```bash
+cat > ~/.config/systemd/user/opencrabs.service << 'EOF'
+[Unit]
+Description=OpenCrabs AI Agent
+After=network.target
+
+[Service]
+ExecStart=%h/.cargo/bin/opencrabs daemon
+Restart=on-failure
+RestartSec=5
+Environment=OPENCRABS_HOME=%h/.opencrabs
+
+[Install]
+WantedBy=default.target
+EOF
+
+systemctl --user daemon-reload
+systemctl --user enable opencrabs
+systemctl --user start opencrabs
+```
+
+Check status: `systemctl --user status opencrabs` | Logs: `journalctl --user -u opencrabs -f`
+
+### macOS (launchd)
+
+```bash
+cat > ~/Library/LaunchAgents/com.opencrabs.agent.plist << 'EOF'
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+  "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.opencrabs.agent</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>/usr/local/bin/opencrabs</string>
+        <string>daemon</string>
+    </array>
+    <key>RunAtLoad</key>
+    <true/>
+    <key>KeepAlive</key>
+    <true/>
+    <key>StandardOutPath</key>
+    <string>/tmp/opencrabs.log</string>
+    <key>StandardErrorPath</key>
+    <string>/tmp/opencrabs.err</string>
+</dict>
+</plist>
+EOF
+
+launchctl load ~/Library/LaunchAgents/com.opencrabs.agent.plist
+```
+
+Update the path in `ProgramArguments` to match your install location.
+
+### Windows (Task Scheduler)
+
+1. `Win + R` → `taskschd.msc`
+2. **Create Basic Task** → Name: `OpenCrabs`
+3. Trigger: **When I log on**
+4. Action: **Start a program** → `C:\Users\<you>\.cargo\bin\opencrabs.exe`, Arguments: `daemon`
+5. In Properties > Settings, check **If the task fails, restart every 1 minute**
+
+Or via PowerShell:
+
+```powershell
+$action = New-ScheduledTaskAction -Execute "$env:USERPROFILE\.cargo\bin\opencrabs.exe" -Argument "daemon"
+$trigger = New-ScheduledTaskTrigger -AtLogon
+$settings = New-ScheduledTaskSettingsSet -RestartCount 3 -RestartInterval (New-TimeSpan -Minutes 1)
+Register-ScheduledTask -TaskName "OpenCrabs" -Action $action -Trigger $trigger -Settings $settings
+```
+
 ## Updating
 
 - **Binary users:** Type `/evolve` in the TUI to download the latest release
