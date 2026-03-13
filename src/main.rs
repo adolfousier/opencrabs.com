@@ -17,12 +17,21 @@ fn detect_os() -> &'static str {
     }
 }
 
-fn download_url(os: &str) -> &'static str {
+fn download_asset(os: &str) -> &'static str {
     match os {
-        "macos" => "https://github.com/adolfousier/opencrabs/releases/latest/download/opencrabs-macos-arm64.tar.gz",
-        "windows" => "https://github.com/adolfousier/opencrabs/releases/latest/download/opencrabs-windows-amd64.zip",
-        _ => "https://github.com/adolfousier/opencrabs/releases/latest/download/opencrabs-linux-amd64.tar.gz",
+        "macos" => "opencrabs-macos-arm64.tar.gz",
+        "windows" => "opencrabs-windows-amd64.zip",
+        _ => "opencrabs-linux-amd64.tar.gz",
     }
+}
+
+fn build_download_url_full(tag: &str, os: &str) -> String {
+    let asset = download_asset(os);
+    let name = asset.replace("opencrabs-", &format!("opencrabs-{}-", tag));
+    format!(
+        "https://github.com/adolfousier/opencrabs/releases/download/{}/{}",
+        tag, name
+    )
 }
 
 fn download_label(os: &str) -> &'static str {
@@ -61,11 +70,16 @@ fn App() -> impl IntoView {
         stars.get().flatten().unwrap_or(0)
     });
 
+    let release = LocalResource::new(|| fetch_latest_release());
+    let tag_signal = Signal::derive(move || {
+        release.get().flatten().map(|r| r.tag_name.clone()).unwrap_or_default()
+    });
+
     view! {
-        <Nav stars=stars_signal />
+        <Nav stars=stars_signal tag=tag_signal />
         <Hero />
         <Testimonials />
-        <QuickStart />
+        <QuickStart tag=tag_signal />
         <Features />
         <Integrations />
         <Community />
@@ -77,7 +91,7 @@ fn App() -> impl IntoView {
 // ── Navigation ──────────────────────────────────────────────────────────────
 
 #[component]
-fn Nav(stars: Signal<u32>) -> impl IntoView {
+fn Nav(stars: Signal<u32>, tag: Signal<String>) -> impl IntoView {
     let star_label = move || {
         let count = stars.get();
         if count > 0 {
@@ -99,7 +113,16 @@ fn Nav(stars: Signal<u32>) -> impl IntoView {
                     <li><a href="#features">"Features"</a></li>
                     <li><a href="#integrations">"Integrations"</a></li>
                     <li>
-                        <a href={download_url(detect_os())} class="nav-download">"Download"</a>
+                        {move || {
+                            let t = tag.get();
+                            let os = detect_os();
+                            let url = if t.is_empty() {
+                                "https://github.com/adolfousier/opencrabs/releases/latest".to_string()
+                            } else {
+                                build_download_url_full(&t, os)
+                            };
+                            view! { <a href=url class="nav-download">"Download"</a> }
+                        }}
                     </li>
                     <li>
                         <a href="https://github.com/adolfousier/opencrabs" class="btn-github" target="_blank">
@@ -200,7 +223,7 @@ fn Hero() -> impl IntoView {
 // ── Quick Start ─────────────────────────────────────────────────────────────
 
 #[component]
-fn QuickStart() -> impl IntoView {
+fn QuickStart(tag: Signal<String>) -> impl IntoView {
     let (active_tab, set_active_tab) = signal(0u8);
 
     view! {
@@ -234,10 +257,15 @@ fn QuickStart() -> impl IntoView {
                         <span class="terminal-platform">"macOS / Linux / Windows"</span>
                     </div>
                     <div class="terminal-body" style:display=move || if active_tab.get() == 0 { "block" } else { "none" }>
-                        {
+                        {move || {
                             let os = detect_os();
-                            let url = download_url(os);
+                            let t = tag.get();
                             let label = download_label(os);
+                            let url = if t.is_empty() {
+                                "https://github.com/adolfousier/opencrabs/releases/latest".to_string()
+                            } else {
+                                build_download_url_full(&t, os)
+                            };
                             view! {
                                 <div class="download-row">
                                     <a href=url class="download-btn">{label}</a>
@@ -276,7 +304,7 @@ fn QuickStart() -> impl IntoView {
                                     }.into_any()
                                 }}
                             }
-                        }
+                        }}
                     </div>
                     <div class="terminal-body" style:display=move || if active_tab.get() == 1 { "block" } else { "none" }>
                         <div>
