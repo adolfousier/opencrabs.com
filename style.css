@@ -323,6 +323,76 @@ nav .container {
     color: var(--text-primary);
 }
 
+.download-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 12px;
+}
+
+.download-btn {
+    display: inline-block;
+    background: var(--accent);
+    color: white;
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 10px 24px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: opacity 0.2s;
+}
+
+.download-btn:hover {
+    opacity: 0.85;
+}
+
+.download-all {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    text-decoration: none;
+    font-family: var(--font-mono);
+}
+
+.download-all:hover {
+    color: var(--text-secondary);
+}
+
+.download-divider {
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    margin: 8px 0 12px;
+    text-align: center;
+    position: relative;
+}
+
+.download-divider::before,
+.download-divider::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 35%;
+    height: 1px;
+    background: var(--border);
+}
+
+.download-divider::before { left: 0; }
+.download-divider::after { right: 0; }
+
+.nav-download {
+    background: var(--accent);
+    color: white !important;
+    padding: 6px 16px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: opacity 0.2s;
+}
+
+.nav-download:hover {
+    opacity: 0.85;
+}
+
 .terminal-note {
     text-align: center;
     color: var(--text-muted);

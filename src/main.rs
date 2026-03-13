@@ -2,6 +2,37 @@ use leptos::prelude::*;
 use gloo_net::http::Request;
 use serde::Deserialize;
 
+fn detect_os() -> &'static str {
+    let window = leptos::prelude::window();
+    let nav: web_sys::Navigator = window.navigator();
+    let ua = nav.user_agent().unwrap_or_default().to_lowercase();
+    let platform = nav.platform().unwrap_or_default().to_lowercase();
+
+    if platform.contains("win") || ua.contains("windows") {
+        "windows"
+    } else if platform.contains("mac") || ua.contains("macintosh") {
+        "macos"
+    } else {
+        "linux"
+    }
+}
+
+fn download_url(os: &str) -> &'static str {
+    match os {
+        "macos" => "https://github.com/adolfousier/opencrabs/releases/latest/download/opencrabs-macos-arm64.tar.gz",
+        "windows" => "https://github.com/adolfousier/opencrabs/releases/latest/download/opencrabs-windows-amd64.zip",
+        _ => "https://github.com/adolfousier/opencrabs/releases/latest/download/opencrabs-linux-amd64.tar.gz",
+    }
+}
+
+fn download_label(os: &str) -> &'static str {
+    match os {
+        "macos" => "Download for macOS",
+        "windows" => "Download for Windows",
+        _ => "Download for Linux",
+    }
+}
+
 #[derive(Deserialize, Clone, Debug)]
 struct GitHubRepo {
     stargazers_count: u32,
@@ -67,7 +98,9 @@ fn Nav(stars: Signal<u32>) -> impl IntoView {
                     <li><a href="https://docs.opencrabs.com" target="_blank">"Docs"</a></li>
                     <li><a href="#features">"Features"</a></li>
                     <li><a href="#integrations">"Integrations"</a></li>
-                    <li><a href="#community">"Community"</a></li>
+                    <li>
+                        <a href={download_url(detect_os())} class="nav-download">"Download"</a>
+                    </li>
                     <li>
                         <a href="https://github.com/adolfousier/opencrabs" class="btn-github" target="_blank">
                             "GitHub"
@@ -198,22 +231,52 @@ fn QuickStart() -> impl IntoView {
                                 on:click=move |_| set_active_tab.set(2)
                             >"Source"</button>
                         </div>
-                        <span class="terminal-platform">"macOS / Linux"</span>
+                        <span class="terminal-platform">"macOS / Linux / Windows"</span>
                     </div>
                     <div class="terminal-body" style:display=move || if active_tab.get() == 0 { "block" } else { "none" }>
-                        <div>
-                            <span class="terminal-comment">"# Download latest release for your platform"</span>
-                        </div>
-                        <div>
-                            <span class="terminal-prompt">"$ "</span>
-                            <span class="terminal-cmd">
-                                "curl -fsSL https://github.com/adolfousier/opencrabs/releases/latest/download/opencrabs-$(uname -m)-$(uname -s | tr A-Z a-z).tar.gz | tar xz"
-                            </span>
-                        </div>
-                        <div>
-                            <span class="terminal-prompt">"$ "</span>
-                            <span class="terminal-cmd">"./opencrabs"</span>
-                        </div>
+                        {
+                            let os = detect_os();
+                            let url = download_url(os);
+                            let label = download_label(os);
+                            view! {
+                                <div class="download-row">
+                                    <a href=url class="download-btn">{label}</a>
+                                    <a href="https://github.com/adolfousier/opencrabs/releases/latest" class="download-all">"All platforms →"</a>
+                                </div>
+                                <div class="download-divider">"or via terminal"</div>
+                                {if os == "windows" {
+                                    view! {
+                                        <div>
+                                            <span class="terminal-comment">"# PowerShell"</span>
+                                        </div>
+                                        <div>
+                                            <span class="terminal-prompt">"PS> "</span>
+                                            <span class="terminal-cmd">"Invoke-WebRequest -Uri https://github.com/adolfousier/opencrabs/releases/latest/download/opencrabs-windows-amd64.zip -OutFile opencrabs.zip"</span>
+                                        </div>
+                                        <div>
+                                            <span class="terminal-prompt">"PS> "</span>
+                                            <span class="terminal-cmd">"Expand-Archive opencrabs.zip -DestinationPath . && .\\opencrabs.exe"</span>
+                                        </div>
+                                    }.into_any()
+                                } else {
+                                    view! {
+                                        <div>
+                                            <span class="terminal-comment">"# Download latest release for your platform"</span>
+                                        </div>
+                                        <div>
+                                            <span class="terminal-prompt">"$ "</span>
+                                            <span class="terminal-cmd">
+                                                "curl -fsSL https://github.com/adolfousier/opencrabs/releases/latest/download/opencrabs-$(uname -m)-$(uname -s | tr A-Z a-z).tar.gz | tar xz"
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <span class="terminal-prompt">"$ "</span>
+                                            <span class="terminal-cmd">"./opencrabs"</span>
+                                        </div>
+                                    }.into_any()
+                                }}
+                            }
+                        }
                     </div>
                     <div class="terminal-body" style:display=move || if active_tab.get() == 1 { "block" } else { "none" }>
                         <div>
