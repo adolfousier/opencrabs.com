@@ -54,10 +54,10 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-20b146fc.js";
+            window.path_to_searchindex_js = "../searchindex-82ce5e6f.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-bffe8afd.js"></script>
+        <script src="../toc-b890e03e.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -197,7 +197,7 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="built-in-tools"><a class="header" href="#built-in-tools">Built-in Tools</a></h1>
-<p>OpenCrabs ships with 40+ tools available to the agent out of the box.</p>
+<p>OpenCrabs ships with 45+ tools available to the agent out of the box.</p>
 <h2 id="file-operations"><a class="header" href="#file-operations">File Operations</a></h2>
 <div class="table-wrapper">
 <table>
@@ -277,6 +277,23 @@
 </tbody>
 </table>
 </div>
+<h2 id="sub-agent-orchestration"><a class="header" href="#sub-agent-orchestration">Sub-Agent Orchestration</a></h2>
+<p>Agents can spawn independent child agents for parallel task execution:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Tool</th><th>Parameters</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>spawn_agent</code></td><td><code>task</code>, <code>provider</code>, <code>model</code></td><td>Spawn a child agent in an isolated session</td></tr>
+<tr><td><code>wait_agent</code></td><td><code>agent_id</code></td><td>Wait for a child agent to complete</td></tr>
+<tr><td><code>send_input</code></td><td><code>agent_id</code>, <code>message</code></td><td>Send a message to a running child agent</td></tr>
+<tr><td><code>close_agent</code></td><td><code>agent_id</code></td><td>Terminate a child agent</td></tr>
+<tr><td><code>resume_agent</code></td><td><code>agent_id</code></td><td>Resume a previously spawned agent</td></tr>
+</tbody>
+</table>
+</div>
+<p>Children run with auto-approve and essential tools. No recursive spawning.</p>
 <h2 id="system"><a class="header" href="#system">System</a></h2>
 <div class="table-wrapper">
 <table>
@@ -293,15 +310,50 @@
 </table>
 </div>
 <h2 id="system-cli-tools"><a class="header" href="#system-cli-tools">System CLI Tools</a></h2>
-<p>The agent can also use CLI tools available on the system through <code>bash</code>:</p>
-<ul>
-<li><code>gh</code> — GitHub CLI (PRs, issues, releases)</li>
-<li><code>docker</code> — Container management</li>
-<li><code>ssh</code> — Remote server access</li>
-<li><code>node</code> / <code>python3</code> — Script execution</li>
-<li><code>curl</code> — HTTP requests</li>
-<li><code>ffmpeg</code> — Media processing</li>
-</ul>
+<p>OpenCrabs runs in a TUI with full terminal access. The agent can execute <strong>any CLI tool</strong> installed on the host via the <code>bash</code> tool — no plugins, no wrappers. If it’s on your system, the agent can use it. Common ones:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Tool</th><th>Purpose</th><th>Check</th></tr>
+</thead>
+<tbody>
+<tr><td><code>gh</code></td><td>GitHub CLI — issues, PRs, repos, releases, actions</td><td><code>gh --version</code></td></tr>
+<tr><td><code>gog</code></td><td>Google CLI — Gmail, Calendar (OAuth)</td><td><code>gog --version</code></td></tr>
+<tr><td><code>docker</code></td><td>Container management</td><td><code>docker --version</code></td></tr>
+<tr><td><code>ssh</code></td><td>Remote server access</td><td><code>ssh -V</code></td></tr>
+<tr><td><code>node</code></td><td>Run JavaScript/TypeScript tools</td><td><code>node --version</code></td></tr>
+<tr><td><code>python3</code></td><td>Run Python scripts and tools</td><td><code>python3 --version</code></td></tr>
+<tr><td><code>ffmpeg</code></td><td>Audio/video processing</td><td><code>ffmpeg -version</code></td></tr>
+<tr><td><code>curl</code></td><td>HTTP requests (fallback when <code>http_request</code> insufficient)</td><td><code>curl --version</code></td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="github-cli-gh"><a class="header" href="#github-cli-gh">GitHub CLI (gh)</a></h3>
+<p>Authenticated GitHub CLI for full repo management:</p>
+<pre><code class="language-bash">gh issue list / view / create / close / comment
+gh pr list / view / create / merge / checks
+gh release list / create
+gh run list / view / watch
+</code></pre>
+<h3 id="google-cli-gog"><a class="header" href="#google-cli-gog">Google CLI (gog)</a></h3>
+<p>OAuth-authenticated Google Workspace CLI. Supports Gmail and Calendar:</p>
+<pre><code class="language-bash">gog calendar events --max 10
+gog gmail search "is:unread" --max 20
+gog gmail send --to user@email.com --subject "Subject" --body "Body"
+</code></pre>
+<p>Requires <code>GOG_KEYRING_PASSWORD</code> and <code>GOG_ACCOUNT</code> env vars.</p>
+<h2 id="companion-tools"><a class="header" href="#companion-tools">Companion Tools</a></h2>
+<h3 id="socialcrabs--social-media-automation"><a class="header" href="#socialcrabs--social-media-automation">SocialCrabs — Social Media Automation</a></h3>
+<p><a href="https://github.com/adolfousier/socialcrabs">SocialCrabs</a> is a social media automation tool with human-like behavior simulation (Playwright). Supports <strong>Twitter/X</strong>, <strong>Instagram</strong>, and <strong>LinkedIn</strong>.</p>
+<p>The agent calls SocialCrabs CLI commands via <code>bash</code>:</p>
+<pre><code class="language-bash">node dist/cli.js x tweet "Hello world"
+node dist/cli.js x mentions -n 5
+node dist/cli.js ig like &lt;post-url&gt;
+node dist/cli.js linkedin connect &lt;profile-url&gt;
+</code></pre>
+<p>Read operations are safe. Write operations (tweet, like, follow, comment) require explicit user approval.</p>
+<h3 id="whispercrabs--floating-voice-to-text"><a class="header" href="#whispercrabs--floating-voice-to-text">WhisperCrabs — Floating Voice-to-Text</a></h3>
+<p><a href="https://github.com/adolfousier/whispercrabs">WhisperCrabs</a> is a floating voice-to-text widget controllable via D-Bus. Click to record, click to stop, text goes to clipboard. The agent can start/stop recording, switch providers, and view transcription history via D-Bus commands.</p>
 
                     </main>
 

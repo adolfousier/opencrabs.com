@@ -55,10 +55,10 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-20b146fc.js";
+            window.path_to_searchindex_js = "searchindex-82ce5e6f.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-bffe8afd.js"></script>
+        <script src="toc-b890e03e.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -252,7 +252,7 @@ curl -fsSL https://github.com/adolfousier/opencrabs/releases/latest/download/ope
 <h2 id="option-2-build-from-source"><a class="header" href="#option-2-build-from-source">Option 2: Build from Source</a></h2>
 <p>Required for <code>/rebuild</code>, adding custom tools, or modifying the agent.</p>
 <h3 id="quick-setup-recommended"><a class="header" href="#quick-setup-recommended">Quick setup (recommended)</a></h3>
-<p>The setup script auto-detects your platform (macOS, Debian/Ubuntu, Fedora/RHEL, Arch) and installs all build dependencies + Rust nightly:</p>
+<p>The setup script auto-detects your platform (macOS, Debian/Ubuntu, Fedora/RHEL, Arch) and installs all build dependencies + Rust:</p>
 <pre><code class="language-bash"># Install all dependencies
 curl -fsSL https://raw.githubusercontent.com/adolfousier/opencrabs/main/scripts/setup.sh | bash
 
@@ -265,7 +265,7 @@ cargo build --release
 <h3 id="manual-setup"><a class="header" href="#manual-setup">Manual setup</a></h3>
 <p>If you prefer to install dependencies yourself:</p>
 <ul>
-<li><strong>Rust nightly (2024 edition)</strong> — <a href="https://rustup.rs/">Install Rust</a>, then <code>rustup toolchain install nightly</code></li>
+<li><strong>Rust stable</strong> — <a href="https://rustup.rs/">Install Rust</a>. Stable toolchain works since v0.2.85</li>
 <li><strong>An API key</strong> from at least one supported provider</li>
 <li><strong>SQLite</strong> (bundled via rusqlite)</li>
 <li><strong>macOS:</strong> <code>brew install cmake pkg-config</code></li>
@@ -288,6 +288,72 @@ cd opencrabs
 docker compose -f src/docker/compose.yml up --build
 </code></pre>
 <p>Config, workspace, and memory DB persist in a Docker volume across restarts. API keys in <code>keys.toml</code> are mounted into the container at runtime — never baked into the image.</p>
+<h2 id="autostart-on-boot"><a class="header" href="#autostart-on-boot">Autostart on Boot</a></h2>
+<p>Keep OpenCrabs running as a background daemon that starts with your system.</p>
+<h3 id="linux-systemd"><a class="header" href="#linux-systemd">Linux (systemd)</a></h3>
+<pre><code class="language-bash">cat &gt; ~/.config/systemd/user/opencrabs.service &lt;&lt; 'EOF'
+[Unit]
+Description=OpenCrabs AI Agent
+After=network.target
+
+[Service]
+ExecStart=%h/.cargo/bin/opencrabs daemon
+Restart=on-failure
+RestartSec=5
+Environment=OPENCRABS_HOME=%h/.opencrabs
+
+[Install]
+WantedBy=default.target
+EOF
+
+systemctl --user daemon-reload
+systemctl --user enable opencrabs
+systemctl --user start opencrabs
+</code></pre>
+<p>Check status: <code>systemctl --user status opencrabs</code> | Logs: <code>journalctl --user -u opencrabs -f</code></p>
+<h3 id="macos-launchd"><a class="header" href="#macos-launchd">macOS (launchd)</a></h3>
+<pre><code class="language-bash">cat &gt; ~/Library/LaunchAgents/com.opencrabs.agent.plist &lt;&lt; 'EOF'
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+  "http://www.apple.com/DTDs/PropertyList-1.0.dtd"&gt;
+&lt;plist version="1.0"&gt;
+&lt;dict&gt;
+    &lt;key&gt;Label&lt;/key&gt;
+    &lt;string&gt;com.opencrabs.agent&lt;/string&gt;
+    &lt;key&gt;ProgramArguments&lt;/key&gt;
+    &lt;array&gt;
+        &lt;string&gt;/usr/local/bin/opencrabs&lt;/string&gt;
+        &lt;string&gt;daemon&lt;/string&gt;
+    &lt;/array&gt;
+    &lt;key&gt;RunAtLoad&lt;/key&gt;
+    &lt;true/&gt;
+    &lt;key&gt;KeepAlive&lt;/key&gt;
+    &lt;true/&gt;
+    &lt;key&gt;StandardOutPath&lt;/key&gt;
+    &lt;string&gt;/tmp/opencrabs.log&lt;/string&gt;
+    &lt;key&gt;StandardErrorPath&lt;/key&gt;
+    &lt;string&gt;/tmp/opencrabs.err&lt;/string&gt;
+&lt;/dict&gt;
+&lt;/plist&gt;
+EOF
+
+launchctl load ~/Library/LaunchAgents/com.opencrabs.agent.plist
+</code></pre>
+<p>Update the path in <code>ProgramArguments</code> to match your install location.</p>
+<h3 id="windows-task-scheduler"><a class="header" href="#windows-task-scheduler">Windows (Task Scheduler)</a></h3>
+<ol>
+<li><code>Win + R</code> → <code>taskschd.msc</code></li>
+<li><strong>Create Basic Task</strong> → Name: <code>OpenCrabs</code></li>
+<li>Trigger: <strong>When I log on</strong></li>
+<li>Action: <strong>Start a program</strong> → <code>C:\Users\&lt;you&gt;\.cargo\bin\opencrabs.exe</code>, Arguments: <code>daemon</code></li>
+<li>In Properties &gt; Settings, check <strong>If the task fails, restart every 1 minute</strong></li>
+</ol>
+<p>Or via PowerShell:</p>
+<pre><code class="language-powershell">$action = New-ScheduledTaskAction -Execute "$env:USERPROFILE\.cargo\bin\opencrabs.exe" -Argument "daemon"
+$trigger = New-ScheduledTaskTrigger -AtLogon
+$settings = New-ScheduledTaskSettingsSet -RestartCount 3 -RestartInterval (New-TimeSpan -Minutes 1)
+Register-ScheduledTask -TaskName "OpenCrabs" -Action $action -Trigger $trigger -Settings $settings
+</code></pre>
 <h2 id="updating"><a class="header" href="#updating">Updating</a></h2>
 <ul>
 <li><strong>Binary users:</strong> Type <code>/evolve</code> in the TUI to download the latest release</li>
@@ -501,6 +567,20 @@ opencrabs cron disable "Daily Report"
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="troubleshooting"><a class="header" href="#troubleshooting">Troubleshooting</a></h1>
 <p>Common issues and how to fix them.</p>
+<h2 id="windows-defender-blocking-opencrabs"><a class="header" href="#windows-defender-blocking-opencrabs">Windows Defender Blocking OpenCrabs</a></h2>
+<p>Windows Defender may flag <code>opencrabs.exe</code> as suspicious because it’s an unsigned binary that executes shell commands and makes network requests. This is a false positive.</p>
+<p><strong>Add an exclusion:</strong></p>
+<ol>
+<li>Open <strong>Windows Security</strong> → <strong>Virus &amp; threat protection</strong></li>
+<li><strong>Virus &amp; threat protection settings</strong> → <strong>Manage settings</strong></li>
+<li><strong>Exclusions</strong> → <strong>Add or remove exclusions</strong></li>
+<li><strong>Add an exclusion</strong> → <strong>File</strong> → select <code>opencrabs.exe</code></li>
+</ol>
+<p><strong>Or via PowerShell (admin):</strong></p>
+<pre><code class="language-powershell">Add-MpPreference -ExclusionPath "C:\path\to\opencrabs.exe"
+</code></pre>
+<p>If SmartScreen blocks the first run, click <strong>More info</strong> → <strong>Run anyway</strong>.</p>
+<hr>
 <h2 id="binary-wont-start-or-crashes"><a class="header" href="#binary-wont-start-or-crashes">Binary Won’t Start or Crashes</a></h2>
 <h3 id="startup-errors"><a class="header" href="#startup-errors">Startup Errors</a></h3>
 <p>Run with debug logging to see what’s failing:</p>
@@ -525,6 +605,7 @@ gh release download v0.2.66 -R adolfousier/opencrabs -p "opencrabs-*$(uname -m)*
 <li><strong>Atomic swap</strong> — Replaces the current binary</li>
 <li><strong>Post-swap health check</strong> — Verifies the swapped binary works. If it fails, <strong>auto-rolls back</strong> to the backup.</li>
 <li><strong>Restart</strong> — exec()-restarts into the new version</li>
+<li><strong>Brain update prompt</strong> — After restart, your crab announces the new version, diffs brain templates against your local files, and offers to update them</li>
 </ol>
 <h3 id="if-evolve-fails"><a class="header" href="#if-evolve-fails">If /evolve Fails</a></h3>
 <p>The most common reason is the health check caught an issue — your current version stays safe. If something went wrong after the swap:</p>
@@ -532,10 +613,24 @@ gh release download v0.2.66 -R adolfousier/opencrabs -p "opencrabs-*$(uname -m)*
 cp /path/to/opencrabs.evolve_backup /path/to/opencrabs
 chmod +x /path/to/opencrabs
 </code></pre>
+<h3 id="cargo-install-fallback"><a class="header" href="#cargo-install-fallback">Cargo Install Fallback</a></h3>
+<p>When <code>/evolve</code> uses <code>cargo install</code> (building from source), it tries the <strong>stable</strong> toolchain first. If that fails, it automatically falls back to <code>cargo +nightly</code>. The progress message shows which toolchain succeeded.</p>
 <h3 id="check-only-mode"><a class="header" href="#check-only-mode">Check-Only Mode</a></h3>
 <p>The agent can check for updates without installing:</p>
 <pre><code>/evolve check_only=true
 </code></pre>
+<hr>
+<h2 id="bash-tool-safety"><a class="header" href="#bash-tool-safety">Bash Tool Safety</a></h2>
+<p>The bash tool includes a <strong>hard command blocklist</strong> that prevents catastrophic commands even if accidentally approved:</p>
+<ul>
+<li><code>rm -rf /</code>, <code>sudo rm -rf .</code></li>
+<li><code>mkfs</code>, <code>dd</code> to <code>/dev/</code></li>
+<li>Fork bombs</li>
+<li><code>/etc</code> overwrites, <code>/proc</code> writes</li>
+<li>Sensitive file exfiltration</li>
+<li>Crypto mining commands</li>
+</ul>
+<p>These are blocked at the tool level — no configuration needed.</p>
 <hr>
 <h2 id="older-cpus-pre-2011--no-avx"><a class="header" href="#older-cpus-pre-2011--no-avx">Older CPUs (Pre-2011 / No AVX)</a></h2>
 <p>Some features require AVX/AVX2 instructions. Since v0.2.67, OpenCrabs <strong>detects CPU capabilities at runtime</strong> and automatically hides unavailable options in the onboarding wizard.</p>
@@ -775,6 +870,36 @@ cargo build --release
 </code></pre>
 <p>Logs go to <code>~/.opencrabs/logs/</code> with 7-day retention.</p>
 <div style="break-before: page; page-break-before: always;"></div>
+<h1 id="supported-ai-providers"><a class="header" href="#supported-ai-providers">Supported AI Providers</a></h1>
+<p>OpenCrabs supports 10+ AI providers out of the box. Switch between them at any time via <code>/models</code> in the TUI or any channel.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Provider</th><th>Auth</th><th>Models</th><th>Streaming</th><th>Tools</th><th>Notes</th></tr>
+</thead>
+<tbody>
+<tr><td><a href="#anthropic-claude">Anthropic Claude</a></td><td>API key</td><td>Claude Opus 4.6, Sonnet 4.5, Haiku 4.5</td><td>Yes</td><td>Yes</td><td>Extended thinking, 200K context</td></tr>
+<tr><td><a href="#openai">OpenAI</a></td><td>API key</td><td>GPT-5 Turbo, GPT-5, o3/o4-mini</td><td>Yes</td><td>Yes</td><td>Models fetched live</td></tr>
+<tr><td><a href="#github-copilot">GitHub Copilot</a></td><td>OAuth</td><td>GPT-4o, Claude Sonnet 4+</td><td>Yes</td><td>Yes</td><td>Uses your Copilot subscription — no API charges</td></tr>
+<tr><td><a href="#openrouter--400-models">OpenRouter</a></td><td>API key</td><td>400+ models</td><td>Yes</td><td>Yes</td><td>Free models available (DeepSeek-R1, Llama 3.3, etc.)</td></tr>
+<tr><td><a href="#google-gemini">Google Gemini</a></td><td>API key</td><td>Gemini 2.5 Flash, 2.0, 1.5 Pro</td><td>Yes</td><td>Yes</td><td>1M+ context, vision, image generation</td></tr>
+<tr><td><a href="#minimax">MiniMax</a></td><td>API key</td><td>M2.7, M2.5, M2.1, Text-01</td><td>Yes</td><td>Yes</td><td>Competitive pricing, auto-configured vision</td></tr>
+<tr><td><a href="#zai-zhipu-ai">z.ai GLM</a></td><td>API key</td><td>GLM-4.5 through GLM-5 Turbo</td><td>Yes</td><td>Yes</td><td>General API + Coding API endpoints</td></tr>
+<tr><td><a href="#claude-cli">Claude CLI</a></td><td>CLI auth</td><td>Via <code>claude</code> binary</td><td>Yes</td><td>Yes</td><td>Uses your Claude Code subscription</td></tr>
+<tr><td><a href="#opencode-cli">OpenCode CLI</a></td><td>None</td><td>Free models (Mimo, etc.)</td><td>Yes</td><td>Yes</td><td>Free — no API key or subscription needed</td></tr>
+<tr><td><a href="#custom-openai-compatible">Custom</a></td><td>Optional</td><td>Any</td><td>Yes</td><td>Yes</td><td>Ollama, LM Studio, Groq, NVIDIA, any OpenAI-compatible API</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="how-it-works"><a class="header" href="#how-it-works">How It Works</a></h2>
+<ul>
+<li><strong>One provider active at a time</strong> per session — switch with <code>/models</code></li>
+<li><strong>Per-session memory</strong> — each session remembers its provider and model</li>
+<li><strong>Fallback chain</strong> — configure automatic failover when the primary provider goes down</li>
+<li><strong>Models fetched live</strong> — no binary update needed when providers add new models</li>
+</ul>
+<p>See <a href="#ai-provider-setup">Provider Setup</a> for configuration details and API key setup.</p>
+<div style="break-before: page; page-break-before: always;"></div>
 <h1 id="ai-provider-setup"><a class="header" href="#ai-provider-setup">AI Provider Setup</a></h1>
 <p>OpenCrabs supports multiple AI providers. Configure them in <code>config.toml</code> and <code>keys.toml</code> at <code>~/.opencrabs/</code>.</p>
 <h2 id="anthropic-claude"><a class="header" href="#anthropic-claude">Anthropic Claude</a></h2>
@@ -817,8 +942,42 @@ default_model = "gemini-2.5-flash"
 <blockquote>
 <p>Gemini also powers the separate image generation and vision tools. See <a href="#image-generation--vision">Image Generation &amp; Vision</a>.</p>
 </blockquote>
+<h2 id="github-copilot"><a class="header" href="#github-copilot">GitHub Copilot</a></h2>
+<p>Use your existing GitHub Copilot subscription — no separate API charges. Authenticates via OAuth device flow.</p>
+<pre><code class="language-toml"># config.toml
+[providers.github_copilot]
+enabled = true
+</code></pre>
+<p><strong>Setup:</strong> Run <code>/onboard:providers</code> → select GitHub Copilot → follow the device code flow at <code>github.com/login/device</code>. Models are fetched live from the Copilot API.</p>
+<p><strong>Requirements:</strong> An active <a href="https://github.com/features/copilot">GitHub Copilot</a> subscription (Individual, Business, or Enterprise).</p>
+<h2 id="zai-zhipu-ai"><a class="header" href="#zai-zhipu-ai">z.ai (Zhipu AI)</a></h2>
+<p><strong>Models:</strong> GLM-4-Plus, GLM-4-Flash, GLM-4-0520, CodeGeeX — fetched live. Two endpoint types: General API and Coding API.</p>
+<pre><code class="language-toml"># keys.toml
+[providers.zai]
+api_key = "your-api-key"
+</code></pre>
+<pre><code class="language-toml"># config.toml
+[providers.zai]
+enabled = true
+default_model = "glm-4-plus"
+</code></pre>
+<p>Get your API key at <a href="https://open.bigmodel.cn">open.bigmodel.cn</a>.</p>
+<h2 id="claude-cli"><a class="header" href="#claude-cli">Claude CLI</a></h2>
+<p>Use your existing Claude Code subscription through the local <code>claude</code> binary — no separate API key needed. Supports streaming and extended thinking.</p>
+<pre><code class="language-toml"># config.toml
+[providers.claude_cli]
+enabled = true
+</code></pre>
+<p><strong>Requirements:</strong> The <code>claude</code> CLI must be installed and authenticated. Models are detected automatically.</p>
+<h2 id="opencode-cli"><a class="header" href="#opencode-cli">OpenCode CLI</a></h2>
+<p>Use the local <code>opencode</code> binary for free LLM completions — no API key or subscription needed. Supports NDJSON streaming and extended thinking.</p>
+<pre><code class="language-toml"># config.toml
+[providers.opencode_cli]
+enabled = true
+</code></pre>
+<p><strong>Requirements:</strong> The <code>opencode</code> binary must be installed and available in your PATH. Models are fetched live via <code>opencode models</code>.</p>
 <h2 id="minimax"><a class="header" href="#minimax">MiniMax</a></h2>
-<p><strong>Models:</strong> <code>MiniMax-M2.5</code>, <code>MiniMax-M2.1</code>, <code>MiniMax-Text-01</code></p>
+<p><strong>Models:</strong> <code>MiniMax-M2.7</code>, <code>MiniMax-M2.5</code>, <code>MiniMax-M2.1</code>, <code>MiniMax-Text-01</code></p>
 <pre><code class="language-toml"># keys.toml
 [providers.minimax]
 api_key = "your-api-key"
@@ -1237,7 +1396,7 @@ member_id = "your-member-id"
 </ul>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="built-in-tools"><a class="header" href="#built-in-tools">Built-in Tools</a></h1>
-<p>OpenCrabs ships with 40+ tools available to the agent out of the box.</p>
+<p>OpenCrabs ships with 45+ tools available to the agent out of the box.</p>
 <h2 id="file-operations"><a class="header" href="#file-operations">File Operations</a></h2>
 <div class="table-wrapper">
 <table>
@@ -1317,6 +1476,23 @@ member_id = "your-member-id"
 </tbody>
 </table>
 </div>
+<h2 id="sub-agent-orchestration"><a class="header" href="#sub-agent-orchestration">Sub-Agent Orchestration</a></h2>
+<p>Agents can spawn independent child agents for parallel task execution:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Tool</th><th>Parameters</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>spawn_agent</code></td><td><code>task</code>, <code>provider</code>, <code>model</code></td><td>Spawn a child agent in an isolated session</td></tr>
+<tr><td><code>wait_agent</code></td><td><code>agent_id</code></td><td>Wait for a child agent to complete</td></tr>
+<tr><td><code>send_input</code></td><td><code>agent_id</code>, <code>message</code></td><td>Send a message to a running child agent</td></tr>
+<tr><td><code>close_agent</code></td><td><code>agent_id</code></td><td>Terminate a child agent</td></tr>
+<tr><td><code>resume_agent</code></td><td><code>agent_id</code></td><td>Resume a previously spawned agent</td></tr>
+</tbody>
+</table>
+</div>
+<p>Children run with auto-approve and essential tools. No recursive spawning.</p>
 <h2 id="system"><a class="header" href="#system">System</a></h2>
 <div class="table-wrapper">
 <table>
@@ -1333,15 +1509,50 @@ member_id = "your-member-id"
 </table>
 </div>
 <h2 id="system-cli-tools"><a class="header" href="#system-cli-tools">System CLI Tools</a></h2>
-<p>The agent can also use CLI tools available on the system through <code>bash</code>:</p>
-<ul>
-<li><code>gh</code> — GitHub CLI (PRs, issues, releases)</li>
-<li><code>docker</code> — Container management</li>
-<li><code>ssh</code> — Remote server access</li>
-<li><code>node</code> / <code>python3</code> — Script execution</li>
-<li><code>curl</code> — HTTP requests</li>
-<li><code>ffmpeg</code> — Media processing</li>
-</ul>
+<p>OpenCrabs runs in a TUI with full terminal access. The agent can execute <strong>any CLI tool</strong> installed on the host via the <code>bash</code> tool — no plugins, no wrappers. If it’s on your system, the agent can use it. Common ones:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Tool</th><th>Purpose</th><th>Check</th></tr>
+</thead>
+<tbody>
+<tr><td><code>gh</code></td><td>GitHub CLI — issues, PRs, repos, releases, actions</td><td><code>gh --version</code></td></tr>
+<tr><td><code>gog</code></td><td>Google CLI — Gmail, Calendar (OAuth)</td><td><code>gog --version</code></td></tr>
+<tr><td><code>docker</code></td><td>Container management</td><td><code>docker --version</code></td></tr>
+<tr><td><code>ssh</code></td><td>Remote server access</td><td><code>ssh -V</code></td></tr>
+<tr><td><code>node</code></td><td>Run JavaScript/TypeScript tools</td><td><code>node --version</code></td></tr>
+<tr><td><code>python3</code></td><td>Run Python scripts and tools</td><td><code>python3 --version</code></td></tr>
+<tr><td><code>ffmpeg</code></td><td>Audio/video processing</td><td><code>ffmpeg -version</code></td></tr>
+<tr><td><code>curl</code></td><td>HTTP requests (fallback when <code>http_request</code> insufficient)</td><td><code>curl --version</code></td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="github-cli-gh"><a class="header" href="#github-cli-gh">GitHub CLI (gh)</a></h3>
+<p>Authenticated GitHub CLI for full repo management:</p>
+<pre><code class="language-bash">gh issue list / view / create / close / comment
+gh pr list / view / create / merge / checks
+gh release list / create
+gh run list / view / watch
+</code></pre>
+<h3 id="google-cli-gog"><a class="header" href="#google-cli-gog">Google CLI (gog)</a></h3>
+<p>OAuth-authenticated Google Workspace CLI. Supports Gmail and Calendar:</p>
+<pre><code class="language-bash">gog calendar events --max 10
+gog gmail search "is:unread" --max 20
+gog gmail send --to user@email.com --subject "Subject" --body "Body"
+</code></pre>
+<p>Requires <code>GOG_KEYRING_PASSWORD</code> and <code>GOG_ACCOUNT</code> env vars.</p>
+<h2 id="companion-tools"><a class="header" href="#companion-tools">Companion Tools</a></h2>
+<h3 id="socialcrabs--social-media-automation"><a class="header" href="#socialcrabs--social-media-automation">SocialCrabs — Social Media Automation</a></h3>
+<p><a href="https://github.com/adolfousier/socialcrabs">SocialCrabs</a> is a social media automation tool with human-like behavior simulation (Playwright). Supports <strong>Twitter/X</strong>, <strong>Instagram</strong>, and <strong>LinkedIn</strong>.</p>
+<p>The agent calls SocialCrabs CLI commands via <code>bash</code>:</p>
+<pre><code class="language-bash">node dist/cli.js x tweet "Hello world"
+node dist/cli.js x mentions -n 5
+node dist/cli.js ig like &lt;post-url&gt;
+node dist/cli.js linkedin connect &lt;profile-url&gt;
+</code></pre>
+<p>Read operations are safe. Write operations (tweet, like, follow, comment) require explicit user approval.</p>
+<h3 id="whispercrabs--floating-voice-to-text"><a class="header" href="#whispercrabs--floating-voice-to-text">WhisperCrabs — Floating Voice-to-Text</a></h3>
+<p><a href="https://github.com/adolfousier/whispercrabs">WhisperCrabs</a> is a floating voice-to-text widget controllable via D-Bus. Click to record, click to stop, text goes to clipboard. The agent can start/stop recording, switch providers, and view transcription history via D-Bus commands.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="custom-commands"><a class="header" href="#custom-commands">Custom Commands</a></h1>
 <p>Define your own slash commands in <code>~/.opencrabs/commands.toml</code>. Commands work from the TUI and all channels (Telegram, Discord, Slack, WhatsApp).</p>
@@ -1447,6 +1658,7 @@ value = "System is operational. All channels connected."
 <li><code>MEMORY.md</code> — Long-term memory</li>
 <li><code>AGENTS.md</code> — Agent behavior guidelines</li>
 <li><code>TOOLS.md</code> — Tool reference and custom notes</li>
+<li><code>CODE.md</code> — Coding standards and file organization</li>
 <li><code>SECURITY.md</code> — Security policies</li>
 <li><code>HEARTBEAT.md</code> — Periodic check tasks</li>
 </ol>
@@ -1461,6 +1673,8 @@ value = "System is operational. All channels connected."
 <p>Comprehensive agent behavior docs: memory system, safety rules, git rules, workspace vs repository separation, cron best practices, platform formatting, heartbeat guidelines.</p>
 <h3 id="toolsmd"><a class="header" href="#toolsmd">TOOLS.md</a></h3>
 <p>Tool parameter reference, system CLI tools, provider configuration, integration details for all channels and services.</p>
+<h3 id="codemd"><a class="header" href="#codemd">CODE.md</a></h3>
+<p>Coding standards brain template. Enforces: no file over 500 lines (target 100–250), types in <code>types.rs</code>, one responsibility per file, mandatory tests for every feature, security-first patterns. Rust-first philosophy — single binary, no runtime dependencies. The agent follows these rules when writing or reviewing code.</p>
 <h3 id="securitymd"><a class="header" href="#securitymd">SECURITY.md</a></h3>
 <p>Security policies: third-party code review, attack playbook awareness, network security, data handling, incident response.</p>
 <h3 id="heartbeatmd"><a class="header" href="#heartbeatmd">HEARTBEAT.md</a></h3>
@@ -1470,7 +1684,8 @@ value = "System is operational. All channels connected."
 <h2 id="customization"><a class="header" href="#customization">Customization</a></h2>
 <p>These files are <strong>yours</strong>. The agent reads them but you control the content. Templates are at <code>src/docs/reference/templates/</code> in the source repo — compare your local files against templates when updating to pick up new sections without losing custom content.</p>
 <blockquote>
-<p><strong>Upgrading:</strong> Brain files are never overwritten by <code>/evolve</code> or <code>/rebuild</code>. After updating, ask your agent to compare templates against local files and patch in new sections.</p>
+<p><strong>New installs (v0.2.72+):</strong> CODE.md and SECURITY.md are automatically seeded on first run. Existing users can ask their crab: <em>“Check my brain templates and update them if any are missing or outdated.”</em></p>
+<p><strong>Upgrading:</strong> Brain files are never overwritten by <code>/evolve</code> or <code>/rebuild</code>. After updating, ask your crab to compare templates against local files and patch in new sections.</p>
 </blockquote>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="sessions"><a class="header" href="#sessions">Sessions</a></h1>
@@ -1565,7 +1780,7 @@ opencrabs cron remove "Morning Report"
 <tr><td><code>--provider</code></td><td>AI provider to use (optional)</td></tr>
 <tr><td><code>--model</code></td><td>Model to use (optional)</td></tr>
 <tr><td><code>--thinking</code></td><td>Thinking mode: <code>on</code>, <code>off</code>, <code>budget_XXk</code></td></tr>
-<tr><td><code>--deliver-to</code></td><td>Channel delivery: <code>telegram:CHAT_ID</code>, <code>discord:CHANNEL_ID</code>, etc.</td></tr>
+<tr><td><code>--deliver-to</code></td><td>Channel delivery: <code>telegram:CHAT_ID</code>, <code>discord:CHANNEL_ID</code>, or any HTTP webhook URL</td></tr>
 <tr><td><code>--auto-approve</code></td><td>Auto-approve tool use for this job</td></tr>
 </tbody>
 </table>
@@ -2064,7 +2279,7 @@ panic = "abort"
 <tr><td><code>serenity</code></td><td>Discord gateway</td></tr>
 <tr><td><code>slack-morphism</code></td><td>Slack API</td></tr>
 <tr><td><code>qmd</code> + <code>llama-cpp-2</code></td><td>Memory search (FTS5 + embeddings)</td></tr>
-<tr><td><code>whisper-rs</code></td><td>Local STT via whisper.cpp</td></tr>
+<tr><td><code>rwhisper</code> (candle)</td><td>Local STT — pure Rust, Metal GPU on macOS</td></tr>
 <tr><td><code>piper</code> (Python venv)</td><td>Local TTS with OGG/Opus encoding</td></tr>
 <tr><td><code>syntect</code></td><td>Syntax highlighting in TUI</td></tr>
 <tr><td><code>tiktoken-rs</code></td><td>Token counting</td></tr>
@@ -2116,6 +2331,7 @@ panic = "abort"
 <tr><td><strong>Brain — Provider (Retry)</strong></td><td style="text-align: right">9</td><td><code>src/brain/provider/retry.rs</code></td></tr>
 <tr><td><strong>Brain — Provider (Custom OpenAI)</strong></td><td style="text-align: right">9</td><td><code>src/brain/provider/custom_openai_compatible.rs</code></td></tr>
 <tr><td><strong>Brain — Provider (Factory)</strong></td><td style="text-align: right">4</td><td><code>src/brain/provider/factory.rs</code></td></tr>
+<tr><td><strong>Brain — Provider (Copilot)</strong></td><td style="text-align: right">8</td><td><code>src/brain/provider/copilot.rs</code></td></tr>
 <tr><td><strong>Brain — Provider (Types/Error/Trait)</strong></td><td style="text-align: right">7</td><td><code>src/brain/provider/</code></td></tr>
 <tr><td><strong>Brain — Tokenizer</strong></td><td style="text-align: right">8</td><td><code>src/brain/tokenizer.rs</code></td></tr>
 <tr><td><strong>Brain — Commands</strong></td><td style="text-align: right">6</td><td><code>src/brain/commands.rs</code></td></tr>
@@ -2129,7 +2345,7 @@ panic = "abort"
 <tr><td><strong>Brain Tools — Doc Parser</strong></td><td style="text-align: right">10</td><td><code>src/brain/tools/doc_parser.rs</code></td></tr>
 <tr><td><strong>Brain Tools — Registry</strong></td><td style="text-align: right">7</td><td><code>src/brain/tools/registry.rs</code></td></tr>
 <tr><td><strong>Brain Tools — Slash Command</strong></td><td style="text-align: right">6</td><td><code>src/brain/tools/slash_command.rs</code></td></tr>
-<tr><td><strong>Brain Tools — Bash</strong></td><td style="text-align: right">6</td><td><code>src/brain/tools/bash.rs</code></td></tr>
+<tr><td><strong>Brain Tools — Bash</strong></td><td style="text-align: right">21</td><td><code>src/brain/tools/bash.rs</code></td></tr>
 <tr><td><strong>Brain Tools — Write/Read/Config/Memory/Error</strong></td><td style="text-align: right">16</td><td><code>src/brain/tools/</code></td></tr>
 <tr><td><strong>Channels — Voice Service</strong></td><td style="text-align: right">14</td><td><code>src/channels/voice/service.rs</code></td></tr>
 <tr><td><strong>Channels — Voice Local TTS</strong></td><td style="text-align: right">14</td><td><code>src/channels/voice/local_tts.rs</code></td></tr>
@@ -2160,7 +2376,7 @@ panic = "abort"
 <tr><td><strong>A2A — Server/Handler/Agent Card</strong></td><td style="text-align: right">7</td><td><code>src/a2a/</code></td></tr>
 <tr><td><strong>Memory — Store</strong></td><td style="text-align: right">6</td><td><code>src/memory/store.rs</code></td></tr>
 <tr><td><strong>Memory — Search</strong></td><td style="text-align: right">3</td><td><code>src/memory/search.rs</code></td></tr>
-<tr><td><strong>Pricing</strong></td><td style="text-align: right">7</td><td><code>src/pricing.rs</code></td></tr>
+<tr><td><strong>Pricing</strong></td><td style="text-align: right">13</td><td><code>src/pricing.rs</code></td></tr>
 <tr><td><strong>Logging</strong></td><td style="text-align: right">4</td><td><code>src/logging/logger.rs</code></td></tr>
 <tr><td><strong>Utils — Install</strong></td><td style="text-align: right">6</td><td><code>src/utils/install.rs</code></td></tr>
 <tr><td><strong>Utils</strong></td><td style="text-align: right">1</td><td><code>src/utils/</code></td></tr>
@@ -2168,23 +2384,40 @@ panic = "abort"
 <tr><td>Tests — CLI Parsing</td><td style="text-align: right">28</td><td><code>src/tests/cli_test.rs</code></td></tr>
 <tr><td>Tests — Cron Jobs &amp; Scheduling</td><td style="text-align: right">49</td><td><code>src/tests/cron_test.rs</code></td></tr>
 <tr><td>Tests — Channel Search</td><td style="text-align: right">24</td><td><code>src/tests/channel_search_test.rs</code></td></tr>
-<tr><td>Tests — Voice STT Dispatch</td><td style="text-align: right">7</td><td><code>src/tests/voice_stt_dispatch_test.rs</code></td></tr>
-<tr><td>Tests — Voice Onboarding</td><td style="text-align: right">7</td><td><code>src/tests/voice_onboarding_test.rs</code></td></tr>
+<tr><td>Tests — Voice STT Dispatch</td><td style="text-align: right">11</td><td><code>src/tests/voice_stt_dispatch_test.rs</code></td></tr>
+<tr><td>Tests — Voice Onboarding</td><td style="text-align: right">62</td><td><code>src/tests/voice_onboarding_test.rs</code></td></tr>
 <tr><td>Tests — Candle Whisper</td><td style="text-align: right">6</td><td><code>src/tests/candle_whisper_test.rs</code></td></tr>
-<tr><td>Tests — Evolve (Self-Update)</td><td style="text-align: right">16</td><td><code>src/tests/evolve_test.rs</code></td></tr>
+<tr><td>Tests — Evolve (Self-Update)</td><td style="text-align: right">23</td><td><code>src/tests/evolve_test.rs</code></td></tr>
 <tr><td>Tests — Session &amp; Working Dir</td><td style="text-align: right">15</td><td><code>src/tests/session_working_dir_test.rs</code></td></tr>
 <tr><td>Tests — Message Compaction</td><td style="text-align: right">24</td><td><code>src/tests/compaction_test.rs</code></td></tr>
 <tr><td>Tests — Fallback Vision</td><td style="text-align: right">35</td><td><code>src/tests/fallback_vision_test.rs</code></td></tr>
-<tr><td>Tests — General</td><td style="text-align: right">100</td><td><code>src/tests/</code></td></tr>
-<tr><td>Tests — File Extract</td><td style="text-align: right">10</td><td><code>src/tests/file_extract_test.rs</code></td></tr>
+<tr><td>Tests — GitHub Copilot Provider</td><td style="text-align: right">38</td><td><code>src/tests/github_provider_test.rs</code></td></tr>
+<tr><td>Tests — File Extract</td><td style="text-align: right">36</td><td><code>src/tests/file_extract_test.rs</code></td></tr>
 <tr><td>Tests — Image Utils</td><td style="text-align: right">9</td><td><code>src/tests/image_util_test.rs</code></td></tr>
-<tr><td>Tests — Onboarding Brain</td><td style="text-align: right">16</td><td><code>src/tests/onboarding_brain_test.rs</code></td></tr>
-<tr><td>Tests — Onboarding Navigation</td><td style="text-align: right">22</td><td><code>src/tests/onboarding_navigation_test.rs</code></td></tr>
-<tr><td>Tests — Onboarding Types</td><td style="text-align: right">19</td><td><code>src/tests/onboarding_types_test.rs</code></td></tr>
+<tr><td>Tests — Onboarding Brain</td><td style="text-align: right">21</td><td><code>src/tests/onboarding_brain_test.rs</code></td></tr>
+<tr><td>Tests — Onboarding Navigation</td><td style="text-align: right">26</td><td><code>src/tests/onboarding_navigation_test.rs</code></td></tr>
+<tr><td>Tests — Onboarding Types</td><td style="text-align: right">16</td><td><code>src/tests/onboarding_types_test.rs</code></td></tr>
+<tr><td>Tests — Onboarding Keys</td><td style="text-align: right">4</td><td><code>src/tests/onboarding_keys_test.rs</code></td></tr>
+<tr><td>Tests — OpenAI Provider</td><td style="text-align: right">16</td><td><code>src/tests/openai_provider_test.rs</code></td></tr>
 <tr><td>Tests — Plan Document</td><td style="text-align: right">15</td><td><code>src/tests/plan_document_test.rs</code></td></tr>
 <tr><td>Tests — TUI Error</td><td style="text-align: right">16</td><td><code>src/tests/tui_error_test.rs</code></td></tr>
 <tr><td>Tests — Queued Messages</td><td style="text-align: right">15</td><td><code>src/tests/queued_message_test.rs</code></td></tr>
-<tr><td><strong>Total</strong></td><td style="text-align: right"><strong>1,118</strong></td><td></td></tr>
+<tr><td>Tests — Custom Provider</td><td style="text-align: right">27</td><td><code>src/tests/custom_provider_test.rs</code></td></tr>
+<tr><td>Tests — Context Window</td><td style="text-align: right">14</td><td><code>src/tests/context_window_test.rs</code></td></tr>
+<tr><td>Tests — Onboarding Field Nav</td><td style="text-align: right">46</td><td><code>src/tests/onboarding_field_nav_test.rs</code></td></tr>
+<tr><td>Tests — Provider Sync</td><td style="text-align: right">10</td><td><code>src/tests/provider_sync_test.rs</code></td></tr>
+<tr><td>Tests — Brain Templates</td><td style="text-align: right">8</td><td><code>src/tests/brain_templates_test.rs</code></td></tr>
+<tr><td>Tests — Collapse Build Output</td><td style="text-align: right">9</td><td><code>src/tests/collapse_build_output_test.rs</code></td></tr>
+<tr><td>Tests — Reasoning Lines</td><td style="text-align: right">6</td><td><code>src/tests/reasoning_lines_test.rs</code></td></tr>
+<tr><td>Tests — AltGr Input</td><td style="text-align: right">8</td><td><code>src/tests/altgr_input_test.rs</code></td></tr>
+<tr><td>Tests — System Continuation</td><td style="text-align: right">6</td><td><code>src/tests/system_continuation_test.rs</code></td></tr>
+<tr><td>Tests — QR Render</td><td style="text-align: right">8</td><td><code>src/tests/qr_render_test.rs</code></td></tr>
+<tr><td>Tests — WhatsApp State</td><td style="text-align: right">7</td><td><code>src/tests/whatsapp_state_test.rs</code></td></tr>
+<tr><td>Tests — Post-Evolve</td><td style="text-align: right">5</td><td><code>src/tests/post_evolve_test.rs</code></td></tr>
+<tr><td>Tests — Stream Loop Detection</td><td style="text-align: right">15</td><td><code>src/tests/stream_loop_test.rs</code></td></tr>
+<tr><td>Tests — XML Tool Fallback</td><td style="text-align: right">10</td><td><code>src/tests/xml_tool_fallback_test.rs</code></td></tr>
+<tr><td>Tests — TUI Render Clear</td><td style="text-align: right">4</td><td><code>src/tests/tui_render_clear_test.rs</code></td></tr>
+<tr><td><strong>Total</strong></td><td style="text-align: right"><strong>1,424</strong></td><td></td></tr>
 </tbody>
 </table>
 </div>

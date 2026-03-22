@@ -54,10 +54,10 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-20b146fc.js";
+            window.path_to_searchindex_js = "../searchindex-82ce5e6f.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-bffe8afd.js"></script>
+        <script src="../toc-b890e03e.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -214,6 +214,7 @@
 <tr><td><strong>Brain — Provider (Retry)</strong></td><td style="text-align: right">9</td><td><code>src/brain/provider/retry.rs</code></td></tr>
 <tr><td><strong>Brain — Provider (Custom OpenAI)</strong></td><td style="text-align: right">9</td><td><code>src/brain/provider/custom_openai_compatible.rs</code></td></tr>
 <tr><td><strong>Brain — Provider (Factory)</strong></td><td style="text-align: right">4</td><td><code>src/brain/provider/factory.rs</code></td></tr>
+<tr><td><strong>Brain — Provider (Copilot)</strong></td><td style="text-align: right">8</td><td><code>src/brain/provider/copilot.rs</code></td></tr>
 <tr><td><strong>Brain — Provider (Types/Error/Trait)</strong></td><td style="text-align: right">7</td><td><code>src/brain/provider/</code></td></tr>
 <tr><td><strong>Brain — Tokenizer</strong></td><td style="text-align: right">8</td><td><code>src/brain/tokenizer.rs</code></td></tr>
 <tr><td><strong>Brain — Commands</strong></td><td style="text-align: right">6</td><td><code>src/brain/commands.rs</code></td></tr>
@@ -227,7 +228,7 @@
 <tr><td><strong>Brain Tools — Doc Parser</strong></td><td style="text-align: right">10</td><td><code>src/brain/tools/doc_parser.rs</code></td></tr>
 <tr><td><strong>Brain Tools — Registry</strong></td><td style="text-align: right">7</td><td><code>src/brain/tools/registry.rs</code></td></tr>
 <tr><td><strong>Brain Tools — Slash Command</strong></td><td style="text-align: right">6</td><td><code>src/brain/tools/slash_command.rs</code></td></tr>
-<tr><td><strong>Brain Tools — Bash</strong></td><td style="text-align: right">6</td><td><code>src/brain/tools/bash.rs</code></td></tr>
+<tr><td><strong>Brain Tools — Bash</strong></td><td style="text-align: right">21</td><td><code>src/brain/tools/bash.rs</code></td></tr>
 <tr><td><strong>Brain Tools — Write/Read/Config/Memory/Error</strong></td><td style="text-align: right">16</td><td><code>src/brain/tools/</code></td></tr>
 <tr><td><strong>Channels — Voice Service</strong></td><td style="text-align: right">14</td><td><code>src/channels/voice/service.rs</code></td></tr>
 <tr><td><strong>Channels — Voice Local TTS</strong></td><td style="text-align: right">14</td><td><code>src/channels/voice/local_tts.rs</code></td></tr>
@@ -258,7 +259,7 @@
 <tr><td><strong>A2A — Server/Handler/Agent Card</strong></td><td style="text-align: right">7</td><td><code>src/a2a/</code></td></tr>
 <tr><td><strong>Memory — Store</strong></td><td style="text-align: right">6</td><td><code>src/memory/store.rs</code></td></tr>
 <tr><td><strong>Memory — Search</strong></td><td style="text-align: right">3</td><td><code>src/memory/search.rs</code></td></tr>
-<tr><td><strong>Pricing</strong></td><td style="text-align: right">7</td><td><code>src/pricing.rs</code></td></tr>
+<tr><td><strong>Pricing</strong></td><td style="text-align: right">13</td><td><code>src/pricing.rs</code></td></tr>
 <tr><td><strong>Logging</strong></td><td style="text-align: right">4</td><td><code>src/logging/logger.rs</code></td></tr>
 <tr><td><strong>Utils — Install</strong></td><td style="text-align: right">6</td><td><code>src/utils/install.rs</code></td></tr>
 <tr><td><strong>Utils</strong></td><td style="text-align: right">1</td><td><code>src/utils/</code></td></tr>
@@ -266,23 +267,40 @@
 <tr><td>Tests — CLI Parsing</td><td style="text-align: right">28</td><td><code>src/tests/cli_test.rs</code></td></tr>
 <tr><td>Tests — Cron Jobs &amp; Scheduling</td><td style="text-align: right">49</td><td><code>src/tests/cron_test.rs</code></td></tr>
 <tr><td>Tests — Channel Search</td><td style="text-align: right">24</td><td><code>src/tests/channel_search_test.rs</code></td></tr>
-<tr><td>Tests — Voice STT Dispatch</td><td style="text-align: right">7</td><td><code>src/tests/voice_stt_dispatch_test.rs</code></td></tr>
-<tr><td>Tests — Voice Onboarding</td><td style="text-align: right">7</td><td><code>src/tests/voice_onboarding_test.rs</code></td></tr>
+<tr><td>Tests — Voice STT Dispatch</td><td style="text-align: right">11</td><td><code>src/tests/voice_stt_dispatch_test.rs</code></td></tr>
+<tr><td>Tests — Voice Onboarding</td><td style="text-align: right">62</td><td><code>src/tests/voice_onboarding_test.rs</code></td></tr>
 <tr><td>Tests — Candle Whisper</td><td style="text-align: right">6</td><td><code>src/tests/candle_whisper_test.rs</code></td></tr>
-<tr><td>Tests — Evolve (Self-Update)</td><td style="text-align: right">16</td><td><code>src/tests/evolve_test.rs</code></td></tr>
+<tr><td>Tests — Evolve (Self-Update)</td><td style="text-align: right">23</td><td><code>src/tests/evolve_test.rs</code></td></tr>
 <tr><td>Tests — Session &amp; Working Dir</td><td style="text-align: right">15</td><td><code>src/tests/session_working_dir_test.rs</code></td></tr>
 <tr><td>Tests — Message Compaction</td><td style="text-align: right">24</td><td><code>src/tests/compaction_test.rs</code></td></tr>
 <tr><td>Tests — Fallback Vision</td><td style="text-align: right">35</td><td><code>src/tests/fallback_vision_test.rs</code></td></tr>
-<tr><td>Tests — General</td><td style="text-align: right">100</td><td><code>src/tests/</code></td></tr>
-<tr><td>Tests — File Extract</td><td style="text-align: right">10</td><td><code>src/tests/file_extract_test.rs</code></td></tr>
+<tr><td>Tests — GitHub Copilot Provider</td><td style="text-align: right">38</td><td><code>src/tests/github_provider_test.rs</code></td></tr>
+<tr><td>Tests — File Extract</td><td style="text-align: right">36</td><td><code>src/tests/file_extract_test.rs</code></td></tr>
 <tr><td>Tests — Image Utils</td><td style="text-align: right">9</td><td><code>src/tests/image_util_test.rs</code></td></tr>
-<tr><td>Tests — Onboarding Brain</td><td style="text-align: right">16</td><td><code>src/tests/onboarding_brain_test.rs</code></td></tr>
-<tr><td>Tests — Onboarding Navigation</td><td style="text-align: right">22</td><td><code>src/tests/onboarding_navigation_test.rs</code></td></tr>
-<tr><td>Tests — Onboarding Types</td><td style="text-align: right">19</td><td><code>src/tests/onboarding_types_test.rs</code></td></tr>
+<tr><td>Tests — Onboarding Brain</td><td style="text-align: right">21</td><td><code>src/tests/onboarding_brain_test.rs</code></td></tr>
+<tr><td>Tests — Onboarding Navigation</td><td style="text-align: right">26</td><td><code>src/tests/onboarding_navigation_test.rs</code></td></tr>
+<tr><td>Tests — Onboarding Types</td><td style="text-align: right">16</td><td><code>src/tests/onboarding_types_test.rs</code></td></tr>
+<tr><td>Tests — Onboarding Keys</td><td style="text-align: right">4</td><td><code>src/tests/onboarding_keys_test.rs</code></td></tr>
+<tr><td>Tests — OpenAI Provider</td><td style="text-align: right">16</td><td><code>src/tests/openai_provider_test.rs</code></td></tr>
 <tr><td>Tests — Plan Document</td><td style="text-align: right">15</td><td><code>src/tests/plan_document_test.rs</code></td></tr>
 <tr><td>Tests — TUI Error</td><td style="text-align: right">16</td><td><code>src/tests/tui_error_test.rs</code></td></tr>
 <tr><td>Tests — Queued Messages</td><td style="text-align: right">15</td><td><code>src/tests/queued_message_test.rs</code></td></tr>
-<tr><td><strong>Total</strong></td><td style="text-align: right"><strong>1,118</strong></td><td></td></tr>
+<tr><td>Tests — Custom Provider</td><td style="text-align: right">27</td><td><code>src/tests/custom_provider_test.rs</code></td></tr>
+<tr><td>Tests — Context Window</td><td style="text-align: right">14</td><td><code>src/tests/context_window_test.rs</code></td></tr>
+<tr><td>Tests — Onboarding Field Nav</td><td style="text-align: right">46</td><td><code>src/tests/onboarding_field_nav_test.rs</code></td></tr>
+<tr><td>Tests — Provider Sync</td><td style="text-align: right">10</td><td><code>src/tests/provider_sync_test.rs</code></td></tr>
+<tr><td>Tests — Brain Templates</td><td style="text-align: right">8</td><td><code>src/tests/brain_templates_test.rs</code></td></tr>
+<tr><td>Tests — Collapse Build Output</td><td style="text-align: right">9</td><td><code>src/tests/collapse_build_output_test.rs</code></td></tr>
+<tr><td>Tests — Reasoning Lines</td><td style="text-align: right">6</td><td><code>src/tests/reasoning_lines_test.rs</code></td></tr>
+<tr><td>Tests — AltGr Input</td><td style="text-align: right">8</td><td><code>src/tests/altgr_input_test.rs</code></td></tr>
+<tr><td>Tests — System Continuation</td><td style="text-align: right">6</td><td><code>src/tests/system_continuation_test.rs</code></td></tr>
+<tr><td>Tests — QR Render</td><td style="text-align: right">8</td><td><code>src/tests/qr_render_test.rs</code></td></tr>
+<tr><td>Tests — WhatsApp State</td><td style="text-align: right">7</td><td><code>src/tests/whatsapp_state_test.rs</code></td></tr>
+<tr><td>Tests — Post-Evolve</td><td style="text-align: right">5</td><td><code>src/tests/post_evolve_test.rs</code></td></tr>
+<tr><td>Tests — Stream Loop Detection</td><td style="text-align: right">15</td><td><code>src/tests/stream_loop_test.rs</code></td></tr>
+<tr><td>Tests — XML Tool Fallback</td><td style="text-align: right">10</td><td><code>src/tests/xml_tool_fallback_test.rs</code></td></tr>
+<tr><td>Tests — TUI Render Clear</td><td style="text-align: right">4</td><td><code>src/tests/tui_render_clear_test.rs</code></td></tr>
+<tr><td><strong>Total</strong></td><td style="text-align: right"><strong>1,424</strong></td><td></td></tr>
 </tbody>
 </table>
 </div>

@@ -54,10 +54,10 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-20b146fc.js";
+            window.path_to_searchindex_js = "../searchindex-82ce5e6f.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-bffe8afd.js"></script>
+        <script src="../toc-b890e03e.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -206,6 +206,7 @@
 <li><code>MEMORY.md</code> — Long-term memory</li>
 <li><code>AGENTS.md</code> — Agent behavior guidelines</li>
 <li><code>TOOLS.md</code> — Tool reference and custom notes</li>
+<li><code>CODE.md</code> — Coding standards and file organization</li>
 <li><code>SECURITY.md</code> — Security policies</li>
 <li><code>HEARTBEAT.md</code> — Periodic check tasks</li>
 </ol>
@@ -220,6 +221,8 @@
 <p>Comprehensive agent behavior docs: memory system, safety rules, git rules, workspace vs repository separation, cron best practices, platform formatting, heartbeat guidelines.</p>
 <h3 id="toolsmd"><a class="header" href="#toolsmd">TOOLS.md</a></h3>
 <p>Tool parameter reference, system CLI tools, provider configuration, integration details for all channels and services.</p>
+<h3 id="codemd"><a class="header" href="#codemd">CODE.md</a></h3>
+<p>Coding standards brain template. Enforces: no file over 500 lines (target 100–250), types in <code>types.rs</code>, one responsibility per file, mandatory tests for every feature, security-first patterns. Rust-first philosophy — single binary, no runtime dependencies. The agent follows these rules when writing or reviewing code.</p>
 <h3 id="securitymd"><a class="header" href="#securitymd">SECURITY.md</a></h3>
 <p>Security policies: third-party code review, attack playbook awareness, network security, data handling, incident response.</p>
 <h3 id="heartbeatmd"><a class="header" href="#heartbeatmd">HEARTBEAT.md</a></h3>
@@ -229,7 +232,8 @@
 <h2 id="customization"><a class="header" href="#customization">Customization</a></h2>
 <p>These files are <strong>yours</strong>. The agent reads them but you control the content. Templates are at <code>src/docs/reference/templates/</code> in the source repo — compare your local files against templates when updating to pick up new sections without losing custom content.</p>
 <blockquote>
-<p><strong>Upgrading:</strong> Brain files are never overwritten by <code>/evolve</code> or <code>/rebuild</code>. After updating, ask your agent to compare templates against local files and patch in new sections.</p>
+<p><strong>New installs (v0.2.72+):</strong> CODE.md and SECURITY.md are automatically seeded on first run. Existing users can ask their crab: <em>“Check my brain templates and update them if any are missing or outdated.”</em></p>
+<p><strong>Upgrading:</strong> Brain files are never overwritten by <code>/evolve</code> or <code>/rebuild</code>. After updating, ask your crab to compare templates against local files and patch in new sections.</p>
 </blockquote>
 
                     </main>

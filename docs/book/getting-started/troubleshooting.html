@@ -54,10 +54,10 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-20b146fc.js";
+            window.path_to_searchindex_js = "../searchindex-82ce5e6f.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-bffe8afd.js"></script>
+        <script src="../toc-b890e03e.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -198,6 +198,20 @@
                     <main>
                         <h1 id="troubleshooting"><a class="header" href="#troubleshooting">Troubleshooting</a></h1>
 <p>Common issues and how to fix them.</p>
+<h2 id="windows-defender-blocking-opencrabs"><a class="header" href="#windows-defender-blocking-opencrabs">Windows Defender Blocking OpenCrabs</a></h2>
+<p>Windows Defender may flag <code>opencrabs.exe</code> as suspicious because it’s an unsigned binary that executes shell commands and makes network requests. This is a false positive.</p>
+<p><strong>Add an exclusion:</strong></p>
+<ol>
+<li>Open <strong>Windows Security</strong> → <strong>Virus &amp; threat protection</strong></li>
+<li><strong>Virus &amp; threat protection settings</strong> → <strong>Manage settings</strong></li>
+<li><strong>Exclusions</strong> → <strong>Add or remove exclusions</strong></li>
+<li><strong>Add an exclusion</strong> → <strong>File</strong> → select <code>opencrabs.exe</code></li>
+</ol>
+<p><strong>Or via PowerShell (admin):</strong></p>
+<pre><code class="language-powershell">Add-MpPreference -ExclusionPath "C:\path\to\opencrabs.exe"
+</code></pre>
+<p>If SmartScreen blocks the first run, click <strong>More info</strong> → <strong>Run anyway</strong>.</p>
+<hr>
 <h2 id="binary-wont-start-or-crashes"><a class="header" href="#binary-wont-start-or-crashes">Binary Won’t Start or Crashes</a></h2>
 <h3 id="startup-errors"><a class="header" href="#startup-errors">Startup Errors</a></h3>
 <p>Run with debug logging to see what’s failing:</p>
@@ -222,6 +236,7 @@ gh release download v0.2.66 -R adolfousier/opencrabs -p "opencrabs-*$(uname -m)*
 <li><strong>Atomic swap</strong> — Replaces the current binary</li>
 <li><strong>Post-swap health check</strong> — Verifies the swapped binary works. If it fails, <strong>auto-rolls back</strong> to the backup.</li>
 <li><strong>Restart</strong> — exec()-restarts into the new version</li>
+<li><strong>Brain update prompt</strong> — After restart, your crab announces the new version, diffs brain templates against your local files, and offers to update them</li>
 </ol>
 <h3 id="if-evolve-fails"><a class="header" href="#if-evolve-fails">If /evolve Fails</a></h3>
 <p>The most common reason is the health check caught an issue — your current version stays safe. If something went wrong after the swap:</p>
@@ -229,10 +244,24 @@ gh release download v0.2.66 -R adolfousier/opencrabs -p "opencrabs-*$(uname -m)*
 cp /path/to/opencrabs.evolve_backup /path/to/opencrabs
 chmod +x /path/to/opencrabs
 </code></pre>
+<h3 id="cargo-install-fallback"><a class="header" href="#cargo-install-fallback">Cargo Install Fallback</a></h3>
+<p>When <code>/evolve</code> uses <code>cargo install</code> (building from source), it tries the <strong>stable</strong> toolchain first. If that fails, it automatically falls back to <code>cargo +nightly</code>. The progress message shows which toolchain succeeded.</p>
 <h3 id="check-only-mode"><a class="header" href="#check-only-mode">Check-Only Mode</a></h3>
 <p>The agent can check for updates without installing:</p>
 <pre><code>/evolve check_only=true
 </code></pre>
+<hr>
+<h2 id="bash-tool-safety"><a class="header" href="#bash-tool-safety">Bash Tool Safety</a></h2>
+<p>The bash tool includes a <strong>hard command blocklist</strong> that prevents catastrophic commands even if accidentally approved:</p>
+<ul>
+<li><code>rm -rf /</code>, <code>sudo rm -rf .</code></li>
+<li><code>mkfs</code>, <code>dd</code> to <code>/dev/</code></li>
+<li>Fork bombs</li>
+<li><code>/etc</code> overwrites, <code>/proc</code> writes</li>
+<li>Sensitive file exfiltration</li>
+<li>Crypto mining commands</li>
+</ul>
+<p>These are blocked at the tool level — no configuration needed.</p>
 <hr>
 <h2 id="older-cpus-pre-2011--no-avx"><a class="header" href="#older-cpus-pre-2011--no-avx">Older CPUs (Pre-2011 / No AVX)</a></h2>
 <p>Some features require AVX/AVX2 instructions. Since v0.2.67, OpenCrabs <strong>detects CPU capabilities at runtime</strong> and automatically hides unavailable options in the onboarding wizard.</p>
@@ -480,7 +509,7 @@ cargo build --release
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="../brain/providers.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../brain/providers-overview.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -494,7 +523,7 @@ cargo build --release
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="../brain/providers.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../brain/providers-overview.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>

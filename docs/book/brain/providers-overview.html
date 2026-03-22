@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Slack - OpenCrabs</title>
+        <title>Supported Providers - OpenCrabs</title>
 
 
         <!-- Custom HTML head -->
@@ -196,48 +196,45 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="slack"><a class="header" href="#slack">Slack</a></h1>
-<p>Connect OpenCrabs to Slack workspaces.</p>
-<h2 id="setup"><a class="header" href="#setup">Setup</a></h2>
-<ol>
-<li>Go to <a href="https://api.slack.com/apps">api.slack.com/apps</a></li>
-<li>Create a new app</li>
-<li>Enable <strong>Socket Mode</strong></li>
-<li>Add bot scopes: <code>chat:write</code>, <code>channels:history</code>, <code>groups:history</code>, <code>im:history</code>, <code>reactions:write</code></li>
-<li>Install to workspace</li>
-<li>Copy the <strong>Bot Token</strong> and <strong>App-Level Token</strong></li>
-<li>Add to <code>keys.toml</code>:</li>
-</ol>
-<pre><code class="language-toml">[channels.slack]
-bot_token = "xoxb-..."
-app_token = "xapp-..."
-</code></pre>
-<ol start="8">
-<li>Enable in <code>config.toml</code>:</li>
-</ol>
-<pre><code class="language-toml">[channels.slack]
-enabled = true
-</code></pre>
-<h2 id="features"><a class="header" href="#features">Features</a></h2>
+                        <h1 id="supported-ai-providers"><a class="header" href="#supported-ai-providers">Supported AI Providers</a></h1>
+<p>OpenCrabs supports 10+ AI providers out of the box. Switch between them at any time via <code>/models</code> in the TUI or any channel.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Provider</th><th>Auth</th><th>Models</th><th>Streaming</th><th>Tools</th><th>Notes</th></tr>
+</thead>
+<tbody>
+<tr><td><a href="./providers.html#anthropic-claude">Anthropic Claude</a></td><td>API key</td><td>Claude Opus 4.6, Sonnet 4.5, Haiku 4.5</td><td>Yes</td><td>Yes</td><td>Extended thinking, 200K context</td></tr>
+<tr><td><a href="./providers.html#openai">OpenAI</a></td><td>API key</td><td>GPT-5 Turbo, GPT-5, o3/o4-mini</td><td>Yes</td><td>Yes</td><td>Models fetched live</td></tr>
+<tr><td><a href="./providers.html#github-copilot">GitHub Copilot</a></td><td>OAuth</td><td>GPT-4o, Claude Sonnet 4+</td><td>Yes</td><td>Yes</td><td>Uses your Copilot subscription — no API charges</td></tr>
+<tr><td><a href="./providers.html#openrouter--400-models">OpenRouter</a></td><td>API key</td><td>400+ models</td><td>Yes</td><td>Yes</td><td>Free models available (DeepSeek-R1, Llama 3.3, etc.)</td></tr>
+<tr><td><a href="./providers.html#google-gemini">Google Gemini</a></td><td>API key</td><td>Gemini 2.5 Flash, 2.0, 1.5 Pro</td><td>Yes</td><td>Yes</td><td>1M+ context, vision, image generation</td></tr>
+<tr><td><a href="./providers.html#minimax">MiniMax</a></td><td>API key</td><td>M2.7, M2.5, M2.1, Text-01</td><td>Yes</td><td>Yes</td><td>Competitive pricing, auto-configured vision</td></tr>
+<tr><td><a href="./providers.html#zai-zhipu-ai">z.ai GLM</a></td><td>API key</td><td>GLM-4.5 through GLM-5 Turbo</td><td>Yes</td><td>Yes</td><td>General API + Coding API endpoints</td></tr>
+<tr><td><a href="./providers.html#claude-cli">Claude CLI</a></td><td>CLI auth</td><td>Via <code>claude</code> binary</td><td>Yes</td><td>Yes</td><td>Uses your Claude Code subscription</td></tr>
+<tr><td><a href="./providers.html#opencode-cli">OpenCode CLI</a></td><td>None</td><td>Free models (Mimo, etc.)</td><td>Yes</td><td>Yes</td><td>Free — no API key or subscription needed</td></tr>
+<tr><td><a href="./providers.html#custom-openai-compatible">Custom</a></td><td>Optional</td><td>Any</td><td>Yes</td><td>Yes</td><td>Ollama, LM Studio, Groq, NVIDIA, any OpenAI-compatible API</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="how-it-works"><a class="header" href="#how-it-works">How It Works</a></h2>
 <ul>
-<li><strong>Channels and DMs</strong> — Works in public/private channels and direct messages</li>
-<li><strong>Action buttons</strong> — Provider picker, model picker, session switcher use Slack action buttons</li>
-<li><strong>Thread support</strong> — Responds in threads when appropriate</li>
-<li><strong>Slash commands</strong> — All built-in and custom commands work</li>
-<li><strong>Reactions</strong> — Agent can add emoji reactions</li>
+<li><strong>One provider active at a time</strong> per session — switch with <code>/models</code></li>
+<li><strong>Per-session memory</strong> — each session remembers its provider and model</li>
+<li><strong>Fallback chain</strong> — configure automatic failover when the primary provider goes down</li>
+<li><strong>Models fetched live</strong> — no binary update needed when providers add new models</li>
 </ul>
-<h2 id="socket-mode"><a class="header" href="#socket-mode">Socket Mode</a></h2>
-<p>Slack uses Socket Mode (WebSocket) instead of HTTP webhooks — no public URL or ngrok needed. The connection is outbound from your machine.</p>
+<p>See <a href="./providers.html">Provider Setup</a> for configuration details and API key setup.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../channels/discord.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../getting-started/troubleshooting.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="../channels/whatsapp.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../brain/providers.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -247,11 +244,11 @@ enabled = true
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../channels/discord.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../getting-started/troubleshooting.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="../channels/whatsapp.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../brain/providers.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>

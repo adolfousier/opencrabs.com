@@ -54,10 +54,10 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-20b146fc.js";
+            window.path_to_searchindex_js = "../searchindex-82ce5e6f.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-bffe8afd.js"></script>
+        <script src="../toc-b890e03e.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -238,8 +238,42 @@ default_model = "gemini-2.5-flash"
 <blockquote>
 <p>Gemini also powers the separate image generation and vision tools. See <a href="./images.html">Image Generation &amp; Vision</a>.</p>
 </blockquote>
+<h2 id="github-copilot"><a class="header" href="#github-copilot">GitHub Copilot</a></h2>
+<p>Use your existing GitHub Copilot subscription — no separate API charges. Authenticates via OAuth device flow.</p>
+<pre><code class="language-toml"># config.toml
+[providers.github_copilot]
+enabled = true
+</code></pre>
+<p><strong>Setup:</strong> Run <code>/onboard:providers</code> → select GitHub Copilot → follow the device code flow at <code>github.com/login/device</code>. Models are fetched live from the Copilot API.</p>
+<p><strong>Requirements:</strong> An active <a href="https://github.com/features/copilot">GitHub Copilot</a> subscription (Individual, Business, or Enterprise).</p>
+<h2 id="zai-zhipu-ai"><a class="header" href="#zai-zhipu-ai">z.ai (Zhipu AI)</a></h2>
+<p><strong>Models:</strong> GLM-4-Plus, GLM-4-Flash, GLM-4-0520, CodeGeeX — fetched live. Two endpoint types: General API and Coding API.</p>
+<pre><code class="language-toml"># keys.toml
+[providers.zai]
+api_key = "your-api-key"
+</code></pre>
+<pre><code class="language-toml"># config.toml
+[providers.zai]
+enabled = true
+default_model = "glm-4-plus"
+</code></pre>
+<p>Get your API key at <a href="https://open.bigmodel.cn">open.bigmodel.cn</a>.</p>
+<h2 id="claude-cli"><a class="header" href="#claude-cli">Claude CLI</a></h2>
+<p>Use your existing Claude Code subscription through the local <code>claude</code> binary — no separate API key needed. Supports streaming and extended thinking.</p>
+<pre><code class="language-toml"># config.toml
+[providers.claude_cli]
+enabled = true
+</code></pre>
+<p><strong>Requirements:</strong> The <code>claude</code> CLI must be installed and authenticated. Models are detected automatically.</p>
+<h2 id="opencode-cli"><a class="header" href="#opencode-cli">OpenCode CLI</a></h2>
+<p>Use the local <code>opencode</code> binary for free LLM completions — no API key or subscription needed. Supports NDJSON streaming and extended thinking.</p>
+<pre><code class="language-toml"># config.toml
+[providers.opencode_cli]
+enabled = true
+</code></pre>
+<p><strong>Requirements:</strong> The <code>opencode</code> binary must be installed and available in your PATH. Models are fetched live via <code>opencode models</code>.</p>
 <h2 id="minimax"><a class="header" href="#minimax">MiniMax</a></h2>
-<p><strong>Models:</strong> <code>MiniMax-M2.5</code>, <code>MiniMax-M2.1</code>, <code>MiniMax-Text-01</code></p>
+<p><strong>Models:</strong> <code>MiniMax-M2.7</code>, <code>MiniMax-M2.5</code>, <code>MiniMax-M2.1</code>, <code>MiniMax-Text-01</code></p>
 <pre><code class="language-toml"># keys.toml
 [providers.minimax]
 api_key = "your-api-key"
@@ -321,7 +355,7 @@ vision_model = "gpt-5-nano"
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../getting-started/troubleshooting.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../brain/providers-overview.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
@@ -335,7 +369,7 @@ vision_model = "gpt-5-nano"
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../getting-started/troubleshooting.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../brain/providers-overview.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 

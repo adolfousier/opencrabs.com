@@ -54,10 +54,10 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-20b146fc.js";
+            window.path_to_searchindex_js = "../searchindex-82ce5e6f.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-bffe8afd.js"></script>
+        <script src="../toc-b890e03e.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -213,7 +213,7 @@ curl -fsSL https://github.com/adolfousier/opencrabs/releases/latest/download/ope
 <h2 id="option-2-build-from-source"><a class="header" href="#option-2-build-from-source">Option 2: Build from Source</a></h2>
 <p>Required for <code>/rebuild</code>, adding custom tools, or modifying the agent.</p>
 <h3 id="quick-setup-recommended"><a class="header" href="#quick-setup-recommended">Quick setup (recommended)</a></h3>
-<p>The setup script auto-detects your platform (macOS, Debian/Ubuntu, Fedora/RHEL, Arch) and installs all build dependencies + Rust nightly:</p>
+<p>The setup script auto-detects your platform (macOS, Debian/Ubuntu, Fedora/RHEL, Arch) and installs all build dependencies + Rust:</p>
 <pre><code class="language-bash"># Install all dependencies
 curl -fsSL https://raw.githubusercontent.com/adolfousier/opencrabs/main/scripts/setup.sh | bash
 
@@ -226,7 +226,7 @@ cargo build --release
 <h3 id="manual-setup"><a class="header" href="#manual-setup">Manual setup</a></h3>
 <p>If you prefer to install dependencies yourself:</p>
 <ul>
-<li><strong>Rust nightly (2024 edition)</strong> — <a href="https://rustup.rs/">Install Rust</a>, then <code>rustup toolchain install nightly</code></li>
+<li><strong>Rust stable</strong> — <a href="https://rustup.rs/">Install Rust</a>. Stable toolchain works since v0.2.85</li>
 <li><strong>An API key</strong> from at least one supported provider</li>
 <li><strong>SQLite</strong> (bundled via rusqlite)</li>
 <li><strong>macOS:</strong> <code>brew install cmake pkg-config</code></li>
@@ -249,6 +249,72 @@ cd opencrabs
 docker compose -f src/docker/compose.yml up --build
 </code></pre>
 <p>Config, workspace, and memory DB persist in a Docker volume across restarts. API keys in <code>keys.toml</code> are mounted into the container at runtime — never baked into the image.</p>
+<h2 id="autostart-on-boot"><a class="header" href="#autostart-on-boot">Autostart on Boot</a></h2>
+<p>Keep OpenCrabs running as a background daemon that starts with your system.</p>
+<h3 id="linux-systemd"><a class="header" href="#linux-systemd">Linux (systemd)</a></h3>
+<pre><code class="language-bash">cat &gt; ~/.config/systemd/user/opencrabs.service &lt;&lt; 'EOF'
+[Unit]
+Description=OpenCrabs AI Agent
+After=network.target
+
+[Service]
+ExecStart=%h/.cargo/bin/opencrabs daemon
+Restart=on-failure
+RestartSec=5
+Environment=OPENCRABS_HOME=%h/.opencrabs
+
+[Install]
+WantedBy=default.target
+EOF
+
+systemctl --user daemon-reload
+systemctl --user enable opencrabs
+systemctl --user start opencrabs
+</code></pre>
+<p>Check status: <code>systemctl --user status opencrabs</code> | Logs: <code>journalctl --user -u opencrabs -f</code></p>
+<h3 id="macos-launchd"><a class="header" href="#macos-launchd">macOS (launchd)</a></h3>
+<pre><code class="language-bash">cat &gt; ~/Library/LaunchAgents/com.opencrabs.agent.plist &lt;&lt; 'EOF'
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+  "http://www.apple.com/DTDs/PropertyList-1.0.dtd"&gt;
+&lt;plist version="1.0"&gt;
+&lt;dict&gt;
+    &lt;key&gt;Label&lt;/key&gt;
+    &lt;string&gt;com.opencrabs.agent&lt;/string&gt;
+    &lt;key&gt;ProgramArguments&lt;/key&gt;
+    &lt;array&gt;
+        &lt;string&gt;/usr/local/bin/opencrabs&lt;/string&gt;
+        &lt;string&gt;daemon&lt;/string&gt;
+    &lt;/array&gt;
+    &lt;key&gt;RunAtLoad&lt;/key&gt;
+    &lt;true/&gt;
+    &lt;key&gt;KeepAlive&lt;/key&gt;
+    &lt;true/&gt;
+    &lt;key&gt;StandardOutPath&lt;/key&gt;
+    &lt;string&gt;/tmp/opencrabs.log&lt;/string&gt;
+    &lt;key&gt;StandardErrorPath&lt;/key&gt;
+    &lt;string&gt;/tmp/opencrabs.err&lt;/string&gt;
+&lt;/dict&gt;
+&lt;/plist&gt;
+EOF
+
+launchctl load ~/Library/LaunchAgents/com.opencrabs.agent.plist
+</code></pre>
+<p>Update the path in <code>ProgramArguments</code> to match your install location.</p>
+<h3 id="windows-task-scheduler"><a class="header" href="#windows-task-scheduler">Windows (Task Scheduler)</a></h3>
+<ol>
+<li><code>Win + R</code> → <code>taskschd.msc</code></li>
+<li><strong>Create Basic Task</strong> → Name: <code>OpenCrabs</code></li>
+<li>Trigger: <strong>When I log on</strong></li>
+<li>Action: <strong>Start a program</strong> → <code>C:\Users\&lt;you&gt;\.cargo\bin\opencrabs.exe</code>, Arguments: <code>daemon</code></li>
+<li>In Properties &gt; Settings, check <strong>If the task fails, restart every 1 minute</strong></li>
+</ol>
+<p>Or via PowerShell:</p>
+<pre><code class="language-powershell">$action = New-ScheduledTaskAction -Execute "$env:USERPROFILE\.cargo\bin\opencrabs.exe" -Argument "daemon"
+$trigger = New-ScheduledTaskTrigger -AtLogon
+$settings = New-ScheduledTaskSettingsSet -RestartCount 3 -RestartInterval (New-TimeSpan -Minutes 1)
+Register-ScheduledTask -TaskName "OpenCrabs" -Action $action -Trigger $trigger -Settings $settings
+</code></pre>
 <h2 id="updating"><a class="header" href="#updating">Updating</a></h2>
 <ul>
 <li><strong>Binary users:</strong> Type <code>/evolve</code> in the TUI to download the latest release</li>
