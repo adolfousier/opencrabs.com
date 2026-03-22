@@ -97,6 +97,18 @@ default_model = "glm-4-plus"
 
 Get your API key at [open.bigmodel.cn](https://open.bigmodel.cn).
 
+## Claude CLI
+
+Use your existing Claude Code subscription through the local `claude` binary — no separate API key needed. Supports streaming and extended thinking.
+
+```toml
+# config.toml
+[providers.claude_cli]
+enabled = true
+```
+
+**Requirements:** The `claude` CLI must be installed and authenticated. Models are detected automatically.
+
 ## OpenCode CLI
 
 Use the local `opencode` binary for free LLM completions — no API key or subscription needed. Supports NDJSON streaming and extended thinking.

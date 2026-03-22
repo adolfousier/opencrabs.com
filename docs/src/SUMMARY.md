@@ -12,6 +12,7 @@
 
 # AI Providers
 
+- [Supported Providers](./brain/providers-overview.md)
 - [Provider Setup](./brain/providers.md)
 - [Image Generation & Vision](./brain/images.md)
 
