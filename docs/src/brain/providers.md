@@ -78,9 +78,40 @@ enabled = true
 
 **Requirements:** An active [GitHub Copilot](https://github.com/features/copilot) subscription (Individual, Business, or Enterprise).
 
+## z.ai (Zhipu AI)
+
+**Models:** GLM-4-Plus, GLM-4-Flash, GLM-4-0520, CodeGeeX — fetched live. Two endpoint types: General API and Coding API.
+
+```toml
+# keys.toml
+[providers.zai]
+api_key = "your-api-key"
+```
+
+```toml
+# config.toml
+[providers.zai]
+enabled = true
+default_model = "glm-4-plus"
+```
+
+Get your API key at [open.bigmodel.cn](https://open.bigmodel.cn).
+
+## OpenCode CLI
+
+Use the local `opencode` binary for free LLM completions — no API key or subscription needed. Supports NDJSON streaming and extended thinking.
+
+```toml
+# config.toml
+[providers.opencode_cli]
+enabled = true
+```
+
+**Requirements:** The `opencode` binary must be installed and available in your PATH. Models are fetched live via `opencode models`.
+
 ## MiniMax
 
-**Models:** `MiniMax-M2.5`, `MiniMax-M2.1`, `MiniMax-Text-01`
+**Models:** `MiniMax-M2.7`, `MiniMax-M2.5`, `MiniMax-M2.1`, `MiniMax-Text-01`
 
 ```toml
 # keys.toml

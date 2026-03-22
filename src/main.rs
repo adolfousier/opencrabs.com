@@ -372,8 +372,8 @@ fn Features() -> impl IntoView {
         ),
         (
             "⚡",
-            "40+ Built-in Tools",
-            "File ops, bash, web search, code execution, image gen, document parsing, local voice STT & TTS. No plugins needed.",
+            "45+ Built-in Tools",
+            "File ops, bash, web search, code execution, image gen, document parsing, local voice STT & TTS, sub-agent orchestration. No plugins needed.",
         ),
         (
             ">_",
@@ -424,6 +424,7 @@ fn Integrations() -> impl IntoView {
         "💎 Gemini",
         "🌐 OpenRouter",
         "🐙 GitHub Copilot",
+        "🇨🇳 z.ai GLM",
         "🏠 Ollama",
         "📡 LM Studio",
     ];

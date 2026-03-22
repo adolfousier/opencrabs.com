@@ -24,7 +24,7 @@ Required for `/rebuild`, adding custom tools, or modifying the agent.
 
 ### Quick setup (recommended)
 
-The setup script auto-detects your platform (macOS, Debian/Ubuntu, Fedora/RHEL, Arch) and installs all build dependencies + Rust nightly:
+The setup script auto-detects your platform (macOS, Debian/Ubuntu, Fedora/RHEL, Arch) and installs all build dependencies + Rust:
 
 ```bash
 # Install all dependencies
@@ -41,7 +41,7 @@ cargo build --release
 
 If you prefer to install dependencies yourself:
 
-- **Rust nightly (2024 edition)** — [Install Rust](https://rustup.rs/), then `rustup toolchain install nightly`
+- **Rust stable** — [Install Rust](https://rustup.rs/). Stable toolchain works since v0.2.85
 - **An API key** from at least one supported provider
 - **SQLite** (bundled via rusqlite)
 - **macOS:** `brew install cmake pkg-config`

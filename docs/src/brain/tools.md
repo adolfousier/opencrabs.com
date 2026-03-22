@@ -1,6 +1,6 @@
 # Built-in Tools
 
-OpenCrabs ships with 40+ tools available to the agent out of the box.
+OpenCrabs ships with 45+ tools available to the agent out of the box.
 
 ## File Operations
 
@@ -50,6 +50,20 @@ OpenCrabs ships with 40+ tools available to the agent out of the box.
 | `discord_connect` | `action`, various | Discord operations (17 actions) |
 | `slack_send` | `action`, various | Slack operations (17 actions) |
 | `trello_connect` | `action`, various | Trello operations (22 actions) |
+
+## Sub-Agent Orchestration
+
+Agents can spawn independent child agents for parallel task execution:
+
+| Tool | Parameters | Description |
+|------|-----------|-------------|
+| `spawn_agent` | `task`, `provider`, `model` | Spawn a child agent in an isolated session |
+| `wait_agent` | `agent_id` | Wait for a child agent to complete |
+| `send_input` | `agent_id`, `message` | Send a message to a running child agent |
+| `close_agent` | `agent_id` | Terminate a child agent |
+| `resume_agent` | `agent_id` | Resume a previously spawned agent |
+
+Children run with auto-approve and essential tools. No recursive spawning.
 
 ## System
 

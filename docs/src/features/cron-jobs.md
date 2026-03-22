@@ -43,7 +43,7 @@ The agent can also manage cron jobs via the `cron_manage` tool:
 | `--provider` | AI provider to use (optional) |
 | `--model` | Model to use (optional) |
 | `--thinking` | Thinking mode: `on`, `off`, `budget_XXk` |
-| `--deliver-to` | Channel delivery: `telegram:CHAT_ID`, `discord:CHANNEL_ID`, etc. |
+| `--deliver-to` | Channel delivery: `telegram:CHAT_ID`, `discord:CHANNEL_ID`, or any HTTP webhook URL |
 | `--auto-approve` | Auto-approve tool use for this job |
 
 ## Heartbeat vs Cron
