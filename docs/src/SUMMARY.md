@@ -35,6 +35,9 @@
 # Features
 
 - [Sessions](./features/sessions.md)
+- [Split Panes](./features/split-panes.md)
+- [Dynamic Tools](./features/dynamic-tools.md)
+- [Browser Automation](./features/browser.md)
 - [Cron Jobs](./features/cron-jobs.md)
 - [Plans](./features/plans.md)
 - [Agent-to-Agent (A2A)](./features/a2a.md)

@@ -54,10 +54,10 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-82ce5e6f.js";
+            window.path_to_searchindex_js = "../searchindex-9e32b396.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-b890e03e.js"></script>
+        <script src="../toc-191edecf.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -199,7 +199,7 @@
                         <h1 id="building-from-source"><a class="header" href="#building-from-source">Building from Source</a></h1>
 <h2 id="prerequisites"><a class="header" href="#prerequisites">Prerequisites</a></h2>
 <ul>
-<li><strong>Rust 1.93+</strong> (nightly not required)</li>
+<li><strong>Rust 1.94+</strong> (stable, nightly not required)</li>
 <li><strong>SQLite3</strong> development headers</li>
 <li><strong>OpenSSL</strong> development headers (vendored by default)</li>
 <li><strong>pkg-config</strong> (Linux/macOS)</li>
@@ -232,6 +232,7 @@ cargo build --release
 <tr><td><code>slack</code></td><td>Yes</td><td>Slack bot via slack-morphism</td></tr>
 <tr><td><code>whatsapp</code></td><td>Yes</td><td>WhatsApp via whatsapp-rust</td></tr>
 <tr><td><code>trello</code></td><td>Yes</td><td>Trello integration</td></tr>
+<tr><td><code>browser</code></td><td>Yes</td><td>Headless Chrome automation via CDP</td></tr>
 <tr><td><code>profiling</code></td><td>No</td><td>pprof flamegraphs (Unix only)</td></tr>
 </tbody>
 </table>

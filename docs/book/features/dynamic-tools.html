@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Troubleshooting - OpenCrabs</title>
+        <title>Dynamic Tools - OpenCrabs</title>
 
 
         <!-- Custom HTML head -->
@@ -196,320 +196,61 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="troubleshooting"><a class="header" href="#troubleshooting">Troubleshooting</a></h1>
-<p>Common issues and how to fix them.</p>
-<h2 id="windows-defender-blocking-opencrabs"><a class="header" href="#windows-defender-blocking-opencrabs">Windows Defender Blocking OpenCrabs</a></h2>
-<p>Windows Defender may flag <code>opencrabs.exe</code> as suspicious because it’s an unsigned binary that executes shell commands and makes network requests. This is a false positive.</p>
-<p><strong>Add an exclusion:</strong></p>
-<ol>
-<li>Open <strong>Windows Security</strong> → <strong>Virus &amp; threat protection</strong></li>
-<li><strong>Virus &amp; threat protection settings</strong> → <strong>Manage settings</strong></li>
-<li><strong>Exclusions</strong> → <strong>Add or remove exclusions</strong></li>
-<li><strong>Add an exclusion</strong> → <strong>File</strong> → select <code>opencrabs.exe</code></li>
-</ol>
-<p><strong>Or via PowerShell (admin):</strong></p>
-<pre><code class="language-powershell">Add-MpPreference -ExclusionPath "C:\path\to\opencrabs.exe"
-</code></pre>
-<p>If SmartScreen blocks the first run, click <strong>More info</strong> → <strong>Run anyway</strong>.</p>
-<hr>
-<h2 id="binary-wont-start-or-crashes"><a class="header" href="#binary-wont-start-or-crashes">Binary Won’t Start or Crashes</a></h2>
-<h3 id="startup-errors"><a class="header" href="#startup-errors">Startup Errors</a></h3>
-<p>Run with debug logging to see what’s failing:</p>
-<pre><code class="language-bash">opencrabs -d chat
-</code></pre>
-<p>Logs are written to <code>~/.opencrabs/logs/</code>.</p>
-<h3 id="download-a-previous-version"><a class="header" href="#download-a-previous-version">Download a Previous Version</a></h3>
-<p>If the latest release crashes on your machine, download a previous working version from <a href="https://github.com/adolfousier/opencrabs/releases">GitHub Releases</a>:</p>
-<pre><code class="language-bash"># List all releases
-gh release list -R adolfousier/opencrabs
+                        <h1 id="dynamic-tools"><a class="header" href="#dynamic-tools">Dynamic Tools</a></h1>
+<p>Define custom tools at runtime without recompiling. Tools are defined in <code>~/.opencrabs/tools.toml</code> and can be created, removed, and reloaded on the fly.</p>
+<h2 id="defining-tools"><a class="header" href="#defining-tools">Defining Tools</a></h2>
+<p>Create <code>~/.opencrabs/tools.toml</code>:</p>
+<pre><code class="language-toml">[[tools]]
+name = "deploy"
+description = "Deploy the application to production"
+executor = "shell"
+command = "cd {{project_dir}} &amp;&amp; ./deploy.sh {{environment}}"
 
-# Download a specific version
-gh release download v0.2.66 -R adolfousier/opencrabs -p "opencrabs-*$(uname -m)*$(uname -s | tr A-Z a-z)*"
+[[tools]]
+name = "check-status"
+description = "Check service health"
+executor = "http"
+method = "GET"
+url = "https://api.example.com/health"
 </code></pre>
-<hr>
-<h2 id="evolve--update--rollback"><a class="header" href="#evolve--update--rollback">/evolve — Update &amp; Rollback</a></h2>
-<p><code>/evolve</code> downloads the latest release from GitHub and hot-swaps the binary. It has built-in safety checks:</p>
-<ol>
-<li><strong>Download</strong> — Fetches the platform-specific binary from GitHub Releases</li>
-<li><strong>Pre-swap health check</strong> — Runs <code>opencrabs health-check</code> on the new binary (10s timeout). If it fails, the new binary is deleted and your current version stays untouched.</li>
-<li><strong>Backup</strong> — Creates a backup at <code>&lt;binary-path&gt;.evolve_backup</code></li>
-<li><strong>Atomic swap</strong> — Replaces the current binary</li>
-<li><strong>Post-swap health check</strong> — Verifies the swapped binary works. If it fails, <strong>auto-rolls back</strong> to the backup.</li>
-<li><strong>Restart</strong> — exec()-restarts into the new version</li>
-<li><strong>Brain update prompt</strong> — After restart, your crab announces the new version, diffs brain templates against your local files, and offers to update them</li>
-</ol>
-<h3 id="if-evolve-fails"><a class="header" href="#if-evolve-fails">If /evolve Fails</a></h3>
-<p>The most common reason is the health check caught an issue — your current version stays safe. If something went wrong after the swap:</p>
-<pre><code class="language-bash"># Restore the backup manually
-cp /path/to/opencrabs.evolve_backup /path/to/opencrabs
-chmod +x /path/to/opencrabs
-</code></pre>
-<h3 id="cargo-install-fallback"><a class="header" href="#cargo-install-fallback">Cargo Install Fallback</a></h3>
-<p>When <code>/evolve</code> uses <code>cargo install</code> (building from source), it tries the <strong>stable</strong> toolchain first. If that fails, it automatically falls back to <code>cargo +nightly</code>. The progress message shows which toolchain succeeded.</p>
-<h3 id="check-only-mode"><a class="header" href="#check-only-mode">Check-Only Mode</a></h3>
-<p>The agent can check for updates without installing:</p>
-<pre><code>/evolve check_only=true
-</code></pre>
-<hr>
-<h2 id="bash-tool-safety"><a class="header" href="#bash-tool-safety">Bash Tool Safety</a></h2>
-<p>The bash tool includes a <strong>hard command blocklist</strong> that prevents catastrophic commands even if accidentally approved:</p>
-<ul>
-<li><code>rm -rf /</code>, <code>sudo rm -rf .</code></li>
-<li><code>mkfs</code>, <code>dd</code> to <code>/dev/</code></li>
-<li>Fork bombs</li>
-<li><code>/etc</code> overwrites, <code>/proc</code> writes</li>
-<li>Sensitive file exfiltration</li>
-<li>Crypto mining commands</li>
-</ul>
-<p>These are blocked at the tool level — no configuration needed.</p>
-<hr>
-<h2 id="older-cpus-pre-2011--no-avx"><a class="header" href="#older-cpus-pre-2011--no-avx">Older CPUs (Pre-2011 / No AVX)</a></h2>
-<p>Some features require AVX/AVX2 instructions. Since v0.2.67, OpenCrabs <strong>detects CPU capabilities at runtime</strong> and automatically hides unavailable options in the onboarding wizard.</p>
-<h3 id="whats-affected"><a class="header" href="#whats-affected">What’s Affected</a></h3>
+<h2 id="executors"><a class="header" href="#executors">Executors</a></h2>
 <div class="table-wrapper">
 <table>
 <thead>
-<tr><th>Feature</th><th>CPU Requirement</th><th>Fallback</th></tr>
+<tr><th>Executor</th><th>Description</th></tr>
 </thead>
 <tbody>
-<tr><td>Local embeddings (memory search)</td><td>AVX (Sandy Bridge 2011+)</td><td>FTS-only keyword search (still works)</td></tr>
-<tr><td>Local STT (rwhisper/candle)</td><td>AVX2 (Haswell 2013+)</td><td>API mode (Groq Whisper) or disabled</td></tr>
-<tr><td>Local TTS (Piper)</td><td>None — tested on 2007 iMac</td><td>Works on any x86/ARM CPU</td></tr>
+<tr><td><code>shell</code></td><td>Runs a shell command</td></tr>
+<tr><td><code>http</code></td><td>Makes an HTTP request</td></tr>
 </tbody>
 </table>
 </div>
-<h3 id="symptoms"><a class="header" href="#symptoms">Symptoms</a></h3>
+<h2 id="template-parameters"><a class="header" href="#template-parameters">Template Parameters</a></h2>
+<p>Use <code>{{param}}</code> syntax for dynamic values. The agent fills these in when calling the tool:</p>
+<pre><code class="language-toml">[[tools]]
+name = "search-logs"
+description = "Search application logs for a pattern"
+executor = "shell"
+command = "grep -r '{{pattern}}' /var/log/myapp/ --include='*.log' -l"
+</code></pre>
+<h2 id="runtime-management"><a class="header" href="#runtime-management">Runtime Management</a></h2>
+<p>The <code>tool_manage</code> meta-tool lets the agent manage dynamic tools during a session:</p>
 <ul>
-<li>Local STT option doesn’t appear in <code>/onboard:voice</code> — your CPU lacks AVX2</li>
-<li>Local TTS (Piper) should always be available — no CPU restrictions, works on machines as old as 2007</li>
-<li>Memory search falls back to text-only FTS silently</li>
-<li>Crash with “illegal instruction” on very old CPUs</li>
+<li><strong>Create</strong> — Add a new tool definition</li>
+<li><strong>Remove</strong> — Delete an existing dynamic tool</li>
+<li><strong>Reload</strong> — Re-read <code>tools.toml</code> without restarting</li>
 </ul>
-<h3 id="fix-build-from-source-with-cpu-targeting"><a class="header" href="#fix-build-from-source-with-cpu-targeting">Fix: Build from Source with CPU Targeting</a></h3>
-<pre><code class="language-bash"># For your specific CPU (best performance)
-RUSTFLAGS="-C target-cpu=native" cargo build --release
-
-# For Sandy Bridge (AVX but no AVX2)
-RUSTFLAGS="-C target-cpu=sandybridge" cargo build --release
-</code></pre>
-<h3 id="macos-with-apple-silicon"><a class="header" href="#macos-with-apple-silicon">macOS with Apple Silicon</a></h3>
-<p>Local STT uses <strong>Metal GPU acceleration</strong> on macOS — no CPU flags needed. Works out of the box on M1/M2/M3/M4.</p>
-<hr>
-<h2 id="config-issues"><a class="header" href="#config-issues">Config Issues</a></h2>
-<h3 id="config-wont-load"><a class="header" href="#config-wont-load">Config Won’t Load</a></h3>
-<p>If <code>config.toml</code> has a syntax error, OpenCrabs will fail to start. Restore from backup:</p>
-<pre><code class="language-bash"># Check if a backup exists
-ls ~/.opencrabs/config.toml.backup
-
-# Restore it
-cp ~/.opencrabs/config.toml.backup ~/.opencrabs/config.toml
-</code></pre>
-<p>Or reinitialize with defaults:</p>
-<pre><code class="language-bash">opencrabs init --force
-</code></pre>
-<blockquote>
-<p><strong>Warning:</strong> <code>--force</code> overwrites your config. Back up <code>keys.toml</code> first — it contains your API keys.</p>
-</blockquote>
-<h3 id="manual-backup"><a class="header" href="#manual-backup">Manual Backup</a></h3>
-<p>Always keep a backup of your critical files:</p>
-<pre><code class="language-bash">cp ~/.opencrabs/config.toml ~/.opencrabs/config.toml.backup
-cp ~/.opencrabs/keys.toml ~/.opencrabs/keys.toml.backup
-cp ~/.opencrabs/commands.toml ~/.opencrabs/commands.toml.backup
-</code></pre>
-<hr>
-<h2 id="channel-issues"><a class="header" href="#channel-issues">Channel Issues</a></h2>
-<h3 id="telegram"><a class="header" href="#telegram">Telegram</a></h3>
-<p><strong>Bot not responding:</strong></p>
-<ol>
-<li>Verify token from @BotFather is in <code>keys.toml</code></li>
-<li>Check your numeric user ID is in <code>allowed_users</code></li>
-<li>If <code>respond_to = "mention"</code>, you must @mention the bot in groups</li>
-</ol>
-<p><strong>Regenerate bot token:</strong></p>
-<ol>
-<li>Open @BotFather on Telegram</li>
-<li><code>/mybots</code> → select bot → API Token → Revoke</li>
-<li>Copy new token to <code>keys.toml</code> under <code>[channels.telegram]</code></li>
-<li>Restart OpenCrabs</li>
-</ol>
-<p><strong>Re-setup from scratch:</strong> Run <code>/onboard:channels</code> in the TUI.</p>
-<h3 id="whatsapp"><a class="header" href="#whatsapp">WhatsApp</a></h3>
-<p><strong>QR code / session expired:</strong></p>
-<p>WhatsApp sessions are stored at <code>~/.opencrabs/whatsapp/session.db</code>. To reconnect:</p>
-<pre><code class="language-bash"># Delete the session file
-rm ~/.opencrabs/whatsapp/session.db
-
-# Re-pair via onboarding
-opencrabs chat --onboard
-</code></pre>
-<p>Or press <code>R</code> on the WhatsApp onboarding screen to reset and get a fresh QR code.</p>
-<p><strong>Messages not received:</strong></p>
-<ul>
-<li>Verify phone number is in <code>allowed_phones</code> using E.164 format: <code>"+15551234567"</code></li>
-<li>Empty <code>allowed_phones = []</code> means accept from everyone</li>
-</ul>
-<h3 id="discord"><a class="header" href="#discord">Discord</a></h3>
-<p><strong>Bot not receiving messages:</strong></p>
-<ol>
-<li>Ensure <strong>Message Content Intent</strong> is enabled in Discord Developer Portal → Bot settings</li>
-<li>Required intents: <code>gateway</code>, <code>guild_messages</code>, <code>direct_messages</code>, <code>message_content</code></li>
-<li>Use the <strong>bot token</strong> (starts with <code>MTk...</code>), not the application ID</li>
-</ol>
-<p><strong>Regenerate token:</strong> Discord Developer Portal → Bot → Regenerate Token</p>
-<h3 id="slack"><a class="header" href="#slack">Slack</a></h3>
-<p><strong>Both tokens required:</strong></p>
-<ul>
-<li><strong>Bot token</strong> (<code>xoxb-...</code>): For sending messages</li>
-<li><strong>App token</strong> (<code>xapp-...</code>): For Socket Mode (receiving events)</li>
-</ul>
-<p>Without the app token, the bot can send but not receive messages.</p>
-<p><strong>Socket Mode:</strong> Must be enabled in app settings → Features → Socket Mode → ON</p>
-<h3 id="trello"><a class="header" href="#trello">Trello</a></h3>
-<p><strong>Setup:</strong></p>
-<ol>
-<li>Get API key: <a href="https://trello.com/app-key">trello.com/app-key</a></li>
-<li>Generate token from the same page</li>
-<li>Add <code>board_ids</code> to config — the bot only monitors listed boards</li>
-<li>Set <code>poll_interval_secs &gt; 0</code> to enable polling (default 0 = disabled)</li>
-</ol>
-<h3 id="general-re-run-channel-setup"><a class="header" href="#general-re-run-channel-setup">General: Re-run Channel Setup</a></h3>
-<p>For any channel issues, re-run the onboarding wizard:</p>
-<pre><code class="language-bash">opencrabs chat --onboard
-</code></pre>
-<p>Or type <code>/onboard:channels</code> in the TUI.</p>
-<hr>
-<h2 id="local-stt-speech-to-text"><a class="header" href="#local-stt-speech-to-text">Local STT (Speech-to-Text)</a></h2>
-<p>Since v0.2.67, local STT uses <strong>rwhisper</strong> (candle, pure Rust) instead of whisper-rs/ggml. On macOS, it uses <strong>Metal GPU acceleration</strong> automatically.</p>
-<h3 id="models"><a class="header" href="#models">Models</a></h3>
-<div class="table-wrapper">
-<table>
-<thead>
-<tr><th>Model</th><th>Size</th><th>Quality</th></tr>
-</thead>
-<tbody>
-<tr><td><code>quantized-tiny</code></td><td>~42 MB</td><td>Good for short messages</td></tr>
-<tr><td><code>base-en</code></td><td>~142 MB</td><td>Better accuracy (English)</td></tr>
-<tr><td><code>small-en</code></td><td>~466 MB</td><td>High accuracy</td></tr>
-<tr><td><code>medium-en</code></td><td>~1.5 GB</td><td>Best accuracy</td></tr>
-</tbody>
-</table>
-</div>
-<p>Models download automatically from HuggingFace on first use.</p>
-<h3 id="common-issues"><a class="header" href="#common-issues">Common Issues</a></h3>
-<p><strong>Local STT option not showing in wizard:</strong> Your CPU lacks AVX2. Use API mode (Groq Whisper) instead, or build from source with <code>RUSTFLAGS="-C target-cpu=native"</code>.</p>
-<p><strong>“No audio samples decoded”:</strong> Audio file is corrupt or unsupported format. Supported: OGG/Opus, WAV.</p>
-<p><strong>Transcription hangs:</strong> Times out after 300 seconds. Try a smaller model (<code>quantized-tiny</code>).</p>
-<p><strong>Model download fails:</strong> Check network connection. Models are fetched from HuggingFace.</p>
-<p><strong>Audio too short:</strong> Messages under 1 second are automatically padded to prevent tensor errors.</p>
-<h3 id="disabling"><a class="header" href="#disabling">Disabling</a></h3>
-<pre><code class="language-toml">[voice]
-stt_enabled = false
-</code></pre>
-<hr>
-<h2 id="local-tts-text-to-speech"><a class="header" href="#local-tts-text-to-speech">Local TTS (Text-to-Speech)</a></h2>
-<h3 id="requirements"><a class="header" href="#requirements">Requirements</a></h3>
-<ul>
-<li><strong>Python 3</strong> must be installed and in PATH</li>
-<li>Piper installs automatically in a venv at <code>~/.opencrabs/models/piper/venv/</code></li>
-</ul>
-<h3 id="voices"><a class="header" href="#voices">Voices</a></h3>
-<div class="table-wrapper">
-<table>
-<thead>
-<tr><th>Voice</th><th>Description</th><th>Size</th></tr>
-</thead>
-<tbody>
-<tr><td><code>ryan</code></td><td>US Male (default)</td><td>~200-400 MB</td></tr>
-<tr><td><code>amy</code></td><td>US Female</td><td>~200-400 MB</td></tr>
-<tr><td><code>lessac</code></td><td>US Female</td><td>~200-400 MB</td></tr>
-<tr><td><code>kristin</code></td><td>US Female</td><td>~200-400 MB</td></tr>
-<tr><td><code>joe</code></td><td>US Male</td><td>~200-400 MB</td></tr>
-<tr><td><code>cori</code></td><td>UK Female</td><td>~200-400 MB</td></tr>
-</tbody>
-</table>
-</div>
-<h3 id="common-issues-1"><a class="header" href="#common-issues-1">Common Issues</a></h3>
-<p><strong>“python3 -m venv failed”:</strong> Install Python 3. On Ubuntu: <code>sudo apt install python3 python3-venv</code>. On macOS: <code>brew install python3</code>.</p>
-<p><strong>“pip install piper-tts failed”:</strong> Network issue or pip corrupted. Fix pip first:</p>
-<pre><code class="language-bash">python3 -m pip install --upgrade pip
-</code></pre>
-<p><strong>Telegram voice messages show no waveform:</strong> This was fixed in v0.2.64 — audio is now properly encoded as OGG/Opus (RFC 7845). Update to latest version.</p>
-<p><strong>Voice preview not playing:</strong> Preview uses <code>afplay</code> (macOS), <code>aplay</code> (Linux), or <code>powershell</code> (Windows). Ensure audio output is available.</p>
-<h3 id="re-setup"><a class="header" href="#re-setup">Re-setup</a></h3>
-<p>Run <code>/onboard:voice</code> in the TUI to reconfigure STT/TTS mode and re-download models.</p>
-<h3 id="disabling-1"><a class="header" href="#disabling-1">Disabling</a></h3>
-<pre><code class="language-toml">[voice]
-tts_mode = "off"
-</code></pre>
-<hr>
-<h2 id="local-embeddings-memory-search"><a class="header" href="#local-embeddings-memory-search">Local Embeddings (Memory Search)</a></h2>
-<p>The memory search engine uses a ~300 MB embedding model (llama.cpp) for semantic search. It requires <strong>AVX</strong> on x86 CPUs.</p>
-<h3 id="fallback"><a class="header" href="#fallback">Fallback</a></h3>
-<p>If embeddings can’t initialize (no AVX, download failed, disk full), memory search falls back to <strong>FTS-only</strong> (keyword matching). It still works, just less semantic.</p>
-<h3 id="fix-for-older-cpus"><a class="header" href="#fix-for-older-cpus">Fix for Older CPUs</a></h3>
-<p>Build from source with CPU targeting (see <a href="#older-cpus-pre-2011--no-avx">Older CPUs</a> above).</p>
-<h3 id="model-location"><a class="header" href="#model-location">Model Location</a></h3>
-<p>Models are stored in <code>~/.local/share/opencrabs/models/</code> (platform-specific data directory).</p>
-<hr>
-<h2 id="database-issues"><a class="header" href="#database-issues">Database Issues</a></h2>
-<h3 id="location"><a class="header" href="#location">Location</a></h3>
-<ul>
-<li><strong>Main database:</strong> <code>~/.opencrabs/opencrabs.db</code> (SQLite + WAL)</li>
-<li><strong>WhatsApp session:</strong> <code>~/.opencrabs/whatsapp/session.db</code></li>
-</ul>
-<h3 id="database-corruption"><a class="header" href="#database-corruption">Database Corruption</a></h3>
-<p>SQLite with WAL mode is very resilient, but if corruption occurs:</p>
-<pre><code class="language-bash"># Back up the corrupted file first
-cp ~/.opencrabs/opencrabs.db ~/.opencrabs/opencrabs.db.corrupt
-
-# Reinitialize (WARNING: loses all history)
-opencrabs db init
-</code></pre>
-<h3 id="migration-errors"><a class="header" href="#migration-errors">Migration Errors</a></h3>
-<p>The database automatically migrates on startup (11 migrations). If migrating from an older version with sqlx, the transition is handled automatically — no manual steps needed.</p>
-<hr>
-<h2 id="building-from-source"><a class="header" href="#building-from-source">Building from Source</a></h2>
-<h3 id="quick-setup"><a class="header" href="#quick-setup">Quick Setup</a></h3>
-<pre><code class="language-bash">curl -fsSL https://raw.githubusercontent.com/adolfousier/opencrabs/main/scripts/setup.sh | bash
-git clone https://github.com/adolfousier/opencrabs.git &amp;&amp; cd opencrabs
-cargo build --release
-</code></pre>
-<h3 id="build-without-voice-smaller-binary"><a class="header" href="#build-without-voice-smaller-binary">Build Without Voice (Smaller Binary)</a></h3>
-<pre><code class="language-bash">cargo build --release --no-default-features --features telegram,whatsapp,discord,slack,trello
-</code></pre>
-<h3 id="feature-flags"><a class="header" href="#feature-flags">Feature Flags</a></h3>
-<div class="table-wrapper">
-<table>
-<thead>
-<tr><th>Flag</th><th>Default</th><th>Description</th></tr>
-</thead>
-<tbody>
-<tr><td><code>local-stt</code></td><td>On</td><td>whisper.cpp for local speech-to-text</td></tr>
-<tr><td><code>local-tts</code></td><td>On</td><td>Piper for local text-to-speech</td></tr>
-<tr><td><code>telegram</code></td><td>On</td><td>Telegram channel</td></tr>
-<tr><td><code>whatsapp</code></td><td>On</td><td>WhatsApp channel</td></tr>
-<tr><td><code>discord</code></td><td>On</td><td>Discord channel</td></tr>
-<tr><td><code>slack</code></td><td>On</td><td>Slack channel</td></tr>
-<tr><td><code>trello</code></td><td>On</td><td>Trello channel</td></tr>
-</tbody>
-</table>
-</div>
-<hr>
-<h2 id="debug-mode"><a class="header" href="#debug-mode">Debug Mode</a></h2>
-<p>Run with <code>-d</code> for verbose logging:</p>
-<pre><code class="language-bash">opencrabs -d chat
-</code></pre>
-<p>Logs go to <code>~/.opencrabs/logs/</code> with 7-day retention.</p>
+<p>Dynamic tools appear alongside built-in tools in the agent’s tool list. Enable or disable individual tools without restarting the process.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../getting-started/cli-commands.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../features/split-panes.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="../brain/providers-overview.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../features/browser.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -519,11 +260,11 @@ cargo build --release
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../getting-started/cli-commands.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../features/split-panes.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="../brain/providers-overview.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../features/browser.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>

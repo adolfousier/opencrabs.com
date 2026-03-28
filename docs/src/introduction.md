@@ -2,7 +2,7 @@
 
 **The autonomous AI agent. Single Rust binary. Every channel.**
 
-OpenCrabs is an open-source AI agent that runs in your terminal. It connects to any LLM provider, orchestrates 40+ built-in tools, and works from Telegram, Discord, Slack, WhatsApp, or the built-in TUI.
+OpenCrabs is an open-source AI agent that runs in your terminal. It connects to any LLM provider, orchestrates 50+ built-in tools, and works from Telegram, Discord, Slack, WhatsApp, or the built-in TUI. Split panes, browser automation, multi-agent orchestration, and 1,562 tests.
 
 ## Why OpenCrabs?
 
@@ -16,15 +16,18 @@ OpenCrabs is an open-source AI agent that runs in your terminal. It connects to 
 
 ## Core Capabilities
 
-- **Multi-provider AI** — Anthropic Claude, OpenAI, Google Gemini, OpenRouter (400+ models), MiniMax, Ollama, LM Studio, or any OpenAI-compatible API. Fallback provider chain for automatic failover
-- **Every channel** — Telegram, Discord, Slack, WhatsApp, or the built-in TUI
-- **40+ tools** — File ops, bash, web search, code execution, image gen, document parsing, and more
+- **Multi-provider AI** — Anthropic Claude, OpenAI, Google Gemini, OpenRouter (400+ models), MiniMax, z.ai GLM, Claude CLI, OpenCode CLI, Ollama, LM Studio, or any OpenAI-compatible API. Fallback provider chain for automatic failover. Unified provider registry
+- **Every channel** — Telegram, Discord, Slack, WhatsApp, or the built-in TUI with split panes. DB-persisted channel sessions survive restarts
+- **50+ tools** — File ops, bash, web search, code execution, image gen, browser automation, and user-defined dynamic tools
+- **Multi-agent** — Spawn child agents for parallel task execution. Full CLI with 20+ subcommands
 - **Persistent memory** — 3-tier memory system: daily notes, long-term memory, semantic search
 - **Self-evolving** — Type `/evolve` to download the latest version, or `/rebuild` to build from source
 - **Agent-to-Agent** — Built-in A2A gateway for peer-to-peer agent communication
 - **Cron jobs** — Schedule isolated or main-session tasks with cron expressions
-- **Voice** — Speech-to-text (WhisperCrabs) and text-to-speech (ElevenLabs, OpenAI, Coqui)
+- **Browser automation** — Native headless Chrome control via CDP with smart browser detection
+- **Voice** — Local STT (rwhisper/Metal GPU) and TTS (Piper), plus API options (Groq Whisper, OpenAI TTS)
 - **Plans** — Structured multi-step task planning with approval workflow
+- **Daemon mode** — Background operation with health endpoints and auto-reconnecting channel bots
 
 ## Quick Links
 

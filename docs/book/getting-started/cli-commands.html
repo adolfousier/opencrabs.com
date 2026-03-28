@@ -54,10 +54,10 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-82ce5e6f.js";
+            window.path_to_searchindex_js = "../searchindex-9e32b396.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-b890e03e.js"></script>
+        <script src="../toc-191edecf.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -197,7 +197,7 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="cli-commands"><a class="header" href="#cli-commands">CLI Commands</a></h1>
-<p>OpenCrabs supports several CLI modes.</p>
+<p>OpenCrabs has a full CLI with 20+ subcommands for managing every aspect of the agent.</p>
 <h2 id="usage"><a class="header" href="#usage">Usage</a></h2>
 <pre><code class="language-bash">opencrabs [COMMAND] [OPTIONS]
 </code></pre>
@@ -210,7 +210,19 @@
 <tbody>
 <tr><td><code>chat</code> (default)</td><td>Launch the TUI chat interface</td></tr>
 <tr><td><code>daemon</code></td><td>Run in background (channels only, no TUI)</td></tr>
-<tr><td><code>cron</code></td><td>Manage scheduled tasks</td></tr>
+<tr><td><code>agent</code></td><td>Interactive multi-turn chat or single-message mode</td></tr>
+<tr><td><code>cron</code></td><td>Manage scheduled tasks (add/list/remove/enable/disable/test)</td></tr>
+<tr><td><code>channel</code></td><td>Channel management (list, doctor)</td></tr>
+<tr><td><code>memory</code></td><td>Memory management (list, get, stats)</td></tr>
+<tr><td><code>session</code></td><td>Session management (list, get)</td></tr>
+<tr><td><code>db</code></td><td>Database management (init, stats, clear)</td></tr>
+<tr><td><code>logs</code></td><td>Log management (status, view, clean, open)</td></tr>
+<tr><td><code>service</code></td><td>System service management (install/start/stop/restart/status/uninstall)</td></tr>
+<tr><td><code>status</code></td><td>Show agent status</td></tr>
+<tr><td><code>doctor</code></td><td>Run connection health check</td></tr>
+<tr><td><code>onboard</code></td><td>Run the setup wizard</td></tr>
+<tr><td><code>completions</code></td><td>Generate shell completions (bash/zsh/fish/powershell)</td></tr>
+<tr><td><code>version</code></td><td>Show version info</td></tr>
 </tbody>
 </table>
 </div>
@@ -221,11 +233,34 @@ opencrabs
 # Same as above
 opencrabs chat
 </code></pre>
+<h2 id="agent-mode"><a class="header" href="#agent-mode">Agent Mode</a></h2>
+<p>Non-interactive mode for scripting and automation:</p>
+<pre><code class="language-bash"># Interactive multi-turn chat
+opencrabs agent
+
+# Single-message mode
+opencrabs agent -m "What files changed today?"
+</code></pre>
 <h2 id="daemon-mode"><a class="header" href="#daemon-mode">Daemon Mode</a></h2>
-<p>Run OpenCrabs without the TUI — useful for servers where you only need channel bots.</p>
+<p>Run OpenCrabs without the TUI — useful for servers where you only need channel bots. Supports a health endpoint for monitoring.</p>
 <pre><code class="language-bash">opencrabs daemon
 </code></pre>
-<p>The agent processes messages from all connected channels (Telegram, Discord, Slack, WhatsApp) but without the terminal UI.</p>
+<p>The agent processes messages from all connected channels (Telegram, Discord, Slack, WhatsApp) but without the terminal UI. Channel bots auto-reconnect on network failures with 5-second backoff.</p>
+<h3 id="health-endpoint"><a class="header" href="#health-endpoint">Health Endpoint</a></h3>
+<p>Add to <code>config.toml</code> to expose a health check:</p>
+<pre><code class="language-toml">[daemon]
+health_port = 8080
+</code></pre>
+<p>Then <code>GET http://localhost:8080/health</code> returns 200 OK with JSON status. Useful for systemd watchdog, uptime monitors, or load balancers.</p>
+<h2 id="service-management"><a class="header" href="#service-management">Service Management</a></h2>
+<p>Install OpenCrabs as a system service (launchd on macOS, systemd on Linux):</p>
+<pre><code class="language-bash">opencrabs service install
+opencrabs service start
+opencrabs service stop
+opencrabs service restart
+opencrabs service status
+opencrabs service uninstall
+</code></pre>
 <h2 id="cron-management"><a class="header" href="#cron-management">Cron Management</a></h2>
 <pre><code class="language-bash"># List all cron jobs
 opencrabs cron list
@@ -261,7 +296,10 @@ opencrabs cron disable "Daily Report"
 <tr><td><code>Ctrl+L</code></td><td>Sessions screen</td></tr>
 <tr><td><code>Ctrl+K</code></td><td>Clear current session</td></tr>
 <tr><td><code>Ctrl+O</code></td><td>Toggle tool group collapse</td></tr>
-<tr><td><code>Tab</code></td><td>Accept autocomplete</td></tr>
+<tr><td><code>|</code></td><td>Split pane horizontally</td></tr>
+<tr><td><code>_</code></td><td>Split pane vertically</td></tr>
+<tr><td><code>Ctrl+X</code></td><td>Close focused pane</td></tr>
+<tr><td><code>Tab</code></td><td>Cycle pane focus / Accept autocomplete</td></tr>
 <tr><td><code>Up/Down</code></td><td>Navigate suggestions / sessions</td></tr>
 <tr><td><code>/</code></td><td>Start slash command (e.g. <code>/help</code>, <code>/models</code>)</td></tr>
 <tr><td><code>:</code></td><td>Start emoji picker</td></tr>

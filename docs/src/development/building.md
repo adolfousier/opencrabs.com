@@ -2,7 +2,7 @@
 
 ## Prerequisites
 
-- **Rust 1.93+** (nightly not required)
+- **Rust 1.94+** (stable, nightly not required)
 - **SQLite3** development headers
 - **OpenSSL** development headers (vendored by default)
 - **pkg-config** (Linux/macOS)
@@ -46,6 +46,7 @@ OpenCrabs uses Cargo features to toggle channel support:
 | `slack` | Yes | Slack bot via slack-morphism |
 | `whatsapp` | Yes | WhatsApp via whatsapp-rust |
 | `trello` | Yes | Trello integration |
+| `browser` | Yes | Headless Chrome automation via CDP |
 | `profiling` | No | pprof flamegraphs (Unix only) |
 
 Build with specific features:

@@ -54,10 +54,10 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-82ce5e6f.js";
+            window.path_to_searchindex_js = "../searchindex-9e32b396.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-b890e03e.js"></script>
+        <script src="../toc-191edecf.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -199,18 +199,21 @@
                         <h1 id="architecture"><a class="header" href="#architecture">Architecture</a></h1>
 <h2 id="high-level-overview"><a class="header" href="#high-level-overview">High-Level Overview</a></h2>
 <pre><code>┌─────────────────────────────────────────────────┐
-│                    TUI (ratatui)                 │
+│          TUI (ratatui) + Split Panes             │
 ├────────┬────────┬──────────┬────────────────────┤
 │Telegram│Discord │  Slack   │     WhatsApp       │
 ├────────┴────────┴──────────┴────────────────────┤
 │                 Brain (Agent Core)               │
 │  ┌──────────┐ ┌──────────┐ ┌──────────────────┐ │
 │  │ Providers│ │  Tools   │ │  Memory (3-tier) │ │
+│  │ Registry │ │ +Dynamic │ │                  │ │
 │  └──────────┘ └──────────┘ └──────────────────┘ │
 ├─────────────────────────────────────────────────┤
-│              Services / DB (SQLite)              │
+│   Services / DB (SQLite) │ Browser (CDP)         │
 ├─────────────────────────────────────────────────┤
-│         A2A Gateway (axum) │ Cron Scheduler     │
+│   A2A Gateway │ Cron Scheduler │ Sub-Agents      │
+├─────────────────────────────────────────────────┤
+│   Daemon Mode (health endpoint, auto-reconnect)  │
 └─────────────────────────────────────────────────┘
 </code></pre>
 <h2 id="source-layout"><a class="header" href="#source-layout">Source Layout</a></h2>
@@ -229,7 +232,7 @@
 │   ├── agent/           # Agent service, context, tool loop
 │   │   └── service/     # Builder, context, helpers, tool_loop
 │   ├── provider/        # LLM provider implementations
-│   ├── tools/           # 40+ tool implementations
+│   ├── tools/           # 50+ tool implementations
 │   └── memory/          # 3-tier memory system
 ├── tui/                 # Terminal UI (ratatui + crossterm)
 │   ├── app/             # App state, input, messaging

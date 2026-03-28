@@ -54,10 +54,10 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-82ce5e6f.js";
+            window.path_to_searchindex_js = "searchindex-9e32b396.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-b890e03e.js"></script>
+        <script src="toc-191edecf.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -198,7 +198,7 @@
                     <main>
                         <h1 id="opencrabs"><a class="header" href="#opencrabs">OpenCrabs</a></h1>
 <p><strong>The autonomous AI agent. Single Rust binary. Every channel.</strong></p>
-<p>OpenCrabs is an open-source AI agent that runs in your terminal. It connects to any LLM provider, orchestrates 40+ built-in tools, and works from Telegram, Discord, Slack, WhatsApp, or the built-in TUI.</p>
+<p>OpenCrabs is an open-source AI agent that runs in your terminal. It connects to any LLM provider, orchestrates 50+ built-in tools, and works from Telegram, Discord, Slack, WhatsApp, or the built-in TUI. Split panes, browser automation, multi-agent orchestration, and 1,562 tests.</p>
 <h2 id="why-opencrabs"><a class="header" href="#why-opencrabs">Why OpenCrabs?</a></h2>
 <div class="table-wrapper">
 <table>
@@ -216,15 +216,18 @@
 </div>
 <h2 id="core-capabilities"><a class="header" href="#core-capabilities">Core Capabilities</a></h2>
 <ul>
-<li><strong>Multi-provider AI</strong> — Anthropic Claude, OpenAI, Google Gemini, OpenRouter (400+ models), MiniMax, Ollama, LM Studio, or any OpenAI-compatible API. Fallback provider chain for automatic failover</li>
-<li><strong>Every channel</strong> — Telegram, Discord, Slack, WhatsApp, or the built-in TUI</li>
-<li><strong>40+ tools</strong> — File ops, bash, web search, code execution, image gen, document parsing, and more</li>
+<li><strong>Multi-provider AI</strong> — Anthropic Claude, OpenAI, Google Gemini, OpenRouter (400+ models), MiniMax, z.ai GLM, Claude CLI, OpenCode CLI, Ollama, LM Studio, or any OpenAI-compatible API. Fallback provider chain for automatic failover. Unified provider registry</li>
+<li><strong>Every channel</strong> — Telegram, Discord, Slack, WhatsApp, or the built-in TUI with split panes. DB-persisted channel sessions survive restarts</li>
+<li><strong>50+ tools</strong> — File ops, bash, web search, code execution, image gen, browser automation, and user-defined dynamic tools</li>
+<li><strong>Multi-agent</strong> — Spawn child agents for parallel task execution. Full CLI with 20+ subcommands</li>
 <li><strong>Persistent memory</strong> — 3-tier memory system: daily notes, long-term memory, semantic search</li>
 <li><strong>Self-evolving</strong> — Type <code>/evolve</code> to download the latest version, or <code>/rebuild</code> to build from source</li>
 <li><strong>Agent-to-Agent</strong> — Built-in A2A gateway for peer-to-peer agent communication</li>
 <li><strong>Cron jobs</strong> — Schedule isolated or main-session tasks with cron expressions</li>
-<li><strong>Voice</strong> — Speech-to-text (WhisperCrabs) and text-to-speech (ElevenLabs, OpenAI, Coqui)</li>
+<li><strong>Browser automation</strong> — Native headless Chrome control via CDP with smart browser detection</li>
+<li><strong>Voice</strong> — Local STT (rwhisper/Metal GPU) and TTS (Piper), plus API options (Groq Whisper, OpenAI TTS)</li>
 <li><strong>Plans</strong> — Structured multi-step task planning with approval workflow</li>
+<li><strong>Daemon mode</strong> — Background operation with health endpoints and auto-reconnecting channel bots</li>
 </ul>
 <h2 id="quick-links"><a class="header" href="#quick-links">Quick Links</a></h2>
 <ul>

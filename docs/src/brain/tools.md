@@ -1,6 +1,6 @@
 # Built-in Tools
 
-OpenCrabs ships with 45+ tools available to the agent out of the box.
+OpenCrabs ships with 50+ tools available to the agent out of the box, plus support for user-defined dynamic tools.
 
 ## File Operations
 
@@ -64,6 +64,30 @@ Agents can spawn independent child agents for parallel task execution:
 | `resume_agent` | `agent_id` | Resume a previously spawned agent |
 
 Children run with auto-approve and essential tools. No recursive spawning.
+
+## Browser Automation
+
+Native headless Chrome control via Chrome DevTools Protocol (CDP):
+
+| Tool | Parameters | Description |
+|------|-----------|-------------|
+| `navigate` | `url` | Open a URL in the browser |
+| `click` | `selector` | Click an element by CSS selector |
+| `type` | `selector`, `text` | Type text into an input field |
+| `screenshot` | `selector` | Capture a screenshot |
+| `eval_js` | `code` | Execute JavaScript in the page context |
+| `extract_content` | `selector` | Extract text content from elements |
+| `wait_for_element` | `selector`, `timeout` | Wait for an element to appear |
+
+Auto-detects your default Chromium browser. Feature-gated under `browser` (enabled by default).
+
+## Dynamic Tools
+
+Define custom tools at runtime via `~/.opencrabs/tools.toml`. See [Dynamic Tools](../features/dynamic-tools.md) for details.
+
+| Tool | Parameters | Description |
+|------|-----------|-------------|
+| `tool_manage` | `action`, various | Create, remove, or reload dynamic tools |
 
 ## System
 

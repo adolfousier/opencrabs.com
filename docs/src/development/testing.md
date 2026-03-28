@@ -103,7 +103,13 @@ cargo test --all-features
 | Tests — Stream Loop Detection | 15 | `src/tests/stream_loop_test.rs` |
 | Tests — XML Tool Fallback | 10 | `src/tests/xml_tool_fallback_test.rs` |
 | Tests — TUI Render Clear | 4 | `src/tests/tui_render_clear_test.rs` |
-| **Total** | **1,424** | |
+| Tests — Split Panes | 21 | `src/tests/split_pane_test.rs` |
+| Tests — Slack Formatting | 21 | `src/tests/slack_formatting_test.rs` |
+| Tests — Daemon Health | 10 | `src/tests/daemon_health_test.rs` |
+| Tests — Claude CLI Cache | 5 | `src/tests/claude_cli_cache_test.rs` |
+| Tests — Browser Headless | 4 | `src/tests/browser_headless_test.rs` |
+| Tests — Provider Registry | 8 | `src/tests/provider_registry_test.rs` |
+| **Total** | **1,562** | |
 
 ---
 

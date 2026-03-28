@@ -206,9 +206,9 @@ fn Hero() -> impl IntoView {
                 <h1>"OpenCrabs"</h1>
                 <p class="hero-tagline">"THE AI AGENT THAT LIVES IN YOUR TERMINAL."</p>
                 <p class="hero-description">
-                    "Runs code, manages files, searches the web, schedules tasks, "
+                    "Runs code, manages files, searches the web, automates browsers, spawns sub-agents, "
                     "and connects to Telegram, Discord, Slack, WhatsApp, and Trello. "
-                    "Local STT & TTS. All from your terminal or any chat app."
+                    "Split panes, local STT & TTS, 1,500+ tests. All from your terminal or any chat app."
                 </p>
                 <a href="https://github.com/adolfousier/opencrabs/releases/latest" class="hero-badge">
                     <span class="badge-new">"LATEST"</span>
@@ -308,7 +308,7 @@ fn QuickStart(tag: Signal<String>) -> impl IntoView {
                     </div>
                     <div class="terminal-body" style:display=move || if active_tab.get() == 1 { "block" } else { "none" }>
                         <div>
-                            <span class="terminal-comment">"# Install via cargo (requires Rust nightly)"</span>
+                            <span class="terminal-comment">"# Install via cargo (stable Rust)"</span>
                         </div>
                         <div>
                             <span class="terminal-prompt">"$ "</span>
@@ -321,7 +321,7 @@ fn QuickStart(tag: Signal<String>) -> impl IntoView {
                     </div>
                     <div class="terminal-body" style:display=move || if active_tab.get() == 2 { "block" } else { "none" }>
                         <div>
-                            <span class="terminal-comment">"# Install all deps + Rust nightly (macOS, Debian, Fedora, Arch)"</span>
+                            <span class="terminal-comment">"# Install all deps + Rust stable (macOS, Debian, Fedora, Arch)"</span>
                         </div>
                         <div>
                             <span class="terminal-prompt">"$ "</span>
@@ -363,7 +363,7 @@ fn Features() -> impl IntoView {
         (
             "💬",
             "Any Chat App",
-            "Talk to it on Telegram, Discord, Slack, WhatsApp, or Trello. Works in DMs and group chats. Or just use the TUI.",
+            "Talk to it on Telegram, Discord, Slack, WhatsApp, or Trello. Works in DMs and group chats with persistent sessions. Or just use the TUI.",
         ),
         (
             "🧠",
@@ -372,13 +372,23 @@ fn Features() -> impl IntoView {
         ),
         (
             "⚡",
-            "45+ Built-in Tools",
-            "File ops, bash, web search, code execution, image gen, document parsing, local voice STT & TTS, sub-agent orchestration. No plugins needed.",
+            "50+ Built-in Tools",
+            "File ops, bash, web search, code execution, image gen, browser automation, local voice STT & TTS, sub-agent orchestration. Define custom tools at runtime.",
         ),
         (
-            ">_",
-            "Full Terminal Access",
-            "A TUI with full shell access. Any CLI tool on your system — gh, docker, ssh, git, node, python — the agent can use it. No plugins needed.",
+            "🪟",
+            "Split Panes",
+            "Tmux-style horizontal and vertical pane splitting. Run 10 sessions side by side, each with its own provider and context. All processing in parallel.",
+        ),
+        (
+            "🤖",
+            "Multi-Agent & Full CLI",
+            "Spawn child agents for parallel tasks. 20+ CLI subcommands for managing sessions, memory, cron, logs, and services. Daemon mode with health endpoints.",
+        ),
+        (
+            "🌐",
+            "Browser Automation",
+            "Native headless Chrome control via CDP. Navigate, click, type, screenshot, extract content, run JS. Smart detection of your default Chromium browser.",
         ),
         (
             "📐",
@@ -427,6 +437,9 @@ fn Integrations() -> impl IntoView {
         "🇨🇳 z.ai GLM",
         "🏠 Ollama",
         "📡 LM Studio",
+        "🔮 MiniMax",
+        "💻 Claude CLI",
+        "⌨️ OpenCode CLI",
     ];
     let tools = vec![
         "🐙 GitHub CLI",
@@ -438,6 +451,7 @@ fn Integrations() -> impl IntoView {
         "🔍 Brave Search",
         "🎙️ Local STT/TTS",
         "🐳 Docker",
+        "🌐 Browser (CDP)",
     ];
 
     view! {

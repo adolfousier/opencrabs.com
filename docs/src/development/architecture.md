@@ -4,18 +4,21 @@
 
 ```
 ┌─────────────────────────────────────────────────┐
-│                    TUI (ratatui)                 │
+│          TUI (ratatui) + Split Panes             │
 ├────────┬────────┬──────────┬────────────────────┤
 │Telegram│Discord │  Slack   │     WhatsApp       │
 ├────────┴────────┴──────────┴────────────────────┤
 │                 Brain (Agent Core)               │
 │  ┌──────────┐ ┌──────────┐ ┌──────────────────┐ │
 │  │ Providers│ │  Tools   │ │  Memory (3-tier) │ │
+│  │ Registry │ │ +Dynamic │ │                  │ │
 │  └──────────┘ └──────────┘ └──────────────────┘ │
 ├─────────────────────────────────────────────────┤
-│              Services / DB (SQLite)              │
+│   Services / DB (SQLite) │ Browser (CDP)         │
 ├─────────────────────────────────────────────────┤
-│         A2A Gateway (axum) │ Cron Scheduler     │
+│   A2A Gateway │ Cron Scheduler │ Sub-Agents      │
+├─────────────────────────────────────────────────┤
+│   Daemon Mode (health endpoint, auto-reconnect)  │
 └─────────────────────────────────────────────────┘
 ```
 
@@ -37,7 +40,7 @@ src/
 │   ├── agent/           # Agent service, context, tool loop
 │   │   └── service/     # Builder, context, helpers, tool_loop
 │   ├── provider/        # LLM provider implementations
-│   ├── tools/           # 40+ tool implementations
+│   ├── tools/           # 50+ tool implementations
 │   └── memory/          # 3-tier memory system
 ├── tui/                 # Terminal UI (ratatui + crossterm)
 │   ├── app/             # App state, input, messaging

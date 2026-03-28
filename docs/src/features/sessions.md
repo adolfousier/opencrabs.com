@@ -46,3 +46,11 @@ Sessions can process in the background while you work in another session. The se
 - Spinner for actively processing sessions
 - `!` for sessions waiting for tool approval
 - Dot for sessions with unread messages
+
+## Split Panes
+
+Run multiple sessions side by side with tmux-style pane splitting. See [Split Panes](./split-panes.md) for details.
+
+## Channel Sessions
+
+All channels (Telegram, Discord, Slack, WhatsApp, Trello) now persist sessions in SQLite by channel/group title. Sessions survive process restarts — no more lost context after daemon restart. Each channel group gets its own isolated session, while owner DMs share the TUI session.
