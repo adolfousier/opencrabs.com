@@ -51,6 +51,15 @@ Sessions can process in the background while you work in another session. The se
 
 Run multiple sessions side by side with tmux-style pane splitting. See [Split Panes](./split-panes.md) for details.
 
+## State Management
+
+v0.2.92 improved session state tracking:
+
+- **Session reload after cancellation** -- After Esc+Esc cancel, session context reloads from DB to pick up any changes made during the cancelled operation
+- **Cached state cleanup** -- Deleting a session now clears stale pane cache entries, preventing phantom state on restart
+- **CLI tool segment persistence** -- Tool results from CLI providers (Claude CLI, OpenCode CLI) are now saved to DB alongside regular messages, preserving correct text/tool interleaving across restarts
+- **Case-insensitive tool input** -- Tool input descriptions use case-insensitive key lookup, fixing failures when providers return different casing
+
 ## Channel Sessions
 
-All channels (Telegram, Discord, Slack, WhatsApp, Trello) now persist sessions in SQLite by channel/group title. Sessions survive process restarts — no more lost context after daemon restart. Each channel group gets its own isolated session, while owner DMs share the TUI session.
+All channels (Telegram, Discord, Slack, WhatsApp, Trello) now persist sessions in SQLite by channel/group title. Sessions survive process restarts -- no more lost context after daemon restart. Each channel group gets its own isolated session, while owner DMs share the TUI session.

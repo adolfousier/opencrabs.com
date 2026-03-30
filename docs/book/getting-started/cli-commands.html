@@ -54,10 +54,10 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-9e32b396.js";
+            window.path_to_searchindex_js = "../searchindex-2de0da57.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-191edecf.js"></script>
+        <script src="../toc-066a3553.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -226,6 +226,12 @@
 </tbody>
 </table>
 </div>
+<h2 id="startup-update-prompt"><a class="header" href="#startup-update-prompt">Startup Update Prompt</a></h2>
+<p>When a new version is available, a centered dialog appears on the splash screen asking you to accept (Enter) or skip (Esc). Accepting triggers <code>/evolve</code> automatically. After update, the binary restarts and the splash shows the new version.</p>
+<h2 id="channel-commands"><a class="header" href="#channel-commands">Channel Commands</a></h2>
+<p><code>/doctor</code>, <code>/help</code>, <code>/usage</code>, <code>/evolve</code>, and system commands work directly on Telegram, Discord, Slack, and WhatsApp without going through the LLM. They execute instantly and return results in the channel.</p>
+<p>All channel command logic is centralized in <code>src/channels/commands.rs</code> (847 lines) – a shared handler that eliminates duplicated command logic across 5 channel implementations. Each channel delegates to <code>try_execute_text_command()</code> for consistent behavior.</p>
+<p><code>/evolve</code> on channels now runs directly (downloads + installs the binary) without requiring an LLM round-trip. Previously it was routed through the agent.</p>
 <h2 id="chat-mode"><a class="header" href="#chat-mode">Chat Mode</a></h2>
 <pre><code class="language-bash"># Default — launch TUI
 opencrabs

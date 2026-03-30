@@ -99,9 +99,13 @@ Define custom tools at runtime via `~/.opencrabs/tools.toml`. See [Dynamic Tools
 | `rebuild` | — | Build from source and restart |
 | `plan` | `action`, various | Create and manage execution plans |
 
+## Error Handling
+
+v0.2.92 improved error surfacing across all tool connections. Channel connect tools (`slack_connect`, `whatsapp_connect`, `trello_connect`) now surface actual connection errors instead of silently swallowing them. Tool call status correctly transitions from "running" to success/failure instead of showing a perpetual spinner.
+
 ## System CLI Tools
 
-OpenCrabs runs in a TUI with full terminal access. The agent can execute **any CLI tool** installed on the host via the `bash` tool — no plugins, no wrappers. If it's on your system, the agent can use it. Common ones:
+OpenCrabs runs in a TUI with full terminal access. The agent can execute **any CLI tool** installed on the host via the `bash` tool -- no plugins, no wrappers. If it's on your system, the agent can use it. Common ones:
 
 | Tool | Purpose | Check |
 |------|---------|-------|

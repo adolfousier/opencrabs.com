@@ -28,6 +28,18 @@ opencrabs [COMMAND] [OPTIONS]
 | `completions` | Generate shell completions (bash/zsh/fish/powershell) |
 | `version` | Show version info |
 
+## Startup Update Prompt
+
+When a new version is available, a centered dialog appears on the splash screen asking you to accept (Enter) or skip (Esc). Accepting triggers `/evolve` automatically. After update, the binary restarts and the splash shows the new version.
+
+## Channel Commands
+
+`/doctor`, `/help`, `/usage`, `/evolve`, and system commands work directly on Telegram, Discord, Slack, and WhatsApp without going through the LLM. They execute instantly and return results in the channel.
+
+All channel command logic is centralized in `src/channels/commands.rs` (847 lines) -- a shared handler that eliminates duplicated command logic across 5 channel implementations. Each channel delegates to `try_execute_text_command()` for consistent behavior.
+
+`/evolve` on channels now runs directly (downloads + installs the binary) without requiring an LLM round-trip. Previously it was routed through the agent.
+
 ## Chat Mode
 
 ```bash

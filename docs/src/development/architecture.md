@@ -18,6 +18,11 @@
 ├─────────────────────────────────────────────────┤
 │   A2A Gateway │ Cron Scheduler │ Sub-Agents      │
 ├─────────────────────────────────────────────────┤
+│   Shared Channel Commands (commands.rs — 847 lines) │
+├─────────────────────────────────────────────────┤
+│   Self-Healing (config recovery, provider health, │
+│   ARG_MAX compaction, error surfacing)             │
+├─────────────────────────────────────────────────┤
 │   Daemon Mode (health endpoint, auto-reconnect)  │
 └─────────────────────────────────────────────────┘
 ```
@@ -29,7 +34,8 @@ src/
 ├── main.rs              # Entry point, CLI parsing
 ├── lib.rs               # Library root
 ├── cli/                 # CLI argument parsing (clap)
-├── config/              # Configuration types and loading
+├── config/              # Configuration types, loading, health tracking
+│   └── health.rs        # Provider health persistence (120 lines)
 ├── db/                  # SQLite database layer
 │   ├── models.rs        # Data models (Session, Message, etc.)
 │   └── repository/      # Query functions per entity
@@ -46,6 +52,7 @@ src/
 │   ├── app/             # App state, input, messaging
 │   └── render/          # UI rendering modules
 ├── channels/            # Messaging platform integrations
+│   ├── commands.rs      # Shared text command handler (847 lines)
 │   ├── telegram/        # Teloxide-based bot
 │   ├── discord/         # Serenity-based bot
 │   ├── slack/           # Slack Socket Mode
@@ -79,11 +86,13 @@ src/
 ## Data Flow
 
 1. **Input** arrives from TUI, channel, A2A, or cron trigger
-2. **Brain** builds context (system prompt + brain files + memory + conversation)
-3. **Provider** streams the LLM response via the selected provider
-4. **Tool Loop** executes any tool calls, feeds results back to the LLM
-5. **Response** is delivered back to the originating channel
-6. **DB** persists messages, token usage, and session state
+2. **Channel commands** (`/doctor`, `/help`, `/usage`, `/evolve`) execute directly via the shared handler without LLM routing
+3. **Brain** builds context (system prompt + brain files + memory + conversation)
+4. **Provider** streams the LLM response via the selected provider; health is tracked per-provider
+5. **Tool Loop** executes any tool calls, feeds results back to the LLM. CLI provider segments (text/tool interleaving) are tracked for correct ordering
+6. **Response** is delivered back to the originating channel
+7. **DB** persists messages, token usage, session state, and CLI tool segments
+8. **Self-healing** monitors for config corruption, context budget overflow (65% threshold), ARG_MAX limits, stuck streams (2048-byte repeat detection), idle timeouts (60s), provider failures (per-provider health tracking with auto-failover), and DB integrity. Crash recovery replays pending requests on restart. All errors surfaced -- nothing swallowed silently
 
 ## Database
 

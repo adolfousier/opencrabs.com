@@ -3,8 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Page not found - OpenCrabs</title>
-        <base href="https://docs.opencrabs.com/">
+        <title>Self-Healing - OpenCrabs</title>
 
 
         <!-- Custom HTML head -->
@@ -33,32 +32,32 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
 
-        <link rel="shortcut icon" href="favicon-0496ab32.png">
-        <link rel="stylesheet" href="css/variables-8adf115d.css">
-        <link rel="stylesheet" href="css/general-2459343d.css">
-        <link rel="stylesheet" href="css/chrome-ae938929.css">
-        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+        <link rel="shortcut icon" href="../favicon-0496ab32.png">
+        <link rel="stylesheet" href="../css/variables-8adf115d.css">
+        <link rel="stylesheet" href="../css/general-2459343d.css">
+        <link rel="stylesheet" href="../css/chrome-ae938929.css">
+        <link rel="stylesheet" href="../css/print-9e4910d8.css" media="print">
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+        <link rel="stylesheet" href="../fonts/fonts-9644e21d.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
-        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
-        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+        <link rel="stylesheet" id="mdbook-highlight-css" href="../highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="../tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="../ayu-highlight-3fdfc3ac.css">
 
         <!-- Custom theme stylesheets -->
 
 
         <!-- Provide site root and default themes to javascript -->
         <script>
-            const path_to_root = "";
+            const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-2de0da57.js";
+            window.path_to_searchindex_js = "../searchindex-2de0da57.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-066a3553.js"></script>
+        <script src="../toc-066a3553.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -125,7 +124,7 @@
             <!-- populated by js -->
             <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
             <noscript>
-                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
             </noscript>
             <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -160,7 +159,7 @@
                     <h1 class="menu-title">OpenCrabs</h1>
 
                     <div class="right-buttons">
-                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
                             <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
                         </a>
                         <a href="https://github.com/adolfousier/opencrabs" title="Git repository" aria-label="Git repository">
@@ -197,14 +196,147 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="document-not-found-404"><a class="header" href="#document-not-found-404">Document not found (404)</a></h1>
-<p>This URL is invalid, sorry. Please use the navigation bar or search to continue.</p>
+                        <h1 id="self-healing"><a class="header" href="#self-healing">Self-Healing</a></h1>
+<p>OpenCrabs monitors its own health and automatically recovers from failures without user intervention. All recovery events surface as visible notifications across TUI and all channels.</p>
+<h2 id="how-it-differs-from-crash-recovery"><a class="header" href="#how-it-differs-from-crash-recovery">How It Differs from Crash Recovery</a></h2>
+<p>OpenCrabs has had <strong>crash recovery</strong> since early versions – if the process dies mid-request, pending requests are tracked in SQLite and automatically resumed on restart (see <a href="#pending-request-recovery">Pending Request Recovery</a> below).</p>
+<p><strong>Self-healing</strong> (v0.2.92) goes further: the agent detects and fixes problems <em>while it’s still running</em> – corrupted config, degraded providers, context overflow, stuck streams, DB corruption – without restarting. Crash recovery is the safety net; self-healing prevents the fall.</p>
+<h2 id="config-recovery"><a class="header" href="#config-recovery">Config Recovery</a></h2>
+<p>Every successful write to <code>config.toml</code> creates a snapshot at <code>~/.opencrabs/config.last_good.toml</code>. When the config becomes corrupted or unparseable, OpenCrabs restores from the last-known-good snapshot automatically.</p>
+<pre><code>⚠️ Config was corrupted — restored from last-known-good snapshot (2 minutes ago)
+</code></pre>
+<p>A <code>CONFIG_RECOVERED</code> atomic flag tracks whether recovery happened during the current session, so downstream code can react accordingly.</p>
+<h3 id="unknown-key-detection"><a class="header" href="#unknown-key-detection">Unknown Key Detection</a></h3>
+<p>Unknown top-level keys in <code>config.toml</code> trigger a startup warning listing the unrecognized entries. This catches typos like <code>[teelgram]</code> or <code>[a2a_gatway]</code> before they cause silent misconfiguration.</p>
+<p>Known valid sections: <code>[crabrace]</code>, <code>[database]</code>, <code>[logging]</code>, <code>[debug]</code>, <code>[providers]</code>, <code>[channels]</code>, <code>[agent]</code>, <code>[daemon]</code>, <code>[a2a]</code>, <code>[image]</code>, <code>[cron]</code>.</p>
+<p>The <code>[a2a]</code> section also accepts <code>gateway</code> as an alias via serde, deduplicating a common typo.</p>
+<h3 id="custom-provider-name-normalization"><a class="header" href="#custom-provider-name-normalization">Custom Provider Name Normalization</a></h3>
+<p>Provider names with mixed case or whitespace (e.g. <code>"My Provider"</code> vs <code>"my provider"</code>) are normalized on load and save, preventing duplicate entries that would confuse the provider registry.</p>
+<h2 id="provider-health-tracking"><a class="header" href="#provider-health-tracking">Provider Health Tracking</a></h2>
+<p>Per-provider success/failure history is persisted to <code>~/.opencrabs/provider_health.json</code>. Each provider tracks:</p>
+<ul>
+<li><code>last_success</code> and <code>last_failure</code> (epoch seconds)</li>
+<li><code>last_error</code> (truncated to 200 chars)</li>
+<li><code>consecutive_failures</code> count (resets on success)</li>
+</ul>
+<pre><code class="language-json">{
+  "anthropic": {
+    "last_success": 1743250500,
+    "consecutive_failures": 0
+  },
+  "openai": {
+    "last_success": 1743249800,
+    "last_failure": 1743249700,
+    "last_error": "rate_limit_exceeded",
+    "consecutive_failures": 0
+  }
+}
+</code></pre>
+<p>The <code>/doctor</code> command surfaces health stats for every configured provider. Combined with the fallback provider chain, OpenCrabs detects degraded providers and routes to healthy ones automatically.</p>
+<p><strong>Source:</strong> <code>src/config/health.rs</code> (120 lines), integrated into <code>src/brain/agent/service/helpers.rs</code>.</p>
+<h2 id="db-integrity-check"><a class="header" href="#db-integrity-check">DB Integrity Check</a></h2>
+<p>SQLite <code>PRAGMA integrity_check</code> runs at startup. If corruption is detected, a notification appears in TUI and all connected channels instead of silently failing.</p>
+<h2 id="error-surfacing"><a class="header" href="#error-surfacing">Error Surfacing</a></h2>
+<p>v0.2.92 eliminated 14+ instances of silently swallowed errors across:</p>
+<ul>
+<li>Config writes</li>
+<li>Channel sends (Telegram, Discord, Slack, WhatsApp)</li>
+<li>Tool connections (Slack, WhatsApp, Trello connect tools)</li>
+<li>Pane state persistence</li>
+</ul>
+<p><strong>Before:</strong> <code>let _ = ...</code> and <code>.ok()</code> everywhere, errors vanish.
+<strong>After:</strong> Every error surfaces via logging or user notification.</p>
+<p>Onboarding config writes use <code>try_write!</code> macros that batch errors during wizard steps and report them all at the end, so users see exactly what failed.</p>
+<h3 id="agentservice-config-propagation"><a class="header" href="#agentservice-config-propagation">AgentService Config Propagation</a></h3>
+<p><code>AgentService::new()</code> now requires an explicit <code>&amp;Config</code> parameter instead of calling <code>Config::load()</code> internally. This eliminates hidden I/O, makes dependencies explicit, and enables test injection via <code>AgentService::new_for_test()</code>.</p>
+<p>Render, dialogs, messaging, and cron modules no longer call <code>Config::load()</code> internally – errors propagate up the call stack instead of being swallowed.</p>
+<h2 id="context-budget-management"><a class="header" href="#context-budget-management">Context Budget Management</a></h2>
+<p>The agent enforces a <strong>65% context budget threshold</strong>. When token usage reaches 65% of the effective context window (context limit minus tool schema overhead), automatic LLM compaction fires:</p>
+<ol>
+<li><strong>Detect</strong> context usage ≥ 65% of effective max tokens</li>
+<li><strong>Compact</strong> via LLM summarization (preserves meaning, not just truncation)</li>
+<li><strong>Retry</strong> up to 3 times if compaction fails</li>
+<li><strong>Second pass</strong> with tighter budget if still over threshold</li>
+</ol>
+<p>The 65% threshold exists because providers like MiniMax degrade on function-calling quality well before hitting theoretical context limits – tool calls break around ~133k tokens of a 200k limit.</p>
+<p><strong>Source:</strong> <code>src/brain/agent/service/tool_loop.rs</code> (lines 14-112)</p>
+<h2 id="emergency-compaction-arg_max-recovery"><a class="header" href="#emergency-compaction-arg_max-recovery">Emergency Compaction (ARG_MAX Recovery)</a></h2>
+<p>When CLI provider conversation context exceeds the OS <code>ARG_MAX</code> limit (~1MB on macOS), the agent recovers with a 3-stage fallback:</p>
+<ol>
+<li><strong>Catch</strong> the “Argument list too long” or “prompt too large” error</li>
+<li><strong>Emergency compact</strong> the conversation with an LLM summarization pass</li>
+<li><strong>Insert</strong> a system marker so the agent knows context was compacted</li>
+<li><strong>Retry</strong> the request</li>
+</ol>
+<p>If compaction still fails, <strong>hard truncation</strong> kicks in – keeps last 24 messages (12 conversation pairs) with a marker telling the agent to use <code>search_session</code> for older context. Both markers persist to DB for recovery across sessions.</p>
+<p>Both actions emit <code>SelfHealingAlert</code> progress events so users see exactly what happened.</p>
+<p><strong>Source:</strong> <code>src/brain/agent/service/tool_loop.rs</code> (lines 550-687), tested with <code>ArgTooLongMockProvider</code> and <code>ContextLengthMockProvider</code> in <code>src/tests/cli_arg_too_long_test.rs</code> (352 lines).</p>
+<h2 id="stream-resilience"><a class="header" href="#stream-resilience">Stream Resilience</a></h2>
+<h3 id="stuck-loop-detection"><a class="header" href="#stuck-loop-detection">Stuck Loop Detection</a></h3>
+<p>Some streaming providers (notably MiniMax) occasionally loop the same content indefinitely without sending a stop signal. The agent detects this:</p>
+<ul>
+<li>Maintains a <strong>2048-byte rolling window</strong> of recent streamed text</li>
+<li>When a <strong>200+ byte substring</strong> from the second half appears in the first half, it’s a repeat</li>
+<li>Stream is terminated immediately and retry logic fires</li>
+</ul>
+<p><strong>Source:</strong> <code>src/brain/agent/service/helpers.rs</code> – <code>detect_text_repetition()</code>, tested in <code>src/tests/stream_loop_test.rs</code> (15 tests)</p>
+<h3 id="idle-timeout"><a class="header" href="#idle-timeout">Idle Timeout</a></h3>
+<p>If a stream goes silent for <strong>60 seconds</strong> (no events at all), it’s treated as a dropped connection:</p>
+<pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>const STREAM_IDLE_TIMEOUT: Duration = Duration::from_secs(60);
+<span class="boring">}</span></code></pre>
+<p>The <code>tokio::select!</code> loop races the stream against the timeout and the user’s cancellation token. Timeout triggers retry, not a hard error.</p>
+<h2 id="pending-request-recovery"><a class="header" href="#pending-request-recovery">Pending Request Recovery</a></h2>
+<p>Crash recovery tracks every in-flight agent request in a <code>pending_requests</code> SQLite table. When a request starts, a row is inserted; when it completes (success or failure), the row is deleted.</p>
+<p>On startup, any surviving rows mean the process crashed mid-request:</p>
+<ol>
+<li>Query <code>pending_requests</code> for interrupted rows</li>
+<li>Clear all rows (prevents double-recovery if this run also crashes)</li>
+<li>Dedup by session_id (resume each session only once)</li>
+<li>Spawn background tasks with a continuation prompt:
+<blockquote>
+<p><em>“A restart just occurred while you were processing a request. Read the conversation context and continue where you left off naturally.”</em></p>
+</blockquote>
+</li>
+<li>Emit <code>TuiEvent::PendingResumed</code> so the TUI shows a recovery notification</li>
+</ol>
+<p><strong>Source:</strong> <code>src/db/repository/pending_request.rs</code>, <code>src/cli/ui.rs</code> (lines 705-790)</p>
+<h2 id="state-cleanup"><a class="header" href="#state-cleanup">State Cleanup</a></h2>
+<p>Session deletion triggers <strong>cascade deletes</strong> across all related data:</p>
+<ul>
+<li>Messages (full conversation history)</li>
+<li>Usage ledger entries (token/cost records)</li>
+<li>Channel messages (Telegram, Discord, Slack, WhatsApp delivery records)</li>
+<li>Plans (autonomous plans created in the session)</li>
+<li>Cron jobs (scheduled tasks bound to the session)</li>
+<li>Cached pane state (stale split pane entries)</li>
+</ul>
+<p>Custom provider names are <strong>normalized</strong> on load and save (<code>"My Provider"</code> → <code>"my-provider"</code>), preventing duplicate entries that would confuse the provider registry.</p>
+<h2 id="model-selector-safety"><a class="header" href="#model-selector-safety">Model Selector Safety</a></h2>
+<p>Pressing Enter in the model selector no longer clears existing API keys. The selector preserves current configuration while switching models.</p>
+<p>Model switching errors now surface the actual error with a <code>⚠️</code> prefix on all channels, instead of always showing “Model switched” even on failure.</p>
+<h2 id="utf-8-safety"><a class="header" href="#utf-8-safety">UTF-8 Safety</a></h2>
+<p><code>split_message()</code> across all 5 channel handlers (Telegram, Discord, Slack, WhatsApp, Trello) now uses <code>is_char_boundary()</code> to find safe split points, preventing panics on multi-byte characters (emojis, CJK, accented characters).</p>
+<h2 id="notifications"><a class="header" href="#notifications">Notifications</a></h2>
+<p>All self-healing events are delivered to:</p>
+<ul>
+<li>TUI (status bar notification)</li>
+<li>Telegram, Discord, Slack, WhatsApp (if connected)</li>
+</ul>
+<p>Nothing happens silently. If the crab fixes itself, it tells you what it fixed.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../features/a2a.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
 
+                            <a rel="next prefetch" href="../features/voice.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
 
                         <div style="clear: both"></div>
                     </nav>
@@ -212,7 +344,13 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../features/a2a.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
 
+                    <a rel="next prefetch" href="../features/voice.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
             </nav>
 
         </div>
@@ -230,16 +368,16 @@
         </script>
 
 
-        <script src="elasticlunr-ef4e11c1.min.js"></script>
-        <script src="mark-09e88c2c.min.js"></script>
-        <script src="searcher-c2a407aa.js"></script>
+        <script src="../elasticlunr-ef4e11c1.min.js"></script>
+        <script src="../mark-09e88c2c.min.js"></script>
+        <script src="../searcher-c2a407aa.js"></script>
 
-        <script src="clipboard-1626706a.min.js"></script>
-        <script src="highlight-abc7f01d.js"></script>
-        <script src="book-a0b12cfe.js"></script>
+        <script src="../clipboard-1626706a.min.js"></script>
+        <script src="../highlight-abc7f01d.js"></script>
+        <script src="../book-a0b12cfe.js"></script>
 
         <!-- Custom JS scripts -->
-        <script src="theme/custom-14a60261.js"></script>
+        <script src="../theme/custom-14a60261.js"></script>
 
 
 

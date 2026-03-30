@@ -54,10 +54,10 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-9e32b396.js";
+            window.path_to_searchindex_js = "../searchindex-2de0da57.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-191edecf.js"></script>
+        <script src="../toc-066a3553.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -213,6 +213,11 @@
 ├─────────────────────────────────────────────────┤
 │   A2A Gateway │ Cron Scheduler │ Sub-Agents      │
 ├─────────────────────────────────────────────────┤
+│   Shared Channel Commands (commands.rs — 847 lines) │
+├─────────────────────────────────────────────────┤
+│   Self-Healing (config recovery, provider health, │
+│   ARG_MAX compaction, error surfacing)             │
+├─────────────────────────────────────────────────┤
 │   Daemon Mode (health endpoint, auto-reconnect)  │
 └─────────────────────────────────────────────────┘
 </code></pre>
@@ -221,7 +226,8 @@
 ├── main.rs              # Entry point, CLI parsing
 ├── lib.rs               # Library root
 ├── cli/                 # CLI argument parsing (clap)
-├── config/              # Configuration types and loading
+├── config/              # Configuration types, loading, health tracking
+│   └── health.rs        # Provider health persistence (120 lines)
 ├── db/                  # SQLite database layer
 │   ├── models.rs        # Data models (Session, Message, etc.)
 │   └── repository/      # Query functions per entity
@@ -238,6 +244,7 @@
 │   ├── app/             # App state, input, messaging
 │   └── render/          # UI rendering modules
 ├── channels/            # Messaging platform integrations
+│   ├── commands.rs      # Shared text command handler (847 lines)
 │   ├── telegram/        # Teloxide-based bot
 │   ├── discord/         # Serenity-based bot
 │   ├── slack/           # Slack Socket Mode
@@ -275,11 +282,13 @@
 <h2 id="data-flow"><a class="header" href="#data-flow">Data Flow</a></h2>
 <ol>
 <li><strong>Input</strong> arrives from TUI, channel, A2A, or cron trigger</li>
+<li><strong>Channel commands</strong> (<code>/doctor</code>, <code>/help</code>, <code>/usage</code>, <code>/evolve</code>) execute directly via the shared handler without LLM routing</li>
 <li><strong>Brain</strong> builds context (system prompt + brain files + memory + conversation)</li>
-<li><strong>Provider</strong> streams the LLM response via the selected provider</li>
-<li><strong>Tool Loop</strong> executes any tool calls, feeds results back to the LLM</li>
+<li><strong>Provider</strong> streams the LLM response via the selected provider; health is tracked per-provider</li>
+<li><strong>Tool Loop</strong> executes any tool calls, feeds results back to the LLM. CLI provider segments (text/tool interleaving) are tracked for correct ordering</li>
 <li><strong>Response</strong> is delivered back to the originating channel</li>
-<li><strong>DB</strong> persists messages, token usage, and session state</li>
+<li><strong>DB</strong> persists messages, token usage, session state, and CLI tool segments</li>
+<li><strong>Self-healing</strong> monitors for config corruption, context budget overflow (65% threshold), ARG_MAX limits, stuck streams (2048-byte repeat detection), idle timeouts (60s), provider failures (per-provider health tracking with auto-failover), and DB integrity. Crash recovery replays pending requests on restart. All errors surfaced – nothing swallowed silently</li>
 </ol>
 <h2 id="database"><a class="header" href="#database">Database</a></h2>
 <p>SQLite with WAL mode. Tables:</p>

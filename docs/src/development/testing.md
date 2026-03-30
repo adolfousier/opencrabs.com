@@ -109,7 +109,9 @@ cargo test --all-features
 | Tests — Claude CLI Cache | 5 | `src/tests/claude_cli_cache_test.rs` |
 | Tests — Browser Headless | 4 | `src/tests/browser_headless_test.rs` |
 | Tests — Provider Registry | 8 | `src/tests/provider_registry_test.rs` |
-| **Total** | **1,562** | |
+| Tests — Self-Healing System | 27 | `src/tests/self_healing_test.rs` |
+| Tests — Emergency Compaction | 2 | `src/tests/compaction_test.rs` |
+| **Total** | **1,593** | |
 
 ---
 

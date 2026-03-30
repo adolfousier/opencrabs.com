@@ -208,7 +208,7 @@ fn Hero() -> impl IntoView {
                 <p class="hero-description">
                     "Runs code, manages files, searches the web, automates browsers, spawns sub-agents, "
                     "and connects to Telegram, Discord, Slack, WhatsApp, and Trello. "
-                    "Split panes, local STT & TTS, 1,500+ tests. All from your terminal or any chat app."
+                    "Self-healing config with provider health tracking, persistent split panes, local STT & TTS, 1,590+ tests. All from your terminal or any chat app."
                 </p>
                 <a href="https://github.com/adolfousier/opencrabs/releases/latest" class="hero-badge">
                     <span class="badge-new">"LATEST"</span>
@@ -396,9 +396,9 @@ fn Features() -> impl IntoView {
             "Ships with a brain template that enforces modular files, strict size limits, test coverage, and security-first patterns. Your agent writes production code, not prototypes.",
         ),
         (
-            "🔧",
-            "Self-Evolving",
-            "Type /evolve to download the latest version. Type /rebuild to build from source. The crab upgrades itself.",
+            "🛡️",
+            "Self-Healing",
+            "Auto-recovers corrupted config from last-known-good snapshots. Tracks per-provider health with auto-failover. Context budget management with 3-retry LLM compaction. Stuck stream detection, idle timeouts, crash recovery with pending request replay. DB integrity checks. 14+ silenced errors surfaced in v0.2.92.",
         ),
     ];
 

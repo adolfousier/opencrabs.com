@@ -41,6 +41,7 @@
 - [Cron Jobs](./features/cron-jobs.md)
 - [Plans](./features/plans.md)
 - [Agent-to-Agent (A2A)](./features/a2a.md)
+- [Self-Healing](./features/self-healing.md)
 - [Voice (TTS & STT)](./features/voice.md)
 
 # Development

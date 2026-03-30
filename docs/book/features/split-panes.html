@@ -54,10 +54,10 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-9e32b396.js";
+            window.path_to_searchindex_js = "../searchindex-2de0da57.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-191edecf.js"></script>
+        <script src="../toc-066a3553.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -230,8 +230,20 @@
 └──────────────────────────────────────────────┘
 </code></pre>
 <p>Split vertically with <code>_</code>, then horizontally with <code>|</code> in the top pane.</p>
+<h2 id="persistent-layout"><a class="header" href="#persistent-layout">Persistent Layout</a></h2>
+<p>Split pane configuration (splits, sizes, focused pane) saves to <code>~/.opencrabs/pane_layout.json</code> on quit and Ctrl+C. On restart, your layout is restored exactly as you left it. Each restored pane preloads its session messages from the database, so content is visible immediately instead of blank.</p>
+<h2 id="non-focused-panes"><a class="header" href="#non-focused-panes">Non-Focused Panes</a></h2>
+<p>Non-focused panes show compact tool call summaries and stripped reasoning text. Tool groups display as single collapsed lines matching the focused pane style. All panes auto-scroll to the bottom when new messages arrive.</p>
+<p>v0.2.92 fixed several rendering issues:</p>
+<ul>
+<li>Tool calls no longer show a perpetual “running” spinner after completion</li>
+<li>Scroll position correctly tracks for inactive panes</li>
+<li>Stale cache is cleared when sessions are updated or deleted</li>
+</ul>
+<h2 id="state-management"><a class="header" href="#state-management">State Management</a></h2>
+<p>Deleting a session now properly cleans up cached pane state. Previously, deleting a session left stale entries in the pane cache, which could cause phantom panes on restart.</p>
 <h2 id="limits"><a class="header" href="#limits">Limits</a></h2>
-<p>There is no hard limit on pane count — you can run as many as your terminal fits. Each pane is a full session with its own token tracking and working directory.</p>
+<p>There is no hard limit on pane count – you can run as many as your terminal fits. Each pane is a full session with its own token tracking and working directory.</p>
 
                     </main>
 

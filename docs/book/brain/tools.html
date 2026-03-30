@@ -54,10 +54,10 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-9e32b396.js";
+            window.path_to_searchindex_js = "../searchindex-2de0da57.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-191edecf.js"></script>
+        <script src="../toc-066a3553.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -340,8 +340,10 @@
 </tbody>
 </table>
 </div>
+<h2 id="error-handling"><a class="header" href="#error-handling">Error Handling</a></h2>
+<p>v0.2.92 improved error surfacing across all tool connections. Channel connect tools (<code>slack_connect</code>, <code>whatsapp_connect</code>, <code>trello_connect</code>) now surface actual connection errors instead of silently swallowing them. Tool call status correctly transitions from “running” to success/failure instead of showing a perpetual spinner.</p>
 <h2 id="system-cli-tools"><a class="header" href="#system-cli-tools">System CLI Tools</a></h2>
-<p>OpenCrabs runs in a TUI with full terminal access. The agent can execute <strong>any CLI tool</strong> installed on the host via the <code>bash</code> tool — no plugins, no wrappers. If it’s on your system, the agent can use it. Common ones:</p>
+<p>OpenCrabs runs in a TUI with full terminal access. The agent can execute <strong>any CLI tool</strong> installed on the host via the <code>bash</code> tool – no plugins, no wrappers. If it’s on your system, the agent can use it. Common ones:</p>
 <div class="table-wrapper">
 <table>
 <thead>
