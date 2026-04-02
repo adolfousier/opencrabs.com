@@ -54,10 +54,10 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-2de0da57.js";
+            window.path_to_searchindex_js = "../searchindex-c9ec34b5.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-066a3553.js"></script>
+        <script src="../toc-4af21c49.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -207,7 +207,7 @@
 <tr><td><a href="./providers.html#anthropic-claude">Anthropic Claude</a></td><td>API key</td><td>Claude Opus 4.6, Sonnet 4.5, Haiku 4.5</td><td>Yes</td><td>Yes</td><td>Extended thinking, 200K context</td></tr>
 <tr><td><a href="./providers.html#openai">OpenAI</a></td><td>API key</td><td>GPT-5 Turbo, GPT-5, o3/o4-mini</td><td>Yes</td><td>Yes</td><td>Models fetched live</td></tr>
 <tr><td><a href="./providers.html#github-copilot">GitHub Copilot</a></td><td>OAuth</td><td>GPT-4o, Claude Sonnet 4+</td><td>Yes</td><td>Yes</td><td>Uses your Copilot subscription — no API charges</td></tr>
-<tr><td><a href="./providers.html#openrouter--400-models">OpenRouter</a></td><td>API key</td><td>400+ models</td><td>Yes</td><td>Yes</td><td>Free models available (DeepSeek-R1, Llama 3.3, etc.)</td></tr>
+<tr><td><a href="./providers.html#openrouter--400-models">OpenRouter</a></td><td>API key</td><td>400+ models</td><td>Yes</td><td>Yes</td><td>Free models available. Reasoning output support (Qwen 3.6 Plus, etc.)</td></tr>
 <tr><td><a href="./providers.html#google-gemini">Google Gemini</a></td><td>API key</td><td>Gemini 2.5 Flash, 2.0, 1.5 Pro</td><td>Yes</td><td>Yes</td><td>1M+ context, vision, image generation</td></tr>
 <tr><td><a href="./providers.html#minimax">MiniMax</a></td><td>API key</td><td>M2.7, M2.5, M2.1, Text-01</td><td>Yes</td><td>Yes</td><td>Competitive pricing, auto-configured vision</td></tr>
 <tr><td><a href="./providers.html#zai-zhipu-ai">z.ai GLM</a></td><td>API key</td><td>GLM-4.5 through GLM-5 Turbo</td><td>Yes</td><td>Yes</td><td>General API + Coding API endpoints</td></tr>
@@ -220,10 +220,18 @@
 <h2 id="how-it-works"><a class="header" href="#how-it-works">How It Works</a></h2>
 <ul>
 <li><strong>One provider active at a time</strong> per session — switch with <code>/models</code></li>
-<li><strong>Per-session memory</strong> — each session remembers its provider and model</li>
+<li><strong>Per-session isolation</strong> — each session remembers its own provider and model. Changing provider in the TUI does not affect other active sessions (Telegram, Discord, Slack)</li>
 <li><strong>Fallback chain</strong> — configure automatic failover when the primary provider goes down</li>
 <li><strong>Models fetched live</strong> — no binary update needed when providers add new models</li>
+<li><strong>Function calling detection</strong> — OpenCrabs detects when a model doesn’t support tool use and warns you with a model switch suggestion, rather than silently failing</li>
+<li><strong><code>tool_choice: "auto"</code></strong> — sent automatically for OpenAI-compatible providers when tools are active, enabling function calling on models that require explicit opt-in</li>
 </ul>
+<h2 id="openrouter-reasoning"><a class="header" href="#openrouter-reasoning">OpenRouter Reasoning</a></h2>
+<p>For models that support extended reasoning (e.g. Qwen 3.6 Plus), OpenCrabs sends <code>include_reasoning: true</code> automatically when using OpenRouter. Thinking/reasoning output is displayed in collapsible sections:</p>
+<pre><code>▶ Thinking... (click to expand)
+  The user wants to refactor...
+</code></pre>
+<p>Reasoning text wraps to screen width instead of truncating.</p>
 <p>See <a href="./providers.html">Provider Setup</a> for configuration details and API key setup.</p>
 
                     </main>

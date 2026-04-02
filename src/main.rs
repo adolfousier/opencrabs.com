@@ -208,7 +208,7 @@ fn Hero() -> impl IntoView {
                 <p class="hero-description">
                     "Runs code, manages files, searches the web, automates browsers, spawns sub-agents, "
                     "and connects to Telegram, Discord, Slack, WhatsApp, and Trello. "
-                    "Self-healing config with provider health tracking, persistent split panes, local STT & TTS, 1,590+ tests. All from your terminal or any chat app."
+                    "Multi-profile isolation, OpenRouter reasoning, cross-channel crash recovery, self-healing config, persistent split panes, local STT & TTS, 1,687 tests. All from your terminal or any chat app."
                 </p>
                 <a href="https://github.com/adolfousier/opencrabs/releases/latest" class="hero-badge">
                     <span class="badge-new">"LATEST"</span>
@@ -398,7 +398,12 @@ fn Features() -> impl IntoView {
         (
             "🛡️",
             "Self-Healing",
-            "Auto-recovers corrupted config from last-known-good snapshots. Tracks per-provider health with auto-failover. Context budget management with 3-retry LLM compaction. Stuck stream detection, idle timeouts, crash recovery with pending request replay. DB integrity checks. 14+ silenced errors surfaced in v0.2.92.",
+            "Auto-recovers corrupted config, tracks per-provider health with auto-failover, 65% context budget management with LLM compaction. Cross-channel crash recovery routes pending requests back to the originating Telegram/Discord/Slack chat on restart. Stuck stream detection, 10-min CLI idle timeout, DB integrity checks.",
+        ),
+        (
+            "👤",
+            "Multi-Profile",
+            "Run multiple isolated instances from one binary. Each profile gets its own config, brain files, sessions, and daemon service. Token-lock isolation prevents two profiles from fighting over the same bot. Export/import profiles as portable archives.",
         ),
     ];
 

@@ -123,7 +123,11 @@ Some streaming providers (notably MiniMax) occasionally loop the same content in
 
 ### Idle Timeout
 
-If a stream goes silent for **60 seconds** (no events at all), it's treated as a dropped connection:
+If a stream goes silent for **60 seconds** (API providers) or **10 minutes** (CLI providers) with no events, it's treated as a dropped connection.
+
+CLI providers (Claude CLI, OpenCode CLI) run internal tools — cargo builds, tests, `gh` commands — that can take several minutes without producing stream events. The 60-second timeout caused premature termination on these, so CLI providers now get a 10-minute window before timeout fires.
+
+If a stream goes silent:
 
 ```rust
 const STREAM_IDLE_TIMEOUT: Duration = Duration::from_secs(60);
@@ -145,6 +149,23 @@ On startup, any surviving rows mean the process crashed mid-request:
 5. Emit `TuiEvent::PendingResumed` so the TUI shows a recovery notification
 
 **Source:** `src/db/repository/pending_request.rs`, `src/cli/ui.rs` (lines 705-790)
+
+### Cross-Channel Crash Recovery (v0.2.93)
+
+Before v0.2.93, pending request recovery always responded via the TUI — even if the original request came from Telegram, Discord, Slack, or WhatsApp. The resumed response would appear in the wrong place.
+
+Now each channel passes its name and `chat_id` into `run_tool_loop`, which stores them in `pending_requests`. On restart, recovery routes responses back to the originating channel:
+
+| Original channel | Recovery response goes to |
+|---|---|
+| Telegram | Same Telegram chat |
+| Discord | Same Discord channel |
+| Slack | Same Slack channel |
+| WhatsApp | Same WhatsApp chat |
+| Trello | Same Trello board |
+| TUI | TUI (as before) |
+
+The `pending_requests` table gained `channel` and `channel_chat_id` columns via a DB migration. `get_interrupted_for_channel` lets each channel handler query only its own pending rows. Selective `delete_ids` prevents one channel from clearing another channel's recovery entries.
 
 ## State Cleanup
 

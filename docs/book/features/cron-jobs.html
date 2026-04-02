@@ -54,10 +54,10 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-2de0da57.js";
+            window.path_to_searchindex_js = "../searchindex-c9ec34b5.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-066a3553.js"></script>
+        <script src="../toc-4af21c49.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -235,11 +235,27 @@ opencrabs cron remove "Morning Report"
 <tr><td><code>--provider</code></td><td>AI provider to use (optional)</td></tr>
 <tr><td><code>--model</code></td><td>Model to use (optional)</td></tr>
 <tr><td><code>--thinking</code></td><td>Thinking mode: <code>on</code>, <code>off</code>, <code>budget_XXk</code></td></tr>
-<tr><td><code>--deliver-to</code></td><td>Channel delivery: <code>telegram:CHAT_ID</code>, <code>discord:CHANNEL_ID</code>, or any HTTP webhook URL</td></tr>
+<tr><td><code>--deliver-to</code></td><td>Channel delivery: <code>telegram:CHAT_ID</code>, <code>discord:CHANNEL_ID</code>, HTTP webhook URL, or comma-separated multiple targets</td></tr>
 <tr><td><code>--auto-approve</code></td><td>Auto-approve tool use for this job</td></tr>
 </tbody>
 </table>
 </div>
+<h2 id="multi-target-delivery"><a class="header" href="#multi-target-delivery">Multi-Target Delivery</a></h2>
+<p><code>deliver_to</code> accepts comma-separated targets to send results to multiple destinations simultaneously:</p>
+<pre><code class="language-bash">opencrabs cron add \
+  --name "Morning Report" \
+  --cron "0 9 * * *" \
+  --prompt "Give me a morning briefing" \
+  --deliver-to "telegram:-12345,http://webhook.example.com/notify"
+</code></pre>
+<p>Supported targets in any combination:</p>
+<ul>
+<li><code>telegram:CHAT_ID</code> or <code>telegram:-GROUP_ID</code></li>
+<li><code>discord:CHANNEL_ID</code></li>
+<li><code>slack:CHANNEL_ID</code></li>
+<li><code>http://...</code> or <code>https://...</code> (webhook URL)</li>
+</ul>
+<p>Results are stored in the DB via the <code>cron_results</code> table regardless of delivery target, so you can query past execution results with <code>opencrabs cron results &lt;name&gt;</code>.</p>
 <h2 id="heartbeat-vs-cron"><a class="header" href="#heartbeat-vs-cron">Heartbeat vs Cron</a></h2>
 <p><strong>Use heartbeat (<code>HEARTBEAT.md</code>) when:</strong></p>
 <ul>

@@ -43,8 +43,28 @@ The agent can also manage cron jobs via the `cron_manage` tool:
 | `--provider` | AI provider to use (optional) |
 | `--model` | Model to use (optional) |
 | `--thinking` | Thinking mode: `on`, `off`, `budget_XXk` |
-| `--deliver-to` | Channel delivery: `telegram:CHAT_ID`, `discord:CHANNEL_ID`, or any HTTP webhook URL |
+| `--deliver-to` | Channel delivery: `telegram:CHAT_ID`, `discord:CHANNEL_ID`, HTTP webhook URL, or comma-separated multiple targets |
 | `--auto-approve` | Auto-approve tool use for this job |
+
+## Multi-Target Delivery
+
+`deliver_to` accepts comma-separated targets to send results to multiple destinations simultaneously:
+
+```bash
+opencrabs cron add \
+  --name "Morning Report" \
+  --cron "0 9 * * *" \
+  --prompt "Give me a morning briefing" \
+  --deliver-to "telegram:-12345,http://webhook.example.com/notify"
+```
+
+Supported targets in any combination:
+- `telegram:CHAT_ID` or `telegram:-GROUP_ID`
+- `discord:CHANNEL_ID`
+- `slack:CHANNEL_ID`
+- `http://...` or `https://...` (webhook URL)
+
+Results are stored in the DB via the `cron_results` table regardless of delivery target, so you can query past execution results with `opencrabs cron results <name>`.
 
 ## Heartbeat vs Cron
 

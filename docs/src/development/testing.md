@@ -111,7 +111,12 @@ cargo test --all-features
 | Tests — Provider Registry | 8 | `src/tests/provider_registry_test.rs` |
 | Tests — Self-Healing System | 27 | `src/tests/self_healing_test.rs` |
 | Tests — Emergency Compaction | 2 | `src/tests/compaction_test.rs` |
-| **Total** | **1,593** | |
+| Tests — Cross-Channel Crash Recovery | 12 | `src/tests/pending_request_test.rs` |
+| Tests — Profile System | 57 | `src/tests/profile_test.rs` |
+| Tests — Token Tracking | 29 | `src/tests/token_tracking_test.rs` |
+| Tests — Cron Execution Storage | 6 | `src/tests/cron_results_test.rs` |
+| Tests — LLM Artifact Stripping | 8 | `src/tests/artifact_strip_test.rs` |
+| **Total** | **1,687** | |
 
 ---
 

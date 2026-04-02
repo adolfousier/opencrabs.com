@@ -55,10 +55,10 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-2de0da57.js";
+            window.path_to_searchindex_js = "searchindex-c9ec34b5.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-066a3553.js"></script>
+        <script src="toc-4af21c49.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -199,7 +199,7 @@
                     <main>
                         <h1 id="opencrabs"><a class="header" href="#opencrabs">OpenCrabs</a></h1>
 <p><strong>The autonomous AI agent. Single Rust binary. Every channel.</strong></p>
-<p>OpenCrabs is an open-source AI agent that runs in your terminal. It connects to any LLM provider, orchestrates 50+ built-in tools, and works from Telegram, Discord, Slack, WhatsApp, or the built-in TUI. Self-healing config recovery with provider health tracking, persistent split panes, browser automation, multi-agent orchestration, emergency context compaction, shared channel commands, and 1,593 tests.</p>
+<p>OpenCrabs is an open-source AI agent that runs in your terminal. It connects to any LLM provider, orchestrates 50+ built-in tools, and works from Telegram, Discord, Slack, WhatsApp, or the built-in TUI. Multi-profile isolation, OpenRouter reasoning support, cross-channel crash recovery, self-healing config, persistent split panes, browser automation, multi-agent orchestration, and 1,687 tests.</p>
 <h2 id="why-opencrabs"><a class="header" href="#why-opencrabs">Why OpenCrabs?</a></h2>
 <div class="table-wrapper">
 <table>
@@ -217,12 +217,12 @@
 </div>
 <h2 id="core-capabilities"><a class="header" href="#core-capabilities">Core Capabilities</a></h2>
 <ul>
-<li><strong>Multi-provider AI</strong> — Anthropic Claude, OpenAI, Google Gemini, OpenRouter (400+ models), MiniMax, z.ai GLM, Claude CLI, OpenCode CLI, Ollama, LM Studio, or any OpenAI-compatible API. Fallback provider chain for automatic failover. Unified provider registry</li>
+<li><strong>Multi-provider AI</strong> — Anthropic Claude, OpenAI, Google Gemini, OpenRouter (400+ models with reasoning support), MiniMax, z.ai GLM, Claude CLI, OpenCode CLI, Ollama, LM Studio, or any OpenAI-compatible API. Fallback chain for automatic failover. Per-session provider isolation. Function calling detection with model switch suggestions</li>
 <li><strong>Every channel</strong> — Telegram, Discord, Slack, WhatsApp, or the built-in TUI with split panes. DB-persisted channel sessions survive restarts</li>
 <li><strong>50+ tools</strong> — File ops, bash, web search, code execution, image gen, browser automation, and user-defined dynamic tools</li>
 <li><strong>Multi-agent</strong> — Spawn child agents for parallel task execution. Full CLI with 20+ subcommands</li>
 <li><strong>Persistent memory</strong> — 3-tier memory system: daily notes, long-term memory, semantic search</li>
-<li><strong>Self-healing</strong> — Auto-recovers corrupted config from last-known-good snapshots, tracks per-provider health with auto-failover, 65% context budget management with 3-retry LLM compaction, stuck stream detection (2048-byte rolling window), 60s idle timeout, emergency ARG_MAX compaction, crash recovery via pending request replay, DB integrity checks, cascade state cleanup on session delete. 14+ silenced errors surfaced in v0.2.92. All recovery events delivered as visible notifications across TUI and channels</li>
+<li><strong>Self-healing</strong> — Auto-recovers corrupted config from last-known-good snapshots, tracks per-provider health with auto-failover, 65% context budget management with LLM compaction, stuck stream detection, emergency ARG_MAX compaction. Cross-channel crash recovery routes pending requests back to originating Telegram/Discord/Slack chat on restart. CLI idle timeout extended to 10 minutes (cargo builds don’t time out). DB integrity checks. All recovery events delivered as visible notifications across TUI and channels</li>
 <li><strong>Self-evolving</strong> — Type <code>/evolve</code> to download the latest version, or <code>/rebuild</code> to build from source. Startup update prompt offers one-click upgrades. <code>/evolve</code> works directly on channels without LLM routing</li>
 <li><strong>Shared channel commands</strong> — <code>/doctor</code>, <code>/help</code>, <code>/usage</code>, <code>/evolve</code> execute instantly on all channels via a shared command handler (847-line module), no LLM round-trip required</li>
 <li><strong>Agent-to-Agent</strong> — Built-in A2A gateway for peer-to-peer agent communication</li>
@@ -231,6 +231,8 @@
 <li><strong>Voice</strong> — Local STT (rwhisper/Metal GPU) and TTS (Piper), plus API options (Groq Whisper, OpenAI TTS)</li>
 <li><strong>Plans</strong> — Structured multi-step task planning with approval workflow</li>
 <li><strong>Daemon mode</strong> — Background operation with health endpoints and auto-reconnecting channel bots</li>
+<li><strong>Multi-profile</strong> — Isolated instances per profile: separate config, brain files, sessions, and daemon services. Token-lock isolation, profile export/import as <code>.tar.gz</code>, migration between profiles</li>
+<li><strong>Cron job storage</strong> — Execution results stored in DB for querying, multi-target delivery (comma-separated channels + webhooks)</li>
 </ul>
 <h2 id="quick-links"><a class="header" href="#quick-links">Quick Links</a></h2>
 <ul>
@@ -930,7 +932,7 @@ cargo build --release
 <tr><td><a href="#anthropic-claude">Anthropic Claude</a></td><td>API key</td><td>Claude Opus 4.6, Sonnet 4.5, Haiku 4.5</td><td>Yes</td><td>Yes</td><td>Extended thinking, 200K context</td></tr>
 <tr><td><a href="#openai">OpenAI</a></td><td>API key</td><td>GPT-5 Turbo, GPT-5, o3/o4-mini</td><td>Yes</td><td>Yes</td><td>Models fetched live</td></tr>
 <tr><td><a href="#github-copilot">GitHub Copilot</a></td><td>OAuth</td><td>GPT-4o, Claude Sonnet 4+</td><td>Yes</td><td>Yes</td><td>Uses your Copilot subscription — no API charges</td></tr>
-<tr><td><a href="#openrouter--400-models">OpenRouter</a></td><td>API key</td><td>400+ models</td><td>Yes</td><td>Yes</td><td>Free models available (DeepSeek-R1, Llama 3.3, etc.)</td></tr>
+<tr><td><a href="#openrouter--400-models">OpenRouter</a></td><td>API key</td><td>400+ models</td><td>Yes</td><td>Yes</td><td>Free models available. Reasoning output support (Qwen 3.6 Plus, etc.)</td></tr>
 <tr><td><a href="#google-gemini">Google Gemini</a></td><td>API key</td><td>Gemini 2.5 Flash, 2.0, 1.5 Pro</td><td>Yes</td><td>Yes</td><td>1M+ context, vision, image generation</td></tr>
 <tr><td><a href="#minimax">MiniMax</a></td><td>API key</td><td>M2.7, M2.5, M2.1, Text-01</td><td>Yes</td><td>Yes</td><td>Competitive pricing, auto-configured vision</td></tr>
 <tr><td><a href="#zai-zhipu-ai">z.ai GLM</a></td><td>API key</td><td>GLM-4.5 through GLM-5 Turbo</td><td>Yes</td><td>Yes</td><td>General API + Coding API endpoints</td></tr>
@@ -943,10 +945,18 @@ cargo build --release
 <h2 id="how-it-works"><a class="header" href="#how-it-works">How It Works</a></h2>
 <ul>
 <li><strong>One provider active at a time</strong> per session — switch with <code>/models</code></li>
-<li><strong>Per-session memory</strong> — each session remembers its provider and model</li>
+<li><strong>Per-session isolation</strong> — each session remembers its own provider and model. Changing provider in the TUI does not affect other active sessions (Telegram, Discord, Slack)</li>
 <li><strong>Fallback chain</strong> — configure automatic failover when the primary provider goes down</li>
 <li><strong>Models fetched live</strong> — no binary update needed when providers add new models</li>
+<li><strong>Function calling detection</strong> — OpenCrabs detects when a model doesn’t support tool use and warns you with a model switch suggestion, rather than silently failing</li>
+<li><strong><code>tool_choice: "auto"</code></strong> — sent automatically for OpenAI-compatible providers when tools are active, enabling function calling on models that require explicit opt-in</li>
 </ul>
+<h2 id="openrouter-reasoning"><a class="header" href="#openrouter-reasoning">OpenRouter Reasoning</a></h2>
+<p>For models that support extended reasoning (e.g. Qwen 3.6 Plus), OpenCrabs sends <code>include_reasoning: true</code> automatically when using OpenRouter. Thinking/reasoning output is displayed in collapsible sections:</p>
+<pre><code>▶ Thinking... (click to expand)
+  The user wants to refactor...
+</code></pre>
+<p>Reasoning text wraps to screen width instead of truncating.</p>
 <p>See <a href="#ai-provider-setup">Provider Setup</a> for configuration details and API key setup.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="ai-provider-setup"><a class="header" href="#ai-provider-setup">AI Provider Setup</a></h1>
@@ -2008,11 +2018,27 @@ opencrabs cron remove "Morning Report"
 <tr><td><code>--provider</code></td><td>AI provider to use (optional)</td></tr>
 <tr><td><code>--model</code></td><td>Model to use (optional)</td></tr>
 <tr><td><code>--thinking</code></td><td>Thinking mode: <code>on</code>, <code>off</code>, <code>budget_XXk</code></td></tr>
-<tr><td><code>--deliver-to</code></td><td>Channel delivery: <code>telegram:CHAT_ID</code>, <code>discord:CHANNEL_ID</code>, or any HTTP webhook URL</td></tr>
+<tr><td><code>--deliver-to</code></td><td>Channel delivery: <code>telegram:CHAT_ID</code>, <code>discord:CHANNEL_ID</code>, HTTP webhook URL, or comma-separated multiple targets</td></tr>
 <tr><td><code>--auto-approve</code></td><td>Auto-approve tool use for this job</td></tr>
 </tbody>
 </table>
 </div>
+<h2 id="multi-target-delivery"><a class="header" href="#multi-target-delivery">Multi-Target Delivery</a></h2>
+<p><code>deliver_to</code> accepts comma-separated targets to send results to multiple destinations simultaneously:</p>
+<pre><code class="language-bash">opencrabs cron add \
+  --name "Morning Report" \
+  --cron "0 9 * * *" \
+  --prompt "Give me a morning briefing" \
+  --deliver-to "telegram:-12345,http://webhook.example.com/notify"
+</code></pre>
+<p>Supported targets in any combination:</p>
+<ul>
+<li><code>telegram:CHAT_ID</code> or <code>telegram:-GROUP_ID</code></li>
+<li><code>discord:CHANNEL_ID</code></li>
+<li><code>slack:CHANNEL_ID</code></li>
+<li><code>http://...</code> or <code>https://...</code> (webhook URL)</li>
+</ul>
+<p>Results are stored in the DB via the <code>cron_results</code> table regardless of delivery target, so you can query past execution results with <code>opencrabs cron results &lt;name&gt;</code>.</p>
 <h2 id="heartbeat-vs-cron"><a class="header" href="#heartbeat-vs-cron">Heartbeat vs Cron</a></h2>
 <p><strong>Use heartbeat (<code>HEARTBEAT.md</code>) when:</strong></p>
 <ul>
@@ -2320,7 +2346,9 @@ curl http://127.0.0.1:18790/a2a/health | jq .
 </ul>
 <p><strong>Source:</strong> <code>src/brain/agent/service/helpers.rs</code> – <code>detect_text_repetition()</code>, tested in <code>src/tests/stream_loop_test.rs</code> (15 tests)</p>
 <h3 id="idle-timeout"><a class="header" href="#idle-timeout">Idle Timeout</a></h3>
-<p>If a stream goes silent for <strong>60 seconds</strong> (no events at all), it’s treated as a dropped connection:</p>
+<p>If a stream goes silent for <strong>60 seconds</strong> (API providers) or <strong>10 minutes</strong> (CLI providers) with no events, it’s treated as a dropped connection.</p>
+<p>CLI providers (Claude CLI, OpenCode CLI) run internal tools — cargo builds, tests, <code>gh</code> commands — that can take several minutes without producing stream events. The 60-second timeout caused premature termination on these, so CLI providers now get a 10-minute window before timeout fires.</p>
+<p>If a stream goes silent:</p>
 <pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>const STREAM_IDLE_TIMEOUT: Duration = Duration::from_secs(60);
@@ -2341,6 +2369,25 @@ curl http://127.0.0.1:18790/a2a/health | jq .
 <li>Emit <code>TuiEvent::PendingResumed</code> so the TUI shows a recovery notification</li>
 </ol>
 <p><strong>Source:</strong> <code>src/db/repository/pending_request.rs</code>, <code>src/cli/ui.rs</code> (lines 705-790)</p>
+<h3 id="cross-channel-crash-recovery-v0293"><a class="header" href="#cross-channel-crash-recovery-v0293">Cross-Channel Crash Recovery (v0.2.93)</a></h3>
+<p>Before v0.2.93, pending request recovery always responded via the TUI — even if the original request came from Telegram, Discord, Slack, or WhatsApp. The resumed response would appear in the wrong place.</p>
+<p>Now each channel passes its name and <code>chat_id</code> into <code>run_tool_loop</code>, which stores them in <code>pending_requests</code>. On restart, recovery routes responses back to the originating channel:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Original channel</th><th>Recovery response goes to</th></tr>
+</thead>
+<tbody>
+<tr><td>Telegram</td><td>Same Telegram chat</td></tr>
+<tr><td>Discord</td><td>Same Discord channel</td></tr>
+<tr><td>Slack</td><td>Same Slack channel</td></tr>
+<tr><td>WhatsApp</td><td>Same WhatsApp chat</td></tr>
+<tr><td>Trello</td><td>Same Trello board</td></tr>
+<tr><td>TUI</td><td>TUI (as before)</td></tr>
+</tbody>
+</table>
+</div>
+<p>The <code>pending_requests</code> table gained <code>channel</code> and <code>channel_chat_id</code> columns via a DB migration. <code>get_interrupted_for_channel</code> lets each channel handler query only its own pending rows. Selective <code>delete_ids</code> prevents one channel from clearing another channel’s recovery entries.</p>
 <h2 id="state-cleanup"><a class="header" href="#state-cleanup">State Cleanup</a></h2>
 <p>Session deletion triggers <strong>cascade deletes</strong> across all related data:</p>
 <ul>
@@ -2364,6 +2411,97 @@ curl http://127.0.0.1:18790/a2a/health | jq .
 <li>Telegram, Discord, Slack, WhatsApp (if connected)</li>
 </ul>
 <p>Nothing happens silently. If the crab fixes itself, it tells you what it fixed.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="multi-profile-support"><a class="header" href="#multi-profile-support">Multi-Profile Support</a></h1>
+<p>Run multiple isolated OpenCrabs instances from a single installation. Each profile gets its own config, memory, sessions, brain files, skills, cron jobs, and gateway service.</p>
+<p>Introduced in <strong>v0.2.94</strong>.</p>
+<h2 id="why-profiles"><a class="header" href="#why-profiles">Why Profiles?</a></h2>
+<p>Common use cases:</p>
+<ul>
+<li><strong>Work vs personal</strong> — separate API keys, brain files, Telegram bots</li>
+<li><strong>Multiple clients</strong> — different persona and config per customer</li>
+<li><strong>Model experimentation</strong> — compare different provider setups without clobbering your main config</li>
+<li><strong>Staging vs production</strong> — test brain file changes on a staging profile before rolling to your main agent</li>
+</ul>
+<h2 id="creating-a-profile"><a class="header" href="#creating-a-profile">Creating a Profile</a></h2>
+<pre><code class="language-bash"># Create a new profile
+opencrabs profile create hermes
+
+# List all profiles
+opencrabs profile list
+
+# Show details for a profile
+opencrabs profile show hermes
+
+# Delete a profile
+opencrabs profile delete hermes
+</code></pre>
+<h2 id="switching-profiles"><a class="header" href="#switching-profiles">Switching Profiles</a></h2>
+<p>There are two ways to use a non-default profile:</p>
+<pre><code class="language-bash"># CLI flag (per-session)
+opencrabs -p hermes
+
+# Environment variable (persistent)
+export OPENCRABS_PROFILE=hermes
+opencrabs
+</code></pre>
+<p>The default profile (<code>~/.opencrabs/</code>) works exactly as before — zero breaking changes.</p>
+<h2 id="directory-structure"><a class="header" href="#directory-structure">Directory Structure</a></h2>
+<p>Each profile gets its own directory under <code>~/.opencrabs/profiles/&lt;name&gt;/</code>:</p>
+<pre><code>~/.opencrabs/
+├── config.toml          # default profile config
+├── memory/              # default profile memory
+├── sessions.db          # default profile sessions
+└── profiles/
+    ├── hermes/
+    │   ├── config.toml
+    │   ├── memory/
+    │   ├── sessions.db
+    │   ├── logs/
+    │   └── layout/
+    └── assistant/
+        ├── config.toml
+        └── ...
+</code></pre>
+<h2 id="profile-migration"><a class="header" href="#profile-migration">Profile Migration</a></h2>
+<p>Copy config and brain files from one profile to another:</p>
+<pre><code class="language-bash"># Copy from default to hermes
+opencrabs profile migrate --from default --to hermes
+
+# Overwrite existing files in target
+opencrabs profile migrate --from default --to hermes --force
+</code></pre>
+<p>Migration copies all <code>.md</code> and <code>.toml</code> files plus the <code>memory/</code> directory. It <strong>excludes</strong> the database, sessions, logs, and layout state — so the target profile starts fresh with the source’s personality and configuration, not its history.</p>
+<h2 id="export-and-import"><a class="header" href="#export-and-import">Export and Import</a></h2>
+<p>Share profiles as portable archives:</p>
+<pre><code class="language-bash"># Export a profile as .tar.gz
+opencrabs profile export hermes
+# → creates hermes.tar.gz in current directory
+
+# Import on another machine
+opencrabs profile import ./hermes.tar.gz
+</code></pre>
+<h2 id="token-lock-isolation"><a class="header" href="#token-lock-isolation">Token-Lock Isolation</a></h2>
+<p>Two profiles cannot bind the same bot token simultaneously. Before connecting a Telegram, Discord, Slack, or Trello channel, OpenCrabs checks for existing token locks using PID-based lock files:</p>
+<pre><code>~/.opencrabs/locks/telegram_&lt;token_hash&gt;.lock
+</code></pre>
+<p>If another profile (still running) holds the lock, startup fails with a clear message. Stale locks (process dead) are automatically cleaned up.</p>
+<p>This prevents split-brain scenarios where two agents fight over the same bot.</p>
+<h2 id="profile-aware-daemons"><a class="header" href="#profile-aware-daemons">Profile-Aware Daemons</a></h2>
+<p>Install a separate OS service per profile:</p>
+<pre><code class="language-bash"># Install daemon for the hermes profile
+opencrabs -p hermes service install
+
+# Start it
+opencrabs -p hermes service start
+
+# macOS: creates com.opencrabs.daemon.hermes.plist
+# Linux: creates opencrabs-hermes.service
+</code></pre>
+<p>Multiple profile daemons can run simultaneously as separate OS services, each with its own ports, bot connections, and config.</p>
+<h2 id="per-session-provider-isolation"><a class="header" href="#per-session-provider-isolation">Per-Session Provider Isolation</a></h2>
+<p>Changing the provider in the TUI for one profile does <strong>not</strong> affect other active profiles or Telegram/Discord/Slack sessions. Each session remembers its own provider independently.</p>
+<p>This was fixed in v0.2.95 where provider changes previously leaked across sessions.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="voice-tts--stt"><a class="header" href="#voice-tts--stt">Voice (TTS &amp; STT)</a></h1>
 <p>OpenCrabs supports text-to-speech and speech-to-text with three modes: <strong>Off</strong>, <strong>API</strong> (cloud), or <strong>Local</strong> (on-device, zero cost).</p>
@@ -2796,7 +2934,12 @@ panic = "abort"
 <tr><td>Tests — Provider Registry</td><td style="text-align: right">8</td><td><code>src/tests/provider_registry_test.rs</code></td></tr>
 <tr><td>Tests — Self-Healing System</td><td style="text-align: right">27</td><td><code>src/tests/self_healing_test.rs</code></td></tr>
 <tr><td>Tests — Emergency Compaction</td><td style="text-align: right">2</td><td><code>src/tests/compaction_test.rs</code></td></tr>
-<tr><td><strong>Total</strong></td><td style="text-align: right"><strong>1,593</strong></td><td></td></tr>
+<tr><td>Tests — Cross-Channel Crash Recovery</td><td style="text-align: right">12</td><td><code>src/tests/pending_request_test.rs</code></td></tr>
+<tr><td>Tests — Profile System</td><td style="text-align: right">57</td><td><code>src/tests/profile_test.rs</code></td></tr>
+<tr><td>Tests — Token Tracking</td><td style="text-align: right">29</td><td><code>src/tests/token_tracking_test.rs</code></td></tr>
+<tr><td>Tests — Cron Execution Storage</td><td style="text-align: right">6</td><td><code>src/tests/cron_results_test.rs</code></td></tr>
+<tr><td>Tests — LLM Artifact Stripping</td><td style="text-align: right">8</td><td><code>src/tests/artifact_strip_test.rs</code></td></tr>
+<tr><td><strong>Total</strong></td><td style="text-align: right"><strong>1,687</strong></td><td></td></tr>
 </tbody>
 </table>
 </div>

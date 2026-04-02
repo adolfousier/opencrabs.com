@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.4] - 2026-04-03
+
+### Added
+- New docs: Multi-Profile support (create/migrate/export/import, token-lock isolation, profile-aware daemons, per-session provider isolation)
+- Self-healing: cross-channel crash recovery routing (v0.2.93) — pending requests now route back to originating Telegram/Discord/Slack/WhatsApp chat on restart; CLI idle timeout extended to 10 minutes
+- Cron jobs: multi-target delivery (comma-separated targets), execution results stored in DB
+- Providers: OpenRouter reasoning support (include_reasoning, collapsible thinking sections), function calling detection, tool_choice: "auto" for OpenAI-compatible providers, per-session provider isolation
+- SUMMARY: Multi-Profile entry added to Features section
+- Landing page: Multi-Profile feature card, updated hero with 1,687 tests
+- Testing: 1,593 → 1,687 tests with profile tests (57), token tracking tests (29), cross-channel crash recovery tests, LLM artifact stripping tests, cron results tests
+
+### Changed
+- Synced docs with OpenCrabs v0.2.93, v0.2.94, v0.2.95, v0.2.96
+
 ## [0.1.3] - 2026-03-30
 
 ### Added

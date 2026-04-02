@@ -54,10 +54,10 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-2de0da57.js";
+            window.path_to_searchindex_js = "../searchindex-c9ec34b5.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-066a3553.js"></script>
+        <script src="../toc-4af21c49.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -281,7 +281,9 @@
 </ul>
 <p><strong>Source:</strong> <code>src/brain/agent/service/helpers.rs</code> – <code>detect_text_repetition()</code>, tested in <code>src/tests/stream_loop_test.rs</code> (15 tests)</p>
 <h3 id="idle-timeout"><a class="header" href="#idle-timeout">Idle Timeout</a></h3>
-<p>If a stream goes silent for <strong>60 seconds</strong> (no events at all), it’s treated as a dropped connection:</p>
+<p>If a stream goes silent for <strong>60 seconds</strong> (API providers) or <strong>10 minutes</strong> (CLI providers) with no events, it’s treated as a dropped connection.</p>
+<p>CLI providers (Claude CLI, OpenCode CLI) run internal tools — cargo builds, tests, <code>gh</code> commands — that can take several minutes without producing stream events. The 60-second timeout caused premature termination on these, so CLI providers now get a 10-minute window before timeout fires.</p>
+<p>If a stream goes silent:</p>
 <pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>const STREAM_IDLE_TIMEOUT: Duration = Duration::from_secs(60);
@@ -302,6 +304,25 @@
 <li>Emit <code>TuiEvent::PendingResumed</code> so the TUI shows a recovery notification</li>
 </ol>
 <p><strong>Source:</strong> <code>src/db/repository/pending_request.rs</code>, <code>src/cli/ui.rs</code> (lines 705-790)</p>
+<h3 id="cross-channel-crash-recovery-v0293"><a class="header" href="#cross-channel-crash-recovery-v0293">Cross-Channel Crash Recovery (v0.2.93)</a></h3>
+<p>Before v0.2.93, pending request recovery always responded via the TUI — even if the original request came from Telegram, Discord, Slack, or WhatsApp. The resumed response would appear in the wrong place.</p>
+<p>Now each channel passes its name and <code>chat_id</code> into <code>run_tool_loop</code>, which stores them in <code>pending_requests</code>. On restart, recovery routes responses back to the originating channel:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Original channel</th><th>Recovery response goes to</th></tr>
+</thead>
+<tbody>
+<tr><td>Telegram</td><td>Same Telegram chat</td></tr>
+<tr><td>Discord</td><td>Same Discord channel</td></tr>
+<tr><td>Slack</td><td>Same Slack channel</td></tr>
+<tr><td>WhatsApp</td><td>Same WhatsApp chat</td></tr>
+<tr><td>Trello</td><td>Same Trello board</td></tr>
+<tr><td>TUI</td><td>TUI (as before)</td></tr>
+</tbody>
+</table>
+</div>
+<p>The <code>pending_requests</code> table gained <code>channel</code> and <code>channel_chat_id</code> columns via a DB migration. <code>get_interrupted_for_channel</code> lets each channel handler query only its own pending rows. Selective <code>delete_ids</code> prevents one channel from clearing another channel’s recovery entries.</p>
 <h2 id="state-cleanup"><a class="header" href="#state-cleanup">State Cleanup</a></h2>
 <p>Session deletion triggers <strong>cascade deletes</strong> across all related data:</p>
 <ul>
@@ -334,7 +355,7 @@
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="../features/voice.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../features/profiles.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -348,7 +369,7 @@
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="../features/voice.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../features/profiles.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>

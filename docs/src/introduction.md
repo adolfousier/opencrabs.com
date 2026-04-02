@@ -2,7 +2,7 @@
 
 **The autonomous AI agent. Single Rust binary. Every channel.**
 
-OpenCrabs is an open-source AI agent that runs in your terminal. It connects to any LLM provider, orchestrates 50+ built-in tools, and works from Telegram, Discord, Slack, WhatsApp, or the built-in TUI. Self-healing config recovery with provider health tracking, persistent split panes, browser automation, multi-agent orchestration, emergency context compaction, shared channel commands, and 1,593 tests.
+OpenCrabs is an open-source AI agent that runs in your terminal. It connects to any LLM provider, orchestrates 50+ built-in tools, and works from Telegram, Discord, Slack, WhatsApp, or the built-in TUI. Multi-profile isolation, OpenRouter reasoning support, cross-channel crash recovery, self-healing config, persistent split panes, browser automation, multi-agent orchestration, and 1,687 tests.
 
 ## Why OpenCrabs?
 
@@ -16,12 +16,12 @@ OpenCrabs is an open-source AI agent that runs in your terminal. It connects to 
 
 ## Core Capabilities
 
-- **Multi-provider AI** — Anthropic Claude, OpenAI, Google Gemini, OpenRouter (400+ models), MiniMax, z.ai GLM, Claude CLI, OpenCode CLI, Ollama, LM Studio, or any OpenAI-compatible API. Fallback provider chain for automatic failover. Unified provider registry
+- **Multi-provider AI** — Anthropic Claude, OpenAI, Google Gemini, OpenRouter (400+ models with reasoning support), MiniMax, z.ai GLM, Claude CLI, OpenCode CLI, Ollama, LM Studio, or any OpenAI-compatible API. Fallback chain for automatic failover. Per-session provider isolation. Function calling detection with model switch suggestions
 - **Every channel** — Telegram, Discord, Slack, WhatsApp, or the built-in TUI with split panes. DB-persisted channel sessions survive restarts
 - **50+ tools** — File ops, bash, web search, code execution, image gen, browser automation, and user-defined dynamic tools
 - **Multi-agent** — Spawn child agents for parallel task execution. Full CLI with 20+ subcommands
 - **Persistent memory** — 3-tier memory system: daily notes, long-term memory, semantic search
-- **Self-healing** — Auto-recovers corrupted config from last-known-good snapshots, tracks per-provider health with auto-failover, 65% context budget management with 3-retry LLM compaction, stuck stream detection (2048-byte rolling window), 60s idle timeout, emergency ARG_MAX compaction, crash recovery via pending request replay, DB integrity checks, cascade state cleanup on session delete. 14+ silenced errors surfaced in v0.2.92. All recovery events delivered as visible notifications across TUI and channels
+- **Self-healing** — Auto-recovers corrupted config from last-known-good snapshots, tracks per-provider health with auto-failover, 65% context budget management with LLM compaction, stuck stream detection, emergency ARG_MAX compaction. Cross-channel crash recovery routes pending requests back to originating Telegram/Discord/Slack chat on restart. CLI idle timeout extended to 10 minutes (cargo builds don't time out). DB integrity checks. All recovery events delivered as visible notifications across TUI and channels
 - **Self-evolving** — Type `/evolve` to download the latest version, or `/rebuild` to build from source. Startup update prompt offers one-click upgrades. `/evolve` works directly on channels without LLM routing
 - **Shared channel commands** — `/doctor`, `/help`, `/usage`, `/evolve` execute instantly on all channels via a shared command handler (847-line module), no LLM round-trip required
 - **Agent-to-Agent** — Built-in A2A gateway for peer-to-peer agent communication
@@ -30,6 +30,8 @@ OpenCrabs is an open-source AI agent that runs in your terminal. It connects to 
 - **Voice** — Local STT (rwhisper/Metal GPU) and TTS (Piper), plus API options (Groq Whisper, OpenAI TTS)
 - **Plans** — Structured multi-step task planning with approval workflow
 - **Daemon mode** — Background operation with health endpoints and auto-reconnecting channel bots
+- **Multi-profile** — Isolated instances per profile: separate config, brain files, sessions, and daemon services. Token-lock isolation, profile export/import as `.tar.gz`, migration between profiles
+- **Cron job storage** — Execution results stored in DB for querying, multi-target delivery (comma-separated channels + webhooks)
 
 ## Quick Links
 
