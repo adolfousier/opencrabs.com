@@ -206,9 +206,8 @@ fn Hero() -> impl IntoView {
                 <h1>"OpenCrabs"</h1>
                 <p class="hero-tagline">"THE AI AGENT THAT LIVES IN YOUR TERMINAL."</p>
                 <p class="hero-description">
-                    "Runs code, manages files, searches the web, automates browsers, spawns sub-agents, "
-                    "and connects to Telegram, Discord, Slack, WhatsApp, and Trello. "
-                    "Typed sub-agents and team orchestration for parallel tasks. Multi-profile isolation, OpenRouter reasoning, cross-channel crash recovery, self-healing config, persistent split panes, local STT & TTS, 1,772 tests. All from your terminal or any chat app."
+                    "Open-source AI agent built in Rust. 50+ tools, 10+ providers, multi-agent teams, "
+                    "self-healing, and every channel. 1,772 tests."
                 </p>
                 <a href="https://github.com/adolfousier/opencrabs/releases/latest" class="hero-badge">
                     <span class="badge-new">"LATEST"</span>
