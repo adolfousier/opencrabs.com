@@ -190,6 +190,26 @@ Model switching errors now surface the actual error with a `⚠️` prefix on al
 
 `split_message()` across all 5 channel handlers (Telegram, Discord, Slack, WhatsApp, Trello) now uses `is_char_boundary()` to find safe split points, preventing panics on multi-byte characters (emojis, CJK, accented characters).
 
+## Cancel Persistence (v0.2.97)
+
+When a user double-Escapes to abort a streaming response, the partial content is now **persisted to the database before `handle.abort()` fires**. This means cancelled content survives a session reload -- you can scroll back and see exactly what the agent was saying before you stopped it.
+
+### Claude CLI Subprocess Cleanup
+
+Previously, aborting a Claude CLI request would orphan the underlying `claude` subprocess. Now the stream reader loop monitors `tx.closed()` via `tokio::select!` and kills the child process when the receiver drops, preventing leaked subprocesses accumulating in the background.
+
+### Telegram Stale Delivery Suppression
+
+When a request is cancelled mid-flight, the agent sometimes continued processing and delivered a stale response to Telegram. A `cancel_token.is_cancelled()` guard now fires before final delivery, preventing old agent results from posting after cancellation.
+
+### Config Overwrite Protection
+
+The onboarding wizard previously overwrote existing channel settings on every save, causing data loss when re-running `/onboard`. `apply_config()` now scopes writes to only the current onboarding step. `from_config()` sets `EXISTING_KEY_SENTINEL` for all existing channel data, ensuring untouched fields are never overwritten.
+
+### Tool Description Wrapping
+
+Tool call descriptions were previously truncated at 80 characters in the TUI. `render_tool_group` now **wraps** description headers and value lines to terminal width, and the 80-char pre-truncation of bash commands in `format_tool_description` has been removed. Long commands and file paths display fully.
+
 ## Notifications
 
 All self-healing events are delivered to:

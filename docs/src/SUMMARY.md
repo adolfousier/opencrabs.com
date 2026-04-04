@@ -40,6 +40,7 @@
 - [Browser Automation](./features/browser.md)
 - [Cron Jobs](./features/cron-jobs.md)
 - [Plans](./features/plans.md)
+- [Multi-Agent Orchestration](./features/multi-agent.md)
 - [Agent-to-Agent (A2A)](./features/a2a.md)
 - [Self-Healing](./features/self-healing.md)
 - [Multi-Profile](./features/profiles.md)

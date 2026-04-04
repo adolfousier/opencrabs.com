@@ -116,7 +116,8 @@ cargo test --all-features
 | Tests — Token Tracking | 29 | `src/tests/token_tracking_test.rs` |
 | Tests — Cron Execution Storage | 6 | `src/tests/cron_results_test.rs` |
 | Tests — LLM Artifact Stripping | 8 | `src/tests/artifact_strip_test.rs` |
-| **Total** | **1,687** | |
+| Tests — Subagent & Team Orchestration | 84 | `src/tests/subagent_test.rs` |
+| **Total** | **1,772** | |
 
 ---
 

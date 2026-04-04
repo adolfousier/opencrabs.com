@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.5] - 2026-04-04
+
+### Added
+- New docs: Multi-Agent Orchestration (typed agents, team orchestration, subagent provider config)
+- Multi-agent: Agent type system (General, Explore, Plan, Code, Research) with filtered tool registries and ALWAYS_EXCLUDED enforcement
+- Multi-agent: Team orchestration (team_create, team_delete, team_broadcast) for parallel agent groups
+- Multi-agent: Subagent provider/model config ([agent] section in config.toml)
+- Multi-agent: send_input loop for multi-turn child agent conversations
+- Self-healing: cancel persistence (streaming state saved to DB before abort)
+- Self-healing: Claude CLI subprocess cleanup on cancel (tokio::select! on tx.closed())
+- Self-healing: Telegram stale delivery suppression (cancel_token guard before final delivery)
+- Self-healing: config overwrite protection in onboarding (scoped writes, EXISTING_KEY_SENTINEL)
+- Self-healing: tool description wrapping (no more 80-char truncation of bash commands)
+- SUMMARY: Multi-Agent Orchestration entry added to Features section
+- Landing page: Multi-Agent & Teams feature card, updated hero with 1,772 tests
+- Tools: team_create, team_delete, team_broadcast added to agent orchestration section; agent types table
+- Testing: 1,687 → 1,772 tests (+84 subagent/team tests covering manager state machine, SendInput, CloseAgent, WaitAgent, lifecycle, AgentType filtering, TeamManager, TeamDelete, TeamBroadcast, registry exclusion)
+
+### Changed
+- Synced docs with OpenCrabs v0.2.97
+
 ## [0.1.4] - 2026-04-03
 
 ### Added

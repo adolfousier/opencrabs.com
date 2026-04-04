@@ -54,10 +54,10 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-c9ec34b5.js";
+            window.path_to_searchindex_js = "searchindex-e5ce3164.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-4af21c49.js"></script>
+        <script src="toc-e84a0f03.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -198,7 +198,7 @@
                     <main>
                         <h1 id="opencrabs"><a class="header" href="#opencrabs">OpenCrabs</a></h1>
 <p><strong>The autonomous AI agent. Single Rust binary. Every channel.</strong></p>
-<p>OpenCrabs is an open-source AI agent that runs in your terminal. It connects to any LLM provider, orchestrates 50+ built-in tools, and works from Telegram, Discord, Slack, WhatsApp, or the built-in TUI. Multi-profile isolation, OpenRouter reasoning support, cross-channel crash recovery, self-healing config, persistent split panes, browser automation, multi-agent orchestration, and 1,687 tests.</p>
+<p>OpenCrabs is an open-source AI agent that runs in your terminal. It connects to any LLM provider, orchestrates 50+ built-in tools, and works from Telegram, Discord, Slack, WhatsApp, or the built-in TUI. Typed sub-agents and team orchestration, multi-profile isolation, OpenRouter reasoning, cross-channel crash recovery, self-healing config, persistent split panes, browser automation, and 1,772 tests.</p>
 <h2 id="why-opencrabs"><a class="header" href="#why-opencrabs">Why OpenCrabs?</a></h2>
 <div class="table-wrapper">
 <table>
@@ -219,7 +219,7 @@
 <li><strong>Multi-provider AI</strong> — Anthropic Claude, OpenAI, Google Gemini, OpenRouter (400+ models with reasoning support), MiniMax, z.ai GLM, Claude CLI, OpenCode CLI, Ollama, LM Studio, or any OpenAI-compatible API. Fallback chain for automatic failover. Per-session provider isolation. Function calling detection with model switch suggestions</li>
 <li><strong>Every channel</strong> — Telegram, Discord, Slack, WhatsApp, or the built-in TUI with split panes. DB-persisted channel sessions survive restarts</li>
 <li><strong>50+ tools</strong> — File ops, bash, web search, code execution, image gen, browser automation, and user-defined dynamic tools</li>
-<li><strong>Multi-agent</strong> — Spawn child agents for parallel task execution. Full CLI with 20+ subcommands</li>
+<li><strong>Multi-agent &amp; Teams</strong> — Typed sub-agents (General, Explore, Plan, Code, Research) with filtered tool registries. Team orchestration: spawn N agents in parallel with <code>team_create</code>, fan-out messages with <code>team_broadcast</code>. Configurable subagent provider/model. Full CLI with 20+ subcommands</li>
 <li><strong>Persistent memory</strong> — 3-tier memory system: daily notes, long-term memory, semantic search</li>
 <li><strong>Self-healing</strong> — Auto-recovers corrupted config from last-known-good snapshots, tracks per-provider health with auto-failover, 65% context budget management with LLM compaction, stuck stream detection, emergency ARG_MAX compaction. Cross-channel crash recovery routes pending requests back to originating Telegram/Discord/Slack chat on restart. CLI idle timeout extended to 10 minutes (cargo builds don’t time out). DB integrity checks. All recovery events delivered as visible notifications across TUI and channels</li>
 <li><strong>Self-evolving</strong> — Type <code>/evolve</code> to download the latest version, or <code>/rebuild</code> to build from source. Startup update prompt offers one-click upgrades. <code>/evolve</code> works directly on channels without LLM routing</li>

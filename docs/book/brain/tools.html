@@ -54,10 +54,10 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-c9ec34b5.js";
+            window.path_to_searchindex_js = "../searchindex-e5ce3164.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-4af21c49.js"></script>
+        <script src="../toc-e84a0f03.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -285,15 +285,34 @@
 <tr><th>Tool</th><th>Parameters</th><th>Description</th></tr>
 </thead>
 <tbody>
-<tr><td><code>spawn_agent</code></td><td><code>task</code>, <code>provider</code>, <code>model</code></td><td>Spawn a child agent in an isolated session</td></tr>
-<tr><td><code>wait_agent</code></td><td><code>agent_id</code></td><td>Wait for a child agent to complete</td></tr>
-<tr><td><code>send_input</code></td><td><code>agent_id</code>, <code>message</code></td><td>Send a message to a running child agent</td></tr>
-<tr><td><code>close_agent</code></td><td><code>agent_id</code></td><td>Terminate a child agent</td></tr>
-<tr><td><code>resume_agent</code></td><td><code>agent_id</code></td><td>Resume a previously spawned agent</td></tr>
+<tr><td><code>spawn_agent</code></td><td><code>label</code>, <code>agent_type</code>, <code>prompt</code></td><td>Spawn a typed child agent in an isolated session</td></tr>
+<tr><td><code>wait_agent</code></td><td><code>agent_id</code>, <code>timeout_secs</code></td><td>Wait for a child agent to complete and return output</td></tr>
+<tr><td><code>send_input</code></td><td><code>agent_id</code>, <code>text</code></td><td>Send follow-up input to a running agent (multi-turn)</td></tr>
+<tr><td><code>close_agent</code></td><td><code>agent_id</code></td><td>Terminate a running agent and clean up resources</td></tr>
+<tr><td><code>resume_agent</code></td><td><code>agent_id</code>, <code>prompt</code></td><td>Resume a completed/failed agent with new prompt (preserves context)</td></tr>
+<tr><td><code>team_create</code></td><td><code>team_name</code>, <code>agents[]</code></td><td>Spawn N typed agents as a named team (parallel)</td></tr>
+<tr><td><code>team_broadcast</code></td><td><code>team_name</code>, <code>message</code></td><td>Fan-out message to all running agents in a team</td></tr>
+<tr><td><code>team_delete</code></td><td><code>team_name</code></td><td>Cancel and clean up all agents in a team</td></tr>
 </tbody>
 </table>
 </div>
-<p>Children run with auto-approve and essential tools. No recursive spawning.</p>
+<h3 id="agent-types"><a class="header" href="#agent-types">Agent Types</a></h3>
+<p>When spawning, <code>agent_type</code> selects a specialized role with a curated tool registry:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Type</th><th>Role</th><th>Tool Access</th></tr>
+</thead>
+<tbody>
+<tr><td><code>general</code></td><td>Full-capability (default)</td><td>All parent tools minus recursive/dangerous</td></tr>
+<tr><td><code>explore</code></td><td>Fast read-only codebase navigation</td><td><code>read_file</code>, <code>glob</code>, <code>grep</code>, <code>ls</code></td></tr>
+<tr><td><code>plan</code></td><td>Architecture planning</td><td><code>read_file</code>, <code>glob</code>, <code>grep</code>, <code>ls</code>, <code>bash</code></td></tr>
+<tr><td><code>code</code></td><td>Implementation with full write access</td><td>All parent tools minus recursive/dangerous</td></tr>
+<tr><td><code>research</code></td><td>Web search + documentation lookup</td><td><code>read_file</code>, <code>glob</code>, <code>grep</code>, <code>ls</code>, <code>web_search</code>, <code>http_request</code></td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>ALWAYS_EXCLUDED tools</strong> (no agent type has these): <code>spawn_agent</code>, <code>resume_agent</code>, <code>wait_agent</code>, <code>send_input</code>, <code>close_agent</code>, <code>rebuild</code>, <code>evolve</code> – no recursive spawning, no self-modification from subagents.</p>
 <h2 id="browser-automation"><a class="header" href="#browser-automation">Browser Automation</a></h2>
 <p>Native headless Chrome control via Chrome DevTools Protocol (CDP):</p>
 <div class="table-wrapper">

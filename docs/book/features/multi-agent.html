@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Image Generation &amp; Vision - OpenCrabs</title>
+        <title>Multi-Agent Orchestration - OpenCrabs</title>
 
 
         <!-- Custom HTML head -->
@@ -196,69 +196,156 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="image-generation--vision"><a class="header" href="#image-generation--vision">Image Generation &amp; Vision</a></h1>
-<p>OpenCrabs supports image generation and vision analysis via Google Gemini. These features are independent of the main chat provider — use Claude for chat and Gemini for images.</p>
-<h2 id="setup"><a class="header" href="#setup">Setup</a></h2>
-<ol>
-<li>Get a free API key from <a href="https://aistudio.google.com">aistudio.google.com</a></li>
-<li>Run <code>/onboard:image</code> in chat to configure interactively</li>
-<li>Or add manually:</li>
-</ol>
-<pre><code class="language-toml"># keys.toml
-[image]
-api_key = "AIza..."
-</code></pre>
-<pre><code class="language-toml"># config.toml
-[image.generation]
-enabled = true
-model = "gemini-3.1-flash-image-preview"
-
-[image.vision]
-enabled = true
-model = "gemini-3.1-flash-image-preview"
-</code></pre>
-<h2 id="agent-tools"><a class="header" href="#agent-tools">Agent Tools</a></h2>
-<p>When enabled, two tools become available automatically:</p>
+                        <h1 id="multi-agent-orchestration"><a class="header" href="#multi-agent-orchestration">Multi-Agent Orchestration</a></h1>
+<p>OpenCrabs supports spawning specialized sub-agents that run autonomously in isolated sessions. Each child agent gets its own context, tool registry, and cancel token. Introduced in <strong>v0.2.97</strong> with a typed agent system and team orchestration.</p>
+<h2 id="agent-types"><a class="header" href="#agent-types">Agent Types</a></h2>
+<p>When spawning an agent, an <code>agent_type</code> parameter selects a specialized role with a curated tool set:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Type</th><th>Role</th><th>Tools</th></tr>
+</thead>
+<tbody>
+<tr><td><code>general</code></td><td>Full-capability agent (default)</td><td>All parent tools minus recursive/dangerous</td></tr>
+<tr><td><code>explore</code></td><td>Fast codebase navigation (read-only)</td><td><code>read_file</code>, <code>glob</code>, <code>grep</code>, <code>ls</code></td></tr>
+<tr><td><code>plan</code></td><td>Architecture planning (read + analysis)</td><td><code>read_file</code>, <code>glob</code>, <code>grep</code>, <code>ls</code>, <code>bash</code></td></tr>
+<tr><td><code>code</code></td><td>Implementation (full write access)</td><td>All parent tools minus recursive/dangerous</td></tr>
+<tr><td><code>research</code></td><td>Web search + documentation lookup</td><td><code>read_file</code>, <code>glob</code>, <code>grep</code>, <code>ls</code>, <code>web_search</code>, <code>http_request</code></td></tr>
+</tbody>
+</table>
+</div>
+<p>Each type receives a role-specific system prompt that shapes its behavior. Explore agents are fast and lightweight – they only read files. Code agents can modify anything. Research agents can search the web but not touch your filesystem.</p>
+<h3 id="safety-always_excluded-tools"><a class="header" href="#safety-always_excluded-tools">Safety: ALWAYS_EXCLUDED Tools</a></h3>
+<p>No agent type has access to these tools, preventing dangerous or recursive operations:</p>
+<ul>
+<li><code>spawn_agent</code> – no spawning agents from agents</li>
+<li><code>resume_agent</code>, <code>wait_agent</code>, <code>send_input</code>, <code>close_agent</code> – no managing siblings</li>
+<li><code>rebuild</code> – no building from source</li>
+<li><code>evolve</code> – no self-updating</li>
+</ul>
+<h2 id="five-orchestration-tools"><a class="header" href="#five-orchestration-tools">Five Orchestration Tools</a></h2>
 <div class="table-wrapper">
 <table>
 <thead>
 <tr><th>Tool</th><th>Description</th></tr>
 </thead>
 <tbody>
-<tr><td><code>generate_image</code></td><td>Generate an image from a text prompt — saves to <code>~/.opencrabs/images/</code></td></tr>
-<tr><td><code>analyze_image</code></td><td>Analyze an image file or URL via Gemini vision</td></tr>
+<tr><td><code>spawn_agent</code></td><td>Create a typed child agent to handle a sub-task autonomously in the background</td></tr>
+<tr><td><code>wait_agent</code></td><td>Wait for a spawned agent to complete and return its output (configurable timeout)</td></tr>
+<tr><td><code>send_input</code></td><td>Send follow-up instructions to a running agent (multi-turn conversation)</td></tr>
+<tr><td><code>close_agent</code></td><td>Terminate a running agent and clean up its resources</td></tr>
+<tr><td><code>resume_agent</code></td><td>Resume a completed or failed agent with a new prompt (preserves prior context)</td></tr>
 </tbody>
 </table>
 </div>
-<p><strong>Example prompts:</strong></p>
+<h3 id="spawn-an-agent"><a class="header" href="#spawn-an-agent">Spawn an Agent</a></h3>
+<pre><code>spawn_agent(
+  label: "refactor-auth",      # Human-readable label
+  agent_type: "code",          # general | explore | plan | code | research
+  prompt: "Refactor auth..."   # Task instruction
+)
+</code></pre>
+<p>The agent runs in its own session with auto-approved tools. No blocking – it executes in the background while the parent continues.</p>
+<h3 id="wait-for-completion"><a class="header" href="#wait-for-completion">Wait for Completion</a></h3>
+<pre><code>wait_agent(
+  agent_id: "abc-123",
+  timeout_secs: 300            # Max wait time (default: 300s)
+)
+</code></pre>
+<h3 id="multi-turn-with-send_input"><a class="header" href="#multi-turn-with-send_input">Multi-Turn with send_input</a></h3>
+<p>After spawning, you can send additional instructions without restarting:</p>
+<pre><code>send_input(
+  agent_id: "abc-123",
+  text: "Also add unit tests for the new module"
+)
+</code></pre>
+<p>The child agent processes the input on its next iteration. This enables iterative workflows – review the agent’s output, then ask it to refine or continue.</p>
+<h3 id="resume-a-completed-agent"><a class="header" href="#resume-a-completed-agent">Resume a Completed Agent</a></h3>
+<pre><code>resume_agent(
+  agent_id: "abc-123",
+  prompt: "Now port the same changes to the other two files"
+)
+</code></pre>
+<p>The agent continues in its original session, preserving all prior context. No need to re-explain the codebase.</p>
+<h2 id="team-orchestration"><a class="header" href="#team-orchestration">Team Orchestration</a></h2>
+<p>The <code>TeamManager</code> coordinates named groups of agents for parallel execution. Three team-specific tools:</p>
+<h3 id="create-a-team"><a class="header" href="#create-a-team">Create a Team</a></h3>
+<pre><code>team_create(
+  team_name: "backend-refactor",
+  agents: [
+    { label: "auth", agent_type: "code", prompt: "Refactor auth module" },
+    { label: "tests", agent_type: "code", prompt: "Write tests for auth" },
+    { label: "docs", agent_type: "general", prompt: "Update documentation" }
+  ]
+)
+</code></pre>
+<p>All agents spawn simultaneously and run in parallel. Returns the team name and all agent IDs.</p>
+<h3 id="broadcast-to-a-team"><a class="header" href="#broadcast-to-a-team">Broadcast to a Team</a></h3>
+<pre><code>team_broadcast(
+  team_name: "backend-refactor",
+  message: "Use the new AuthError enum instead of plain strings"
+)
+</code></pre>
+<p>Sends a message to all running agents in the team. Non-running agents are skipped. Useful for sharing context or direction changes.</p>
+<h3 id="delete-a-team"><a class="header" href="#delete-a-team">Delete a Team</a></h3>
+<pre><code>team_delete(team_name: "backend-refactor")
+</code></pre>
+<p>Cancels all running agents and cleans up resources. Completed agents are left in the subagent manager for reference.</p>
+<h2 id="subagent-providermodel-config"><a class="header" href="#subagent-providermodel-config">Subagent Provider/Model Config</a></h2>
+<p>By default, spawned agents inherit the parent’s provider and model. You can override this globally in <code>config.toml</code>:</p>
+<pre><code class="language-toml">[agent]
+subagent_provider = "openrouter"   # Provider for child agents
+subagent_model = "qwen/qwen3-235b" # Model override
+</code></pre>
+<p>This lets you run a powerful model (e.g. Claude Opus) for the main session while using a cheaper/faster model (e.g. Qwen) for sub-tasks. The override applies to all <code>spawn_agent</code> and <code>resume_agent</code> calls.</p>
+<p>If <code>subagent_provider</code> or <code>subagent_model</code> is not set, the spawned agent loads from the global default provider.</p>
+<h2 id="workflow-patterns"><a class="header" href="#workflow-patterns">Workflow Patterns</a></h2>
+<h3 id="parallel-research--implementation"><a class="header" href="#parallel-research--implementation">Parallel Research + Implementation</a></h3>
+<pre><code>team_create("feature-research", [
+  { label: "research", agent_type: "research", prompt: "Find best practices for rate limiting in Rust" },
+  { label: "explore", agent_type: "explore", prompt: "Find all middleware files in the codebase" }
+])
+</code></pre>
+<p>Wait for results, then spawn a code agent with the combined context.</p>
+<h3 id="iterative-code-review"><a class="header" href="#iterative-code-review">Iterative Code Review</a></h3>
+<pre><code># 1. Spawn a code agent
+spawn_agent(label: "impl", agent_type: "code", prompt: "Implement rate limiting middleware")
+
+# 2. Wait for completion
+wait_agent(agent_id: "impl-id")
+
+# 3. Resume with refinements
+resume_agent(agent_id: "impl-id", prompt: "Add tests for the edge cases we discussed")
+</code></pre>
+<h3 id="large-scale-refactoring"><a class="header" href="#large-scale-refactoring">Large-Scale Refactoring</a></h3>
+<pre><code>team_create("refactor-team", [
+  { label: "module-a", agent_type: "code", prompt: "Refactor module A to use the new trait" },
+  { label: "module-b", agent_type: "code", prompt: "Refactor module B to use the new trait" },
+  { label: "module-c", agent_type: "code", prompt: "Refactor module C to use the new trait" },
+  { label: "tests", agent_type: "code", prompt: "Update all tests for the new trait signature" }
+])
+</code></pre>
+<h2 id="testing"><a class="header" href="#testing">Testing</a></h2>
+<p>84 tests cover the entire multi-agent system:</p>
 <ul>
-<li><em>“Generate a pixel art crab logo”</em> — agent calls <code>generate_image</code>, returns file path</li>
-<li><em>“What’s in this image: /tmp/screenshot.png”</em> — agent calls <code>analyze_image</code> via Gemini</li>
+<li>Manager state machine (spawn, wait, close lifecycle)</li>
+<li><code>SendInput</code> wiring and input loop</li>
+<li><code>CloseAgent</code> cleanup</li>
+<li><code>WaitAgent</code> timeout behavior</li>
+<li><code>AgentType</code> tool filtering</li>
+<li><code>TeamManager</code>, <code>TeamDelete</code>, <code>TeamBroadcast</code></li>
+<li>Registry exclusion (ALWAYS_EXCLUDED enforcement)</li>
 </ul>
-<h2 id="incoming-images"><a class="header" href="#incoming-images">Incoming Images</a></h2>
-<p>When a user sends an image from any channel, it arrives as <code>&lt;&lt;IMG:/tmp/path&gt;&gt;</code> in the message. The file is already downloaded — the agent can:</p>
-<ul>
-<li>See it directly (if the model supports vision)</li>
-<li>Pass the path to <code>analyze_image</code> for Gemini analysis</li>
-<li>Use the path in <code>bash</code> commands or any tool that accepts file paths</li>
-<li>Reference it in replies with <code>&lt;&lt;IMG:path&gt;&gt;</code> to forward to channels</li>
-</ul>
-<h2 id="model"><a class="header" href="#model">Model</a></h2>
-<p>Both tools use <code>gemini-3.1-flash-image-preview</code> — Gemini’s dedicated image model that supports both vision input and image output in a single request.</p>
-<h2 id="per-provider-vision-model"><a class="header" href="#per-provider-vision-model">Per-Provider Vision Model</a></h2>
-<p>Separately from the Gemini <code>analyze_image</code> tool, any provider can have its own vision tool via <code>vision_model</code>. When the user sends an image and the chat model can’t handle it natively, the agent calls the provider’s vision tool — which sends the image to the <code>vision_model</code> on the same provider, gets a text description back, and uses that context to reply.</p>
-<p>Example: User sends an image to MiniMax M2.5 (no native vision). The agent calls the vision tool, which sends the image to MiniMax-Text-01, gets the description, and M2.5 replies using that context.</p>
-<p>See <a href="./providers.html#vision-model">Provider Setup — Vision Model</a>.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../brain/providers.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../features/plans.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="../channels/overview.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../features/a2a.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -268,11 +355,11 @@ model = "gemini-3.1-flash-image-preview"
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../brain/providers.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../features/plans.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="../channels/overview.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../features/a2a.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>

@@ -57,13 +57,28 @@ Agents can spawn independent child agents for parallel task execution:
 
 | Tool | Parameters | Description |
 |------|-----------|-------------|
-| `spawn_agent` | `task`, `provider`, `model` | Spawn a child agent in an isolated session |
-| `wait_agent` | `agent_id` | Wait for a child agent to complete |
-| `send_input` | `agent_id`, `message` | Send a message to a running child agent |
-| `close_agent` | `agent_id` | Terminate a child agent |
-| `resume_agent` | `agent_id` | Resume a previously spawned agent |
+| `spawn_agent` | `label`, `agent_type`, `prompt` | Spawn a typed child agent in an isolated session |
+| `wait_agent` | `agent_id`, `timeout_secs` | Wait for a child agent to complete and return output |
+| `send_input` | `agent_id`, `text` | Send follow-up input to a running agent (multi-turn) |
+| `close_agent` | `agent_id` | Terminate a running agent and clean up resources |
+| `resume_agent` | `agent_id`, `prompt` | Resume a completed/failed agent with new prompt (preserves context) |
+| `team_create` | `team_name`, `agents[]` | Spawn N typed agents as a named team (parallel) |
+| `team_broadcast` | `team_name`, `message` | Fan-out message to all running agents in a team |
+| `team_delete` | `team_name` | Cancel and clean up all agents in a team |
 
-Children run with auto-approve and essential tools. No recursive spawning.
+### Agent Types
+
+When spawning, `agent_type` selects a specialized role with a curated tool registry:
+
+| Type | Role | Tool Access |
+|------|------|-------------|
+| `general` | Full-capability (default) | All parent tools minus recursive/dangerous |
+| `explore` | Fast read-only codebase navigation | `read_file`, `glob`, `grep`, `ls` |
+| `plan` | Architecture planning | `read_file`, `glob`, `grep`, `ls`, `bash` |
+| `code` | Implementation with full write access | All parent tools minus recursive/dangerous |
+| `research` | Web search + documentation lookup | `read_file`, `glob`, `grep`, `ls`, `web_search`, `http_request` |
+
+**ALWAYS_EXCLUDED tools** (no agent type has these): `spawn_agent`, `resume_agent`, `wait_agent`, `send_input`, `close_agent`, `rebuild`, `evolve` -- no recursive spawning, no self-modification from subagents.
 
 ## Browser Automation
 

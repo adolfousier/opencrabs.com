@@ -208,7 +208,7 @@ fn Hero() -> impl IntoView {
                 <p class="hero-description">
                     "Runs code, manages files, searches the web, automates browsers, spawns sub-agents, "
                     "and connects to Telegram, Discord, Slack, WhatsApp, and Trello. "
-                    "Multi-profile isolation, OpenRouter reasoning, cross-channel crash recovery, self-healing config, persistent split panes, local STT & TTS, 1,687 tests. All from your terminal or any chat app."
+                    "Typed sub-agents and team orchestration for parallel tasks. Multi-profile isolation, OpenRouter reasoning, cross-channel crash recovery, self-healing config, persistent split panes, local STT & TTS, 1,772 tests. All from your terminal or any chat app."
                 </p>
                 <a href="https://github.com/adolfousier/opencrabs/releases/latest" class="hero-badge">
                     <span class="badge-new">"LATEST"</span>
@@ -382,8 +382,8 @@ fn Features() -> impl IntoView {
         ),
         (
             "🤖",
-            "Multi-Agent & Full CLI",
-            "Spawn child agents for parallel tasks. 20+ CLI subcommands for managing sessions, memory, cron, logs, and services. Daemon mode with health endpoints.",
+            "Multi-Agent & Teams",
+            "Typed sub-agents (General, Explore, Plan, Code, Research) with filtered tool registries. Team orchestration spawns N agents in parallel and broadcasts to all. 20+ CLI subcommands, daemon mode with health endpoints.",
         ),
         (
             "🌐",

@@ -55,10 +55,10 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-c9ec34b5.js";
+            window.path_to_searchindex_js = "searchindex-e5ce3164.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-4af21c49.js"></script>
+        <script src="toc-e84a0f03.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -199,7 +199,7 @@
                     <main>
                         <h1 id="opencrabs"><a class="header" href="#opencrabs">OpenCrabs</a></h1>
 <p><strong>The autonomous AI agent. Single Rust binary. Every channel.</strong></p>
-<p>OpenCrabs is an open-source AI agent that runs in your terminal. It connects to any LLM provider, orchestrates 50+ built-in tools, and works from Telegram, Discord, Slack, WhatsApp, or the built-in TUI. Multi-profile isolation, OpenRouter reasoning support, cross-channel crash recovery, self-healing config, persistent split panes, browser automation, multi-agent orchestration, and 1,687 tests.</p>
+<p>OpenCrabs is an open-source AI agent that runs in your terminal. It connects to any LLM provider, orchestrates 50+ built-in tools, and works from Telegram, Discord, Slack, WhatsApp, or the built-in TUI. Typed sub-agents and team orchestration, multi-profile isolation, OpenRouter reasoning, cross-channel crash recovery, self-healing config, persistent split panes, browser automation, and 1,772 tests.</p>
 <h2 id="why-opencrabs"><a class="header" href="#why-opencrabs">Why OpenCrabs?</a></h2>
 <div class="table-wrapper">
 <table>
@@ -220,7 +220,7 @@
 <li><strong>Multi-provider AI</strong> — Anthropic Claude, OpenAI, Google Gemini, OpenRouter (400+ models with reasoning support), MiniMax, z.ai GLM, Claude CLI, OpenCode CLI, Ollama, LM Studio, or any OpenAI-compatible API. Fallback chain for automatic failover. Per-session provider isolation. Function calling detection with model switch suggestions</li>
 <li><strong>Every channel</strong> — Telegram, Discord, Slack, WhatsApp, or the built-in TUI with split panes. DB-persisted channel sessions survive restarts</li>
 <li><strong>50+ tools</strong> — File ops, bash, web search, code execution, image gen, browser automation, and user-defined dynamic tools</li>
-<li><strong>Multi-agent</strong> — Spawn child agents for parallel task execution. Full CLI with 20+ subcommands</li>
+<li><strong>Multi-agent &amp; Teams</strong> — Typed sub-agents (General, Explore, Plan, Code, Research) with filtered tool registries. Team orchestration: spawn N agents in parallel with <code>team_create</code>, fan-out messages with <code>team_broadcast</code>. Configurable subagent provider/model. Full CLI with 20+ subcommands</li>
 <li><strong>Persistent memory</strong> — 3-tier memory system: daily notes, long-term memory, semantic search</li>
 <li><strong>Self-healing</strong> — Auto-recovers corrupted config from last-known-good snapshots, tracks per-provider health with auto-failover, 65% context budget management with LLM compaction, stuck stream detection, emergency ARG_MAX compaction. Cross-channel crash recovery routes pending requests back to originating Telegram/Discord/Slack chat on restart. CLI idle timeout extended to 10 minutes (cargo builds don’t time out). DB integrity checks. All recovery events delivered as visible notifications across TUI and channels</li>
 <li><strong>Self-evolving</strong> — Type <code>/evolve</code> to download the latest version, or <code>/rebuild</code> to build from source. Startup update prompt offers one-click upgrades. <code>/evolve</code> works directly on channels without LLM routing</li>
@@ -1543,15 +1543,34 @@ member_id = "your-member-id"
 <tr><th>Tool</th><th>Parameters</th><th>Description</th></tr>
 </thead>
 <tbody>
-<tr><td><code>spawn_agent</code></td><td><code>task</code>, <code>provider</code>, <code>model</code></td><td>Spawn a child agent in an isolated session</td></tr>
-<tr><td><code>wait_agent</code></td><td><code>agent_id</code></td><td>Wait for a child agent to complete</td></tr>
-<tr><td><code>send_input</code></td><td><code>agent_id</code>, <code>message</code></td><td>Send a message to a running child agent</td></tr>
-<tr><td><code>close_agent</code></td><td><code>agent_id</code></td><td>Terminate a child agent</td></tr>
-<tr><td><code>resume_agent</code></td><td><code>agent_id</code></td><td>Resume a previously spawned agent</td></tr>
+<tr><td><code>spawn_agent</code></td><td><code>label</code>, <code>agent_type</code>, <code>prompt</code></td><td>Spawn a typed child agent in an isolated session</td></tr>
+<tr><td><code>wait_agent</code></td><td><code>agent_id</code>, <code>timeout_secs</code></td><td>Wait for a child agent to complete and return output</td></tr>
+<tr><td><code>send_input</code></td><td><code>agent_id</code>, <code>text</code></td><td>Send follow-up input to a running agent (multi-turn)</td></tr>
+<tr><td><code>close_agent</code></td><td><code>agent_id</code></td><td>Terminate a running agent and clean up resources</td></tr>
+<tr><td><code>resume_agent</code></td><td><code>agent_id</code>, <code>prompt</code></td><td>Resume a completed/failed agent with new prompt (preserves context)</td></tr>
+<tr><td><code>team_create</code></td><td><code>team_name</code>, <code>agents[]</code></td><td>Spawn N typed agents as a named team (parallel)</td></tr>
+<tr><td><code>team_broadcast</code></td><td><code>team_name</code>, <code>message</code></td><td>Fan-out message to all running agents in a team</td></tr>
+<tr><td><code>team_delete</code></td><td><code>team_name</code></td><td>Cancel and clean up all agents in a team</td></tr>
 </tbody>
 </table>
 </div>
-<p>Children run with auto-approve and essential tools. No recursive spawning.</p>
+<h3 id="agent-types"><a class="header" href="#agent-types">Agent Types</a></h3>
+<p>When spawning, <code>agent_type</code> selects a specialized role with a curated tool registry:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Type</th><th>Role</th><th>Tool Access</th></tr>
+</thead>
+<tbody>
+<tr><td><code>general</code></td><td>Full-capability (default)</td><td>All parent tools minus recursive/dangerous</td></tr>
+<tr><td><code>explore</code></td><td>Fast read-only codebase navigation</td><td><code>read_file</code>, <code>glob</code>, <code>grep</code>, <code>ls</code></td></tr>
+<tr><td><code>plan</code></td><td>Architecture planning</td><td><code>read_file</code>, <code>glob</code>, <code>grep</code>, <code>ls</code>, <code>bash</code></td></tr>
+<tr><td><code>code</code></td><td>Implementation with full write access</td><td>All parent tools minus recursive/dangerous</td></tr>
+<tr><td><code>research</code></td><td>Web search + documentation lookup</td><td><code>read_file</code>, <code>glob</code>, <code>grep</code>, <code>ls</code>, <code>web_search</code>, <code>http_request</code></td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>ALWAYS_EXCLUDED tools</strong> (no agent type has these): <code>spawn_agent</code>, <code>resume_agent</code>, <code>wait_agent</code>, <code>send_input</code>, <code>close_agent</code>, <code>rebuild</code>, <code>evolve</code> – no recursive spawning, no self-modification from subagents.</p>
 <h2 id="browser-automation"><a class="header" href="#browser-automation">Browser Automation</a></h2>
 <p>Native headless Chrome control via Chrome DevTools Protocol (CDP):</p>
 <div class="table-wrapper">
@@ -2105,6 +2124,147 @@ opencrabs cron remove "Morning Report"
 </code></pre>
 <p>The agent handles plan creation, approval, execution, and status reporting through the <code>plan</code> tool.</p>
 <div style="break-before: page; page-break-before: always;"></div>
+<h1 id="multi-agent-orchestration"><a class="header" href="#multi-agent-orchestration">Multi-Agent Orchestration</a></h1>
+<p>OpenCrabs supports spawning specialized sub-agents that run autonomously in isolated sessions. Each child agent gets its own context, tool registry, and cancel token. Introduced in <strong>v0.2.97</strong> with a typed agent system and team orchestration.</p>
+<h2 id="agent-types-1"><a class="header" href="#agent-types-1">Agent Types</a></h2>
+<p>When spawning an agent, an <code>agent_type</code> parameter selects a specialized role with a curated tool set:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Type</th><th>Role</th><th>Tools</th></tr>
+</thead>
+<tbody>
+<tr><td><code>general</code></td><td>Full-capability agent (default)</td><td>All parent tools minus recursive/dangerous</td></tr>
+<tr><td><code>explore</code></td><td>Fast codebase navigation (read-only)</td><td><code>read_file</code>, <code>glob</code>, <code>grep</code>, <code>ls</code></td></tr>
+<tr><td><code>plan</code></td><td>Architecture planning (read + analysis)</td><td><code>read_file</code>, <code>glob</code>, <code>grep</code>, <code>ls</code>, <code>bash</code></td></tr>
+<tr><td><code>code</code></td><td>Implementation (full write access)</td><td>All parent tools minus recursive/dangerous</td></tr>
+<tr><td><code>research</code></td><td>Web search + documentation lookup</td><td><code>read_file</code>, <code>glob</code>, <code>grep</code>, <code>ls</code>, <code>web_search</code>, <code>http_request</code></td></tr>
+</tbody>
+</table>
+</div>
+<p>Each type receives a role-specific system prompt that shapes its behavior. Explore agents are fast and lightweight – they only read files. Code agents can modify anything. Research agents can search the web but not touch your filesystem.</p>
+<h3 id="safety-always_excluded-tools"><a class="header" href="#safety-always_excluded-tools">Safety: ALWAYS_EXCLUDED Tools</a></h3>
+<p>No agent type has access to these tools, preventing dangerous or recursive operations:</p>
+<ul>
+<li><code>spawn_agent</code> – no spawning agents from agents</li>
+<li><code>resume_agent</code>, <code>wait_agent</code>, <code>send_input</code>, <code>close_agent</code> – no managing siblings</li>
+<li><code>rebuild</code> – no building from source</li>
+<li><code>evolve</code> – no self-updating</li>
+</ul>
+<h2 id="five-orchestration-tools"><a class="header" href="#five-orchestration-tools">Five Orchestration Tools</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Tool</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>spawn_agent</code></td><td>Create a typed child agent to handle a sub-task autonomously in the background</td></tr>
+<tr><td><code>wait_agent</code></td><td>Wait for a spawned agent to complete and return its output (configurable timeout)</td></tr>
+<tr><td><code>send_input</code></td><td>Send follow-up instructions to a running agent (multi-turn conversation)</td></tr>
+<tr><td><code>close_agent</code></td><td>Terminate a running agent and clean up its resources</td></tr>
+<tr><td><code>resume_agent</code></td><td>Resume a completed or failed agent with a new prompt (preserves prior context)</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="spawn-an-agent"><a class="header" href="#spawn-an-agent">Spawn an Agent</a></h3>
+<pre><code>spawn_agent(
+  label: "refactor-auth",      # Human-readable label
+  agent_type: "code",          # general | explore | plan | code | research
+  prompt: "Refactor auth..."   # Task instruction
+)
+</code></pre>
+<p>The agent runs in its own session with auto-approved tools. No blocking – it executes in the background while the parent continues.</p>
+<h3 id="wait-for-completion"><a class="header" href="#wait-for-completion">Wait for Completion</a></h3>
+<pre><code>wait_agent(
+  agent_id: "abc-123",
+  timeout_secs: 300            # Max wait time (default: 300s)
+)
+</code></pre>
+<h3 id="multi-turn-with-send_input"><a class="header" href="#multi-turn-with-send_input">Multi-Turn with send_input</a></h3>
+<p>After spawning, you can send additional instructions without restarting:</p>
+<pre><code>send_input(
+  agent_id: "abc-123",
+  text: "Also add unit tests for the new module"
+)
+</code></pre>
+<p>The child agent processes the input on its next iteration. This enables iterative workflows – review the agent’s output, then ask it to refine or continue.</p>
+<h3 id="resume-a-completed-agent"><a class="header" href="#resume-a-completed-agent">Resume a Completed Agent</a></h3>
+<pre><code>resume_agent(
+  agent_id: "abc-123",
+  prompt: "Now port the same changes to the other two files"
+)
+</code></pre>
+<p>The agent continues in its original session, preserving all prior context. No need to re-explain the codebase.</p>
+<h2 id="team-orchestration"><a class="header" href="#team-orchestration">Team Orchestration</a></h2>
+<p>The <code>TeamManager</code> coordinates named groups of agents for parallel execution. Three team-specific tools:</p>
+<h3 id="create-a-team"><a class="header" href="#create-a-team">Create a Team</a></h3>
+<pre><code>team_create(
+  team_name: "backend-refactor",
+  agents: [
+    { label: "auth", agent_type: "code", prompt: "Refactor auth module" },
+    { label: "tests", agent_type: "code", prompt: "Write tests for auth" },
+    { label: "docs", agent_type: "general", prompt: "Update documentation" }
+  ]
+)
+</code></pre>
+<p>All agents spawn simultaneously and run in parallel. Returns the team name and all agent IDs.</p>
+<h3 id="broadcast-to-a-team"><a class="header" href="#broadcast-to-a-team">Broadcast to a Team</a></h3>
+<pre><code>team_broadcast(
+  team_name: "backend-refactor",
+  message: "Use the new AuthError enum instead of plain strings"
+)
+</code></pre>
+<p>Sends a message to all running agents in the team. Non-running agents are skipped. Useful for sharing context or direction changes.</p>
+<h3 id="delete-a-team"><a class="header" href="#delete-a-team">Delete a Team</a></h3>
+<pre><code>team_delete(team_name: "backend-refactor")
+</code></pre>
+<p>Cancels all running agents and cleans up resources. Completed agents are left in the subagent manager for reference.</p>
+<h2 id="subagent-providermodel-config"><a class="header" href="#subagent-providermodel-config">Subagent Provider/Model Config</a></h2>
+<p>By default, spawned agents inherit the parent’s provider and model. You can override this globally in <code>config.toml</code>:</p>
+<pre><code class="language-toml">[agent]
+subagent_provider = "openrouter"   # Provider for child agents
+subagent_model = "qwen/qwen3-235b" # Model override
+</code></pre>
+<p>This lets you run a powerful model (e.g. Claude Opus) for the main session while using a cheaper/faster model (e.g. Qwen) for sub-tasks. The override applies to all <code>spawn_agent</code> and <code>resume_agent</code> calls.</p>
+<p>If <code>subagent_provider</code> or <code>subagent_model</code> is not set, the spawned agent loads from the global default provider.</p>
+<h2 id="workflow-patterns"><a class="header" href="#workflow-patterns">Workflow Patterns</a></h2>
+<h3 id="parallel-research--implementation"><a class="header" href="#parallel-research--implementation">Parallel Research + Implementation</a></h3>
+<pre><code>team_create("feature-research", [
+  { label: "research", agent_type: "research", prompt: "Find best practices for rate limiting in Rust" },
+  { label: "explore", agent_type: "explore", prompt: "Find all middleware files in the codebase" }
+])
+</code></pre>
+<p>Wait for results, then spawn a code agent with the combined context.</p>
+<h3 id="iterative-code-review"><a class="header" href="#iterative-code-review">Iterative Code Review</a></h3>
+<pre><code># 1. Spawn a code agent
+spawn_agent(label: "impl", agent_type: "code", prompt: "Implement rate limiting middleware")
+
+# 2. Wait for completion
+wait_agent(agent_id: "impl-id")
+
+# 3. Resume with refinements
+resume_agent(agent_id: "impl-id", prompt: "Add tests for the edge cases we discussed")
+</code></pre>
+<h3 id="large-scale-refactoring"><a class="header" href="#large-scale-refactoring">Large-Scale Refactoring</a></h3>
+<pre><code>team_create("refactor-team", [
+  { label: "module-a", agent_type: "code", prompt: "Refactor module A to use the new trait" },
+  { label: "module-b", agent_type: "code", prompt: "Refactor module B to use the new trait" },
+  { label: "module-c", agent_type: "code", prompt: "Refactor module C to use the new trait" },
+  { label: "tests", agent_type: "code", prompt: "Update all tests for the new trait signature" }
+])
+</code></pre>
+<h2 id="testing"><a class="header" href="#testing">Testing</a></h2>
+<p>84 tests cover the entire multi-agent system:</p>
+<ul>
+<li>Manager state machine (spawn, wait, close lifecycle)</li>
+<li><code>SendInput</code> wiring and input loop</li>
+<li><code>CloseAgent</code> cleanup</li>
+<li><code>WaitAgent</code> timeout behavior</li>
+<li><code>AgentType</code> tool filtering</li>
+<li><code>TeamManager</code>, <code>TeamDelete</code>, <code>TeamBroadcast</code></li>
+<li>Registry exclusion (ALWAYS_EXCLUDED enforcement)</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
 <h1 id="agent-to-agent-a2a-protocol"><a class="header" href="#agent-to-agent-a2a-protocol">Agent-to-Agent (A2A) Protocol</a></h1>
 <p>OpenCrabs includes a built-in A2A gateway implementing the <a href="https://google.github.io/A2A/">A2A Protocol RC v1.0</a> for peer-to-peer agent communication.</p>
 <h2 id="enabling"><a class="header" href="#enabling">Enabling</a></h2>
@@ -2404,6 +2564,16 @@ curl http://127.0.0.1:18790/a2a/health | jq .
 <p>Model switching errors now surface the actual error with a <code>⚠️</code> prefix on all channels, instead of always showing “Model switched” even on failure.</p>
 <h2 id="utf-8-safety"><a class="header" href="#utf-8-safety">UTF-8 Safety</a></h2>
 <p><code>split_message()</code> across all 5 channel handlers (Telegram, Discord, Slack, WhatsApp, Trello) now uses <code>is_char_boundary()</code> to find safe split points, preventing panics on multi-byte characters (emojis, CJK, accented characters).</p>
+<h2 id="cancel-persistence-v0297"><a class="header" href="#cancel-persistence-v0297">Cancel Persistence (v0.2.97)</a></h2>
+<p>When a user double-Escapes to abort a streaming response, the partial content is now <strong>persisted to the database before <code>handle.abort()</code> fires</strong>. This means cancelled content survives a session reload – you can scroll back and see exactly what the agent was saying before you stopped it.</p>
+<h3 id="claude-cli-subprocess-cleanup"><a class="header" href="#claude-cli-subprocess-cleanup">Claude CLI Subprocess Cleanup</a></h3>
+<p>Previously, aborting a Claude CLI request would orphan the underlying <code>claude</code> subprocess. Now the stream reader loop monitors <code>tx.closed()</code> via <code>tokio::select!</code> and kills the child process when the receiver drops, preventing leaked subprocesses accumulating in the background.</p>
+<h3 id="telegram-stale-delivery-suppression"><a class="header" href="#telegram-stale-delivery-suppression">Telegram Stale Delivery Suppression</a></h3>
+<p>When a request is cancelled mid-flight, the agent sometimes continued processing and delivered a stale response to Telegram. A <code>cancel_token.is_cancelled()</code> guard now fires before final delivery, preventing old agent results from posting after cancellation.</p>
+<h3 id="config-overwrite-protection"><a class="header" href="#config-overwrite-protection">Config Overwrite Protection</a></h3>
+<p>The onboarding wizard previously overwrote existing channel settings on every save, causing data loss when re-running <code>/onboard</code>. <code>apply_config()</code> now scopes writes to only the current onboarding step. <code>from_config()</code> sets <code>EXISTING_KEY_SENTINEL</code> for all existing channel data, ensuring untouched fields are never overwritten.</p>
+<h3 id="tool-description-wrapping"><a class="header" href="#tool-description-wrapping">Tool Description Wrapping</a></h3>
+<p>Tool call descriptions were previously truncated at 80 characters in the TUI. <code>render_tool_group</code> now <strong>wraps</strong> description headers and value lines to terminal width, and the 80-char pre-truncation of bash commands in <code>format_tool_description</code> has been removed. Long commands and file paths display fully.</p>
 <h2 id="notifications"><a class="header" href="#notifications">Notifications</a></h2>
 <p>All self-healing events are delivered to:</p>
 <ul>
@@ -2939,7 +3109,8 @@ panic = "abort"
 <tr><td>Tests — Token Tracking</td><td style="text-align: right">29</td><td><code>src/tests/token_tracking_test.rs</code></td></tr>
 <tr><td>Tests — Cron Execution Storage</td><td style="text-align: right">6</td><td><code>src/tests/cron_results_test.rs</code></td></tr>
 <tr><td>Tests — LLM Artifact Stripping</td><td style="text-align: right">8</td><td><code>src/tests/artifact_strip_test.rs</code></td></tr>
-<tr><td><strong>Total</strong></td><td style="text-align: right"><strong>1,687</strong></td><td></td></tr>
+<tr><td>Tests — Subagent &amp; Team Orchestration</td><td style="text-align: right">84</td><td><code>src/tests/subagent_test.rs</code></td></tr>
+<tr><td><strong>Total</strong></td><td style="text-align: right"><strong>1,772</strong></td><td></td></tr>
 </tbody>
 </table>
 </div>

@@ -54,10 +54,10 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-c9ec34b5.js";
+            window.path_to_searchindex_js = "../searchindex-e5ce3164.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-4af21c49.js"></script>
+        <script src="../toc-e84a0f03.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -339,6 +339,16 @@
 <p>Model switching errors now surface the actual error with a <code>⚠️</code> prefix on all channels, instead of always showing “Model switched” even on failure.</p>
 <h2 id="utf-8-safety"><a class="header" href="#utf-8-safety">UTF-8 Safety</a></h2>
 <p><code>split_message()</code> across all 5 channel handlers (Telegram, Discord, Slack, WhatsApp, Trello) now uses <code>is_char_boundary()</code> to find safe split points, preventing panics on multi-byte characters (emojis, CJK, accented characters).</p>
+<h2 id="cancel-persistence-v0297"><a class="header" href="#cancel-persistence-v0297">Cancel Persistence (v0.2.97)</a></h2>
+<p>When a user double-Escapes to abort a streaming response, the partial content is now <strong>persisted to the database before <code>handle.abort()</code> fires</strong>. This means cancelled content survives a session reload – you can scroll back and see exactly what the agent was saying before you stopped it.</p>
+<h3 id="claude-cli-subprocess-cleanup"><a class="header" href="#claude-cli-subprocess-cleanup">Claude CLI Subprocess Cleanup</a></h3>
+<p>Previously, aborting a Claude CLI request would orphan the underlying <code>claude</code> subprocess. Now the stream reader loop monitors <code>tx.closed()</code> via <code>tokio::select!</code> and kills the child process when the receiver drops, preventing leaked subprocesses accumulating in the background.</p>
+<h3 id="telegram-stale-delivery-suppression"><a class="header" href="#telegram-stale-delivery-suppression">Telegram Stale Delivery Suppression</a></h3>
+<p>When a request is cancelled mid-flight, the agent sometimes continued processing and delivered a stale response to Telegram. A <code>cancel_token.is_cancelled()</code> guard now fires before final delivery, preventing old agent results from posting after cancellation.</p>
+<h3 id="config-overwrite-protection"><a class="header" href="#config-overwrite-protection">Config Overwrite Protection</a></h3>
+<p>The onboarding wizard previously overwrote existing channel settings on every save, causing data loss when re-running <code>/onboard</code>. <code>apply_config()</code> now scopes writes to only the current onboarding step. <code>from_config()</code> sets <code>EXISTING_KEY_SENTINEL</code> for all existing channel data, ensuring untouched fields are never overwritten.</p>
+<h3 id="tool-description-wrapping"><a class="header" href="#tool-description-wrapping">Tool Description Wrapping</a></h3>
+<p>Tool call descriptions were previously truncated at 80 characters in the TUI. <code>render_tool_group</code> now <strong>wraps</strong> description headers and value lines to terminal width, and the 80-char pre-truncation of bash commands in <code>format_tool_description</code> has been removed. Long commands and file paths display fully.</p>
 <h2 id="notifications"><a class="header" href="#notifications">Notifications</a></h2>
 <p>All self-healing events are delivered to:</p>
 <ul>
