@@ -117,7 +117,8 @@ cargo test --all-features
 | Tests — Cron Execution Storage | 6 | `src/tests/cron_results_test.rs` |
 | Tests — LLM Artifact Stripping | 8 | `src/tests/artifact_strip_test.rs` |
 | Tests — Subagent & Team Orchestration | 84 | `src/tests/subagent_test.rs` |
-| **Total** | **1,772** | |
+| Tests — Telegram Resume Pipeline | 55 | `src/tests/telegram_resume_test.rs` |
+| **Total** | **1,827** | |
 
 ---
 

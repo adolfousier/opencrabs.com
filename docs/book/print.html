@@ -55,7 +55,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-e5ce3164.js";
+            window.path_to_searchindex_js = "searchindex-12a1ceaa.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-e84a0f03.js"></script>
@@ -199,7 +199,7 @@
                     <main>
                         <h1 id="opencrabs"><a class="header" href="#opencrabs">OpenCrabs</a></h1>
 <p><strong>The autonomous AI agent. Single Rust binary. Every channel.</strong></p>
-<p>OpenCrabs is an open-source AI agent that runs in your terminal. It connects to any LLM provider, orchestrates 50+ built-in tools, and works from Telegram, Discord, Slack, WhatsApp, or the built-in TUI. Typed sub-agents and team orchestration, multi-profile isolation, OpenRouter reasoning, cross-channel crash recovery, self-healing config, persistent split panes, browser automation, and 1,772 tests.</p>
+<p>OpenCrabs is an open-source AI agent that runs in your terminal. It connects to any LLM provider, orchestrates 50+ built-in tools, and works from Telegram, Discord, Slack, WhatsApp, or the built-in TUI. Typed sub-agents and team orchestration, Qwen Code CLI (1k free req/day), vision-first file processing, auto-fallback on rate limits, multi-profile isolation, OpenRouter reasoning, cross-channel crash recovery, self-healing config, persistent split panes, browser automation, and 1,827 tests.</p>
 <h2 id="why-opencrabs"><a class="header" href="#why-opencrabs">Why OpenCrabs?</a></h2>
 <div class="table-wrapper">
 <table>
@@ -217,7 +217,7 @@
 </div>
 <h2 id="core-capabilities"><a class="header" href="#core-capabilities">Core Capabilities</a></h2>
 <ul>
-<li><strong>Multi-provider AI</strong> — Anthropic Claude, OpenAI, Google Gemini, OpenRouter (400+ models with reasoning support), MiniMax, z.ai GLM, Claude CLI, OpenCode CLI, Ollama, LM Studio, or any OpenAI-compatible API. Fallback chain for automatic failover. Per-session provider isolation. Function calling detection with model switch suggestions</li>
+<li><strong>Multi-provider AI</strong> — Anthropic Claude, OpenAI, Google Gemini, OpenRouter (400+ models with reasoning support), MiniMax, z.ai GLM, Qwen Code CLI (1k free req/day via OAuth), Claude CLI, OpenCode CLI, Ollama, LM Studio, or any OpenAI-compatible API. Auto-fallback on rate limits (saves state, resumes on fallback provider). Per-session provider isolation. Function calling detection with model switch suggestions. Vision-first file processing (PDFs and images via vision model before text extraction)</li>
 <li><strong>Every channel</strong> — Telegram, Discord, Slack, WhatsApp, or the built-in TUI with split panes. DB-persisted channel sessions survive restarts</li>
 <li><strong>50+ tools</strong> — File ops, bash, web search, code execution, image gen, browser automation, and user-defined dynamic tools</li>
 <li><strong>Multi-agent &amp; Teams</strong> — Typed sub-agents (General, Explore, Plan, Code, Research) with filtered tool registries. Team orchestration: spawn N agents in parallel with <code>team_create</code>, fan-out messages with <code>team_broadcast</code>. Configurable subagent provider/model. Full CLI with 20+ subcommands</li>
@@ -246,8 +246,11 @@
 <p>Three ways to get OpenCrabs running.</p>
 <h2 id="option-1-download-binary-recommended"><a class="header" href="#option-1-download-binary-recommended">Option 1: Download Binary (recommended)</a></h2>
 <p>Grab a pre-built binary from <a href="https://github.com/adolfousier/opencrabs/releases">GitHub Releases</a> — available for Linux (amd64/arm64), macOS (amd64/arm64), and Windows.</p>
-<pre><code class="language-bash"># Download and extract
-curl -fsSL https://github.com/adolfousier/opencrabs/releases/latest/download/opencrabs-$(uname -m)-$(uname -s | tr A-Z a-z).tar.gz | tar xz
+<pre><code class="language-bash"># Auto-detect platform and install latest release
+ARCH=$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/')
+OS=$(uname -s | tr A-Z a-z)
+TAG=$(curl -s https://api.github.com/repos/adolfousier/opencrabs/releases/latest | grep -o '"tag_name":"[^"]*"' | cut -d'"' -f4)
+curl -fsSL "https://github.com/adolfousier/opencrabs/releases/download/${TAG}/opencrabs-${TAG}-${OS}-${ARCH}.tar.gz" | tar xz
 
 # Run
 ./opencrabs
@@ -922,7 +925,7 @@ cargo build --release
 <p>Logs go to <code>~/.opencrabs/logs/</code> with 7-day retention.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="supported-ai-providers"><a class="header" href="#supported-ai-providers">Supported AI Providers</a></h1>
-<p>OpenCrabs supports 10+ AI providers out of the box. Switch between them at any time via <code>/models</code> in the TUI or any channel.</p>
+<p>OpenCrabs supports 11+ AI providers out of the box. Switch between them at any time via <code>/models</code> in the TUI or any channel.</p>
 <div class="table-wrapper">
 <table>
 <thead>
@@ -937,6 +940,7 @@ cargo build --release
 <tr><td><a href="#minimax">MiniMax</a></td><td>API key</td><td>M2.7, M2.5, M2.1, Text-01</td><td>Yes</td><td>Yes</td><td>Competitive pricing, auto-configured vision</td></tr>
 <tr><td><a href="#zai-zhipu-ai">z.ai GLM</a></td><td>API key</td><td>GLM-4.5 through GLM-5 Turbo</td><td>Yes</td><td>Yes</td><td>General API + Coding API endpoints</td></tr>
 <tr><td><a href="#claude-cli">Claude CLI</a></td><td>CLI auth</td><td>Via <code>claude</code> binary</td><td>Yes</td><td>Yes</td><td>Uses your Claude Code subscription</td></tr>
+<tr><td><a href="#qwen-code-cli">Qwen Code CLI</a></td><td>CLI auth (OAuth)</td><td>qwen3-coder-plus, qwen3.5-plus, qwen3.6-plus</td><td>Yes</td><td>Yes</td><td>1,000 free requests/day via Qwen OAuth</td></tr>
 <tr><td><a href="#opencode-cli">OpenCode CLI</a></td><td>None</td><td>Free models (Mimo, etc.)</td><td>Yes</td><td>Yes</td><td>Free — no API key or subscription needed</td></tr>
 <tr><td><a href="#custom-openai-compatible">Custom</a></td><td>Optional</td><td>Any</td><td>Yes</td><td>Yes</td><td>Ollama, LM Studio, Groq, NVIDIA, any OpenAI-compatible API</td></tr>
 </tbody>
@@ -2574,6 +2578,27 @@ curl http://127.0.0.1:18790/a2a/health | jq .
 <p>The onboarding wizard previously overwrote existing channel settings on every save, causing data loss when re-running <code>/onboard</code>. <code>apply_config()</code> now scopes writes to only the current onboarding step. <code>from_config()</code> sets <code>EXISTING_KEY_SENTINEL</code> for all existing channel data, ensuring untouched fields are never overwritten.</p>
 <h3 id="tool-description-wrapping"><a class="header" href="#tool-description-wrapping">Tool Description Wrapping</a></h3>
 <p>Tool call descriptions were previously truncated at 80 characters in the TUI. <code>render_tool_group</code> now <strong>wraps</strong> description headers and value lines to terminal width, and the 80-char pre-truncation of bash commands in <code>format_tool_description</code> has been removed. Long commands and file paths display fully.</p>
+<h2 id="auto-fallback-on-rate-limits-v0298"><a class="header" href="#auto-fallback-on-rate-limits-v0298">Auto-Fallback on Rate Limits (v0.2.98)</a></h2>
+<p>When the primary provider hits a rate or account limit mid-stream, OpenCrabs catches the <code>RateLimitExceeded</code> error, saves the current conversation state, and <strong>resumes the same conversation on a fallback provider</strong> configured in <code>[providers.fallback]</code>:</p>
+<pre><code class="language-toml">[providers.fallback]
+enabled = true
+providers = ["openrouter", "anthropic"]  # tried in order
+</code></pre>
+<p>The fallback chain reads from config at startup. <code>has_fallback_provider()</code> and <code>try_get_fallback_provider()</code> are available at runtime for dynamic queries.</p>
+<h3 id="two-tier-context-budget-enforcement"><a class="header" href="#two-tier-context-budget-enforcement">Two-Tier Context Budget Enforcement</a></h3>
+<p>Compaction budget scales proportionally to <code>max_tokens</code> instead of a hardcoded 170k, supporting custom providers with different context windows:</p>
+<ul>
+<li><strong>65% soft trigger</strong> — LLM compaction with retries (preserves meaning)</li>
+<li><strong>90% hard floor</strong> — Forced truncation to 75% (cannot fail)</li>
+<li>Pre-truncate target: 85% of max_tokens</li>
+<li>Compaction is <strong>silent to user</strong> — summary written to memory log only, no chat spam</li>
+</ul>
+<h3 id="mid-stream-decode-retry-v030"><a class="header" href="#mid-stream-decode-retry-v030">Mid-Stream Decode Retry (v0.3.0)</a></h3>
+<p>Transient stream decoding errors now trigger a <strong>3x backoff retry</strong> before falling back to the provider fallback chain. This reduces false provider switches caused by momentary network glitches.</p>
+<h3 id="sigint-handler--panic-hook-v030"><a class="header" href="#sigint-handler--panic-hook-v030">SIGINT Handler + Panic Hook (v0.3.0)</a></h3>
+<p>Proper terminal restoration on crash or Ctrl+C via custom SIGINT handler and panic hook. No more garbled terminal after interrupt — the handler restores raw mode, cursor visibility, and alternate screen before exiting.</p>
+<h3 id="proactive-rate-limiting-v0299"><a class="header" href="#proactive-rate-limiting-v0299">Proactive Rate Limiting (v0.2.99)</a></h3>
+<p>For OpenRouter <code>:free</code> models, OpenCrabs paces requests automatically using a shared global static limiter to avoid account-level bans. The rate limiter’s first-call sentinel (<code>last_granted=0</code>) no longer causes an unnecessary sleep.</p>
 <h2 id="notifications"><a class="header" href="#notifications">Notifications</a></h2>
 <p>All self-healing events are delivered to:</p>
 <ul>
@@ -3110,7 +3135,8 @@ panic = "abort"
 <tr><td>Tests — Cron Execution Storage</td><td style="text-align: right">6</td><td><code>src/tests/cron_results_test.rs</code></td></tr>
 <tr><td>Tests — LLM Artifact Stripping</td><td style="text-align: right">8</td><td><code>src/tests/artifact_strip_test.rs</code></td></tr>
 <tr><td>Tests — Subagent &amp; Team Orchestration</td><td style="text-align: right">84</td><td><code>src/tests/subagent_test.rs</code></td></tr>
-<tr><td><strong>Total</strong></td><td style="text-align: right"><strong>1,772</strong></td><td></td></tr>
+<tr><td>Tests — Telegram Resume Pipeline</td><td style="text-align: right">55</td><td><code>src/tests/telegram_resume_test.rs</code></td></tr>
+<tr><td><strong>Total</strong></td><td style="text-align: right"><strong>1,827</strong></td><td></td></tr>
 </tbody>
 </table>
 </div>

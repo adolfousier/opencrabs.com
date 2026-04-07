@@ -54,7 +54,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-e5ce3164.js";
+            window.path_to_searchindex_js = "../searchindex-12a1ceaa.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-e84a0f03.js"></script>
@@ -349,6 +349,27 @@
 <p>The onboarding wizard previously overwrote existing channel settings on every save, causing data loss when re-running <code>/onboard</code>. <code>apply_config()</code> now scopes writes to only the current onboarding step. <code>from_config()</code> sets <code>EXISTING_KEY_SENTINEL</code> for all existing channel data, ensuring untouched fields are never overwritten.</p>
 <h3 id="tool-description-wrapping"><a class="header" href="#tool-description-wrapping">Tool Description Wrapping</a></h3>
 <p>Tool call descriptions were previously truncated at 80 characters in the TUI. <code>render_tool_group</code> now <strong>wraps</strong> description headers and value lines to terminal width, and the 80-char pre-truncation of bash commands in <code>format_tool_description</code> has been removed. Long commands and file paths display fully.</p>
+<h2 id="auto-fallback-on-rate-limits-v0298"><a class="header" href="#auto-fallback-on-rate-limits-v0298">Auto-Fallback on Rate Limits (v0.2.98)</a></h2>
+<p>When the primary provider hits a rate or account limit mid-stream, OpenCrabs catches the <code>RateLimitExceeded</code> error, saves the current conversation state, and <strong>resumes the same conversation on a fallback provider</strong> configured in <code>[providers.fallback]</code>:</p>
+<pre><code class="language-toml">[providers.fallback]
+enabled = true
+providers = ["openrouter", "anthropic"]  # tried in order
+</code></pre>
+<p>The fallback chain reads from config at startup. <code>has_fallback_provider()</code> and <code>try_get_fallback_provider()</code> are available at runtime for dynamic queries.</p>
+<h3 id="two-tier-context-budget-enforcement"><a class="header" href="#two-tier-context-budget-enforcement">Two-Tier Context Budget Enforcement</a></h3>
+<p>Compaction budget scales proportionally to <code>max_tokens</code> instead of a hardcoded 170k, supporting custom providers with different context windows:</p>
+<ul>
+<li><strong>65% soft trigger</strong> — LLM compaction with retries (preserves meaning)</li>
+<li><strong>90% hard floor</strong> — Forced truncation to 75% (cannot fail)</li>
+<li>Pre-truncate target: 85% of max_tokens</li>
+<li>Compaction is <strong>silent to user</strong> — summary written to memory log only, no chat spam</li>
+</ul>
+<h3 id="mid-stream-decode-retry-v030"><a class="header" href="#mid-stream-decode-retry-v030">Mid-Stream Decode Retry (v0.3.0)</a></h3>
+<p>Transient stream decoding errors now trigger a <strong>3x backoff retry</strong> before falling back to the provider fallback chain. This reduces false provider switches caused by momentary network glitches.</p>
+<h3 id="sigint-handler--panic-hook-v030"><a class="header" href="#sigint-handler--panic-hook-v030">SIGINT Handler + Panic Hook (v0.3.0)</a></h3>
+<p>Proper terminal restoration on crash or Ctrl+C via custom SIGINT handler and panic hook. No more garbled terminal after interrupt — the handler restores raw mode, cursor visibility, and alternate screen before exiting.</p>
+<h3 id="proactive-rate-limiting-v0299"><a class="header" href="#proactive-rate-limiting-v0299">Proactive Rate Limiting (v0.2.99)</a></h3>
+<p>For OpenRouter <code>:free</code> models, OpenCrabs paces requests automatically using a shared global static limiter to avoid account-level bans. The rate limiter’s first-call sentinel (<code>last_granted=0</code>) no longer causes an unnecessary sleep.</p>
 <h2 id="notifications"><a class="header" href="#notifications">Notifications</a></h2>
 <p>All self-healing events are delivered to:</p>
 <ul>

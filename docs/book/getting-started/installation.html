@@ -54,7 +54,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-e5ce3164.js";
+            window.path_to_searchindex_js = "../searchindex-12a1ceaa.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-e84a0f03.js"></script>
@@ -200,8 +200,11 @@
 <p>Three ways to get OpenCrabs running.</p>
 <h2 id="option-1-download-binary-recommended"><a class="header" href="#option-1-download-binary-recommended">Option 1: Download Binary (recommended)</a></h2>
 <p>Grab a pre-built binary from <a href="https://github.com/adolfousier/opencrabs/releases">GitHub Releases</a> — available for Linux (amd64/arm64), macOS (amd64/arm64), and Windows.</p>
-<pre><code class="language-bash"># Download and extract
-curl -fsSL https://github.com/adolfousier/opencrabs/releases/latest/download/opencrabs-$(uname -m)-$(uname -s | tr A-Z a-z).tar.gz | tar xz
+<pre><code class="language-bash"># Auto-detect platform and install latest release
+ARCH=$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/')
+OS=$(uname -s | tr A-Z a-z)
+TAG=$(curl -s https://api.github.com/repos/adolfousier/opencrabs/releases/latest | grep -o '"tag_name":"[^"]*"' | cut -d'"' -f4)
+curl -fsSL "https://github.com/adolfousier/opencrabs/releases/download/${TAG}/opencrabs-${TAG}-${OS}-${ARCH}.tar.gz" | tar xz
 
 # Run
 ./opencrabs

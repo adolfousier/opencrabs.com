@@ -210,6 +210,39 @@ The onboarding wizard previously overwrote existing channel settings on every sa
 
 Tool call descriptions were previously truncated at 80 characters in the TUI. `render_tool_group` now **wraps** description headers and value lines to terminal width, and the 80-char pre-truncation of bash commands in `format_tool_description` has been removed. Long commands and file paths display fully.
 
+## Auto-Fallback on Rate Limits (v0.2.98)
+
+When the primary provider hits a rate or account limit mid-stream, OpenCrabs catches the `RateLimitExceeded` error, saves the current conversation state, and **resumes the same conversation on a fallback provider** configured in `[providers.fallback]`:
+
+```toml
+[providers.fallback]
+enabled = true
+providers = ["openrouter", "anthropic"]  # tried in order
+```
+
+The fallback chain reads from config at startup. `has_fallback_provider()` and `try_get_fallback_provider()` are available at runtime for dynamic queries.
+
+### Two-Tier Context Budget Enforcement
+
+Compaction budget scales proportionally to `max_tokens` instead of a hardcoded 170k, supporting custom providers with different context windows:
+
+- **65% soft trigger** — LLM compaction with retries (preserves meaning)
+- **90% hard floor** — Forced truncation to 75% (cannot fail)
+- Pre-truncate target: 85% of max_tokens
+- Compaction is **silent to user** — summary written to memory log only, no chat spam
+
+### Mid-Stream Decode Retry (v0.3.0)
+
+Transient stream decoding errors now trigger a **3x backoff retry** before falling back to the provider fallback chain. This reduces false provider switches caused by momentary network glitches.
+
+### SIGINT Handler + Panic Hook (v0.3.0)
+
+Proper terminal restoration on crash or Ctrl+C via custom SIGINT handler and panic hook. No more garbled terminal after interrupt — the handler restores raw mode, cursor visibility, and alternate screen before exiting.
+
+### Proactive Rate Limiting (v0.2.99)
+
+For OpenRouter `:free` models, OpenCrabs paces requests automatically using a shared global static limiter to avoid account-level bans. The rate limiter's first-call sentinel (`last_granted=0`) no longer causes an unnecessary sleep.
+
 ## Notifications
 
 All self-healing events are delivered to:

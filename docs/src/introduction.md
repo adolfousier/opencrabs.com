@@ -2,7 +2,7 @@
 
 **The autonomous AI agent. Single Rust binary. Every channel.**
 
-OpenCrabs is an open-source AI agent that runs in your terminal. It connects to any LLM provider, orchestrates 50+ built-in tools, and works from Telegram, Discord, Slack, WhatsApp, or the built-in TUI. Typed sub-agents and team orchestration, multi-profile isolation, OpenRouter reasoning, cross-channel crash recovery, self-healing config, persistent split panes, browser automation, and 1,772 tests.
+OpenCrabs is an open-source AI agent that runs in your terminal. It connects to any LLM provider, orchestrates 50+ built-in tools, and works from Telegram, Discord, Slack, WhatsApp, or the built-in TUI. Typed sub-agents and team orchestration, Qwen Code CLI (1k free req/day), vision-first file processing, auto-fallback on rate limits, multi-profile isolation, OpenRouter reasoning, cross-channel crash recovery, self-healing config, persistent split panes, browser automation, and 1,827 tests.
 
 ## Why OpenCrabs?
 
@@ -16,7 +16,7 @@ OpenCrabs is an open-source AI agent that runs in your terminal. It connects to 
 
 ## Core Capabilities
 
-- **Multi-provider AI** — Anthropic Claude, OpenAI, Google Gemini, OpenRouter (400+ models with reasoning support), MiniMax, z.ai GLM, Claude CLI, OpenCode CLI, Ollama, LM Studio, or any OpenAI-compatible API. Fallback chain for automatic failover. Per-session provider isolation. Function calling detection with model switch suggestions
+- **Multi-provider AI** — Anthropic Claude, OpenAI, Google Gemini, OpenRouter (400+ models with reasoning support), MiniMax, z.ai GLM, Qwen Code CLI (1k free req/day via OAuth), Claude CLI, OpenCode CLI, Ollama, LM Studio, or any OpenAI-compatible API. Auto-fallback on rate limits (saves state, resumes on fallback provider). Per-session provider isolation. Function calling detection with model switch suggestions. Vision-first file processing (PDFs and images via vision model before text extraction)
 - **Every channel** — Telegram, Discord, Slack, WhatsApp, or the built-in TUI with split panes. DB-persisted channel sessions survive restarts
 - **50+ tools** — File ops, bash, web search, code execution, image gen, browser automation, and user-defined dynamic tools
 - **Multi-agent & Teams** — Typed sub-agents (General, Explore, Plan, Code, Research) with filtered tool registries. Team orchestration: spawn N agents in parallel with `team_create`, fan-out messages with `team_broadcast`. Configurable subagent provider/model. Full CLI with 20+ subcommands

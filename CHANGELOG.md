@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.6] - 2026-04-07
+
+### Added
+- Qwen Code CLI provider added to providers overview (1k free req/day via OAuth, qwen3-coder-plus, qwen3.5-plus, qwen3.6-plus)
+- Self-healing: auto-fallback on rate limits (saves state, resumes on fallback provider), two-tier context budget enforcement (65% soft / 90% hard), mid-stream decode retry (3x backoff), SIGINT handler + panic hook, proactive rate limiting for OpenRouter :free models
+- Introduction: vision-first file processing, Qwen Code CLI, auto-fallback on rate limits
+- Testing: 1,772 → 1,827 tests (+55 Telegram resume pipeline tests)
+- Landing page: updated hero with 1,827 tests, 11+ providers
+
+### Fixed
+- **Issue #56**: Installation download URL broken on Ubuntu 24 — `uname -m` produced `x86_64` but release assets use `amd64`. Fixed with proper arch mapping (`x86_64→amd64`, `aarch64→arm64`) and version-tagged URLs in both docs and landing page
+
+### Changed
+- Synced docs with OpenCrabs v0.2.98, v0.2.99, v0.3.0
+
 ## [0.1.5] - 2026-04-04
 
 ### Added

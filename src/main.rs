@@ -206,8 +206,8 @@ fn Hero() -> impl IntoView {
                 <h1>"OpenCrabs"</h1>
                 <p class="hero-tagline">"THE AI AGENT THAT LIVES IN YOUR TERMINAL."</p>
                 <p class="hero-description">
-                    "Open-source AI agent built in Rust. 50+ tools, 10+ providers, multi-agent teams, "
-                    "self-healing, and every channel. 1,772 tests."
+                    "Open-source AI agent built in Rust. 50+ tools, 11+ providers, multi-agent teams, "
+                    "self-healing, and every channel. 1,827 tests."
                 </p>
                 <a href="https://github.com/adolfousier/opencrabs/releases/latest" class="hero-badge">
                     <span class="badge-new">"LATEST"</span>
@@ -293,7 +293,7 @@ fn QuickStart(tag: Signal<String>) -> impl IntoView {
                                         <div>
                                             <span class="terminal-prompt">"$ "</span>
                                             <span class="terminal-cmd">
-                                                "curl -fsSL https://github.com/adolfousier/opencrabs/releases/latest/download/opencrabs-$(uname -m)-$(uname -s | tr A-Z a-z).tar.gz | tar xz"
+                                                "ARCH=$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/') OS=$(uname -s | tr A-Z a-z) TAG=$(curl -s https://api.github.com/repos/adolfousier/opencrabs/releases/latest | grep -o '\"tag_name\":\"[^\"]*\"' | cut -d'\"' -f4) && curl -fsSL \"https://github.com/adolfousier/opencrabs/releases/download/$TAG/opencrabs-$TAG-$OS-$ARCH.tar.gz\" | tar xz"
                                             </span>
                                         </div>
                                         <div>
