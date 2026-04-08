@@ -509,9 +509,9 @@ fn Testimonials() -> impl IntoView {
             "https://x.com/opryshok/status/2030282770912522288",
         ),
         (
-            "That 130MB all-in path is a big deal for folks who want voice agents without API burn.",
-            "@CurrentlyKI",
-            "https://x.com/CurrentlyKI/status/2031188774483538125",
+            "After I was using OpenClaw and Hermes, OpenCrabs is the first agent I click with.",
+            "@anschmieg",
+            "https://github.com/adolfousier/opencrabs/pull/61#issuecomment-4201983933",
         ),
     ];
 
