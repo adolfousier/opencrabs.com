@@ -207,7 +207,7 @@ fn Hero() -> impl IntoView {
                 <p class="hero-tagline">"THE AI AGENT THAT LIVES IN YOUR TERMINAL."</p>
                 <p class="hero-description">
                     "Open-source AI agent built in Rust. 50+ tools, 11+ providers, multi-agent teams, "
-                    "self-healing, and every channel. 1,827 tests."
+                    "self-healing, and every channel. 1,827+ tests."
                 </p>
                 <a href="https://github.com/adolfousier/opencrabs/releases/latest" class="hero-badge">
                     <span class="badge-new">"LATEST"</span>

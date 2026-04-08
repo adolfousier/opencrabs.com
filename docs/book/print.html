@@ -55,7 +55,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-12a1ceaa.js";
+            window.path_to_searchindex_js = "searchindex-8142d966.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-e84a0f03.js"></script>
@@ -199,7 +199,7 @@
                     <main>
                         <h1 id="opencrabs"><a class="header" href="#opencrabs">OpenCrabs</a></h1>
 <p><strong>The autonomous AI agent. Single Rust binary. Every channel.</strong></p>
-<p>OpenCrabs is an open-source AI agent that runs in your terminal. It connects to any LLM provider, orchestrates 50+ built-in tools, and works from Telegram, Discord, Slack, WhatsApp, or the built-in TUI. Typed sub-agents and team orchestration, Qwen Code CLI (1k free req/day), vision-first file processing, auto-fallback on rate limits, multi-profile isolation, OpenRouter reasoning, cross-channel crash recovery, self-healing config, persistent split panes, browser automation, and 1,827 tests.</p>
+<p>OpenCrabs is an open-source AI agent that runs in your terminal. It connects to any LLM provider, orchestrates 50+ built-in tools, and works from Telegram, Discord, Slack, WhatsApp, or the built-in TUI. Typed sub-agents and team orchestration, Qwen Code CLI (1k free req/day), vision-first file processing, auto-fallback on rate limits, multi-profile isolation, OpenRouter reasoning, cross-channel crash recovery, self-healing config, persistent split panes, browser automation, bang operator for instant shell commands, auto-update on startup, and 1,827+ tests.</p>
 <h2 id="why-opencrabs"><a class="header" href="#why-opencrabs">Why OpenCrabs?</a></h2>
 <div class="table-wrapper">
 <table>
@@ -529,6 +529,30 @@ model = "gemini-3.1-flash-image-preview"
 <tr><td><code>onboard</code></td><td>Run the setup wizard</td></tr>
 <tr><td><code>completions</code></td><td>Generate shell completions (bash/zsh/fish/powershell)</td></tr>
 <tr><td><code>version</code></td><td>Show version info</td></tr>
+<tr><td><code>!command</code></td><td><strong>Bang operator</strong> — Run any shell command instantly without an LLM round-trip. Output shown as system message. e.g. <code>!git status</code>, <code>!ls -la</code></td></tr>
+<tr><td><code>/evolve</code></td><td><strong>Auto-update</strong> — Downloads latest release and hot-restarts. Runs automatically on startup when <code>[agent] auto_update = true</code></td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="configuration-flags"><a class="header" href="#configuration-flags">Configuration Flags</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Flag</th><th>Default</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>[agent] auto_update</code></td><td><code>true</code></td><td>Auto-install new releases on startup and hot-restart. Set to <code>false</code> to keep the manual prompt dialog.</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="keyboard-shortcuts-tui"><a class="header" href="#keyboard-shortcuts-tui">Keyboard Shortcuts (TUI)</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Shortcut</th><th>Action</th></tr>
+</thead>
+<tbody>
+<tr><td><code>F12</code></td><td>Toggle mouse capture on/off for native terminal text selection</td></tr>
 </tbody>
 </table>
 </div>

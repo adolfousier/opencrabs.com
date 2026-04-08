@@ -27,6 +27,20 @@ opencrabs [COMMAND] [OPTIONS]
 | `onboard` | Run the setup wizard |
 | `completions` | Generate shell completions (bash/zsh/fish/powershell) |
 | `version` | Show version info |
+| `!command` | **Bang operator** — Run any shell command instantly without an LLM round-trip. Output shown as system message. e.g. `!git status`, `!ls -la` |
+| `/evolve` | **Auto-update** — Downloads latest release and hot-restarts. Runs automatically on startup when `[agent] auto_update = true` |
+
+## Configuration Flags
+
+| Flag | Default | Description |
+|------|---------|-------------|
+| `[agent] auto_update` | `true` | Auto-install new releases on startup and hot-restart. Set to `false` to keep the manual prompt dialog. |
+
+## Keyboard Shortcuts (TUI)
+
+| Shortcut | Action |
+|----------|--------|
+| `F12` | Toggle mouse capture on/off for native terminal text selection |
 
 ## Startup Update Prompt
 

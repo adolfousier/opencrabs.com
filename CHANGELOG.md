@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.7] - 2026-04-07
+
+### Added
+- Bang operator (`!cmd`) documentation — run shell commands directly from TUI without LLM round-trip
+- Auto-update on startup (`[agent] auto_update` config flag, default `true`)
+- Programmatic `/evolve` — runs directly, no longer routed through LLM
+- F12 mouse capture toggle for native terminal text selection
+- Landing page: anschmieg review ("OpenCrabs is the first agent I click with")
+- CLI commands doc: bang operator, auto-update config, keyboard shortcuts section
+
+### Changed
+- Test count updated to 1,827+
+- Introduction updated with bang operator, auto-update on startup
+
 ## [0.1.6] - 2026-04-07
 
 ### Added
