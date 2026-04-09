@@ -54,7 +54,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-8142d966.js";
+            window.path_to_searchindex_js = "searchindex-dc895d4f.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-e84a0f03.js"></script>
@@ -196,49 +196,149 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="opencrabs"><a class="header" href="#opencrabs">OpenCrabs</a></h1>
-<p><strong>The autonomous AI agent. Single Rust binary. Every channel.</strong></p>
-<p>OpenCrabs is an open-source AI agent that runs in your terminal. It connects to any LLM provider, orchestrates 50+ built-in tools, and works from Telegram, Discord, Slack, WhatsApp, or the built-in TUI. Typed sub-agents and team orchestration, Qwen Code CLI (1k free req/day), vision-first file processing, auto-fallback on rate limits, multi-profile isolation, OpenRouter reasoning, cross-channel crash recovery, self-healing config, persistent split panes, browser automation, bang operator for instant shell commands, auto-update on startup, and 1,827+ tests.</p>
-<h2 id="why-opencrabs"><a class="header" href="#why-opencrabs">Why OpenCrabs?</a></h2>
-<div class="table-wrapper">
-<table>
-<thead>
-<tr><th></th><th>OpenCrabs</th><th>Node.js Frameworks</th></tr>
-</thead>
-<tbody>
-<tr><td><strong>Binary size</strong></td><td>17-22 MB</td><td>1 GB+ (node_modules)</td></tr>
-<tr><td><strong>Runtime deps</strong></td><td>Zero</td><td>Node.js + npm + native modules</td></tr>
-<tr><td><strong>API keys</strong></td><td><code>keys.toml</code> (local file)</td><td><code>.env</code> (process env pollution)</td></tr>
-<tr><td><strong>Data residency</strong></td><td>Local SQLite</td><td>Varies</td></tr>
-<tr><td><strong>Memory safety</strong></td><td>Rust (compile-time)</td><td>JavaScript (runtime)</td></tr>
-</tbody>
-</table>
-</div>
-<h2 id="core-capabilities"><a class="header" href="#core-capabilities">Core Capabilities</a></h2>
+                        <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
+<p><strong>OpenCrabs</strong> is a self-hosted, provider-agnostic AI orchestration agent that runs as a single Rust binary. It automates your terminal, browser, channels (Telegram/Discord/Slack/WhatsApp/Trello), and codebase — all while respecting your privacy and keeping you in control.</p>
+<h2 id="what-makes-opencrabs-different"><a class="header" href="#what-makes-opencrabs-different">What Makes OpenCrabs Different</a></h2>
+<h3 id="-provider-agnostic-with-native-cli-integration"><a class="header" href="#-provider-agnostic-with-native-cli-integration">🔄 Provider-Agnostic with Native CLI Integration</a></h3>
 <ul>
-<li><strong>Multi-provider AI</strong> — Anthropic Claude, OpenAI, Google Gemini, OpenRouter (400+ models with reasoning support), MiniMax, z.ai GLM, Qwen Code CLI (1k free req/day via OAuth), Claude CLI, OpenCode CLI, Ollama, LM Studio, or any OpenAI-compatible API. Auto-fallback on rate limits (saves state, resumes on fallback provider). Per-session provider isolation. Function calling detection with model switch suggestions. Vision-first file processing (PDFs and images via vision model before text extraction)</li>
-<li><strong>Every channel</strong> — Telegram, Discord, Slack, WhatsApp, or the built-in TUI with split panes. DB-persisted channel sessions survive restarts</li>
-<li><strong>50+ tools</strong> — File ops, bash, web search, code execution, image gen, browser automation, and user-defined dynamic tools</li>
-<li><strong>Multi-agent &amp; Teams</strong> — Typed sub-agents (General, Explore, Plan, Code, Research) with filtered tool registries. Team orchestration: spawn N agents in parallel with <code>team_create</code>, fan-out messages with <code>team_broadcast</code>. Configurable subagent provider/model. Full CLI with 20+ subcommands</li>
-<li><strong>Persistent memory</strong> — 3-tier memory system: daily notes, long-term memory, semantic search</li>
-<li><strong>Self-healing</strong> — Auto-recovers corrupted config from last-known-good snapshots, tracks per-provider health with auto-failover, 65% context budget management with LLM compaction, stuck stream detection, emergency ARG_MAX compaction. Cross-channel crash recovery routes pending requests back to originating Telegram/Discord/Slack chat on restart. CLI idle timeout extended to 10 minutes (cargo builds don’t time out). DB integrity checks. All recovery events delivered as visible notifications across TUI and channels</li>
-<li><strong>Self-evolving</strong> — Type <code>/evolve</code> to download the latest version, or <code>/rebuild</code> to build from source. Startup update prompt offers one-click upgrades. <code>/evolve</code> works directly on channels without LLM routing</li>
-<li><strong>Shared channel commands</strong> — <code>/doctor</code>, <code>/help</code>, <code>/usage</code>, <code>/evolve</code> execute instantly on all channels via a shared command handler (847-line module), no LLM round-trip required</li>
-<li><strong>Agent-to-Agent</strong> — Built-in A2A gateway for peer-to-peer agent communication</li>
-<li><strong>Cron jobs</strong> — Schedule isolated or main-session tasks with cron expressions</li>
-<li><strong>Browser automation</strong> — Native headless Chrome control via CDP with smart browser detection</li>
-<li><strong>Voice</strong> — Local STT (rwhisper/Metal GPU) and TTS (Piper), plus API options (Groq Whisper, OpenAI TTS)</li>
-<li><strong>Plans</strong> — Structured multi-step task planning with approval workflow</li>
-<li><strong>Daemon mode</strong> — Background operation with health endpoints and auto-reconnecting channel bots</li>
-<li><strong>Multi-profile</strong> — Isolated instances per profile: separate config, brain files, sessions, and daemon services. Token-lock isolation, profile export/import as <code>.tar.gz</code>, migration between profiles</li>
-<li><strong>Cron job storage</strong> — Execution results stored in DB for querying, multi-target delivery (comma-separated channels + webhooks)</li>
+<li><strong>11+ built-in providers</strong>: Anthropic, OpenAI, Gemini, OpenRouter, Qwen (OAuth + CLI), MiniMax, Ollama, LM Studio, vLLM, NVIDIA, Dialagram</li>
+<li><strong>Claude Code CLI &amp; OpenCode CLI</strong> integrated as native providers — use their models without API keys</li>
+<li><strong>Custom OpenAI-compatible backends</strong> now stream thinking tokens, tool calls, and intermediate text exactly like native providers (v0.3.2)</li>
+<li><strong>Sticky fallback chain</strong> — auto-failover to secondary providers on rate limits or errors</li>
+<li><strong>Prompt caching</strong> across Anthropic, OpenRouter, Gemini, Qwen DashScope — reduces costs up to 95% (v0.3.2)</li>
 </ul>
-<h2 id="quick-links"><a class="header" href="#quick-links">Quick Links</a></h2>
+<h3 id="-multi-agent-orchestration"><a class="header" href="#-multi-agent-orchestration">🤖 Multi-Agent Orchestration</a></h3>
 <ul>
-<li><a href="https://github.com/adolfousier/opencrabs">GitHub Repository</a></li>
-<li><a href="https://github.com/adolfousier/opencrabs/releases">Releases</a></li>
-<li><a href="https://github.com/adolfousier/opencrabs/issues">Issues</a></li>
-<li><a href="./changelog.html">Changelog</a></li>
+<li><strong>Typed sub-agents</strong>: <code>general</code>, <code>explore</code>, <code>plan</code>, <code>code</code>, <code>research</code> — each with tailored tool access</li>
+<li><strong>Team orchestration</strong>: <code>team_create</code>, <code>team_broadcast</code>, <code>team_delete</code> for coordinated workflows</li>
+<li><strong>Spawn/wait/resume</strong> sub-agents with A2A protocol support</li>
+<li><strong>ALWAYS_EXCLUDED tools</strong> per agent type for safety boundaries</li>
+</ul>
+<h3 id="-channel-native-communication"><a class="header" href="#-channel-native-communication">🌐 Channel-Native Communication</a></h3>
+<ul>
+<li><strong>Telegram, Discord, Slack, WhatsApp, Trello</strong> — respond to messages, send files, manage threads</li>
+<li><strong>Cross-channel crash recovery</strong> — pending requests route back to originating channel on restart (v0.2.93)</li>
+<li><strong>DB-persisted channel sessions</strong> — state survives restarts</li>
+<li><strong>Voice support</strong> — local Whisper STT + Piper TTS, fully offline</li>
+</ul>
+<h3 id="-self-healing--resilience-v032"><a class="header" href="#-self-healing--resilience-v032">🧠 Self-Healing &amp; Resilience (v0.3.2)</a></h3>
+<ul>
+<li><strong>Context budget management</strong>: 65% soft / 90% hard compaction thresholds with 3-retry LLM fallback</li>
+<li><strong>Stuck stream detection</strong>: 2048-byte rolling window catches repeating patterns, auto-recover</li>
+<li><strong>Gaslighting defense</strong>: strips tool-refusal preambles mid-turn across 4+ phrase families</li>
+<li><strong>Panic recovery</strong>: TUI recovers from render panics, clamps title splits instead of crashing</li>
+<li><strong>Mid-stream error handling</strong>: quota/rate-limit errors trigger sticky-fallback swap, not silent drops</li>
+<li><strong>Cancel persistence</strong>: in-flight requests survive restarts and resume on original channel</li>
+</ul>
+<h3 id="-terminal-ui-excellence-v032"><a class="header" href="#-terminal-ui-excellence-v032">🖥️ Terminal UI Excellence (v0.3.2)</a></h3>
+<ul>
+<li><strong>Header card overlay</strong> replaces splash screen — animated, responsive, vanishes after load</li>
+<li><strong>Select/Drag to Copy</strong> — native mouse selection in TUI, auto-copies to clipboard on release</li>
+<li><strong>O(N) input render</strong> — tall pastes no longer cause quadratic render cost; scroll-to-cursor preserved</li>
+<li><strong>Emoji cursor rendering</strong> — grapheme cluster extraction for multi-byte emoji highlighting</li>
+<li><strong>Line navigation in multiline</strong> — Up/Down navigates lines inside recalled multi-line input</li>
+<li><strong>F12 mouse capture toggle</strong> — toggle native terminal text selection without exiting TUI</li>
+<li><strong>Async session load</strong> — instant first paint, messages load in background</li>
+</ul>
+<h3 id="-developer-experience"><a class="header" href="#-developer-experience">🔧 Developer Experience</a></h3>
+<ul>
+<li><strong>Bang operator (<code>!cmd</code>)</strong> — run shell commands directly from TUI input, no LLM round-trip (v0.3.1)</li>
+<li><strong>Full CLI surface</strong>: 20+ subcommands (<code>/models</code>, <code>/approve</code>, <code>/compact</code>, <code>/rebuild</code>, <code>/evolve</code>, <code>/new</code>, <code>/doctor</code>, etc.)</li>
+<li><strong>Programmatic <code>/evolve</code></strong> — bypasses LLM, runs update directly (v0.3.1)</li>
+<li><strong>Auto-update on startup</strong> — <code>[agent] auto_update = true</code> silently installs + hot-restarts (v0.3.1)</li>
+<li><strong>Dynamic tools</strong> — runtime-defined via TOML (HTTP + shell executors)</li>
+<li><strong>Split panes</strong> — tmux-style parallel sessions with layout persistence</li>
+</ul>
+<h3 id="-browser-automation"><a class="header" href="#-browser-automation">🌐 Browser Automation</a></h3>
+<ul>
+<li><strong>Full CDP support</strong>: navigate, click, type, screenshot, JS eval, wait for selectors</li>
+<li><strong>Headless or headed</strong> mode, element-specific screenshots</li>
+<li><strong>Cookie/session persistence</strong> across browser sessions</li>
+</ul>
+<h3 id="-security--privacy"><a class="header" href="#-security--privacy">🔐 Security &amp; Privacy</a></h3>
+<ul>
+<li><strong>Zero telemetry</strong> — nothing sent anywhere, ever</li>
+<li><strong>API key security</strong>: <code>zeroize</code> on drop, separate <code>keys.toml</code> (chmod 600)</li>
+<li><strong>Tool path resolution centralized</strong> — tilde expansion, relative paths, symlink handling in one place (v0.3.2)</li>
+<li><strong>Auto-approve propagation</strong> — <code>approval_policy = "auto-always"</code> actually reaches tool loop (v0.3.2)</li>
+</ul>
+<h3 id="-testing--quality"><a class="header" href="#-testing--quality">📊 Testing &amp; Quality</a></h3>
+<ul>
+<li><strong>1,827+ tests</strong> covering providers, tools, channels, TUI, self-healing, crash recovery</li>
+<li><strong>6 new test categories</strong>: subagent orchestration, team workflows, Telegram resume pipeline, token tracking, cross-channel recovery, cron execution storage</li>
+<li><strong>CI/CD</strong>: GitHub Actions, CodeQL, release automation</li>
+</ul>
+<h2 id="quick-start"><a class="header" href="#quick-start">Quick Start</a></h2>
+<pre><code class="language-bash"># Install (Linux/macOS)
+ARCH=$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/')
+OS=$(uname -s | tr A-Z a-z)
+# Requires jq for reliable tag parsing; fallback to grep if unavailable
+TAG=$(command -v jq &gt;/dev/null 2&gt;&amp;1 &amp;&amp; curl -s https://api.github.com/repos/adolfousier/opencrabs/releases/latest | jq -r .tag_name || curl -s https://api.github.com/repos/adolfousier/opencrabs/releases/latest | grep -o '"tag_name":"[^"]*"' | cut -d'"' -f4)
+curl -fsSL "https://github.com/adolfousier/opencrabs/releases/download/${TAG}/opencrabs-${TAG}-${OS}-${ARCH}.tar.gz" | tar xz
+./opencrabs
+
+# Or via Cargo (requires Rust 1.94+)
+cargo install opencrabs --locked
+
+# Auto-update enabled by default; disable with [agent] auto_update = false in ~/.opencrabs/config.toml
+</code></pre>
+<h2 id="architecture-overview"><a class="header" href="#architecture-overview">Architecture Overview</a></h2>
+<pre><code>┌─────────────────────────────────────────┐
+│           OpenCrabs Binary              │
+│  (Single 17-22 MB Rust executable)      │
+├─────────────────────────────────────────┤
+│  ┌─────────────┐  ┌─────────────────┐  │
+│  │   TUI       │  │   CLI Daemon    │  │
+│  │  (crossterm)│  │  (systemd/launchd)││
+│  └─────────────┘  └─────────────────┘  │
+│                                         │
+│  ┌─────────────────────────────────┐   │
+│  │        Provider Registry         │   │
+│  │  • Native: Anthropic, OpenAI... │   │
+│  │  • CLI: Claude Code, OpenCode   │   │
+│  │  • Custom: any OpenAI-compatible│   │
+│  │  • Fallback chain w/ sticky swap│   │
+│  └─────────────────────────────────┘   │
+│                                         │
+│  ┌─────────────────────────────────┐   │
+│  │        Tool Layer                │   │
+│  │  • 50+ built-in tools           │   │
+│  │  • Dynamic tools via TOML       │   │
+│  │  • ALWAYS_EXCLUDED per agent    │   │
+│  │  • Centralized path resolution  │   │
+│  └─────────────────────────────────┘   │
+│                                         │
+│  ┌─────────────────────────────────┐   │
+│  │        Channel Adapters          │   │
+│  │  • Telegram/Discord/Slack/      │   │
+│  │    WhatsApp/Trello/Voice        │   │
+│  │  • Cross-channel crash recovery │   │
+│  └─────────────────────────────────┘   │
+│                                         │
+│  ┌─────────────────────────────────┐   │
+│  │        Self-Healing Layer       │   │
+│  │  • Context budget management    │   │
+│  │  • Stuck stream detection       │   │
+│  │  • Gaslighting refusal strip    │   │
+│  │  • Panic recovery + cancel persist││
+│  └─────────────────────────────────┘   │
+│                                         │
+│  ┌─────────────────────────────────┐   │
+│  │        Persistence              │   │
+│  │  • SQLite sessions + memory DB  │   │
+│  │  • Brain files (~/.opencrabs/)  │   │
+│  │  • Hybrid FTS5 + vector search  │   │
+│  └─────────────────────────────────┘   │
+└─────────────────────────────────────────┘
+</code></pre>
+<h2 id="next-steps"><a class="header" href="#next-steps">Next Steps</a></h2>
+<ul>
+<li><a href="getting-started/installation.html">Getting Started</a> — Install and configure</li>
+<li><a href="brain/providers-overview.html">Providers</a> — Connect your LLM backends</li>
+<li><a href="brain/tools.html">Tools</a> — Explore 50+ built-in capabilities</li>
+<li><a href="channels/overview.html">Channels</a> — Connect Telegram, Discord, etc.</li>
+<li><a href="features/self-healing.html">Self-Healing</a> — Understand resilience features</li>
+<li><a href="features/multi-agent.html">Multi-Agent</a> — Orchestrate sub-agents and teams</li>
 </ul>
 
                     </main>
