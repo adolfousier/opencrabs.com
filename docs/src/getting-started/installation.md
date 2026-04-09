@@ -7,15 +7,20 @@ Three ways to get OpenCrabs running.
 Grab a pre-built binary from [GitHub Releases](https://github.com/adolfousier/opencrabs/releases) — available for Linux (amd64/arm64), macOS (amd64/arm64), and Windows.
 
 ```bash
-# Auto-detect platform and install latest release
+# Auto-detect platform and install latest release (requires jq)
 ARCH=$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/')
 OS=$(uname -s | tr A-Z a-z)
-TAG=$(curl -s https://api.github.com/repos/adolfousier/opencrabs/releases/latest | grep -o '"tag_name":"[^"]*"' | cut -d'"' -f4)
+TAG=$(curl -s https://api.github.com/repos/adolfousier/opencrabs/releases/latest | jq -r .tag_name)
 curl -fsSL "https://github.com/adolfousier/opencrabs/releases/download/${TAG}/opencrabs-${TAG}-${OS}-${ARCH}.tar.gz" | tar xz
 
 # Run
 ./opencrabs
 ```
+
+> No `jq`? Use this fallback:
+> ```bash
+> TAG=$(curl -s https://api.github.com/repos/adolfousier/opencrabs/releases/latest | grep -oP '"tag_name":\s*"\K[^"]+')
+> ```
 
 The onboarding wizard handles everything on first run.
 
