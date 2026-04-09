@@ -1,41 +1,143 @@
-# OpenCrabs
+# Introduction
 
-**The autonomous AI agent. Single Rust binary. Every channel.**
+**OpenCrabs** is a self-hosted, provider-agnostic AI orchestration agent that runs as a single Rust binary. It automates your terminal, browser, channels (Telegram/Discord/Slack/WhatsApp/Trello), and codebase — all while respecting your privacy and keeping you in control.
 
-OpenCrabs is an open-source AI agent that runs in your terminal. It connects to any LLM provider, orchestrates 50+ built-in tools, and works from Telegram, Discord, Slack, WhatsApp, or the built-in TUI. Typed sub-agents and team orchestration, Qwen Code CLI (1k free req/day), vision-first file processing, auto-fallback on rate limits, multi-profile isolation, OpenRouter reasoning, cross-channel crash recovery, self-healing config, persistent split panes, browser automation, bang operator for instant shell commands, auto-update on startup, and 1,827+ tests.
+## What Makes OpenCrabs Different
 
-## Why OpenCrabs?
+### 🔄 Provider-Agnostic with Native CLI Integration
+- **11+ built-in providers**: Anthropic, OpenAI, Gemini, OpenRouter, Qwen (OAuth + CLI), MiniMax, Ollama, LM Studio, vLLM, NVIDIA, Dialagram
+- **Claude Code CLI & OpenCode CLI** integrated as native providers — use their models without API keys
+- **Custom OpenAI-compatible backends** now stream thinking tokens, tool calls, and intermediate text exactly like native providers (v0.3.2)
+- **Sticky fallback chain** — auto-failover to secondary providers on rate limits or errors
+- **Prompt caching** across Anthropic, OpenRouter, Gemini, Qwen DashScope — reduces costs up to 95% (v0.3.2)
 
-| | OpenCrabs | Node.js Frameworks |
-|---|---|---|
-| **Binary size** | 17-22 MB | 1 GB+ (node_modules) |
-| **Runtime deps** | Zero | Node.js + npm + native modules |
-| **API keys** | `keys.toml` (local file) | `.env` (process env pollution) |
-| **Data residency** | Local SQLite | Varies |
-| **Memory safety** | Rust (compile-time) | JavaScript (runtime) |
+### 🤖 Multi-Agent Orchestration
+- **Typed sub-agents**: `general`, `explore`, `plan`, `code`, `research` — each with tailored tool access
+- **Team orchestration**: `team_create`, `team_broadcast`, `team_delete` for coordinated workflows
+- **Spawn/wait/resume** sub-agents with A2A protocol support
+- **ALWAYS_EXCLUDED tools** per agent type for safety boundaries
 
-## Core Capabilities
+### 🌐 Channel-Native Communication
+- **Telegram, Discord, Slack, WhatsApp, Trello** — respond to messages, send files, manage threads
+- **Cross-channel crash recovery** — pending requests route back to originating channel on restart (v0.2.93)
+- **DB-persisted channel sessions** — state survives restarts
+- **Voice support** — local Whisper STT + Piper TTS, fully offline
 
-- **Multi-provider AI** — Anthropic Claude, OpenAI, Google Gemini, OpenRouter (400+ models with reasoning support), MiniMax, z.ai GLM, Qwen Code CLI (1k free req/day via OAuth), Claude CLI, OpenCode CLI, Ollama, LM Studio, or any OpenAI-compatible API. Auto-fallback on rate limits (saves state, resumes on fallback provider). Per-session provider isolation. Function calling detection with model switch suggestions. Vision-first file processing (PDFs and images via vision model before text extraction)
-- **Every channel** — Telegram, Discord, Slack, WhatsApp, or the built-in TUI with split panes. DB-persisted channel sessions survive restarts
-- **50+ tools** — File ops, bash, web search, code execution, image gen, browser automation, and user-defined dynamic tools
-- **Multi-agent & Teams** — Typed sub-agents (General, Explore, Plan, Code, Research) with filtered tool registries. Team orchestration: spawn N agents in parallel with `team_create`, fan-out messages with `team_broadcast`. Configurable subagent provider/model. Full CLI with 20+ subcommands
-- **Persistent memory** — 3-tier memory system: daily notes, long-term memory, semantic search
-- **Self-healing** — Auto-recovers corrupted config from last-known-good snapshots, tracks per-provider health with auto-failover, 65% context budget management with LLM compaction, stuck stream detection, emergency ARG_MAX compaction. Cross-channel crash recovery routes pending requests back to originating Telegram/Discord/Slack chat on restart. CLI idle timeout extended to 10 minutes (cargo builds don't time out). DB integrity checks. All recovery events delivered as visible notifications across TUI and channels
-- **Self-evolving** — Type `/evolve` to download the latest version, or `/rebuild` to build from source. Startup update prompt offers one-click upgrades. `/evolve` works directly on channels without LLM routing
-- **Shared channel commands** — `/doctor`, `/help`, `/usage`, `/evolve` execute instantly on all channels via a shared command handler (847-line module), no LLM round-trip required
-- **Agent-to-Agent** — Built-in A2A gateway for peer-to-peer agent communication
-- **Cron jobs** — Schedule isolated or main-session tasks with cron expressions
-- **Browser automation** — Native headless Chrome control via CDP with smart browser detection
-- **Voice** — Local STT (rwhisper/Metal GPU) and TTS (Piper), plus API options (Groq Whisper, OpenAI TTS)
-- **Plans** — Structured multi-step task planning with approval workflow
-- **Daemon mode** — Background operation with health endpoints and auto-reconnecting channel bots
-- **Multi-profile** — Isolated instances per profile: separate config, brain files, sessions, and daemon services. Token-lock isolation, profile export/import as `.tar.gz`, migration between profiles
-- **Cron job storage** — Execution results stored in DB for querying, multi-target delivery (comma-separated channels + webhooks)
+### 🧠 Self-Healing & Resilience (v0.3.2)
+- **Context budget management**: 65% soft / 90% hard compaction thresholds with 3-retry LLM fallback
+- **Stuck stream detection**: 2048-byte rolling window catches repeating patterns, auto-recover
+- **Gaslighting defense**: strips tool-refusal preambles mid-turn across 4+ phrase families
+- **Panic recovery**: TUI recovers from render panics, clamps title splits instead of crashing
+- **Mid-stream error handling**: quota/rate-limit errors trigger sticky-fallback swap, not silent drops
+- **Cancel persistence**: in-flight requests survive restarts and resume on original channel
 
-## Quick Links
+### 🖥️ Terminal UI Excellence (v0.3.2)
+- **Header card overlay** replaces splash screen — animated, responsive, vanishes after load
+- **Select/Drag to Copy** — native mouse selection in TUI, auto-copies to clipboard on release
+- **O(N) input render** — tall pastes no longer cause quadratic render cost; scroll-to-cursor preserved
+- **Emoji cursor rendering** — grapheme cluster extraction for multi-byte emoji highlighting
+- **Line navigation in multiline** — Up/Down navigates lines inside recalled multi-line input
+- **F12 mouse capture toggle** — toggle native terminal text selection without exiting TUI
+- **Async session load** — instant first paint, messages load in background
 
-- [GitHub Repository](https://github.com/adolfousier/opencrabs)
-- [Releases](https://github.com/adolfousier/opencrabs/releases)
-- [Issues](https://github.com/adolfousier/opencrabs/issues)
-- [Changelog](./changelog.md)
+### 🔧 Developer Experience
+- **Bang operator (`!cmd`)** — run shell commands directly from TUI input, no LLM round-trip (v0.3.1)
+- **Full CLI surface**: 20+ subcommands (`/models`, `/approve`, `/compact`, `/rebuild`, `/evolve`, `/new`, `/doctor`, etc.)
+- **Programmatic `/evolve`** — bypasses LLM, runs update directly (v0.3.1)
+- **Auto-update on startup** — `[agent] auto_update = true` silently installs + hot-restarts (v0.3.1)
+- **Dynamic tools** — runtime-defined via TOML (HTTP + shell executors)
+- **Split panes** — tmux-style parallel sessions with layout persistence
+
+### 🌐 Browser Automation
+- **Full CDP support**: navigate, click, type, screenshot, JS eval, wait for selectors
+- **Headless or headed** mode, element-specific screenshots
+- **Cookie/session persistence** across browser sessions
+
+### 🔐 Security & Privacy
+- **Zero telemetry** — nothing sent anywhere, ever
+- **API key security**: `zeroize` on drop, separate `keys.toml` (chmod 600)
+- **Tool path resolution centralized** — tilde expansion, relative paths, symlink handling in one place (v0.3.2)
+- **Auto-approve propagation** — `approval_policy = "auto-always"` actually reaches tool loop (v0.3.2)
+
+### 📊 Testing & Quality
+- **1,827+ tests** covering providers, tools, channels, TUI, self-healing, crash recovery
+- **6 new test categories**: subagent orchestration, team workflows, Telegram resume pipeline, token tracking, cross-channel recovery, cron execution storage
+- **CI/CD**: GitHub Actions, CodeQL, release automation
+
+## Quick Start
+
+```bash
+# Install (Linux/macOS)
+ARCH=$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/')
+OS=$(uname -s | tr A-Z a-z)
+# Requires jq for reliable tag parsing; fallback to grep if unavailable
+TAG=$(command -v jq >/dev/null 2>&1 && curl -s https://api.github.com/repos/adolfousier/opencrabs/releases/latest | jq -r .tag_name || curl -s https://api.github.com/repos/adolfousier/opencrabs/releases/latest | grep -o '"tag_name":"[^"]*"' | cut -d'"' -f4)
+curl -fsSL "https://github.com/adolfousier/opencrabs/releases/download/${TAG}/opencrabs-${TAG}-${OS}-${ARCH}.tar.gz" | tar xz
+./opencrabs
+
+# Or via Cargo (requires Rust 1.94+)
+cargo install opencrabs --locked
+
+# Auto-update enabled by default; disable with [agent] auto_update = false in ~/.opencrabs/config.toml
+```
+
+## Architecture Overview
+
+```
+┌─────────────────────────────────────────┐
+│           OpenCrabs Binary              │
+│  (Single 17-22 MB Rust executable)      │
+├─────────────────────────────────────────┤
+│  ┌─────────────┐  ┌─────────────────┐  │
+│  │   TUI       │  │   CLI Daemon    │  │
+│  │  (crossterm)│  │  (systemd/launchd)││
+│  └─────────────┘  └─────────────────┘  │
+│                                         │
+│  ┌─────────────────────────────────┐   │
+│  │        Provider Registry         │   │
+│  │  • Native: Anthropic, OpenAI... │   │
+│  │  • CLI: Claude Code, OpenCode   │   │
+│  │  • Custom: any OpenAI-compatible│   │
+│  │  • Fallback chain w/ sticky swap│   │
+│  └─────────────────────────────────┘   │
+│                                         │
+│  ┌─────────────────────────────────┐   │
+│  │        Tool Layer                │   │
+│  │  • 50+ built-in tools           │   │
+│  │  • Dynamic tools via TOML       │   │
+│  │  • ALWAYS_EXCLUDED per agent    │   │
+│  │  • Centralized path resolution  │   │
+│  └─────────────────────────────────┘   │
+│                                         │
+│  ┌─────────────────────────────────┐   │
+│  │        Channel Adapters          │   │
+│  │  • Telegram/Discord/Slack/      │   │
+│  │    WhatsApp/Trello/Voice        │   │
+│  │  • Cross-channel crash recovery │   │
+│  └─────────────────────────────────┘   │
+│                                         │
+│  ┌─────────────────────────────────┐   │
+│  │        Self-Healing Layer       │   │
+│  │  • Context budget management    │   │
+│  │  • Stuck stream detection       │   │
+│  │  • Gaslighting refusal strip    │   │
+│  │  • Panic recovery + cancel persist││
+│  └─────────────────────────────────┘   │
+│                                         │
+│  ┌─────────────────────────────────┐   │
+│  │        Persistence              │   │
+│  │  • SQLite sessions + memory DB  │   │
+│  │  • Brain files (~/.opencrabs/)  │   │
+│  │  • Hybrid FTS5 + vector search  │   │
+│  └─────────────────────────────────┘   │
+└─────────────────────────────────────────┘
+```
+
+## Next Steps
+
+- [Getting Started](getting-started/installation.md) — Install and configure
+- [Providers](brain/providers-overview.md) — Connect your LLM backends
+- [Tools](brain/tools.md) — Explore 50+ built-in capabilities
+- [Channels](channels/overview.md) — Connect Telegram, Discord, etc.
+- [Self-Healing](features/self-healing.md) — Understand resilience features
+- [Multi-Agent](features/multi-agent.md) — Orchestrate sub-agents and teams
