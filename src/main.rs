@@ -326,7 +326,7 @@ fn QuickStart(tag: Signal<String>) -> impl IntoView {
                         </div>
                         <div>
                             <span class="terminal-prompt">"$ "</span>
-                            <span class="terminal-cmd">"curl -fsSL https://raw.githubusercontent.com/adolfousier/opencrabs/main/scripts/setup.sh | bash"</span>
+                            <span class="terminal-cmd">"curl -fsSL https://raw.githubusercontent.com/adolfousier/opencrabs/main/src/scripts/setup.sh | bash"</span>
                         </div>
                         <div>
                             <span class="terminal-comment">"# Then clone and build"</span>
