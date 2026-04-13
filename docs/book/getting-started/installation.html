@@ -54,7 +54,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-dc895d4f.js";
+            window.path_to_searchindex_js = "../searchindex-74bb8c84.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-e84a0f03.js"></script>
@@ -199,21 +199,26 @@
                         <h1 id="installation"><a class="header" href="#installation">Installation</a></h1>
 <p>Three ways to get OpenCrabs running.</p>
 <h2 id="option-1-download-binary-recommended"><a class="header" href="#option-1-download-binary-recommended">Option 1: Download Binary (recommended)</a></h2>
-<p>Grab a pre-built binary from <a href="https://github.com/adolfousier/opencrabs/releases">GitHub Releases</a> — available for Linux (amd64/arm64), macOS (amd64/arm64), and Windows.</p>
-<pre><code class="language-bash"># Auto-detect platform and install latest release (requires jq)
-ARCH=$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/')
-OS=$(uname -s | tr A-Z a-z)
+<p>Grab a pre-built binary from <a href="https://github.com/adolfousier/opencrabs/releases">GitHub Releases</a>.</p>
+<h3 id="linux-amd64"><a class="header" href="#linux-amd64">Linux (amd64)</a></h3>
+<pre><code class="language-bash">sudo apt install -y jq libgomp1
 TAG=$(curl -s https://api.github.com/repos/adolfousier/opencrabs/releases/latest | jq -r .tag_name)
-curl -fsSL "https://github.com/adolfousier/opencrabs/releases/download/${TAG}/opencrabs-${TAG}-${OS}-${ARCH}.tar.gz" | tar xz
-
-# Run
+curl -fsSL "https://github.com/adolfousier/opencrabs/releases/download/${TAG}/opencrabs-${TAG}-linux-amd64.tar.gz" | tar xz
 ./opencrabs
 </code></pre>
-<blockquote>
-<p>No <code>jq</code>? Use this fallback:</p>
-<pre><code class="language-bash">TAG=$(curl -s https://api.github.com/repos/adolfousier/opencrabs/releases/latest | grep -oP '"tag_name":\s*"\K[^"]+')
+<h3 id="linux-arm64"><a class="header" href="#linux-arm64">Linux (arm64)</a></h3>
+<pre><code class="language-bash">sudo apt install -y jq libgomp1
+TAG=$(curl -s https://api.github.com/repos/adolfousier/opencrabs/releases/latest | jq -r .tag_name)
+curl -fsSL "https://github.com/adolfousier/opencrabs/releases/download/${TAG}/opencrabs-${TAG}-linux-arm64.tar.gz" | tar xz
+./opencrabs
 </code></pre>
-</blockquote>
+<h3 id="macos-arm64--apple-silicon"><a class="header" href="#macos-arm64--apple-silicon">macOS (arm64 / Apple Silicon)</a></h3>
+<pre><code class="language-bash">TAG=$(curl -s https://api.github.com/repos/adolfousier/opencrabs/releases/latest | jq -r .tag_name)
+curl -fsSL "https://github.com/adolfousier/opencrabs/releases/download/${TAG}/opencrabs-${TAG}-macos-arm64.tar.gz" | tar xz
+./opencrabs
+</code></pre>
+<h3 id="windows"><a class="header" href="#windows">Windows</a></h3>
+<p>Download from <a href="https://github.com/adolfousier/opencrabs/releases/latest">GitHub Releases</a>.</p>
 <p>The onboarding wizard handles everything on first run.</p>
 <blockquote>
 <p><code>/rebuild</code> works even with pre-built binaries — it auto-clones the source to <code>~/.opencrabs/source/</code> on first use, then builds and hot-restarts.</p>

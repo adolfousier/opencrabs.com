@@ -4,23 +4,37 @@ Three ways to get OpenCrabs running.
 
 ## Option 1: Download Binary (recommended)
 
-Grab a pre-built binary from [GitHub Releases](https://github.com/adolfousier/opencrabs/releases) — available for Linux (amd64/arm64), macOS (amd64/arm64), and Windows.
+Grab a pre-built binary from [GitHub Releases](https://github.com/adolfousier/opencrabs/releases).
+
+### Linux (amd64)
 
 ```bash
-# Auto-detect platform and install latest release (requires jq)
-ARCH=$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/')
-OS=$(uname -s | tr A-Z a-z)
+sudo apt install -y jq libgomp1
 TAG=$(curl -s https://api.github.com/repos/adolfousier/opencrabs/releases/latest | jq -r .tag_name)
-curl -fsSL "https://github.com/adolfousier/opencrabs/releases/download/${TAG}/opencrabs-${TAG}-${OS}-${ARCH}.tar.gz" | tar xz
-
-# Run
+curl -fsSL "https://github.com/adolfousier/opencrabs/releases/download/${TAG}/opencrabs-${TAG}-linux-amd64.tar.gz" | tar xz
 ./opencrabs
 ```
 
-> No `jq`? Use this fallback:
-> ```bash
-> TAG=$(curl -s https://api.github.com/repos/adolfousier/opencrabs/releases/latest | grep -oP '"tag_name":\s*"\K[^"]+')
-> ```
+### Linux (arm64)
+
+```bash
+sudo apt install -y jq libgomp1
+TAG=$(curl -s https://api.github.com/repos/adolfousier/opencrabs/releases/latest | jq -r .tag_name)
+curl -fsSL "https://github.com/adolfousier/opencrabs/releases/download/${TAG}/opencrabs-${TAG}-linux-arm64.tar.gz" | tar xz
+./opencrabs
+```
+
+### macOS (arm64 / Apple Silicon)
+
+```bash
+TAG=$(curl -s https://api.github.com/repos/adolfousier/opencrabs/releases/latest | jq -r .tag_name)
+curl -fsSL "https://github.com/adolfousier/opencrabs/releases/download/${TAG}/opencrabs-${TAG}-macos-arm64.tar.gz" | tar xz
+./opencrabs
+```
+
+### Windows
+
+Download from [GitHub Releases](https://github.com/adolfousier/opencrabs/releases/latest).
 
 The onboarding wizard handles everything on first run.
 

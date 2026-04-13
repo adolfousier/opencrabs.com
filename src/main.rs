@@ -287,13 +287,16 @@ fn QuickStart(tag: Signal<String>) -> impl IntoView {
                                 } else {
                                     view! {
                                         <div>
-                                            <span class="terminal-comment">"# Download latest release for your platform"</span>
+                                            <span class="terminal-prompt">"$ "</span>
+                                            <span class="terminal-cmd">"sudo apt install libgomp1"</span>
                                         </div>
                                         <div>
                                             <span class="terminal-prompt">"$ "</span>
-                                            <span class="terminal-cmd">
-                                                "ARCH=$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/') OS=$(uname -s | tr A-Z a-z) TAG=$(curl -s https://api.github.com/repos/adolfousier/opencrabs/releases/latest | grep -o '\"tag_name\":\"[^\"]*\"' | cut -d'\"' -f4) && curl -fsSL \"https://github.com/adolfousier/opencrabs/releases/download/$TAG/opencrabs-$TAG-$OS-$ARCH.tar.gz\" | tar xz"
-                                            </span>
+                                            <span class="terminal-cmd">"TAG=$(curl -s https://api.github.com/repos/adolfousier/opencrabs/releases/latest | jq -r .tag_name)"</span>
+                                        </div>
+                                        <div>
+                                            <span class="terminal-prompt">"$ "</span>
+                                            <span class="terminal-cmd">"curl -fsSL https://github.com/adolfousier/opencrabs/releases/download/$TAG/opencrabs-$TAG-linux-amd64.tar.gz | tar xz"</span>
                                         </div>
                                         <div>
                                             <span class="terminal-prompt">"$ "</span>
