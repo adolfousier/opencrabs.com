@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.8] - 2026-04-13
+
+### Added
+- Self-Improvement (RSI) documentation — feedback ledger, pattern analysis, autonomous brain file updates
+- Qwen multi-account rotation docs — 2-10 accounts with auto-advance on 429
+- Non-streaming compatibility module docs
+- Phantom tool call detection docs
+- Updated architecture diagram with RSI layer
+
+### Updated
+- Introduction: Self-Healing section → Self-Healing & Self-Improvement (v0.3.7)
+- Added RSI, feedback ledger, phantom detection, non-streaming compat, mid-stream decode retry
+- SUMMARY.md: added Self-Improvement (RSI) page entry
+
 ## [0.1.7] - 2026-04-07
 
 ### Added

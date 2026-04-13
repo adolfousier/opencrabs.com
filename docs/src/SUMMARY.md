@@ -43,6 +43,7 @@
 - [Multi-Agent Orchestration](./features/multi-agent.md)
 - [Agent-to-Agent (A2A)](./features/a2a.md)
 - [Self-Healing](./features/self-healing.md)
+- [Self-Improvement (RSI)](./features/self-improvement.md)
 - [Multi-Profile](./features/profiles.md)
 - [Voice (TTS & STT)](./features/voice.md)
 

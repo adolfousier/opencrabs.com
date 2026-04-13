@@ -23,13 +23,16 @@
 - **DB-persisted channel sessions** — state survives restarts
 - **Voice support** — local Whisper STT + Piper TTS, fully offline
 
-### 🧠 Self-Healing & Resilience (v0.3.2)
+### 🧠 Self-Healing & Self-Improvement (v0.3.7)
+- **Recursive Self-Improvement (RSI)** — agent analyzes its own performance, identifies patterns, and autonomously rewrites brain files (v0.3.6)
+- **Feedback ledger** — persistent SQLite table recording every tool success/failure, user correction, provider error (v0.3.6)
+- **Phantom tool call detection** — catches when the model narrates file changes in prose without executing tools (v0.3.7)
 - **Context budget management**: 65% soft / 90% hard compaction thresholds with 3-retry LLM fallback
 - **Stuck stream detection**: 2048-byte rolling window catches repeating patterns, auto-recover
 - **Gaslighting defense**: strips tool-refusal preambles mid-turn across 4+ phrase families
-- **Panic recovery**: TUI recovers from render panics, clamps title splits instead of crashing
-- **Mid-stream error handling**: quota/rate-limit errors trigger sticky-fallback swap, not silent drops
-- **Cancel persistence**: in-flight requests survive restarts and resume on original channel
+- **Auto-fallback on rate limits** — saves state mid-stream, resumes on fallback provider
+- **Mid-stream decode retry** — 3x backoff before provider fallback (v0.3.0)
+- **Non-streaming compatibility** — synthesizes full stream events from non-streaming JSON (v0.3.7)
 
 ### 🖥️ Terminal UI Excellence (v0.3.2)
 - **Header card overlay** replaces splash screen — animated, responsive, vanishes after load

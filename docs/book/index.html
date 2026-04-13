@@ -54,10 +54,10 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-74bb8c84.js";
+            window.path_to_searchindex_js = "searchindex-c38d01e0.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-e84a0f03.js"></script>
+        <script src="toc-7d93f90a.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -221,14 +221,17 @@
 <li><strong>DB-persisted channel sessions</strong> — state survives restarts</li>
 <li><strong>Voice support</strong> — local Whisper STT + Piper TTS, fully offline</li>
 </ul>
-<h3 id="-self-healing--resilience-v032"><a class="header" href="#-self-healing--resilience-v032">🧠 Self-Healing &amp; Resilience (v0.3.2)</a></h3>
+<h3 id="-self-healing--self-improvement-v037"><a class="header" href="#-self-healing--self-improvement-v037">🧠 Self-Healing &amp; Self-Improvement (v0.3.7)</a></h3>
 <ul>
+<li><strong>Recursive Self-Improvement (RSI)</strong> — agent analyzes its own performance, identifies patterns, and autonomously rewrites brain files (v0.3.6)</li>
+<li><strong>Feedback ledger</strong> — persistent SQLite table recording every tool success/failure, user correction, provider error (v0.3.6)</li>
+<li><strong>Phantom tool call detection</strong> — catches when the model narrates file changes in prose without executing tools (v0.3.7)</li>
 <li><strong>Context budget management</strong>: 65% soft / 90% hard compaction thresholds with 3-retry LLM fallback</li>
 <li><strong>Stuck stream detection</strong>: 2048-byte rolling window catches repeating patterns, auto-recover</li>
 <li><strong>Gaslighting defense</strong>: strips tool-refusal preambles mid-turn across 4+ phrase families</li>
-<li><strong>Panic recovery</strong>: TUI recovers from render panics, clamps title splits instead of crashing</li>
-<li><strong>Mid-stream error handling</strong>: quota/rate-limit errors trigger sticky-fallback swap, not silent drops</li>
-<li><strong>Cancel persistence</strong>: in-flight requests survive restarts and resume on original channel</li>
+<li><strong>Auto-fallback on rate limits</strong> — saves state mid-stream, resumes on fallback provider</li>
+<li><strong>Mid-stream decode retry</strong> — 3x backoff before provider fallback (v0.3.0)</li>
+<li><strong>Non-streaming compatibility</strong> — synthesizes full stream events from non-streaming JSON (v0.3.7)</li>
 </ul>
 <h3 id="-terminal-ui-excellence-v032"><a class="header" href="#-terminal-ui-excellence-v032">🖥️ Terminal UI Excellence (v0.3.2)</a></h3>
 <ul>
