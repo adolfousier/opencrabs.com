@@ -1,6 +1,62 @@
 use leptos::prelude::*;
 use gloo_net::http::Request;
 use serde::Deserialize;
+use leptos::wasm_bindgen::JsCast;
+use web_sys::{window, HtmlElement};
+
+fn copy_terminal_code() {
+    let active_tab = document().query_selector(".terminal-tabs button.active")
+        .ok()
+        .flatten()
+        .and_then(|el| el.dyn_into::<HtmlElement>().ok());
+    let tab_idx = match active_tab {
+        Some(el) => {
+            let text = el.inner_text();
+            if text == "Binary" { 0 } else if text == "Cargo" { 1 } else { 2 }
+        }
+        None => 0,
+    };
+
+    let os = detect_os();
+    let _tag = document().query_selector(".hero-badge")
+        .ok().flatten()
+        .and_then(|el| el.dyn_into::<HtmlElement>().ok())
+        .map(|el| el.inner_text())
+        .unwrap_or_default();
+
+    let commands: Vec<String> = match (tab_idx, os) {
+        (0, "windows") => vec![
+            "Invoke-WebRequest -Uri https://github.com/adolfousier/opencrabs/releases/latest/download/opencrabs-windows-amd64.zip -OutFile opencrabs.zip".into(),
+            "Expand-Archive opencrabs.zip -DestinationPath . && .\\opencrabs.exe".into(),
+        ],
+        (0, "macos") => vec![
+            format!("TAG=$(curl -s https://api.github.com/repos/adolfousier/opencrabs/releases/latest | jq -r .tag_name)"),
+            format!("curl -fsSL https://github.com/adolfousier/opencrabs/releases/download/$TAG/opencrabs-$TAG-macos-arm64.tar.gz | tar xz"),
+            "./opencrabs".into(),
+        ],
+        (0, _) => vec![
+            "sudo apt install libgomp1".into(),
+            format!("TAG=$(curl -s https://api.github.com/repos/adolfousier/opencrabs/releases/latest | jq -r .tag_name)"),
+            "curl -fsSL https://github.com/adolfousier/opencrabs/releases/download/$TAG/opencrabs-$TAG-linux-amd64.tar.gz | tar xz".into(),
+            "./opencrabs".into(),
+        ],
+        (1, _) => vec![
+            "cargo install opencrabs".into(),
+            "opencrabs".into(),
+        ],
+        (2, _) => vec![
+            "curl -fsSL https://raw.githubusercontent.com/adolfousier/opencrabs/main/src/scripts/setup.sh | bash".into(),
+            "git clone https://github.com/adolfousier/opencrabs.git && cd opencrabs".into(),
+            "cargo build --release && ./target/release/opencrabs".into(),
+        ],
+        _ => vec![],
+    };
+
+    let text = commands.join("\n");
+    if let Some(w) = window() {
+        let _ = w.navigator().clipboard().write_text(&text);
+    }
+}
 
 fn detect_os() -> &'static str {
     let window = leptos::prelude::window();
@@ -253,6 +309,9 @@ fn QuickStart(tag: Signal<String>) -> impl IntoView {
                             >"Source"</button>
                         </div>
                         <span class="terminal-platform">"macOS / Linux / Windows"</span>
+                        <button class="terminal-copy-btn" on:click=move |_| copy_terminal_code()>
+                            "📋"
+                        </button>
                     </div>
                     <div class="terminal-body" style:display=move || if active_tab.get() == 0 { "block" } else { "none" }>
                         {move || {
