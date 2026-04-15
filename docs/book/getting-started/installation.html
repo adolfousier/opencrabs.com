@@ -54,7 +54,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-c38d01e0.js";
+            window.path_to_searchindex_js = "../searchindex-8881d097.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-7d93f90a.js"></script>
@@ -220,6 +220,21 @@ curl -fsSL "https://github.com/adolfousier/opencrabs/releases/download/${TAG}/op
 <h3 id="windows"><a class="header" href="#windows">Windows</a></h3>
 <p>Download from <a href="https://github.com/adolfousier/opencrabs/releases/latest">GitHub Releases</a>.</p>
 <p>The onboarding wizard handles everything on first run.</p>
+<blockquote>
+<p><strong>Terminal permissions required.</strong> OpenCrabs reads/writes brain files, config, and project files. Your terminal app needs filesystem access or the OS will block operations.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>OS</th><th>What to do</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>macOS</strong></td><td><strong>System Settings → Privacy &amp; Security → Full Disk Access</strong> → toggle your terminal app ON (Alacritty, iTerm2, Terminal, etc.). If not listed, click “+” and add it from <code>/Applications/</code>. Without this, macOS repeatedly prompts “would like to access data from other apps”.</td></tr>
+<tr><td><strong>Windows</strong></td><td>Run your terminal (Windows Terminal, PowerShell, cmd) <strong>as Administrator</strong> on first run, or grant the terminal <strong>write access</strong> to <code>%USERPROFILE%\.opencrabs\</code> and your project directories. Windows Defender may also prompt — click “Allow”.</td></tr>
+<tr><td><strong>Linux</strong></td><td>Ensure your user owns <code>~/.opencrabs/</code> and project directories. On SELinux/AppArmor systems, the terminal process needs read/write access to those paths. Flatpak/Snap terminals may need <code>--filesystem=home</code> or equivalent permission.</td></tr>
+</tbody>
+</table>
+</div>
+</blockquote>
 <blockquote>
 <p><code>/rebuild</code> works even with pre-built binaries — it auto-clones the source to <code>~/.opencrabs/source/</code> on first use, then builds and hot-restarts.</p>
 </blockquote>

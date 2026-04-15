@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.9] - 2026-04-14
+
+### Added
+- Usage Dashboard — interactive TUI overlay showing daily tokens, cost, active models, session categories, and project activity
+- Session auto-categorizer with heuristic classification (dev, ops, research, etc.)
+- Tool execution tracking in DB for usage analytics
+- Soft-delete sessions to preserve metadata for usage stats
+- Project/activity data with normalized paths and category support
+- Dashboard UI polish: reverse daily order, centered header/footer, dynamic column widths
+- **1,827 → 1,995 tests** (+168: Usage module, A2A debate, Dynamic Tools, Session categorizer)
+
+### Changed
+- Synced docs with OpenCrabs v0.3.9
+
 ## [0.1.8] - 2026-04-13
 
 ### Added

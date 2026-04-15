@@ -54,7 +54,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-c38d01e0.js";
+            window.path_to_searchindex_js = "searchindex-8881d097.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-7d93f90a.js"></script>
@@ -251,12 +251,21 @@
 <li><strong>Auto-update on startup</strong> — <code>[agent] auto_update = true</code> silently installs + hot-restarts (v0.3.1)</li>
 <li><strong>Dynamic tools</strong> — runtime-defined via TOML (HTTP + shell executors)</li>
 <li><strong>Split panes</strong> — tmux-style parallel sessions with layout persistence</li>
+<li><strong>Usage Dashboard</strong> — <code>/usage</code> command shows daily tokens, cost, active models, session categories, project activity (v0.3.9)</li>
 </ul>
 <h3 id="-browser-automation"><a class="header" href="#-browser-automation">🌐 Browser Automation</a></h3>
 <ul>
 <li><strong>Full CDP support</strong>: navigate, click, type, screenshot, JS eval, wait for selectors</li>
 <li><strong>Headless or headed</strong> mode, element-specific screenshots</li>
 <li><strong>Cookie/session persistence</strong> across browser sessions</li>
+</ul>
+<h3 id="-usage-analytics-v039"><a class="header" href="#-usage-analytics-v039">📊 Usage Analytics (v0.3.9)</a></h3>
+<ul>
+<li><strong>Interactive dashboard</strong> — <code>/usage</code> command with daily token counts, cost estimates, active models, session categories</li>
+<li><strong>Session auto-categorizer</strong> — heuristic classification (dev, ops, research, chat, etc.)</li>
+<li><strong>Tool execution tracking</strong> — DB records every tool call for per-project analytics</li>
+<li><strong>Project activity view</strong> — normalized paths, category breakdown, token distribution</li>
+<li><strong>Soft-delete sessions</strong> — metadata preserved even after session removal</li>
 </ul>
 <h3 id="-security--privacy"><a class="header" href="#-security--privacy">🔐 Security &amp; Privacy</a></h3>
 <ul>

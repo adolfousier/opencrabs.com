@@ -118,7 +118,7 @@ cargo test --all-features
 | Tests — LLM Artifact Stripping | 8 | `src/tests/artifact_strip_test.rs` |
 | Tests — Subagent & Team Orchestration | 84 | `src/tests/subagent_test.rs` |
 | Tests — Telegram Resume Pipeline | 55 | `src/tests/telegram_resume_test.rs` |
-| **Total** | **1,827** | |
+| **Total** | **1,995** | |
 
 ---
 

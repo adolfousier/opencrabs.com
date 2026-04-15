@@ -50,11 +50,19 @@
 - **Auto-update on startup** — `[agent] auto_update = true` silently installs + hot-restarts (v0.3.1)
 - **Dynamic tools** — runtime-defined via TOML (HTTP + shell executors)
 - **Split panes** — tmux-style parallel sessions with layout persistence
+- **Usage Dashboard** — `/usage` command shows daily tokens, cost, active models, session categories, project activity (v0.3.9)
 
 ### 🌐 Browser Automation
 - **Full CDP support**: navigate, click, type, screenshot, JS eval, wait for selectors
 - **Headless or headed** mode, element-specific screenshots
 - **Cookie/session persistence** across browser sessions
+
+### 📊 Usage Analytics (v0.3.9)
+- **Interactive dashboard** — `/usage` command with daily token counts, cost estimates, active models, session categories
+- **Session auto-categorizer** — heuristic classification (dev, ops, research, chat, etc.)
+- **Tool execution tracking** — DB records every tool call for per-project analytics
+- **Project activity view** — normalized paths, category breakdown, token distribution
+- **Soft-delete sessions** — metadata preserved even after session removal
 
 ### 🔐 Security & Privacy
 - **Zero telemetry** — nothing sent anywhere, ever

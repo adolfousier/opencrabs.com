@@ -55,7 +55,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-c38d01e0.js";
+            window.path_to_searchindex_js = "searchindex-8881d097.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-7d93f90a.js"></script>
@@ -252,12 +252,21 @@
 <li><strong>Auto-update on startup</strong> — <code>[agent] auto_update = true</code> silently installs + hot-restarts (v0.3.1)</li>
 <li><strong>Dynamic tools</strong> — runtime-defined via TOML (HTTP + shell executors)</li>
 <li><strong>Split panes</strong> — tmux-style parallel sessions with layout persistence</li>
+<li><strong>Usage Dashboard</strong> — <code>/usage</code> command shows daily tokens, cost, active models, session categories, project activity (v0.3.9)</li>
 </ul>
 <h3 id="-browser-automation"><a class="header" href="#-browser-automation">🌐 Browser Automation</a></h3>
 <ul>
 <li><strong>Full CDP support</strong>: navigate, click, type, screenshot, JS eval, wait for selectors</li>
 <li><strong>Headless or headed</strong> mode, element-specific screenshots</li>
 <li><strong>Cookie/session persistence</strong> across browser sessions</li>
+</ul>
+<h3 id="-usage-analytics-v039"><a class="header" href="#-usage-analytics-v039">📊 Usage Analytics (v0.3.9)</a></h3>
+<ul>
+<li><strong>Interactive dashboard</strong> — <code>/usage</code> command with daily token counts, cost estimates, active models, session categories</li>
+<li><strong>Session auto-categorizer</strong> — heuristic classification (dev, ops, research, chat, etc.)</li>
+<li><strong>Tool execution tracking</strong> — DB records every tool call for per-project analytics</li>
+<li><strong>Project activity view</strong> — normalized paths, category breakdown, token distribution</li>
+<li><strong>Soft-delete sessions</strong> — metadata preserved even after session removal</li>
 </ul>
 <h3 id="-security--privacy"><a class="header" href="#-security--privacy">🔐 Security &amp; Privacy</a></h3>
 <ul>
@@ -369,6 +378,21 @@ curl -fsSL "https://github.com/adolfousier/opencrabs/releases/download/${TAG}/op
 <h3 id="windows"><a class="header" href="#windows">Windows</a></h3>
 <p>Download from <a href="https://github.com/adolfousier/opencrabs/releases/latest">GitHub Releases</a>.</p>
 <p>The onboarding wizard handles everything on first run.</p>
+<blockquote>
+<p><strong>Terminal permissions required.</strong> OpenCrabs reads/writes brain files, config, and project files. Your terminal app needs filesystem access or the OS will block operations.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>OS</th><th>What to do</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>macOS</strong></td><td><strong>System Settings → Privacy &amp; Security → Full Disk Access</strong> → toggle your terminal app ON (Alacritty, iTerm2, Terminal, etc.). If not listed, click “+” and add it from <code>/Applications/</code>. Without this, macOS repeatedly prompts “would like to access data from other apps”.</td></tr>
+<tr><td><strong>Windows</strong></td><td>Run your terminal (Windows Terminal, PowerShell, cmd) <strong>as Administrator</strong> on first run, or grant the terminal <strong>write access</strong> to <code>%USERPROFILE%\.opencrabs\</code> and your project directories. Windows Defender may also prompt — click “Allow”.</td></tr>
+<tr><td><strong>Linux</strong></td><td>Ensure your user owns <code>~/.opencrabs/</code> and project directories. On SELinux/AppArmor systems, the terminal process needs read/write access to those paths. Flatpak/Snap terminals may need <code>--filesystem=home</code> or equivalent permission.</td></tr>
+</tbody>
+</table>
+</div>
+</blockquote>
 <blockquote>
 <p><code>/rebuild</code> works even with pre-built binaries — it auto-clones the source to <code>~/.opencrabs/source/</code> on first use, then builds and hot-restarts.</p>
 </blockquote>
@@ -3342,7 +3366,7 @@ panic = "abort"
 <tr><td>Tests — LLM Artifact Stripping</td><td style="text-align: right">8</td><td><code>src/tests/artifact_strip_test.rs</code></td></tr>
 <tr><td>Tests — Subagent &amp; Team Orchestration</td><td style="text-align: right">84</td><td><code>src/tests/subagent_test.rs</code></td></tr>
 <tr><td>Tests — Telegram Resume Pipeline</td><td style="text-align: right">55</td><td><code>src/tests/telegram_resume_test.rs</code></td></tr>
-<tr><td><strong>Total</strong></td><td style="text-align: right"><strong>1,827</strong></td><td></td></tr>
+<tr><td><strong>Total</strong></td><td style="text-align: right"><strong>1,995</strong></td><td></td></tr>
 </tbody>
 </table>
 </div>
