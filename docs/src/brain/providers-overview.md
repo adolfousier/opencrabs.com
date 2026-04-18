@@ -12,8 +12,7 @@ OpenCrabs supports 11+ AI providers out of the box. Switch between them at any t
 | [MiniMax](./providers.md#minimax) | API key | M2.7, M2.5, M2.1, Text-01 | Yes | Yes | Competitive pricing, auto-configured vision |
 | [z.ai GLM](./providers.md#zai-zhipu-ai) | API key | GLM-4.5 through GLM-5 Turbo | Yes | Yes | General API + Coding API endpoints |
 | [Claude CLI](./providers.md#claude-cli) | CLI auth | Via `claude` binary | Yes | Yes | Uses your Claude Code subscription |
-| [Qwen Code CLI](./providers.md#qwen-code-cli) | CLI auth (OAuth) | qwen3-coder-plus, qwen3.5-plus, qwen3.6-plus | Yes | Yes | 1,000 free requests/day via Qwen OAuth |
-| [Qwen OAuth](./providers.md#qwen-oauth-native) | OAuth device-code | Qwen3.6-Plus, Qwen3.5 | Yes | Yes | Native provider with hybrid thinking toggle (`enable_thinking`), prompt caching via `cache_control`, global singleton rate limiter, gateway fingerprint headers (`x-stainless-*`), sticky fallback swap UI |
+| [Qwen/DashScope](./providers.md#qwen-dashscope) | API key | qwen3.6-plus (default) | Yes | Yes | DashScope API-key provider (replaced OAuth rotation). Local model tool-call extraction from text (bare JSON, Claude-style XML, Qwen formats). Prompt caching via `cache_control`, rate limit retry with exponential backoff |
 | [OpenCode CLI](./providers.md#opencode-cli) | None | Free models (Mimo, etc.) | Yes | Yes | Free — no API key or subscription needed |
 | [Custom](./providers.md#custom-openai-compatible) | Optional | Any | Yes | Yes | Ollama, LM Studio, Groq, NVIDIA, any OpenAI-compatible API |
 

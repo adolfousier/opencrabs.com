@@ -55,7 +55,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-8881d097.js";
+            window.path_to_searchindex_js = "searchindex-8683c597.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-7d93f90a.js"></script>
@@ -1101,8 +1101,7 @@ cargo build --release
 <tr><td><a href="#minimax">MiniMax</a></td><td>API key</td><td>M2.7, M2.5, M2.1, Text-01</td><td>Yes</td><td>Yes</td><td>Competitive pricing, auto-configured vision</td></tr>
 <tr><td><a href="#zai-zhipu-ai">z.ai GLM</a></td><td>API key</td><td>GLM-4.5 through GLM-5 Turbo</td><td>Yes</td><td>Yes</td><td>General API + Coding API endpoints</td></tr>
 <tr><td><a href="#claude-cli">Claude CLI</a></td><td>CLI auth</td><td>Via <code>claude</code> binary</td><td>Yes</td><td>Yes</td><td>Uses your Claude Code subscription</td></tr>
-<tr><td><a href="#qwen-code-cli">Qwen Code CLI</a></td><td>CLI auth (OAuth)</td><td>qwen3-coder-plus, qwen3.5-plus, qwen3.6-plus</td><td>Yes</td><td>Yes</td><td>1,000 free requests/day via Qwen OAuth</td></tr>
-<tr><td><a href="#qwen-oauth-native">Qwen OAuth</a></td><td>OAuth device-code</td><td>Qwen3.6-Plus, Qwen3.5</td><td>Yes</td><td>Yes</td><td>Native provider with hybrid thinking toggle (<code>enable_thinking</code>), prompt caching via <code>cache_control</code>, global singleton rate limiter, gateway fingerprint headers (<code>x-stainless-*</code>), sticky fallback swap UI</td></tr>
+<tr><td><a href="#qwen-dashscope">Qwen/DashScope</a></td><td>API key</td><td>qwen3.6-plus (default)</td><td>Yes</td><td>Yes</td><td>DashScope API-key provider (replaced OAuth rotation). Local model tool-call extraction from text (bare JSON, Claude-style XML, Qwen formats). Prompt caching via <code>cache_control</code>, rate limit retry with exponential backoff</td></tr>
 <tr><td><a href="#opencode-cli">OpenCode CLI</a></td><td>None</td><td>Free models (Mimo, etc.)</td><td>Yes</td><td>Yes</td><td>Free — no API key or subscription needed</td></tr>
 <tr><td><a href="#custom-openai-compatible">Custom</a></td><td>Optional</td><td>Any</td><td>Yes</td><td>Yes</td><td>Ollama, LM Studio, Groq, NVIDIA, any OpenAI-compatible API</td></tr>
 </tbody>
@@ -2821,6 +2820,22 @@ Agent notices pattern of 5+ corrections on output hygiene:
 <li><strong>Surgical updates only</strong> — replaces specific sections, doesn’t rewrite entire files</li>
 <li><strong>Always reads before modifying</strong> — never blindly overwrites brain files</li>
 <li><strong>Archives old improvements</strong> — keeps the improvement log manageable</li>
+</ul>
+<h2 id="rsi-hardening-v0310"><a class="header" href="#rsi-hardening-v0310">RSI Hardening (v0.3.10)</a></h2>
+<ul>
+<li><strong>Cycle summaries no longer truncated</strong> — full text displays in TUI instead of cutting off mid-sentence</li>
+<li><strong>Phantom detection reduced to 2-signal requirement</strong> — needs both intent keyphrase AND zero tool calls before flagging, eliminating spurious self-heal triggers</li>
+<li><strong>Uses active provider</strong> — respects current provider/model config instead of hardcoded Anthropic</li>
+<li><strong>Persistent session reuse</strong> — one session per cycle, survives app restarts by persisting <code>last_cycle</code> timestamp</li>
+<li><strong>Skips unchanged feedback</strong> — if feedback count hasn’t changed, skips analysis to avoid wasted LLM calls</li>
+</ul>
+<h2 id="v0311-additions"><a class="header" href="#v0311-additions">v0.3.11 Additions</a></h2>
+<ul>
+<li><strong>DashScope migration</strong> — Qwen OAuth rotation replaced with simple API-key provider, deleting ~2,500 lines of complexity</li>
+<li><strong>Local model tool-call extraction</strong> — auto-extracts tool calls from text content: bare JSON <code>{"tool_calls":[...]}</code>, Claude-style XML <code>&lt;TOOLNAME&gt;&lt;PARAM&gt;value&lt;/PARAM&gt;&lt;/TOOLNAME&gt;</code>, and Qwen-specific <code>&lt;!-- tool_calls --&gt;</code> markers</li>
+<li><strong>40+ TUI/self-heal fixes</strong> — narrowed phantom gate, split thinking per iteration, anti-code-block nudge for local models, tighter phantom scope, mid-turn “Let me see:” catch, backtick code reference detection</li>
+<li><strong>Per-session provider isolation</strong> — each session carries its own provider instance; no global swap affecting all sessions</li>
+<li><strong>Sub-agent <code>AwaitingInput</code> state</strong> — <code>wait_agent</code> polls state and returns partial progress on timeout instead of deadlocking</li>
 </ul>
 <h2 id="self-healing-vs-self-improvement"><a class="header" href="#self-healing-vs-self-improvement">Self-Healing vs Self-Improvement</a></h2>
 <div class="table-wrapper">

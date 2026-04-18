@@ -54,6 +54,22 @@ Agent notices pattern of 5+ corrections on output hygiene:
 - **Always reads before modifying** — never blindly overwrites brain files
 - **Archives old improvements** — keeps the improvement log manageable
 
+## RSI Hardening (v0.3.10)
+
+- **Cycle summaries no longer truncated** — full text displays in TUI instead of cutting off mid-sentence
+- **Phantom detection reduced to 2-signal requirement** — needs both intent keyphrase AND zero tool calls before flagging, eliminating spurious self-heal triggers
+- **Uses active provider** — respects current provider/model config instead of hardcoded Anthropic
+- **Persistent session reuse** — one session per cycle, survives app restarts by persisting `last_cycle` timestamp
+- **Skips unchanged feedback** — if feedback count hasn't changed, skips analysis to avoid wasted LLM calls
+
+## v0.3.11 Additions
+
+- **DashScope migration** — Qwen OAuth rotation replaced with simple API-key provider, deleting ~2,500 lines of complexity
+- **Local model tool-call extraction** — auto-extracts tool calls from text content: bare JSON `{"tool_calls":[...]}`, Claude-style XML `<TOOLNAME><PARAM>value</PARAM></TOOLNAME>`, and Qwen-specific `<!-- tool_calls -->` markers
+- **40+ TUI/self-heal fixes** — narrowed phantom gate, split thinking per iteration, anti-code-block nudge for local models, tighter phantom scope, mid-turn "Let me see:" catch, backtick code reference detection
+- **Per-session provider isolation** — each session carries its own provider instance; no global swap affecting all sessions
+- **Sub-agent `AwaitingInput` state** — `wait_agent` polls state and returns partial progress on timeout instead of deadlocking
+
 ## Self-Healing vs Self-Improvement
 
 | Self-Healing | Self-Improvement |

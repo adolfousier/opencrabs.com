@@ -461,6 +461,11 @@ fn Features() -> impl IntoView {
             "Auto-recovers corrupted config, tracks per-provider health with auto-failover, 65% context budget management with LLM compaction. Cross-channel crash recovery routes pending requests back to the originating Telegram/Discord/Slack chat on restart. Stuck stream detection, 10-min CLI idle timeout, DB integrity checks.",
         ),
         (
+            "🔧",
+            "Self-Improving",
+            "Recursive Self-Improvement (RSI) — the agent analyzes its own performance via a persistent feedback ledger, identifies failure patterns, and autonomously updates its own brain files. Cycle summaries persist across restarts, phantom detection uses a 2-signal gate to avoid false positives. Runs on the active provider, no human approval needed.",
+        ),
+        (
             "👤",
             "Multi-Profile",
             "Run multiple isolated instances from one binary. Each profile gets its own config, brain files, sessions, and daemon service. Token-lock isolation prevents two profiles from fighting over the same bot. Export/import profiles as portable archives.",
