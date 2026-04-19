@@ -42,5 +42,9 @@ The agent can send messages and take actions proactively:
 | Tool | Actions |
 |------|---------|
 | `discord_send` | 17 actions: send, reply, react, edit, delete, pin, create_thread, send_embed, etc. |
-| `slack_send` | 17 actions: send, reply, react, edit, delete, pin, set_topic, send_blocks, etc. |
+| `slack_send` | 17 actions: send, reply, react, edit, delete, pin, set_topic, send_blocks, send_file (TTS voice via OGG/Opus) |
 | `trello_send` | 22 actions: create_card, move_card, add_comment, add_checklist, search, etc. |
+
+## Channel Voice Parity
+
+All four messaging channels (Telegram, Discord, WhatsApp, Slack) now share a single code path via `crate::channels::voice::{transcribe, synthesize}`. Bot replies are recorded in the `channel_messages` table for conversation context — previously only user messages were stored.

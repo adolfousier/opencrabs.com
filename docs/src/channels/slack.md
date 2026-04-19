@@ -32,6 +32,7 @@ enabled = true
 - **Thread support** — Responds in threads when appropriate
 - **Slash commands** — All built-in and custom commands work
 - **Reactions** — Agent can add emoji reactions
+- **TTS voice replies** — Voice responses sent as OGG/Opus files via `files.upload` with inline waveform UI
 
 ## Socket Mode
 

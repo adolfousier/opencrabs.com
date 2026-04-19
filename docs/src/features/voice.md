@@ -1,18 +1,20 @@
 # Voice (TTS & STT)
 
-OpenCrabs supports text-to-speech and speech-to-text with three modes: **Off**, **API** (cloud), or **Local** (on-device, zero cost).
+OpenCrabs supports text-to-speech and speech-to-text with five provider tiers: **Off**, **Groq** (API), **OpenAI-compatible** (any `/v1/audio` endpoint), **Voicebox** (self-hosted), or **Local** (on-device, zero cost).
 
 ## Quick Setup
 
-Run `/onboard:voice` in the TUI to configure everything interactively — model downloads, voice previews, and API keys are all handled by the wizard.
+Run `/onboard:voice` in the TUI to configure everything interactively. The voice screen has radio selectors for both STT and TTS, with fields shown/hidden based on the selected provider. API keys are wired to `keys.toml` automatically.
 
 ## Speech-to-Text (STT)
 
-### Modes
+### Providers
 
-| Mode | Engine | Cost | Latency | Setup |
-|------|--------|------|---------|-------|
-| **API** | Groq Whisper (`whisper-large-v3-turbo`) | Per-minute pricing | ~1s | API key in `keys.toml` |
+| Provider | Engine | Cost | Latency | Setup |
+|----------|--------|------|---------|-------|
+| **Groq** | Whisper (`whisper-large-v3-turbo`) | Per-minute pricing | ~1s | API key in `keys.toml` |
+| **OpenAI-compatible** | Any Whisper-compatible endpoint | Varies | ~1-3s | `stt_base_url` + `stt_model` + API key |
+| **Voicebox** | Self-hosted open-source | Free | ~2-5s | `voicebox_stt_enabled=true` + `voicebox_stt_base_url` |
 | **Local** | whisper.cpp (on-device) | Free | ~2-5s | Auto-downloads model |
 
 ### Local STT Models
@@ -45,11 +47,13 @@ api_key = "your-groq-key"       # From console.groq.com
 
 ## Text-to-Speech (TTS)
 
-### Modes
+### Providers
 
-| Mode | Engine | Cost | Voices | Setup |
-|------|--------|------|--------|-------|
-| **API** | OpenAI TTS (`gpt-4o-mini-tts`) | Per-character pricing | alloy, echo, fable, onyx, nova, shimmer | API key in `keys.toml` |
+| Provider | Engine | Cost | Voices | Setup |
+|----------|--------|------|--------|-------|
+| **OpenAI** | `gpt-4o-mini-tts` | Per-character pricing | alloy, echo, fable, onyx, nova, shimmer | API key in `keys.toml` |
+| **OpenAI-compatible** | Any `/v1/audio/speech` endpoint | Varies | Varies by server | `tts_base_url` + `tts_model` + `tts_voice` + API key |
+| **Voicebox** | Self-hosted async `POST /generate` | Free | Configurable profiles | `voicebox_tts_enabled=true` + `voicebox_tts_base_url` + `voicebox_tts_profile_id` |
 | **Local** | Piper (on-device) | Free | 6 voices | Auto-downloads model |
 
 ### Local TTS Voices (Piper)
@@ -97,15 +101,39 @@ api_key = "your-openai-key"
 [voice]
 # Speech-to-Text
 stt_enabled = true
-stt_mode = "local"              # "api" or "local"
-local_stt_model = "local-tiny"  # local-tiny, local-base, local-small, local-medium
+stt_mode = "groq"                 # "groq", "openai_compatible", "voicebox", "local"
+local_stt_model = "local-tiny"    # local-tiny, local-base, local-small, local-medium
+stt_base_url = "https://..."      # OpenAI-compatible STT endpoint
+stt_model = "whisper-1"           # OpenAI-compatible STT model
+voicebox_stt_enabled = false
+voicebox_stt_base_url = "https://..."
 
 # Text-to-Speech
 tts_enabled = true
-tts_mode = "local"              # "api" or "local"
-tts_voice = "echo"              # API mode: OpenAI voice
-tts_model = "gpt-4o-mini-tts"   # API mode: OpenAI model
-local_tts_voice = "ryan"        # Local mode: Piper voice
+tts_mode = "openai"               # "openai", "openai_compatible", "voicebox", "local"
+tts_voice = "echo"                # OpenAI TTS voice name
+tts_model = "gpt-4o-mini-tts"     # OpenAI TTS model
+local_tts_voice = "ryan"          # Local mode: Piper voice
+tts_base_url = "https://..."      # OpenAI-compatible TTS endpoint
+tts_model = "tts-1"               # OpenAI-compatible TTS model
+voicebox_tts_enabled = false
+voicebox_tts_base_url = "https://..."
+voicebox_tts_profile_id = "profile-id"
+```
+
+```toml
+# keys.toml
+[providers.stt.groq]
+api_key = "your-groq-key"
+
+[providers.stt.openai_compatible]
+api_key = "your-api-key"
+
+[providers.tts.openai]
+api_key = "your-openai-key"
+
+[providers.tts.openai_compatible]
+api_key = "your-api-key"
 ```
 
 ## How Voice Messages Work

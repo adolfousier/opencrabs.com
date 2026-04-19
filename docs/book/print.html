@@ -55,7 +55,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-8683c597.js";
+            window.path_to_searchindex_js = "searchindex-d2a8861f.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-7d93f90a.js"></script>
@@ -1385,11 +1385,13 @@ model = "gemini-3.1-flash-image-preview"
 </thead>
 <tbody>
 <tr><td><code>discord_send</code></td><td>17 actions: send, reply, react, edit, delete, pin, create_thread, send_embed, etc.</td></tr>
-<tr><td><code>slack_send</code></td><td>17 actions: send, reply, react, edit, delete, pin, set_topic, send_blocks, etc.</td></tr>
+<tr><td><code>slack_send</code></td><td>17 actions: send, reply, react, edit, delete, pin, set_topic, send_blocks, send_file (TTS voice via OGG/Opus)</td></tr>
 <tr><td><code>trello_send</code></td><td>22 actions: create_card, move_card, add_comment, add_checklist, search, etc.</td></tr>
 </tbody>
 </table>
 </div>
+<h2 id="channel-voice-parity"><a class="header" href="#channel-voice-parity">Channel Voice Parity</a></h2>
+<p>All four messaging channels (Telegram, Discord, WhatsApp, Slack) now share a single code path via <code>crate::channels::voice::{transcribe, synthesize}</code>. Bot replies are recorded in the <code>channel_messages</code> table for conversation context — previously only user messages were stored.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="telegram-1"><a class="header" href="#telegram-1">Telegram</a></h1>
 <p>Connect OpenCrabs to Telegram for DMs and group chats.</p>
@@ -1515,6 +1517,7 @@ enabled = true
 <li><strong>Thread support</strong> — Responds in threads when appropriate</li>
 <li><strong>Slash commands</strong> — All built-in and custom commands work</li>
 <li><strong>Reactions</strong> — Agent can add emoji reactions</li>
+<li><strong>TTS voice replies</strong> — Voice responses sent as OGG/Opus files via <code>files.upload</code> with inline waveform UI</li>
 </ul>
 <h2 id="socket-mode"><a class="header" href="#socket-mode">Socket Mode</a></h2>
 <p>Slack uses Socket Mode (WebSocket) instead of HTTP webhooks — no public URL or ngrok needed. The connection is outbound from your machine.</p>
@@ -2944,18 +2947,20 @@ opencrabs -p hermes service start
 <p>This was fixed in v0.2.95 where provider changes previously leaked across sessions.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="voice-tts--stt"><a class="header" href="#voice-tts--stt">Voice (TTS &amp; STT)</a></h1>
-<p>OpenCrabs supports text-to-speech and speech-to-text with three modes: <strong>Off</strong>, <strong>API</strong> (cloud), or <strong>Local</strong> (on-device, zero cost).</p>
+<p>OpenCrabs supports text-to-speech and speech-to-text with five provider tiers: <strong>Off</strong>, <strong>Groq</strong> (API), <strong>OpenAI-compatible</strong> (any <code>/v1/audio</code> endpoint), <strong>Voicebox</strong> (self-hosted), or <strong>Local</strong> (on-device, zero cost).</p>
 <h2 id="quick-setup-1"><a class="header" href="#quick-setup-1">Quick Setup</a></h2>
-<p>Run <code>/onboard:voice</code> in the TUI to configure everything interactively — model downloads, voice previews, and API keys are all handled by the wizard.</p>
+<p>Run <code>/onboard:voice</code> in the TUI to configure everything interactively. The voice screen has radio selectors for both STT and TTS, with fields shown/hidden based on the selected provider. API keys are wired to <code>keys.toml</code> automatically.</p>
 <h2 id="speech-to-text-stt"><a class="header" href="#speech-to-text-stt">Speech-to-Text (STT)</a></h2>
-<h3 id="modes"><a class="header" href="#modes">Modes</a></h3>
+<h3 id="providers"><a class="header" href="#providers">Providers</a></h3>
 <div class="table-wrapper">
 <table>
 <thead>
-<tr><th>Mode</th><th>Engine</th><th>Cost</th><th>Latency</th><th>Setup</th></tr>
+<tr><th>Provider</th><th>Engine</th><th>Cost</th><th>Latency</th><th>Setup</th></tr>
 </thead>
 <tbody>
-<tr><td><strong>API</strong></td><td>Groq Whisper (<code>whisper-large-v3-turbo</code>)</td><td>Per-minute pricing</td><td>~1s</td><td>API key in <code>keys.toml</code></td></tr>
+<tr><td><strong>Groq</strong></td><td>Whisper (<code>whisper-large-v3-turbo</code>)</td><td>Per-minute pricing</td><td>~1s</td><td>API key in <code>keys.toml</code></td></tr>
+<tr><td><strong>OpenAI-compatible</strong></td><td>Any Whisper-compatible endpoint</td><td>Varies</td><td>~1-3s</td><td><code>stt_base_url</code> + <code>stt_model</code> + API key</td></tr>
+<tr><td><strong>Voicebox</strong></td><td>Self-hosted open-source</td><td>Free</td><td>~2-5s</td><td><code>voicebox_stt_enabled=true</code> + <code>voicebox_stt_base_url</code></td></tr>
 <tr><td><strong>Local</strong></td><td>whisper.cpp (on-device)</td><td>Free</td><td>~2-5s</td><td>Auto-downloads model</td></tr>
 </tbody>
 </table>
@@ -2988,14 +2993,16 @@ local_stt_model = "local-tiny"  # local-tiny, local-base, local-small, local-med
 api_key = "your-groq-key"       # From console.groq.com
 </code></pre>
 <h2 id="text-to-speech-tts"><a class="header" href="#text-to-speech-tts">Text-to-Speech (TTS)</a></h2>
-<h3 id="modes-1"><a class="header" href="#modes-1">Modes</a></h3>
+<h3 id="providers-1"><a class="header" href="#providers-1">Providers</a></h3>
 <div class="table-wrapper">
 <table>
 <thead>
-<tr><th>Mode</th><th>Engine</th><th>Cost</th><th>Voices</th><th>Setup</th></tr>
+<tr><th>Provider</th><th>Engine</th><th>Cost</th><th>Voices</th><th>Setup</th></tr>
 </thead>
 <tbody>
-<tr><td><strong>API</strong></td><td>OpenAI TTS (<code>gpt-4o-mini-tts</code>)</td><td>Per-character pricing</td><td>alloy, echo, fable, onyx, nova, shimmer</td><td>API key in <code>keys.toml</code></td></tr>
+<tr><td><strong>OpenAI</strong></td><td><code>gpt-4o-mini-tts</code></td><td>Per-character pricing</td><td>alloy, echo, fable, onyx, nova, shimmer</td><td>API key in <code>keys.toml</code></td></tr>
+<tr><td><strong>OpenAI-compatible</strong></td><td>Any <code>/v1/audio/speech</code> endpoint</td><td>Varies</td><td>Varies by server</td><td><code>tts_base_url</code> + <code>tts_model</code> + <code>tts_voice</code> + API key</td></tr>
+<tr><td><strong>Voicebox</strong></td><td>Self-hosted async <code>POST /generate</code></td><td>Free</td><td>Configurable profiles</td><td><code>voicebox_tts_enabled=true</code> + <code>voicebox_tts_base_url</code> + <code>voicebox_tts_profile_id</code></td></tr>
 <tr><td><strong>Local</strong></td><td>Piper (on-device)</td><td>Free</td><td>6 voices</td><td>Auto-downloads model</td></tr>
 </tbody>
 </table>
@@ -3040,15 +3047,37 @@ api_key = "your-openai-key"
 [voice]
 # Speech-to-Text
 stt_enabled = true
-stt_mode = "local"              # "api" or "local"
-local_stt_model = "local-tiny"  # local-tiny, local-base, local-small, local-medium
+stt_mode = "groq"                 # "groq", "openai_compatible", "voicebox", "local"
+local_stt_model = "local-tiny"    # local-tiny, local-base, local-small, local-medium
+stt_base_url = "https://..."      # OpenAI-compatible STT endpoint
+stt_model = "whisper-1"           # OpenAI-compatible STT model
+voicebox_stt_enabled = false
+voicebox_stt_base_url = "https://..."
 
 # Text-to-Speech
 tts_enabled = true
-tts_mode = "local"              # "api" or "local"
-tts_voice = "echo"              # API mode: OpenAI voice
-tts_model = "gpt-4o-mini-tts"   # API mode: OpenAI model
-local_tts_voice = "ryan"        # Local mode: Piper voice
+tts_mode = "openai"               # "openai", "openai_compatible", "voicebox", "local"
+tts_voice = "echo"                # OpenAI TTS voice name
+tts_model = "gpt-4o-mini-tts"     # OpenAI TTS model
+local_tts_voice = "ryan"          # Local mode: Piper voice
+tts_base_url = "https://..."      # OpenAI-compatible TTS endpoint
+tts_model = "tts-1"               # OpenAI-compatible TTS model
+voicebox_tts_enabled = false
+voicebox_tts_base_url = "https://..."
+voicebox_tts_profile_id = "profile-id"
+</code></pre>
+<pre><code class="language-toml"># keys.toml
+[providers.stt.groq]
+api_key = "your-groq-key"
+
+[providers.stt.openai_compatible]
+api_key = "your-api-key"
+
+[providers.tts.openai]
+api_key = "your-openai-key"
+
+[providers.tts.openai_compatible]
+api_key = "your-api-key"
 </code></pre>
 <h2 id="how-voice-messages-work"><a class="header" href="#how-voice-messages-work">How Voice Messages Work</a></h2>
 <p>When a voice message arrives on Telegram, WhatsApp, Discord, or Slack:</p>
@@ -3273,115 +3302,70 @@ panic = "abort"
 <tr><th>Category</th><th style="text-align: right">Tests</th><th>Location</th></tr>
 </thead>
 <tbody>
-<tr><td><strong>Brain — Agent Service</strong></td><td style="text-align: right">42</td><td><code>src/brain/agent/service.rs</code></td></tr>
-<tr><td><strong>Brain — Prompt Builder</strong></td><td style="text-align: right">20</td><td><code>src/brain/prompt_builder.rs</code></td></tr>
-<tr><td><strong>Brain — Agent Context</strong></td><td style="text-align: right">12</td><td><code>src/brain/agent/context.rs</code></td></tr>
-<tr><td><strong>Brain — Provider (Anthropic)</strong></td><td style="text-align: right">9</td><td><code>src/brain/provider/anthropic.rs</code></td></tr>
-<tr><td><strong>Brain — Provider (Retry)</strong></td><td style="text-align: right">9</td><td><code>src/brain/provider/retry.rs</code></td></tr>
-<tr><td><strong>Brain — Provider (Custom OpenAI)</strong></td><td style="text-align: right">9</td><td><code>src/brain/provider/custom_openai_compatible.rs</code></td></tr>
-<tr><td><strong>Brain — Provider (Factory)</strong></td><td style="text-align: right">4</td><td><code>src/brain/provider/factory.rs</code></td></tr>
-<tr><td><strong>Brain — Provider (Copilot)</strong></td><td style="text-align: right">8</td><td><code>src/brain/provider/copilot.rs</code></td></tr>
-<tr><td><strong>Brain — Provider (Types/Error/Trait)</strong></td><td style="text-align: right">7</td><td><code>src/brain/provider/</code></td></tr>
-<tr><td><strong>Brain — Tokenizer</strong></td><td style="text-align: right">8</td><td><code>src/brain/tokenizer.rs</code></td></tr>
-<tr><td><strong>Brain — Commands</strong></td><td style="text-align: right">6</td><td><code>src/brain/commands.rs</code></td></tr>
-<tr><td><strong>Brain — Self-Update</strong></td><td style="text-align: right">1</td><td><code>src/brain/self_update.rs</code></td></tr>
-<tr><td><strong>Brain Tools — Plan Security</strong></td><td style="text-align: right">20</td><td><code>src/brain/tools/plan_tool.rs</code></td></tr>
-<tr><td><strong>Brain Tools — Exa Search</strong></td><td style="text-align: right">18</td><td><code>src/brain/tools/exa_search.rs</code></td></tr>
-<tr><td><strong>Brain Tools — Write File</strong></td><td style="text-align: right">17</td><td><code>src/brain/tools/write_opencrabs_file.rs</code></td></tr>
-<tr><td><strong>Brain Tools — A2A Send</strong></td><td style="text-align: right">16</td><td><code>src/brain/tools/a2a_send.rs</code></td></tr>
-<tr><td><strong>Brain Tools — Load Brain File</strong></td><td style="text-align: right">14</td><td><code>src/brain/tools/load_brain_file.rs</code></td></tr>
-<tr><td><strong>Brain Tools — Brave Search</strong></td><td style="text-align: right">12</td><td><code>src/brain/tools/brave_search.rs</code></td></tr>
-<tr><td><strong>Brain Tools — Doc Parser</strong></td><td style="text-align: right">10</td><td><code>src/brain/tools/doc_parser.rs</code></td></tr>
-<tr><td><strong>Brain Tools — Registry</strong></td><td style="text-align: right">7</td><td><code>src/brain/tools/registry.rs</code></td></tr>
-<tr><td><strong>Brain Tools — Slash Command</strong></td><td style="text-align: right">6</td><td><code>src/brain/tools/slash_command.rs</code></td></tr>
-<tr><td><strong>Brain Tools — Bash</strong></td><td style="text-align: right">21</td><td><code>src/brain/tools/bash.rs</code></td></tr>
-<tr><td><strong>Brain Tools — Write/Read/Config/Memory/Error</strong></td><td style="text-align: right">16</td><td><code>src/brain/tools/</code></td></tr>
-<tr><td><strong>Channels — Voice Service</strong></td><td style="text-align: right">14</td><td><code>src/channels/voice/service.rs</code></td></tr>
-<tr><td><strong>Channels — Voice Local TTS</strong></td><td style="text-align: right">14</td><td><code>src/channels/voice/local_tts.rs</code></td></tr>
-<tr><td><strong>Channels — Voice Local Whisper</strong></td><td style="text-align: right">25</td><td><code>src/channels/voice/local_whisper.rs</code></td></tr>
-<tr><td><strong>Channels — Commands</strong></td><td style="text-align: right">14</td><td><code>src/channels/commands.rs</code></td></tr>
-<tr><td><strong>Channels — WhatsApp Store</strong></td><td style="text-align: right">15</td><td><code>src/channels/whatsapp/store.rs</code></td></tr>
-<tr><td><strong>Channels — WhatsApp Handler</strong></td><td style="text-align: right">5</td><td><code>src/channels/whatsapp/handler.rs</code></td></tr>
-<tr><td><strong>Channels — Telegram Handler</strong></td><td style="text-align: right">8</td><td><code>src/channels/telegram/handler.rs</code></td></tr>
-<tr><td><strong>Channels — Slack Handler</strong></td><td style="text-align: right">2</td><td><code>src/channels/slack/handler.rs</code></td></tr>
-<tr><td><strong>Channels — Discord Handler</strong></td><td style="text-align: right">2</td><td><code>src/channels/discord/handler.rs</code></td></tr>
-<tr><td><strong>Channels — General</strong></td><td style="text-align: right">5</td><td><code>src/channels/</code></td></tr>
-<tr><td><strong>Config — Types</strong></td><td style="text-align: right">19</td><td><code>src/config/types.rs</code></td></tr>
-<tr><td><strong>Config — Secrets</strong></td><td style="text-align: right">5</td><td><code>src/config/secrets.rs</code></td></tr>
-<tr><td><strong>Config — Update</strong></td><td style="text-align: right">4</td><td><code>src/config/update.rs</code></td></tr>
-<tr><td><strong>Config — Crabrace</strong></td><td style="text-align: right">3</td><td><code>src/config/crabrace.rs</code></td></tr>
-<tr><td><strong>DB — Repository (Plan)</strong></td><td style="text-align: right">15</td><td><code>src/db/repository/plan.rs</code></td></tr>
-<tr><td><strong>DB — Retry</strong></td><td style="text-align: right">8</td><td><code>src/db/retry.rs</code></td></tr>
-<tr><td><strong>DB — Database</strong></td><td style="text-align: right">5</td><td><code>src/db/database.rs</code></td></tr>
-<tr><td><strong>DB — Models</strong></td><td style="text-align: right">4</td><td><code>src/db/models.rs</code></td></tr>
-<tr><td><strong>DB — Repository (Other)</strong></td><td style="text-align: right">9</td><td><code>src/db/repository/</code></td></tr>
-<tr><td><strong>Services — Plan</strong></td><td style="text-align: right">11</td><td><code>src/services/plan.rs</code></td></tr>
-<tr><td><strong>Services — File</strong></td><td style="text-align: right">11</td><td><code>src/services/file.rs</code></td></tr>
-<tr><td><strong>Services — Message</strong></td><td style="text-align: right">10</td><td><code>src/services/message.rs</code></td></tr>
-<tr><td><strong>Services — Session</strong></td><td style="text-align: right">9</td><td><code>src/services/session.rs</code></td></tr>
-<tr><td><strong>Services — Context</strong></td><td style="text-align: right">2</td><td><code>src/services/context.rs</code></td></tr>
-<tr><td><strong>A2A — Debate</strong></td><td style="text-align: right">8</td><td><code>src/a2a/debate.rs</code></td></tr>
-<tr><td><strong>A2A — Types</strong></td><td style="text-align: right">6</td><td><code>src/a2a/types.rs</code></td></tr>
-<tr><td><strong>A2A — Server/Handler/Agent Card</strong></td><td style="text-align: right">7</td><td><code>src/a2a/</code></td></tr>
-<tr><td><strong>Memory — Store</strong></td><td style="text-align: right">6</td><td><code>src/memory/store.rs</code></td></tr>
-<tr><td><strong>Memory — Search</strong></td><td style="text-align: right">3</td><td><code>src/memory/search.rs</code></td></tr>
-<tr><td><strong>Pricing</strong></td><td style="text-align: right">13</td><td><code>src/pricing.rs</code></td></tr>
-<tr><td><strong>Logging</strong></td><td style="text-align: right">4</td><td><code>src/logging/logger.rs</code></td></tr>
-<tr><td><strong>Utils — Install</strong></td><td style="text-align: right">6</td><td><code>src/utils/install.rs</code></td></tr>
-<tr><td><strong>Utils</strong></td><td style="text-align: right">1</td><td><code>src/utils/</code></td></tr>
-<tr><td><strong>CLI</strong></td><td style="text-align: right">1</td><td><code>src/cli.rs</code></td></tr>
-<tr><td>Tests — CLI Parsing</td><td style="text-align: right">28</td><td><code>src/tests/cli_test.rs</code></td></tr>
-<tr><td>Tests — Cron Jobs &amp; Scheduling</td><td style="text-align: right">49</td><td><code>src/tests/cron_test.rs</code></td></tr>
-<tr><td>Tests — Channel Search</td><td style="text-align: right">24</td><td><code>src/tests/channel_search_test.rs</code></td></tr>
-<tr><td>Tests — Voice STT Dispatch</td><td style="text-align: right">11</td><td><code>src/tests/voice_stt_dispatch_test.rs</code></td></tr>
-<tr><td>Tests — Voice Onboarding</td><td style="text-align: right">62</td><td><code>src/tests/voice_onboarding_test.rs</code></td></tr>
-<tr><td>Tests — Candle Whisper</td><td style="text-align: right">6</td><td><code>src/tests/candle_whisper_test.rs</code></td></tr>
-<tr><td>Tests — Evolve (Self-Update)</td><td style="text-align: right">23</td><td><code>src/tests/evolve_test.rs</code></td></tr>
-<tr><td>Tests — Session &amp; Working Dir</td><td style="text-align: right">15</td><td><code>src/tests/session_working_dir_test.rs</code></td></tr>
-<tr><td>Tests — Message Compaction</td><td style="text-align: right">24</td><td><code>src/tests/compaction_test.rs</code></td></tr>
-<tr><td>Tests — Fallback Vision</td><td style="text-align: right">35</td><td><code>src/tests/fallback_vision_test.rs</code></td></tr>
-<tr><td>Tests — GitHub Copilot Provider</td><td style="text-align: right">38</td><td><code>src/tests/github_provider_test.rs</code></td></tr>
-<tr><td>Tests — File Extract</td><td style="text-align: right">36</td><td><code>src/tests/file_extract_test.rs</code></td></tr>
-<tr><td>Tests — Image Utils</td><td style="text-align: right">9</td><td><code>src/tests/image_util_test.rs</code></td></tr>
-<tr><td>Tests — Onboarding Brain</td><td style="text-align: right">21</td><td><code>src/tests/onboarding_brain_test.rs</code></td></tr>
-<tr><td>Tests — Onboarding Navigation</td><td style="text-align: right">26</td><td><code>src/tests/onboarding_navigation_test.rs</code></td></tr>
-<tr><td>Tests — Onboarding Types</td><td style="text-align: right">16</td><td><code>src/tests/onboarding_types_test.rs</code></td></tr>
-<tr><td>Tests — Onboarding Keys</td><td style="text-align: right">4</td><td><code>src/tests/onboarding_keys_test.rs</code></td></tr>
-<tr><td>Tests — OpenAI Provider</td><td style="text-align: right">16</td><td><code>src/tests/openai_provider_test.rs</code></td></tr>
-<tr><td>Tests — Plan Document</td><td style="text-align: right">15</td><td><code>src/tests/plan_document_test.rs</code></td></tr>
-<tr><td>Tests — TUI Error</td><td style="text-align: right">16</td><td><code>src/tests/tui_error_test.rs</code></td></tr>
-<tr><td>Tests — Queued Messages</td><td style="text-align: right">15</td><td><code>src/tests/queued_message_test.rs</code></td></tr>
-<tr><td>Tests — Custom Provider</td><td style="text-align: right">27</td><td><code>src/tests/custom_provider_test.rs</code></td></tr>
-<tr><td>Tests — Context Window</td><td style="text-align: right">14</td><td><code>src/tests/context_window_test.rs</code></td></tr>
-<tr><td>Tests — Onboarding Field Nav</td><td style="text-align: right">46</td><td><code>src/tests/onboarding_field_nav_test.rs</code></td></tr>
-<tr><td>Tests — Provider Sync</td><td style="text-align: right">10</td><td><code>src/tests/provider_sync_test.rs</code></td></tr>
-<tr><td>Tests — Brain Templates</td><td style="text-align: right">8</td><td><code>src/tests/brain_templates_test.rs</code></td></tr>
-<tr><td>Tests — Collapse Build Output</td><td style="text-align: right">9</td><td><code>src/tests/collapse_build_output_test.rs</code></td></tr>
-<tr><td>Tests — Reasoning Lines</td><td style="text-align: right">6</td><td><code>src/tests/reasoning_lines_test.rs</code></td></tr>
-<tr><td>Tests — AltGr Input</td><td style="text-align: right">8</td><td><code>src/tests/altgr_input_test.rs</code></td></tr>
-<tr><td>Tests — System Continuation</td><td style="text-align: right">6</td><td><code>src/tests/system_continuation_test.rs</code></td></tr>
-<tr><td>Tests — QR Render</td><td style="text-align: right">8</td><td><code>src/tests/qr_render_test.rs</code></td></tr>
-<tr><td>Tests — WhatsApp State</td><td style="text-align: right">7</td><td><code>src/tests/whatsapp_state_test.rs</code></td></tr>
-<tr><td>Tests — Post-Evolve</td><td style="text-align: right">5</td><td><code>src/tests/post_evolve_test.rs</code></td></tr>
-<tr><td>Tests — Stream Loop Detection</td><td style="text-align: right">15</td><td><code>src/tests/stream_loop_test.rs</code></td></tr>
-<tr><td>Tests — XML Tool Fallback</td><td style="text-align: right">10</td><td><code>src/tests/xml_tool_fallback_test.rs</code></td></tr>
-<tr><td>Tests — TUI Render Clear</td><td style="text-align: right">4</td><td><code>src/tests/tui_render_clear_test.rs</code></td></tr>
-<tr><td>Tests — Split Panes</td><td style="text-align: right">21</td><td><code>src/tests/split_pane_test.rs</code></td></tr>
-<tr><td>Tests — Slack Formatting</td><td style="text-align: right">21</td><td><code>src/tests/slack_formatting_test.rs</code></td></tr>
-<tr><td>Tests — Daemon Health</td><td style="text-align: right">10</td><td><code>src/tests/daemon_health_test.rs</code></td></tr>
-<tr><td>Tests — Claude CLI Cache</td><td style="text-align: right">5</td><td><code>src/tests/claude_cli_cache_test.rs</code></td></tr>
-<tr><td>Tests — Browser Headless</td><td style="text-align: right">4</td><td><code>src/tests/browser_headless_test.rs</code></td></tr>
-<tr><td>Tests — Provider Registry</td><td style="text-align: right">8</td><td><code>src/tests/provider_registry_test.rs</code></td></tr>
-<tr><td>Tests — Self-Healing System</td><td style="text-align: right">27</td><td><code>src/tests/self_healing_test.rs</code></td></tr>
-<tr><td>Tests — Emergency Compaction</td><td style="text-align: right">2</td><td><code>src/tests/compaction_test.rs</code></td></tr>
-<tr><td>Tests — Cross-Channel Crash Recovery</td><td style="text-align: right">12</td><td><code>src/tests/pending_request_test.rs</code></td></tr>
-<tr><td>Tests — Profile System</td><td style="text-align: right">57</td><td><code>src/tests/profile_test.rs</code></td></tr>
-<tr><td>Tests — Token Tracking</td><td style="text-align: right">29</td><td><code>src/tests/token_tracking_test.rs</code></td></tr>
-<tr><td>Tests — Cron Execution Storage</td><td style="text-align: right">6</td><td><code>src/tests/cron_results_test.rs</code></td></tr>
-<tr><td>Tests — LLM Artifact Stripping</td><td style="text-align: right">8</td><td><code>src/tests/artifact_strip_test.rs</code></td></tr>
-<tr><td>Tests — Subagent &amp; Team Orchestration</td><td style="text-align: right">84</td><td><code>src/tests/subagent_test.rs</code></td></tr>
-<tr><td>Tests — Telegram Resume Pipeline</td><td style="text-align: right">55</td><td><code>src/tests/telegram_resume_test.rs</code></td></tr>
-<tr><td><strong>Total</strong></td><td style="text-align: right"><strong>1,995</strong></td><td></td></tr>
+<tr><td><strong>Tests — CLI Parsing</strong></td><td style="text-align: right">28</td><td><code>src/tests/cli_test.rs</code></td></tr>
+<tr><td><strong>Tests — Cron Jobs &amp; Scheduling</strong></td><td style="text-align: right">49</td><td><code>src/tests/cron_test.rs</code></td></tr>
+<tr><td><strong>Tests — Channel Search</strong></td><td style="text-align: right">24</td><td><code>src/tests/channel_search_test.rs</code></td></tr>
+<tr><td><strong>Tests — Voice STT Dispatch</strong></td><td style="text-align: right">11</td><td><code>src/tests/voice_stt_dispatch_test.rs</code></td></tr>
+<tr><td><strong>Tests — Voice Onboarding</strong></td><td style="text-align: right">62</td><td><code>src/tests/voice_onboarding_test.rs</code></td></tr>
+<tr><td><strong>Tests — Candle Whisper</strong></td><td style="text-align: right">6</td><td><code>src/tests/candle_whisper_test.rs</code></td></tr>
+<tr><td><strong>Tests — Evolve (Self-Update)</strong></td><td style="text-align: right">23</td><td><code>src/tests/evolve_test.rs</code></td></tr>
+<tr><td><strong>Tests — Session &amp; Working Dir</strong></td><td style="text-align: right">15</td><td><code>src/tests/session_working_dir_test.rs</code></td></tr>
+<tr><td><strong>Tests — Message Compaction</strong></td><td style="text-align: right">24</td><td><code>src/tests/compaction_test.rs</code></td></tr>
+<tr><td><strong>Tests — Fallback Vision</strong></td><td style="text-align: right">35</td><td><code>src/tests/fallback_vision_test.rs</code></td></tr>
+<tr><td><strong>Tests — GitHub Copilot Provider</strong></td><td style="text-align: right">38</td><td><code>src/tests/github_provider_test.rs</code></td></tr>
+<tr><td><strong>Tests — File Extract</strong></td><td style="text-align: right">36</td><td><code>src/tests/file_extract_test.rs</code></td></tr>
+<tr><td><strong>Tests — Image Utils</strong></td><td style="text-align: right">9</td><td><code>src/tests/image_util_test.rs</code></td></tr>
+<tr><td><strong>Tests — Onboarding Brain</strong></td><td style="text-align: right">21</td><td><code>src/tests/onboarding_brain_test.rs</code></td></tr>
+<tr><td><strong>Tests — Onboarding Navigation</strong></td><td style="text-align: right">26</td><td><code>src/tests/onboarding_navigation_test.rs</code></td></tr>
+<tr><td><strong>Tests — Onboarding Types</strong></td><td style="text-align: right">16</td><td><code>src/tests/onboarding_types_test.rs</code></td></tr>
+<tr><td><strong>Tests — Onboarding Keys</strong></td><td style="text-align: right">4</td><td><code>src/tests/onboarding_keys_test.rs</code></td></tr>
+<tr><td><strong>Tests — OpenAI Provider</strong></td><td style="text-align: right">16</td><td><code>src/tests/openai_provider_test.rs</code></td></tr>
+<tr><td><strong>Tests — Plan Document</strong></td><td style="text-align: right">15</td><td><code>src/tests/plan_document_test.rs</code></td></tr>
+<tr><td><strong>Tests — TUI Error</strong></td><td style="text-align: right">16</td><td><code>src/tests/tui_error_test.rs</code></td></tr>
+<tr><td><strong>Tests — Queued Messages</strong></td><td style="text-align: right">15</td><td><code>src/tests/queued_message_test.rs</code></td></tr>
+<tr><td><strong>Tests — Custom Provider</strong></td><td style="text-align: right">27</td><td><code>src/tests/custom_provider_test.rs</code></td></tr>
+<tr><td><strong>Tests — Context Window</strong></td><td style="text-align: right">14</td><td><code>src/tests/context_window_test.rs</code></td></tr>
+<tr><td><strong>Tests — Onboarding Field Nav</strong></td><td style="text-align: right">46</td><td><code>src/tests/onboarding_field_nav_test.rs</code></td></tr>
+<tr><td><strong>Tests — Provider Sync</strong></td><td style="text-align: right">10</td><td><code>src/tests/provider_sync_test.rs</code></td></tr>
+<tr><td><strong>Tests — Brain Templates</strong></td><td style="text-align: right">8</td><td><code>src/tests/brain_templates_test.rs</code></td></tr>
+<tr><td><strong>Tests — Collapse Build Output</strong></td><td style="text-align: right">9</td><td><code>src/tests/collapse_build_output_test.rs</code></td></tr>
+<tr><td><strong>Tests — Reasoning Lines</strong></td><td style="text-align: right">6</td><td><code>src/tests/reasoning_lines_test.rs</code></td></tr>
+<tr><td><strong>Tests — AltGr Input</strong></td><td style="text-align: right">8</td><td><code>src/tests/altgr_input_test.rs</code></td></tr>
+<tr><td><strong>Tests — System Continuation</strong></td><td style="text-align: right">6</td><td><code>src/tests/system_continuation_test.rs</code></td></tr>
+<tr><td><strong>Tests — QR Render</strong></td><td style="text-align: right">8</td><td><code>src/tests/qr_render_test.rs</code></td></tr>
+<tr><td><strong>Tests — WhatsApp State</strong></td><td style="text-align: right">7</td><td><code>src/tests/whatsapp_state_test.rs</code></td></tr>
+<tr><td><strong>Tests — Post-Evolve</strong></td><td style="text-align: right">5</td><td><code>src/tests/post_evolve_test.rs</code></td></tr>
+<tr><td><strong>Tests — Stream Loop Detection</strong></td><td style="text-align: right">15</td><td><code>src/tests/stream_loop_test.rs</code></td></tr>
+<tr><td><strong>Tests — XML Tool Fallback</strong></td><td style="text-align: right">10</td><td><code>src/tests/xml_tool_fallback_test.rs</code></td></tr>
+<tr><td><strong>Tests — TUI Render Clear</strong></td><td style="text-align: right">4</td><td><code>src/tests/tui_render_clear_test.rs</code></td></tr>
+<tr><td><strong>Tests — Split Panes</strong></td><td style="text-align: right">21</td><td><code>src/tests/split_pane_test.rs</code></td></tr>
+<tr><td><strong>Tests — Slack Formatting</strong></td><td style="text-align: right">21</td><td><code>src/tests/slack_formatting_test.rs</code></td></tr>
+<tr><td><strong>Tests — Daemon Health</strong></td><td style="text-align: right">10</td><td><code>src/tests/daemon_health_test.rs</code></td></tr>
+<tr><td><strong>Tests — Claude CLI Cache</strong></td><td style="text-align: right">5</td><td><code>src/tests/claude_cli_cache_test.rs</code></td></tr>
+<tr><td><strong>Tests — Browser Headless</strong></td><td style="text-align: right">4</td><td><code>src/tests/browser_headless_test.rs</code></td></tr>
+<tr><td><strong>Tests — Provider Registry</strong></td><td style="text-align: right">8</td><td><code>src/tests/provider_registry_test.rs</code></td></tr>
+<tr><td><strong>Tests — Self-Healing System</strong></td><td style="text-align: right">27</td><td><code>src/tests/self_healing_test.rs</code></td></tr>
+<tr><td><strong>Tests — Emergency Compaction</strong></td><td style="text-align: right">2</td><td><code>src/tests/compaction_test.rs</code></td></tr>
+<tr><td><strong>Tests — Cross-Channel Crash Recovery</strong></td><td style="text-align: right">12</td><td><code>src/tests/pending_request_test.rs</code></td></tr>
+<tr><td><strong>Tests — Profile System</strong></td><td style="text-align: right">57</td><td><code>src/tests/profile_test.rs</code></td></tr>
+<tr><td><strong>Tests — Token Tracking</strong></td><td style="text-align: right">29</td><td><code>src/tests/token_tracking_test.rs</code></td></tr>
+<tr><td><strong>Tests — Cron Execution Storage</strong></td><td style="text-align: right">6</td><td><code>src/tests/cron_results_test.rs</code></td></tr>
+<tr><td><strong>Tests — LLM Artifact Stripping</strong></td><td style="text-align: right">8</td><td><code>src/tests/artifact_strip_test.rs</code></td></tr>
+<tr><td><strong>Tests — Subagent &amp; Team Orchestration</strong></td><td style="text-align: right">84</td><td><code>src/tests/subagent_test.rs</code></td></tr>
+<tr><td><strong>Tests — Telegram Resume Pipeline</strong></td><td style="text-align: right">55</td><td><code>src/tests/telegram_resume_test.rs</code></td></tr>
+<tr><td><strong>Brain (all modules)</strong></td><td style="text-align: right">365</td><td><code>src/brain/</code></td></tr>
+<tr><td><strong>TUI (all modules)</strong></td><td style="text-align: right">141</td><td><code>src/tui/</code></td></tr>
+<tr><td><strong>Channels (all modules)</strong></td><td style="text-align: right">105</td><td><code>src/channels/</code></td></tr>
+<tr><td><strong>Utils (all modules)</strong></td><td style="text-align: right">56</td><td><code>src/utils/</code></td></tr>
+<tr><td><strong>Services (all modules)</strong></td><td style="text-align: right">44</td><td><code>src/services/</code></td></tr>
+<tr><td><strong>DB (all modules)</strong></td><td style="text-align: right">40</td><td><code>src/db/</code></td></tr>
+<tr><td><strong>Config (all modules)</strong></td><td style="text-align: right">32</td><td><code>src/config/</code></td></tr>
+<tr><td><strong>A2A (all modules)</strong></td><td style="text-align: right">21</td><td><code>src/a2a/</code></td></tr>
+<tr><td><strong>Usage</strong></td><td style="text-align: right">17</td><td><code>src/usage.rs</code></td></tr>
+<tr><td><strong>Pricing</strong></td><td style="text-align: right">17</td><td><code>src/pricing.rs</code></td></tr>
+<tr><td><strong>Memory</strong></td><td style="text-align: right">9</td><td><code>src/memory/</code></td></tr>
+<tr><td><strong>Logging</strong></td><td style="text-align: right">4</td><td><code>src/logging/</code></td></tr>
+<tr><td><strong>Total</strong></td><td style="text-align: right"><strong>2,056</strong></td><td></td></tr>
 </tbody>
 </table>
 </div>

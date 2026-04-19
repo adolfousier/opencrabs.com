@@ -54,7 +54,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-8683c597.js";
+            window.path_to_searchindex_js = "../searchindex-d2a8861f.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-7d93f90a.js"></script>
@@ -248,11 +248,13 @@
 </thead>
 <tbody>
 <tr><td><code>discord_send</code></td><td>17 actions: send, reply, react, edit, delete, pin, create_thread, send_embed, etc.</td></tr>
-<tr><td><code>slack_send</code></td><td>17 actions: send, reply, react, edit, delete, pin, set_topic, send_blocks, etc.</td></tr>
+<tr><td><code>slack_send</code></td><td>17 actions: send, reply, react, edit, delete, pin, set_topic, send_blocks, send_file (TTS voice via OGG/Opus)</td></tr>
 <tr><td><code>trello_send</code></td><td>22 actions: create_card, move_card, add_comment, add_checklist, search, etc.</td></tr>
 </tbody>
 </table>
 </div>
+<h2 id="channel-voice-parity"><a class="header" href="#channel-voice-parity">Channel Voice Parity</a></h2>
+<p>All four messaging channels (Telegram, Discord, WhatsApp, Slack) now share a single code path via <code>crate::channels::voice::{transcribe, synthesize}</code>. Bot replies are recorded in the <code>channel_messages</code> table for conversation context — previously only user messages were stored.</p>
 
                     </main>
 

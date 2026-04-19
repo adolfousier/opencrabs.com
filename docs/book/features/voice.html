@@ -54,7 +54,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-8683c597.js";
+            window.path_to_searchindex_js = "../searchindex-d2a8861f.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-7d93f90a.js"></script>
@@ -197,18 +197,20 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="voice-tts--stt"><a class="header" href="#voice-tts--stt">Voice (TTS &amp; STT)</a></h1>
-<p>OpenCrabs supports text-to-speech and speech-to-text with three modes: <strong>Off</strong>, <strong>API</strong> (cloud), or <strong>Local</strong> (on-device, zero cost).</p>
+<p>OpenCrabs supports text-to-speech and speech-to-text with five provider tiers: <strong>Off</strong>, <strong>Groq</strong> (API), <strong>OpenAI-compatible</strong> (any <code>/v1/audio</code> endpoint), <strong>Voicebox</strong> (self-hosted), or <strong>Local</strong> (on-device, zero cost).</p>
 <h2 id="quick-setup"><a class="header" href="#quick-setup">Quick Setup</a></h2>
-<p>Run <code>/onboard:voice</code> in the TUI to configure everything interactively — model downloads, voice previews, and API keys are all handled by the wizard.</p>
+<p>Run <code>/onboard:voice</code> in the TUI to configure everything interactively. The voice screen has radio selectors for both STT and TTS, with fields shown/hidden based on the selected provider. API keys are wired to <code>keys.toml</code> automatically.</p>
 <h2 id="speech-to-text-stt"><a class="header" href="#speech-to-text-stt">Speech-to-Text (STT)</a></h2>
-<h3 id="modes"><a class="header" href="#modes">Modes</a></h3>
+<h3 id="providers"><a class="header" href="#providers">Providers</a></h3>
 <div class="table-wrapper">
 <table>
 <thead>
-<tr><th>Mode</th><th>Engine</th><th>Cost</th><th>Latency</th><th>Setup</th></tr>
+<tr><th>Provider</th><th>Engine</th><th>Cost</th><th>Latency</th><th>Setup</th></tr>
 </thead>
 <tbody>
-<tr><td><strong>API</strong></td><td>Groq Whisper (<code>whisper-large-v3-turbo</code>)</td><td>Per-minute pricing</td><td>~1s</td><td>API key in <code>keys.toml</code></td></tr>
+<tr><td><strong>Groq</strong></td><td>Whisper (<code>whisper-large-v3-turbo</code>)</td><td>Per-minute pricing</td><td>~1s</td><td>API key in <code>keys.toml</code></td></tr>
+<tr><td><strong>OpenAI-compatible</strong></td><td>Any Whisper-compatible endpoint</td><td>Varies</td><td>~1-3s</td><td><code>stt_base_url</code> + <code>stt_model</code> + API key</td></tr>
+<tr><td><strong>Voicebox</strong></td><td>Self-hosted open-source</td><td>Free</td><td>~2-5s</td><td><code>voicebox_stt_enabled=true</code> + <code>voicebox_stt_base_url</code></td></tr>
 <tr><td><strong>Local</strong></td><td>whisper.cpp (on-device)</td><td>Free</td><td>~2-5s</td><td>Auto-downloads model</td></tr>
 </tbody>
 </table>
@@ -241,14 +243,16 @@ local_stt_model = "local-tiny"  # local-tiny, local-base, local-small, local-med
 api_key = "your-groq-key"       # From console.groq.com
 </code></pre>
 <h2 id="text-to-speech-tts"><a class="header" href="#text-to-speech-tts">Text-to-Speech (TTS)</a></h2>
-<h3 id="modes-1"><a class="header" href="#modes-1">Modes</a></h3>
+<h3 id="providers-1"><a class="header" href="#providers-1">Providers</a></h3>
 <div class="table-wrapper">
 <table>
 <thead>
-<tr><th>Mode</th><th>Engine</th><th>Cost</th><th>Voices</th><th>Setup</th></tr>
+<tr><th>Provider</th><th>Engine</th><th>Cost</th><th>Voices</th><th>Setup</th></tr>
 </thead>
 <tbody>
-<tr><td><strong>API</strong></td><td>OpenAI TTS (<code>gpt-4o-mini-tts</code>)</td><td>Per-character pricing</td><td>alloy, echo, fable, onyx, nova, shimmer</td><td>API key in <code>keys.toml</code></td></tr>
+<tr><td><strong>OpenAI</strong></td><td><code>gpt-4o-mini-tts</code></td><td>Per-character pricing</td><td>alloy, echo, fable, onyx, nova, shimmer</td><td>API key in <code>keys.toml</code></td></tr>
+<tr><td><strong>OpenAI-compatible</strong></td><td>Any <code>/v1/audio/speech</code> endpoint</td><td>Varies</td><td>Varies by server</td><td><code>tts_base_url</code> + <code>tts_model</code> + <code>tts_voice</code> + API key</td></tr>
+<tr><td><strong>Voicebox</strong></td><td>Self-hosted async <code>POST /generate</code></td><td>Free</td><td>Configurable profiles</td><td><code>voicebox_tts_enabled=true</code> + <code>voicebox_tts_base_url</code> + <code>voicebox_tts_profile_id</code></td></tr>
 <tr><td><strong>Local</strong></td><td>Piper (on-device)</td><td>Free</td><td>6 voices</td><td>Auto-downloads model</td></tr>
 </tbody>
 </table>
@@ -293,15 +297,37 @@ api_key = "your-openai-key"
 [voice]
 # Speech-to-Text
 stt_enabled = true
-stt_mode = "local"              # "api" or "local"
-local_stt_model = "local-tiny"  # local-tiny, local-base, local-small, local-medium
+stt_mode = "groq"                 # "groq", "openai_compatible", "voicebox", "local"
+local_stt_model = "local-tiny"    # local-tiny, local-base, local-small, local-medium
+stt_base_url = "https://..."      # OpenAI-compatible STT endpoint
+stt_model = "whisper-1"           # OpenAI-compatible STT model
+voicebox_stt_enabled = false
+voicebox_stt_base_url = "https://..."
 
 # Text-to-Speech
 tts_enabled = true
-tts_mode = "local"              # "api" or "local"
-tts_voice = "echo"              # API mode: OpenAI voice
-tts_model = "gpt-4o-mini-tts"   # API mode: OpenAI model
-local_tts_voice = "ryan"        # Local mode: Piper voice
+tts_mode = "openai"               # "openai", "openai_compatible", "voicebox", "local"
+tts_voice = "echo"                # OpenAI TTS voice name
+tts_model = "gpt-4o-mini-tts"     # OpenAI TTS model
+local_tts_voice = "ryan"          # Local mode: Piper voice
+tts_base_url = "https://..."      # OpenAI-compatible TTS endpoint
+tts_model = "tts-1"               # OpenAI-compatible TTS model
+voicebox_tts_enabled = false
+voicebox_tts_base_url = "https://..."
+voicebox_tts_profile_id = "profile-id"
+</code></pre>
+<pre><code class="language-toml"># keys.toml
+[providers.stt.groq]
+api_key = "your-groq-key"
+
+[providers.stt.openai_compatible]
+api_key = "your-api-key"
+
+[providers.tts.openai]
+api_key = "your-openai-key"
+
+[providers.tts.openai_compatible]
+api_key = "your-api-key"
 </code></pre>
 <h2 id="how-voice-messages-work"><a class="header" href="#how-voice-messages-work">How Voice Messages Work</a></h2>
 <p>When a voice message arrives on Telegram, WhatsApp, Discord, or Slack:</p>
