@@ -55,7 +55,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-ede15e79.js";
+            window.path_to_searchindex_js = "searchindex-12dd0646.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-7d93f90a.js"></script>
@@ -202,8 +202,9 @@
 <h2 id="what-makes-opencrabs-different"><a class="header" href="#what-makes-opencrabs-different">What Makes OpenCrabs Different</a></h2>
 <h3 id="-provider-agnostic-with-native-cli-integration"><a class="header" href="#-provider-agnostic-with-native-cli-integration">🔄 Provider-Agnostic with Native CLI Integration</a></h3>
 <ul>
-<li><strong>11+ built-in providers</strong>: Anthropic, OpenAI, Gemini, OpenRouter, Qwen (OAuth + CLI), MiniMax, Ollama, LM Studio, vLLM, NVIDIA, Dialagram</li>
+<li><strong>13+ built-in providers</strong>: Anthropic, OpenAI, Gemini, OpenRouter, Qwen (OAuth + CLI), MiniMax, Ollama, LM Studio, vLLM, NVIDIA, Dialagram, z.ai GLM, GitHub Copilot</li>
 <li><strong>Claude Code CLI &amp; OpenCode CLI</strong> integrated as native providers — use their models without API keys</li>
+<li><strong>Ollama as native provider</strong> — run any local model via Ollama API without custom provider setup (v0.3.15)</li>
 <li><strong>Custom OpenAI-compatible backends</strong> now stream thinking tokens, tool calls, and intermediate text exactly like native providers (v0.3.2)</li>
 <li><strong>Sticky fallback chain</strong> — auto-failover to secondary providers on rate limits or errors</li>
 <li><strong>Prompt caching</strong> across Anthropic, OpenRouter, Gemini, Qwen DashScope — reduces costs up to 95% (v0.3.2)</li>
@@ -227,12 +228,16 @@
 <li><strong>Recursive Self-Improvement (RSI)</strong> — agent analyzes its own performance, identifies patterns, and autonomously rewrites brain files (v0.3.6)</li>
 <li><strong>Feedback ledger</strong> — persistent SQLite table recording every tool success/failure, user correction, provider error (v0.3.6)</li>
 <li><strong>Phantom tool call detection</strong> — catches when the model narrates file changes in prose without executing tools (v0.3.7)</li>
+<li><strong>Append-only brain files</strong> — brain files (SOUL.md, TOOLS.md, etc.) are now append-only with backup-before-write to prevent data loss (v0.3.13)</li>
+<li><strong>Upstream template sync</strong> — automatically syncs brain file templates from the repo with version gating and append-only diffs (v0.3.15)</li>
+<li><strong>RSI alert suppression</strong> — suppresses alerts whose dimension already has a fix commit, stale alerts age out (v0.3.13)</li>
 <li><strong>Context budget management</strong>: 65% soft / 90% hard compaction thresholds with 3-retry LLM fallback</li>
 <li><strong>Stuck stream detection</strong>: 2048-byte rolling window catches repeating patterns, auto-recover</li>
 <li><strong>Gaslighting defense</strong>: strips tool-refusal preambles mid-turn across 4+ phrase families</li>
 <li><strong>Auto-fallback on rate limits</strong> — saves state mid-stream, resumes on fallback provider</li>
 <li><strong>Mid-stream decode retry</strong> — 3x backoff before provider fallback (v0.3.0)</li>
 <li><strong>Non-streaming compatibility</strong> — synthesizes full stream events from non-streaming JSON (v0.3.7)</li>
+<li><strong>Per-session message queue isolation</strong> — prevents cross-session message bleeding in split panes and channels (v0.3.13)</li>
 </ul>
 <h3 id="-terminal-ui-excellence-v032"><a class="header" href="#-terminal-ui-excellence-v032">🖥️ Terminal UI Excellence (v0.3.2)</a></h3>
 <ul>
@@ -247,18 +252,25 @@
 <h3 id="-developer-experience"><a class="header" href="#-developer-experience">🔧 Developer Experience</a></h3>
 <ul>
 <li><strong>Bang operator (<code>!cmd</code>)</strong> — run shell commands directly from TUI input, no LLM round-trip (v0.3.1)</li>
-<li><strong>Full CLI surface</strong>: 20+ subcommands (<code>/models</code>, <code>/approve</code>, <code>/compact</code>, <code>/rebuild</code>, <code>/evolve</code>, <code>/new</code>, <code>/doctor</code>, etc.)</li>
+<li><strong>Full CLI surface</strong>: 20+ subcommands (<code>/models</code>, <code>/approve</code>, <code>/compact</code>, <code>/rebuild</code>, <code>/evolve</code>, <code>/new</code>, <code>/doctor</code>, <code>/btw</code>, etc.)</li>
+<li><strong><code>/btw</code> parallel agent</strong> — spawn an isolated sub-agent for side tasks while the main conversation continues (v0.3.15)</li>
 <li><strong>Programmatic <code>/evolve</code></strong> — bypasses LLM, runs update directly (v0.3.1)</li>
 <li><strong>Auto-update on startup</strong> — <code>[agent] auto_update = true</code> silently installs + hot-restarts (v0.3.1)</li>
 <li><strong>Dynamic tools</strong> — runtime-defined via TOML (HTTP + shell executors)</li>
 <li><strong>Split panes</strong> — tmux-style parallel sessions with layout persistence</li>
 <li><strong>Usage Dashboard</strong> — <code>/usage</code> command shows daily tokens, cost, active models, session categories, project activity (v0.3.9)</li>
+<li><strong>Onboarding welcome</strong> — personalized first-time detection with welcome message and guided setup (v0.3.13)</li>
+<li><strong>Recent file memory</strong> — persists recent file paths across sessions to anchor the agent (v0.3.13)</li>
+<li><strong>Bash hardening</strong> — rejects interactive commands up-front, short-circuits exact same failing command retries, tilde expansion fixed (v0.3.13)</li>
 </ul>
 <h3 id="-browser-automation"><a class="header" href="#-browser-automation">🌐 Browser Automation</a></h3>
 <ul>
-<li><strong>Full CDP support</strong>: navigate, click, type, screenshot, JS eval, wait for selectors</li>
+<li><strong>Full CDP support</strong>: navigate, click, type, screenshot, JS eval, wait for selectors, find elements</li>
+<li><strong><code>browser_find</code> tool</strong> — enumerate elements by CSS, XPath, text, or aria-label with stable selectors (v0.3.13)</li>
 <li><strong>Headless or headed</strong> mode, element-specific screenshots</li>
 <li><strong>Cookie/session persistence</strong> across browser sessions</li>
+<li><strong>Per-session tab isolation</strong> — no cross-session DOM stomping (v0.3.13)</li>
+<li><strong>Smart default browser detection</strong> — auto-detects your default Chromium on macOS, Linux, and Windows (v0.3.13)</li>
 </ul>
 <h3 id="-usage-analytics-v039"><a class="header" href="#-usage-analytics-v039">📊 Usage Analytics (v0.3.9)</a></h3>
 <ul>
@@ -277,7 +289,7 @@
 </ul>
 <h3 id="-testing--quality"><a class="header" href="#-testing--quality">📊 Testing &amp; Quality</a></h3>
 <ul>
-<li><strong>1,827+ tests</strong> covering providers, tools, channels, TUI, self-healing, crash recovery</li>
+<li><strong>2,479+ tests</strong> covering providers, tools, channels, TUI, self-healing, crash recovery, browser automation</li>
 <li><strong>6 new test categories</strong>: subagent orchestration, team workflows, Telegram resume pipeline, token tracking, cross-channel recovery, cron execution storage</li>
 <li><strong>CI/CD</strong>: GitHub Actions, CodeQL, release automation</li>
 </ul>
@@ -668,6 +680,7 @@ model = "gemini-3.1-flash-image-preview"
 <tr><td><code>version</code></td><td>Show version info</td></tr>
 <tr><td><code>!command</code></td><td><strong>Bang operator</strong> — Run any shell command instantly without an LLM round-trip. Output shown as system message. e.g. <code>!git status</code>, <code>!ls -la</code></td></tr>
 <tr><td><code>/evolve</code></td><td><strong>Auto-update</strong> — Downloads latest release and hot-restarts. Runs automatically on startup when <code>[agent] auto_update = true</code></td></tr>
+<tr><td><code>/btw</code></td><td><strong>Parallel agent</strong> — Spawns an isolated sub-agent for a side task while the main conversation continues. e.g. <code>/btw research the latest Rust async patterns</code></td></tr>
 </tbody>
 </table>
 </div>
@@ -1102,8 +1115,9 @@ cargo build --release
 <tr><td><a href="#zai-zhipu-ai">z.ai GLM</a></td><td>API key</td><td>GLM-4.5 through GLM-5 Turbo</td><td>Yes</td><td>Yes</td><td>General API + Coding API endpoints</td></tr>
 <tr><td><a href="#claude-cli">Claude CLI</a></td><td>CLI auth</td><td>Via <code>claude</code> binary</td><td>Yes</td><td>Yes</td><td>Uses your Claude Code subscription</td></tr>
 <tr><td><a href="#qwen-dashscope">Qwen/DashScope</a></td><td>API key</td><td>qwen3.6-plus (default)</td><td>Yes</td><td>Yes</td><td>DashScope API-key provider (replaced OAuth rotation). Local model tool-call extraction from text (bare JSON, Claude-style XML, Qwen formats). Prompt caching via <code>cache_control</code>, rate limit retry with exponential backoff</td></tr>
+<tr><td><a href="#ollama">Ollama</a></td><td>Optional</td><td>Any Ollama model</td><td>Yes</td><td>Yes</td><td>Native local provider — run any model via Ollama API</td></tr>
 <tr><td><a href="#opencode-cli">OpenCode CLI</a></td><td>None</td><td>Free models (Mimo, etc.)</td><td>Yes</td><td>Yes</td><td>Free — no API key or subscription needed</td></tr>
-<tr><td><a href="#custom-openai-compatible">Custom</a></td><td>Optional</td><td>Any</td><td>Yes</td><td>Yes</td><td>Ollama, LM Studio, Groq, NVIDIA, any OpenAI-compatible API</td></tr>
+<tr><td><a href="#custom-openai-compatible">Custom</a></td><td>Optional</td><td>Any</td><td>Yes</td><td>Yes</td><td>LM Studio, Groq, NVIDIA, any OpenAI-compatible API</td></tr>
 </tbody>
 </table>
 </div>
@@ -1193,6 +1207,19 @@ default_model = "glm-4-plus"
 enabled = true
 </code></pre>
 <p><strong>Requirements:</strong> The <code>claude</code> CLI must be installed and authenticated. Models are detected automatically.</p>
+<h2 id="ollama"><a class="header" href="#ollama">Ollama</a></h2>
+<p>Run any Ollama model natively — no custom provider setup needed. Supports both local (localhost:11434) and cloud (api.ollama.com) instances.</p>
+<pre><code class="language-toml"># config.toml
+[providers.ollama]
+enabled = true
+default_model = "llama3"
+</code></pre>
+<pre><code class="language-toml"># keys.toml (optional — only for cloud Ollama)
+[providers.ollama]
+api_key = "your-api-key"
+</code></pre>
+<p><strong>Features:</strong> Streaming, tool use, local model tool-call extraction from text. Models are fetched live from the Ollama API.</p>
+<p><strong>Requirements:</strong> Ollama must be running locally (<code>ollama serve</code>) or you must have a cloud Ollama API key.</p>
 <h2 id="opencode-cli"><a class="header" href="#opencode-cli">OpenCode CLI</a></h2>
 <p>Use the local <code>opencode</code> binary for free LLM completions — no API key or subscription needed. Supports NDJSON streaming and extended thinking.</p>
 <pre><code class="language-toml"># config.toml
@@ -1754,6 +1781,7 @@ member_id = "your-member-id"
 <tr><td><code>eval_js</code></td><td><code>code</code></td><td>Execute JavaScript in the page context</td></tr>
 <tr><td><code>extract_content</code></td><td><code>selector</code></td><td>Extract text content from elements</td></tr>
 <tr><td><code>wait_for_element</code></td><td><code>selector</code>, <code>timeout</code></td><td>Wait for an element to appear</td></tr>
+<tr><td><code>find</code></td><td><code>pattern</code>, <code>mode</code></td><td>Find elements by CSS, XPath, text, or aria-label. Returns stable selectors</td></tr>
 </tbody>
 </table>
 </div>
@@ -2031,6 +2059,8 @@ value = "System is operational. All channels connected."
 </ul>
 <h2 id="channel-sessions"><a class="header" href="#channel-sessions">Channel Sessions</a></h2>
 <p>All channels (Telegram, Discord, Slack, WhatsApp, Trello) now persist sessions in SQLite by channel/group title. Sessions survive process restarts – no more lost context after daemon restart. Each channel group gets its own isolated session, while owner DMs share the TUI session.</p>
+<h2 id="per-session-message-queue-isolation"><a class="header" href="#per-session-message-queue-isolation">Per-Session Message Queue Isolation</a></h2>
+<p>Each session now has its own isolated message queue. This prevents cross-session message bleeding when multiple sessions are processing concurrently (split panes, channel sessions, background agents). Messages are routed strictly to their originating session’s queue.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="split-panes-1"><a class="header" href="#split-panes-1">Split Panes</a></h1>
 <p>OpenCrabs supports tmux-style pane splitting in the TUI. Run multiple sessions side by side, each with its own provider, model, and context — all processing in parallel.</p>
@@ -2149,6 +2179,7 @@ command = "grep -r '{{pattern}}' /var/log/myapp/ --include='*.log' -l"
 <tr><td><code>eval_js</code></td><td>Execute JavaScript in the page context</td></tr>
 <tr><td><code>extract_content</code></td><td>Extract text content from elements</td></tr>
 <tr><td><code>wait_for_element</code></td><td>Wait for an element to appear</td></tr>
+<tr><td><code>find</code></td><td>Find elements matching a pattern (CSS, XPath, text, or aria-label). Returns stable selectors for subsequent click/type operations</td></tr>
 </tbody>
 </table>
 </div>
@@ -2763,6 +2794,10 @@ providers = ["openrouter", "anthropic"]  # tried in order
 <p>Proper terminal restoration on crash or Ctrl+C via custom SIGINT handler and panic hook. No more garbled terminal after interrupt — the handler restores raw mode, cursor visibility, and alternate screen before exiting.</p>
 <h3 id="proactive-rate-limiting-v0299"><a class="header" href="#proactive-rate-limiting-v0299">Proactive Rate Limiting (v0.2.99)</a></h3>
 <p>For OpenRouter <code>:free</code> models, OpenCrabs paces requests automatically using a shared global static limiter to avoid account-level bans. The rate limiter’s first-call sentinel (<code>last_granted=0</code>) no longer causes an unnecessary sleep.</p>
+<h2 id="rsi-alert-suppression-v0313"><a class="header" href="#rsi-alert-suppression-v0313">RSI Alert Suppression (v0.3.13)</a></h2>
+<p>RSI alerts are now suppressed when the feedback dimension already has a fix commit in the recent git history. This prevents the agent from alerting on issues that have already been addressed. Stale alerts also age out via a sliding window on tool failure stats.</p>
+<h2 id="upstream-template-sync-v0315"><a class="header" href="#upstream-template-sync-v0315">Upstream Template Sync (v0.3.15)</a></h2>
+<p>Brain file templates are now automatically synced from the upstream OpenCrabs repo. The sync uses version gating (only applies templates from newer versions) and append-only diffs (never overwrites existing content). This ensures you always get the latest brain file improvements without losing your customizations.</p>
 <h2 id="notifications"><a class="header" href="#notifications">Notifications</a></h2>
 <p>All self-healing events are delivered to:</p>
 <ul>
@@ -2824,7 +2859,13 @@ Agent notices pattern of 5+ corrections on output hygiene:
 <li><strong>Always reads before modifying</strong> — never blindly overwrites brain files</li>
 <li><strong>Archives old improvements</strong> — keeps the improvement log manageable</li>
 </ul>
-<h2 id="rsi-hardening-v0310"><a class="header" href="#rsi-hardening-v0310">RSI Hardening (v0.3.10)</a></h2>
+<h2 id="rsi-hardening-v0313"><a class="header" href="#rsi-hardening-v0313">RSI Hardening (v0.3.13)</a></h2>
+<ul>
+<li><strong>Append-only brain files</strong> — brain files (SOUL.md, TOOLS.md, etc.) are now append-only with backup-before-write. The agent can only add new content, never delete or overwrite existing lines. This prevents accidental data loss from bad self-improvements.</li>
+<li><strong>Upstream template sync</strong> — brain file templates are automatically synced from the upstream repo with version gating and append-only diffs. You get the latest improvements without losing your customizations.</li>
+<li><strong>RSI alert suppression</strong> — alerts are suppressed when the dimension already has a fix commit, preventing noise on already-addressed issues.</li>
+</ul>
+<h2 id="v0310-additions"><a class="header" href="#v0310-additions">v0.3.10 Additions</a></h2>
 <ul>
 <li><strong>Cycle summaries no longer truncated</strong> — full text displays in TUI instead of cutting off mid-sentence</li>
 <li><strong>Phantom detection reduced to 2-signal requirement</strong> — needs both intent keyphrase AND zero tool calls before flagging, eliminating spurious self-heal triggers</li>
@@ -3365,7 +3406,7 @@ panic = "abort"
 <tr><td><strong>Pricing</strong></td><td style="text-align: right">17</td><td><code>src/pricing.rs</code></td></tr>
 <tr><td><strong>Memory</strong></td><td style="text-align: right">9</td><td><code>src/memory/</code></td></tr>
 <tr><td><strong>Logging</strong></td><td style="text-align: right">4</td><td><code>src/logging/</code></td></tr>
-<tr><td><strong>Total</strong></td><td style="text-align: right"><strong>2,062</strong></td><td></td></tr>
+<tr><td><strong>Total</strong></td><td style="text-align: right"><strong>2,479</strong></td><td></td></tr>
 </tbody>
 </table>
 </div>

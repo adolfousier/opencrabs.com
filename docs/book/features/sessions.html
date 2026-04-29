@@ -54,7 +54,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-ede15e79.js";
+            window.path_to_searchindex_js = "../searchindex-12dd0646.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-7d93f90a.js"></script>
@@ -260,6 +260,8 @@
 </ul>
 <h2 id="channel-sessions"><a class="header" href="#channel-sessions">Channel Sessions</a></h2>
 <p>All channels (Telegram, Discord, Slack, WhatsApp, Trello) now persist sessions in SQLite by channel/group title. Sessions survive process restarts – no more lost context after daemon restart. Each channel group gets its own isolated session, while owner DMs share the TUI session.</p>
+<h2 id="per-session-message-queue-isolation"><a class="header" href="#per-session-message-queue-isolation">Per-Session Message Queue Isolation</a></h2>
+<p>Each session now has its own isolated message queue. This prevents cross-session message bleeding when multiple sessions are processing concurrently (split panes, channel sessions, background agents). Messages are routed strictly to their originating session’s queue.</p>
 
                     </main>
 

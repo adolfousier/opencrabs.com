@@ -93,6 +93,7 @@ Native headless Chrome control via Chrome DevTools Protocol (CDP):
 | `eval_js` | `code` | Execute JavaScript in the page context |
 | `extract_content` | `selector` | Extract text content from elements |
 | `wait_for_element` | `selector`, `timeout` | Wait for an element to appear |
+| `find` | `pattern`, `mode` | Find elements by CSS, XPath, text, or aria-label. Returns stable selectors |
 
 Auto-detects your default Chromium browser. Feature-gated under `browser` (enabled by default).
 

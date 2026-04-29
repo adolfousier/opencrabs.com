@@ -54,7 +54,13 @@ Agent notices pattern of 5+ corrections on output hygiene:
 - **Always reads before modifying** — never blindly overwrites brain files
 - **Archives old improvements** — keeps the improvement log manageable
 
-## RSI Hardening (v0.3.10)
+## RSI Hardening (v0.3.13)
+
+- **Append-only brain files** — brain files (SOUL.md, TOOLS.md, etc.) are now append-only with backup-before-write. The agent can only add new content, never delete or overwrite existing lines. This prevents accidental data loss from bad self-improvements.
+- **Upstream template sync** — brain file templates are automatically synced from the upstream repo with version gating and append-only diffs. You get the latest improvements without losing your customizations.
+- **RSI alert suppression** — alerts are suppressed when the dimension already has a fix commit, preventing noise on already-addressed issues.
+
+## v0.3.10 Additions
 
 - **Cycle summaries no longer truncated** — full text displays in TUI instead of cutting off mid-sentence
 - **Phantom detection reduced to 2-signal requirement** — needs both intent keyphrase AND zero tool calls before flagging, eliminating spurious self-heal triggers

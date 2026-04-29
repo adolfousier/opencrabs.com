@@ -54,7 +54,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-ede15e79.js";
+            window.path_to_searchindex_js = "../searchindex-12dd0646.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-7d93f90a.js"></script>
@@ -370,6 +370,10 @@ providers = ["openrouter", "anthropic"]  # tried in order
 <p>Proper terminal restoration on crash or Ctrl+C via custom SIGINT handler and panic hook. No more garbled terminal after interrupt — the handler restores raw mode, cursor visibility, and alternate screen before exiting.</p>
 <h3 id="proactive-rate-limiting-v0299"><a class="header" href="#proactive-rate-limiting-v0299">Proactive Rate Limiting (v0.2.99)</a></h3>
 <p>For OpenRouter <code>:free</code> models, OpenCrabs paces requests automatically using a shared global static limiter to avoid account-level bans. The rate limiter’s first-call sentinel (<code>last_granted=0</code>) no longer causes an unnecessary sleep.</p>
+<h2 id="rsi-alert-suppression-v0313"><a class="header" href="#rsi-alert-suppression-v0313">RSI Alert Suppression (v0.3.13)</a></h2>
+<p>RSI alerts are now suppressed when the feedback dimension already has a fix commit in the recent git history. This prevents the agent from alerting on issues that have already been addressed. Stale alerts also age out via a sliding window on tool failure stats.</p>
+<h2 id="upstream-template-sync-v0315"><a class="header" href="#upstream-template-sync-v0315">Upstream Template Sync (v0.3.15)</a></h2>
+<p>Brain file templates are now automatically synced from the upstream OpenCrabs repo. The sync uses version gating (only applies templates from newer versions) and append-only diffs (never overwrites existing content). This ensures you always get the latest brain file improvements without losing your customizations.</p>
 <h2 id="notifications"><a class="header" href="#notifications">Notifications</a></h2>
 <p>All self-healing events are delivered to:</p>
 <ul>

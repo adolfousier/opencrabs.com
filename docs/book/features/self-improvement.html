@@ -54,7 +54,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-ede15e79.js";
+            window.path_to_searchindex_js = "../searchindex-12dd0646.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-7d93f90a.js"></script>
@@ -249,7 +249,13 @@ Agent notices pattern of 5+ corrections on output hygiene:
 <li><strong>Always reads before modifying</strong> — never blindly overwrites brain files</li>
 <li><strong>Archives old improvements</strong> — keeps the improvement log manageable</li>
 </ul>
-<h2 id="rsi-hardening-v0310"><a class="header" href="#rsi-hardening-v0310">RSI Hardening (v0.3.10)</a></h2>
+<h2 id="rsi-hardening-v0313"><a class="header" href="#rsi-hardening-v0313">RSI Hardening (v0.3.13)</a></h2>
+<ul>
+<li><strong>Append-only brain files</strong> — brain files (SOUL.md, TOOLS.md, etc.) are now append-only with backup-before-write. The agent can only add new content, never delete or overwrite existing lines. This prevents accidental data loss from bad self-improvements.</li>
+<li><strong>Upstream template sync</strong> — brain file templates are automatically synced from the upstream repo with version gating and append-only diffs. You get the latest improvements without losing your customizations.</li>
+<li><strong>RSI alert suppression</strong> — alerts are suppressed when the dimension already has a fix commit, preventing noise on already-addressed issues.</li>
+</ul>
+<h2 id="v0310-additions"><a class="header" href="#v0310-additions">v0.3.10 Additions</a></h2>
 <ul>
 <li><strong>Cycle summaries no longer truncated</strong> — full text displays in TUI instead of cutting off mid-sentence</li>
 <li><strong>Phantom detection reduced to 2-signal requirement</strong> — needs both intent keyphrase AND zero tool calls before flagging, eliminating spurious self-heal triggers</li>

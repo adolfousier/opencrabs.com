@@ -13,8 +13,9 @@ OpenCrabs supports 11+ AI providers out of the box. Switch between them at any t
 | [z.ai GLM](./providers.md#zai-zhipu-ai) | API key | GLM-4.5 through GLM-5 Turbo | Yes | Yes | General API + Coding API endpoints |
 | [Claude CLI](./providers.md#claude-cli) | CLI auth | Via `claude` binary | Yes | Yes | Uses your Claude Code subscription |
 | [Qwen/DashScope](./providers.md#qwen-dashscope) | API key | qwen3.6-plus (default) | Yes | Yes | DashScope API-key provider (replaced OAuth rotation). Local model tool-call extraction from text (bare JSON, Claude-style XML, Qwen formats). Prompt caching via `cache_control`, rate limit retry with exponential backoff |
+| [Ollama](./providers.md#ollama) | Optional | Any Ollama model | Yes | Yes | Native local provider — run any model via Ollama API |
 | [OpenCode CLI](./providers.md#opencode-cli) | None | Free models (Mimo, etc.) | Yes | Yes | Free — no API key or subscription needed |
-| [Custom](./providers.md#custom-openai-compatible) | Optional | Any | Yes | Yes | Ollama, LM Studio, Groq, NVIDIA, any OpenAI-compatible API |
+| [Custom](./providers.md#custom-openai-compatible) | Optional | Any | Yes | Yes | LM Studio, Groq, NVIDIA, any OpenAI-compatible API |
 
 ## How It Works
 

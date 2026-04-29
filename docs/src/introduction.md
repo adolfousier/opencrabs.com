@@ -5,8 +5,9 @@
 ## What Makes OpenCrabs Different
 
 ### 🔄 Provider-Agnostic with Native CLI Integration
-- **11+ built-in providers**: Anthropic, OpenAI, Gemini, OpenRouter, Qwen (OAuth + CLI), MiniMax, Ollama, LM Studio, vLLM, NVIDIA, Dialagram
+- **13+ built-in providers**: Anthropic, OpenAI, Gemini, OpenRouter, Qwen (OAuth + CLI), MiniMax, Ollama, LM Studio, vLLM, NVIDIA, Dialagram, z.ai GLM, GitHub Copilot
 - **Claude Code CLI & OpenCode CLI** integrated as native providers — use their models without API keys
+- **Ollama as native provider** — run any local model via Ollama API without custom provider setup (v0.3.15)
 - **Custom OpenAI-compatible backends** now stream thinking tokens, tool calls, and intermediate text exactly like native providers (v0.3.2)
 - **Sticky fallback chain** — auto-failover to secondary providers on rate limits or errors
 - **Prompt caching** across Anthropic, OpenRouter, Gemini, Qwen DashScope — reduces costs up to 95% (v0.3.2)
@@ -27,12 +28,16 @@
 - **Recursive Self-Improvement (RSI)** — agent analyzes its own performance, identifies patterns, and autonomously rewrites brain files (v0.3.6)
 - **Feedback ledger** — persistent SQLite table recording every tool success/failure, user correction, provider error (v0.3.6)
 - **Phantom tool call detection** — catches when the model narrates file changes in prose without executing tools (v0.3.7)
+- **Append-only brain files** — brain files (SOUL.md, TOOLS.md, etc.) are now append-only with backup-before-write to prevent data loss (v0.3.13)
+- **Upstream template sync** — automatically syncs brain file templates from the repo with version gating and append-only diffs (v0.3.15)
+- **RSI alert suppression** — suppresses alerts whose dimension already has a fix commit, stale alerts age out (v0.3.13)
 - **Context budget management**: 65% soft / 90% hard compaction thresholds with 3-retry LLM fallback
 - **Stuck stream detection**: 2048-byte rolling window catches repeating patterns, auto-recover
 - **Gaslighting defense**: strips tool-refusal preambles mid-turn across 4+ phrase families
 - **Auto-fallback on rate limits** — saves state mid-stream, resumes on fallback provider
 - **Mid-stream decode retry** — 3x backoff before provider fallback (v0.3.0)
 - **Non-streaming compatibility** — synthesizes full stream events from non-streaming JSON (v0.3.7)
+- **Per-session message queue isolation** — prevents cross-session message bleeding in split panes and channels (v0.3.13)
 
 ### 🖥️ Terminal UI Excellence (v0.3.2)
 - **Header card overlay** replaces splash screen — animated, responsive, vanishes after load
@@ -45,17 +50,24 @@
 
 ### 🔧 Developer Experience
 - **Bang operator (`!cmd`)** — run shell commands directly from TUI input, no LLM round-trip (v0.3.1)
-- **Full CLI surface**: 20+ subcommands (`/models`, `/approve`, `/compact`, `/rebuild`, `/evolve`, `/new`, `/doctor`, etc.)
+- **Full CLI surface**: 20+ subcommands (`/models`, `/approve`, `/compact`, `/rebuild`, `/evolve`, `/new`, `/doctor`, `/btw`, etc.)
+- **`/btw` parallel agent** — spawn an isolated sub-agent for side tasks while the main conversation continues (v0.3.15)
 - **Programmatic `/evolve`** — bypasses LLM, runs update directly (v0.3.1)
 - **Auto-update on startup** — `[agent] auto_update = true` silently installs + hot-restarts (v0.3.1)
 - **Dynamic tools** — runtime-defined via TOML (HTTP + shell executors)
 - **Split panes** — tmux-style parallel sessions with layout persistence
 - **Usage Dashboard** — `/usage` command shows daily tokens, cost, active models, session categories, project activity (v0.3.9)
+- **Onboarding welcome** — personalized first-time detection with welcome message and guided setup (v0.3.13)
+- **Recent file memory** — persists recent file paths across sessions to anchor the agent (v0.3.13)
+- **Bash hardening** — rejects interactive commands up-front, short-circuits exact same failing command retries, tilde expansion fixed (v0.3.13)
 
 ### 🌐 Browser Automation
-- **Full CDP support**: navigate, click, type, screenshot, JS eval, wait for selectors
+- **Full CDP support**: navigate, click, type, screenshot, JS eval, wait for selectors, find elements
+- **`browser_find` tool** — enumerate elements by CSS, XPath, text, or aria-label with stable selectors (v0.3.13)
 - **Headless or headed** mode, element-specific screenshots
 - **Cookie/session persistence** across browser sessions
+- **Per-session tab isolation** — no cross-session DOM stomping (v0.3.13)
+- **Smart default browser detection** — auto-detects your default Chromium on macOS, Linux, and Windows (v0.3.13)
 
 ### 📊 Usage Analytics (v0.3.9)
 - **Interactive dashboard** — `/usage` command with daily token counts, cost estimates, active models, session categories
@@ -71,7 +83,7 @@
 - **Auto-approve propagation** — `approval_policy = "auto-always"` actually reaches tool loop (v0.3.2)
 
 ### 📊 Testing & Quality
-- **1,827+ tests** covering providers, tools, channels, TUI, self-healing, crash recovery
+- **2,479+ tests** covering providers, tools, channels, TUI, self-healing, crash recovery, browser automation
 - **6 new test categories**: subagent orchestration, team workflows, Telegram resume pipeline, token tracking, cross-channel recovery, cron execution storage
 - **CI/CD**: GitHub Actions, CodeQL, release automation
 

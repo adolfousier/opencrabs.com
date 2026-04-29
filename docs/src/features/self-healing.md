@@ -243,6 +243,14 @@ Proper terminal restoration on crash or Ctrl+C via custom SIGINT handler and pan
 
 For OpenRouter `:free` models, OpenCrabs paces requests automatically using a shared global static limiter to avoid account-level bans. The rate limiter's first-call sentinel (`last_granted=0`) no longer causes an unnecessary sleep.
 
+## RSI Alert Suppression (v0.3.13)
+
+RSI alerts are now suppressed when the feedback dimension already has a fix commit in the recent git history. This prevents the agent from alerting on issues that have already been addressed. Stale alerts also age out via a sliding window on tool failure stats.
+
+## Upstream Template Sync (v0.3.15)
+
+Brain file templates are now automatically synced from the upstream OpenCrabs repo. The sync uses version gating (only applies templates from newer versions) and append-only diffs (never overwrites existing content). This ensures you always get the latest brain file improvements without losing your customizations.
+
 ## Notifications
 
 All self-healing events are delivered to:

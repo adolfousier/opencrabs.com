@@ -448,7 +448,7 @@ fn Features() -> impl IntoView {
         (
             "🌐",
             "Browser Automation",
-            "Native headless Chrome control via CDP. Navigate, click, type, screenshot, extract content, run JS. Smart detection of your default Chromium browser.",
+            "Native headless Chrome control via CDP. Navigate, click, type, screenshot, find elements by CSS/XPath/text/aria, extract content, run JS. Per-session tab isolation. Smart detection of your default Chromium browser.",
         ),
         (
             "📐",
@@ -458,12 +458,12 @@ fn Features() -> impl IntoView {
         (
             "🛡️",
             "Self-Healing",
-            "Auto-recovers corrupted config, tracks per-provider health with auto-failover, 65% context budget management with LLM compaction. Cross-channel crash recovery routes pending requests back to the originating Telegram/Discord/Slack chat on restart. Stuck stream detection, 10-min CLI idle timeout, DB integrity checks.",
+            "Auto-recovers corrupted config, tracks per-provider health with auto-failover, 65% context budget management with LLM compaction. Cross-channel crash recovery routes pending requests back to the originating chat on restart. Stuck stream detection, 10-min CLI idle timeout, DB integrity checks. Append-only brain files with upstream template sync.",
         ),
         (
             "🔧",
             "Self-Improving",
-            "Recursive Self-Improvement (RSI) — the agent analyzes its own performance via a persistent feedback ledger, identifies failure patterns, and autonomously updates its own brain files. Cycle summaries persist across restarts, phantom detection uses a 2-signal gate to avoid false positives. Runs on the active provider, no human approval needed.",
+            "Recursive Self-Improvement (RSI) — the agent analyzes its own performance via a persistent feedback ledger, identifies failure patterns, and autonomously updates its own brain files. Append-only protection, upstream template sync, RSI alert suppression. Runs on the active provider, no human approval needed.",
         ),
         (
             "👤",

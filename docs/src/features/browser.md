@@ -20,6 +20,7 @@ OpenCrabs auto-detects your default Chromium browser — no manual path configur
 | `eval_js` | Execute JavaScript in the page context |
 | `extract_content` | Extract text content from elements |
 | `wait_for_element` | Wait for an element to appear |
+| `find` | Find elements matching a pattern (CSS, XPath, text, or aria-label). Returns stable selectors for subsequent click/type operations |
 
 ## How It Works
 

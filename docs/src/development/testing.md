@@ -73,7 +73,7 @@ cargo test --all-features
 | **Pricing** | 17 | `src/pricing.rs` |
 | **Memory** | 9 | `src/memory/` |
 | **Logging** | 4 | `src/logging/` |
-| **Total** | **2,062** | |
+| **Total** | **2,479** | |
 
 ---
 

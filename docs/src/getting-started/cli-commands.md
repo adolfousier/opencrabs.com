@@ -29,6 +29,7 @@ opencrabs [COMMAND] [OPTIONS]
 | `version` | Show version info |
 | `!command` | **Bang operator** — Run any shell command instantly without an LLM round-trip. Output shown as system message. e.g. `!git status`, `!ls -la` |
 | `/evolve` | **Auto-update** — Downloads latest release and hot-restarts. Runs automatically on startup when `[agent] auto_update = true` |
+| `/btw` | **Parallel agent** — Spawns an isolated sub-agent for a side task while the main conversation continues. e.g. `/btw research the latest Rust async patterns` |
 
 ## Configuration Flags
 

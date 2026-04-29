@@ -63,3 +63,7 @@ v0.2.92 improved session state tracking:
 ## Channel Sessions
 
 All channels (Telegram, Discord, Slack, WhatsApp, Trello) now persist sessions in SQLite by channel/group title. Sessions survive process restarts -- no more lost context after daemon restart. Each channel group gets its own isolated session, while owner DMs share the TUI session.
+
+## Per-Session Message Queue Isolation
+
+Each session now has its own isolated message queue. This prevents cross-session message bleeding when multiple sessions are processing concurrently (split panes, channel sessions, background agents). Messages are routed strictly to their originating session's queue.

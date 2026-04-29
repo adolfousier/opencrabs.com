@@ -109,6 +109,27 @@ enabled = true
 
 **Requirements:** The `claude` CLI must be installed and authenticated. Models are detected automatically.
 
+## Ollama
+
+Run any Ollama model natively — no custom provider setup needed. Supports both local (localhost:11434) and cloud (api.ollama.com) instances.
+
+```toml
+# config.toml
+[providers.ollama]
+enabled = true
+default_model = "llama3"
+```
+
+```toml
+# keys.toml (optional — only for cloud Ollama)
+[providers.ollama]
+api_key = "your-api-key"
+```
+
+**Features:** Streaming, tool use, local model tool-call extraction from text. Models are fetched live from the Ollama API.
+
+**Requirements:** Ollama must be running locally (`ollama serve`) or you must have a cloud Ollama API key.
+
 ## OpenCode CLI
 
 Use the local `opencode` binary for free LLM completions — no API key or subscription needed. Supports NDJSON streaming and extended thinking.

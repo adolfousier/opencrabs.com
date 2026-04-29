@@ -54,7 +54,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-ede15e79.js";
+            window.path_to_searchindex_js = "../searchindex-12dd0646.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-7d93f90a.js"></script>
@@ -265,6 +265,19 @@ default_model = "glm-4-plus"
 enabled = true
 </code></pre>
 <p><strong>Requirements:</strong> The <code>claude</code> CLI must be installed and authenticated. Models are detected automatically.</p>
+<h2 id="ollama"><a class="header" href="#ollama">Ollama</a></h2>
+<p>Run any Ollama model natively — no custom provider setup needed. Supports both local (localhost:11434) and cloud (api.ollama.com) instances.</p>
+<pre><code class="language-toml"># config.toml
+[providers.ollama]
+enabled = true
+default_model = "llama3"
+</code></pre>
+<pre><code class="language-toml"># keys.toml (optional — only for cloud Ollama)
+[providers.ollama]
+api_key = "your-api-key"
+</code></pre>
+<p><strong>Features:</strong> Streaming, tool use, local model tool-call extraction from text. Models are fetched live from the Ollama API.</p>
+<p><strong>Requirements:</strong> Ollama must be running locally (<code>ollama serve</code>) or you must have a cloud Ollama API key.</p>
 <h2 id="opencode-cli"><a class="header" href="#opencode-cli">OpenCode CLI</a></h2>
 <p>Use the local <code>opencode</code> binary for free LLM completions — no API key or subscription needed. Supports NDJSON streaming and extended thinking.</p>
 <pre><code class="language-toml"># config.toml
