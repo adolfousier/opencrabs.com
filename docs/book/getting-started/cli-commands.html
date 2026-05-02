@@ -54,7 +54,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-12dd0646.js";
+            window.path_to_searchindex_js = "../searchindex-2f3b8d0e.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-7d93f90a.js"></script>
@@ -226,6 +226,10 @@
 <tr><td><code>!command</code></td><td><strong>Bang operator</strong> — Run any shell command instantly without an LLM round-trip. Output shown as system message. e.g. <code>!git status</code>, <code>!ls -la</code></td></tr>
 <tr><td><code>/evolve</code></td><td><strong>Auto-update</strong> — Downloads latest release and hot-restarts. Runs automatically on startup when <code>[agent] auto_update = true</code></td></tr>
 <tr><td><code>/btw</code></td><td><strong>Parallel agent</strong> — Spawns an isolated sub-agent for a side task while the main conversation continues. e.g. <code>/btw research the latest Rust async patterns</code></td></tr>
+<tr><td><code>/mission-control</code></td><td><strong>Mission Control</strong> — Full-screen dashboard showing RSI inbox (pending proposals), activity log (improvements applied), and cron schedule. Navigate with vim keys, apply/reject proposals with <code>a</code>/<code>r</code>.</td></tr>
+<tr><td><code>/skills</code></td><td><strong>Skills picker</strong> — Browse and launch workflow templates with fuzzy-finding. Every loaded skill auto-registers as a slash command.</td></tr>
+<tr><td><code>/security-audit</code></td><td><strong>Security audit</strong> — Comprehensive language-agnostic security &amp; CVE audit. Detects project type, runs the right scanner, reviews recent diff for injection/auth/crypto patterns, scores 0-100.</td></tr>
+<tr><td><code>/cost-estimate</code></td><td><strong>Cost estimate</strong> — Codebase cost-to-build estimate, AI-assisted ROI breakdown, and fair-market valuation. Asks for business context before producing the valuation range.</td></tr>
 </tbody>
 </table>
 </div>

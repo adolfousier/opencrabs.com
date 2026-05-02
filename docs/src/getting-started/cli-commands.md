@@ -30,6 +30,10 @@ opencrabs [COMMAND] [OPTIONS]
 | `!command` | **Bang operator** — Run any shell command instantly without an LLM round-trip. Output shown as system message. e.g. `!git status`, `!ls -la` |
 | `/evolve` | **Auto-update** — Downloads latest release and hot-restarts. Runs automatically on startup when `[agent] auto_update = true` |
 | `/btw` | **Parallel agent** — Spawns an isolated sub-agent for a side task while the main conversation continues. e.g. `/btw research the latest Rust async patterns` |
+| `/mission-control` | **Mission Control** — Full-screen dashboard showing RSI inbox (pending proposals), activity log (improvements applied), and cron schedule. Navigate with vim keys, apply/reject proposals with `a`/`r`. |
+| `/skills` | **Skills picker** — Browse and launch workflow templates with fuzzy-finding. Every loaded skill auto-registers as a slash command. |
+| `/security-audit` | **Security audit** — Comprehensive language-agnostic security & CVE audit. Detects project type, runs the right scanner, reviews recent diff for injection/auth/crypto patterns, scores 0-100. |
+| `/cost-estimate` | **Cost estimate** — Codebase cost-to-build estimate, AI-assisted ROI breakdown, and fair-market valuation. Asks for business context before producing the valuation range. |
 
 ## Configuration Flags
 

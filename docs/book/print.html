@@ -55,7 +55,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-12dd0646.js";
+            window.path_to_searchindex_js = "searchindex-2f3b8d0e.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-7d93f90a.js"></script>
@@ -252,8 +252,10 @@
 <h3 id="-developer-experience"><a class="header" href="#-developer-experience">🔧 Developer Experience</a></h3>
 <ul>
 <li><strong>Bang operator (<code>!cmd</code>)</strong> — run shell commands directly from TUI input, no LLM round-trip (v0.3.1)</li>
-<li><strong>Full CLI surface</strong>: 20+ subcommands (<code>/models</code>, <code>/approve</code>, <code>/compact</code>, <code>/rebuild</code>, <code>/evolve</code>, <code>/new</code>, <code>/doctor</code>, <code>/btw</code>, etc.)</li>
+<li><strong>Full CLI surface</strong>: 20+ subcommands (<code>/models</code>, <code>/approve</code>, <code>/compact</code>, <code>/rebuild</code>, <code>/evolve</code>, <code>/new</code>, <code>/doctor</code>, <code>/btw</code>, <code>/mission-control</code>, <code>/skills</code>, etc.)</li>
 <li><strong><code>/btw</code> parallel agent</strong> — spawn an isolated sub-agent for side tasks while the main conversation continues (v0.3.15)</li>
+<li><strong>Mission Control</strong> (<code>/mission-control</code>) — full-screen dashboard showing RSI inbox, activity log, and cron schedule in one view (v0.3.16)</li>
+<li><strong>Skills system</strong> (<code>/skills</code>) — browse and launch workflow templates with fuzzy-finding, auto-registered as slash commands (v0.3.16)</li>
 <li><strong>Programmatic <code>/evolve</code></strong> — bypasses LLM, runs update directly (v0.3.1)</li>
 <li><strong>Auto-update on startup</strong> — <code>[agent] auto_update = true</code> silently installs + hot-restarts (v0.3.1)</li>
 <li><strong>Dynamic tools</strong> — runtime-defined via TOML (HTTP + shell executors)</li>
@@ -262,6 +264,8 @@
 <li><strong>Onboarding welcome</strong> — personalized first-time detection with welcome message and guided setup (v0.3.13)</li>
 <li><strong>Recent file memory</strong> — persists recent file paths across sessions to anchor the agent (v0.3.13)</li>
 <li><strong>Bash hardening</strong> — rejects interactive commands up-front, short-circuits exact same failing command retries, tilde expansion fixed (v0.3.13)</li>
+<li><strong>SSH askpass detection</strong> — detects password prompts on remote servers and aborts gracefully instead of hanging (v0.3.16)</li>
+<li><strong>Async proactive compaction</strong> — at 65% context, compaction runs in background without blocking the chat (v0.3.16)</li>
 </ul>
 <h3 id="-browser-automation"><a class="header" href="#-browser-automation">🌐 Browser Automation</a></h3>
 <ul>
@@ -289,9 +293,9 @@
 </ul>
 <h3 id="-testing--quality"><a class="header" href="#-testing--quality">📊 Testing &amp; Quality</a></h3>
 <ul>
-<li><strong>2,479+ tests</strong> covering providers, tools, channels, TUI, self-healing, crash recovery, browser automation</li>
-<li><strong>6 new test categories</strong>: subagent orchestration, team workflows, Telegram resume pipeline, token tracking, cross-channel recovery, cron execution storage</li>
-<li><strong>CI/CD</strong>: GitHub Actions, CodeQL, release automation</li>
+<li><strong>2,522+ tests</strong> covering providers, tools, channels, TUI, self-healing, crash recovery, browser automation</li>
+<li><strong>13 new test files</strong> added in v0.3.16</li>
+<li><strong>CI/CD</strong>: GitHub Actions, CodeQL, <code>cargo audit</code> security checks, release automation</li>
 </ul>
 <h2 id="quick-start"><a class="header" href="#quick-start">Quick Start</a></h2>
 <pre><code class="language-bash"># Install (Linux/macOS)
@@ -681,6 +685,10 @@ model = "gemini-3.1-flash-image-preview"
 <tr><td><code>!command</code></td><td><strong>Bang operator</strong> — Run any shell command instantly without an LLM round-trip. Output shown as system message. e.g. <code>!git status</code>, <code>!ls -la</code></td></tr>
 <tr><td><code>/evolve</code></td><td><strong>Auto-update</strong> — Downloads latest release and hot-restarts. Runs automatically on startup when <code>[agent] auto_update = true</code></td></tr>
 <tr><td><code>/btw</code></td><td><strong>Parallel agent</strong> — Spawns an isolated sub-agent for a side task while the main conversation continues. e.g. <code>/btw research the latest Rust async patterns</code></td></tr>
+<tr><td><code>/mission-control</code></td><td><strong>Mission Control</strong> — Full-screen dashboard showing RSI inbox (pending proposals), activity log (improvements applied), and cron schedule. Navigate with vim keys, apply/reject proposals with <code>a</code>/<code>r</code>.</td></tr>
+<tr><td><code>/skills</code></td><td><strong>Skills picker</strong> — Browse and launch workflow templates with fuzzy-finding. Every loaded skill auto-registers as a slash command.</td></tr>
+<tr><td><code>/security-audit</code></td><td><strong>Security audit</strong> — Comprehensive language-agnostic security &amp; CVE audit. Detects project type, runs the right scanner, reviews recent diff for injection/auth/crypto patterns, scores 0-100.</td></tr>
+<tr><td><code>/cost-estimate</code></td><td><strong>Cost estimate</strong> — Codebase cost-to-build estimate, AI-assisted ROI breakdown, and fair-market valuation. Asks for business context before producing the valuation range.</td></tr>
 </tbody>
 </table>
 </div>
@@ -2683,6 +2691,8 @@ curl http://127.0.0.1:18790/a2a/health | jq .
 <li><strong>Second pass</strong> with tighter budget if still over threshold</li>
 </ol>
 <p>The 65% threshold exists because providers like MiniMax degrade on function-calling quality well before hitting theoretical context limits – tool calls break around ~133k tokens of a 200k limit.</p>
+<h3 id="async-proactive-compaction-v0316"><a class="header" href="#async-proactive-compaction-v0316">Async Proactive Compaction (v0.3.16)</a></h3>
+<p>At 65% context, compaction now runs <strong>asynchronously in the background</strong> instead of blocking the chat. The agent continues processing while the LLM summarizes older messages. Once compaction completes, the context is swapped seamlessly. No more frozen UI during compaction.</p>
 <p><strong>Source:</strong> <code>src/brain/agent/service/tool_loop.rs</code> (lines 14-112)</p>
 <h2 id="emergency-compaction-arg_max-recovery"><a class="header" href="#emergency-compaction-arg_max-recovery">Emergency Compaction (ARG_MAX Recovery)</a></h2>
 <p>When CLI provider conversation context exceeds the OS <code>ARG_MAX</code> limit (~1MB on macOS), the agent recovers with a 3-stage fallback:</p>
@@ -2865,6 +2875,8 @@ Agent notices pattern of 5+ corrections on output hygiene:
 <li><strong>Upstream template sync</strong> — brain file templates are automatically synced from the upstream repo with version gating and append-only diffs. You get the latest improvements without losing your customizations.</li>
 <li><strong>RSI alert suppression</strong> — alerts are suppressed when the dimension already has a fix commit, preventing noise on already-addressed issues.</li>
 </ul>
+<h2 id="rsi-autonomous-proposals-v0316"><a class="header" href="#rsi-autonomous-proposals-v0316">RSI Autonomous Proposals (v0.3.16)</a></h2>
+<p>The RSI loop can now propose new tools and slash commands autonomously. Proposals land in the Mission Control inbox for review — the agent identifies gaps from feedback data and drafts solutions, but installation requires human approval via the inbox UI or <code>/mission-control</code>.</p>
 <h2 id="v0310-additions"><a class="header" href="#v0310-additions">v0.3.10 Additions</a></h2>
 <ul>
 <li><strong>Cycle summaries no longer truncated</strong> — full text displays in TUI instead of cutting off mid-sentence</li>
@@ -3406,7 +3418,7 @@ panic = "abort"
 <tr><td><strong>Pricing</strong></td><td style="text-align: right">17</td><td><code>src/pricing.rs</code></td></tr>
 <tr><td><strong>Memory</strong></td><td style="text-align: right">9</td><td><code>src/memory/</code></td></tr>
 <tr><td><strong>Logging</strong></td><td style="text-align: right">4</td><td><code>src/logging/</code></td></tr>
-<tr><td><strong>Total</strong></td><td style="text-align: right"><strong>2,479</strong></td><td></td></tr>
+<tr><td><strong>Total</strong></td><td style="text-align: right"><strong>2,522</strong></td><td></td></tr>
 </tbody>
 </table>
 </div>

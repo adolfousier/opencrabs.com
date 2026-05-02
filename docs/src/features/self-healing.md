@@ -92,6 +92,10 @@ The agent enforces a **65% context budget threshold**. When token usage reaches 
 
 The 65% threshold exists because providers like MiniMax degrade on function-calling quality well before hitting theoretical context limits -- tool calls break around ~133k tokens of a 200k limit.
 
+### Async Proactive Compaction (v0.3.16)
+
+At 65% context, compaction now runs **asynchronously in the background** instead of blocking the chat. The agent continues processing while the LLM summarizes older messages. Once compaction completes, the context is swapped seamlessly. No more frozen UI during compaction.
+
 **Source:** `src/brain/agent/service/tool_loop.rs` (lines 14-112)
 
 ## Emergency Compaction (ARG_MAX Recovery)

@@ -50,8 +50,10 @@
 
 ### 🔧 Developer Experience
 - **Bang operator (`!cmd`)** — run shell commands directly from TUI input, no LLM round-trip (v0.3.1)
-- **Full CLI surface**: 20+ subcommands (`/models`, `/approve`, `/compact`, `/rebuild`, `/evolve`, `/new`, `/doctor`, `/btw`, etc.)
+- **Full CLI surface**: 20+ subcommands (`/models`, `/approve`, `/compact`, `/rebuild`, `/evolve`, `/new`, `/doctor`, `/btw`, `/mission-control`, `/skills`, etc.)
 - **`/btw` parallel agent** — spawn an isolated sub-agent for side tasks while the main conversation continues (v0.3.15)
+- **Mission Control** (`/mission-control`) — full-screen dashboard showing RSI inbox, activity log, and cron schedule in one view (v0.3.16)
+- **Skills system** (`/skills`) — browse and launch workflow templates with fuzzy-finding, auto-registered as slash commands (v0.3.16)
 - **Programmatic `/evolve`** — bypasses LLM, runs update directly (v0.3.1)
 - **Auto-update on startup** — `[agent] auto_update = true` silently installs + hot-restarts (v0.3.1)
 - **Dynamic tools** — runtime-defined via TOML (HTTP + shell executors)
@@ -60,6 +62,8 @@
 - **Onboarding welcome** — personalized first-time detection with welcome message and guided setup (v0.3.13)
 - **Recent file memory** — persists recent file paths across sessions to anchor the agent (v0.3.13)
 - **Bash hardening** — rejects interactive commands up-front, short-circuits exact same failing command retries, tilde expansion fixed (v0.3.13)
+- **SSH askpass detection** — detects password prompts on remote servers and aborts gracefully instead of hanging (v0.3.16)
+- **Async proactive compaction** — at 65% context, compaction runs in background without blocking the chat (v0.3.16)
 
 ### 🌐 Browser Automation
 - **Full CDP support**: navigate, click, type, screenshot, JS eval, wait for selectors, find elements
@@ -83,9 +87,9 @@
 - **Auto-approve propagation** — `approval_policy = "auto-always"` actually reaches tool loop (v0.3.2)
 
 ### 📊 Testing & Quality
-- **2,479+ tests** covering providers, tools, channels, TUI, self-healing, crash recovery, browser automation
-- **6 new test categories**: subagent orchestration, team workflows, Telegram resume pipeline, token tracking, cross-channel recovery, cron execution storage
-- **CI/CD**: GitHub Actions, CodeQL, release automation
+- **2,522+ tests** covering providers, tools, channels, TUI, self-healing, crash recovery, browser automation
+- **13 new test files** added in v0.3.16
+- **CI/CD**: GitHub Actions, CodeQL, `cargo audit` security checks, release automation
 
 ## Quick Start
 

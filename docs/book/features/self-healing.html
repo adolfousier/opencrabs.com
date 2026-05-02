@@ -54,7 +54,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-12dd0646.js";
+            window.path_to_searchindex_js = "../searchindex-2f3b8d0e.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-7d93f90a.js"></script>
@@ -259,6 +259,8 @@
 <li><strong>Second pass</strong> with tighter budget if still over threshold</li>
 </ol>
 <p>The 65% threshold exists because providers like MiniMax degrade on function-calling quality well before hitting theoretical context limits – tool calls break around ~133k tokens of a 200k limit.</p>
+<h3 id="async-proactive-compaction-v0316"><a class="header" href="#async-proactive-compaction-v0316">Async Proactive Compaction (v0.3.16)</a></h3>
+<p>At 65% context, compaction now runs <strong>asynchronously in the background</strong> instead of blocking the chat. The agent continues processing while the LLM summarizes older messages. Once compaction completes, the context is swapped seamlessly. No more frozen UI during compaction.</p>
 <p><strong>Source:</strong> <code>src/brain/agent/service/tool_loop.rs</code> (lines 14-112)</p>
 <h2 id="emergency-compaction-arg_max-recovery"><a class="header" href="#emergency-compaction-arg_max-recovery">Emergency Compaction (ARG_MAX Recovery)</a></h2>
 <p>When CLI provider conversation context exceeds the OS <code>ARG_MAX</code> limit (~1MB on macOS), the agent recovers with a 3-stage fallback:</p>
