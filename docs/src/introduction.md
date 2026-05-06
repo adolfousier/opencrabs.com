@@ -10,6 +10,9 @@
 - **Ollama as native provider** — run any local model via Ollama API without custom provider setup (v0.3.15)
 - **Custom OpenAI-compatible backends** now stream thinking tokens, tool calls, and intermediate text exactly like native providers (v0.3.2)
 - **Sticky fallback chain** — auto-failover to secondary providers on rate limits or errors
+- **Health-aware sticky fallback persistence** — fallback state survives restarts, checks provider health on creation and advances if primary has 2+ consecutive failures (v0.3.17)
+- **OpenRouter response caching** — zero cost for identical requests (v0.3.17)
+- **TCP keepalive on all HTTP clients** — 15s keepalive detects silent TCP drops in ~15-45s instead of waiting for 300s idle timeout (v0.3.17)
 - **Prompt caching** across Anthropic, OpenRouter, Gemini, Qwen DashScope — reduces costs up to 95% (v0.3.2)
 
 ### 🤖 Multi-Agent Orchestration
@@ -23,18 +26,27 @@
 - **Cross-channel crash recovery** — pending requests route back to originating channel on restart (v0.2.93)
 - **DB-persisted channel sessions** — state survives restarts
 - **Voice support** — local Whisper STT + Piper TTS, fully offline
+- **Video uploads across all channels** — Slack, Telegram, Discord, WhatsApp, and Trello automatically route video attachments to `analyze_video` when vision is enabled (v0.3.17)
+- **Telegram 20 MB Bot API cap** — surfaces "compress to under 20 MB and resend" message instead of silently failing on large uploads (v0.3.17)
+- **Telegram dropped video/animation** — now downloads and routes through vision processing, including iPhone `.mov` uploads auto-converted to MP4-backed Animation (v0.3.17)
+- **Slack intermediate-vs-final dedup race closed** — captures and awaits all IntermediateText JoinHandles before dedup check, with post-completion sweep for late entries (v0.3.17)
+- **Clean display text** — all channels persist clean text to DB and TUI instead of LLM metadata brackets (v0.3.17)
 
 ### 🧠 Self-Healing & Self-Improvement (v0.3.7)
 - **Recursive Self-Improvement (RSI)** — agent analyzes its own performance, identifies patterns, and autonomously rewrites brain files (v0.3.6)
 - **Feedback ledger** — persistent SQLite table recording every tool success/failure, user correction, provider error (v0.3.6)
 - **Phantom tool call detection** — catches when the model narrates file changes in prose without executing tools (v0.3.7)
+- **Expanded phantom detection** — catches "Now \<file-op gerund>" phantoms (creating/writing/editing) and build/deploy intent + past-tense completion claims. Gaslighting and phantom detectors extracted into their own module (v0.3.17)
+- **RSI escalation for repeat violations** — violation counter bumps on existing rules instead of deduping away. Rules that keep getting broken get louder, not silenced (v0.3.17)
 - **Append-only brain files** — brain files (SOUL.md, TOOLS.md, etc.) are now append-only with backup-before-write to prevent data loss (v0.3.13)
 - **Upstream template sync** — automatically syncs brain file templates from the repo with version gating and append-only diffs (v0.3.15)
 - **RSI alert suppression** — suppresses alerts whose dimension already has a fix commit, stale alerts age out (v0.3.13)
+- **Partial JSON repair** — closes unterminated strings, balances brackets, strips trailing commas. Wired into 5 drop sites across OpenAI-compatible providers (v0.3.17)
 - **Context budget management**: 65% soft / 90% hard compaction thresholds with 3-retry LLM fallback
 - **Stuck stream detection**: 2048-byte rolling window catches repeating patterns, auto-recover
 - **Gaslighting defense**: strips tool-refusal preambles mid-turn across 4+ phrase families
 - **Auto-fallback on rate limits** — saves state mid-stream, resumes on fallback provider
+- **RetryAttempt progress event** — TUI shows "⏳ Retry 2/3 — stream dropped" so you see transient recovery in progress (v0.3.17)
 - **Mid-stream decode retry** — 3x backoff before provider fallback (v0.3.0)
 - **Non-streaming compatibility** — synthesizes full stream events from non-streaming JSON (v0.3.7)
 - **Per-session message queue isolation** — prevents cross-session message bleeding in split panes and channels (v0.3.13)
@@ -47,6 +59,9 @@
 - **Line navigation in multiline** — Up/Down navigates lines inside recalled multi-line input
 - **F12 mouse capture toggle** — toggle native terminal text selection without exiting TUI
 - **Async session load** — instant first paint, messages load in background
+- **Video attachments in TUI** — pasting a video path emits `<<VID:path>>`, top-right indicator labels each as `Video #N`, chat display rewrites to `[VID: clip.mp4]` (v0.3.17)
+- **Thinking content persisted to DB** — captured on both ResponseComplete and IntermediateText events (v0.3.17)
+- **Approval policy read at runtime** — loaded from config on every tool request instead of cached at startup (v0.3.17)
 
 ### 🔧 Developer Experience
 - **Bang operator (`!cmd`)** — run shell commands directly from TUI input, no LLM round-trip (v0.3.1)
@@ -73,6 +88,11 @@
 - **Per-session tab isolation** — no cross-session DOM stomping (v0.3.13)
 - **Smart default browser detection** — auto-detects your default Chromium on macOS, Linux, and Windows (v0.3.13)
 
+### 🎥 Video Vision (v0.3.17)
+- **`analyze_video` tool** — routes video attachments through Gemini's multimodal API. Inline bytes for files ≤18 MB, resumable Files API upload for larger files
+- **Video uploads across all channels** — Slack, Telegram, Discord, WhatsApp, and Trello automatically route video attachments to `analyze_video`
+- **`<<VID:path>>` marker** — analogous to `<<IMG:>>` for images. Supports mp4/m4v/mov/webm/mkv/avi/3gp/flv
+
 ### 📊 Usage Analytics (v0.3.9)
 - **Interactive dashboard** — `/usage` command with daily token counts, cost estimates, active models, session categories
 - **Session auto-categorizer** — heuristic classification (dev, ops, research, chat, etc.)
@@ -90,6 +110,10 @@
 - **2,522+ tests** covering providers, tools, channels, TUI, self-healing, crash recovery, browser automation
 - **13 new test files** added in v0.3.16
 - **CI/CD**: GitHub Actions, CodeQL, `cargo audit` security checks, release automation
+
+### 🔧 Built-in Skills (v0.3.17)
+- **4 safe built-in skills**: opencli, browser-cdp, a2a-gateway, dynamic-tools
+- **SKILLS section** added to help screen and splash integration
 
 ## Quick Start
 

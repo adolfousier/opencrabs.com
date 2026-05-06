@@ -54,7 +54,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-2f3b8d0e.js";
+            window.path_to_searchindex_js = "../searchindex-2e3d71a6.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-7d93f90a.js"></script>
@@ -374,6 +374,24 @@ providers = ["openrouter", "anthropic"]  # tried in order
 <p>For OpenRouter <code>:free</code> models, OpenCrabs paces requests automatically using a shared global static limiter to avoid account-level bans. The rate limiter’s first-call sentinel (<code>last_granted=0</code>) no longer causes an unnecessary sleep.</p>
 <h2 id="rsi-alert-suppression-v0313"><a class="header" href="#rsi-alert-suppression-v0313">RSI Alert Suppression (v0.3.13)</a></h2>
 <p>RSI alerts are now suppressed when the feedback dimension already has a fix commit in the recent git history. This prevents the agent from alerting on issues that have already been addressed. Stale alerts also age out via a sliding window on tool failure stats.</p>
+<h2 id="expanded-phantom-detection-v0317"><a class="header" href="#expanded-phantom-detection-v0317">Expanded Phantom Detection (v0.3.17)</a></h2>
+<p>The phantom detector now catches additional patterns:</p>
+<ul>
+<li><strong>“Now &lt;file-op gerund&gt;” phantoms</strong> — catches phrases like “Now creating…”, “Now writing…”, “Now editing…” where the model narrates a file operation without actually executing it</li>
+<li><strong>Build/deploy intent + past-tense completion claims</strong> — catches when the model claims to have built or deployed something without running the actual commands</li>
+<li><strong>Module extraction</strong> — gaslighting and phantom detectors extracted into their own dedicated module for cleaner maintenance</li>
+</ul>
+<h2 id="rsi-escalation-for-repeat-violations-v0317"><a class="header" href="#rsi-escalation-for-repeat-violations-v0317">RSI Escalation for Repeat Violations (v0.3.17)</a></h2>
+<p>RSI now bumps a violation counter on existing rules instead of deduping repeat violations away. Rules that keep getting broken get louder, not silenced. This prevents the agent from ignoring persistent failure patterns.</p>
+<h2 id="partial-json-repair-v0317"><a class="header" href="#partial-json-repair-v0317">Partial JSON Repair (v0.3.17)</a></h2>
+<p>A new <code>json_repair</code> module automatically fixes common JSON corruption:</p>
+<ul>
+<li>Closes unterminated strings</li>
+<li>Balances brackets</li>
+<li>Strips trailing commas</li>
+<li>Drops trailing keys-without-value</li>
+</ul>
+<p>Wired into 5 drop sites across OpenAI-compatible providers and the ContentBlockStop finalizer. Unrecoverable input returns a <code>{"_partial": ..., "_repair_failed": true}</code> envelope instead of crashing the turn.</p>
 <h2 id="upstream-template-sync-v0315"><a class="header" href="#upstream-template-sync-v0315">Upstream Template Sync (v0.3.15)</a></h2>
 <p>Brain file templates are now automatically synced from the upstream OpenCrabs repo. The sync uses version gating (only applies templates from newer versions) and append-only diffs (never overwrites existing content). This ensures you always get the latest brain file improvements without losing your customizations.</p>
 <h2 id="notifications"><a class="header" href="#notifications">Notifications</a></h2>

@@ -443,7 +443,7 @@ fn Features() -> impl IntoView {
         (
             "🤖",
             "Multi-Agent & Teams",
-            "Typed sub-agents (General, Explore, Plan, Code, Research) with filtered tool registries. Team orchestration spawns N agents in parallel and broadcasts to all. 20+ CLI subcommands including /mission-control dashboard, /skills picker, /btw parallel agent, /security-audit, and /cost-estimate. Daemon mode with health endpoints.",
+            "Typed sub-agents (General, Explore, Plan, Code, Research) with filtered tool registries. Team orchestration spawns N agents in parallel and broadcasts to all. 20+ CLI subcommands including /mission-control dashboard, /skills picker, /btw parallel agent, /security-audit, and /cost-estimate. 4 safe built-in skills (opencli, browser-cdp, a2a-gateway, dynamic-tools). Daemon mode with health endpoints.",
         ),
         (
             "🌐",
@@ -458,12 +458,12 @@ fn Features() -> impl IntoView {
         (
             "🛡️",
             "Self-Healing",
-            "Auto-recovers corrupted config, tracks per-provider health with auto-failover, 65% context budget management with async LLM compaction (no more frozen UI). Cross-channel crash recovery routes pending requests back to the originating chat on restart. Stuck stream detection, 10-min CLI idle timeout, DB integrity checks. Append-only brain files with upstream template sync.",
+            "Auto-recovers corrupted config, tracks per-provider health with auto-failover, 65% context budget management with async LLM compaction (no more frozen UI). Cross-channel crash recovery routes pending requests back to the originating chat on restart. Stuck stream detection, 10-min CLI idle timeout, DB integrity checks. Append-only brain files with upstream template sync. Expanded phantom detection, RSI escalation for repeat violations, partial JSON repair, TCP keepalive on all HTTP clients.",
         ),
         (
             "🔧",
             "Self-Improving",
-            "Recursive Self-Improvement (RSI) — the agent analyzes its own performance via a persistent feedback ledger, identifies failure patterns, and autonomously updates its own brain files. Now proposes new tools and commands via Mission Control inbox for human review. Append-only protection, upstream template sync, RSI alert suppression.",
+            "Recursive Self-Improvement (RSI) — the agent analyzes its own performance via a persistent feedback ledger, identifies failure patterns, and autonomously updates its own brain files. Proposes new tools and commands via Mission Control inbox for human review. RSI escalation for repeat violations. Append-only protection, upstream template sync, RSI alert suppression.",
         ),
         (
             "👤",

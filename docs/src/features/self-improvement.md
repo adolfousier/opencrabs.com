@@ -64,6 +64,10 @@ Agent notices pattern of 5+ corrections on output hygiene:
 
 The RSI loop can now propose new tools and slash commands autonomously. Proposals land in the Mission Control inbox for review — the agent identifies gaps from feedback data and drafts solutions, but installation requires human approval via the inbox UI or `/mission-control`.
 
+## RSI Escalation for Repeat Violations (v0.3.17)
+
+RSI now bumps a violation counter on existing rules instead of deduping repeat violations away. When a rule keeps getting broken across multiple sessions, the escalation counter increases and the agent prioritizes fixing that pattern. This prevents persistent bad habits from being silently ignored.
+
 ## v0.3.10 Additions
 
 - **Cycle summaries no longer truncated** — full text displays in TUI instead of cutting off mid-sentence

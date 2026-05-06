@@ -251,6 +251,27 @@ For OpenRouter `:free` models, OpenCrabs paces requests automatically using a sh
 
 RSI alerts are now suppressed when the feedback dimension already has a fix commit in the recent git history. This prevents the agent from alerting on issues that have already been addressed. Stale alerts also age out via a sliding window on tool failure stats.
 
+## Expanded Phantom Detection (v0.3.17)
+
+The phantom detector now catches additional patterns:
+- **"Now \<file-op gerund>" phantoms** — catches phrases like "Now creating...", "Now writing...", "Now editing..." where the model narrates a file operation without actually executing it
+- **Build/deploy intent + past-tense completion claims** — catches when the model claims to have built or deployed something without running the actual commands
+- **Module extraction** — gaslighting and phantom detectors extracted into their own dedicated module for cleaner maintenance
+
+## RSI Escalation for Repeat Violations (v0.3.17)
+
+RSI now bumps a violation counter on existing rules instead of deduping repeat violations away. Rules that keep getting broken get louder, not silenced. This prevents the agent from ignoring persistent failure patterns.
+
+## Partial JSON Repair (v0.3.17)
+
+A new `json_repair` module automatically fixes common JSON corruption:
+- Closes unterminated strings
+- Balances brackets
+- Strips trailing commas
+- Drops trailing keys-without-value
+
+Wired into 5 drop sites across OpenAI-compatible providers and the ContentBlockStop finalizer. Unrecoverable input returns a `{"_partial": ..., "_repair_failed": true}` envelope instead of crashing the turn.
+
 ## Upstream Template Sync (v0.3.15)
 
 Brain file templates are now automatically synced from the upstream OpenCrabs repo. The sync uses version gating (only applies templates from newer versions) and append-only diffs (never overwrites existing content). This ensures you always get the latest brain file improvements without losing your customizations.

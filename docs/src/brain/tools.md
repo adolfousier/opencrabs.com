@@ -35,12 +35,13 @@ OpenCrabs ships with 50+ tools available to the agent out of the box, plus suppo
 | `session_context` | `action` | Read/write session context |
 | `task_manager` | `action`, various | Manage plans and tasks |
 
-## Image
+## Image & Video
 
 | Tool | Parameters | Description |
 |------|-----------|-------------|
 | `generate_image` | `prompt`, `filename` | Generate images via Gemini |
 | `analyze_image` | `image`, `question` | Analyze images via Gemini vision |
+| `analyze_video` | `video`, `question` | Analyze videos via Gemini multimodal vision. Supports mp4/m4v/mov/webm/mkv/avi/3gp/flv. Inline bytes for ≤18 MB, resumable Files API upload for larger files (v0.3.17) |
 
 ## Channel Integrations
 

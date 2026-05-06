@@ -54,7 +54,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-2f3b8d0e.js";
+            window.path_to_searchindex_js = "../searchindex-2e3d71a6.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-7d93f90a.js"></script>
@@ -251,7 +251,7 @@
 </tbody>
 </table>
 </div>
-<h2 id="image"><a class="header" href="#image">Image</a></h2>
+<h2 id="image--video"><a class="header" href="#image--video">Image &amp; Video</a></h2>
 <div class="table-wrapper">
 <table>
 <thead>
@@ -260,6 +260,7 @@
 <tbody>
 <tr><td><code>generate_image</code></td><td><code>prompt</code>, <code>filename</code></td><td>Generate images via Gemini</td></tr>
 <tr><td><code>analyze_image</code></td><td><code>image</code>, <code>question</code></td><td>Analyze images via Gemini vision</td></tr>
+<tr><td><code>analyze_video</code></td><td><code>video</code>, <code>question</code></td><td>Analyze videos via Gemini multimodal vision. Supports mp4/m4v/mov/webm/mkv/avi/3gp/flv. Inline bytes for ≤18 MB, resumable Files API upload for larger files (v0.3.17)</td></tr>
 </tbody>
 </table>
 </div>

@@ -54,7 +54,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-2f3b8d0e.js";
+            window.path_to_searchindex_js = "../searchindex-2e3d71a6.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-7d93f90a.js"></script>
@@ -257,6 +257,8 @@ Agent notices pattern of 5+ corrections on output hygiene:
 </ul>
 <h2 id="rsi-autonomous-proposals-v0316"><a class="header" href="#rsi-autonomous-proposals-v0316">RSI Autonomous Proposals (v0.3.16)</a></h2>
 <p>The RSI loop can now propose new tools and slash commands autonomously. Proposals land in the Mission Control inbox for review — the agent identifies gaps from feedback data and drafts solutions, but installation requires human approval via the inbox UI or <code>/mission-control</code>.</p>
+<h2 id="rsi-escalation-for-repeat-violations-v0317"><a class="header" href="#rsi-escalation-for-repeat-violations-v0317">RSI Escalation for Repeat Violations (v0.3.17)</a></h2>
+<p>RSI now bumps a violation counter on existing rules instead of deduping repeat violations away. When a rule keeps getting broken across multiple sessions, the escalation counter increases and the agent prioritizes fixing that pattern. This prevents persistent bad habits from being silently ignored.</p>
 <h2 id="v0310-additions"><a class="header" href="#v0310-additions">v0.3.10 Additions</a></h2>
 <ul>
 <li><strong>Cycle summaries no longer truncated</strong> — full text displays in TUI instead of cutting off mid-sentence</li>
