@@ -276,6 +276,29 @@ Wired into 5 drop sites across OpenAI-compatible providers and the ContentBlockS
 
 Brain file templates are now automatically synced from the upstream OpenCrabs repo. The sync uses version gating (only applies templates from newer versions) and append-only diffs (never overwrites existing content). This ensures you always get the latest brain file improvements without losing your customizations.
 
+## Browser Resilience (v0.3.18)
+
+Multiple browser reliability improvements:
+- **Network idle wait after navigate** — now waits for `networkIdle` instead of just CDP `load` event, catching async fetches
+- **CDP manager lock released before await** — lock was held during screenshot await, blocking concurrent browser operations
+- **CDP pre-flight health check** — added health check before screenshot capture to prevent stale connection failures
+- **Browser navigate errors logged** — navigate errors no longer silently swallowed with `let _ =`, now logged at WARN
+
+## Cloud Handshake Timeout (v0.3.18)
+
+Bumped cloud provider handshake timeout from 30s to 60s. Routing proxies like dialagram legitimately take 20-45s; 30s was killing mid-request on slow-but-healthy providers.
+
+## Gemini API Key Security Fix (v0.3.18)
+
+Fixed CodeQL #64 (HIGH): Gemini API key was leaked in URL query string (`?key=...`) in `analyze_video`'s resumable upload init and file-state polling. Moved to `x-goog-api-key` header, matching `analyze_image` and `generate_image`.
+
+## Stream & TUI Fixes (v0.3.18)
+
+- **File paths starting with `/` no longer treated as slash command typos** — `/Users/.../file.pdf yo crabs check this` triggered "Unknown command". Added `looks_like_file_path()` helper gating both TUI and channel handlers.
+- **Truncation continuations no longer trigger provider fallback** — mid-sentence continuations should stay on the same provider. Fallback now skipped for truncation paths.
+- **Fallback error reason surfaced in TUI** — when fallback fired, the underlying error was swallowed. Now shows as a system message.
+- **Pipe-delimited rows hard-broken** — when not recognized as a table, pipe rows ran together. Added hard-break between rows.
+
 ## Notifications
 
 All self-healing events are delivered to:

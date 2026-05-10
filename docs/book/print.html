@@ -55,10 +55,10 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-2e3d71a6.js";
+            window.path_to_searchindex_js = "searchindex-6096f241.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-7d93f90a.js"></script>
+        <script src="toc-a823f8d9.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -202,8 +202,8 @@
 <h2 id="what-makes-opencrabs-different"><a class="header" href="#what-makes-opencrabs-different">What Makes OpenCrabs Different</a></h2>
 <h3 id="-provider-agnostic-with-native-cli-integration"><a class="header" href="#-provider-agnostic-with-native-cli-integration">🔄 Provider-Agnostic with Native CLI Integration</a></h3>
 <ul>
-<li><strong>13+ built-in providers</strong>: Anthropic, OpenAI, Gemini, OpenRouter, Qwen (OAuth + CLI), MiniMax, Ollama, LM Studio, vLLM, NVIDIA, Dialagram, z.ai GLM, GitHub Copilot</li>
-<li><strong>Claude Code CLI &amp; OpenCode CLI</strong> integrated as native providers — use their models without API keys</li>
+<li><strong>14+ built-in providers</strong>: Anthropic, OpenAI, Gemini, OpenRouter, Qwen (OAuth + CLI), MiniMax, Ollama, LM Studio, vLLM, NVIDIA, Dialagram, z.ai GLM, GitHub Copilot, Codex CLI</li>
+<li><strong>Claude Code CLI, OpenCode CLI &amp; Codex CLI</strong> integrated as native providers — use their models without API keys</li>
 <li><strong>Ollama as native provider</strong> — run any local model via Ollama API without custom provider setup (v0.3.15)</li>
 <li><strong>Custom OpenAI-compatible backends</strong> now stream thinking tokens, tool calls, and intermediate text exactly like native providers (v0.3.2)</li>
 <li><strong>Sticky fallback chain</strong> — auto-failover to secondary providers on rate limits or errors</li>
@@ -267,7 +267,7 @@
 <h3 id="-developer-experience"><a class="header" href="#-developer-experience">🔧 Developer Experience</a></h3>
 <ul>
 <li><strong>Bang operator (<code>!cmd</code>)</strong> — run shell commands directly from TUI input, no LLM round-trip (v0.3.1)</li>
-<li><strong>Full CLI surface</strong>: 20+ subcommands (<code>/models</code>, <code>/approve</code>, <code>/compact</code>, <code>/rebuild</code>, <code>/evolve</code>, <code>/new</code>, <code>/doctor</code>, <code>/btw</code>, <code>/mission-control</code>, <code>/skills</code>, etc.)</li>
+<li><strong>Full CLI surface</strong>: 20+ subcommands (<code>/models</code>, <code>/approve</code>, <code>/compact</code>, <code>/rebuild</code>, <code>/evolve</code>, <code>/new</code>, <code>/doctor</code>, <code>/btw</code>, <code>/mission-control</code>, <code>/skills</code>, <code>/repo-audit</code>, etc.)</li>
 <li><strong><code>/btw</code> parallel agent</strong> — spawn an isolated sub-agent for side tasks while the main conversation continues (v0.3.15)</li>
 <li><strong>Mission Control</strong> (<code>/mission-control</code>) — full-screen dashboard showing RSI inbox, activity log, and cron schedule in one view (v0.3.16)</li>
 <li><strong>Skills system</strong> (<code>/skills</code>) — browse and launch workflow templates with fuzzy-finding, auto-registered as slash commands (v0.3.16)</li>
@@ -281,11 +281,16 @@
 <li><strong>Bash hardening</strong> — rejects interactive commands up-front, short-circuits exact same failing command retries, tilde expansion fixed (v0.3.13)</li>
 <li><strong>SSH askpass detection</strong> — detects password prompts on remote servers and aborts gracefully instead of hanging (v0.3.16)</li>
 <li><strong>Async proactive compaction</strong> — at 65% context, compaction runs in background without blocking the chat (v0.3.16)</li>
+<li><strong>Generic <code>deliver_api_key</code> for cron jobs</strong> — HTTP webhook Bearer token auth configurable per-job via <code>cron_manage</code> tool (v0.3.18)</li>
+<li><strong>File paths starting with <code>/</code> no longer treated as slash command typos</strong> — <code>/Users/.../file.pdf yo crabs check this</code> works correctly (v0.3.18)</li>
+<li><strong>Truncation continuations no longer trigger provider fallback</strong> — mid-sentence continuations stay on the same provider (v0.3.18)</li>
+<li><strong>Fallback error reason surfaced in TUI</strong> — when fallback fires, the underlying error shows as a system message (v0.3.18)</li>
 </ul>
 <h3 id="-browser-automation"><a class="header" href="#-browser-automation">🌐 Browser Automation</a></h3>
 <ul>
 <li><strong>Full CDP support</strong>: navigate, click, type, screenshot, JS eval, wait for selectors, find elements</li>
 <li><strong><code>browser_find</code> tool</strong> — enumerate elements by CSS, XPath, text, or aria-label with stable selectors (v0.3.13)</li>
+<li><strong><code>browser_close</code> tool</strong> — close browser tabs and free CDP sessions, prevents stale page reuse (v0.3.18)</li>
 <li><strong>Headless or headed</strong> mode, element-specific screenshots</li>
 <li><strong>Cookie/session persistence</strong> across browser sessions</li>
 <li><strong>Per-session tab isolation</strong> — no cross-session DOM stomping (v0.3.13)</li>
@@ -314,14 +319,15 @@
 </ul>
 <h3 id="-testing--quality"><a class="header" href="#-testing--quality">📊 Testing &amp; Quality</a></h3>
 <ul>
-<li><strong>2,522+ tests</strong> covering providers, tools, channels, TUI, self-healing, crash recovery, browser automation</li>
+<li><strong>2,595+ tests</strong> covering providers, tools, channels, TUI, self-healing, crash recovery, browser automation</li>
 <li><strong>13 new test files</strong> added in v0.3.16</li>
 <li><strong>CI/CD</strong>: GitHub Actions, CodeQL, <code>cargo audit</code> security checks, release automation</li>
 </ul>
 <h3 id="-built-in-skills-v0317"><a class="header" href="#-built-in-skills-v0317">🔧 Built-in Skills (v0.3.17)</a></h3>
 <ul>
-<li><strong>4 safe built-in skills</strong>: opencli, browser-cdp, a2a-gateway, dynamic-tools</li>
+<li><strong>5 safe built-in skills</strong>: opencli, browser-cdp, a2a-gateway, dynamic-tools, repo-audit</li>
 <li><strong>SKILLS section</strong> added to help screen and splash integration</li>
+<li><strong><code>/repo-audit</code> skill</strong> — language-agnostic repository health checks. 5-phase pipeline: language detection → native tool execution → git metrics → AST analysis → scoring + recommendations (v0.3.18)</li>
 </ul>
 <h2 id="quick-start"><a class="header" href="#quick-start">Quick Start</a></h2>
 <pre><code class="language-bash"># Install (Linux/macOS)
@@ -715,6 +721,7 @@ model = "gemini-3.1-flash-image-preview"
 <tr><td><code>/skills</code></td><td><strong>Skills picker</strong> — Browse and launch workflow templates with fuzzy-finding. Every loaded skill auto-registers as a slash command.</td></tr>
 <tr><td><code>/security-audit</code></td><td><strong>Security audit</strong> — Comprehensive language-agnostic security &amp; CVE audit. Detects project type, runs the right scanner, reviews recent diff for injection/auth/crypto patterns, scores 0-100.</td></tr>
 <tr><td><code>/cost-estimate</code></td><td><strong>Cost estimate</strong> — Codebase cost-to-build estimate, AI-assisted ROI breakdown, and fair-market valuation. Asks for business context before producing the valuation range.</td></tr>
+<tr><td><code>/repo-audit</code></td><td><strong>Repo audit</strong> — Language-agnostic repository health checks. 5-phase pipeline: language detection → native tool execution → git metrics → AST analysis → scoring + recommendations. Covers Rust, JS/TS, Python, Go.</td></tr>
 </tbody>
 </table>
 </div>
@@ -1261,6 +1268,14 @@ api_key = "your-api-key"
 enabled = true
 </code></pre>
 <p><strong>Requirements:</strong> The <code>opencode</code> binary must be installed and available in your PATH. Models are fetched live via <code>opencode models</code>.</p>
+<h2 id="codex-cli"><a class="header" href="#codex-cli">Codex CLI</a></h2>
+<p>Use OpenAI’s <code>@openai/codex</code> CLI as a native provider. User authenticates once via <code>codex</code> CLI; OpenCrabs piggybacks on cached credentials — zero API key handling. Non-interactive mode via <code>codex exec --json</code> with JSONL streaming.</p>
+<pre><code class="language-toml"># config.toml
+[providers.codex_cli]
+enabled = true
+</code></pre>
+<p><strong>Models:</strong> GPT-5.5, GPT-5.4, GPT-5.3-Codex</p>
+<p><strong>Requirements:</strong> The <code>codex</code> CLI must be installed (<code>npm install -g @openai/codex</code>) and authenticated. Models are detected automatically.</p>
 <h2 id="minimax"><a class="header" href="#minimax">MiniMax</a></h2>
 <p><strong>Models:</strong> <code>MiniMax-M2.7</code>, <code>MiniMax-M2.5</code>, <code>MiniMax-M2.1</code>, <code>MiniMax-Text-01</code></p>
 <pre><code class="language-toml"># keys.toml
@@ -1817,6 +1832,7 @@ member_id = "your-member-id"
 <tr><td><code>extract_content</code></td><td><code>selector</code></td><td>Extract text content from elements</td></tr>
 <tr><td><code>wait_for_element</code></td><td><code>selector</code>, <code>timeout</code></td><td>Wait for an element to appear</td></tr>
 <tr><td><code>find</code></td><td><code>pattern</code>, <code>mode</code></td><td>Find elements by CSS, XPath, text, or aria-label. Returns stable selectors</td></tr>
+<tr><td><code>browser_close</code></td><td>—</td><td>Close browser tab and free CDP session. Prevents stale page reuse across browser actions (v0.3.18)</td></tr>
 </tbody>
 </table>
 </div>
@@ -2853,6 +2869,25 @@ providers = ["openrouter", "anthropic"]  # tried in order
 <p>Wired into 5 drop sites across OpenAI-compatible providers and the ContentBlockStop finalizer. Unrecoverable input returns a <code>{"_partial": ..., "_repair_failed": true}</code> envelope instead of crashing the turn.</p>
 <h2 id="upstream-template-sync-v0315"><a class="header" href="#upstream-template-sync-v0315">Upstream Template Sync (v0.3.15)</a></h2>
 <p>Brain file templates are now automatically synced from the upstream OpenCrabs repo. The sync uses version gating (only applies templates from newer versions) and append-only diffs (never overwrites existing content). This ensures you always get the latest brain file improvements without losing your customizations.</p>
+<h2 id="browser-resilience-v0318"><a class="header" href="#browser-resilience-v0318">Browser Resilience (v0.3.18)</a></h2>
+<p>Multiple browser reliability improvements:</p>
+<ul>
+<li><strong>Network idle wait after navigate</strong> — now waits for <code>networkIdle</code> instead of just CDP <code>load</code> event, catching async fetches</li>
+<li><strong>CDP manager lock released before await</strong> — lock was held during screenshot await, blocking concurrent browser operations</li>
+<li><strong>CDP pre-flight health check</strong> — added health check before screenshot capture to prevent stale connection failures</li>
+<li><strong>Browser navigate errors logged</strong> — navigate errors no longer silently swallowed with <code>let _ =</code>, now logged at WARN</li>
+</ul>
+<h2 id="cloud-handshake-timeout-v0318"><a class="header" href="#cloud-handshake-timeout-v0318">Cloud Handshake Timeout (v0.3.18)</a></h2>
+<p>Bumped cloud provider handshake timeout from 30s to 60s. Routing proxies like dialagram legitimately take 20-45s; 30s was killing mid-request on slow-but-healthy providers.</p>
+<h2 id="gemini-api-key-security-fix-v0318"><a class="header" href="#gemini-api-key-security-fix-v0318">Gemini API Key Security Fix (v0.3.18)</a></h2>
+<p>Fixed CodeQL #64 (HIGH): Gemini API key was leaked in URL query string (<code>?key=...</code>) in <code>analyze_video</code>’s resumable upload init and file-state polling. Moved to <code>x-goog-api-key</code> header, matching <code>analyze_image</code> and <code>generate_image</code>.</p>
+<h2 id="stream--tui-fixes-v0318"><a class="header" href="#stream--tui-fixes-v0318">Stream &amp; TUI Fixes (v0.3.18)</a></h2>
+<ul>
+<li><strong>File paths starting with <code>/</code> no longer treated as slash command typos</strong> — <code>/Users/.../file.pdf yo crabs check this</code> triggered “Unknown command”. Added <code>looks_like_file_path()</code> helper gating both TUI and channel handlers.</li>
+<li><strong>Truncation continuations no longer trigger provider fallback</strong> — mid-sentence continuations should stay on the same provider. Fallback now skipped for truncation paths.</li>
+<li><strong>Fallback error reason surfaced in TUI</strong> — when fallback fired, the underlying error was swallowed. Now shows as a system message.</li>
+<li><strong>Pipe-delimited rows hard-broken</strong> — when not recognized as a table, pipe rows ran together. Added hard-break between rows.</li>
+</ul>
 <h2 id="notifications"><a class="header" href="#notifications">Notifications</a></h2>
 <p>All self-healing events are delivered to:</p>
 <ul>
@@ -3209,6 +3244,91 @@ api_key = "your-api-key"
 </code></pre>
 <p>Feature flags: <code>local-stt</code> (whisper.cpp), <code>local-tts</code> (Piper).</p>
 <div style="break-before: page; page-break-before: always;"></div>
+<h1 id="skills-system"><a class="header" href="#skills-system">Skills System</a></h1>
+<p>Skills are reusable workflow templates that extend OpenCrabs with specialized capabilities. They work across Claude Code, Anthropic managed agents, and OpenClaw using a shared <code>SKILL.md</code> format.</p>
+<h2 id="how-skills-work"><a class="header" href="#how-skills-work">How Skills Work</a></h2>
+<p>Each skill lives in its own directory under <code>~/.opencrabs/skills/</code>:</p>
+<pre><code>~/.opencrabs/skills/
+├── security-audit/
+│   └── SKILL.md
+├── cost-estimate/
+│   └── SKILL.md
+└── my-custom-skill/
+    └── SKILL.md
+</code></pre>
+<h2 id="skill-format"><a class="header" href="#skill-format">Skill Format</a></h2>
+<p>Every skill is a markdown file with YAML frontmatter:</p>
+<pre><code class="language-markdown">---
+name: security-audit
+description: Language-agnostic security &amp; CVE audit for any codebase
+---
+
+# Security Audit
+
+You are a senior security engineer performing a comprehensive
+security audit of the codebase in the current working directory...
+
+## Stage 1 — Project detection
+...
+</code></pre>
+<p>The <code>name</code> and <code>description</code> fields in the frontmatter are required. The markdown body becomes the prompt that gets injected when the skill runs.</p>
+<h2 id="built-in-skills"><a class="header" href="#built-in-skills">Built-in Skills</a></h2>
+<p>OpenCrabs ships with built-in skills embedded in the binary. User files at <code>~/.opencrabs/skills/&lt;name&gt;/SKILL.md</code> override built-ins by file presence.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Skill</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>opencli</code></td><td>OpenCLI integration for terminal workflows</td></tr>
+<tr><td><code>browser-cdp</code></td><td>Chrome DevTools Protocol automation workflows</td></tr>
+<tr><td><code>a2a-gateway</code></td><td>Agent-to-Agent protocol gateway setup</td></tr>
+<tr><td><code>dynamic-tools</code></td><td>Runtime tool creation and management</td></tr>
+<tr><td><code>security-audit</code></td><td>Language-agnostic security &amp; CVE audit. Detects project type from manifests (Cargo / npm / Go / Python / Dart / Ruby / PHP / Java / Swift / .NET), runs the appropriate scanner, reviews the diff for injection / auth / crypto / deserialization / path-traversal patterns, and scores 0-100.</td></tr>
+<tr><td><code>cost-estimate</code></td><td>Codebase cost-to-build estimate, AI-assisted ROI breakdown, and fair-market valuation.</td></tr>
+<tr><td><code>repo-audit</code></td><td>Language-agnostic repository health checks. 5-phase pipeline: language detection, native tool execution, git metrics, AST analysis, scoring + recommendations. Covers Rust, JS/TS, Python, Go. (v0.3.18)</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="running-skills"><a class="header" href="#running-skills">Running Skills</a></h2>
+<h3 id="tui"><a class="header" href="#tui">TUI</a></h3>
+<p>Type <code>/skills</code> to open the full-screen filterable picker. Type to narrow (case-insensitive on name + description), Tab/Shift-Tab to cycle, Enter to run, Esc to close. When the filter narrows to a single match, Enter fires it immediately.</p>
+<p>You can also type any skill name directly as a slash command:</p>
+<pre><code>/security-audit
+</code></pre>
+<h3 id="channels"><a class="header" href="#channels">Channels</a></h3>
+<p>Skills auto-register as slash commands across all connected channels (Telegram, Discord, Slack, WhatsApp). No <code>commands.toml</code> entry needed. Just type <code>/&lt;skill-name&gt;</code> in any channel to run it.</p>
+<h2 id="creating-custom-skills"><a class="header" href="#creating-custom-skills">Creating Custom Skills</a></h2>
+<ol>
+<li>Create a directory under <code>~/.opencrabs/skills/</code>:</li>
+</ol>
+<pre><code class="language-bash">mkdir -p ~/.opencrabs/skills/my-skill
+</code></pre>
+<ol start="2">
+<li>Create <code>SKILL.md</code> with frontmatter and prompt:</li>
+</ol>
+<pre><code class="language-markdown">---
+name: my-skill
+description: What this skill does
+---
+
+# My Skill
+
+Instructions for the agent when this skill runs...
+</code></pre>
+<ol start="3">
+<li>The skill immediately appears in <code>/skills</code> and as <code>/my-skill</code> in TUI and all channels.</li>
+</ol>
+<h2 id="cross-harness-compatibility"><a class="header" href="#cross-harness-compatibility">Cross-Harness Compatibility</a></h2>
+<p>The <code>SKILL.md</code> format works identically on:</p>
+<ul>
+<li><strong>OpenCrabs</strong> — native support via <code>/skills</code> picker and slash commands</li>
+<li><strong>Claude Code</strong> — drop the same <code>SKILL.md</code> file into Claude Code’s skills directory</li>
+<li><strong>Anthropic managed agents</strong> — compatible with managed agent skill loading</li>
+<li><strong>OpenClaw</strong> — works with OpenClaw’s skill system</li>
+</ul>
+<p>Write a skill once, use it everywhere.</p>
+<div style="break-before: page; page-break-before: always;"></div>
 <h1 id="building-from-source-1"><a class="header" href="#building-from-source-1">Building from Source</a></h1>
 <h2 id="prerequisites"><a class="header" href="#prerequisites">Prerequisites</a></h2>
 <ul>
@@ -3465,7 +3585,7 @@ panic = "abort"
 <tr><td><strong>Pricing</strong></td><td style="text-align: right">17</td><td><code>src/pricing.rs</code></td></tr>
 <tr><td><strong>Memory</strong></td><td style="text-align: right">9</td><td><code>src/memory/</code></td></tr>
 <tr><td><strong>Logging</strong></td><td style="text-align: right">4</td><td><code>src/logging/</code></td></tr>
-<tr><td><strong>Total</strong></td><td style="text-align: right"><strong>2,522</strong></td><td></td></tr>
+<tr><td><strong>Total</strong></td><td style="text-align: right"><strong>2,595</strong></td><td></td></tr>
 </tbody>
 </table>
 </div>

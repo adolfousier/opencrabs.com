@@ -142,6 +142,20 @@ enabled = true
 
 **Requirements:** The `opencode` binary must be installed and available in your PATH. Models are fetched live via `opencode models`.
 
+## Codex CLI
+
+Use OpenAI's `@openai/codex` CLI as a native provider. User authenticates once via `codex` CLI; OpenCrabs piggybacks on cached credentials — zero API key handling. Non-interactive mode via `codex exec --json` with JSONL streaming.
+
+```toml
+# config.toml
+[providers.codex_cli]
+enabled = true
+```
+
+**Models:** GPT-5.5, GPT-5.4, GPT-5.3-Codex
+
+**Requirements:** The `codex` CLI must be installed (`npm install -g @openai/codex`) and authenticated. Models are detected automatically.
+
 ## MiniMax
 
 **Models:** `MiniMax-M2.7`, `MiniMax-M2.5`, `MiniMax-M2.1`, `MiniMax-Text-01`

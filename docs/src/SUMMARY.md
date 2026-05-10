@@ -46,6 +46,7 @@
 - [Self-Improvement (RSI)](./features/self-improvement.md)
 - [Multi-Profile](./features/profiles.md)
 - [Voice (TTS & STT)](./features/voice.md)
+- [Skills System](./features/skills.md)
 
 # Development
 

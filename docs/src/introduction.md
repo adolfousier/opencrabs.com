@@ -5,8 +5,8 @@
 ## What Makes OpenCrabs Different
 
 ### 🔄 Provider-Agnostic with Native CLI Integration
-- **13+ built-in providers**: Anthropic, OpenAI, Gemini, OpenRouter, Qwen (OAuth + CLI), MiniMax, Ollama, LM Studio, vLLM, NVIDIA, Dialagram, z.ai GLM, GitHub Copilot
-- **Claude Code CLI & OpenCode CLI** integrated as native providers — use their models without API keys
+- **14+ built-in providers**: Anthropic, OpenAI, Gemini, OpenRouter, Qwen (OAuth + CLI), MiniMax, Ollama, LM Studio, vLLM, NVIDIA, Dialagram, z.ai GLM, GitHub Copilot, Codex CLI
+- **Claude Code CLI, OpenCode CLI & Codex CLI** integrated as native providers — use their models without API keys
 - **Ollama as native provider** — run any local model via Ollama API without custom provider setup (v0.3.15)
 - **Custom OpenAI-compatible backends** now stream thinking tokens, tool calls, and intermediate text exactly like native providers (v0.3.2)
 - **Sticky fallback chain** — auto-failover to secondary providers on rate limits or errors
@@ -65,7 +65,7 @@
 
 ### 🔧 Developer Experience
 - **Bang operator (`!cmd`)** — run shell commands directly from TUI input, no LLM round-trip (v0.3.1)
-- **Full CLI surface**: 20+ subcommands (`/models`, `/approve`, `/compact`, `/rebuild`, `/evolve`, `/new`, `/doctor`, `/btw`, `/mission-control`, `/skills`, etc.)
+- **Full CLI surface**: 20+ subcommands (`/models`, `/approve`, `/compact`, `/rebuild`, `/evolve`, `/new`, `/doctor`, `/btw`, `/mission-control`, `/skills`, `/repo-audit`, etc.)
 - **`/btw` parallel agent** — spawn an isolated sub-agent for side tasks while the main conversation continues (v0.3.15)
 - **Mission Control** (`/mission-control`) — full-screen dashboard showing RSI inbox, activity log, and cron schedule in one view (v0.3.16)
 - **Skills system** (`/skills`) — browse and launch workflow templates with fuzzy-finding, auto-registered as slash commands (v0.3.16)
@@ -79,10 +79,15 @@
 - **Bash hardening** — rejects interactive commands up-front, short-circuits exact same failing command retries, tilde expansion fixed (v0.3.13)
 - **SSH askpass detection** — detects password prompts on remote servers and aborts gracefully instead of hanging (v0.3.16)
 - **Async proactive compaction** — at 65% context, compaction runs in background without blocking the chat (v0.3.16)
+- **Generic `deliver_api_key` for cron jobs** — HTTP webhook Bearer token auth configurable per-job via `cron_manage` tool (v0.3.18)
+- **File paths starting with `/` no longer treated as slash command typos** — `/Users/.../file.pdf yo crabs check this` works correctly (v0.3.18)
+- **Truncation continuations no longer trigger provider fallback** — mid-sentence continuations stay on the same provider (v0.3.18)
+- **Fallback error reason surfaced in TUI** — when fallback fires, the underlying error shows as a system message (v0.3.18)
 
 ### 🌐 Browser Automation
 - **Full CDP support**: navigate, click, type, screenshot, JS eval, wait for selectors, find elements
 - **`browser_find` tool** — enumerate elements by CSS, XPath, text, or aria-label with stable selectors (v0.3.13)
+- **`browser_close` tool** — close browser tabs and free CDP sessions, prevents stale page reuse (v0.3.18)
 - **Headless or headed** mode, element-specific screenshots
 - **Cookie/session persistence** across browser sessions
 - **Per-session tab isolation** — no cross-session DOM stomping (v0.3.13)
@@ -107,13 +112,14 @@
 - **Auto-approve propagation** — `approval_policy = "auto-always"` actually reaches tool loop (v0.3.2)
 
 ### 📊 Testing & Quality
-- **2,522+ tests** covering providers, tools, channels, TUI, self-healing, crash recovery, browser automation
+- **2,595+ tests** covering providers, tools, channels, TUI, self-healing, crash recovery, browser automation
 - **13 new test files** added in v0.3.16
 - **CI/CD**: GitHub Actions, CodeQL, `cargo audit` security checks, release automation
 
 ### 🔧 Built-in Skills (v0.3.17)
-- **4 safe built-in skills**: opencli, browser-cdp, a2a-gateway, dynamic-tools
+- **5 safe built-in skills**: opencli, browser-cdp, a2a-gateway, dynamic-tools, repo-audit
 - **SKILLS section** added to help screen and splash integration
+- **`/repo-audit` skill** — language-agnostic repository health checks. 5-phase pipeline: language detection → native tool execution → git metrics → AST analysis → scoring + recommendations (v0.3.18)
 
 ## Quick Start
 

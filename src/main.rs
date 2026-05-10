@@ -443,7 +443,7 @@ fn Features() -> impl IntoView {
         (
             "🤖",
             "Multi-Agent & Teams",
-            "Typed sub-agents (General, Explore, Plan, Code, Research) with filtered tool registries. Team orchestration spawns N agents in parallel and broadcasts to all. 20+ CLI subcommands including /mission-control dashboard, /skills picker, /btw parallel agent, /security-audit, and /cost-estimate. 4 safe built-in skills (opencli, browser-cdp, a2a-gateway, dynamic-tools). Daemon mode with health endpoints.",
+            "Typed sub-agents (General, Explore, Plan, Code, Research) with filtered tool registries. Team orchestration spawns N agents in parallel and broadcasts to all. 20+ CLI subcommands including /mission-control dashboard, /skills picker, /btw parallel agent, /security-audit, /cost-estimate, and /repo-audit. 5 safe built-in skills (opencli, browser-cdp, a2a-gateway, dynamic-tools, repo-audit). Daemon mode with health endpoints.",
         ),
         (
             "🌐",
@@ -458,12 +458,12 @@ fn Features() -> impl IntoView {
         (
             "🛡️",
             "Self-Healing",
-            "Auto-recovers corrupted config, tracks per-provider health with auto-failover, 65% context budget management with async LLM compaction (no more frozen UI). Cross-channel crash recovery routes pending requests back to the originating chat on restart. Stuck stream detection, 10-min CLI idle timeout, DB integrity checks. Append-only brain files with upstream template sync. Expanded phantom detection, RSI escalation for repeat violations, partial JSON repair, TCP keepalive on all HTTP clients.",
+            "Auto-recovers corrupted config, tracks per-provider health with auto-failover, 65% context budget management with async LLM compaction (no more frozen UI). Cross-channel crash recovery routes pending requests back to the originating chat on restart. Stuck stream detection, 10-min CLI idle timeout, DB integrity checks. Append-only brain files with upstream template sync. Expanded phantom detection, RSI escalation for repeat violations, partial JSON repair, TCP keepalive on all HTTP clients. Browser resilience: network idle wait, CDP health checks, lock release before await. Cloud handshake timeout bumped to 60s. Gemini API key moved from URL to header.",
         ),
         (
             "🔧",
             "Self-Improving",
-            "Recursive Self-Improvement (RSI) — the agent analyzes its own performance via a persistent feedback ledger, identifies failure patterns, and autonomously updates its own brain files. Proposes new tools and commands via Mission Control inbox for human review. RSI escalation for repeat violations. Append-only protection, upstream template sync, RSI alert suppression.",
+            "Recursive Self-Improvement (RSI) — the agent analyzes its own performance via a persistent feedback ledger, identifies failure patterns, and autonomously updates its own brain files. Proposes new tools and commands via Mission Control inbox for human review. RSI escalation for repeat violations. Append-only protection, upstream template sync, RSI alert suppression. Generic deliver_api_key for cron HTTP webhooks. File paths no longer misdetected as slash commands. Truncation continuations stay on same provider. Fallback error reasons surfaced in TUI.",
         ),
         (
             "👤",
@@ -510,6 +510,7 @@ fn Integrations() -> impl IntoView {
         "🔮 MiniMax",
         "💻 Claude CLI",
         "⌨️ OpenCode CLI",
+        "🤖 Codex CLI",
     ];
     let tools = vec![
         "🐙 GitHub CLI",

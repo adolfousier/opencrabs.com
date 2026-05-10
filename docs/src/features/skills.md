@@ -1,0 +1,102 @@
+# Skills System
+
+Skills are reusable workflow templates that extend OpenCrabs with specialized capabilities. They work across Claude Code, Anthropic managed agents, and OpenClaw using a shared `SKILL.md` format.
+
+## How Skills Work
+
+Each skill lives in its own directory under `~/.opencrabs/skills/`:
+
+```
+~/.opencrabs/skills/
+├── security-audit/
+│   └── SKILL.md
+├── cost-estimate/
+│   └── SKILL.md
+└── my-custom-skill/
+    └── SKILL.md
+```
+
+## Skill Format
+
+Every skill is a markdown file with YAML frontmatter:
+
+```markdown
+---
+name: security-audit
+description: Language-agnostic security & CVE audit for any codebase
+---
+
+# Security Audit
+
+You are a senior security engineer performing a comprehensive
+security audit of the codebase in the current working directory...
+
+## Stage 1 — Project detection
+...
+```
+
+The `name` and `description` fields in the frontmatter are required. The markdown body becomes the prompt that gets injected when the skill runs.
+
+## Built-in Skills
+
+OpenCrabs ships with built-in skills embedded in the binary. User files at `~/.opencrabs/skills/<name>/SKILL.md` override built-ins by file presence.
+
+| Skill | Description |
+|-------|-------------|
+| `opencli` | OpenCLI integration for terminal workflows |
+| `browser-cdp` | Chrome DevTools Protocol automation workflows |
+| `a2a-gateway` | Agent-to-Agent protocol gateway setup |
+| `dynamic-tools` | Runtime tool creation and management |
+| `security-audit` | Language-agnostic security & CVE audit. Detects project type from manifests (Cargo / npm / Go / Python / Dart / Ruby / PHP / Java / Swift / .NET), runs the appropriate scanner, reviews the diff for injection / auth / crypto / deserialization / path-traversal patterns, and scores 0-100. |
+| `cost-estimate` | Codebase cost-to-build estimate, AI-assisted ROI breakdown, and fair-market valuation. |
+| `repo-audit` | Language-agnostic repository health checks. 5-phase pipeline: language detection, native tool execution, git metrics, AST analysis, scoring + recommendations. Covers Rust, JS/TS, Python, Go. (v0.3.18) |
+
+## Running Skills
+
+### TUI
+
+Type `/skills` to open the full-screen filterable picker. Type to narrow (case-insensitive on name + description), Tab/Shift-Tab to cycle, Enter to run, Esc to close. When the filter narrows to a single match, Enter fires it immediately.
+
+You can also type any skill name directly as a slash command:
+
+```
+/security-audit
+```
+
+### Channels
+
+Skills auto-register as slash commands across all connected channels (Telegram, Discord, Slack, WhatsApp). No `commands.toml` entry needed. Just type `/<skill-name>` in any channel to run it.
+
+## Creating Custom Skills
+
+1. Create a directory under `~/.opencrabs/skills/`:
+
+```bash
+mkdir -p ~/.opencrabs/skills/my-skill
+```
+
+2. Create `SKILL.md` with frontmatter and prompt:
+
+```markdown
+---
+name: my-skill
+description: What this skill does
+---
+
+# My Skill
+
+Instructions for the agent when this skill runs...
+```
+
+3. The skill immediately appears in `/skills` and as `/my-skill` in TUI and all channels.
+
+## Cross-Harness Compatibility
+
+The `SKILL.md` format works identically on:
+
+- **OpenCrabs** — native support via `/skills` picker and slash commands
+- **Claude Code** — drop the same `SKILL.md` file into Claude Code's skills directory
+- **Anthropic managed agents** — compatible with managed agent skill loading
+- **OpenClaw** — works with OpenClaw's skill system
+
+Write a skill once, use it everywhere.

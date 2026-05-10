@@ -54,10 +54,10 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-2e3d71a6.js";
+            window.path_to_searchindex_js = "../searchindex-6096f241.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-7d93f90a.js"></script>
+        <script src="../toc-a823f8d9.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -394,6 +394,25 @@ providers = ["openrouter", "anthropic"]  # tried in order
 <p>Wired into 5 drop sites across OpenAI-compatible providers and the ContentBlockStop finalizer. Unrecoverable input returns a <code>{"_partial": ..., "_repair_failed": true}</code> envelope instead of crashing the turn.</p>
 <h2 id="upstream-template-sync-v0315"><a class="header" href="#upstream-template-sync-v0315">Upstream Template Sync (v0.3.15)</a></h2>
 <p>Brain file templates are now automatically synced from the upstream OpenCrabs repo. The sync uses version gating (only applies templates from newer versions) and append-only diffs (never overwrites existing content). This ensures you always get the latest brain file improvements without losing your customizations.</p>
+<h2 id="browser-resilience-v0318"><a class="header" href="#browser-resilience-v0318">Browser Resilience (v0.3.18)</a></h2>
+<p>Multiple browser reliability improvements:</p>
+<ul>
+<li><strong>Network idle wait after navigate</strong> — now waits for <code>networkIdle</code> instead of just CDP <code>load</code> event, catching async fetches</li>
+<li><strong>CDP manager lock released before await</strong> — lock was held during screenshot await, blocking concurrent browser operations</li>
+<li><strong>CDP pre-flight health check</strong> — added health check before screenshot capture to prevent stale connection failures</li>
+<li><strong>Browser navigate errors logged</strong> — navigate errors no longer silently swallowed with <code>let _ =</code>, now logged at WARN</li>
+</ul>
+<h2 id="cloud-handshake-timeout-v0318"><a class="header" href="#cloud-handshake-timeout-v0318">Cloud Handshake Timeout (v0.3.18)</a></h2>
+<p>Bumped cloud provider handshake timeout from 30s to 60s. Routing proxies like dialagram legitimately take 20-45s; 30s was killing mid-request on slow-but-healthy providers.</p>
+<h2 id="gemini-api-key-security-fix-v0318"><a class="header" href="#gemini-api-key-security-fix-v0318">Gemini API Key Security Fix (v0.3.18)</a></h2>
+<p>Fixed CodeQL #64 (HIGH): Gemini API key was leaked in URL query string (<code>?key=...</code>) in <code>analyze_video</code>’s resumable upload init and file-state polling. Moved to <code>x-goog-api-key</code> header, matching <code>analyze_image</code> and <code>generate_image</code>.</p>
+<h2 id="stream--tui-fixes-v0318"><a class="header" href="#stream--tui-fixes-v0318">Stream &amp; TUI Fixes (v0.3.18)</a></h2>
+<ul>
+<li><strong>File paths starting with <code>/</code> no longer treated as slash command typos</strong> — <code>/Users/.../file.pdf yo crabs check this</code> triggered “Unknown command”. Added <code>looks_like_file_path()</code> helper gating both TUI and channel handlers.</li>
+<li><strong>Truncation continuations no longer trigger provider fallback</strong> — mid-sentence continuations should stay on the same provider. Fallback now skipped for truncation paths.</li>
+<li><strong>Fallback error reason surfaced in TUI</strong> — when fallback fired, the underlying error was swallowed. Now shows as a system message.</li>
+<li><strong>Pipe-delimited rows hard-broken</strong> — when not recognized as a table, pipe rows ran together. Added hard-break between rows.</li>
+</ul>
 <h2 id="notifications"><a class="header" href="#notifications">Notifications</a></h2>
 <p>All self-healing events are delivered to:</p>
 <ul>

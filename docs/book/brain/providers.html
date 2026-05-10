@@ -54,10 +54,10 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-2e3d71a6.js";
+            window.path_to_searchindex_js = "../searchindex-6096f241.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-7d93f90a.js"></script>
+        <script src="../toc-a823f8d9.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -285,6 +285,14 @@ api_key = "your-api-key"
 enabled = true
 </code></pre>
 <p><strong>Requirements:</strong> The <code>opencode</code> binary must be installed and available in your PATH. Models are fetched live via <code>opencode models</code>.</p>
+<h2 id="codex-cli"><a class="header" href="#codex-cli">Codex CLI</a></h2>
+<p>Use OpenAI’s <code>@openai/codex</code> CLI as a native provider. User authenticates once via <code>codex</code> CLI; OpenCrabs piggybacks on cached credentials — zero API key handling. Non-interactive mode via <code>codex exec --json</code> with JSONL streaming.</p>
+<pre><code class="language-toml"># config.toml
+[providers.codex_cli]
+enabled = true
+</code></pre>
+<p><strong>Models:</strong> GPT-5.5, GPT-5.4, GPT-5.3-Codex</p>
+<p><strong>Requirements:</strong> The <code>codex</code> CLI must be installed (<code>npm install -g @openai/codex</code>) and authenticated. Models are detected automatically.</p>
 <h2 id="minimax"><a class="header" href="#minimax">MiniMax</a></h2>
 <p><strong>Models:</strong> <code>MiniMax-M2.7</code>, <code>MiniMax-M2.5</code>, <code>MiniMax-M2.1</code>, <code>MiniMax-Text-01</code></p>
 <pre><code class="language-toml"># keys.toml

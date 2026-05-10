@@ -34,6 +34,7 @@ opencrabs [COMMAND] [OPTIONS]
 | `/skills` | **Skills picker** — Browse and launch workflow templates with fuzzy-finding. Every loaded skill auto-registers as a slash command. |
 | `/security-audit` | **Security audit** — Comprehensive language-agnostic security & CVE audit. Detects project type, runs the right scanner, reviews recent diff for injection/auth/crypto patterns, scores 0-100. |
 | `/cost-estimate` | **Cost estimate** — Codebase cost-to-build estimate, AI-assisted ROI breakdown, and fair-market valuation. Asks for business context before producing the valuation range. |
+| `/repo-audit` | **Repo audit** — Language-agnostic repository health checks. 5-phase pipeline: language detection → native tool execution → git metrics → AST analysis → scoring + recommendations. Covers Rust, JS/TS, Python, Go. |
 
 ## Configuration Flags
 

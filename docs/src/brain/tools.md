@@ -95,6 +95,7 @@ Native headless Chrome control via Chrome DevTools Protocol (CDP):
 | `extract_content` | `selector` | Extract text content from elements |
 | `wait_for_element` | `selector`, `timeout` | Wait for an element to appear |
 | `find` | `pattern`, `mode` | Find elements by CSS, XPath, text, or aria-label. Returns stable selectors |
+| `browser_close` | — | Close browser tab and free CDP session. Prevents stale page reuse across browser actions (v0.3.18) |
 
 Auto-detects your default Chromium browser. Feature-gated under `browser` (enabled by default).
 
