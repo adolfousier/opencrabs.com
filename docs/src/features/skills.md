@@ -100,3 +100,9 @@ The `SKILL.md` format works identically on:
 - **OpenClaw** — works with OpenClaw's skill system
 
 Write a skill once, use it everywhere.
+
+## RSI-Proposed Skills
+
+The RSI engine can propose new skills based on usage patterns it observes in the feedback ledger. For example, if the agent repeatedly performs a multi-step workflow that isn't covered by an existing skill, RSI will draft a skill and file it in the Mission Control inbox for your review.
+
+This is part of the [RSI Proposals system](./self-improvement.md#rsi-proposals) — RSI identifies gaps in the agent's capabilities and drafts solutions, but installation always requires your approval.

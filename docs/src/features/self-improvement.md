@@ -54,6 +54,92 @@ Agent notices pattern of 5+ corrections on output hygiene:
 - **Always reads before modifying** — never blindly overwrites brain files
 - **Archives old improvements** — keeps the improvement log manageable
 
+## RSI Engine Architecture
+
+The RSI engine is a background task that runs continuously alongside OpenCrabs. Here's how it works at each layer:
+
+### Feedback Ledger
+
+Every tool execution, user correction, provider error, and self-heal event is automatically logged to a SQLite-backed feedback ledger. Event types:
+
+| Event Type | What It Tracks |
+|---|---|
+| `tool_success` / `tool_failure` | Whether tool calls worked, with args and error details |
+| `user_correction` | When you corrected the agent's behavior |
+| `provider_error` | LLM stream drops, rate limits, timeouts |
+| `pattern_observed` | Recurring behaviors the agent notices |
+| `context_compaction` | Context budget exceeded |
+| `improvement_applied` | RSI applied a fix to a brain file |
+| `self_heal_trigger` | Runtime self-heal caught and fixed an issue |
+
+### Cycle Flow
+
+1. **Startup** — writes a digest of feedback stats to `~/.opencrabs/rsi/digest.md`
+2. **Every hour** — checks for new feedback entries since the last cycle
+3. **Opportunity detection** — identifies tools with >20% failure rate (7-day window), user correction patterns, and provider errors
+4. **Git-aware suppression** — checks if a fix commit already landed for the tool in question. If yes, suppresses the alert instead of re-reporting stale issues
+5. **Autonomous agent spawn** — if opportunities are found, spawns a lightweight agent with RSI-only tools (feedback_analyze, self_improve, rsi_propose) that analyzes the data and applies targeted fixes
+
+### Brain File Taxonomy
+
+RSI routes improvements to the correct brain file based on what went wrong:
+
+| Brain File | What It Controls | When RSI Writes Here |
+|---|---|---|
+| `SOUL.md` | Behavior, tone, reasoning patterns | Phantom tool calls, verbose responses, wrong tone |
+| `TOOLS.md` | Tool usage, argument formats, pitfalls | Repeated tool failures with similar args |
+| `USER.md` | User preferences and corrections | Repeated user corrections |
+| `MEMORY.md` | Persistent knowledge and context | Agent lacks context it should retain |
+| `AGENTS.md` | Workspace rules, safety policies | Agent-level behavior issues |
+| `CODE.md` | Coding standards | Code quality feedback |
+| `SECURITY.md` | Security policies | Security-related feedback |
+
+### Repeat-Violation Escalation
+
+RSI tracks violation counters inline in brain file rules. When a rule keeps getting broken, RSI bumps the counter and appends evidence (dates, session IDs). Rules that keep getting broken get louder, not silenced. This is the escalation pattern that makes RSI effective at fixing persistent bad habits.
+
+## RSI Proposals
+
+The RSI loop can propose new dynamic tools and slash commands based on gaps it observes in the agent's capabilities. Proposals land in TOML inboxes at:
+
+```
+~/.opencrabs/rsi/
+├── proposed_tools.toml      # pending tool proposals
+├── proposed_commands.toml   # pending command proposals
+├── applied/                  # accepted proposals (daily archive)
+│   ├── 2026-05-01-tools.toml
+│   └── 2026-05-01-commands.toml
+└── rejected/                 # rejected proposals (daily archive)
+    ├── 2026-05-01-tools.toml
+    └── 2026-05-01-commands.toml
+```
+
+### How Proposals Work
+
+1. RSI analyzes feedback and notices the agent repeatedly working around a missing capability
+2. RSI drafts a tool or command definition with a rationale citing the evidence
+3. Proposal lands in the inbox — reviewed via Mission Control or the `rsi_proposals` tool
+4. User applies or rejects — applied entries go to `tools.toml`/`commands.toml`, rejected entries are archived with an optional reason
+
+### When RSI Proposes a Tool
+
+- A specific bash command appears repeatedly across sessions (e.g. `gh issue list`, `docker ps`)
+- The agent calls `http_request` to the same endpoint multiple times with similar payloads
+- Only safe-by-default tools are proposed (read-only verbs, GET requests). Shell-based tools always set `requires_approval=true`
+
+### When RSI Proposes a Command
+
+- The user types `/something` repeatedly that doesn't exist
+- A common multi-step prompt gets reused verbatim — a slash command saves typing
+
+### Safety Guardrails
+
+- **RSI never installs directly** — proposals require user approval via Mission Control or the `rsi_proposals` tool
+- **No destructive proposals** — RSI will never propose `rm`, `dd`, `mv`, or any shell tool with destructive side effects
+- **Deduplication** — if a proposal was already filed and not applied, RSI won't repropose it
+- **One proposal per cycle** — quality over quantity
+- **Evidence required** — every proposal cites the feedback events that drove it
+
 ## RSI Hardening (v0.3.13)
 
 - **Append-only brain files** — brain files (SOUL.md, TOOLS.md, etc.) are now append-only with backup-before-write. The agent can only add new content, never delete or overwrite existing lines. This prevents accidental data loss from bad self-improvements.
