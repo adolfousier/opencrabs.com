@@ -441,9 +441,14 @@ fn Features() -> impl IntoView {
             "Tmux-style horizontal and vertical pane splitting. Run 10 sessions side by side, each with its own provider and context. All processing in parallel.",
         ),
         (
+            "🎯",
+            "Mission Control",
+            "Full-screen TUI dashboard with three panels: Inbox for reviewing RSI-proposed tools, commands, and skills (approve/reject inline with a/r keys), Activity log showing recent self-improvements, and Schedule queue for cron jobs. Keyboard-driven — Tab/Shift-Tab cycle panels, j/k navigate, Enter for details, Esc to close. The central hub for everything your agent wants to do autonomously.",
+        ),
+        (
             "🤖",
             "Multi-Agent & Teams",
-            "Typed sub-agents (General, Explore, Plan, Code, Research) with filtered tool registries. Team orchestration spawns N agents in parallel and broadcasts to all. 20+ CLI subcommands including /mission-control dashboard, /skills picker, /btw parallel agent, /security-audit, /cost-estimate, and /repo-audit. 5 safe built-in skills (opencli, browser-cdp, a2a-gateway, dynamic-tools, repo-audit). Daemon mode with health endpoints.",
+            "Typed sub-agents (General, Explore, Plan, Code, Research) with filtered tool registries. Team orchestration spawns N agents in parallel and broadcasts to all. 20+ CLI subcommands including /mission-control dashboard, /skills picker, /btw parallel agent, /security-audit, /cost-estimate, and /repo-audit. Cross-harness skill system with auto-registered slash commands. Daemon mode with health endpoints.",
         ),
         (
             "🌐",
