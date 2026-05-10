@@ -48,6 +48,7 @@
 - [Multi-Profile](./features/profiles.md)
 - [Voice (TTS & STT)](./features/voice.md)
 - [Skills System](./features/skills.md)
+- [Usage Dashboard](./features/usage-dashboard.md)
 
 # Development
 

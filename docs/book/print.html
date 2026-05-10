@@ -55,10 +55,10 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-6a5bbd9c.js";
+            window.path_to_searchindex_js = "searchindex-de596592.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-0edbf085.js"></script>
+        <script src="toc-25972818.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -3079,17 +3079,15 @@ Agent notices pattern of 5+ corrections on output hygiene:
 <h1 id="mission-control"><a class="header" href="#mission-control">Mission Control</a></h1>
 <p>Mission Control is a full-screen TUI dashboard that brings RSI activity, inbox proposals, and scheduled jobs into one place. Open it with <code>/mission-control</code>.</p>
 <h2 id="the-three-panels"><a class="header" href="#the-three-panels">The Three Panels</a></h2>
-<p>Mission Control has three panels in a single view:</p>
+<p>The screen is divided into three panels: a large <strong>Inbox</strong> on the left, and <strong>Activity</strong> + <strong>Schedule</strong> stacked on the right.</p>
 <h3 id="inbox"><a class="header" href="#inbox">Inbox</a></h3>
 <p>Pending RSI proposals displayed as cards. Each card shows:</p>
 <ul>
-<li><strong>Tool proposals</strong> — new dynamic tools RSI thinks you need, with the tool name, description, and rationale</li>
-<li><strong>Command proposals</strong> — new slash commands RSI drafted based on usage patterns</li>
-</ul>
-<ol>
-<li><strong>Tool/command proposals</strong> — new dynamic tools and slash commands RSI drafted based on usage patterns</li>
+<li><strong>Tool proposals</strong> (orange <code>tool</code> badge) — new dynamic tools RSI thinks you need, with the shell command template</li>
+<li><strong>Command proposals</strong> (teal <code>command</code> badge) — new slash commands RSI drafted based on usage patterns</li>
 <li><strong>Skill proposals</strong> — new <code>SKILL.md</code> files RSI drafted when it detects a repeated multi-step workflow that isn’t covered by an existing skill</li>
-</ol>
+</ul>
+<p>Each card shows the proposal name, type badge, description or command template, and how long ago it was proposed.</p>
 <p>Apply or reject proposals inline:</p>
 <ul>
 <li><code>a</code> — apply the selected proposal (installs tool/command to config, or creates skill directory)</li>
@@ -3098,14 +3096,24 @@ Agent notices pattern of 5+ corrections on output hygiene:
 <p>Applied and rejected entries are archived daily to <code>~/.opencrabs/rsi/applied/</code> and <code>~/.opencrabs/rsi/rejected/</code> so the trail is auditable.</p>
 <p>A banner on session start shows the count of pending inbox items.</p>
 <h3 id="activity"><a class="header" href="#activity">Activity</a></h3>
-<p>A chronological feed of recent RSI improvements. Shows what the autonomous engine did, when, and why:</p>
+<p>A chronological feed of the last 100 RSI improvements. Shows what the autonomous engine did, when, and why:</p>
 <ul>
-<li>Brain file modifications (SOUL.md, TOOLS.md, etc.)</li>
+<li>Brain file modifications (SOUL.md, MEMORY.md, TOOLS.md, etc.)</li>
 <li>Template syncs from upstream</li>
+<li>Hard rule additions</li>
 <li>Feedback analysis summaries</li>
+<li>Violation count updates</li>
 </ul>
+<p>Each entry shows the time ago, a summary of the change, and the target file.</p>
 <h3 id="schedule"><a class="header" href="#schedule">Schedule</a></h3>
-<p>Your cron job queue with paused/active state. See <a href="#cron-jobs">Cron Jobs</a> for full cron documentation.</p>
+<p>Your cron job queue with paused/active state. Each job shows:</p>
+<ul>
+<li>Job name</li>
+<li>Cron expression</li>
+<li>Next run time (when active)</li>
+<li><code>paused</code> label (when paused)</li>
+</ul>
+<p>See <a href="#cron-jobs">Cron Jobs</a> for full cron documentation.</p>
 <h2 id="keyboard-navigation"><a class="header" href="#keyboard-navigation">Keyboard Navigation</a></h2>
 <div class="table-wrapper">
 <table>
@@ -3114,9 +3122,7 @@ Agent notices pattern of 5+ corrections on output hygiene:
 </thead>
 <tbody>
 <tr><td><code>Tab</code> / <code>Shift+Tab</code></td><td>Cycle focus between panels (Inbox → Activity → Schedule)</td></tr>
-<tr><td><code>j</code> / <code>k</code> or <code>↑</code> / <code>↓</code></td><td>Move selection within a panel</td></tr>
-<tr><td><code>g</code> / <code>Home</code></td><td>Jump to top of list</td></tr>
-<tr><td><code>G</code> / <code>End</code></td><td>Jump to bottom of list</td></tr>
+<tr><td><code>↑</code> / <code>↓</code></td><td>Move selection within a panel</td></tr>
 <tr><td><code>Enter</code></td><td>Open detail popup for selected item</td></tr>
 <tr><td><code>a</code></td><td>Apply selected inbox proposal</td></tr>
 <tr><td><code>r</code></td><td>Reject selected inbox proposal</td></tr>
@@ -3142,6 +3148,7 @@ Agent notices pattern of 5+ corrections on output hygiene:
 <h2 id="related"><a class="header" href="#related">Related</a></h2>
 <ul>
 <li><a href="#self-improvement-rsi">Self-Improvement (RSI)</a> — the engine that generates proposals</li>
+<li><a href="#skills-system">Skills System</a> — skills proposed by RSI land in the inbox</li>
 <li><a href="#dynamic-tools-1">Dynamic Tools</a> — what RSI tool proposals install into</li>
 <li><a href="#custom-commands">Custom Commands</a> — what RSI command proposals install into</li>
 <li><a href="#cron-jobs">Cron Jobs</a> — the schedule panel</li>
@@ -3429,28 +3436,54 @@ security audit of the codebase in the current working directory...
 ...
 </code></pre>
 <p>The <code>name</code> and <code>description</code> fields in the frontmatter are required. The markdown body becomes the prompt that gets injected when the skill runs.</p>
+<h2 id="built-in-vs-user-skills"><a class="header" href="#built-in-vs-user-skills">Built-in vs User Skills</a></h2>
+<p>Skills come from two sources:</p>
+<ul>
+<li><strong>Built-in</strong> (orange badge) — ship with the OpenCrabs binary via <code>include_str!</code>. Always available.</li>
+<li><strong>User</strong> (teal badge) — created by you in <code>~/.opencrabs/skills/&lt;name&gt;/SKILL.md</code>. Override built-ins by file presence.</li>
+</ul>
 <h2 id="built-in-skills"><a class="header" href="#built-in-skills">Built-in Skills</a></h2>
-<p>OpenCrabs ships with built-in skills embedded in the binary. User files at <code>~/.opencrabs/skills/&lt;name&gt;/SKILL.md</code> override built-ins by file presence.</p>
 <div class="table-wrapper">
 <table>
 <thead>
 <tr><th>Skill</th><th>Description</th></tr>
 </thead>
 <tbody>
-<tr><td><code>opencli</code></td><td>OpenCLI integration for terminal workflows</td></tr>
-<tr><td><code>browser-cdp</code></td><td>Chrome DevTools Protocol automation workflows</td></tr>
-<tr><td><code>a2a-gateway</code></td><td>Agent-to-Agent protocol gateway setup</td></tr>
-<tr><td><code>dynamic-tools</code></td><td>Runtime tool creation and management</td></tr>
-<tr><td><code>security-audit</code></td><td>Language-agnostic security &amp; CVE audit. Detects project type from manifests (Cargo / npm / Go / Python / Dart / Ruby / PHP / Java / Swift / .NET), runs the appropriate scanner, reviews the diff for injection / auth / crypto / deserialization / path-traversal patterns, and scores 0-100.</td></tr>
+<tr><td><code>opencli</code></td><td>Reference for all 25+ opencli-rs dynamic tools (news, social, search, web). Use when user asks about trending topics, news, social media, jobs, or web search.</td></tr>
+<tr><td><code>browser-cdp</code></td><td>Native CDP browser automation reference. Headless/headed Chrome control, screenshots, JS evaluation.</td></tr>
+<tr><td><code>a2a-gateway</code></td><td>Agent-to-Agent (A2A) protocol gateway reference. JSON-RPC 2.0 peer-to-peer agent communication.</td></tr>
+<tr><td><code>dynamic-tools</code></td><td>Runtime tool management with tool_manage and tools.toml format. Create, enable, disable, reload tools without restart.</td></tr>
+<tr><td><code>security-audit</code></td><td>Language-agnostic security &amp; CVE audit. Detects project type from manifests, runs the appropriate scanner, reviews the diff for injection / auth / crypto / deserialization / path-traversal patterns, and scores 0-100.</td></tr>
 <tr><td><code>cost-estimate</code></td><td>Codebase cost-to-build estimate, AI-assisted ROI breakdown, and fair-market valuation.</td></tr>
 <tr><td><code>repo-audit</code></td><td>Language-agnostic repository health checks. 5-phase pipeline: language detection, native tool execution, git metrics, AST analysis, scoring + recommendations. Covers Rust, JS/TS, Python, Go. (v0.3.18)</td></tr>
 </tbody>
 </table>
 </div>
 <h2 id="running-skills"><a class="header" href="#running-skills">Running Skills</a></h2>
-<h3 id="tui"><a class="header" href="#tui">TUI</a></h3>
-<p>Type <code>/skills</code> to open the full-screen filterable picker. Type to narrow (case-insensitive on name + description), Tab/Shift-Tab to cycle, Enter to run, Esc to close. When the filter narrows to a single match, Enter fires it immediately.</p>
-<p>You can also type any skill name directly as a slash command:</p>
+<h3 id="skills-picker-skills"><a class="header" href="#skills-picker-skills">Skills Picker (<code>/skills</code>)</a></h3>
+<p>Type <code>/skills</code> to open the full-screen filterable picker. The top shows a filter bar with the total skill count. The main area lists all skills, each showing:</p>
+<ul>
+<li><strong>Skill name</strong> as a slash command (e.g. <code>/security-audit</code>)</li>
+<li><strong>Type badge</strong> — orange <code>built-in</code> or teal <code>user</code></li>
+<li><strong>Description</strong> of what the skill does</li>
+<li><strong>Keywords</strong> for search matching in parentheses</li>
+</ul>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Key</th><th>Action</th></tr>
+</thead>
+<tbody>
+<tr><td><code>Tab</code> / <code>↑↓</code></td><td>Navigate the skill list</td></tr>
+<tr><td><code>Enter</code></td><td>Run the selected skill</td></tr>
+<tr><td><code>Esc</code></td><td>Close the picker</td></tr>
+<tr><td>Type</td><td>Filter skills by name and description (case-insensitive)</td></tr>
+</tbody>
+</table>
+</div>
+<p>When the filter narrows to a single match, Enter fires it immediately.</p>
+<h3 id="slash-commands"><a class="header" href="#slash-commands">Slash Commands</a></h3>
+<p>Type any skill name directly as a slash command:</p>
 <pre><code>/security-audit
 </code></pre>
 <h3 id="channels"><a class="header" href="#channels">Channels</a></h3>
@@ -3467,6 +3500,7 @@ security audit of the codebase in the current working directory...
 <pre><code class="language-markdown">---
 name: my-skill
 description: What this skill does
+keywords: [my-skill, custom, example]
 ---
 
 # My Skill
@@ -3474,7 +3508,7 @@ description: What this skill does
 Instructions for the agent when this skill runs...
 </code></pre>
 <ol start="3">
-<li>The skill immediately appears in <code>/skills</code> and as <code>/my-skill</code> in TUI and all channels.</li>
+<li>The skill immediately appears in <code>/skills</code> (with a <code>user</code> badge) and as <code>/my-skill</code> in TUI and all channels.</li>
 </ol>
 <h2 id="cross-harness-compatibility"><a class="header" href="#cross-harness-compatibility">Cross-Harness Compatibility</a></h2>
 <p>The <code>SKILL.md</code> format works identically on:</p>
@@ -3486,8 +3520,93 @@ Instructions for the agent when this skill runs...
 </ul>
 <p>Write a skill once, use it everywhere.</p>
 <h2 id="rsi-proposed-skills"><a class="header" href="#rsi-proposed-skills">RSI-Proposed Skills</a></h2>
-<p>The RSI engine can propose new skills based on usage patterns it observes in the feedback ledger. For example, if the agent repeatedly performs a multi-step workflow that isn’t covered by an existing skill, RSI will draft a skill and file it in the Mission Control inbox for your review.</p>
+<p>The RSI engine can propose new skills based on usage patterns it observes in the feedback ledger. For example, if the agent repeatedly performs a multi-step workflow that isn’t covered by an existing skill, RSI will draft a skill and file it in the <a href="#mission-control">Mission Control</a> inbox for your review.</p>
 <p>This is part of the <a href="#rsi-proposals">RSI Proposals system</a> — RSI identifies gaps in the agent’s capabilities and drafts solutions, but installation always requires your approval.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="usage-dashboard"><a class="header" href="#usage-dashboard">Usage Dashboard</a></h1>
+<p>The Usage Dashboard shows your token usage, costs, models, tools, and project breakdown. Open it with <code>/usage</code>.</p>
+<h2 id="overview"><a class="header" href="#overview">Overview</a></h2>
+<p>The header shows your totals:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Metric</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Tokens</strong></td><td>Total tokens consumed (in millions)</td></tr>
+<tr><td><strong>Cost</strong></td><td>Total spend in USD</td></tr>
+<tr><td><strong>Sessions</strong></td><td>Number of sessions</td></tr>
+<tr><td><strong>Calls</strong></td><td>Total API calls made</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="the-four-panels"><a class="header" href="#the-four-panels">The Four Panels</a></h2>
+<p>The dashboard is a 2x2 grid of panels:</p>
+<h3 id="daily-activity-top-left"><a class="header" href="#daily-activity-top-left">Daily Activity (top-left)</a></h3>
+<p>A horizontal bar chart showing token usage per day. Peak days stand out clearly. Useful for spotting burst activity or debugging unexpected spikes.</p>
+<h3 id="by-project-top-right"><a class="header" href="#by-project-top-right">By Project (top-right)</a></h3>
+<p>A ranked table of projects by cost:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Column</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td>Project</td><td>Working directory name</td></tr>
+<tr><td><code>$</code></td><td>Total cost</td></tr>
+<tr><td><code>M</code></td><td>Tokens in millions</td></tr>
+<tr><td><code>s</code></td><td>Total session time</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="by-model-bottom-left"><a class="header" href="#by-model-bottom-left">By Model (bottom-left)</a></h3>
+<p>A ranked table of every model used:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Column</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td>Model</td><td>Provider + model name</td></tr>
+<tr><td><code>$</code></td><td>Total cost</td></tr>
+<tr><td><code>M</code></td><td>Tokens in millions</td></tr>
+<tr><td><code>C</code></td><td>Number of API calls</td></tr>
+</tbody>
+</table>
+</div>
+<p>The selected row is highlighted in orange. Use this to spot expensive models or optimize your provider mix.</p>
+<h3 id="core-tools-bottom-right"><a class="header" href="#core-tools-bottom-right">Core Tools (bottom-right)</a></h3>
+<p>A horizontal bar chart ranking your most-used tools. <code>bash</code> and <code>read_file</code> typically dominate. Useful for understanding your agent’s workflow patterns.</p>
+<h3 id="by-activity-footer"><a class="header" href="#by-activity-footer">By Activity (footer)</a></h3>
+<p>A summary table showing cost and turns by activity category (Development, CI/Deploy, Features), plus the 1-shot success rate for each.</p>
+<h2 id="time-filters"><a class="header" href="#time-filters">Time Filters</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Key</th><th>Filter</th></tr>
+</thead>
+<tbody>
+<tr><td><code>T</code></td><td>Today</td></tr>
+<tr><td><code>W</code></td><td>This week</td></tr>
+<tr><td><code>M</code></td><td>This month</td></tr>
+<tr><td><code>A</code></td><td>All time</td></tr>
+<tr><td><code>Esc</code></td><td>Close dashboard</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="navigation"><a class="header" href="#navigation">Navigation</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Key</th><th>Action</th></tr>
+</thead>
+<tbody>
+<tr><td><code>Tab</code></td><td>Cycle focus between panels</td></tr>
+<tr><td><code>Enter</code></td><td>Open details for selected item</td></tr>
+<tr><td><code>Esc</code></td><td>Close dashboard</td></tr>
+</tbody>
+</table>
+</div>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="building-from-source-1"><a class="header" href="#building-from-source-1">Building from Source</a></h1>
 <h2 id="prerequisites"><a class="header" href="#prerequisites">Prerequisites</a></h2>

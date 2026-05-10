@@ -37,27 +37,48 @@ security audit of the codebase in the current working directory...
 
 The `name` and `description` fields in the frontmatter are required. The markdown body becomes the prompt that gets injected when the skill runs.
 
-## Built-in Skills
+## Built-in vs User Skills
 
-OpenCrabs ships with built-in skills embedded in the binary. User files at `~/.opencrabs/skills/<name>/SKILL.md` override built-ins by file presence.
+Skills come from two sources:
+
+- **Built-in** (orange badge) — ship with the OpenCrabs binary via `include_str!`. Always available.
+- **User** (teal badge) — created by you in `~/.opencrabs/skills/<name>/SKILL.md`. Override built-ins by file presence.
+
+## Built-in Skills
 
 | Skill | Description |
 |-------|-------------|
-| `opencli` | OpenCLI integration for terminal workflows |
-| `browser-cdp` | Chrome DevTools Protocol automation workflows |
-| `a2a-gateway` | Agent-to-Agent protocol gateway setup |
-| `dynamic-tools` | Runtime tool creation and management |
-| `security-audit` | Language-agnostic security & CVE audit. Detects project type from manifests (Cargo / npm / Go / Python / Dart / Ruby / PHP / Java / Swift / .NET), runs the appropriate scanner, reviews the diff for injection / auth / crypto / deserialization / path-traversal patterns, and scores 0-100. |
+| `opencli` | Reference for all 25+ opencli-rs dynamic tools (news, social, search, web). Use when user asks about trending topics, news, social media, jobs, or web search. |
+| `browser-cdp` | Native CDP browser automation reference. Headless/headed Chrome control, screenshots, JS evaluation. |
+| `a2a-gateway` | Agent-to-Agent (A2A) protocol gateway reference. JSON-RPC 2.0 peer-to-peer agent communication. |
+| `dynamic-tools` | Runtime tool management with tool_manage and tools.toml format. Create, enable, disable, reload tools without restart. |
+| `security-audit` | Language-agnostic security & CVE audit. Detects project type from manifests, runs the appropriate scanner, reviews the diff for injection / auth / crypto / deserialization / path-traversal patterns, and scores 0-100. |
 | `cost-estimate` | Codebase cost-to-build estimate, AI-assisted ROI breakdown, and fair-market valuation. |
 | `repo-audit` | Language-agnostic repository health checks. 5-phase pipeline: language detection, native tool execution, git metrics, AST analysis, scoring + recommendations. Covers Rust, JS/TS, Python, Go. (v0.3.18) |
 
 ## Running Skills
 
-### TUI
+### Skills Picker (`/skills`)
 
-Type `/skills` to open the full-screen filterable picker. Type to narrow (case-insensitive on name + description), Tab/Shift-Tab to cycle, Enter to run, Esc to close. When the filter narrows to a single match, Enter fires it immediately.
+Type `/skills` to open the full-screen filterable picker. The top shows a filter bar with the total skill count. The main area lists all skills, each showing:
 
-You can also type any skill name directly as a slash command:
+- **Skill name** as a slash command (e.g. `/security-audit`)
+- **Type badge** — orange `built-in` or teal `user`
+- **Description** of what the skill does
+- **Keywords** for search matching in parentheses
+
+| Key | Action |
+|-----|--------|
+| `Tab` / `↑↓` | Navigate the skill list |
+| `Enter` | Run the selected skill |
+| `Esc` | Close the picker |
+| Type | Filter skills by name and description (case-insensitive) |
+
+When the filter narrows to a single match, Enter fires it immediately.
+
+### Slash Commands
+
+Type any skill name directly as a slash command:
 
 ```
 /security-audit
@@ -81,6 +102,7 @@ mkdir -p ~/.opencrabs/skills/my-skill
 ---
 name: my-skill
 description: What this skill does
+keywords: [my-skill, custom, example]
 ---
 
 # My Skill
@@ -88,7 +110,7 @@ description: What this skill does
 Instructions for the agent when this skill runs...
 ```
 
-3. The skill immediately appears in `/skills` and as `/my-skill` in TUI and all channels.
+3. The skill immediately appears in `/skills` (with a `user` badge) and as `/my-skill` in TUI and all channels.
 
 ## Cross-Harness Compatibility
 
@@ -103,6 +125,6 @@ Write a skill once, use it everywhere.
 
 ## RSI-Proposed Skills
 
-The RSI engine can propose new skills based on usage patterns it observes in the feedback ledger. For example, if the agent repeatedly performs a multi-step workflow that isn't covered by an existing skill, RSI will draft a skill and file it in the Mission Control inbox for your review.
+The RSI engine can propose new skills based on usage patterns it observes in the feedback ledger. For example, if the agent repeatedly performs a multi-step workflow that isn't covered by an existing skill, RSI will draft a skill and file it in the [Mission Control](./mission-control.md) inbox for your review.
 
 This is part of the [RSI Proposals system](./self-improvement.md#rsi-proposals) — RSI identifies gaps in the agent's capabilities and drafts solutions, but installation always requires your approval.

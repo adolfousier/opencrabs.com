@@ -4,16 +4,16 @@ Mission Control is a full-screen TUI dashboard that brings RSI activity, inbox p
 
 ## The Three Panels
 
-Mission Control has three panels in a single view:
+The screen is divided into three panels: a large **Inbox** on the left, and **Activity** + **Schedule** stacked on the right.
 
 ### Inbox
 
 Pending RSI proposals displayed as cards. Each card shows:
-- **Tool proposals** — new dynamic tools RSI thinks you need, with the tool name, description, and rationale
-- **Command proposals** — new slash commands RSI drafted based on usage patterns
+- **Tool proposals** (orange `tool` badge) — new dynamic tools RSI thinks you need, with the shell command template
+- **Command proposals** (teal `command` badge) — new slash commands RSI drafted based on usage patterns
+- **Skill proposals** — new `SKILL.md` files RSI drafted when it detects a repeated multi-step workflow that isn't covered by an existing skill
 
-1. **Tool/command proposals** — new dynamic tools and slash commands RSI drafted based on usage patterns
-2. **Skill proposals** — new `SKILL.md` files RSI drafted when it detects a repeated multi-step workflow that isn't covered by an existing skill
+Each card shows the proposal name, type badge, description or command template, and how long ago it was proposed.
 
 Apply or reject proposals inline:
 - `a` — apply the selected proposal (installs tool/command to config, or creates skill directory)
@@ -25,23 +25,31 @@ A banner on session start shows the count of pending inbox items.
 
 ### Activity
 
-A chronological feed of recent RSI improvements. Shows what the autonomous engine did, when, and why:
-- Brain file modifications (SOUL.md, TOOLS.md, etc.)
+A chronological feed of the last 100 RSI improvements. Shows what the autonomous engine did, when, and why:
+- Brain file modifications (SOUL.md, MEMORY.md, TOOLS.md, etc.)
 - Template syncs from upstream
+- Hard rule additions
 - Feedback analysis summaries
+- Violation count updates
+
+Each entry shows the time ago, a summary of the change, and the target file.
 
 ### Schedule
 
-Your cron job queue with paused/active state. See [Cron Jobs](./cron-jobs.md) for full cron documentation.
+Your cron job queue with paused/active state. Each job shows:
+- Job name
+- Cron expression
+- Next run time (when active)
+- `paused` label (when paused)
+
+See [Cron Jobs](./cron-jobs.md) for full cron documentation.
 
 ## Keyboard Navigation
 
 | Key | Action |
 |-----|--------|
 | `Tab` / `Shift+Tab` | Cycle focus between panels (Inbox → Activity → Schedule) |
-| `j` / `k` or `↑` / `↓` | Move selection within a panel |
-| `g` / `Home` | Jump to top of list |
-| `G` / `End` | Jump to bottom of list |
+| `↑` / `↓` | Move selection within a panel |
 | `Enter` | Open detail popup for selected item |
 | `a` | Apply selected inbox proposal |
 | `r` | Reject selected inbox proposal |
@@ -62,6 +70,7 @@ Layout and keystroke contracts are unit-testable without spinning up a full `App
 ## Related
 
 - [Self-Improvement (RSI)](./self-improvement.md) — the engine that generates proposals
+- [Skills System](./skills.md) — skills proposed by RSI land in the inbox
 - [Dynamic Tools](./dynamic-tools.md) — what RSI tool proposals install into
 - [Custom Commands](../brain/commands.md) — what RSI command proposals install into
 - [Cron Jobs](./cron-jobs.md) — the schedule panel

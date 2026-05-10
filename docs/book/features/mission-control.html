@@ -54,10 +54,10 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-6a5bbd9c.js";
+            window.path_to_searchindex_js = "../searchindex-de596592.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-0edbf085.js"></script>
+        <script src="../toc-25972818.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -199,17 +199,15 @@
                         <h1 id="mission-control"><a class="header" href="#mission-control">Mission Control</a></h1>
 <p>Mission Control is a full-screen TUI dashboard that brings RSI activity, inbox proposals, and scheduled jobs into one place. Open it with <code>/mission-control</code>.</p>
 <h2 id="the-three-panels"><a class="header" href="#the-three-panels">The Three Panels</a></h2>
-<p>Mission Control has three panels in a single view:</p>
+<p>The screen is divided into three panels: a large <strong>Inbox</strong> on the left, and <strong>Activity</strong> + <strong>Schedule</strong> stacked on the right.</p>
 <h3 id="inbox"><a class="header" href="#inbox">Inbox</a></h3>
 <p>Pending RSI proposals displayed as cards. Each card shows:</p>
 <ul>
-<li><strong>Tool proposals</strong> — new dynamic tools RSI thinks you need, with the tool name, description, and rationale</li>
-<li><strong>Command proposals</strong> — new slash commands RSI drafted based on usage patterns</li>
-</ul>
-<ol>
-<li><strong>Tool/command proposals</strong> — new dynamic tools and slash commands RSI drafted based on usage patterns</li>
+<li><strong>Tool proposals</strong> (orange <code>tool</code> badge) — new dynamic tools RSI thinks you need, with the shell command template</li>
+<li><strong>Command proposals</strong> (teal <code>command</code> badge) — new slash commands RSI drafted based on usage patterns</li>
 <li><strong>Skill proposals</strong> — new <code>SKILL.md</code> files RSI drafted when it detects a repeated multi-step workflow that isn’t covered by an existing skill</li>
-</ol>
+</ul>
+<p>Each card shows the proposal name, type badge, description or command template, and how long ago it was proposed.</p>
 <p>Apply or reject proposals inline:</p>
 <ul>
 <li><code>a</code> — apply the selected proposal (installs tool/command to config, or creates skill directory)</li>
@@ -218,14 +216,24 @@
 <p>Applied and rejected entries are archived daily to <code>~/.opencrabs/rsi/applied/</code> and <code>~/.opencrabs/rsi/rejected/</code> so the trail is auditable.</p>
 <p>A banner on session start shows the count of pending inbox items.</p>
 <h3 id="activity"><a class="header" href="#activity">Activity</a></h3>
-<p>A chronological feed of recent RSI improvements. Shows what the autonomous engine did, when, and why:</p>
+<p>A chronological feed of the last 100 RSI improvements. Shows what the autonomous engine did, when, and why:</p>
 <ul>
-<li>Brain file modifications (SOUL.md, TOOLS.md, etc.)</li>
+<li>Brain file modifications (SOUL.md, MEMORY.md, TOOLS.md, etc.)</li>
 <li>Template syncs from upstream</li>
+<li>Hard rule additions</li>
 <li>Feedback analysis summaries</li>
+<li>Violation count updates</li>
 </ul>
+<p>Each entry shows the time ago, a summary of the change, and the target file.</p>
 <h3 id="schedule"><a class="header" href="#schedule">Schedule</a></h3>
-<p>Your cron job queue with paused/active state. See <a href="./cron-jobs.html">Cron Jobs</a> for full cron documentation.</p>
+<p>Your cron job queue with paused/active state. Each job shows:</p>
+<ul>
+<li>Job name</li>
+<li>Cron expression</li>
+<li>Next run time (when active)</li>
+<li><code>paused</code> label (when paused)</li>
+</ul>
+<p>See <a href="./cron-jobs.html">Cron Jobs</a> for full cron documentation.</p>
 <h2 id="keyboard-navigation"><a class="header" href="#keyboard-navigation">Keyboard Navigation</a></h2>
 <div class="table-wrapper">
 <table>
@@ -234,9 +242,7 @@
 </thead>
 <tbody>
 <tr><td><code>Tab</code> / <code>Shift+Tab</code></td><td>Cycle focus between panels (Inbox → Activity → Schedule)</td></tr>
-<tr><td><code>j</code> / <code>k</code> or <code>↑</code> / <code>↓</code></td><td>Move selection within a panel</td></tr>
-<tr><td><code>g</code> / <code>Home</code></td><td>Jump to top of list</td></tr>
-<tr><td><code>G</code> / <code>End</code></td><td>Jump to bottom of list</td></tr>
+<tr><td><code>↑</code> / <code>↓</code></td><td>Move selection within a panel</td></tr>
 <tr><td><code>Enter</code></td><td>Open detail popup for selected item</td></tr>
 <tr><td><code>a</code></td><td>Apply selected inbox proposal</td></tr>
 <tr><td><code>r</code></td><td>Reject selected inbox proposal</td></tr>
@@ -262,6 +268,7 @@
 <h2 id="related"><a class="header" href="#related">Related</a></h2>
 <ul>
 <li><a href="./self-improvement.html">Self-Improvement (RSI)</a> — the engine that generates proposals</li>
+<li><a href="./skills.html">Skills System</a> — skills proposed by RSI land in the inbox</li>
 <li><a href="./dynamic-tools.html">Dynamic Tools</a> — what RSI tool proposals install into</li>
 <li><a href="../brain/commands.html">Custom Commands</a> — what RSI command proposals install into</li>
 <li><a href="./cron-jobs.html">Cron Jobs</a> — the schedule panel</li>
