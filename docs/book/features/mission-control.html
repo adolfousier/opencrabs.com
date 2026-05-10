@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Self-Improvement (RSI) - OpenCrabs</title>
+        <title>Mission Control - OpenCrabs</title>
 
 
         <!-- Custom HTML head -->
@@ -196,195 +196,86 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="self-improvement-rsi"><a class="header" href="#self-improvement-rsi">Self-Improvement (RSI)</a></h1>
-<p>OpenCrabs improves itself over time through <strong>Recursive Self-Improvement (RSI)</strong>. The agent analyzes its own performance, identifies patterns, and autonomously updates its own brain files.</p>
-<h2 id="how-it-works"><a class="header" href="#how-it-works">How It Works</a></h2>
-<h3 id="1-feedback-collection"><a class="header" href="#1-feedback-collection">1. Feedback Collection</a></h3>
-<p>Every tool execution, user correction, and interaction is automatically logged to the feedback ledger. Categories include:</p>
+                        <h1 id="mission-control"><a class="header" href="#mission-control">Mission Control</a></h1>
+<p>Mission Control is a full-screen TUI dashboard that brings RSI activity, inbox proposals, and scheduled jobs into one place. Open it with <code>/mission-control</code>.</p>
+<h2 id="the-three-panels"><a class="header" href="#the-three-panels">The Three Panels</a></h2>
+<p>Mission Control has three panels in a single view:</p>
+<h3 id="inbox"><a class="header" href="#inbox">Inbox</a></h3>
+<p>Pending RSI proposals displayed as cards. Each card shows:</p>
 <ul>
-<li><code>tool_success</code> / <code>tool_failure</code> — whether tool calls worked</li>
-<li><code>user_correction</code> — when you corrected the agent’s behavior</li>
-<li><code>provider_error</code> — LLM stream drops, rate limits, timeouts</li>
-<li><code>pattern_observed</code> — recurring behaviors the agent notices</li>
+<li><strong>Tool proposals</strong> — new dynamic tools RSI thinks you need, with the tool name, description, and rationale</li>
+<li><strong>Command proposals</strong> — new slash commands RSI drafted based on usage patterns</li>
 </ul>
-<h3 id="2-pattern-analysis"><a class="header" href="#2-pattern-analysis">2. Pattern Analysis</a></h3>
-<p>The agent calls <code>feedback_analyze</code> to review its performance:</p>
-<ul>
-<li>Per-tool success rates</li>
-<li>Recent failure patterns</li>
-<li>User correction frequency</li>
-<li>Provider reliability trends</li>
-</ul>
-<h3 id="3-autonomous-improvement"><a class="header" href="#3-autonomous-improvement">3. Autonomous Improvement</a></h3>
-<p>When patterns are identified, the agent calls <code>self_improve</code> to:</p>
-<ul>
-<li><strong>read</strong>: Load a brain file (SOUL.md, TOOLS.md, etc.) before modifying</li>
-<li><strong>apply</strong>: Append new instructions based on observed patterns</li>
-<li><strong>update</strong>: Surgically replace existing sections that need refinement</li>
-<li><strong>list</strong>: Show all previously applied improvements</li>
-</ul>
-<h3 id="4-change-tracking"><a class="header" href="#4-change-tracking">4. Change Tracking</a></h3>
-<p>Every improvement is logged to <code>~/.opencrabs/rsi/improvements.md</code> with:</p>
-<ul>
-<li>Timestamp</li>
-<li>Target file modified</li>
-<li>Description of the change</li>
-<li>Rationale (which feedback event triggered it)</li>
-</ul>
-<p>Old improvements are archived to <code>~/.opencrabs/rsi/history/</code> to keep the active file lean.</p>
-<h2 id="example"><a class="header" href="#example">Example</a></h2>
-<pre><code>User: "stop including testing steps in your output"
-  → feedback_record(event_type="user_correction", dimension="output_hygiene")
-  
-Agent notices pattern of 5+ corrections on output hygiene:
-  → feedback_analyze(query="failures")
-  → self_improve(action="apply", target_file="SOUL.md", 
-    content="Never include testing steps or verification commands in user-facing output.")
-  → Logged to rsi/improvements.md
-</code></pre>
-<h2 id="key-rules"><a class="header" href="#key-rules">Key Rules</a></h2>
-<ul>
-<li><strong>No human approval needed</strong> for self-improvements — the agent identifies patterns and applies fixes directly</li>
-<li><strong>Surgical updates only</strong> — replaces specific sections, doesn’t rewrite entire files</li>
-<li><strong>Always reads before modifying</strong> — never blindly overwrites brain files</li>
-<li><strong>Archives old improvements</strong> — keeps the improvement log manageable</li>
-</ul>
-<h2 id="rsi-engine-architecture"><a class="header" href="#rsi-engine-architecture">RSI Engine Architecture</a></h2>
-<p>The RSI engine is a background task that runs continuously alongside OpenCrabs. Here’s how it works at each layer:</p>
-<h3 id="feedback-ledger"><a class="header" href="#feedback-ledger">Feedback Ledger</a></h3>
-<p>Every tool execution, user correction, provider error, and self-heal event is automatically logged to a SQLite-backed feedback ledger. Event types:</p>
-<div class="table-wrapper">
-<table>
-<thead>
-<tr><th>Event Type</th><th>What It Tracks</th></tr>
-</thead>
-<tbody>
-<tr><td><code>tool_success</code> / <code>tool_failure</code></td><td>Whether tool calls worked, with args and error details</td></tr>
-<tr><td><code>user_correction</code></td><td>When you corrected the agent’s behavior</td></tr>
-<tr><td><code>provider_error</code></td><td>LLM stream drops, rate limits, timeouts</td></tr>
-<tr><td><code>pattern_observed</code></td><td>Recurring behaviors the agent notices</td></tr>
-<tr><td><code>context_compaction</code></td><td>Context budget exceeded</td></tr>
-<tr><td><code>improvement_applied</code></td><td>RSI applied a fix to a brain file</td></tr>
-<tr><td><code>self_heal_trigger</code></td><td>Runtime self-heal caught and fixed an issue</td></tr>
-</tbody>
-</table>
-</div>
-<h3 id="cycle-flow"><a class="header" href="#cycle-flow">Cycle Flow</a></h3>
 <ol>
-<li><strong>Startup</strong> — writes a digest of feedback stats to <code>~/.opencrabs/rsi/digest.md</code></li>
-<li><strong>Every hour</strong> — checks for new feedback entries since the last cycle</li>
-<li><strong>Opportunity detection</strong> — identifies tools with &gt;20% failure rate (7-day window), user correction patterns, and provider errors</li>
-<li><strong>Git-aware suppression</strong> — checks if a fix commit already landed for the tool in question. If yes, suppresses the alert instead of re-reporting stale issues</li>
-<li><strong>Autonomous agent spawn</strong> — if opportunities are found, spawns a lightweight agent with RSI-only tools (feedback_analyze, self_improve, rsi_propose) that analyzes the data and applies targeted fixes</li>
+<li><strong>Tool/command proposals</strong> — new dynamic tools and slash commands RSI drafted based on usage patterns</li>
+<li><strong>Skill proposals</strong> — new <code>SKILL.md</code> files RSI drafted when it detects a repeated multi-step workflow that isn’t covered by an existing skill</li>
 </ol>
-<h3 id="brain-file-taxonomy"><a class="header" href="#brain-file-taxonomy">Brain File Taxonomy</a></h3>
-<p>RSI routes improvements to the correct brain file based on what went wrong:</p>
+<p>Apply or reject proposals inline:</p>
+<ul>
+<li><code>a</code> — apply the selected proposal (installs tool/command to config, or creates skill directory)</li>
+<li><code>r</code> — reject the selected proposal (archives with optional reason)</li>
+</ul>
+<p>Applied and rejected entries are archived daily to <code>~/.opencrabs/rsi/applied/</code> and <code>~/.opencrabs/rsi/rejected/</code> so the trail is auditable.</p>
+<p>A banner on session start shows the count of pending inbox items.</p>
+<h3 id="activity"><a class="header" href="#activity">Activity</a></h3>
+<p>A chronological feed of recent RSI improvements. Shows what the autonomous engine did, when, and why:</p>
+<ul>
+<li>Brain file modifications (SOUL.md, TOOLS.md, etc.)</li>
+<li>Template syncs from upstream</li>
+<li>Feedback analysis summaries</li>
+</ul>
+<h3 id="schedule"><a class="header" href="#schedule">Schedule</a></h3>
+<p>Your cron job queue with paused/active state. See <a href="./cron-jobs.html">Cron Jobs</a> for full cron documentation.</p>
+<h2 id="keyboard-navigation"><a class="header" href="#keyboard-navigation">Keyboard Navigation</a></h2>
 <div class="table-wrapper">
 <table>
 <thead>
-<tr><th>Brain File</th><th>What It Controls</th><th>When RSI Writes Here</th></tr>
+<tr><th>Key</th><th>Action</th></tr>
 </thead>
 <tbody>
-<tr><td><code>SOUL.md</code></td><td>Behavior, tone, reasoning patterns</td><td>Phantom tool calls, verbose responses, wrong tone</td></tr>
-<tr><td><code>TOOLS.md</code></td><td>Tool usage, argument formats, pitfalls</td><td>Repeated tool failures with similar args</td></tr>
-<tr><td><code>USER.md</code></td><td>User preferences and corrections</td><td>Repeated user corrections</td></tr>
-<tr><td><code>MEMORY.md</code></td><td>Persistent knowledge and context</td><td>Agent lacks context it should retain</td></tr>
-<tr><td><code>AGENTS.md</code></td><td>Workspace rules, safety policies</td><td>Agent-level behavior issues</td></tr>
-<tr><td><code>CODE.md</code></td><td>Coding standards</td><td>Code quality feedback</td></tr>
-<tr><td><code>SECURITY.md</code></td><td>Security policies</td><td>Security-related feedback</td></tr>
+<tr><td><code>Tab</code> / <code>Shift+Tab</code></td><td>Cycle focus between panels (Inbox → Activity → Schedule)</td></tr>
+<tr><td><code>j</code> / <code>k</code> or <code>↑</code> / <code>↓</code></td><td>Move selection within a panel</td></tr>
+<tr><td><code>g</code> / <code>Home</code></td><td>Jump to top of list</td></tr>
+<tr><td><code>G</code> / <code>End</code></td><td>Jump to bottom of list</td></tr>
+<tr><td><code>Enter</code></td><td>Open detail popup for selected item</td></tr>
+<tr><td><code>a</code></td><td>Apply selected inbox proposal</td></tr>
+<tr><td><code>r</code></td><td>Reject selected inbox proposal</td></tr>
+<tr><td><code>Esc</code></td><td>Close popup or exit Mission Control</td></tr>
 </tbody>
 </table>
 </div>
-<h3 id="repeat-violation-escalation"><a class="header" href="#repeat-violation-escalation">Repeat-Violation Escalation</a></h3>
-<p>RSI tracks violation counters inline in brain file rules. When a rule keeps getting broken, RSI bumps the counter and appends evidence (dates, session IDs). Rules that keep getting broken get louder, not silenced. This is the escalation pattern that makes RSI effective at fixing persistent bad habits.</p>
-<h2 id="rsi-proposals"><a class="header" href="#rsi-proposals">RSI Proposals</a></h2>
-<p>The RSI loop can propose new dynamic tools and slash commands based on gaps it observes in the agent’s capabilities. Proposals land in TOML inboxes at:</p>
-<pre><code>~/.opencrabs/rsi/
-├── proposed_tools.toml      # pending tool proposals
-├── proposed_commands.toml   # pending command proposals
-├── applied/                  # accepted proposals (daily archive)
-│   ├── 2026-05-01-tools.toml
-│   └── 2026-05-01-commands.toml
-└── rejected/                 # rejected proposals (daily archive)
-    ├── 2026-05-01-tools.toml
-    └── 2026-05-01-commands.toml
-</code></pre>
-<h3 id="how-proposals-work"><a class="header" href="#how-proposals-work">How Proposals Work</a></h3>
-<ol>
-<li>RSI analyzes feedback and notices the agent repeatedly working around a missing capability</li>
-<li>RSI drafts a tool or command definition with a rationale citing the evidence</li>
-<li>Proposal lands in the inbox — reviewed via Mission Control or the <code>rsi_proposals</code> tool</li>
-<li>User applies or rejects — applied entries go to <code>tools.toml</code>/<code>commands.toml</code>, rejected entries are archived with an optional reason</li>
-</ol>
-<h3 id="when-rsi-proposes-a-tool"><a class="header" href="#when-rsi-proposes-a-tool">When RSI Proposes a Tool</a></h3>
-<ul>
-<li>A specific bash command appears repeatedly across sessions (e.g. <code>gh issue list</code>, <code>docker ps</code>)</li>
-<li>The agent calls <code>http_request</code> to the same endpoint multiple times with similar payloads</li>
-<li>Only safe-by-default tools are proposed (read-only verbs, GET requests). Shell-based tools always set <code>requires_approval=true</code></li>
-</ul>
-<h3 id="when-rsi-proposes-a-command"><a class="header" href="#when-rsi-proposes-a-command">When RSI Proposes a Command</a></h3>
-<ul>
-<li>The user types <code>/something</code> repeatedly that doesn’t exist</li>
-<li>A common multi-step prompt gets reused verbatim — a slash command saves typing</li>
-</ul>
-<h3 id="safety-guardrails"><a class="header" href="#safety-guardrails">Safety Guardrails</a></h3>
-<ul>
-<li><strong>RSI never installs directly</strong> — proposals require user approval via Mission Control or the <code>rsi_proposals</code> tool</li>
-<li><strong>No destructive proposals</strong> — RSI will never propose <code>rm</code>, <code>dd</code>, <code>mv</code>, or any shell tool with destructive side effects</li>
-<li><strong>Deduplication</strong> — if a proposal was already filed and not applied, RSI won’t repropose it</li>
-<li><strong>One proposal per cycle</strong> — quality over quantity</li>
-<li><strong>Evidence required</strong> — every proposal cites the feedback events that drove it</li>
-</ul>
-<h2 id="rsi-hardening-v0313"><a class="header" href="#rsi-hardening-v0313">RSI Hardening (v0.3.13)</a></h2>
-<ul>
-<li><strong>Append-only brain files</strong> — brain files (SOUL.md, TOOLS.md, etc.) are now append-only with backup-before-write. The agent can only add new content, never delete or overwrite existing lines. This prevents accidental data loss from bad self-improvements.</li>
-<li><strong>Upstream template sync</strong> — brain file templates are automatically synced from the upstream repo with version gating and append-only diffs. You get the latest improvements without losing your customizations.</li>
-<li><strong>RSI alert suppression</strong> — alerts are suppressed when the dimension already has a fix commit, preventing noise on already-addressed issues.</li>
-</ul>
-<h2 id="rsi-autonomous-proposals-v0316"><a class="header" href="#rsi-autonomous-proposals-v0316">RSI Autonomous Proposals (v0.3.16)</a></h2>
-<p>The RSI loop can now propose new tools and slash commands autonomously. Proposals land in the Mission Control inbox for review — the agent identifies gaps from feedback data and drafts solutions, but installation requires human approval via the inbox UI or <code>/mission-control</code>.</p>
-<h2 id="rsi-escalation-for-repeat-violations-v0317"><a class="header" href="#rsi-escalation-for-repeat-violations-v0317">RSI Escalation for Repeat Violations (v0.3.17)</a></h2>
-<p>RSI now bumps a violation counter on existing rules instead of deduping repeat violations away. When a rule keeps getting broken across multiple sessions, the escalation counter increases and the agent prioritizes fixing that pattern. This prevents persistent bad habits from being silently ignored.</p>
-<h2 id="v0310-additions"><a class="header" href="#v0310-additions">v0.3.10 Additions</a></h2>
-<ul>
-<li><strong>Cycle summaries no longer truncated</strong> — full text displays in TUI instead of cutting off mid-sentence</li>
-<li><strong>Phantom detection reduced to 2-signal requirement</strong> — needs both intent keyphrase AND zero tool calls before flagging, eliminating spurious self-heal triggers</li>
-<li><strong>Uses active provider</strong> — respects current provider/model config instead of hardcoded Anthropic</li>
-<li><strong>Persistent session reuse</strong> — one session per cycle, survives app restarts by persisting <code>last_cycle</code> timestamp</li>
-<li><strong>Skips unchanged feedback</strong> — if feedback count hasn’t changed, skips analysis to avoid wasted LLM calls</li>
-</ul>
-<h2 id="v0311-additions"><a class="header" href="#v0311-additions">v0.3.11 Additions</a></h2>
-<ul>
-<li><strong>DashScope migration</strong> — Qwen OAuth rotation replaced with simple API-key provider, deleting ~2,500 lines of complexity</li>
-<li><strong>Local model tool-call extraction</strong> — auto-extracts tool calls from text content: bare JSON <code>{"tool_calls":[...]}</code>, Claude-style XML <code>&lt;TOOLNAME&gt;&lt;PARAM&gt;value&lt;/PARAM&gt;&lt;/TOOLNAME&gt;</code>, and Qwen-specific <code>&lt;!-- tool_calls --&gt;</code> markers</li>
-<li><strong>40+ TUI/self-heal fixes</strong> — narrowed phantom gate, split thinking per iteration, anti-code-block nudge for local models, tighter phantom scope, mid-turn “Let me see:” catch, backtick code reference detection</li>
-<li><strong>Per-session provider isolation</strong> — each session carries its own provider instance; no global swap affecting all sessions</li>
-<li><strong>Sub-agent <code>AwaitingInput</code> state</strong> — <code>wait_agent</code> polls state and returns partial progress on timeout instead of deadlocking</li>
-</ul>
-<h2 id="self-healing-vs-self-improvement"><a class="header" href="#self-healing-vs-self-improvement">Self-Healing vs Self-Improvement</a></h2>
+<h2 id="architecture"><a class="header" href="#architecture">Architecture</a></h2>
+<p>Mission Control is split into three module trees:</p>
 <div class="table-wrapper">
 <table>
 <thead>
-<tr><th>Self-Healing</th><th>Self-Improvement</th></tr>
+<tr><th>Layer</th><th>Path</th><th>Purpose</th></tr>
 </thead>
 <tbody>
-<tr><td>Fixes runtime errors (config corruption, DB issues)</td><td>Fixes behavioral patterns (bad habits, user corrections)</td></tr>
-<tr><td>Automatic, no analysis needed</td><td>Requires feedback analysis first</td></tr>
-<tr><td>Protects the system from crashing</td><td>Makes the agent better over time</td></tr>
-<tr><td>Immediate</td><td>Accumulates across sessions</td></tr>
+<tr><td>Data services</td><td><code>brain/mission_control/</code></td><td>Fetches inbox proposals, activity log, schedule items</td></tr>
+<tr><td>Panel renderers</td><td><code>tui/render/mission_control/</code></td><td>Draws each panel (inbox, activity, schedule, detail popup)</td></tr>
+<tr><td>App state + input</td><td><code>tui/app/mission_control/</code></td><td>Focus management, keystroke handling, actions</td></tr>
 </tbody>
 </table>
 </div>
+<p>Layout and keystroke contracts are unit-testable without spinning up a full <code>App</code> instance.</p>
+<h2 id="related"><a class="header" href="#related">Related</a></h2>
+<ul>
+<li><a href="./self-improvement.html">Self-Improvement (RSI)</a> — the engine that generates proposals</li>
+<li><a href="./dynamic-tools.html">Dynamic Tools</a> — what RSI tool proposals install into</li>
+<li><a href="../brain/commands.html">Custom Commands</a> — what RSI command proposals install into</li>
+<li><a href="./cron-jobs.html">Cron Jobs</a> — the schedule panel</li>
+</ul>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../features/self-healing.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../features/self-improvement.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="../features/mission-control.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../features/profiles.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -394,11 +285,11 @@ Agent notices pattern of 5+ corrections on output hygiene:
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../features/self-healing.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../features/self-improvement.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="../features/mission-control.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../features/profiles.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>

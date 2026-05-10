@@ -55,10 +55,10 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-42de09a3.js";
+            window.path_to_searchindex_js = "searchindex-6a5bbd9c.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-a823f8d9.js"></script>
+        <script src="toc-0edbf085.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -3076,6 +3076,77 @@ Agent notices pattern of 5+ corrections on output hygiene:
 </table>
 </div>
 <div style="break-before: page; page-break-before: always;"></div>
+<h1 id="mission-control"><a class="header" href="#mission-control">Mission Control</a></h1>
+<p>Mission Control is a full-screen TUI dashboard that brings RSI activity, inbox proposals, and scheduled jobs into one place. Open it with <code>/mission-control</code>.</p>
+<h2 id="the-three-panels"><a class="header" href="#the-three-panels">The Three Panels</a></h2>
+<p>Mission Control has three panels in a single view:</p>
+<h3 id="inbox"><a class="header" href="#inbox">Inbox</a></h3>
+<p>Pending RSI proposals displayed as cards. Each card shows:</p>
+<ul>
+<li><strong>Tool proposals</strong> — new dynamic tools RSI thinks you need, with the tool name, description, and rationale</li>
+<li><strong>Command proposals</strong> — new slash commands RSI drafted based on usage patterns</li>
+</ul>
+<ol>
+<li><strong>Tool/command proposals</strong> — new dynamic tools and slash commands RSI drafted based on usage patterns</li>
+<li><strong>Skill proposals</strong> — new <code>SKILL.md</code> files RSI drafted when it detects a repeated multi-step workflow that isn’t covered by an existing skill</li>
+</ol>
+<p>Apply or reject proposals inline:</p>
+<ul>
+<li><code>a</code> — apply the selected proposal (installs tool/command to config, or creates skill directory)</li>
+<li><code>r</code> — reject the selected proposal (archives with optional reason)</li>
+</ul>
+<p>Applied and rejected entries are archived daily to <code>~/.opencrabs/rsi/applied/</code> and <code>~/.opencrabs/rsi/rejected/</code> so the trail is auditable.</p>
+<p>A banner on session start shows the count of pending inbox items.</p>
+<h3 id="activity"><a class="header" href="#activity">Activity</a></h3>
+<p>A chronological feed of recent RSI improvements. Shows what the autonomous engine did, when, and why:</p>
+<ul>
+<li>Brain file modifications (SOUL.md, TOOLS.md, etc.)</li>
+<li>Template syncs from upstream</li>
+<li>Feedback analysis summaries</li>
+</ul>
+<h3 id="schedule"><a class="header" href="#schedule">Schedule</a></h3>
+<p>Your cron job queue with paused/active state. See <a href="#cron-jobs">Cron Jobs</a> for full cron documentation.</p>
+<h2 id="keyboard-navigation"><a class="header" href="#keyboard-navigation">Keyboard Navigation</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Key</th><th>Action</th></tr>
+</thead>
+<tbody>
+<tr><td><code>Tab</code> / <code>Shift+Tab</code></td><td>Cycle focus between panels (Inbox → Activity → Schedule)</td></tr>
+<tr><td><code>j</code> / <code>k</code> or <code>↑</code> / <code>↓</code></td><td>Move selection within a panel</td></tr>
+<tr><td><code>g</code> / <code>Home</code></td><td>Jump to top of list</td></tr>
+<tr><td><code>G</code> / <code>End</code></td><td>Jump to bottom of list</td></tr>
+<tr><td><code>Enter</code></td><td>Open detail popup for selected item</td></tr>
+<tr><td><code>a</code></td><td>Apply selected inbox proposal</td></tr>
+<tr><td><code>r</code></td><td>Reject selected inbox proposal</td></tr>
+<tr><td><code>Esc</code></td><td>Close popup or exit Mission Control</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="architecture"><a class="header" href="#architecture">Architecture</a></h2>
+<p>Mission Control is split into three module trees:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Layer</th><th>Path</th><th>Purpose</th></tr>
+</thead>
+<tbody>
+<tr><td>Data services</td><td><code>brain/mission_control/</code></td><td>Fetches inbox proposals, activity log, schedule items</td></tr>
+<tr><td>Panel renderers</td><td><code>tui/render/mission_control/</code></td><td>Draws each panel (inbox, activity, schedule, detail popup)</td></tr>
+<tr><td>App state + input</td><td><code>tui/app/mission_control/</code></td><td>Focus management, keystroke handling, actions</td></tr>
+</tbody>
+</table>
+</div>
+<p>Layout and keystroke contracts are unit-testable without spinning up a full <code>App</code> instance.</p>
+<h2 id="related"><a class="header" href="#related">Related</a></h2>
+<ul>
+<li><a href="#self-improvement-rsi">Self-Improvement (RSI)</a> — the engine that generates proposals</li>
+<li><a href="#dynamic-tools-1">Dynamic Tools</a> — what RSI tool proposals install into</li>
+<li><a href="#custom-commands">Custom Commands</a> — what RSI command proposals install into</li>
+<li><a href="#cron-jobs">Cron Jobs</a> — the schedule panel</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div>
 <h1 id="multi-profile-support"><a class="header" href="#multi-profile-support">Multi-Profile Support</a></h1>
 <p>Run multiple isolated OpenCrabs instances from a single installation. Each profile gets its own config, memory, sessions, brain files, skills, cron jobs, and gateway service.</p>
 <p>Introduced in <strong>v0.2.94</strong>.</p>
@@ -3488,7 +3559,7 @@ panic = "abort"
 <h2 id="self-update"><a class="header" href="#self-update">Self-Update</a></h2>
 <p>If you build from source, use <code>git pull &amp;&amp; cargo build --release</code> instead of <code>/evolve</code>. The <code>/evolve</code> command downloads pre-built binaries from GitHub Releases.</p>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="architecture"><a class="header" href="#architecture">Architecture</a></h1>
+<h1 id="architecture-1"><a class="header" href="#architecture-1">Architecture</a></h1>
 <h2 id="high-level-overview"><a class="header" href="#high-level-overview">High-Level Overview</a></h2>
 <pre><code>┌─────────────────────────────────────────────────┐
 │          TUI (ratatui) + Split Panes             │
