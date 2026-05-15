@@ -1,25 +1,34 @@
-use leptos::prelude::*;
 use gloo_net::http::Request;
-use serde::Deserialize;
+use leptos::prelude::*;
 use leptos::wasm_bindgen::JsCast;
-use web_sys::{window, HtmlElement};
+use serde::Deserialize;
+use web_sys::{HtmlElement, window};
 
 fn copy_terminal_code() {
-    let active_tab = document().query_selector(".terminal-tabs button.active")
+    let active_tab = document()
+        .query_selector(".terminal-tabs button.active")
         .ok()
         .flatten()
         .and_then(|el| el.dyn_into::<HtmlElement>().ok());
     let tab_idx = match active_tab {
         Some(el) => {
             let text = el.inner_text();
-            if text == "Binary" { 0 } else if text == "Cargo" { 1 } else { 2 }
+            if text == "Binary" {
+                0
+            } else if text == "Cargo" {
+                1
+            } else {
+                2
+            }
         }
         None => 0,
     };
 
     let os = detect_os();
-    let _tag = document().query_selector(".hero-badge")
-        .ok().flatten()
+    let _tag = document()
+        .query_selector(".hero-badge")
+        .ok()
+        .flatten()
         .and_then(|el| el.dyn_into::<HtmlElement>().ok())
         .map(|el| el.inner_text())
         .unwrap_or_default();
@@ -121,14 +130,16 @@ fn main() {
 
 #[component]
 fn App() -> impl IntoView {
-    let stars = LocalResource::new(|| fetch_star_count());
-    let stars_signal = Signal::derive(move || {
-        stars.get().flatten().unwrap_or(0)
-    });
+    let stars = LocalResource::new(fetch_star_count);
+    let stars_signal = Signal::derive(move || stars.get().flatten().unwrap_or(0));
 
-    let release = LocalResource::new(|| fetch_latest_release());
+    let release = LocalResource::new(fetch_latest_release);
     let tag_signal = Signal::derive(move || {
-        release.get().flatten().map(|r| r.tag_name.clone()).unwrap_or_default()
+        release
+            .get()
+            .flatten()
+            .map(|r| r.tag_name.clone())
+            .unwrap_or_default()
     });
 
     view! {
@@ -214,12 +225,26 @@ async fn fetch_latest_release() -> Option<GitHubRelease> {
 
 fn format_release_date(published_at: &str) -> String {
     // "2026-03-07T01:44:48Z" → "Mar 7, 2026"
-    let parts: Vec<&str> = published_at.split('T').next().unwrap_or("").split('-').collect();
+    let parts: Vec<&str> = published_at
+        .split('T')
+        .next()
+        .unwrap_or("")
+        .split('-')
+        .collect();
     if parts.len() == 3 {
         let month = match parts[1] {
-            "01" => "Jan", "02" => "Feb", "03" => "Mar", "04" => "Apr",
-            "05" => "May", "06" => "Jun", "07" => "Jul", "08" => "Aug",
-            "09" => "Sep", "10" => "Oct", "11" => "Nov", "12" => "Dec",
+            "01" => "Jan",
+            "02" => "Feb",
+            "03" => "Mar",
+            "04" => "Apr",
+            "05" => "May",
+            "06" => "Jun",
+            "07" => "Jul",
+            "08" => "Aug",
+            "09" => "Sep",
+            "10" => "Oct",
+            "11" => "Nov",
+            "12" => "Dec",
             _ => parts[1],
         };
         let day = parts[2].trim_start_matches('0');
@@ -231,7 +256,7 @@ fn format_release_date(published_at: &str) -> String {
 
 #[component]
 fn Hero() -> impl IntoView {
-    let release = LocalResource::new(|| fetch_latest_release());
+    let release = LocalResource::new(fetch_latest_release);
 
     let badge_text = move || {
         match release.get() {
@@ -502,7 +527,13 @@ fn Features() -> impl IntoView {
 
 #[component]
 fn Integrations() -> impl IntoView {
-    let channels = vec!["📱 Telegram", "💬 Discord", "🔔 Slack", "📞 WhatsApp", "📋 Trello"];
+    let channels = vec![
+        "📱 Telegram",
+        "💬 Discord",
+        "🔔 Slack",
+        "📞 WhatsApp",
+        "📋 Trello",
+    ];
     let providers = vec![
         "🤖 Anthropic",
         "🧠 OpenAI",

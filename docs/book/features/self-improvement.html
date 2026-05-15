@@ -54,7 +54,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-de596592.js";
+            window.path_to_searchindex_js = "../searchindex-ad6e30f2.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-25972818.js"></script>
@@ -360,6 +360,12 @@ Agent notices pattern of 5+ corrections on output hygiene:
 <li><strong>40+ TUI/self-heal fixes</strong> — narrowed phantom gate, split thinking per iteration, anti-code-block nudge for local models, tighter phantom scope, mid-turn “Let me see:” catch, backtick code reference detection</li>
 <li><strong>Per-session provider isolation</strong> — each session carries its own provider instance; no global swap affecting all sessions</li>
 <li><strong>Sub-agent <code>AwaitingInput</code> state</strong> — <code>wait_agent</code> polls state and returns partial progress on timeout instead of deadlocking</li>
+</ul>
+<h2 id="v0319-additions"><a class="header" href="#v0319-additions">v0.3.19 Additions</a></h2>
+<ul>
+<li><strong>RSI feedback records actual model used</strong> — when helpers remap a mismatched model to the provider default, RSI now records the resolved model instead of the impossible original pair. All 3 recording sites in <code>tool_loop.rs</code> now resolve the actual model before constructing the feedback dimension</li>
+<li><strong>Tool loop reasoning markers persisted</strong> — reasoning content persisted in non-CLI content column so thinking state survives across tool loop iterations</li>
+<li><strong>@ file picker fixed for large repos</strong> — recursive walk now skips <code>.git</code>/<code>.hg</code>/<code>.svn</code> directories and raised result cap from 5k to 20k, preventing pack/ref files from exhausting the cap</li>
 </ul>
 <h2 id="self-healing-vs-self-improvement"><a class="header" href="#self-healing-vs-self-improvement">Self-Healing vs Self-Improvement</a></h2>
 <div class="table-wrapper">

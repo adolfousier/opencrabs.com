@@ -33,6 +33,14 @@ Full-text search across all past sessions stored in SQLite. The agent can query:
 
 The agent uses `session_search` for fast memory lookups (~500 tokens) instead of reading full memory files (~15K tokens). This is the primary recall mechanism.
 
+### Embedding Modes
+
+OpenCrabs supports three embedding configurations:
+
+1. **Local GGUF** (default) — downloads a 300MB embedding model and runs it locally via llama.cpp
+2. **OpenAI-compatible API** — configure external embedding providers (OpenAI `text-embedding-3-small`, Ollama `nomic-embed-text`, Jina, LM Studio, or any `/v1/embeddings` endpoint) via `[memory.embedding]` config with `url`, `model`, `api_key`, `dimensions`
+3. **FTS5-only** — pure keyword search with zero RAM overhead. Set `[memory] vector_enabled = false`. Auto-detects VPS environments and configures automatically
+
 ## Context Compaction
 
 When context reaches ~80% capacity, OpenCrabs automatically compacts:

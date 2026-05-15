@@ -2,6 +2,30 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.10] - 2026-05-15
+
+### Added
+- Codex OAuth provider documentation — native device-code PKCE flow, no CLI dependency
+- OpenAI-compatible embedding API docs — external providers (OpenAI, Ollama, Jina, LM Studio)
+- FTS5-only memory mode for VPS — zero RAM overhead keyword search
+- Three embedding modes documented in memory.md
+- RSI feedback fix documentation — records actual model used after remap
+- Tool loop reasoning markers persistence docs
+- @ file picker large repo fix docs
+- Cron provider isolation and mismatched pair validation docs
+- Windows CI and Node 24 fix docs
+- Codex OAuth device flow field name fixes docs
+
+### Changed
+- Test count updated: 2,595 → 2,698
+- Provider count updated: 11+ → 12+ (added Codex OAuth)
+- Introduction synced with v0.3.18 + v0.3.19
+- Providers overview: added Codex OAuth row
+- Providers setup: added Codex OAuth section with PKCE flow details
+- Self-Improvement: added v0.3.19 additions section
+- Self-Healing: added v0.3.19 fixes section
+- Memory system: added Embedding Modes section (Local GGUF, API, FTS5-only)
+
 ## [0.1.9] - 2026-04-14
 
 ### Added

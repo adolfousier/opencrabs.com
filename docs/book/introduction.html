@@ -54,7 +54,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-de596592.js";
+            window.path_to_searchindex_js = "searchindex-ad6e30f2.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-25972818.js"></script>
@@ -201,8 +201,9 @@
 <h2 id="what-makes-opencrabs-different"><a class="header" href="#what-makes-opencrabs-different">What Makes OpenCrabs Different</a></h2>
 <h3 id="-provider-agnostic-with-native-cli-integration"><a class="header" href="#-provider-agnostic-with-native-cli-integration">🔄 Provider-Agnostic with Native CLI Integration</a></h3>
 <ul>
-<li><strong>14+ built-in providers</strong>: Anthropic, OpenAI, Gemini, OpenRouter, Qwen (OAuth + CLI), MiniMax, Ollama, LM Studio, vLLM, NVIDIA, Dialagram, z.ai GLM, GitHub Copilot, Codex CLI</li>
-<li><strong>Claude Code CLI, OpenCode CLI &amp; Codex CLI</strong> integrated as native providers — use their models without API keys</li>
+<li><strong>15+ built-in providers</strong>: Anthropic, OpenAI, Gemini, OpenRouter, Qwen (DashScope), MiniMax, Ollama, LM Studio, vLLM, NVIDIA, Dialagram, z.ai GLM, GitHub Copilot, Codex CLI, Codex OAuth</li>
+<li><strong>Claude Code CLI, OpenCode CLI, Codex CLI &amp; Codex OAuth</strong> integrated as native providers — use their models without API keys</li>
+<li><strong>Codex OAuth</strong> — native OpenAI Codex subscription auth via device-code PKCE flow. No CLI dependency, no API key. Authenticate through browser once; tokens stored with automatic refresh (v0.3.19)</li>
 <li><strong>Ollama as native provider</strong> — run any local model via Ollama API without custom provider setup (v0.3.15)</li>
 <li><strong>Custom OpenAI-compatible backends</strong> now stream thinking tokens, tool calls, and intermediate text exactly like native providers (v0.3.2)</li>
 <li><strong>Sticky fallback chain</strong> — auto-failover to secondary providers on rate limits or errors</li>
@@ -237,6 +238,7 @@
 <li><strong>Phantom tool call detection</strong> — catches when the model narrates file changes in prose without executing tools (v0.3.7)</li>
 <li><strong>Expanded phantom detection</strong> — catches “Now &lt;file-op gerund&gt;” phantoms (creating/writing/editing) and build/deploy intent + past-tense completion claims. Gaslighting and phantom detectors extracted into their own module (v0.3.17)</li>
 <li><strong>RSI escalation for repeat violations</strong> — violation counter bumps on existing rules instead of deduping away. Rules that keep getting broken get louder, not silenced (v0.3.17)</li>
+<li><strong>RSI feedback records actual model used</strong> — when helpers remap a mismatched model to the provider default, RSI now records the resolved model instead of the impossible original pair (v0.3.19)</li>
 <li><strong>Append-only brain files</strong> — brain files (SOUL.md, TOOLS.md, etc.) are now append-only with backup-before-write to prevent data loss (v0.3.13)</li>
 <li><strong>Upstream template sync</strong> — automatically syncs brain file templates from the repo with version gating and append-only diffs (v0.3.15)</li>
 <li><strong>RSI alert suppression</strong> — suppresses alerts whose dimension already has a fix commit, stale alerts age out (v0.3.13)</li>
@@ -249,6 +251,8 @@
 <li><strong>Mid-stream decode retry</strong> — 3x backoff before provider fallback (v0.3.0)</li>
 <li><strong>Non-streaming compatibility</strong> — synthesizes full stream events from non-streaming JSON (v0.3.7)</li>
 <li><strong>Per-session message queue isolation</strong> — prevents cross-session message bleeding in split panes and channels (v0.3.13)</li>
+<li><strong>Tool loop reasoning markers persisted</strong> — reasoning content survives across tool loop iterations (v0.3.19)</li>
+<li><strong>@ file picker fixed for large repos</strong> — skips .git/.hg/.svn directories, raised result cap to 20k (v0.3.19)</li>
 </ul>
 <h3 id="-terminal-ui-excellence-v032"><a class="header" href="#-terminal-ui-excellence-v032">🖥️ Terminal UI Excellence (v0.3.2)</a></h3>
 <ul>
@@ -284,6 +288,8 @@
 <li><strong>File paths starting with <code>/</code> no longer treated as slash command typos</strong> — <code>/Users/.../file.pdf yo crabs check this</code> works correctly (v0.3.18)</li>
 <li><strong>Truncation continuations no longer trigger provider fallback</strong> — mid-sentence continuations stay on the same provider (v0.3.18)</li>
 <li><strong>Fallback error reason surfaced in TUI</strong> — when fallback fires, the underlying error shows as a system message (v0.3.18)</li>
+<li><strong>OpenAI-compatible embedding API</strong> — configure external embedding providers (OpenAI, Ollama, Jina, LM Studio) instead of downloading 300MB GGUF model. Dynamic vector dimensions from API response (v0.3.19)</li>
+<li><strong>FTS5-only memory mode for VPS</strong> — pure keyword search with zero RAM overhead. Auto-detects VPS environments and configures automatically (v0.3.19)</li>
 </ul>
 <h3 id="-browser-automation"><a class="header" href="#-browser-automation">🌐 Browser Automation</a></h3>
 <ul>
@@ -318,8 +324,7 @@
 </ul>
 <h3 id="-testing--quality"><a class="header" href="#-testing--quality">📊 Testing &amp; Quality</a></h3>
 <ul>
-<li><strong>2,595+ tests</strong> covering providers, tools, channels, TUI, self-healing, crash recovery, browser automation</li>
-<li><strong>13 new test files</strong> added in v0.3.16</li>
+<li><strong>2,698+ tests</strong> covering providers, tools, channels, TUI, self-healing, crash recovery, browser automation</li>
 <li><strong>CI/CD</strong>: GitHub Actions, CodeQL, <code>cargo audit</code> security checks, release automation</li>
 </ul>
 <h3 id="-built-in-skills-v0317"><a class="header" href="#-built-in-skills-v0317">🔧 Built-in Skills (v0.3.17)</a></h3>

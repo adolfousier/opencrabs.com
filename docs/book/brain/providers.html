@@ -54,7 +54,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-de596592.js";
+            window.path_to_searchindex_js = "../searchindex-ad6e30f2.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-25972818.js"></script>
@@ -293,6 +293,15 @@ enabled = true
 </code></pre>
 <p><strong>Models:</strong> GPT-5.5, GPT-5.4, GPT-5.3-Codex</p>
 <p><strong>Requirements:</strong> The <code>codex</code> CLI must be installed (<code>npm install -g @openai/codex</code>) and authenticated. Models are detected automatically.</p>
+<h2 id="codex-oauth"><a class="header" href="#codex-oauth">Codex OAuth</a></h2>
+<p>Native OpenAI Codex subscription auth via device-code PKCE flow. No CLI dependency, no API key. User authenticates through browser once; tokens stored in <code>~/.opencrabs/auth/codex.json</code> with automatic refresh and background rotation.</p>
+<pre><code class="language-toml"># config.toml
+[providers.codex]
+enabled = true
+</code></pre>
+<p><strong>Models:</strong> GPT-5.5, GPT-5.4, GPT-5.3-Codex (curated GPT-5 model list)</p>
+<p><strong>Setup:</strong> Run <code>/onboard:provider</code> → select Codex OAuth → follow the device code flow at <code>auth.openai.com/codex/device</code>. Two-step PKCE exchange: device auth poll → authorization code → token exchange.</p>
+<p><strong>Requirements:</strong> An active OpenAI Codex subscription. No CLI installation needed.</p>
 <h2 id="minimax"><a class="header" href="#minimax">MiniMax</a></h2>
 <p><strong>Models:</strong> <code>MiniMax-M2.7</code>, <code>MiniMax-M2.5</code>, <code>MiniMax-M2.1</code>, <code>MiniMax-Text-01</code></p>
 <pre><code class="language-toml"># keys.toml

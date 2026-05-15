@@ -55,7 +55,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-de596592.js";
+            window.path_to_searchindex_js = "searchindex-ad6e30f2.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-25972818.js"></script>
@@ -202,8 +202,9 @@
 <h2 id="what-makes-opencrabs-different"><a class="header" href="#what-makes-opencrabs-different">What Makes OpenCrabs Different</a></h2>
 <h3 id="-provider-agnostic-with-native-cli-integration"><a class="header" href="#-provider-agnostic-with-native-cli-integration">🔄 Provider-Agnostic with Native CLI Integration</a></h3>
 <ul>
-<li><strong>14+ built-in providers</strong>: Anthropic, OpenAI, Gemini, OpenRouter, Qwen (OAuth + CLI), MiniMax, Ollama, LM Studio, vLLM, NVIDIA, Dialagram, z.ai GLM, GitHub Copilot, Codex CLI</li>
-<li><strong>Claude Code CLI, OpenCode CLI &amp; Codex CLI</strong> integrated as native providers — use their models without API keys</li>
+<li><strong>15+ built-in providers</strong>: Anthropic, OpenAI, Gemini, OpenRouter, Qwen (DashScope), MiniMax, Ollama, LM Studio, vLLM, NVIDIA, Dialagram, z.ai GLM, GitHub Copilot, Codex CLI, Codex OAuth</li>
+<li><strong>Claude Code CLI, OpenCode CLI, Codex CLI &amp; Codex OAuth</strong> integrated as native providers — use their models without API keys</li>
+<li><strong>Codex OAuth</strong> — native OpenAI Codex subscription auth via device-code PKCE flow. No CLI dependency, no API key. Authenticate through browser once; tokens stored with automatic refresh (v0.3.19)</li>
 <li><strong>Ollama as native provider</strong> — run any local model via Ollama API without custom provider setup (v0.3.15)</li>
 <li><strong>Custom OpenAI-compatible backends</strong> now stream thinking tokens, tool calls, and intermediate text exactly like native providers (v0.3.2)</li>
 <li><strong>Sticky fallback chain</strong> — auto-failover to secondary providers on rate limits or errors</li>
@@ -238,6 +239,7 @@
 <li><strong>Phantom tool call detection</strong> — catches when the model narrates file changes in prose without executing tools (v0.3.7)</li>
 <li><strong>Expanded phantom detection</strong> — catches “Now &lt;file-op gerund&gt;” phantoms (creating/writing/editing) and build/deploy intent + past-tense completion claims. Gaslighting and phantom detectors extracted into their own module (v0.3.17)</li>
 <li><strong>RSI escalation for repeat violations</strong> — violation counter bumps on existing rules instead of deduping away. Rules that keep getting broken get louder, not silenced (v0.3.17)</li>
+<li><strong>RSI feedback records actual model used</strong> — when helpers remap a mismatched model to the provider default, RSI now records the resolved model instead of the impossible original pair (v0.3.19)</li>
 <li><strong>Append-only brain files</strong> — brain files (SOUL.md, TOOLS.md, etc.) are now append-only with backup-before-write to prevent data loss (v0.3.13)</li>
 <li><strong>Upstream template sync</strong> — automatically syncs brain file templates from the repo with version gating and append-only diffs (v0.3.15)</li>
 <li><strong>RSI alert suppression</strong> — suppresses alerts whose dimension already has a fix commit, stale alerts age out (v0.3.13)</li>
@@ -250,6 +252,8 @@
 <li><strong>Mid-stream decode retry</strong> — 3x backoff before provider fallback (v0.3.0)</li>
 <li><strong>Non-streaming compatibility</strong> — synthesizes full stream events from non-streaming JSON (v0.3.7)</li>
 <li><strong>Per-session message queue isolation</strong> — prevents cross-session message bleeding in split panes and channels (v0.3.13)</li>
+<li><strong>Tool loop reasoning markers persisted</strong> — reasoning content survives across tool loop iterations (v0.3.19)</li>
+<li><strong>@ file picker fixed for large repos</strong> — skips .git/.hg/.svn directories, raised result cap to 20k (v0.3.19)</li>
 </ul>
 <h3 id="-terminal-ui-excellence-v032"><a class="header" href="#-terminal-ui-excellence-v032">🖥️ Terminal UI Excellence (v0.3.2)</a></h3>
 <ul>
@@ -285,6 +289,8 @@
 <li><strong>File paths starting with <code>/</code> no longer treated as slash command typos</strong> — <code>/Users/.../file.pdf yo crabs check this</code> works correctly (v0.3.18)</li>
 <li><strong>Truncation continuations no longer trigger provider fallback</strong> — mid-sentence continuations stay on the same provider (v0.3.18)</li>
 <li><strong>Fallback error reason surfaced in TUI</strong> — when fallback fires, the underlying error shows as a system message (v0.3.18)</li>
+<li><strong>OpenAI-compatible embedding API</strong> — configure external embedding providers (OpenAI, Ollama, Jina, LM Studio) instead of downloading 300MB GGUF model. Dynamic vector dimensions from API response (v0.3.19)</li>
+<li><strong>FTS5-only memory mode for VPS</strong> — pure keyword search with zero RAM overhead. Auto-detects VPS environments and configures automatically (v0.3.19)</li>
 </ul>
 <h3 id="-browser-automation"><a class="header" href="#-browser-automation">🌐 Browser Automation</a></h3>
 <ul>
@@ -319,8 +325,7 @@
 </ul>
 <h3 id="-testing--quality"><a class="header" href="#-testing--quality">📊 Testing &amp; Quality</a></h3>
 <ul>
-<li><strong>2,595+ tests</strong> covering providers, tools, channels, TUI, self-healing, crash recovery, browser automation</li>
-<li><strong>13 new test files</strong> added in v0.3.16</li>
+<li><strong>2,698+ tests</strong> covering providers, tools, channels, TUI, self-healing, crash recovery, browser automation</li>
 <li><strong>CI/CD</strong>: GitHub Actions, CodeQL, <code>cargo audit</code> security checks, release automation</li>
 </ul>
 <h3 id="-built-in-skills-v0317"><a class="header" href="#-built-in-skills-v0317">🔧 Built-in Skills (v0.3.17)</a></h3>
@@ -1140,7 +1145,7 @@ cargo build --release
 <p>Logs go to <code>~/.opencrabs/logs/</code> with 7-day retention.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="supported-ai-providers"><a class="header" href="#supported-ai-providers">Supported AI Providers</a></h1>
-<p>OpenCrabs supports 11+ AI providers out of the box. Switch between them at any time via <code>/models</code> in the TUI or any channel.</p>
+<p>OpenCrabs supports 12+ AI providers out of the box. Switch between them at any time via <code>/models</code> in the TUI or any channel.</p>
 <div class="table-wrapper">
 <table>
 <thead>
@@ -1155,6 +1160,7 @@ cargo build --release
 <tr><td><a href="#minimax">MiniMax</a></td><td>API key</td><td>M2.7, M2.5, M2.1, Text-01</td><td>Yes</td><td>Yes</td><td>Competitive pricing, auto-configured vision</td></tr>
 <tr><td><a href="#zai-zhipu-ai">z.ai GLM</a></td><td>API key</td><td>GLM-4.5 through GLM-5 Turbo</td><td>Yes</td><td>Yes</td><td>General API + Coding API endpoints</td></tr>
 <tr><td><a href="#claude-cli">Claude CLI</a></td><td>CLI auth</td><td>Via <code>claude</code> binary</td><td>Yes</td><td>Yes</td><td>Uses your Claude Code subscription</td></tr>
+<tr><td><a href="#codex-oauth">Codex OAuth</a></td><td>OAuth (PKCE)</td><td>GPT-5.5, GPT-5.4, GPT-5.3-Codex</td><td>Yes</td><td>Yes</td><td>Native Codex subscription auth — no CLI, no API key</td></tr>
 <tr><td><a href="#qwen-dashscope">Qwen/DashScope</a></td><td>API key</td><td>qwen3.6-plus (default)</td><td>Yes</td><td>Yes</td><td>DashScope API-key provider (replaced OAuth rotation). Local model tool-call extraction from text (bare JSON, Claude-style XML, Qwen formats). Prompt caching via <code>cache_control</code>, rate limit retry with exponential backoff</td></tr>
 <tr><td><a href="#ollama">Ollama</a></td><td>Optional</td><td>Any Ollama model</td><td>Yes</td><td>Yes</td><td>Native local provider — run any model via Ollama API</td></tr>
 <tr><td><a href="#opencode-cli">OpenCode CLI</a></td><td>None</td><td>Free models (Mimo, etc.)</td><td>Yes</td><td>Yes</td><td>Free — no API key or subscription needed</td></tr>
@@ -1276,6 +1282,15 @@ enabled = true
 </code></pre>
 <p><strong>Models:</strong> GPT-5.5, GPT-5.4, GPT-5.3-Codex</p>
 <p><strong>Requirements:</strong> The <code>codex</code> CLI must be installed (<code>npm install -g @openai/codex</code>) and authenticated. Models are detected automatically.</p>
+<h2 id="codex-oauth"><a class="header" href="#codex-oauth">Codex OAuth</a></h2>
+<p>Native OpenAI Codex subscription auth via device-code PKCE flow. No CLI dependency, no API key. User authenticates through browser once; tokens stored in <code>~/.opencrabs/auth/codex.json</code> with automatic refresh and background rotation.</p>
+<pre><code class="language-toml"># config.toml
+[providers.codex]
+enabled = true
+</code></pre>
+<p><strong>Models:</strong> GPT-5.5, GPT-5.4, GPT-5.3-Codex (curated GPT-5 model list)</p>
+<p><strong>Setup:</strong> Run <code>/onboard:provider</code> → select Codex OAuth → follow the device code flow at <code>auth.openai.com/codex/device</code>. Two-step PKCE exchange: device auth poll → authorization code → token exchange.</p>
+<p><strong>Requirements:</strong> An active OpenAI Codex subscription. No CLI installation needed.</p>
 <h2 id="minimax"><a class="header" href="#minimax">MiniMax</a></h2>
 <p><strong>Models:</strong> <code>MiniMax-M2.7</code>, <code>MiniMax-M2.5</code>, <code>MiniMax-M2.1</code>, <code>MiniMax-Text-01</code></p>
 <pre><code class="language-toml"># keys.toml
@@ -1983,6 +1998,13 @@ value = "System is operational. All channels connected."
 </ul>
 <h2 id="memory-search"><a class="header" href="#memory-search">Memory Search</a></h2>
 <p>The agent uses <code>session_search</code> for fast memory lookups (~500 tokens) instead of reading full memory files (~15K tokens). This is the primary recall mechanism.</p>
+<h3 id="embedding-modes"><a class="header" href="#embedding-modes">Embedding Modes</a></h3>
+<p>OpenCrabs supports three embedding configurations:</p>
+<ol>
+<li><strong>Local GGUF</strong> (default) — downloads a 300MB embedding model and runs it locally via llama.cpp</li>
+<li><strong>OpenAI-compatible API</strong> — configure external embedding providers (OpenAI <code>text-embedding-3-small</code>, Ollama <code>nomic-embed-text</code>, Jina, LM Studio, or any <code>/v1/embeddings</code> endpoint) via <code>[memory.embedding]</code> config with <code>url</code>, <code>model</code>, <code>api_key</code>, <code>dimensions</code></li>
+<li><strong>FTS5-only</strong> — pure keyword search with zero RAM overhead. Set <code>[memory] vector_enabled = false</code>. Auto-detects VPS environments and configures automatically</li>
+</ol>
 <h2 id="context-compaction"><a class="header" href="#context-compaction">Context Compaction</a></h2>
 <p>When context reaches ~80% capacity, OpenCrabs automatically compacts:</p>
 <ol>
@@ -2888,6 +2910,16 @@ providers = ["openrouter", "anthropic"]  # tried in order
 <li><strong>Fallback error reason surfaced in TUI</strong> — when fallback fired, the underlying error was swallowed. Now shows as a system message.</li>
 <li><strong>Pipe-delimited rows hard-broken</strong> — when not recognized as a table, pipe rows ran together. Added hard-break between rows.</li>
 </ul>
+<h2 id="v0319-fixes"><a class="header" href="#v0319-fixes">v0.3.19 Fixes</a></h2>
+<ul>
+<li><strong>Cron provider/model cross-contamination fixed</strong> — cron’s <code>execute_job</code> called global <code>swap_provider()</code> instead of session-scoped <code>swap_provider_for_session()</code>, so concurrent cron jobs on the shared <code>Cron</code> session overwrote each other’s provider. Now each job swaps on its own session ID.</li>
+<li><strong>Cron mismatched pair validation</strong> — reversed cron config (e.g. <code>default_model = "zhipu"</code> where <code>zhipu</code> is a provider name) produced impossible pairs like <code>dialagram/zhipu</code> that timed out with no diagnostics. Added validation: if <code>effective_model</code> is not in the provider’s <code>supported_models()</code>, the job is skipped with a loud error.</li>
+<li><strong>Windows CI test failures fixed</strong> — <code>tool_loop_helpers_test.rs</code> used hardcoded Unix <code>/tmp/</code> paths and <code>/etc/hosts</code> assertions. Added platform-specific test variants with <code>#[cfg(unix)]</code> / <code>#[cfg(windows)]</code>.</li>
+<li><strong>CI Node 24 forced upgrade removed</strong> — removed <code>FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true</code> env var that broke <code>actions/cache@v4</code> with <code>punycode</code> deprecation on Node 21+.</li>
+<li><strong>Codex OAuth device flow field names fixed</strong> — OpenAI’s device auth API uses non-standard field names (<code>device_auth_id</code> instead of <code>device_code</code>, string <code>interval</code> instead of number, <code>expires_at</code> instead of <code>expires_in</code>). Fixed with serde aliases and custom deserializer.</li>
+<li><strong>Codex OAuth verification URL corrected</strong> — was hardcoded to non-existent <code>auth.openai.com/verify</code>, changed to <code>auth.openai.com/codex/device</code> matching Codex CLI.</li>
+<li><strong>Codex OAuth model list curated</strong> — <code>/models</code> dialog showed non-OpenAI models (Phi-4, Llama, Mistral) because the <code>codex</code> provider ID wasn’t mapped to the curated GPT-5 model list.</li>
+</ul>
 <h2 id="notifications"><a class="header" href="#notifications">Notifications</a></h2>
 <p>All self-healing events are delivered to:</p>
 <ul>
@@ -3060,6 +3092,12 @@ Agent notices pattern of 5+ corrections on output hygiene:
 <li><strong>40+ TUI/self-heal fixes</strong> — narrowed phantom gate, split thinking per iteration, anti-code-block nudge for local models, tighter phantom scope, mid-turn “Let me see:” catch, backtick code reference detection</li>
 <li><strong>Per-session provider isolation</strong> — each session carries its own provider instance; no global swap affecting all sessions</li>
 <li><strong>Sub-agent <code>AwaitingInput</code> state</strong> — <code>wait_agent</code> polls state and returns partial progress on timeout instead of deadlocking</li>
+</ul>
+<h2 id="v0319-additions"><a class="header" href="#v0319-additions">v0.3.19 Additions</a></h2>
+<ul>
+<li><strong>RSI feedback records actual model used</strong> — when helpers remap a mismatched model to the provider default, RSI now records the resolved model instead of the impossible original pair. All 3 recording sites in <code>tool_loop.rs</code> now resolve the actual model before constructing the feedback dimension</li>
+<li><strong>Tool loop reasoning markers persisted</strong> — reasoning content persisted in non-CLI content column so thinking state survives across tool loop iterations</li>
+<li><strong>@ file picker fixed for large repos</strong> — recursive walk now skips <code>.git</code>/<code>.hg</code>/<code>.svn</code> directories and raised result cap from 5k to 20k, preventing pack/ref files from exhausting the cap</li>
 </ul>
 <h2 id="self-healing-vs-self-improvement"><a class="header" href="#self-healing-vs-self-improvement">Self-Healing vs Self-Improvement</a></h2>
 <div class="table-wrapper">
@@ -3864,7 +3902,7 @@ panic = "abort"
 <tr><td><strong>Pricing</strong></td><td style="text-align: right">17</td><td><code>src/pricing.rs</code></td></tr>
 <tr><td><strong>Memory</strong></td><td style="text-align: right">9</td><td><code>src/memory/</code></td></tr>
 <tr><td><strong>Logging</strong></td><td style="text-align: right">4</td><td><code>src/logging/</code></td></tr>
-<tr><td><strong>Total</strong></td><td style="text-align: right"><strong>2,595</strong></td><td></td></tr>
+<tr><td><strong>Total</strong></td><td style="text-align: right"><strong>2,698</strong></td><td></td></tr>
 </tbody>
 </table>
 </div>

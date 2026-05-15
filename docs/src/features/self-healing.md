@@ -299,6 +299,16 @@ Fixed CodeQL #64 (HIGH): Gemini API key was leaked in URL query string (`?key=..
 - **Fallback error reason surfaced in TUI** — when fallback fired, the underlying error was swallowed. Now shows as a system message.
 - **Pipe-delimited rows hard-broken** — when not recognized as a table, pipe rows ran together. Added hard-break between rows.
 
+## v0.3.19 Fixes
+
+- **Cron provider/model cross-contamination fixed** — cron's `execute_job` called global `swap_provider()` instead of session-scoped `swap_provider_for_session()`, so concurrent cron jobs on the shared `Cron` session overwrote each other's provider. Now each job swaps on its own session ID.
+- **Cron mismatched pair validation** — reversed cron config (e.g. `default_model = "zhipu"` where `zhipu` is a provider name) produced impossible pairs like `dialagram/zhipu` that timed out with no diagnostics. Added validation: if `effective_model` is not in the provider's `supported_models()`, the job is skipped with a loud error.
+- **Windows CI test failures fixed** — `tool_loop_helpers_test.rs` used hardcoded Unix `/tmp/` paths and `/etc/hosts` assertions. Added platform-specific test variants with `#[cfg(unix)]` / `#[cfg(windows)]`.
+- **CI Node 24 forced upgrade removed** — removed `FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true` env var that broke `actions/cache@v4` with `punycode` deprecation on Node 21+.
+- **Codex OAuth device flow field names fixed** — OpenAI's device auth API uses non-standard field names (`device_auth_id` instead of `device_code`, string `interval` instead of number, `expires_at` instead of `expires_in`). Fixed with serde aliases and custom deserializer.
+- **Codex OAuth verification URL corrected** — was hardcoded to non-existent `auth.openai.com/verify`, changed to `auth.openai.com/codex/device` matching Codex CLI.
+- **Codex OAuth model list curated** — `/models` dialog showed non-OpenAI models (Phi-4, Llama, Mistral) because the `codex` provider ID wasn't mapped to the curated GPT-5 model list.
+
 ## Notifications
 
 All self-healing events are delivered to:

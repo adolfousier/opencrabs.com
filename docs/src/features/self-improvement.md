@@ -170,6 +170,12 @@ RSI now bumps a violation counter on existing rules instead of deduping repeat v
 - **Per-session provider isolation** — each session carries its own provider instance; no global swap affecting all sessions
 - **Sub-agent `AwaitingInput` state** — `wait_agent` polls state and returns partial progress on timeout instead of deadlocking
 
+## v0.3.19 Additions
+
+- **RSI feedback records actual model used** — when helpers remap a mismatched model to the provider default, RSI now records the resolved model instead of the impossible original pair. All 3 recording sites in `tool_loop.rs` now resolve the actual model before constructing the feedback dimension
+- **Tool loop reasoning markers persisted** — reasoning content persisted in non-CLI content column so thinking state survives across tool loop iterations
+- **@ file picker fixed for large repos** — recursive walk now skips `.git`/`.hg`/`.svn` directories and raised result cap from 5k to 20k, preventing pack/ref files from exhausting the cap
+
 ## Self-Healing vs Self-Improvement
 
 | Self-Healing | Self-Improvement |

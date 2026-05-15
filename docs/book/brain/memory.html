@@ -54,7 +54,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-de596592.js";
+            window.path_to_searchindex_js = "../searchindex-ad6e30f2.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-25972818.js"></script>
@@ -221,6 +221,13 @@
 </ul>
 <h2 id="memory-search"><a class="header" href="#memory-search">Memory Search</a></h2>
 <p>The agent uses <code>session_search</code> for fast memory lookups (~500 tokens) instead of reading full memory files (~15K tokens). This is the primary recall mechanism.</p>
+<h3 id="embedding-modes"><a class="header" href="#embedding-modes">Embedding Modes</a></h3>
+<p>OpenCrabs supports three embedding configurations:</p>
+<ol>
+<li><strong>Local GGUF</strong> (default) — downloads a 300MB embedding model and runs it locally via llama.cpp</li>
+<li><strong>OpenAI-compatible API</strong> — configure external embedding providers (OpenAI <code>text-embedding-3-small</code>, Ollama <code>nomic-embed-text</code>, Jina, LM Studio, or any <code>/v1/embeddings</code> endpoint) via <code>[memory.embedding]</code> config with <code>url</code>, <code>model</code>, <code>api_key</code>, <code>dimensions</code></li>
+<li><strong>FTS5-only</strong> — pure keyword search with zero RAM overhead. Set <code>[memory] vector_enabled = false</code>. Auto-detects VPS environments and configures automatically</li>
+</ol>
 <h2 id="context-compaction"><a class="header" href="#context-compaction">Context Compaction</a></h2>
 <p>When context reaches ~80% capacity, OpenCrabs automatically compacts:</p>
 <ol>

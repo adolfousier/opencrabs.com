@@ -5,8 +5,9 @@
 ## What Makes OpenCrabs Different
 
 ### 🔄 Provider-Agnostic with Native CLI Integration
-- **14+ built-in providers**: Anthropic, OpenAI, Gemini, OpenRouter, Qwen (OAuth + CLI), MiniMax, Ollama, LM Studio, vLLM, NVIDIA, Dialagram, z.ai GLM, GitHub Copilot, Codex CLI
-- **Claude Code CLI, OpenCode CLI & Codex CLI** integrated as native providers — use their models without API keys
+- **15+ built-in providers**: Anthropic, OpenAI, Gemini, OpenRouter, Qwen (DashScope), MiniMax, Ollama, LM Studio, vLLM, NVIDIA, Dialagram, z.ai GLM, GitHub Copilot, Codex CLI, Codex OAuth
+- **Claude Code CLI, OpenCode CLI, Codex CLI & Codex OAuth** integrated as native providers — use their models without API keys
+- **Codex OAuth** — native OpenAI Codex subscription auth via device-code PKCE flow. No CLI dependency, no API key. Authenticate through browser once; tokens stored with automatic refresh (v0.3.19)
 - **Ollama as native provider** — run any local model via Ollama API without custom provider setup (v0.3.15)
 - **Custom OpenAI-compatible backends** now stream thinking tokens, tool calls, and intermediate text exactly like native providers (v0.3.2)
 - **Sticky fallback chain** — auto-failover to secondary providers on rate limits or errors
@@ -38,6 +39,7 @@
 - **Phantom tool call detection** — catches when the model narrates file changes in prose without executing tools (v0.3.7)
 - **Expanded phantom detection** — catches "Now \<file-op gerund>" phantoms (creating/writing/editing) and build/deploy intent + past-tense completion claims. Gaslighting and phantom detectors extracted into their own module (v0.3.17)
 - **RSI escalation for repeat violations** — violation counter bumps on existing rules instead of deduping away. Rules that keep getting broken get louder, not silenced (v0.3.17)
+- **RSI feedback records actual model used** — when helpers remap a mismatched model to the provider default, RSI now records the resolved model instead of the impossible original pair (v0.3.19)
 - **Append-only brain files** — brain files (SOUL.md, TOOLS.md, etc.) are now append-only with backup-before-write to prevent data loss (v0.3.13)
 - **Upstream template sync** — automatically syncs brain file templates from the repo with version gating and append-only diffs (v0.3.15)
 - **RSI alert suppression** — suppresses alerts whose dimension already has a fix commit, stale alerts age out (v0.3.13)
@@ -50,6 +52,8 @@
 - **Mid-stream decode retry** — 3x backoff before provider fallback (v0.3.0)
 - **Non-streaming compatibility** — synthesizes full stream events from non-streaming JSON (v0.3.7)
 - **Per-session message queue isolation** — prevents cross-session message bleeding in split panes and channels (v0.3.13)
+- **Tool loop reasoning markers persisted** — reasoning content survives across tool loop iterations (v0.3.19)
+- **@ file picker fixed for large repos** — skips .git/.hg/.svn directories, raised result cap to 20k (v0.3.19)
 
 ### 🖥️ Terminal UI Excellence (v0.3.2)
 - **Header card overlay** replaces splash screen — animated, responsive, vanishes after load
@@ -83,6 +87,8 @@
 - **File paths starting with `/` no longer treated as slash command typos** — `/Users/.../file.pdf yo crabs check this` works correctly (v0.3.18)
 - **Truncation continuations no longer trigger provider fallback** — mid-sentence continuations stay on the same provider (v0.3.18)
 - **Fallback error reason surfaced in TUI** — when fallback fires, the underlying error shows as a system message (v0.3.18)
+- **OpenAI-compatible embedding API** — configure external embedding providers (OpenAI, Ollama, Jina, LM Studio) instead of downloading 300MB GGUF model. Dynamic vector dimensions from API response (v0.3.19)
+- **FTS5-only memory mode for VPS** — pure keyword search with zero RAM overhead. Auto-detects VPS environments and configures automatically (v0.3.19)
 
 ### 🌐 Browser Automation
 - **Full CDP support**: navigate, click, type, screenshot, JS eval, wait for selectors, find elements
@@ -112,8 +118,7 @@
 - **Auto-approve propagation** — `approval_policy = "auto-always"` actually reaches tool loop (v0.3.2)
 
 ### 📊 Testing & Quality
-- **2,595+ tests** covering providers, tools, channels, TUI, self-healing, crash recovery, browser automation
-- **13 new test files** added in v0.3.16
+- **2,698+ tests** covering providers, tools, channels, TUI, self-healing, crash recovery, browser automation
 - **CI/CD**: GitHub Actions, CodeQL, `cargo audit` security checks, release automation
 
 ### 🔧 Built-in Skills (v0.3.17)

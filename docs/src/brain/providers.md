@@ -156,6 +156,22 @@ enabled = true
 
 **Requirements:** The `codex` CLI must be installed (`npm install -g @openai/codex`) and authenticated. Models are detected automatically.
 
+## Codex OAuth
+
+Native OpenAI Codex subscription auth via device-code PKCE flow. No CLI dependency, no API key. User authenticates through browser once; tokens stored in `~/.opencrabs/auth/codex.json` with automatic refresh and background rotation.
+
+```toml
+# config.toml
+[providers.codex]
+enabled = true
+```
+
+**Models:** GPT-5.5, GPT-5.4, GPT-5.3-Codex (curated GPT-5 model list)
+
+**Setup:** Run `/onboard:provider` → select Codex OAuth → follow the device code flow at `auth.openai.com/codex/device`. Two-step PKCE exchange: device auth poll → authorization code → token exchange.
+
+**Requirements:** An active OpenAI Codex subscription. No CLI installation needed.
+
 ## MiniMax
 
 **Models:** `MiniMax-M2.7`, `MiniMax-M2.5`, `MiniMax-M2.1`, `MiniMax-Text-01`
