@@ -45,6 +45,20 @@ A ranked table of every model used:
 
 The selected row is highlighted in orange. Use this to spot expensive models or optimize your provider mix.
 
+### By-Model Quantization Tree View (v0.3.20)
+
+Model variants grouped under parent rows with tree connectors:
+
+| Column | Description |
+|--------|-------------|
+| Model | Provider + model name (parent row, bold) |
+| `├─` / `└─` | Variant rows (e.g. qwen3.6-35b-a3b-gguf-oq2, qwen3.6-35b-a3b-gguf-oq4) |
+
+Parent rows show **aggregated stats** (total tokens, cost, calls) across all quant variants. This eliminates the noisy duplication where `qwen3.6-35b-a3b-gguf`, `-oq2`, `-oq4`, `-iq4_xs` each appeared as separate rows.
+
+**Before:** 6 separate rows for one model family
+**After:** 1 parent row + 3 variant rows with aggregated parent stats
+
 ### Core Tools (bottom-right)
 
 A horizontal bar chart ranking your most-used tools. `bash` and `read_file` typically dominate. Useful for understanding your agent's workflow patterns.

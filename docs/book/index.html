@@ -54,7 +54,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-ad6e30f2.js";
+            window.path_to_searchindex_js = "searchindex-39e9985f.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-25972818.js"></script>
@@ -201,9 +201,9 @@
 <h2 id="what-makes-opencrabs-different"><a class="header" href="#what-makes-opencrabs-different">What Makes OpenCrabs Different</a></h2>
 <h3 id="-provider-agnostic-with-native-cli-integration"><a class="header" href="#-provider-agnostic-with-native-cli-integration">🔄 Provider-Agnostic with Native CLI Integration</a></h3>
 <ul>
-<li><strong>15+ built-in providers</strong>: Anthropic, OpenAI, Gemini, OpenRouter, Qwen (DashScope), MiniMax, Ollama, LM Studio, vLLM, NVIDIA, Dialagram, z.ai GLM, GitHub Copilot, Codex CLI, Codex OAuth</li>
+<li><strong>14 built-in providers + Custom OpenAI Compatible</strong>: Anthropic Claude, OpenAI, Gemini, OpenRouter, Qwen (DashScope), MiniMax, Ollama, z.ai GLM, GitHub Copilot, Codex, Codex CLI, OpenCode, OpenCode CLI</li>
 <li><strong>Claude Code CLI, OpenCode CLI, Codex CLI &amp; Codex OAuth</strong> integrated as native providers — use their models without API keys</li>
-<li><strong>Codex OAuth</strong> — native OpenAI Codex subscription auth via device-code PKCE flow. No CLI dependency, no API key. Authenticate through browser once; tokens stored with automatic refresh (v0.3.19)</li>
+<li><strong>Codex (OAuth)</strong> — native OpenAI Codex subscription auth via device-code PKCE flow. No CLI dependency, no API key. Authenticate through browser once; tokens stored with automatic refresh (v0.3.19)</li>
 <li><strong>Ollama as native provider</strong> — run any local model via Ollama API without custom provider setup (v0.3.15)</li>
 <li><strong>Custom OpenAI-compatible backends</strong> now stream thinking tokens, tool calls, and intermediate text exactly like native providers (v0.3.2)</li>
 <li><strong>Sticky fallback chain</strong> — auto-failover to secondary providers on rate limits or errors</li>
@@ -256,6 +256,7 @@
 </ul>
 <h3 id="-terminal-ui-excellence-v032"><a class="header" href="#-terminal-ui-excellence-v032">🖥️ Terminal UI Excellence (v0.3.2)</a></h3>
 <ul>
+<li><strong>Per-pane error &amp; notification banners</strong> — dedicated error/notification display per TUI pane for better visibility (v0.3.20)</li>
 <li><strong>Header card overlay</strong> replaces splash screen — animated, responsive, vanishes after load</li>
 <li><strong>Select/Drag to Copy</strong> — native mouse selection in TUI, auto-copies to clipboard on release</li>
 <li><strong>O(N) input render</strong> — tall pastes no longer cause quadratic render cost; scroll-to-cursor preserved</li>
@@ -324,7 +325,7 @@
 </ul>
 <h3 id="-testing--quality"><a class="header" href="#-testing--quality">📊 Testing &amp; Quality</a></h3>
 <ul>
-<li><strong>2,698+ tests</strong> covering providers, tools, channels, TUI, self-healing, crash recovery, browser automation</li>
+<li><strong>2,737+ tests</strong> covering providers, tools, channels, TUI, self-healing, crash recovery, browser automation</li>
 <li><strong>CI/CD</strong>: GitHub Actions, CodeQL, <code>cargo audit</code> security checks, release automation</li>
 </ul>
 <h3 id="-built-in-skills-v0317"><a class="header" href="#-built-in-skills-v0317">🔧 Built-in Skills (v0.3.17)</a></h3>

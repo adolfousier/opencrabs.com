@@ -54,7 +54,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-ad6e30f2.js";
+            window.path_to_searchindex_js = "../searchindex-39e9985f.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-25972818.js"></script>
@@ -360,6 +360,11 @@ Agent notices pattern of 5+ corrections on output hygiene:
 <li><strong>40+ TUI/self-heal fixes</strong> — narrowed phantom gate, split thinking per iteration, anti-code-block nudge for local models, tighter phantom scope, mid-turn “Let me see:” catch, backtick code reference detection</li>
 <li><strong>Per-session provider isolation</strong> — each session carries its own provider instance; no global swap affecting all sessions</li>
 <li><strong>Sub-agent <code>AwaitingInput</code> state</strong> — <code>wait_agent</code> polls state and returns partial progress on timeout instead of deadlocking</li>
+</ul>
+<h2 id="v0320-additions"><a class="header" href="#v0320-additions">v0.3.20 Additions</a></h2>
+<ul>
+<li><strong>RSI home directory resolution fixed</strong> — RSI now resolves <code>~</code> to the actual home directory instead of using CWD-relative paths, preventing brain file writes to wrong locations</li>
+<li><strong>Bare tool-call arrays caught</strong> — top-level arrays from models no longer crash RSI’s feedback dimension parsing; wrapped correctly before recording</li>
 </ul>
 <h2 id="v0319-additions"><a class="header" href="#v0319-additions">v0.3.19 Additions</a></h2>
 <ul>

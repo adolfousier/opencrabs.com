@@ -170,6 +170,11 @@ RSI now bumps a violation counter on existing rules instead of deduping repeat v
 - **Per-session provider isolation** — each session carries its own provider instance; no global swap affecting all sessions
 - **Sub-agent `AwaitingInput` state** — `wait_agent` polls state and returns partial progress on timeout instead of deadlocking
 
+## v0.3.20 Additions
+
+- **RSI home directory resolution fixed** — RSI now resolves `~` to the actual home directory instead of using CWD-relative paths, preventing brain file writes to wrong locations
+- **Bare tool-call arrays caught** — top-level arrays from models no longer crash RSI's feedback dimension parsing; wrapped correctly before recording
+
 ## v0.3.19 Additions
 
 - **RSI feedback records actual model used** — when helpers remap a mismatched model to the provider default, RSI now records the resolved model instead of the impossible original pair. All 3 recording sites in `tool_loop.rs` now resolve the actual model before constructing the feedback dimension

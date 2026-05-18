@@ -49,3 +49,9 @@ The `tool_manage` meta-tool lets the agent manage dynamic tools during a session
 - **Reload** — Re-read `tools.toml` without restarting
 
 Dynamic tools appear alongside built-in tools in the agent's tool list. Enable or disable individual tools without restarting the process.
+
+### Loading from tools.toml in Run/Agent Modes (v0.3.20)
+
+External contributions now enable `tools.toml` to be loaded in **run mode** and **agent mode** (not just the TUI). Previously, dynamic tools only worked in the interactive TUI session. Now they're available across all modes, allowing headless automation and scripted workflows to use custom tools.
+
+([#79](https://github.com/adolfousier/opencrabs/issues/79) — thanks @leshchenko)

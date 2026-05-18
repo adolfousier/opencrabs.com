@@ -55,7 +55,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-ad6e30f2.js";
+            window.path_to_searchindex_js = "searchindex-39e9985f.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-25972818.js"></script>
@@ -202,9 +202,9 @@
 <h2 id="what-makes-opencrabs-different"><a class="header" href="#what-makes-opencrabs-different">What Makes OpenCrabs Different</a></h2>
 <h3 id="-provider-agnostic-with-native-cli-integration"><a class="header" href="#-provider-agnostic-with-native-cli-integration">🔄 Provider-Agnostic with Native CLI Integration</a></h3>
 <ul>
-<li><strong>15+ built-in providers</strong>: Anthropic, OpenAI, Gemini, OpenRouter, Qwen (DashScope), MiniMax, Ollama, LM Studio, vLLM, NVIDIA, Dialagram, z.ai GLM, GitHub Copilot, Codex CLI, Codex OAuth</li>
+<li><strong>14 built-in providers + Custom OpenAI Compatible</strong>: Anthropic Claude, OpenAI, Gemini, OpenRouter, Qwen (DashScope), MiniMax, Ollama, z.ai GLM, GitHub Copilot, Codex, Codex CLI, OpenCode, OpenCode CLI</li>
 <li><strong>Claude Code CLI, OpenCode CLI, Codex CLI &amp; Codex OAuth</strong> integrated as native providers — use their models without API keys</li>
-<li><strong>Codex OAuth</strong> — native OpenAI Codex subscription auth via device-code PKCE flow. No CLI dependency, no API key. Authenticate through browser once; tokens stored with automatic refresh (v0.3.19)</li>
+<li><strong>Codex (OAuth)</strong> — native OpenAI Codex subscription auth via device-code PKCE flow. No CLI dependency, no API key. Authenticate through browser once; tokens stored with automatic refresh (v0.3.19)</li>
 <li><strong>Ollama as native provider</strong> — run any local model via Ollama API without custom provider setup (v0.3.15)</li>
 <li><strong>Custom OpenAI-compatible backends</strong> now stream thinking tokens, tool calls, and intermediate text exactly like native providers (v0.3.2)</li>
 <li><strong>Sticky fallback chain</strong> — auto-failover to secondary providers on rate limits or errors</li>
@@ -257,6 +257,7 @@
 </ul>
 <h3 id="-terminal-ui-excellence-v032"><a class="header" href="#-terminal-ui-excellence-v032">🖥️ Terminal UI Excellence (v0.3.2)</a></h3>
 <ul>
+<li><strong>Per-pane error &amp; notification banners</strong> — dedicated error/notification display per TUI pane for better visibility (v0.3.20)</li>
 <li><strong>Header card overlay</strong> replaces splash screen — animated, responsive, vanishes after load</li>
 <li><strong>Select/Drag to Copy</strong> — native mouse selection in TUI, auto-copies to clipboard on release</li>
 <li><strong>O(N) input render</strong> — tall pastes no longer cause quadratic render cost; scroll-to-cursor preserved</li>
@@ -325,7 +326,7 @@
 </ul>
 <h3 id="-testing--quality"><a class="header" href="#-testing--quality">📊 Testing &amp; Quality</a></h3>
 <ul>
-<li><strong>2,698+ tests</strong> covering providers, tools, channels, TUI, self-healing, crash recovery, browser automation</li>
+<li><strong>2,737+ tests</strong> covering providers, tools, channels, TUI, self-healing, crash recovery, browser automation</li>
 <li><strong>CI/CD</strong>: GitHub Actions, CodeQL, <code>cargo audit</code> security checks, release automation</li>
 </ul>
 <h3 id="-built-in-skills-v0317"><a class="header" href="#-built-in-skills-v0317">🔧 Built-in Skills (v0.3.17)</a></h3>
@@ -1145,7 +1146,7 @@ cargo build --release
 <p>Logs go to <code>~/.opencrabs/logs/</code> with 7-day retention.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="supported-ai-providers"><a class="header" href="#supported-ai-providers">Supported AI Providers</a></h1>
-<p>OpenCrabs supports 12+ AI providers out of the box. Switch between them at any time via <code>/models</code> in the TUI or any channel.</p>
+<p>OpenCrabs supports 15 AI providers out of the box. Switch between them at any time via <code>/models</code> in the TUI or any channel.</p>
 <div class="table-wrapper">
 <table>
 <thead>
@@ -1160,9 +1161,11 @@ cargo build --release
 <tr><td><a href="#minimax">MiniMax</a></td><td>API key</td><td>M2.7, M2.5, M2.1, Text-01</td><td>Yes</td><td>Yes</td><td>Competitive pricing, auto-configured vision</td></tr>
 <tr><td><a href="#zai-zhipu-ai">z.ai GLM</a></td><td>API key</td><td>GLM-4.5 through GLM-5 Turbo</td><td>Yes</td><td>Yes</td><td>General API + Coding API endpoints</td></tr>
 <tr><td><a href="#claude-cli">Claude CLI</a></td><td>CLI auth</td><td>Via <code>claude</code> binary</td><td>Yes</td><td>Yes</td><td>Uses your Claude Code subscription</td></tr>
-<tr><td><a href="#codex-oauth">Codex OAuth</a></td><td>OAuth (PKCE)</td><td>GPT-5.5, GPT-5.4, GPT-5.3-Codex</td><td>Yes</td><td>Yes</td><td>Native Codex subscription auth — no CLI, no API key</td></tr>
+<tr><td><a href="#codex-oauth">Codex</a></td><td>OAuth (PKCE)</td><td>GPT-5.5, GPT-5.4, GPT-5.3-Codex</td><td>Yes</td><td>Yes</td><td>Native Codex subscription auth via device-code PKCE — no CLI, no API key</td></tr>
+<tr><td><a href="#codex-cli">Codex CLI</a></td><td>CLI auth</td><td>Via <code>@openai/codex</code> binary</td><td>Yes</td><td>Yes</td><td>Uses your Codex subscription — free tier available</td></tr>
 <tr><td><a href="#qwen-dashscope">Qwen/DashScope</a></td><td>API key</td><td>qwen3.6-plus (default)</td><td>Yes</td><td>Yes</td><td>DashScope API-key provider (replaced OAuth rotation). Local model tool-call extraction from text (bare JSON, Claude-style XML, Qwen formats). Prompt caching via <code>cache_control</code>, rate limit retry with exponential backoff</td></tr>
 <tr><td><a href="#ollama">Ollama</a></td><td>Optional</td><td>Any Ollama model</td><td>Yes</td><td>Yes</td><td>Native local provider — run any model via Ollama API</td></tr>
+<tr><td><a href="#opencode">OpenCode</a></td><td>None</td><td>Any OpenAI-compatible model</td><td>Yes</td><td>Yes</td><td>Non-CLI OpenAI-compatible provider</td></tr>
 <tr><td><a href="#opencode-cli">OpenCode CLI</a></td><td>None</td><td>Free models (Mimo, etc.)</td><td>Yes</td><td>Yes</td><td>Free — no API key or subscription needed</td></tr>
 <tr><td><a href="#custom-openai-compatible">Custom</a></td><td>Optional</td><td>Any</td><td>Yes</td><td>Yes</td><td>LM Studio, Groq, NVIDIA, any OpenAI-compatible API</td></tr>
 </tbody>
@@ -2229,6 +2232,9 @@ command = "grep -r '{{pattern}}' /var/log/myapp/ --include='*.log' -l"
 <li><strong>Reload</strong> — Re-read <code>tools.toml</code> without restarting</li>
 </ul>
 <p>Dynamic tools appear alongside built-in tools in the agent’s tool list. Enable or disable individual tools without restarting the process.</p>
+<h3 id="loading-from-toolstoml-in-runagent-modes-v0320"><a class="header" href="#loading-from-toolstoml-in-runagent-modes-v0320">Loading from tools.toml in Run/Agent Modes (v0.3.20)</a></h3>
+<p>External contributions now enable <code>tools.toml</code> to be loaded in <strong>run mode</strong> and <strong>agent mode</strong> (not just the TUI). Previously, dynamic tools only worked in the interactive TUI session. Now they’re available across all modes, allowing headless automation and scripted workflows to use custom tools.</p>
+<p>(<a href="https://github.com/adolfousier/opencrabs/issues/79">#79</a> — thanks @leshchenko)</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="browser-automation-1"><a class="header" href="#browser-automation-1">Browser Automation</a></h1>
 <p>OpenCrabs includes native headless Chrome control via the Chrome DevTools Protocol (CDP). No Selenium, no Playwright — direct browser control built into the binary.</p>
@@ -2910,6 +2916,14 @@ providers = ["openrouter", "anthropic"]  # tried in order
 <li><strong>Fallback error reason surfaced in TUI</strong> — when fallback fired, the underlying error was swallowed. Now shows as a system message.</li>
 <li><strong>Pipe-delimited rows hard-broken</strong> — when not recognized as a table, pipe rows ran together. Added hard-break between rows.</li>
 </ul>
+<h2 id="v0320-fixes"><a class="header" href="#v0320-fixes">v0.3.20 Fixes</a></h2>
+<ul>
+<li><strong>Stuck intent loop abort</strong> — when the agent gets stuck in a retry loop (<code>"Let me try..."</code> repeated N times), it now aborts with a clear notification instead of infinite retries</li>
+<li><strong>Phantom-exhaustion text replaced</strong> — phantom detector now shows an abort notice instead of “exhausted” text, making the failure mode clearer to users</li>
+<li><strong>Bare tool-call arrays caught</strong> — models that return top-level arrays of tool calls (not wrapped in <code>{}</code>) no longer leak raw JSON into the TUI; OpenCrabs wraps and routes them correctly</li>
+<li><strong>Cron jobs restored</strong> — cron <code>execute_job</code> now tolerates <code>BLOB</code>-typed prompt rows in SQLite instead of failing silently. Cron scheduling resumed on databases with legacy blob entries</li>
+<li><strong>Popup height clamped</strong> — slash command and emoji picker popups now clamp to terminal height, preventing overflow on short terminals (&lt; 30 lines)</li>
+</ul>
 <h2 id="v0319-fixes"><a class="header" href="#v0319-fixes">v0.3.19 Fixes</a></h2>
 <ul>
 <li><strong>Cron provider/model cross-contamination fixed</strong> — cron’s <code>execute_job</code> called global <code>swap_provider()</code> instead of session-scoped <code>swap_provider_for_session()</code>, so concurrent cron jobs on the shared <code>Cron</code> session overwrote each other’s provider. Now each job swaps on its own session ID.</li>
@@ -3093,6 +3107,11 @@ Agent notices pattern of 5+ corrections on output hygiene:
 <li><strong>Per-session provider isolation</strong> — each session carries its own provider instance; no global swap affecting all sessions</li>
 <li><strong>Sub-agent <code>AwaitingInput</code> state</strong> — <code>wait_agent</code> polls state and returns partial progress on timeout instead of deadlocking</li>
 </ul>
+<h2 id="v0320-additions"><a class="header" href="#v0320-additions">v0.3.20 Additions</a></h2>
+<ul>
+<li><strong>RSI home directory resolution fixed</strong> — RSI now resolves <code>~</code> to the actual home directory instead of using CWD-relative paths, preventing brain file writes to wrong locations</li>
+<li><strong>Bare tool-call arrays caught</strong> — top-level arrays from models no longer crash RSI’s feedback dimension parsing; wrapped correctly before recording</li>
+</ul>
 <h2 id="v0319-additions"><a class="header" href="#v0319-additions">v0.3.19 Additions</a></h2>
 <ul>
 <li><strong>RSI feedback records actual model used</strong> — when helpers remap a mismatched model to the provider default, RSI now records the resolved model instead of the impossible original pair. All 3 recording sites in <code>tool_loop.rs</code> now resolve the actual model before constructing the feedback dimension</li>
@@ -3152,6 +3171,8 @@ Agent notices pattern of 5+ corrections on output hygiene:
 <li><code>paused</code> label (when paused)</li>
 </ul>
 <p>See <a href="#cron-jobs">Cron Jobs</a> for full cron documentation.</p>
+<h3 id="cron-blob-recovery-v0320"><a class="header" href="#cron-blob-recovery-v0320">Cron BLOB Recovery (v0.3.20)</a></h3>
+<p>Cron jobs with legacy <code>BLOB</code>-typed prompt rows in the database are now tolerated instead of causing silent failures. The schedule panel resumes showing jobs normally.</p>
 <h2 id="keyboard-navigation"><a class="header" href="#keyboard-navigation">Keyboard Navigation</a></h2>
 <div class="table-wrapper">
 <table>
@@ -3613,6 +3634,22 @@ Instructions for the agent when this skill runs...
 </table>
 </div>
 <p>The selected row is highlighted in orange. Use this to spot expensive models or optimize your provider mix.</p>
+<h3 id="by-model-quantization-tree-view-v0320"><a class="header" href="#by-model-quantization-tree-view-v0320">By-Model Quantization Tree View (v0.3.20)</a></h3>
+<p>Model variants grouped under parent rows with tree connectors:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Column</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td>Model</td><td>Provider + model name (parent row, bold)</td></tr>
+<tr><td><code>├─</code> / <code>└─</code></td><td>Variant rows (e.g. qwen3.6-35b-a3b-gguf-oq2, qwen3.6-35b-a3b-gguf-oq4)</td></tr>
+</tbody>
+</table>
+</div>
+<p>Parent rows show <strong>aggregated stats</strong> (total tokens, cost, calls) across all quant variants. This eliminates the noisy duplication where <code>qwen3.6-35b-a3b-gguf</code>, <code>-oq2</code>, <code>-oq4</code>, <code>-iq4_xs</code> each appeared as separate rows.</p>
+<p><strong>Before:</strong> 6 separate rows for one model family
+<strong>After:</strong> 1 parent row + 3 variant rows with aggregated parent stats</p>
 <h3 id="core-tools-bottom-right"><a class="header" href="#core-tools-bottom-right">Core Tools (bottom-right)</a></h3>
 <p>A horizontal bar chart ranking your most-used tools. <code>bash</code> and <code>read_file</code> typically dominate. Useful for understanding your agent’s workflow patterns.</p>
 <h3 id="by-activity-footer"><a class="header" href="#by-activity-footer">By Activity (footer)</a></h3>
@@ -3902,7 +3939,7 @@ panic = "abort"
 <tr><td><strong>Pricing</strong></td><td style="text-align: right">17</td><td><code>src/pricing.rs</code></td></tr>
 <tr><td><strong>Memory</strong></td><td style="text-align: right">9</td><td><code>src/memory/</code></td></tr>
 <tr><td><strong>Logging</strong></td><td style="text-align: right">4</td><td><code>src/logging/</code></td></tr>
-<tr><td><strong>Total</strong></td><td style="text-align: right"><strong>2,698</strong></td><td></td></tr>
+<tr><td><strong>Total</strong></td><td style="text-align: right"><strong>2,737</strong></td><td></td></tr>
 </tbody>
 </table>
 </div>

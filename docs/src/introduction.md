@@ -5,9 +5,9 @@
 ## What Makes OpenCrabs Different
 
 ### 🔄 Provider-Agnostic with Native CLI Integration
-- **15+ built-in providers**: Anthropic, OpenAI, Gemini, OpenRouter, Qwen (DashScope), MiniMax, Ollama, LM Studio, vLLM, NVIDIA, Dialagram, z.ai GLM, GitHub Copilot, Codex CLI, Codex OAuth
+- **14 built-in providers + Custom OpenAI Compatible**: Anthropic Claude, OpenAI, Gemini, OpenRouter, Qwen (DashScope), MiniMax, Ollama, z.ai GLM, GitHub Copilot, Codex, Codex CLI, OpenCode, OpenCode CLI
 - **Claude Code CLI, OpenCode CLI, Codex CLI & Codex OAuth** integrated as native providers — use their models without API keys
-- **Codex OAuth** — native OpenAI Codex subscription auth via device-code PKCE flow. No CLI dependency, no API key. Authenticate through browser once; tokens stored with automatic refresh (v0.3.19)
+- **Codex (OAuth)** — native OpenAI Codex subscription auth via device-code PKCE flow. No CLI dependency, no API key. Authenticate through browser once; tokens stored with automatic refresh (v0.3.19)
 - **Ollama as native provider** — run any local model via Ollama API without custom provider setup (v0.3.15)
 - **Custom OpenAI-compatible backends** now stream thinking tokens, tool calls, and intermediate text exactly like native providers (v0.3.2)
 - **Sticky fallback chain** — auto-failover to secondary providers on rate limits or errors
@@ -56,6 +56,7 @@
 - **@ file picker fixed for large repos** — skips .git/.hg/.svn directories, raised result cap to 20k (v0.3.19)
 
 ### 🖥️ Terminal UI Excellence (v0.3.2)
+- **Per-pane error & notification banners** — dedicated error/notification display per TUI pane for better visibility (v0.3.20)
 - **Header card overlay** replaces splash screen — animated, responsive, vanishes after load
 - **Select/Drag to Copy** — native mouse selection in TUI, auto-copies to clipboard on release
 - **O(N) input render** — tall pastes no longer cause quadratic render cost; scroll-to-cursor preserved
@@ -118,7 +119,7 @@
 - **Auto-approve propagation** — `approval_policy = "auto-always"` actually reaches tool loop (v0.3.2)
 
 ### 📊 Testing & Quality
-- **2,698+ tests** covering providers, tools, channels, TUI, self-healing, crash recovery, browser automation
+- **2,737+ tests** covering providers, tools, channels, TUI, self-healing, crash recovery, browser automation
 - **CI/CD**: GitHub Actions, CodeQL, `cargo audit` security checks, release automation
 
 ### 🔧 Built-in Skills (v0.3.17)

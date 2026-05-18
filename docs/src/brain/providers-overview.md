@@ -1,6 +1,6 @@
 # Supported AI Providers
 
-OpenCrabs supports 12+ AI providers out of the box. Switch between them at any time via `/models` in the TUI or any channel.
+OpenCrabs supports 15 AI providers out of the box. Switch between them at any time via `/models` in the TUI or any channel.
 
 | Provider | Auth | Models | Streaming | Tools | Notes |
 |----------|------|--------|-----------|-------|-------|
@@ -12,9 +12,11 @@ OpenCrabs supports 12+ AI providers out of the box. Switch between them at any t
 | [MiniMax](./providers.md#minimax) | API key | M2.7, M2.5, M2.1, Text-01 | Yes | Yes | Competitive pricing, auto-configured vision |
 | [z.ai GLM](./providers.md#zai-zhipu-ai) | API key | GLM-4.5 through GLM-5 Turbo | Yes | Yes | General API + Coding API endpoints |
 | [Claude CLI](./providers.md#claude-cli) | CLI auth | Via `claude` binary | Yes | Yes | Uses your Claude Code subscription |
-| [Codex OAuth](./providers.md#codex-oauth) | OAuth (PKCE) | GPT-5.5, GPT-5.4, GPT-5.3-Codex | Yes | Yes | Native Codex subscription auth — no CLI, no API key |
+| [Codex](./providers.md#codex-oauth) | OAuth (PKCE) | GPT-5.5, GPT-5.4, GPT-5.3-Codex | Yes | Yes | Native Codex subscription auth via device-code PKCE — no CLI, no API key |
+| [Codex CLI](./providers.md#codex-cli) | CLI auth | Via `@openai/codex` binary | Yes | Yes | Uses your Codex subscription — free tier available |
 | [Qwen/DashScope](./providers.md#qwen-dashscope) | API key | qwen3.6-plus (default) | Yes | Yes | DashScope API-key provider (replaced OAuth rotation). Local model tool-call extraction from text (bare JSON, Claude-style XML, Qwen formats). Prompt caching via `cache_control`, rate limit retry with exponential backoff |
 | [Ollama](./providers.md#ollama) | Optional | Any Ollama model | Yes | Yes | Native local provider — run any model via Ollama API |
+| [OpenCode](./providers.md#opencode) | None | Any OpenAI-compatible model | Yes | Yes | Non-CLI OpenAI-compatible provider |
 | [OpenCode CLI](./providers.md#opencode-cli) | None | Free models (Mimo, etc.) | Yes | Yes | Free — no API key or subscription needed |
 | [Custom](./providers.md#custom-openai-compatible) | Optional | Any | Yes | Yes | LM Studio, Groq, NVIDIA, any OpenAI-compatible API |
 

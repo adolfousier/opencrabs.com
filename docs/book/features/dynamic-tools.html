@@ -54,7 +54,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-ad6e30f2.js";
+            window.path_to_searchindex_js = "../searchindex-39e9985f.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-25972818.js"></script>
@@ -241,6 +241,9 @@ command = "grep -r '{{pattern}}' /var/log/myapp/ --include='*.log' -l"
 <li><strong>Reload</strong> — Re-read <code>tools.toml</code> without restarting</li>
 </ul>
 <p>Dynamic tools appear alongside built-in tools in the agent’s tool list. Enable or disable individual tools without restarting the process.</p>
+<h3 id="loading-from-toolstoml-in-runagent-modes-v0320"><a class="header" href="#loading-from-toolstoml-in-runagent-modes-v0320">Loading from tools.toml in Run/Agent Modes (v0.3.20)</a></h3>
+<p>External contributions now enable <code>tools.toml</code> to be loaded in <strong>run mode</strong> and <strong>agent mode</strong> (not just the TUI). Previously, dynamic tools only worked in the interactive TUI session. Now they’re available across all modes, allowing headless automation and scripted workflows to use custom tools.</p>
+<p>(<a href="https://github.com/adolfousier/opencrabs/issues/79">#79</a> — thanks @leshchenko)</p>
 
                     </main>
 

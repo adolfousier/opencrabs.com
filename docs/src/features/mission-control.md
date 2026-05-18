@@ -44,6 +44,10 @@ Your cron job queue with paused/active state. Each job shows:
 
 See [Cron Jobs](./cron-jobs.md) for full cron documentation.
 
+### Cron BLOB Recovery (v0.3.20)
+
+Cron jobs with legacy `BLOB`-typed prompt rows in the database are now tolerated instead of causing silent failures. The schedule panel resumes showing jobs normally.
+
 ## Keyboard Navigation
 
 | Key | Action |

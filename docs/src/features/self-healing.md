@@ -299,6 +299,14 @@ Fixed CodeQL #64 (HIGH): Gemini API key was leaked in URL query string (`?key=..
 - **Fallback error reason surfaced in TUI** — when fallback fired, the underlying error was swallowed. Now shows as a system message.
 - **Pipe-delimited rows hard-broken** — when not recognized as a table, pipe rows ran together. Added hard-break between rows.
 
+## v0.3.20 Fixes
+
+- **Stuck intent loop abort** — when the agent gets stuck in a retry loop (`"Let me try..."` repeated N times), it now aborts with a clear notification instead of infinite retries
+- **Phantom-exhaustion text replaced** — phantom detector now shows an abort notice instead of "exhausted" text, making the failure mode clearer to users
+- **Bare tool-call arrays caught** — models that return top-level arrays of tool calls (not wrapped in `{}`) no longer leak raw JSON into the TUI; OpenCrabs wraps and routes them correctly
+- **Cron jobs restored** — cron `execute_job` now tolerates `BLOB`-typed prompt rows in SQLite instead of failing silently. Cron scheduling resumed on databases with legacy blob entries
+- **Popup height clamped** — slash command and emoji picker popups now clamp to terminal height, preventing overflow on short terminals (< 30 lines)
+
 ## v0.3.19 Fixes
 
 - **Cron provider/model cross-contamination fixed** — cron's `execute_job` called global `swap_provider()` instead of session-scoped `swap_provider_for_session()`, so concurrent cron jobs on the shared `Cron` session overwrote each other's provider. Now each job swaps on its own session ID.

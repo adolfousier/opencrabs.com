@@ -54,7 +54,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-ad6e30f2.js";
+            window.path_to_searchindex_js = "../searchindex-39e9985f.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-25972818.js"></script>
@@ -248,6 +248,22 @@
 </table>
 </div>
 <p>The selected row is highlighted in orange. Use this to spot expensive models or optimize your provider mix.</p>
+<h3 id="by-model-quantization-tree-view-v0320"><a class="header" href="#by-model-quantization-tree-view-v0320">By-Model Quantization Tree View (v0.3.20)</a></h3>
+<p>Model variants grouped under parent rows with tree connectors:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Column</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td>Model</td><td>Provider + model name (parent row, bold)</td></tr>
+<tr><td><code>├─</code> / <code>└─</code></td><td>Variant rows (e.g. qwen3.6-35b-a3b-gguf-oq2, qwen3.6-35b-a3b-gguf-oq4)</td></tr>
+</tbody>
+</table>
+</div>
+<p>Parent rows show <strong>aggregated stats</strong> (total tokens, cost, calls) across all quant variants. This eliminates the noisy duplication where <code>qwen3.6-35b-a3b-gguf</code>, <code>-oq2</code>, <code>-oq4</code>, <code>-iq4_xs</code> each appeared as separate rows.</p>
+<p><strong>Before:</strong> 6 separate rows for one model family
+<strong>After:</strong> 1 parent row + 3 variant rows with aggregated parent stats</p>
 <h3 id="core-tools-bottom-right"><a class="header" href="#core-tools-bottom-right">Core Tools (bottom-right)</a></h3>
 <p>A horizontal bar chart ranking your most-used tools. <code>bash</code> and <code>read_file</code> typically dominate. Useful for understanding your agent’s workflow patterns.</p>
 <h3 id="by-activity-footer"><a class="header" href="#by-activity-footer">By Activity (footer)</a></h3>

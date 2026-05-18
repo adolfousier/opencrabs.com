@@ -54,7 +54,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-ad6e30f2.js";
+            window.path_to_searchindex_js = "../searchindex-39e9985f.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-25972818.js"></script>
@@ -412,6 +412,14 @@ providers = ["openrouter", "anthropic"]  # tried in order
 <li><strong>Truncation continuations no longer trigger provider fallback</strong> — mid-sentence continuations should stay on the same provider. Fallback now skipped for truncation paths.</li>
 <li><strong>Fallback error reason surfaced in TUI</strong> — when fallback fired, the underlying error was swallowed. Now shows as a system message.</li>
 <li><strong>Pipe-delimited rows hard-broken</strong> — when not recognized as a table, pipe rows ran together. Added hard-break between rows.</li>
+</ul>
+<h2 id="v0320-fixes"><a class="header" href="#v0320-fixes">v0.3.20 Fixes</a></h2>
+<ul>
+<li><strong>Stuck intent loop abort</strong> — when the agent gets stuck in a retry loop (<code>"Let me try..."</code> repeated N times), it now aborts with a clear notification instead of infinite retries</li>
+<li><strong>Phantom-exhaustion text replaced</strong> — phantom detector now shows an abort notice instead of “exhausted” text, making the failure mode clearer to users</li>
+<li><strong>Bare tool-call arrays caught</strong> — models that return top-level arrays of tool calls (not wrapped in <code>{}</code>) no longer leak raw JSON into the TUI; OpenCrabs wraps and routes them correctly</li>
+<li><strong>Cron jobs restored</strong> — cron <code>execute_job</code> now tolerates <code>BLOB</code>-typed prompt rows in SQLite instead of failing silently. Cron scheduling resumed on databases with legacy blob entries</li>
+<li><strong>Popup height clamped</strong> — slash command and emoji picker popups now clamp to terminal height, preventing overflow on short terminals (&lt; 30 lines)</li>
 </ul>
 <h2 id="v0319-fixes"><a class="header" href="#v0319-fixes">v0.3.19 Fixes</a></h2>
 <ul>

@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.11] - 2026-05-18
+
+### Added
+- By-Model Quantization Tree View — usage dashboard groups model variants (qwen3.6-35b-a3b-gguf, -oq2, -oq4) under parent row with tree connectors (├─/└─), aggregated tokens/cost/calls
+- Per-pane error & notification banners — new TUI feature for error visibility per pane
+- RSI home directory resolution fix — resolves ~ to actual home dir instead of CWD-relative
+- Bare tool-call array catch — top-level arrays from models no longer leak into TUI or crash RSI
+- Load tools.toml in run/agent modes — dynamic tools now work outside TUI (external contribution, #79, @leshchenko)
+
+### Changed
+- Provider table: 13 → 15 entries (added OpenCode + Codex CLI, renamed Codex OAuth → Codex)
+- Provider count: 12+ → 15
+- Test count updated: 2,698 → 2,737
+
+### Fixed
+- Stuck intent loop abort — infinite retry replaced with clear abort notification
+- Phantom-exhaustion text replaced with abort notice
+- Cron BLOB recovery — tolerates BLOB-typed prompt rows
+- Slash/emoji popup height clamped to terminal height
+- LICENSE reference path fix (PR #82, @kriptoburak)
+
 ## [0.1.10] - 2026-05-15
 
 ### Added
