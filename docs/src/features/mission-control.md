@@ -48,6 +48,10 @@ See [Cron Jobs](./cron-jobs.md) for full cron documentation.
 
 Cron jobs with legacy `BLOB`-typed prompt rows in the database are now tolerated instead of causing silent failures. The schedule panel resumes showing jobs normally.
 
+### Compaction Typing Without Banner (v0.3.22)
+
+The visible compaction banner text has been removed. The schedule panel now uses typing-only indicators during compaction windows (10-60s), keeping the experience clean.
+
 ## Keyboard Navigation
 
 | Key | Action |

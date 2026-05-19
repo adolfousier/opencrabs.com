@@ -175,6 +175,19 @@ RSI now bumps a violation counter on existing rules instead of deduping repeat v
 - **RSI home directory resolution fixed** — RSI now resolves `~` to the actual home directory instead of using CWD-relative paths, preventing brain file writes to wrong locations
 - **Bare tool-call arrays caught** — top-level arrays from models no longer crash RSI's feedback dimension parsing; wrapped correctly before recording
 
+## v0.3.21 Additions
+
+- **Multi-language phantom detection** — compile-time TOML char sets replaced language-specific regex patterns. RSI feedback now works with all supported languages via the new char-set system. Cross-language regression test added.
+- **RSI cycle output dedup by hashing** — cycle output dedup now uses hash comparison of assembled opportunities instead of string matching, preventing duplicate cycle reports.
+- **Sticky fallback on phantom exhaust** — when phantom detection exhausts retries, RSI applies sticky fallback provider to prevent cascading failures.
+- **Phantom iterations not persisted** — phantom iterations no longer written to DB, keeping history clean of failed self-heal attempts.
+- **OpenAI-compatible image generation** — image generation via any `/v1/images/generations` endpoint with configurable `generation_model` override.
+
+## v0.3.23 Additions
+
+- **Brain file clobber guardrail** — generic `write_file` / `edit_file` now refuse protected brain files, routing through `write_opencrabs_file` which enforces append-only, dedup-aware shrink, and `.bak` snapshots.
+- **A2A approval policy** — A2A tasks now resolve approval policy correctly. `auto-always` and `auto-session` policies work for remote agents.
+
 ## v0.3.19 Additions
 
 - **RSI feedback records actual model used** — when helpers remap a mismatched model to the provider default, RSI now records the resolved model instead of the impossible original pair. All 3 recording sites in `tool_loop.rs` now resolve the actual model before constructing the feedback dimension

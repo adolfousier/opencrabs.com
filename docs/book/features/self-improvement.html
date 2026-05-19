@@ -54,7 +54,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-39e9985f.js";
+            window.path_to_searchindex_js = "../searchindex-b0c536fe.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-25972818.js"></script>
@@ -365,6 +365,19 @@ Agent notices pattern of 5+ corrections on output hygiene:
 <ul>
 <li><strong>RSI home directory resolution fixed</strong> — RSI now resolves <code>~</code> to the actual home directory instead of using CWD-relative paths, preventing brain file writes to wrong locations</li>
 <li><strong>Bare tool-call arrays caught</strong> — top-level arrays from models no longer crash RSI’s feedback dimension parsing; wrapped correctly before recording</li>
+</ul>
+<h2 id="v0321-additions"><a class="header" href="#v0321-additions">v0.3.21 Additions</a></h2>
+<ul>
+<li><strong>Multi-language phantom detection</strong> — compile-time TOML char sets replaced language-specific regex patterns. RSI feedback now works with all supported languages via the new char-set system. Cross-language regression test added.</li>
+<li><strong>RSI cycle output dedup by hashing</strong> — cycle output dedup now uses hash comparison of assembled opportunities instead of string matching, preventing duplicate cycle reports.</li>
+<li><strong>Sticky fallback on phantom exhaust</strong> — when phantom detection exhausts retries, RSI applies sticky fallback provider to prevent cascading failures.</li>
+<li><strong>Phantom iterations not persisted</strong> — phantom iterations no longer written to DB, keeping history clean of failed self-heal attempts.</li>
+<li><strong>OpenAI-compatible image generation</strong> — image generation via any <code>/v1/images/generations</code> endpoint with configurable <code>generation_model</code> override.</li>
+</ul>
+<h2 id="v0323-additions"><a class="header" href="#v0323-additions">v0.3.23 Additions</a></h2>
+<ul>
+<li><strong>Brain file clobber guardrail</strong> — generic <code>write_file</code> / <code>edit_file</code> now refuse protected brain files, routing through <code>write_opencrabs_file</code> which enforces append-only, dedup-aware shrink, and <code>.bak</code> snapshots.</li>
+<li><strong>A2A approval policy</strong> — A2A tasks now resolve approval policy correctly. <code>auto-always</code> and <code>auto-session</code> policies work for remote agents.</li>
 </ul>
 <h2 id="v0319-additions"><a class="header" href="#v0319-additions">v0.3.19 Additions</a></h2>
 <ul>

@@ -119,7 +119,7 @@
 - **Auto-approve propagation** — `approval_policy = "auto-always"` actually reaches tool loop (v0.3.2)
 
 ### 📊 Testing & Quality
-- **2,737+ tests** covering providers, tools, channels, TUI, self-healing, crash recovery, browser automation
+- **2,796+ tests** covering providers, tools, channels, TUI, self-healing, crash recovery, browser automation
 - **CI/CD**: GitHub Actions, CodeQL, `cargo audit` security checks, release automation
 
 ### 🔧 Built-in Skills (v0.3.17)

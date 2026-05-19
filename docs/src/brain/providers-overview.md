@@ -1,6 +1,6 @@
 # Supported AI Providers
 
-OpenCrabs supports 15 AI providers out of the box. Switch between them at any time via `/models` in the TUI or any channel.
+OpenCrabs supports 14 built-in providers + Custom OpenAI Compatible. Switch between them at any time via `/models` in the TUI or any channel.
 
 | Provider | Auth | Models | Streaming | Tools | Notes |
 |----------|------|--------|-----------|-------|-------|

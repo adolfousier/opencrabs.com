@@ -55,7 +55,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-39e9985f.js";
+            window.path_to_searchindex_js = "searchindex-b0c536fe.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-25972818.js"></script>
@@ -326,7 +326,7 @@
 </ul>
 <h3 id="-testing--quality"><a class="header" href="#-testing--quality">📊 Testing &amp; Quality</a></h3>
 <ul>
-<li><strong>2,737+ tests</strong> covering providers, tools, channels, TUI, self-healing, crash recovery, browser automation</li>
+<li><strong>2,796+ tests</strong> covering providers, tools, channels, TUI, self-healing, crash recovery, browser automation</li>
 <li><strong>CI/CD</strong>: GitHub Actions, CodeQL, <code>cargo audit</code> security checks, release automation</li>
 </ul>
 <h3 id="-built-in-skills-v0317"><a class="header" href="#-built-in-skills-v0317">🔧 Built-in Skills (v0.3.17)</a></h3>
@@ -1146,7 +1146,7 @@ cargo build --release
 <p>Logs go to <code>~/.opencrabs/logs/</code> with 7-day retention.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="supported-ai-providers"><a class="header" href="#supported-ai-providers">Supported AI Providers</a></h1>
-<p>OpenCrabs supports 15 AI providers out of the box. Switch between them at any time via <code>/models</code> in the TUI or any channel.</p>
+<p>OpenCrabs supports 14 built-in providers + Custom OpenAI Compatible. Switch between them at any time via <code>/models</code> in the TUI or any channel.</p>
 <div class="table-wrapper">
 <table>
 <thead>
@@ -2916,13 +2916,31 @@ providers = ["openrouter", "anthropic"]  # tried in order
 <li><strong>Fallback error reason surfaced in TUI</strong> — when fallback fired, the underlying error was swallowed. Now shows as a system message.</li>
 <li><strong>Pipe-delimited rows hard-broken</strong> — when not recognized as a table, pipe rows ran together. Added hard-break between rows.</li>
 </ul>
-<h2 id="v0320-fixes"><a class="header" href="#v0320-fixes">v0.3.20 Fixes</a></h2>
+<h2 id="v0323-fixes-hotfix-release"><a class="header" href="#v0323-fixes-hotfix-release">v0.3.23 Fixes (Hotfix Release)</a></h2>
 <ul>
-<li><strong>Stuck intent loop abort</strong> — when the agent gets stuck in a retry loop (<code>"Let me try..."</code> repeated N times), it now aborts with a clear notification instead of infinite retries</li>
-<li><strong>Phantom-exhaustion text replaced</strong> — phantom detector now shows an abort notice instead of “exhausted” text, making the failure mode clearer to users</li>
-<li><strong>Bare tool-call arrays caught</strong> — models that return top-level arrays of tool calls (not wrapped in <code>{}</code>) no longer leak raw JSON into the TUI; OpenCrabs wraps and routes them correctly</li>
-<li><strong>Cron jobs restored</strong> — cron <code>execute_job</code> now tolerates <code>BLOB</code>-typed prompt rows in SQLite instead of failing silently. Cron scheduling resumed on databases with legacy blob entries</li>
-<li><strong>Popup height clamped</strong> — slash command and emoji picker popups now clamp to terminal height, preventing overflow on short terminals (&lt; 30 lines)</li>
+<li><strong>Phantom detection restored</strong> — v0.3.21’s turn-level <code>tools_executed_this_turn</code> gate was too aggressive: once any tool ran in a turn, phantom detection went silent for the rest of the turn, letting fabricated wrap-up text reach the TUI. Dropped the gate from all three phantom branches.</li>
+<li><strong>Self-heal never aborts</strong> — stuck-intent-loop now fast-escalates to sticky fallback instead of aborting; cap-exhaustion resets retry counter and injects hard nudge; <code>phantom_retries_used</code> now tracks consecutive phantoms since last real tool. Recovery always retries or falls back.</li>
+<li><strong>Brain file guardrail</strong> — generic <code>write_file</code> / <code>edit_file</code> now refuse to modify protected brain files (SOUL.md, USER.md, TOOLS.md, etc.), preventing accidental clobber. Routed through <code>write_opencrabs_file</code> instead.</li>
+<li><strong>A2A approval policy wired</strong> — A2A <code>message/send</code> tasks now resolve approval policy via <code>check_approval_policy()</code>. With <code>auto-always</code> set, tools auto-approve; otherwise returns warning. Fixes “Tool requires approval but no approval mechanism configured” errors.</li>
+<li><strong>Channel <code>/new</code> session switching fixed</strong> — <code>/new</code> now uses per-message resolver’s title format everywhere (Telegram, Discord, Slack), so session switching works across all channels.</li>
+<li><strong>Version-aware model sort</strong> — when OpenAI-compatible servers return zero or identical <code>created</code> timestamps, extracts numeric segments from model names and sorts newest version first. Fixes meaningless model lists on vLLM/llama.cpp.</li>
+</ul>
+<h2 id="v0322-fixes"><a class="header" href="#v0322-fixes">v0.3.22 Fixes</a></h2>
+<ul>
+<li><strong>Compaction typing without banner</strong> — reverted the visible “🗜️ Compacting context” banner text. Now uses typing-only refresh (Telegram <code>send_chat_action(Typing)</code>, Discord <code>broadcast_typing</code> loop) keeping the “is typing” indicator alive during the 10-60s compaction window silently.</li>
+<li><strong>Channel <code>/new</code> archive consistency</strong> — unified archive behavior across all channels: non-owner sessions get archived (so next title lookup resolves cleanly), owner sessions stay non-archived and remain visible in <code>/sessions</code>.</li>
+</ul>
+<h2 id="v0321-fixes"><a class="header" href="#v0321-fixes">v0.3.21 Fixes</a></h2>
+<ul>
+<li><strong>Multi-language phantom detection via compile-time TOML</strong> — replaced regex patterns per language with TOML-defined char sets compiled into build-time match arms. New languages added by editing TOML, no Rust changes. Cross-language regression test added.</li>
+<li><strong>Self-heal pipeline hardened</strong> — phantom detection gated on turn-level tool execution, phantom iterations no longer persisted to DB, phantom text stripped from context before next turn, sticky fallback applied on exhaust.</li>
+<li><strong>OpenAI-compatible image generation</strong> — new image generation backend calling any <code>/v1/images/generations</code> endpoint. Providers override generation model independently via <code>generation_model</code> config field.</li>
+<li><strong>Working directory visible across tools</strong> — working directory now visible to all tools within the same iteration.</li>
+<li><strong>Compaction banner stripped from context</strong> — compaction banner text no longer fed to LLM context, preventing models from echoing it back.</li>
+<li><strong>Pipe-separate model callback</strong> — custom-provider model callbacks now pipe-separated so colons in provider names (e.g. “Qwen: DashScope”) survive parse.</li>
+<li><strong>Custom-provider model selection persists</strong> — <code>/models</code> dialog now correctly saves and syncs live model list for custom providers.</li>
+<li><strong><code>one_shot_pct</code> display corrected</strong> — fixed incorrect percentage display in usage dashboard.</li>
+<li><strong>Session <code>updated_at</code> touched on switch</strong> — session last-modified timestamp updated when switching sessions via Telegram, preventing stale session resolution.</li>
 </ul>
 <h2 id="v0319-fixes"><a class="header" href="#v0319-fixes">v0.3.19 Fixes</a></h2>
 <ul>
@@ -3112,6 +3130,19 @@ Agent notices pattern of 5+ corrections on output hygiene:
 <li><strong>RSI home directory resolution fixed</strong> — RSI now resolves <code>~</code> to the actual home directory instead of using CWD-relative paths, preventing brain file writes to wrong locations</li>
 <li><strong>Bare tool-call arrays caught</strong> — top-level arrays from models no longer crash RSI’s feedback dimension parsing; wrapped correctly before recording</li>
 </ul>
+<h2 id="v0321-additions"><a class="header" href="#v0321-additions">v0.3.21 Additions</a></h2>
+<ul>
+<li><strong>Multi-language phantom detection</strong> — compile-time TOML char sets replaced language-specific regex patterns. RSI feedback now works with all supported languages via the new char-set system. Cross-language regression test added.</li>
+<li><strong>RSI cycle output dedup by hashing</strong> — cycle output dedup now uses hash comparison of assembled opportunities instead of string matching, preventing duplicate cycle reports.</li>
+<li><strong>Sticky fallback on phantom exhaust</strong> — when phantom detection exhausts retries, RSI applies sticky fallback provider to prevent cascading failures.</li>
+<li><strong>Phantom iterations not persisted</strong> — phantom iterations no longer written to DB, keeping history clean of failed self-heal attempts.</li>
+<li><strong>OpenAI-compatible image generation</strong> — image generation via any <code>/v1/images/generations</code> endpoint with configurable <code>generation_model</code> override.</li>
+</ul>
+<h2 id="v0323-additions"><a class="header" href="#v0323-additions">v0.3.23 Additions</a></h2>
+<ul>
+<li><strong>Brain file clobber guardrail</strong> — generic <code>write_file</code> / <code>edit_file</code> now refuse protected brain files, routing through <code>write_opencrabs_file</code> which enforces append-only, dedup-aware shrink, and <code>.bak</code> snapshots.</li>
+<li><strong>A2A approval policy</strong> — A2A tasks now resolve approval policy correctly. <code>auto-always</code> and <code>auto-session</code> policies work for remote agents.</li>
+</ul>
 <h2 id="v0319-additions"><a class="header" href="#v0319-additions">v0.3.19 Additions</a></h2>
 <ul>
 <li><strong>RSI feedback records actual model used</strong> — when helpers remap a mismatched model to the provider default, RSI now records the resolved model instead of the impossible original pair. All 3 recording sites in <code>tool_loop.rs</code> now resolve the actual model before constructing the feedback dimension</li>
@@ -3173,6 +3204,8 @@ Agent notices pattern of 5+ corrections on output hygiene:
 <p>See <a href="#cron-jobs">Cron Jobs</a> for full cron documentation.</p>
 <h3 id="cron-blob-recovery-v0320"><a class="header" href="#cron-blob-recovery-v0320">Cron BLOB Recovery (v0.3.20)</a></h3>
 <p>Cron jobs with legacy <code>BLOB</code>-typed prompt rows in the database are now tolerated instead of causing silent failures. The schedule panel resumes showing jobs normally.</p>
+<h3 id="compaction-typing-without-banner-v0322"><a class="header" href="#compaction-typing-without-banner-v0322">Compaction Typing Without Banner (v0.3.22)</a></h3>
+<p>The visible compaction banner text has been removed. The schedule panel now uses typing-only indicators during compaction windows (10-60s), keeping the experience clean.</p>
 <h2 id="keyboard-navigation"><a class="header" href="#keyboard-navigation">Keyboard Navigation</a></h2>
 <div class="table-wrapper">
 <table>
@@ -3939,7 +3972,7 @@ panic = "abort"
 <tr><td><strong>Pricing</strong></td><td style="text-align: right">17</td><td><code>src/pricing.rs</code></td></tr>
 <tr><td><strong>Memory</strong></td><td style="text-align: right">9</td><td><code>src/memory/</code></td></tr>
 <tr><td><strong>Logging</strong></td><td style="text-align: right">4</td><td><code>src/logging/</code></td></tr>
-<tr><td><strong>Total</strong></td><td style="text-align: right"><strong>2,737</strong></td><td></td></tr>
+<tr><td><strong>Total</strong></td><td style="text-align: right"><strong>2,796</strong></td><td></td></tr>
 </tbody>
 </table>
 </div>

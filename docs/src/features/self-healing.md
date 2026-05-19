@@ -299,13 +299,31 @@ Fixed CodeQL #64 (HIGH): Gemini API key was leaked in URL query string (`?key=..
 - **Fallback error reason surfaced in TUI** — when fallback fired, the underlying error was swallowed. Now shows as a system message.
 - **Pipe-delimited rows hard-broken** — when not recognized as a table, pipe rows ran together. Added hard-break between rows.
 
-## v0.3.20 Fixes
+## v0.3.23 Fixes (Hotfix Release)
 
-- **Stuck intent loop abort** — when the agent gets stuck in a retry loop (`"Let me try..."` repeated N times), it now aborts with a clear notification instead of infinite retries
-- **Phantom-exhaustion text replaced** — phantom detector now shows an abort notice instead of "exhausted" text, making the failure mode clearer to users
-- **Bare tool-call arrays caught** — models that return top-level arrays of tool calls (not wrapped in `{}`) no longer leak raw JSON into the TUI; OpenCrabs wraps and routes them correctly
-- **Cron jobs restored** — cron `execute_job` now tolerates `BLOB`-typed prompt rows in SQLite instead of failing silently. Cron scheduling resumed on databases with legacy blob entries
-- **Popup height clamped** — slash command and emoji picker popups now clamp to terminal height, preventing overflow on short terminals (< 30 lines)
+- **Phantom detection restored** — v0.3.21's turn-level `tools_executed_this_turn` gate was too aggressive: once any tool ran in a turn, phantom detection went silent for the rest of the turn, letting fabricated wrap-up text reach the TUI. Dropped the gate from all three phantom branches.
+- **Self-heal never aborts** — stuck-intent-loop now fast-escalates to sticky fallback instead of aborting; cap-exhaustion resets retry counter and injects hard nudge; `phantom_retries_used` now tracks consecutive phantoms since last real tool. Recovery always retries or falls back.
+- **Brain file guardrail** — generic `write_file` / `edit_file` now refuse to modify protected brain files (SOUL.md, USER.md, TOOLS.md, etc.), preventing accidental clobber. Routed through `write_opencrabs_file` instead.
+- **A2A approval policy wired** — A2A `message/send` tasks now resolve approval policy via `check_approval_policy()`. With `auto-always` set, tools auto-approve; otherwise returns warning. Fixes "Tool requires approval but no approval mechanism configured" errors.
+- **Channel `/new` session switching fixed** — `/new` now uses per-message resolver's title format everywhere (Telegram, Discord, Slack), so session switching works across all channels.
+- **Version-aware model sort** — when OpenAI-compatible servers return zero or identical `created` timestamps, extracts numeric segments from model names and sorts newest version first. Fixes meaningless model lists on vLLM/llama.cpp.
+
+## v0.3.22 Fixes
+
+- **Compaction typing without banner** — reverted the visible "🗜️ Compacting context" banner text. Now uses typing-only refresh (Telegram `send_chat_action(Typing)`, Discord `broadcast_typing` loop) keeping the "is typing" indicator alive during the 10-60s compaction window silently.
+- **Channel `/new` archive consistency** — unified archive behavior across all channels: non-owner sessions get archived (so next title lookup resolves cleanly), owner sessions stay non-archived and remain visible in `/sessions`.
+
+## v0.3.21 Fixes
+
+- **Multi-language phantom detection via compile-time TOML** — replaced regex patterns per language with TOML-defined char sets compiled into build-time match arms. New languages added by editing TOML, no Rust changes. Cross-language regression test added.
+- **Self-heal pipeline hardened** — phantom detection gated on turn-level tool execution, phantom iterations no longer persisted to DB, phantom text stripped from context before next turn, sticky fallback applied on exhaust.
+- **OpenAI-compatible image generation** — new image generation backend calling any `/v1/images/generations` endpoint. Providers override generation model independently via `generation_model` config field.
+- **Working directory visible across tools** — working directory now visible to all tools within the same iteration.
+- **Compaction banner stripped from context** — compaction banner text no longer fed to LLM context, preventing models from echoing it back.
+- **Pipe-separate model callback** — custom-provider model callbacks now pipe-separated so colons in provider names (e.g. "Qwen: DashScope") survive parse.
+- **Custom-provider model selection persists** — `/models` dialog now correctly saves and syncs live model list for custom providers.
+- **`one_shot_pct` display corrected** — fixed incorrect percentage display in usage dashboard.
+- **Session `updated_at` touched on switch** — session last-modified timestamp updated when switching sessions via Telegram, preventing stale session resolution.
 
 ## v0.3.19 Fixes
 
