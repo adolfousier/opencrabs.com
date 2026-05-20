@@ -29,6 +29,14 @@ OpenCrabs supports 14 built-in providers + Custom OpenAI Compatible. Switch betw
 - **Function calling detection** — OpenCrabs detects when a model doesn't support tool use and warns you with a model switch suggestion, rather than silently failing
 - **`tool_choice: "auto"`** — sent automatically for OpenAI-compatible providers when tools are active, enabling function calling on models that require explicit opt-in
 
+## Custom Provider Onboarding (v0.3.24)
+
+Adding a custom OpenAI-compatible provider is now smoother:
+
+- **Paste-by-default**: `Ctrl+V` / `Cmd+V` on the API key field pastes immediately — no need to tab into the field first
+- **Enter-to-load**: type a model name not in the fetched list and press Enter — it's added to the list and selected
+- **Field refresh**: saved values (base URL, API key, model list) appear instantly without restarting the dialog
+
 ## OpenRouter Reasoning
 
 For models that support extended reasoning (e.g. Qwen 3.6 Plus), OpenCrabs sends `include_reasoning: true` automatically when using OpenRouter. Thinking/reasoning output is displayed in collapsible sections:

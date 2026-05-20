@@ -84,6 +84,9 @@
 - **Bash hardening** — rejects interactive commands up-front, short-circuits exact same failing command retries, tilde expansion fixed (v0.3.13)
 - **SSH askpass detection** — detects password prompts on remote servers and aborts gracefully instead of hanging (v0.3.16)
 - **Async proactive compaction** — at 65% context, compaction runs in background without blocking the chat (v0.3.16)
+- **`rename_session`** — agent proactively renames the current session with a descriptive title (3–8 words). Useful for long-running conversations where default titles become unhelpful (v0.3.24)
+- **`follow_up_question`** — agent asks the user a multi-choice question with up to 8 button options. Implemented across all channels: Telegram (inline keyboard), Discord (button components), Slack (Block Kit actions), WhatsApp (quick replies) (v0.3.24, #94)
+- **Auto-generated session titles** — new sessions get titles from the first user message via background LLM call. Never enters conversation context (v0.3.24)
 - **Generic `deliver_api_key` for cron jobs** — HTTP webhook Bearer token auth configurable per-job via `cron_manage` tool (v0.3.18)
 - **File paths starting with `/` no longer treated as slash command typos** — `/Users/.../file.pdf yo crabs check this` works correctly (v0.3.18)
 - **Truncation continuations no longer trigger provider fallback** — mid-sentence continuations stay on the same provider (v0.3.18)
@@ -119,7 +122,7 @@
 - **Auto-approve propagation** — `approval_policy = "auto-always"` actually reaches tool loop (v0.3.2)
 
 ### 📊 Testing & Quality
-- **2,796+ tests** covering providers, tools, channels, TUI, self-healing, crash recovery, browser automation
+- **2,834+ tests** covering providers, tools, channels, TUI, self-healing, crash recovery, browser automation
 - **CI/CD**: GitHub Actions, CodeQL, `cargo audit` security checks, release automation
 
 ### 🔧 Built-in Skills (v0.3.17)

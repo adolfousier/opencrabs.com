@@ -54,7 +54,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-b0c536fe.js";
+            window.path_to_searchindex_js = "../searchindex-6b79ab39.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-25972818.js"></script>
@@ -241,7 +241,33 @@ command = "grep -r '{{pattern}}' /var/log/myapp/ --include='*.log' -l"
 <li><strong>Reload</strong> — Re-read <code>tools.toml</code> without restarting</li>
 </ul>
 <p>Dynamic tools appear alongside built-in tools in the agent’s tool list. Enable or disable individual tools without restarting the process.</p>
-<h3 id="loading-from-toolstoml-in-runagent-modes-v0320"><a class="header" href="#loading-from-toolstoml-in-runagent-modes-v0320">Loading from tools.toml in Run/Agent Modes (v0.3.20)</a></h3>
+<h2 id="per-parameter-value-coercion-v0324"><a class="header" href="#per-parameter-value-coercion-v0324">Per-Parameter Value Coercion (v0.3.24)</a></h2>
+<p>Dynamic tools defined in <code>tools.toml</code> can now handle empty-string or null parameters gracefully. When a parameter arrives as <code>""</code> or <code>null</code>, the engine substitutes a configured value before rendering the command template.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Field</th><th>Purpose</th></tr>
+</thead>
+<tbody>
+<tr><td><code>coerce_empty_to</code></td><td>Substitute when parameter is <code>""</code></td></tr>
+<tr><td><code>coerce_null_to</code></td><td>Substitute when parameter is <code>null</code></td></tr>
+</tbody>
+</table>
+</div>
+<pre><code class="language-toml">[[tools]]
+name = "deploy"
+description = "Deploy to environment with optional verbose flag"
+executor = "shell"
+command = "cd {{project_dir}} &amp;&amp; ./deploy.sh --env {{environment}} {{verbose}}"
+
+[[tools.deploy.params]]
+name = "verbose"
+type = "string"
+required = false
+coerce_empty_to = "--quiet"
+</code></pre>
+<p>A shell tool with an optional <code>--verbose</code> flag no longer breaks when the parameter is omitted. The engine substitutes <code>--quiet</code> (or any configured default) instead of passing an empty string.</p>
+<p>(<a href="https://github.com/adolfousier/opencrabs/issues/95">#95</a>)</p>
 <p>External contributions now enable <code>tools.toml</code> to be loaded in <strong>run mode</strong> and <strong>agent mode</strong> (not just the TUI). Previously, dynamic tools only worked in the interactive TUI session. Now they’re available across all modes, allowing headless automation and scripted workflows to use custom tools.</p>
 <p>(<a href="https://github.com/adolfousier/opencrabs/issues/79">#79</a> — thanks @leshchenko)</p>
 

@@ -54,7 +54,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-b0c536fe.js";
+            window.path_to_searchindex_js = "../searchindex-6b79ab39.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-25972818.js"></script>
@@ -230,6 +230,13 @@
 <li><strong>Models fetched live</strong> — no binary update needed when providers add new models</li>
 <li><strong>Function calling detection</strong> — OpenCrabs detects when a model doesn’t support tool use and warns you with a model switch suggestion, rather than silently failing</li>
 <li><strong><code>tool_choice: "auto"</code></strong> — sent automatically for OpenAI-compatible providers when tools are active, enabling function calling on models that require explicit opt-in</li>
+</ul>
+<h2 id="custom-provider-onboarding-v0324"><a class="header" href="#custom-provider-onboarding-v0324">Custom Provider Onboarding (v0.3.24)</a></h2>
+<p>Adding a custom OpenAI-compatible provider is now smoother:</p>
+<ul>
+<li><strong>Paste-by-default</strong>: <code>Ctrl+V</code> / <code>Cmd+V</code> on the API key field pastes immediately — no need to tab into the field first</li>
+<li><strong>Enter-to-load</strong>: type a model name not in the fetched list and press Enter — it’s added to the list and selected</li>
+<li><strong>Field refresh</strong>: saved values (base URL, API key, model list) appear instantly without restarting the dialog</li>
 </ul>
 <h2 id="openrouter-reasoning"><a class="header" href="#openrouter-reasoning">OpenRouter Reasoning</a></h2>
 <p>For models that support extended reasoning (e.g. Qwen 3.6 Plus), OpenCrabs sends <code>include_reasoning: true</code> automatically when using OpenRouter. Thinking/reasoning output is displayed in collapsible sections:</p>

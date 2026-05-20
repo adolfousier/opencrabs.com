@@ -184,3 +184,23 @@ All notable changes to this project will be documented in this file.
 - Leptos 0.8 WASM landing page
 - Docker + Nginx deployment setup
 - Screenshot assets
+
+## [0.1.15] - 2026-05-20 (OpenCrabs v0.3.24 sync)
+
+### Added
+- `rename_session` tool — agent-driven session title renaming
+- `follow_up_question` tool — multi-choice questions via channel buttons (Telegram inline, Discord components, Slack Block Kit, WhatsApp quick replies) (#94)
+- Auto-generated session titles from first user message (background LLM call)
+- Dynamic tools per-parameter `coerce_empty_to` / `coerce_null_to` for graceful empty/null handling (#95)
+- Custom provider UX: paste-by-default on API key input, Enter-to-load typed models, field refresh after save
+- Tool System catalog updated with `rename_session`, `follow_up_question`, and other long-missing built-ins
+
+### Fixed
+- Gemini provider strips `additionalProperties` from tool schemas before send (#99)
+- Per-session model override now surfaces in TUI display (not just on the wire) (#97)
+- CLI subcommands (`doctor`, `init`) use correct `--config`/`--keys` paths instead of hardcoded defaults (#96)
+- `keys_path` type corrected (`PathBuf` → `Option<PathBuf>`)
+
+### Changed
+- Test count: 2,796 → 2,834
+- Custom provider dialog accepts typed-not-in-list models and merges with fetched list

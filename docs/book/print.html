@@ -55,7 +55,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-b0c536fe.js";
+            window.path_to_searchindex_js = "searchindex-6b79ab39.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-25972818.js"></script>
@@ -286,6 +286,9 @@
 <li><strong>Bash hardening</strong> — rejects interactive commands up-front, short-circuits exact same failing command retries, tilde expansion fixed (v0.3.13)</li>
 <li><strong>SSH askpass detection</strong> — detects password prompts on remote servers and aborts gracefully instead of hanging (v0.3.16)</li>
 <li><strong>Async proactive compaction</strong> — at 65% context, compaction runs in background without blocking the chat (v0.3.16)</li>
+<li><strong><code>rename_session</code></strong> — agent proactively renames the current session with a descriptive title (3–8 words). Useful for long-running conversations where default titles become unhelpful (v0.3.24)</li>
+<li><strong><code>follow_up_question</code></strong> — agent asks the user a multi-choice question with up to 8 button options. Implemented across all channels: Telegram (inline keyboard), Discord (button components), Slack (Block Kit actions), WhatsApp (quick replies) (v0.3.24, #94)</li>
+<li><strong>Auto-generated session titles</strong> — new sessions get titles from the first user message via background LLM call. Never enters conversation context (v0.3.24)</li>
 <li><strong>Generic <code>deliver_api_key</code> for cron jobs</strong> — HTTP webhook Bearer token auth configurable per-job via <code>cron_manage</code> tool (v0.3.18)</li>
 <li><strong>File paths starting with <code>/</code> no longer treated as slash command typos</strong> — <code>/Users/.../file.pdf yo crabs check this</code> works correctly (v0.3.18)</li>
 <li><strong>Truncation continuations no longer trigger provider fallback</strong> — mid-sentence continuations stay on the same provider (v0.3.18)</li>
@@ -326,7 +329,7 @@
 </ul>
 <h3 id="-testing--quality"><a class="header" href="#-testing--quality">📊 Testing &amp; Quality</a></h3>
 <ul>
-<li><strong>2,796+ tests</strong> covering providers, tools, channels, TUI, self-healing, crash recovery, browser automation</li>
+<li><strong>2,834+ tests</strong> covering providers, tools, channels, TUI, self-healing, crash recovery, browser automation</li>
 <li><strong>CI/CD</strong>: GitHub Actions, CodeQL, <code>cargo audit</code> security checks, release automation</li>
 </ul>
 <h3 id="-built-in-skills-v0317"><a class="header" href="#-built-in-skills-v0317">🔧 Built-in Skills (v0.3.17)</a></h3>
@@ -1179,6 +1182,13 @@ cargo build --release
 <li><strong>Models fetched live</strong> — no binary update needed when providers add new models</li>
 <li><strong>Function calling detection</strong> — OpenCrabs detects when a model doesn’t support tool use and warns you with a model switch suggestion, rather than silently failing</li>
 <li><strong><code>tool_choice: "auto"</code></strong> — sent automatically for OpenAI-compatible providers when tools are active, enabling function calling on models that require explicit opt-in</li>
+</ul>
+<h2 id="custom-provider-onboarding-v0324"><a class="header" href="#custom-provider-onboarding-v0324">Custom Provider Onboarding (v0.3.24)</a></h2>
+<p>Adding a custom OpenAI-compatible provider is now smoother:</p>
+<ul>
+<li><strong>Paste-by-default</strong>: <code>Ctrl+V</code> / <code>Cmd+V</code> on the API key field pastes immediately — no need to tab into the field first</li>
+<li><strong>Enter-to-load</strong>: type a model name not in the fetched list and press Enter — it’s added to the list and selected</li>
+<li><strong>Field refresh</strong>: saved values (base URL, API key, model list) appear instantly without restarting the dialog</li>
 </ul>
 <h2 id="openrouter-reasoning"><a class="header" href="#openrouter-reasoning">OpenRouter Reasoning</a></h2>
 <p>For models that support extended reasoning (e.g. Qwen 3.6 Plus), OpenCrabs sends <code>include_reasoning: true</code> automatically when using OpenRouter. Thinking/reasoning output is displayed in collapsible sections:</p>
@@ -2232,7 +2242,33 @@ command = "grep -r '{{pattern}}' /var/log/myapp/ --include='*.log' -l"
 <li><strong>Reload</strong> — Re-read <code>tools.toml</code> without restarting</li>
 </ul>
 <p>Dynamic tools appear alongside built-in tools in the agent’s tool list. Enable or disable individual tools without restarting the process.</p>
-<h3 id="loading-from-toolstoml-in-runagent-modes-v0320"><a class="header" href="#loading-from-toolstoml-in-runagent-modes-v0320">Loading from tools.toml in Run/Agent Modes (v0.3.20)</a></h3>
+<h2 id="per-parameter-value-coercion-v0324"><a class="header" href="#per-parameter-value-coercion-v0324">Per-Parameter Value Coercion (v0.3.24)</a></h2>
+<p>Dynamic tools defined in <code>tools.toml</code> can now handle empty-string or null parameters gracefully. When a parameter arrives as <code>""</code> or <code>null</code>, the engine substitutes a configured value before rendering the command template.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Field</th><th>Purpose</th></tr>
+</thead>
+<tbody>
+<tr><td><code>coerce_empty_to</code></td><td>Substitute when parameter is <code>""</code></td></tr>
+<tr><td><code>coerce_null_to</code></td><td>Substitute when parameter is <code>null</code></td></tr>
+</tbody>
+</table>
+</div>
+<pre><code class="language-toml">[[tools]]
+name = "deploy"
+description = "Deploy to environment with optional verbose flag"
+executor = "shell"
+command = "cd {{project_dir}} &amp;&amp; ./deploy.sh --env {{environment}} {{verbose}}"
+
+[[tools.deploy.params]]
+name = "verbose"
+type = "string"
+required = false
+coerce_empty_to = "--quiet"
+</code></pre>
+<p>A shell tool with an optional <code>--verbose</code> flag no longer breaks when the parameter is omitted. The engine substitutes <code>--quiet</code> (or any configured default) instead of passing an empty string.</p>
+<p>(<a href="https://github.com/adolfousier/opencrabs/issues/95">#95</a>)</p>
 <p>External contributions now enable <code>tools.toml</code> to be loaded in <strong>run mode</strong> and <strong>agent mode</strong> (not just the TUI). Previously, dynamic tools only worked in the interactive TUI session. Now they’re available across all modes, allowing headless automation and scripted workflows to use custom tools.</p>
 <p>(<a href="https://github.com/adolfousier/opencrabs/issues/79">#79</a> — thanks @leshchenko)</p>
 <div style="break-before: page; page-break-before: always;"></div>
@@ -3972,7 +4008,7 @@ panic = "abort"
 <tr><td><strong>Pricing</strong></td><td style="text-align: right">17</td><td><code>src/pricing.rs</code></td></tr>
 <tr><td><strong>Memory</strong></td><td style="text-align: right">9</td><td><code>src/memory/</code></td></tr>
 <tr><td><strong>Logging</strong></td><td style="text-align: right">4</td><td><code>src/logging/</code></td></tr>
-<tr><td><strong>Total</strong></td><td style="text-align: right"><strong>2,796</strong></td><td></td></tr>
+<tr><td><strong>Total</strong></td><td style="text-align: right"><strong>2,834</strong></td><td></td></tr>
 </tbody>
 </table>
 </div>
