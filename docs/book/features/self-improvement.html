@@ -54,7 +54,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-6b79ab39.js";
+            window.path_to_searchindex_js = "../searchindex-1ef0e0aa.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-25972818.js"></script>
@@ -378,6 +378,11 @@ Agent notices pattern of 5+ corrections on output hygiene:
 <ul>
 <li><strong>Brain file clobber guardrail</strong> — generic <code>write_file</code> / <code>edit_file</code> now refuse protected brain files, routing through <code>write_opencrabs_file</code> which enforces append-only, dedup-aware shrink, and <code>.bak</code> snapshots.</li>
 <li><strong>A2A approval policy</strong> — A2A tasks now resolve approval policy correctly. <code>auto-always</code> and <code>auto-session</code> policies work for remote agents.</li>
+</ul>
+<h2 id="v0325-additions"><a class="header" href="#v0325-additions">v0.3.25 Additions</a></h2>
+<ul>
+<li><strong>Brain file cleanup_intent</strong> — <code>write_opencrabs_file</code> accepts <code>cleanup_intent</code> flag for user-driven brain file maintenance. RSI agent explicitly blocked from shrinking brain files, preventing autonomous self-improvement from accidentally wiping content (issue #103).</li>
+<li><strong>RTK Token Savings integration</strong> — bundled RTK binary (4MB, v0.40.0) as default feature with zero-config. Works as direct proxy: agent runs <code>git status</code>, RTK intercepts output through Rust, filters it, returns token-optimized version. 100+ commands supported (git, cargo, npm, pnpm, docker, kubectl, grep, find, ls, tree, curl), blocklist for interactive/REPL commands (vim, ssh, python, mysql). Binary discovery checks bundled location first, falls back to PATH. <code>/rtk</code> slash command shows savings stats. Real-world results: 53.5% token savings across 180 commands (PR #102).</li>
 </ul>
 <h2 id="v0319-additions"><a class="header" href="#v0319-additions">v0.3.19 Additions</a></h2>
 <ul>

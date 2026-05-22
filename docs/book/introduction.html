@@ -54,7 +54,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-6b79ab39.js";
+            window.path_to_searchindex_js = "searchindex-1ef0e0aa.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-25972818.js"></script>
@@ -257,6 +257,8 @@
 <h3 id="-terminal-ui-excellence-v032"><a class="header" href="#-terminal-ui-excellence-v032">🖥️ Terminal UI Excellence (v0.3.2)</a></h3>
 <ul>
 <li><strong>Per-pane error &amp; notification banners</strong> — dedicated error/notification display per TUI pane for better visibility (v0.3.20)</li>
+<li><strong>Scroll fixes</strong> — removed <code>load_more_history()</code> from scroll handler (was causing scroll-up to overshoot hundreds of pages), preserved scroll position during streaming and system messages, skip scroll compensation on first render (v0.3.25)</li>
+<li><strong>Auto-title fires at end of first turn</strong> — works across all channels, not just TUI (v0.3.25)</li>
 <li><strong>Header card overlay</strong> replaces splash screen — animated, responsive, vanishes after load</li>
 <li><strong>Select/Drag to Copy</strong> — native mouse selection in TUI, auto-copies to clipboard on release</li>
 <li><strong>O(N) input render</strong> — tall pastes no longer cause quadratic render cost; scroll-to-cursor preserved</li>
@@ -288,6 +290,11 @@
 <li><strong><code>rename_session</code></strong> — agent proactively renames the current session with a descriptive title (3–8 words). Useful for long-running conversations where default titles become unhelpful (v0.3.24)</li>
 <li><strong><code>follow_up_question</code></strong> — agent asks the user a multi-choice question with up to 8 button options. Implemented across all channels: Telegram (inline keyboard), Discord (button components), Slack (Block Kit actions), WhatsApp (quick replies) (v0.3.24, #94)</li>
 <li><strong>Auto-generated session titles</strong> — new sessions get titles from the first user message via background LLM call. Never enters conversation context (v0.3.24)</li>
+<li><strong>RTK Token Savings</strong> — bundled RTK binary (4MB, v0.40.0) as default feature. Zero-config proxy intercepts tool output, filters via Rust, returns token-optimized version. 100+ commands (git, cargo, npm, docker, kubectl, grep, find, ls, tree, curl), blocklist for interactive commands. <code>/rtk</code> slash command shows savings stats. Real-world: 53.5% token savings (v0.3.25, #102)</li>
+<li><strong>Tool call stacking</strong> — 3+ consecutive tool call groups collapse into single summary line in TUI. Ctrl+O expands/collapses. Shows “N tool calls” or “N tool calls (M groups)” (v0.3.25)</li>
+<li><strong><code>hashline_edit</code> tool</strong> — hash-anchored file editing. Each line gets 2-char content hash from <code>read_file(hashline=true)</code>. Reference lines as <code>LINE#ID</code>, stale hashes rejected before changes applied. Batch edits supported (v0.3.25, #60)</li>
+<li><strong>Sensitive data redaction</strong> — applied to tool output in TUI and all channels. Patterns: env var suffixes (_pass=, _password=, _secret=, _token=, _key=, _apikey=, _api_key=, _credential=, <em>auth=), piped secrets, plus existing (sk-*, ghp</em><em>, xoxb-</em>, AWS keys, Bearer tokens) (v0.3.25)</li>
+<li><strong>Context budget footer for channels</strong> — every channel (Telegram, Discord, Slack, WhatsApp) appends “ctx: 8K/200K 4%” footer to final message, matching TUI footer. Always delivered even when body fully consumed (v0.3.25, #104)</li>
 <li><strong>Generic <code>deliver_api_key</code> for cron jobs</strong> — HTTP webhook Bearer token auth configurable per-job via <code>cron_manage</code> tool (v0.3.18)</li>
 <li><strong>File paths starting with <code>/</code> no longer treated as slash command typos</strong> — <code>/Users/.../file.pdf yo crabs check this</code> works correctly (v0.3.18)</li>
 <li><strong>Truncation continuations no longer trigger provider fallback</strong> — mid-sentence continuations stay on the same provider (v0.3.18)</li>
@@ -328,7 +335,7 @@
 </ul>
 <h3 id="-testing--quality"><a class="header" href="#-testing--quality">📊 Testing &amp; Quality</a></h3>
 <ul>
-<li><strong>2,834+ tests</strong> covering providers, tools, channels, TUI, self-healing, crash recovery, browser automation</li>
+<li><strong>2,975+ tests</strong> covering providers, tools, channels, TUI, self-healing, crash recovery, browser automation</li>
 <li><strong>CI/CD</strong>: GitHub Actions, CodeQL, <code>cargo audit</code> security checks, release automation</li>
 </ul>
 <h3 id="-built-in-skills-v0317"><a class="header" href="#-built-in-skills-v0317">🔧 Built-in Skills (v0.3.17)</a></h3>

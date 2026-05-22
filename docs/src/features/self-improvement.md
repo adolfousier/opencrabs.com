@@ -188,6 +188,11 @@ RSI now bumps a violation counter on existing rules instead of deduping repeat v
 - **Brain file clobber guardrail** — generic `write_file` / `edit_file` now refuse protected brain files, routing through `write_opencrabs_file` which enforces append-only, dedup-aware shrink, and `.bak` snapshots.
 - **A2A approval policy** — A2A tasks now resolve approval policy correctly. `auto-always` and `auto-session` policies work for remote agents.
 
+## v0.3.25 Additions
+
+- **Brain file cleanup_intent** — `write_opencrabs_file` accepts `cleanup_intent` flag for user-driven brain file maintenance. RSI agent explicitly blocked from shrinking brain files, preventing autonomous self-improvement from accidentally wiping content (issue #103).
+- **RTK Token Savings integration** — bundled RTK binary (4MB, v0.40.0) as default feature with zero-config. Works as direct proxy: agent runs `git status`, RTK intercepts output through Rust, filters it, returns token-optimized version. 100+ commands supported (git, cargo, npm, pnpm, docker, kubectl, grep, find, ls, tree, curl), blocklist for interactive/REPL commands (vim, ssh, python, mysql). Binary discovery checks bundled location first, falls back to PATH. `/rtk` slash command shows savings stats. Real-world results: 53.5% token savings across 180 commands (PR #102).
+
 ## v0.3.19 Additions
 
 - **RSI feedback records actual model used** — when helpers remap a mismatched model to the provider default, RSI now records the resolved model instead of the impossible original pair. All 3 recording sites in `tool_loop.rs` now resolve the actual model before constructing the feedback dimension

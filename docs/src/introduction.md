@@ -57,6 +57,8 @@
 
 ### 🖥️ Terminal UI Excellence (v0.3.2)
 - **Per-pane error & notification banners** — dedicated error/notification display per TUI pane for better visibility (v0.3.20)
+- **Scroll fixes** — removed `load_more_history()` from scroll handler (was causing scroll-up to overshoot hundreds of pages), preserved scroll position during streaming and system messages, skip scroll compensation on first render (v0.3.25)
+- **Auto-title fires at end of first turn** — works across all channels, not just TUI (v0.3.25)
 - **Header card overlay** replaces splash screen — animated, responsive, vanishes after load
 - **Select/Drag to Copy** — native mouse selection in TUI, auto-copies to clipboard on release
 - **O(N) input render** — tall pastes no longer cause quadratic render cost; scroll-to-cursor preserved
@@ -87,6 +89,11 @@
 - **`rename_session`** — agent proactively renames the current session with a descriptive title (3–8 words). Useful for long-running conversations where default titles become unhelpful (v0.3.24)
 - **`follow_up_question`** — agent asks the user a multi-choice question with up to 8 button options. Implemented across all channels: Telegram (inline keyboard), Discord (button components), Slack (Block Kit actions), WhatsApp (quick replies) (v0.3.24, #94)
 - **Auto-generated session titles** — new sessions get titles from the first user message via background LLM call. Never enters conversation context (v0.3.24)
+- **RTK Token Savings** — bundled RTK binary (4MB, v0.40.0) as default feature. Zero-config proxy intercepts tool output, filters via Rust, returns token-optimized version. 100+ commands (git, cargo, npm, docker, kubectl, grep, find, ls, tree, curl), blocklist for interactive commands. `/rtk` slash command shows savings stats. Real-world: 53.5% token savings (v0.3.25, #102)
+- **Tool call stacking** — 3+ consecutive tool call groups collapse into single summary line in TUI. Ctrl+O expands/collapses. Shows "N tool calls" or "N tool calls (M groups)" (v0.3.25)
+- **`hashline_edit` tool** — hash-anchored file editing. Each line gets 2-char content hash from `read_file(hashline=true)`. Reference lines as `LINE#ID`, stale hashes rejected before changes applied. Batch edits supported (v0.3.25, #60)
+- **Sensitive data redaction** — applied to tool output in TUI and all channels. Patterns: env var suffixes (_pass=, _password=, _secret=, _token=, _key=, _apikey=, _api_key=, _credential=, _auth=), piped secrets, plus existing (sk-*, ghp_*, xoxb-*, AWS keys, Bearer tokens) (v0.3.25)
+- **Context budget footer for channels** — every channel (Telegram, Discord, Slack, WhatsApp) appends "ctx: 8K/200K 4%" footer to final message, matching TUI footer. Always delivered even when body fully consumed (v0.3.25, #104)
 - **Generic `deliver_api_key` for cron jobs** — HTTP webhook Bearer token auth configurable per-job via `cron_manage` tool (v0.3.18)
 - **File paths starting with `/` no longer treated as slash command typos** — `/Users/.../file.pdf yo crabs check this` works correctly (v0.3.18)
 - **Truncation continuations no longer trigger provider fallback** — mid-sentence continuations stay on the same provider (v0.3.18)
@@ -122,7 +129,7 @@
 - **Auto-approve propagation** — `approval_policy = "auto-always"` actually reaches tool loop (v0.3.2)
 
 ### 📊 Testing & Quality
-- **2,834+ tests** covering providers, tools, channels, TUI, self-healing, crash recovery, browser automation
+- **2,975+ tests** covering providers, tools, channels, TUI, self-healing, crash recovery, browser automation
 - **CI/CD**: GitHub Actions, CodeQL, `cargo audit` security checks, release automation
 
 ### 🔧 Built-in Skills (v0.3.17)

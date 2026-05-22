@@ -299,6 +299,17 @@ Fixed CodeQL #64 (HIGH): Gemini API key was leaked in URL query string (`?key=..
 - **Fallback error reason surfaced in TUI** — when fallback fired, the underlying error was swallowed. Now shows as a system message.
 - **Pipe-delimited rows hard-broken** — when not recognized as a table, pipe rows ran together. Added hard-break between rows.
 
+## v0.3.25 Fixes
+
+- **Compaction dropped 55% kept-tail** — summary IS the conversation now, no more redundant tail retention
+- **Self-heal 5-nudge budget** — reasoning-only turns get 5 nudges before sticky fallback, preventing empty replies from silently dropping
+- **Completion-escape clause** — phantom enforcement messages now have escape clause to prevent infinite loops
+- **Scroll fixes** — removed `load_more_history()` from scroll handler (overshoot fix), preserved scroll during streaming, skip first-render compensation
+- **Brain file cleanup_intent** — `write_opencrabs_file` now accepts `cleanup_intent` flag for user-driven maintenance. RSI agent blocked from shrinking brain files (issue #103)
+- **Channel improvements** — WhatsApp photo batching for multi-image uploads, Telegram `media_group_id`-based batching, Gemini schema strips `default`/`example` from tool schemas (#101, @leshchenko1979)
+- **Custom provider model selection persistence** — properly saves and displays custom provider model selection
+- **Compaction prompt dominance fix** — plan tool descriptions and scroll sensitivity improvements
+
 ## v0.3.23 Fixes (Hotfix Release)
 
 - **Phantom detection restored** — v0.3.21's turn-level `tools_executed_this_turn` gate was too aggressive: once any tool ran in a turn, phantom detection went silent for the rest of the turn, letting fabricated wrap-up text reach the TUI. Dropped the gate from all three phantom branches.

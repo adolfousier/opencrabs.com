@@ -54,7 +54,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-6b79ab39.js";
+            window.path_to_searchindex_js = "../searchindex-1ef0e0aa.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-25972818.js"></script>
@@ -412,6 +412,17 @@ providers = ["openrouter", "anthropic"]  # tried in order
 <li><strong>Truncation continuations no longer trigger provider fallback</strong> — mid-sentence continuations should stay on the same provider. Fallback now skipped for truncation paths.</li>
 <li><strong>Fallback error reason surfaced in TUI</strong> — when fallback fired, the underlying error was swallowed. Now shows as a system message.</li>
 <li><strong>Pipe-delimited rows hard-broken</strong> — when not recognized as a table, pipe rows ran together. Added hard-break between rows.</li>
+</ul>
+<h2 id="v0325-fixes"><a class="header" href="#v0325-fixes">v0.3.25 Fixes</a></h2>
+<ul>
+<li><strong>Compaction dropped 55% kept-tail</strong> — summary IS the conversation now, no more redundant tail retention</li>
+<li><strong>Self-heal 5-nudge budget</strong> — reasoning-only turns get 5 nudges before sticky fallback, preventing empty replies from silently dropping</li>
+<li><strong>Completion-escape clause</strong> — phantom enforcement messages now have escape clause to prevent infinite loops</li>
+<li><strong>Scroll fixes</strong> — removed <code>load_more_history()</code> from scroll handler (overshoot fix), preserved scroll during streaming, skip first-render compensation</li>
+<li><strong>Brain file cleanup_intent</strong> — <code>write_opencrabs_file</code> now accepts <code>cleanup_intent</code> flag for user-driven maintenance. RSI agent blocked from shrinking brain files (issue #103)</li>
+<li><strong>Channel improvements</strong> — WhatsApp photo batching for multi-image uploads, Telegram <code>media_group_id</code>-based batching, Gemini schema strips <code>default</code>/<code>example</code> from tool schemas (#101, @leshchenko1979)</li>
+<li><strong>Custom provider model selection persistence</strong> — properly saves and displays custom provider model selection</li>
+<li><strong>Compaction prompt dominance fix</strong> — plan tool descriptions and scroll sensitivity improvements</li>
 </ul>
 <h2 id="v0323-fixes-hotfix-release"><a class="header" href="#v0323-fixes-hotfix-release">v0.3.23 Fixes (Hotfix Release)</a></h2>
 <ul>

@@ -2,6 +2,33 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.16] - 2026-05-21
+
+### Added
+- RTK Token Savings integration — bundled RTK binary (4MB, v0.40.0) as default feature, zero-config proxy, 100+ commands, `/rtk` slash command (PR #102)
+- Tool call stacking — 3+ consecutive tool call groups collapse into single summary line, Ctrl+O toggle (5 commits, 6 tests)
+- `hashline_edit` tool — hash-anchored file editing with 2-char content hashes, stale hash rejection, batch edits (#60)
+- Sensitive data redaction — applied to TUI and all channels, new patterns (env var suffixes, piped secrets)
+- Context budget footer for channels — "ctx: 8K/200K 4%" on Telegram, Discord, Slack, WhatsApp (#104)
+- Brain file cleanup_intent — user-driven maintenance flag, RSI blocked from shrinking (#103)
+
+### Changed
+- Test count updated: 2,834 → 2,975
+- Auto-title fires at end of first turn across all channels
+- Sessions sort by last interaction time
+
+### Fixed
+- Compaction dropped 55% kept-tail — summary IS the conversation
+- Self-heal 5-nudge budget for reasoning-only turns + sticky fallback
+- Completion-escape clause for phantom enforcement messages
+- Scroll fixes — removed load_more_history overshoot, preserved scroll during streaming
+- WhatsApp photo batching for multi-image uploads
+- Telegram media_group_id-based photo batching
+- Gemini schema strips default/example from tool schemas (#101, @leshchenko1979)
+- Custom provider model selection persistence
+- Compaction prompt dominance + plan tool descriptions
+- Tool loop borrow-after-move fix from PR #100 merge
+
 ## [0.1.11] - 2026-05-18
 
 ### Added

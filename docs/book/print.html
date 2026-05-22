@@ -55,7 +55,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-6b79ab39.js";
+            window.path_to_searchindex_js = "searchindex-1ef0e0aa.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-25972818.js"></script>
@@ -258,6 +258,8 @@
 <h3 id="-terminal-ui-excellence-v032"><a class="header" href="#-terminal-ui-excellence-v032">🖥️ Terminal UI Excellence (v0.3.2)</a></h3>
 <ul>
 <li><strong>Per-pane error &amp; notification banners</strong> — dedicated error/notification display per TUI pane for better visibility (v0.3.20)</li>
+<li><strong>Scroll fixes</strong> — removed <code>load_more_history()</code> from scroll handler (was causing scroll-up to overshoot hundreds of pages), preserved scroll position during streaming and system messages, skip scroll compensation on first render (v0.3.25)</li>
+<li><strong>Auto-title fires at end of first turn</strong> — works across all channels, not just TUI (v0.3.25)</li>
 <li><strong>Header card overlay</strong> replaces splash screen — animated, responsive, vanishes after load</li>
 <li><strong>Select/Drag to Copy</strong> — native mouse selection in TUI, auto-copies to clipboard on release</li>
 <li><strong>O(N) input render</strong> — tall pastes no longer cause quadratic render cost; scroll-to-cursor preserved</li>
@@ -289,6 +291,11 @@
 <li><strong><code>rename_session</code></strong> — agent proactively renames the current session with a descriptive title (3–8 words). Useful for long-running conversations where default titles become unhelpful (v0.3.24)</li>
 <li><strong><code>follow_up_question</code></strong> — agent asks the user a multi-choice question with up to 8 button options. Implemented across all channels: Telegram (inline keyboard), Discord (button components), Slack (Block Kit actions), WhatsApp (quick replies) (v0.3.24, #94)</li>
 <li><strong>Auto-generated session titles</strong> — new sessions get titles from the first user message via background LLM call. Never enters conversation context (v0.3.24)</li>
+<li><strong>RTK Token Savings</strong> — bundled RTK binary (4MB, v0.40.0) as default feature. Zero-config proxy intercepts tool output, filters via Rust, returns token-optimized version. 100+ commands (git, cargo, npm, docker, kubectl, grep, find, ls, tree, curl), blocklist for interactive commands. <code>/rtk</code> slash command shows savings stats. Real-world: 53.5% token savings (v0.3.25, #102)</li>
+<li><strong>Tool call stacking</strong> — 3+ consecutive tool call groups collapse into single summary line in TUI. Ctrl+O expands/collapses. Shows “N tool calls” or “N tool calls (M groups)” (v0.3.25)</li>
+<li><strong><code>hashline_edit</code> tool</strong> — hash-anchored file editing. Each line gets 2-char content hash from <code>read_file(hashline=true)</code>. Reference lines as <code>LINE#ID</code>, stale hashes rejected before changes applied. Batch edits supported (v0.3.25, #60)</li>
+<li><strong>Sensitive data redaction</strong> — applied to tool output in TUI and all channels. Patterns: env var suffixes (_pass=, _password=, _secret=, _token=, _key=, _apikey=, _api_key=, _credential=, <em>auth=), piped secrets, plus existing (sk-*, ghp</em><em>, xoxb-</em>, AWS keys, Bearer tokens) (v0.3.25)</li>
+<li><strong>Context budget footer for channels</strong> — every channel (Telegram, Discord, Slack, WhatsApp) appends “ctx: 8K/200K 4%” footer to final message, matching TUI footer. Always delivered even when body fully consumed (v0.3.25, #104)</li>
 <li><strong>Generic <code>deliver_api_key</code> for cron jobs</strong> — HTTP webhook Bearer token auth configurable per-job via <code>cron_manage</code> tool (v0.3.18)</li>
 <li><strong>File paths starting with <code>/</code> no longer treated as slash command typos</strong> — <code>/Users/.../file.pdf yo crabs check this</code> works correctly (v0.3.18)</li>
 <li><strong>Truncation continuations no longer trigger provider fallback</strong> — mid-sentence continuations stay on the same provider (v0.3.18)</li>
@@ -329,7 +336,7 @@
 </ul>
 <h3 id="-testing--quality"><a class="header" href="#-testing--quality">📊 Testing &amp; Quality</a></h3>
 <ul>
-<li><strong>2,834+ tests</strong> covering providers, tools, channels, TUI, self-healing, crash recovery, browser automation</li>
+<li><strong>2,975+ tests</strong> covering providers, tools, channels, TUI, self-healing, crash recovery, browser automation</li>
 <li><strong>CI/CD</strong>: GitHub Actions, CodeQL, <code>cargo audit</code> security checks, release automation</li>
 </ul>
 <h3 id="-built-in-skills-v0317"><a class="header" href="#-built-in-skills-v0317">🔧 Built-in Skills (v0.3.17)</a></h3>
@@ -2952,6 +2959,17 @@ providers = ["openrouter", "anthropic"]  # tried in order
 <li><strong>Fallback error reason surfaced in TUI</strong> — when fallback fired, the underlying error was swallowed. Now shows as a system message.</li>
 <li><strong>Pipe-delimited rows hard-broken</strong> — when not recognized as a table, pipe rows ran together. Added hard-break between rows.</li>
 </ul>
+<h2 id="v0325-fixes"><a class="header" href="#v0325-fixes">v0.3.25 Fixes</a></h2>
+<ul>
+<li><strong>Compaction dropped 55% kept-tail</strong> — summary IS the conversation now, no more redundant tail retention</li>
+<li><strong>Self-heal 5-nudge budget</strong> — reasoning-only turns get 5 nudges before sticky fallback, preventing empty replies from silently dropping</li>
+<li><strong>Completion-escape clause</strong> — phantom enforcement messages now have escape clause to prevent infinite loops</li>
+<li><strong>Scroll fixes</strong> — removed <code>load_more_history()</code> from scroll handler (overshoot fix), preserved scroll during streaming, skip first-render compensation</li>
+<li><strong>Brain file cleanup_intent</strong> — <code>write_opencrabs_file</code> now accepts <code>cleanup_intent</code> flag for user-driven maintenance. RSI agent blocked from shrinking brain files (issue #103)</li>
+<li><strong>Channel improvements</strong> — WhatsApp photo batching for multi-image uploads, Telegram <code>media_group_id</code>-based batching, Gemini schema strips <code>default</code>/<code>example</code> from tool schemas (#101, @leshchenko1979)</li>
+<li><strong>Custom provider model selection persistence</strong> — properly saves and displays custom provider model selection</li>
+<li><strong>Compaction prompt dominance fix</strong> — plan tool descriptions and scroll sensitivity improvements</li>
+</ul>
 <h2 id="v0323-fixes-hotfix-release"><a class="header" href="#v0323-fixes-hotfix-release">v0.3.23 Fixes (Hotfix Release)</a></h2>
 <ul>
 <li><strong>Phantom detection restored</strong> — v0.3.21’s turn-level <code>tools_executed_this_turn</code> gate was too aggressive: once any tool ran in a turn, phantom detection went silent for the rest of the turn, letting fabricated wrap-up text reach the TUI. Dropped the gate from all three phantom branches.</li>
@@ -3178,6 +3196,11 @@ Agent notices pattern of 5+ corrections on output hygiene:
 <ul>
 <li><strong>Brain file clobber guardrail</strong> — generic <code>write_file</code> / <code>edit_file</code> now refuse protected brain files, routing through <code>write_opencrabs_file</code> which enforces append-only, dedup-aware shrink, and <code>.bak</code> snapshots.</li>
 <li><strong>A2A approval policy</strong> — A2A tasks now resolve approval policy correctly. <code>auto-always</code> and <code>auto-session</code> policies work for remote agents.</li>
+</ul>
+<h2 id="v0325-additions"><a class="header" href="#v0325-additions">v0.3.25 Additions</a></h2>
+<ul>
+<li><strong>Brain file cleanup_intent</strong> — <code>write_opencrabs_file</code> accepts <code>cleanup_intent</code> flag for user-driven brain file maintenance. RSI agent explicitly blocked from shrinking brain files, preventing autonomous self-improvement from accidentally wiping content (issue #103).</li>
+<li><strong>RTK Token Savings integration</strong> — bundled RTK binary (4MB, v0.40.0) as default feature with zero-config. Works as direct proxy: agent runs <code>git status</code>, RTK intercepts output through Rust, filters it, returns token-optimized version. 100+ commands supported (git, cargo, npm, pnpm, docker, kubectl, grep, find, ls, tree, curl), blocklist for interactive/REPL commands (vim, ssh, python, mysql). Binary discovery checks bundled location first, falls back to PATH. <code>/rtk</code> slash command shows savings stats. Real-world results: 53.5% token savings across 180 commands (PR #102).</li>
 </ul>
 <h2 id="v0319-additions"><a class="header" href="#v0319-additions">v0.3.19 Additions</a></h2>
 <ul>
@@ -4008,7 +4031,7 @@ panic = "abort"
 <tr><td><strong>Pricing</strong></td><td style="text-align: right">17</td><td><code>src/pricing.rs</code></td></tr>
 <tr><td><strong>Memory</strong></td><td style="text-align: right">9</td><td><code>src/memory/</code></td></tr>
 <tr><td><strong>Logging</strong></td><td style="text-align: right">4</td><td><code>src/logging/</code></td></tr>
-<tr><td><strong>Total</strong></td><td style="text-align: right"><strong>2,834</strong></td><td></td></tr>
+<tr><td><strong>Total</strong></td><td style="text-align: right"><strong>2,975</strong></td><td></td></tr>
 </tbody>
 </table>
 </div>
