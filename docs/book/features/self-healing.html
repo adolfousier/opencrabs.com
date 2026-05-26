@@ -54,7 +54,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-1ef0e0aa.js";
+            window.path_to_searchindex_js = "../searchindex-d24c9d84.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-25972818.js"></script>
@@ -459,6 +459,29 @@ providers = ["openrouter", "anthropic"]  # tried in order
 <li><strong>Codex OAuth device flow field names fixed</strong> — OpenAI’s device auth API uses non-standard field names (<code>device_auth_id</code> instead of <code>device_code</code>, string <code>interval</code> instead of number, <code>expires_at</code> instead of <code>expires_in</code>). Fixed with serde aliases and custom deserializer.</li>
 <li><strong>Codex OAuth verification URL corrected</strong> — was hardcoded to non-existent <code>auth.openai.com/verify</code>, changed to <code>auth.openai.com/codex/device</code> matching Codex CLI.</li>
 <li><strong>Codex OAuth model list curated</strong> — <code>/models</code> dialog showed non-OpenAI models (Phi-4, Llama, Mistral) because the <code>codex</code> provider ID wasn’t mapped to the curated GPT-5 model list.</li>
+</ul>
+<h2 id="v0326-fixes"><a class="header" href="#v0326-fixes">v0.3.26 Fixes</a></h2>
+<ul>
+<li><strong>Hashline collision detection</strong> (#105) — pure content hash prevents line-shift avalanche when lines are inserted/deleted above a hash anchor. On collision, escalates to <code>edit_file</code> fallback instead of corrupting the edit</li>
+<li><strong>RSI brain file hygiene</strong> (#111) — rejects raw failure-event logs from being written to brain files. RSI now sanitizes feedback dimensions before persisting</li>
+<li><strong>Tool error output</strong> (#113) — tool errors now include stdout/stderr in error content, ANSI escape sequences stripped, 8000 char cap to prevent context blowout</li>
+</ul>
+<h2 id="v0327-fixes"><a class="header" href="#v0327-fixes">v0.3.27 Fixes</a></h2>
+<ul>
+<li><strong>Ctx budget baseline on channel <code>/new</code></strong> — shows calibrated baseline immediately after <code>/new</code> instead of waiting for first message</li>
+<li><strong>Auto-title session fix</strong> (#114) — preserves <code>[chat:ID]</code> suffix to prevent title duplication on subsequent auto-title fires</li>
+<li><strong>Sessions display</strong> (#115) — arrow prefix + “current” label instead of checkmark for clearer session switching UI</li>
+</ul>
+<h2 id="v0328-fixes"><a class="header" href="#v0328-fixes">v0.3.28 Fixes</a></h2>
+<ul>
+<li><strong>Voicebox + STT/TTS fallback chains</strong> — 2s liveness probe detects dead audio devices, librosa error translator surfaces actionable messages instead of Python tracebacks, per-provider fallback chains configured in <code>config.toml</code></li>
+<li><strong>Browser multi-step navigation hardening</strong> (6 commits) — <code>text=</code>/<code>xpath=</code> selector prefixes, recovery hints on click failures, semantic loop detection (4+ screenshots in 8 iterations triggers abort), no-op screenshot rejection, same-URL short-circuit</li>
+<li><strong>Tool-call shape recovery</strong> — dict-by-call-id extraction for Qwen-3.7-max-preview regression where tool calls arrive as flat dicts instead of nested arrays</li>
+<li><strong>Edit tool improvements</strong> (#117) — fuzzy line-sequence fallback when exact match fails, hashline docs clarification</li>
+<li><strong>Brain backup rotation</strong> — max 5 backups per file, max 7 days old, preventing unbounded <code>.bak</code> accumulation</li>
+<li><strong>Auto-title fixes</strong> (#118, #120) — fires on FIRST turn (not second), retries on LLM failure instead of giving up</li>
+<li><strong>Ctx counter real-time only</strong> (#119) — ripped out calibration system entirely, uses provider-reported <code>input_tokens</code> verbatim. No more “0/max” for uncalibrated providers</li>
+<li><strong>Profile brain-template seeding</strong> — seeds 8 templates on <code>profile create</code>, recovery path for empty profiles</li>
 </ul>
 <h2 id="notifications"><a class="header" href="#notifications">Notifications</a></h2>
 <p>All self-healing events are delivered to:</p>

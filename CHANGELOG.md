@@ -2,6 +2,46 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.19] - 2026-05-27
+
+### Added
+- Voicebox + STT/TTS fallback chains — 2s liveness probe, librosa error translator, per-provider fallback chains in config.toml
+- Browser multi-step navigation hardening — text=/xpath= selectors, recovery hints, semantic loop detection, no-op screenshot rejection, same-URL short-circuit (6 commits)
+- Tool-call shape recovery — dict-by-call-id extraction for Qwen-3.7-max-preview regression
+- Brain backup rotation — max 5 per file, max 7 days old
+- Profile brain-template seeding — 8 templates on `profile create`, recovery path for empty profiles
+
+### Changed
+- Test count updated: 2,975 → 3,070
+- Ctx counter real-time only — ripped out calibration system, uses provider-reported input_tokens verbatim (#119)
+- Auto-title fires on FIRST turn, retries on LLM failure (#118, #120)
+- Edit tool fuzzy line-sequence fallback (#117)
+
+## [0.1.18] - 2026-05-25
+
+### Changed
+- Ctx budget baseline on channel `/new` — shows calibrated baseline immediately
+- Auto-title session fix — preserves [chat:ID] suffix to prevent duplication (#114)
+- Sessions display — arrow prefix + "current" label instead of checkmark (#115)
+
+## [0.1.17] - 2026-05-23
+
+### Added
+- Hashline collision detection — pure content hash prevents line-shift avalanche, collision escalates to edit_file fallback (#105)
+- Channel command parity — /evolve, /rtk, auto-title work on all platforms (Telegram, Discord, Slack, WhatsApp) (#106-108)
+- Dynamic help screen — auto-generates from SLASH_COMMANDS constant
+- Context counter calibration — per-provider tokenizer, uncalibrated shows 0/max
+- Tool error output — stdout/stderr in error content, ANSI strip, 8000 char cap (#113)
+
+### Changed
+- Test count updated: 2,883 → 2,975
+- write_opencrabs_file docs — clarified path rules, profiles/ prefix guard (#112)
+- CI caching optimizations — rust-cache, mold linker, Windows dev profile (PR @leshchenko1979)
+
+### Fixed
+- RSI brain file hygiene — rejects raw failure-event logs in brain files (#111)
+- Auto-title TUI fix — None title for new sessions triggers immediate auto-rename (#109)
+
 ## [0.1.16] - 2026-05-21
 
 ### Added

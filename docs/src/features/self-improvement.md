@@ -199,6 +199,18 @@ RSI now bumps a violation counter on existing rules instead of deduping repeat v
 - **Tool loop reasoning markers persisted** — reasoning content persisted in non-CLI content column so thinking state survives across tool loop iterations
 - **@ file picker fixed for large repos** — recursive walk now skips `.git`/`.hg`/`.svn` directories and raised result cap from 5k to 20k, preventing pack/ref files from exhausting the cap
 
+## v0.3.26 Additions
+
+- **RSI brain file hygiene** — rejects raw failure-event logs from being written to brain files. Feedback dimensions are sanitized before persisting, preventing noise accumulation in SOUL.md and TOOLS.md
+- **Hashline collision escalation** — when hashline_edit detects a collision (two lines with identical content hashes), RSI escalates to `edit_file` fallback instead of applying a corrupted edit
+- **Dynamic help screen** — help screen auto-generates from `SLASH_COMMANDS` constant, so new commands appear automatically without manual help text updates
+
+## v0.3.28 Additions
+
+- **Brain backup rotation** — max 5 backups per file, max 7 days old. Prevents unbounded `.bak` accumulation in `~/.opencrabs/` from repeated RSI writes
+- **Profile brain-template seeding** — `profile create` now seeds 8 brain file templates automatically, with recovery path for empty profiles. Ensures new profiles start with complete brain file sets
+- **Auto-title retry on LLM failure** — auto-title no longer gives up on first LLM error; retries with backoff before falling back to truncated first message
+
 ## Self-Healing vs Self-Improvement
 
 | Self-Healing | Self-Improvement |

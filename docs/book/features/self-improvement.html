@@ -54,7 +54,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-1ef0e0aa.js";
+            window.path_to_searchindex_js = "../searchindex-d24c9d84.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-25972818.js"></script>
@@ -389,6 +389,18 @@ Agent notices pattern of 5+ corrections on output hygiene:
 <li><strong>RSI feedback records actual model used</strong> — when helpers remap a mismatched model to the provider default, RSI now records the resolved model instead of the impossible original pair. All 3 recording sites in <code>tool_loop.rs</code> now resolve the actual model before constructing the feedback dimension</li>
 <li><strong>Tool loop reasoning markers persisted</strong> — reasoning content persisted in non-CLI content column so thinking state survives across tool loop iterations</li>
 <li><strong>@ file picker fixed for large repos</strong> — recursive walk now skips <code>.git</code>/<code>.hg</code>/<code>.svn</code> directories and raised result cap from 5k to 20k, preventing pack/ref files from exhausting the cap</li>
+</ul>
+<h2 id="v0326-additions"><a class="header" href="#v0326-additions">v0.3.26 Additions</a></h2>
+<ul>
+<li><strong>RSI brain file hygiene</strong> — rejects raw failure-event logs from being written to brain files. Feedback dimensions are sanitized before persisting, preventing noise accumulation in SOUL.md and TOOLS.md</li>
+<li><strong>Hashline collision escalation</strong> — when hashline_edit detects a collision (two lines with identical content hashes), RSI escalates to <code>edit_file</code> fallback instead of applying a corrupted edit</li>
+<li><strong>Dynamic help screen</strong> — help screen auto-generates from <code>SLASH_COMMANDS</code> constant, so new commands appear automatically without manual help text updates</li>
+</ul>
+<h2 id="v0328-additions"><a class="header" href="#v0328-additions">v0.3.28 Additions</a></h2>
+<ul>
+<li><strong>Brain backup rotation</strong> — max 5 backups per file, max 7 days old. Prevents unbounded <code>.bak</code> accumulation in <code>~/.opencrabs/</code> from repeated RSI writes</li>
+<li><strong>Profile brain-template seeding</strong> — <code>profile create</code> now seeds 8 brain file templates automatically, with recovery path for empty profiles. Ensures new profiles start with complete brain file sets</li>
+<li><strong>Auto-title retry on LLM failure</strong> — auto-title no longer gives up on first LLM error; retries with backoff before falling back to truncated first message</li>
 </ul>
 <h2 id="self-healing-vs-self-improvement"><a class="header" href="#self-healing-vs-self-improvement">Self-Healing vs Self-Improvement</a></h2>
 <div class="table-wrapper">

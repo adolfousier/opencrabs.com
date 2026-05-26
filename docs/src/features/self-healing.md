@@ -346,6 +346,29 @@ Fixed CodeQL #64 (HIGH): Gemini API key was leaked in URL query string (`?key=..
 - **Codex OAuth verification URL corrected** — was hardcoded to non-existent `auth.openai.com/verify`, changed to `auth.openai.com/codex/device` matching Codex CLI.
 - **Codex OAuth model list curated** — `/models` dialog showed non-OpenAI models (Phi-4, Llama, Mistral) because the `codex` provider ID wasn't mapped to the curated GPT-5 model list.
 
+## v0.3.26 Fixes
+
+- **Hashline collision detection** (#105) — pure content hash prevents line-shift avalanche when lines are inserted/deleted above a hash anchor. On collision, escalates to `edit_file` fallback instead of corrupting the edit
+- **RSI brain file hygiene** (#111) — rejects raw failure-event logs from being written to brain files. RSI now sanitizes feedback dimensions before persisting
+- **Tool error output** (#113) — tool errors now include stdout/stderr in error content, ANSI escape sequences stripped, 8000 char cap to prevent context blowout
+
+## v0.3.27 Fixes
+
+- **Ctx budget baseline on channel `/new`** — shows calibrated baseline immediately after `/new` instead of waiting for first message
+- **Auto-title session fix** (#114) — preserves `[chat:ID]` suffix to prevent title duplication on subsequent auto-title fires
+- **Sessions display** (#115) — arrow prefix + "current" label instead of checkmark for clearer session switching UI
+
+## v0.3.28 Fixes
+
+- **Voicebox + STT/TTS fallback chains** — 2s liveness probe detects dead audio devices, librosa error translator surfaces actionable messages instead of Python tracebacks, per-provider fallback chains configured in `config.toml`
+- **Browser multi-step navigation hardening** (6 commits) — `text=`/`xpath=` selector prefixes, recovery hints on click failures, semantic loop detection (4+ screenshots in 8 iterations triggers abort), no-op screenshot rejection, same-URL short-circuit
+- **Tool-call shape recovery** — dict-by-call-id extraction for Qwen-3.7-max-preview regression where tool calls arrive as flat dicts instead of nested arrays
+- **Edit tool improvements** (#117) — fuzzy line-sequence fallback when exact match fails, hashline docs clarification
+- **Brain backup rotation** — max 5 backups per file, max 7 days old, preventing unbounded `.bak` accumulation
+- **Auto-title fixes** (#118, #120) — fires on FIRST turn (not second), retries on LLM failure instead of giving up
+- **Ctx counter real-time only** (#119) — ripped out calibration system entirely, uses provider-reported `input_tokens` verbatim. No more "0/max" for uncalibrated providers
+- **Profile brain-template seeding** — seeds 8 templates on `profile create`, recovery path for empty profiles
+
 ## Notifications
 
 All self-healing events are delivered to:

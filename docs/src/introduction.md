@@ -26,7 +26,7 @@
 - **Telegram, Discord, Slack, WhatsApp, Trello** — respond to messages, send files, manage threads
 - **Cross-channel crash recovery** — pending requests route back to originating channel on restart (v0.2.93)
 - **DB-persisted channel sessions** — state survives restarts
-- **Voice support** — local Whisper STT + Piper TTS, fully offline
+- **Voice support** — local Whisper STT + Piper TTS, fully offline. Voicebox with STT/TTS fallback chains, 2s liveness probe, librosa error translator, per-provider fallback chains in config.toml (v0.3.28)
 - **Video uploads across all channels** — Slack, Telegram, Discord, WhatsApp, and Trello automatically route video attachments to `analyze_video` when vision is enabled (v0.3.17)
 - **Telegram 20 MB Bot API cap** — surfaces "compress to under 20 MB and resend" message instead of silently failing on large uploads (v0.3.17)
 - **Telegram dropped video/animation** — now downloads and routes through vision processing, including iPhone `.mov` uploads auto-converted to MP4-backed Animation (v0.3.17)
@@ -44,7 +44,7 @@
 - **Upstream template sync** — automatically syncs brain file templates from the repo with version gating and append-only diffs (v0.3.15)
 - **RSI alert suppression** — suppresses alerts whose dimension already has a fix commit, stale alerts age out (v0.3.13)
 - **Partial JSON repair** — closes unterminated strings, balances brackets, strips trailing commas. Wired into 5 drop sites across OpenAI-compatible providers (v0.3.17)
-- **Context budget management**: 65% soft / 90% hard compaction thresholds with 3-retry LLM fallback
+- **Context budget management**: 65% soft / 90% hard compaction thresholds with 3-retry LLM fallback. Real-time ctx counter uses provider-reported `input_tokens` verbatim (v0.3.28, calibration system removed)
 - **Stuck stream detection**: 2048-byte rolling window catches repeating patterns, auto-recover
 - **Gaslighting defense**: strips tool-refusal preambles mid-turn across 4+ phrase families
 - **Auto-fallback on rate limits** — saves state mid-stream, resumes on fallback provider
@@ -91,7 +91,7 @@
 - **Auto-generated session titles** — new sessions get titles from the first user message via background LLM call. Never enters conversation context (v0.3.24)
 - **RTK Token Savings** — bundled RTK binary (4MB, v0.40.0) as default feature. Zero-config proxy intercepts tool output, filters via Rust, returns token-optimized version. 100+ commands (git, cargo, npm, docker, kubectl, grep, find, ls, tree, curl), blocklist for interactive commands. `/rtk` slash command shows savings stats. Real-world: 53.5% token savings (v0.3.25, #102)
 - **Tool call stacking** — 3+ consecutive tool call groups collapse into single summary line in TUI. Ctrl+O expands/collapses. Shows "N tool calls" or "N tool calls (M groups)" (v0.3.25)
-- **`hashline_edit` tool** — hash-anchored file editing. Each line gets 2-char content hash from `read_file(hashline=true)`. Reference lines as `LINE#ID`, stale hashes rejected before changes applied. Batch edits supported (v0.3.25, #60)
+- **`hashline_edit` tool** — hash-anchored file editing. Each line gets 2-char content hash from `read_file(hashline=true)`. Reference lines as `LINE#ID`, stale hashes rejected before changes applied. Batch edits supported. Collision detection escalates to `edit_file` fallback (v0.3.25, #60; v0.3.26 #105)
 - **Sensitive data redaction** — applied to tool output in TUI and all channels. Patterns: env var suffixes (_pass=, _password=, _secret=, _token=, _key=, _apikey=, _api_key=, _credential=, _auth=), piped secrets, plus existing (sk-*, ghp_*, xoxb-*, AWS keys, Bearer tokens) (v0.3.25)
 - **Context budget footer for channels** — every channel (Telegram, Discord, Slack, WhatsApp) appends "ctx: 8K/200K 4%" footer to final message, matching TUI footer. Always delivered even when body fully consumed (v0.3.25, #104)
 - **Generic `deliver_api_key` for cron jobs** — HTTP webhook Bearer token auth configurable per-job via `cron_manage` tool (v0.3.18)
@@ -103,6 +103,7 @@
 
 ### 🌐 Browser Automation
 - **Full CDP support**: navigate, click, type, screenshot, JS eval, wait for selectors, find elements
+- **Multi-step navigation hardening** — `text=`/`xpath=` selector prefixes, recovery hints on click failures, semantic loop detection (4+ screenshots in 8 iterations triggers abort), no-op screenshot rejection, same-URL short-circuit (v0.3.28)
 - **`browser_find` tool** — enumerate elements by CSS, XPath, text, or aria-label with stable selectors (v0.3.13)
 - **`browser_close` tool** — close browser tabs and free CDP sessions, prevents stale page reuse (v0.3.18)
 - **Headless or headed** mode, element-specific screenshots
@@ -129,7 +130,7 @@
 - **Auto-approve propagation** — `approval_policy = "auto-always"` actually reaches tool loop (v0.3.2)
 
 ### 📊 Testing & Quality
-- **2,975+ tests** covering providers, tools, channels, TUI, self-healing, crash recovery, browser automation
+- **3,070+ tests** covering providers, tools, channels, TUI, self-healing, crash recovery, browser automation
 - **CI/CD**: GitHub Actions, CodeQL, `cargo audit` security checks, release automation
 
 ### 🔧 Built-in Skills (v0.3.17)

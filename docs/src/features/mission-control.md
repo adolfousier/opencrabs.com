@@ -52,6 +52,11 @@ Cron jobs with legacy `BLOB`-typed prompt rows in the database are now tolerated
 
 The visible compaction banner text has been removed. The schedule panel now uses typing-only indicators during compaction windows (10-60s), keeping the experience clean.
 
+### Context Counter Evolution (v0.3.26→v0.3.28)
+
+- **v0.3.26** — introduced per-provider tokenizer calibration. Uncalibrated providers showed `0/max` until first message calibrated the ratio
+- **v0.3.28** — calibration system removed entirely. Context counter now uses provider-reported `input_tokens` verbatim, showing real-time usage without calibration overhead
+
 ## Keyboard Navigation
 
 | Key | Action |
