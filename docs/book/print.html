@@ -55,7 +55,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-3451a996.js";
+            window.path_to_searchindex_js = "searchindex-28b11308.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-25972818.js"></script>
@@ -1314,18 +1314,21 @@ cargo build --release
 <p><strong>Flow:</strong></p>
 <ol>
 <li>Select <strong>Custom OpenAI-Compatible</strong> (last in the list)</li>
-<li>Press <code>Enter</code> — advances to <strong>Provider Name</strong> (identifier, e.g. <code>ollama</code>, <code>nvidia</code>)</li>
-<li>Type a name and press <code>Enter</code> — normalized to a TOML-safe key</li>
-<li><strong>Base URL</strong> — paste your endpoint (e.g. <code>http://localhost:11434/v1</code>)</li>
-<li>Press <code>Enter</code> — triggers a live model fetch from <code>{base_url}/models</code></li>
-<li><strong>API Key</strong> — paste if required (leave empty for local endpoints)</li>
-<li>Press <code>Enter</code> — re-fetches models with the key if provided</li>
-<li><strong>Model</strong> — pick from fetched list or type a model name manually</li>
-<li><strong>Context Window</strong> — enter the token limit (e.g. <code>128000</code>)</li>
-<li>Press <code>Enter</code> — saves and advances</li>
+<li>Press <code>Enter</code> — advances to <strong>Name</strong> field</li>
+<li><strong>Name</strong> — type a provider identifier (e.g. <code>ollama</code>, <code>lm-studio</code>, <code>nvidia</code>). Press <code>Enter</code> — normalized to a TOML-safe key</li>
+<li><strong>Base URL</strong> — paste your endpoint (e.g. <code>http://localhost:1234/v1</code>). Press <code>Enter</code></li>
+<li><strong>API Key</strong> — paste if required, or leave empty for local endpoints. Press <code>Enter</code></li>
+<li><strong>Model</strong> — you have two options:
+<ul>
+<li><strong>Type or paste a model name</strong> — use this for newly-launched models not yet available on the live API (e.g. <code>qwen3.6-35b-a3b-gguf</code>)</li>
+<li><strong>Press Enter on empty field</strong> — triggers a live fetch from <code>{base_url}/models</code>, then pick from the list</li>
+</ul>
+</li>
+<li><strong>Context Window</strong> — enter the token limit (e.g. <code>128000</code>). Press <code>Enter</code> — saves and advances</li>
 </ol>
 <blockquote>
-<p><strong>Local LLMs:</strong> No API key needed — just set base URL and model. The wizard fetches models from your local server.</p>
+<p><strong>Context Window Recommendation:</strong> Set to <strong>200000</strong> (200k tokens) for best results. OpenCrabs handles large contexts gracefully with smart auto-compaction that keeps you always up to date without manual intervention.</p>
+<p><strong>Local LLMs:</strong> No API key needed — just set base URL and model name. If the model is already running, paste the name directly. If you want to browse available models, leave the Model field empty and press Enter to fetch the list from your local server.</p>
 </blockquote>
 <h3 id="re-running-provider-setup"><a class="header" href="#re-running-provider-setup">Re-running Provider Setup</a></h3>
 <div class="table-wrapper">

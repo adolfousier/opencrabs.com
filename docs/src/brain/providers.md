@@ -79,17 +79,18 @@ For Ollama, LM Studio, LocalAI, Groq, NVIDIA, vLLM, or any OpenAI-compatible end
 **Flow:**
 
 1. Select **Custom OpenAI-Compatible** (last in the list)
-2. Press `Enter` — advances to **Provider Name** (identifier, e.g. `ollama`, `nvidia`)
-3. Type a name and press `Enter` — normalized to a TOML-safe key
-4. **Base URL** — paste your endpoint (e.g. `http://localhost:11434/v1`)
-5. Press `Enter` — triggers a live model fetch from `{base_url}/models`
-6. **API Key** — paste if required (leave empty for local endpoints)
-7. Press `Enter` — re-fetches models with the key if provided
-8. **Model** — pick from fetched list or type a model name manually
-9. **Context Window** — enter the token limit (e.g. `128000`)
-10. Press `Enter` — saves and advances
+2. Press `Enter` — advances to **Name** field
+3. **Name** — type a provider identifier (e.g. `ollama`, `lm-studio`, `nvidia`). Press `Enter` — normalized to a TOML-safe key
+4. **Base URL** — paste your endpoint (e.g. `http://localhost:1234/v1`). Press `Enter`
+5. **API Key** — paste if required, or leave empty for local endpoints. Press `Enter`
+6. **Model** — you have two options:
+   - **Type or paste a model name** — use this for newly-launched models not yet available on the live API (e.g. `qwen3.6-35b-a3b-gguf`)
+   - **Press Enter on empty field** — triggers a live fetch from `{base_url}/models`, then pick from the list
+7. **Context Window** — enter the token limit (e.g. `128000`). Press `Enter` — saves and advances
 
-> **Local LLMs:** No API key needed — just set base URL and model. The wizard fetches models from your local server.
+> **Context Window Recommendation:** Set to **200000** (200k tokens) for best results. OpenCrabs handles large contexts gracefully with smart auto-compaction that keeps you always up to date without manual intervention.
+>
+> **Local LLMs:** No API key needed — just set base URL and model name. If the model is already running, paste the name directly. If you want to browse available models, leave the Model field empty and press Enter to fetch the list from your local server.
 
 ### Re-running Provider Setup
 
