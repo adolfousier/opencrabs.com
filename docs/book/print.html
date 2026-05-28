@@ -55,7 +55,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-d24c9d84.js";
+            window.path_to_searchindex_js = "searchindex-d221e731.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-25972818.js"></script>
@@ -645,13 +645,50 @@ model = "gemini-3.1-flash-image-preview"
 <h1 id="first-session"><a class="header" href="#first-session">First Session</a></h1>
 <p>When you launch OpenCrabs for the first time, the <strong>onboarding wizard</strong> walks you through setup.</p>
 <h2 id="onboarding-flow"><a class="header" href="#onboarding-flow">Onboarding Flow</a></h2>
-<ol>
-<li><strong>Provider selection</strong> — Choose your AI provider (Anthropic, OpenAI, Gemini, OpenRouter, or custom)</li>
-<li><strong>API key</strong> — Enter your API key</li>
-<li><strong>Model selection</strong> — Pick a default model (fetched live from the provider)</li>
-<li><strong>Channel setup</strong> (optional) — Connect Telegram, Discord, Slack, or WhatsApp</li>
-<li><strong>Image tools</strong> (optional) — Configure Gemini for image generation and vision</li>
-</ol>
+<p>The wizard is a keyboard-driven TUI with 8 steps. Navigate with arrow keys, <code>Tab</code> to advance, <code>Esc</code> to go back.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Step</th><th>Screen</th><th>What you do</th></tr>
+</thead>
+<tbody>
+<tr><td>1</td><td><strong>Mode Select</strong></td><td>Choose QuickStart (skip channels) or Advanced</td></tr>
+<tr><td>2</td><td><strong>Workspace</strong></td><td>Pick a working directory for file operations</td></tr>
+<tr><td>3</td><td><strong>Provider &amp; Auth</strong></td><td>Select provider → paste API key → pick model (fetched live)</td></tr>
+<tr><td>4</td><td><strong>Channels</strong></td><td>Space to toggle channels on/off → Enter on each to configure</td></tr>
+<tr><td>5</td><td><strong>Voice</strong></td><td>STT provider (Groq, local Whisper, or off) + TTS voice</td></tr>
+<tr><td>6</td><td><strong>Image</strong></td><td>Vision toggle + generation model + API key</td></tr>
+<tr><td>7</td><td><strong>Daemon</strong></td><td>Install background daemon (optional)</td></tr>
+<tr><td>8</td><td><strong>Brain Setup</strong></td><td>Auto-generate SOUL.md, IDENTITY.md from your profile</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="channel-setup-step-4"><a class="header" href="#channel-setup-step-4">Channel Setup (Step 4)</a></h3>
+<p>The channels screen lists 5 integrations: Telegram, Discord, WhatsApp, Slack, Trello.</p>
+<ul>
+<li><code>Space</code> toggles a channel on/off</li>
+<li><code>Enter</code> on an enabled channel opens its setup screen (token, IDs, allowlists)</li>
+<li><code>Enter</code> on <strong>Continue</strong> or <code>Tab</code> skips to the next step</li>
+<li>Each channel setup screen has a <strong>Test Connection</strong> button</li>
+</ul>
+<p>See <a href="#channel-integrations">Channels Overview</a> for the full navigation guide.</p>
+<h3 id="re-running-setup"><a class="header" href="#re-running-setup">Re-running Setup</a></h3>
+<p>You can jump to any step without re-running the full wizard:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Command</th><th>Step</th></tr>
+</thead>
+<tbody>
+<tr><td><code>/onboard</code></td><td>Full wizard</td></tr>
+<tr><td><code>/onboard:provider</code></td><td>Provider &amp; model selection</td></tr>
+<tr><td><code>/onboard:channels</code></td><td>Channel picker</td></tr>
+<tr><td><code>/onboard:voice</code></td><td>Voice setup</td></tr>
+<tr><td><code>/onboard:image</code></td><td>Image setup</td></tr>
+<tr><td><code>/onboard:brain</code></td><td>Brain file generation</td></tr>
+</tbody>
+</table>
+</div>
 <p>After onboarding, your agent boots up and introduces itself. It reads its brain files (<code>SOUL.md</code>, <code>IDENTITY.md</code>, <code>AGENTS.md</code>, <code>TOOLS.md</code>) and starts a conversation.</p>
 <h2 id="bootstrap"><a class="header" href="#bootstrap">Bootstrap</a></h2>
 <p>On the very first run, the agent goes through a <strong>bootstrap</strong> phase:</p>
@@ -1447,6 +1484,55 @@ model = "gemini-3.1-flash-image-preview"
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="channel-integrations"><a class="header" href="#channel-integrations">Channel Integrations</a></h1>
 <p>OpenCrabs connects to multiple messaging platforms simultaneously. All channels share the TUI session by default, with per-user sessions for non-owners.</p>
+<h2 id="setting-up-channels"><a class="header" href="#setting-up-channels">Setting Up Channels</a></h2>
+<p>Channels are configured through the <strong>onboarding wizard</strong>, not by editing TOML files manually.</p>
+<h3 id="running-the-wizard"><a class="header" href="#running-the-wizard">Running the Wizard</a></h3>
+<ul>
+<li><strong>First launch</strong> — the wizard runs automatically</li>
+<li><strong>Re-run</strong> — type <code>/onboard</code> in chat, or <code>/onboard:channels</code> to jump straight to the channels step</li>
+<li><strong>Quick jump</strong> — <code>/onboard:channels</code> opens the channel picker and returns to chat when done</li>
+</ul>
+<h3 id="navigation"><a class="header" href="#navigation">Navigation</a></h3>
+<p>The channel picker is a keyboard-driven TUI screen:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Key</th><th>Action</th></tr>
+</thead>
+<tbody>
+<tr><td><code>↑</code> / <code>↓</code> or <code>j</code> / <code>k</code></td><td>Move focus between channels</td></tr>
+<tr><td><code>Space</code></td><td>Toggle the focused channel on/off</td></tr>
+<tr><td><code>Enter</code> on an enabled channel</td><td>Open that channel’s setup screen</td></tr>
+<tr><td><code>Enter</code> on <strong>Continue</strong></td><td>Skip remaining setup and advance</td></tr>
+<tr><td><code>Tab</code></td><td>Same as Continue — advance to the next wizard step</td></tr>
+<tr><td><code>Esc</code></td><td>Go back to the previous step</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="channel-setup-screens"><a class="header" href="#channel-setup-screens">Channel Setup Screens</a></h3>
+<p>When you press <code>Enter</code> on an enabled channel, a dedicated setup screen opens with the fields needed for that platform (bot token, channel ID, allowed users, etc.). Each field:</p>
+<ul>
+<li><strong>Auto-detects existing values</strong> from <code>config.toml</code> / <code>keys.toml</code> (shown as masked <code>••••••••</code> for secrets, plain text for IDs)</li>
+<li><strong>Tab</strong> moves to the next field</li>
+<li><strong>Enter</strong> on the last field (or the Test Connection button) saves and returns to the channel list</li>
+<li><strong>BackTab</strong> moves to the previous field</li>
+</ul>
+<h3 id="the-five-channels"><a class="header" href="#the-five-channels">The Five Channels</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>#</th><th>Channel</th><th>Setup Fields</th><th>Test</th></tr>
+</thead>
+<tbody>
+<tr><td>0</td><td>Telegram</td><td>Bot Token, Owner User ID, Respond To</td><td>Send test message</td></tr>
+<tr><td>1</td><td>Discord</td><td>Bot Token, Channel ID, Allowed Users, Respond To</td><td>Send test message</td></tr>
+<tr><td>2</td><td>WhatsApp</td><td>QR Code scan, Phone Allowlist</td><td>Connection status</td></tr>
+<tr><td>3</td><td>Slack</td><td>Bot Token, App Token, Channel ID, Allowed Users, Respond To</td><td>Send test message</td></tr>
+<tr><td>4</td><td>Trello</td><td>API Key, API Token, Board ID, Allowed Users</td><td>Board access check</td></tr>
+</tbody>
+</table>
+</div>
+<p>After enabling and configuring your channels, the wizard saves everything to <code>config.toml</code> and <code>keys.toml</code> automatically. You can always re-run <code>/onboard:channels</code> to modify settings.</p>
 <h2 id="supported-channels"><a class="header" href="#supported-channels">Supported Channels</a></h2>
 <div class="table-wrapper">
 <table>
@@ -1508,25 +1594,43 @@ model = "gemini-3.1-flash-image-preview"
 <h1 id="telegram-1"><a class="header" href="#telegram-1">Telegram</a></h1>
 <p>Connect OpenCrabs to Telegram for DMs and group chats.</p>
 <h2 id="setup-1"><a class="header" href="#setup-1">Setup</a></h2>
+<h3 id="step-1-create-a-bot-with-botfather"><a class="header" href="#step-1-create-a-bot-with-botfather">Step 1: Create a Bot with BotFather</a></h3>
 <ol>
 <li>Message <a href="https://t.me/BotFather">@BotFather</a> on Telegram</li>
-<li>Create a new bot with <code>/newbot</code></li>
-<li>Copy the bot token</li>
-<li>Add to <code>keys.toml</code>:</li>
+<li>Send <code>/newbot</code> and follow the prompts</li>
+<li>Copy the bot token (format: <code>123456:ABC-DEF...</code>)</li>
 </ol>
-<pre><code class="language-toml">[channels.telegram]
-bot_token = "123456:ABC..."
-</code></pre>
-<ol start="5">
-<li>Enable in <code>config.toml</code>:</li>
+<h3 id="step-2-configure-via-the-onboarding-wizard"><a class="header" href="#step-2-configure-via-the-onboarding-wizard">Step 2: Configure via the Onboarding Wizard</a></h3>
+<p>Run <code>/onboard:channels</code> (or <code>/onboard</code> and navigate to the Channels step):</p>
+<ol>
+<li>Use <code>↑</code>/<code>↓</code> to focus <strong>Telegram</strong></li>
+<li>Press <code>Space</code> to toggle it on</li>
+<li>Press <code>Enter</code> to open the Telegram setup screen</li>
+<li>Fill in the fields:
+<ul>
+<li><strong>Bot Token</strong> — paste the token from BotFather</li>
+<li><strong>Owner User ID</strong> — your numeric Telegram chat ID</li>
+<li><strong>Respond To</strong> — <code>all</code>, <code>dm_only</code>, or <code>mention</code> (when to respond in groups)</li>
+</ul>
+</li>
+<li>Press <code>Enter</code> on <strong>Test Connection</strong> to verify the bot works</li>
+<li>Press <code>Enter</code> to save and return to the channel list</li>
 </ol>
-<pre><code class="language-toml">[channels.telegram]
-enabled = true
-owner_chat_id = 123456789  # Your Telegram user ID
-</code></pre>
 <blockquote>
 <p>Get your chat ID by messaging <a href="https://t.me/userinfobot">@userinfobot</a> on Telegram.</p>
 </blockquote>
+<h3 id="manual-configuration-advanced"><a class="header" href="#manual-configuration-advanced">Manual Configuration (advanced)</a></h3>
+<p>If you prefer editing files directly, the wizard writes to <code>~/.opencrabs/keys.toml</code> and <code>~/.opencrabs/config.toml</code>:</p>
+<pre><code class="language-toml"># keys.toml
+[channels.telegram]
+bot_token = "123456:ABC..."
+
+# config.toml
+[channels.telegram]
+enabled = true
+allowed_users = ["123456789"]
+respond_to = "all"
+</code></pre>
 <h2 id="features"><a class="header" href="#features">Features</a></h2>
 <ul>
 <li><strong>DMs and groups</strong> — Works in private chats and group conversations</li>
@@ -1565,26 +1669,48 @@ owner_chat_id = 123456789  # Your Telegram user ID
 <h1 id="discord-1"><a class="header" href="#discord-1">Discord</a></h1>
 <p>Connect OpenCrabs to Discord for server and DM interactions.</p>
 <h2 id="setup-2"><a class="header" href="#setup-2">Setup</a></h2>
+<h3 id="step-1-create-a-discord-bot"><a class="header" href="#step-1-create-a-discord-bot">Step 1: Create a Discord Bot</a></h3>
 <ol>
 <li>Go to <a href="https://discord.com/developers/applications">discord.com/developers/applications</a></li>
 <li>Create a new application</li>
 <li>Go to <strong>Bot</strong> section, create a bot</li>
-<li><strong>Enable MESSAGE CONTENT Intent</strong> (required)</li>
+<li><strong>Enable MESSAGE CONTENT Intent</strong> (required — under Privileged Gateway Intents)</li>
 <li>Copy the bot token</li>
-<li>Add to <code>keys.toml</code>:</li>
+<li>Under <strong>OAuth2 → URL Generator</strong>, select <code>bot</code> scope with <code>Send Messages</code> and <code>Read Message History</code> permissions</li>
+<li>Use the generated URL to invite the bot to your server</li>
 </ol>
-<pre><code class="language-toml">[channels.discord]
-bot_token = "your-bot-token"
-</code></pre>
-<ol start="7">
-<li>Enable in <code>config.toml</code>:</li>
+<h3 id="step-2-configure-via-the-onboarding-wizard-1"><a class="header" href="#step-2-configure-via-the-onboarding-wizard-1">Step 2: Configure via the Onboarding Wizard</a></h3>
+<p>Run <code>/onboard:channels</code> (or <code>/onboard</code> and navigate to the Channels step):</p>
+<ol>
+<li>Use <code>↑</code>/<code>↓</code> to focus <strong>Discord</strong></li>
+<li>Press <code>Space</code> to toggle it on</li>
+<li>Press <code>Enter</code> to open the Discord setup screen</li>
+<li>Fill in the fields:
+<ul>
+<li><strong>Bot Token</strong> — paste the token from the Developer Portal</li>
+<li><strong>Channel ID</strong> — the Discord channel to send the welcome message to (right-click a channel with Developer Mode on → Copy Channel ID)</li>
+<li><strong>Allowed Users</strong> — comma-separated Discord user IDs (leave empty to allow everyone)</li>
+<li><strong>Respond To</strong> — <code>all</code>, <code>dm_only</code>, or <code>mention</code></li>
+</ul>
+</li>
+<li>Press <code>Enter</code> on <strong>Test Connection</strong> to verify</li>
+<li>Press <code>Enter</code> to save and return to the channel list</li>
 </ol>
-<pre><code class="language-toml">[channels.discord]
+<blockquote>
+<p>Enable Developer Mode in Discord: Settings → Advanced → Developer Mode</p>
+</blockquote>
+<h3 id="manual-configuration-advanced-1"><a class="header" href="#manual-configuration-advanced-1">Manual Configuration (advanced)</a></h3>
+<pre><code class="language-toml"># keys.toml
+[channels.discord]
+token = "your-bot-token"
+
+# config.toml
+[channels.discord]
 enabled = true
+allowed_channels = ["123456789"]
+allowed_users = []
+respond_to = "all"
 </code></pre>
-<ol start="8">
-<li>Invite the bot to your server using the OAuth2 URL with <code>bot</code> scope and <code>Send Messages</code>, <code>Read Message History</code> permissions</li>
-</ol>
 <h2 id="features-1"><a class="header" href="#features-1">Features</a></h2>
 <ul>
 <li><strong>Server channels and DMs</strong> — Works in text channels and direct messages</li>
@@ -1603,24 +1729,46 @@ enabled = true
 <h1 id="slack-1"><a class="header" href="#slack-1">Slack</a></h1>
 <p>Connect OpenCrabs to Slack workspaces.</p>
 <h2 id="setup-3"><a class="header" href="#setup-3">Setup</a></h2>
+<h3 id="step-1-create-a-slack-app"><a class="header" href="#step-1-create-a-slack-app">Step 1: Create a Slack App</a></h3>
 <ol>
 <li>Go to <a href="https://api.slack.com/apps">api.slack.com/apps</a></li>
-<li>Create a new app</li>
-<li>Enable <strong>Socket Mode</strong></li>
-<li>Add bot scopes: <code>chat:write</code>, <code>channels:history</code>, <code>groups:history</code>, <code>im:history</code>, <code>reactions:write</code></li>
-<li>Install to workspace</li>
-<li>Copy the <strong>Bot Token</strong> and <strong>App-Level Token</strong></li>
-<li>Add to <code>keys.toml</code>:</li>
+<li>Create a new app (From Scratch)</li>
+<li>Enable <strong>Socket Mode</strong> under Settings</li>
+<li>Generate an <strong>App-Level Token</strong> (Settings → Basic Information → App-Level Tokens) with <code>connections:write</code> scope</li>
+<li>Under <strong>OAuth &amp; Permissions</strong>, add bot scopes: <code>chat:write</code>, <code>channels:history</code>, <code>groups:history</code>, <code>im:history</code>, <code>reactions:write</code></li>
+<li>Install the app to your workspace</li>
+<li>Copy the <strong>Bot Token</strong> (<code>xoxb-...</code>) and <strong>App-Level Token</strong> (<code>xapp-...</code>)</li>
 </ol>
-<pre><code class="language-toml">[channels.slack]
+<h3 id="step-2-configure-via-the-onboarding-wizard-2"><a class="header" href="#step-2-configure-via-the-onboarding-wizard-2">Step 2: Configure via the Onboarding Wizard</a></h3>
+<p>Run <code>/onboard:channels</code> (or <code>/onboard</code> and navigate to the Channels step):</p>
+<ol>
+<li>Use <code>↑</code>/<code>↓</code> to focus <strong>Slack</strong></li>
+<li>Press <code>Space</code> to toggle it on</li>
+<li>Press <code>Enter</code> to open the Slack setup screen</li>
+<li>Fill in the fields:
+<ul>
+<li><strong>Bot Token</strong> — the <code>xoxb-...</code> token</li>
+<li><strong>App Token</strong> — the <code>xapp-...</code> token</li>
+<li><strong>Channel ID</strong> — right-click a channel → View channel details → copy the Channel ID at the bottom</li>
+<li><strong>Allowed Users</strong> — comma-separated Slack user IDs (Profile → ⋯ → Copy member ID)</li>
+<li><strong>Respond To</strong> — <code>all</code>, <code>dm_only</code>, or <code>mention</code></li>
+</ul>
+</li>
+<li>Press <code>Enter</code> on <strong>Test Connection</strong> to verify</li>
+<li>Press <code>Enter</code> to save</li>
+</ol>
+<h3 id="manual-configuration-advanced-2"><a class="header" href="#manual-configuration-advanced-2">Manual Configuration (advanced)</a></h3>
+<pre><code class="language-toml"># keys.toml
+[channels.slack]
 bot_token = "xoxb-..."
 app_token = "xapp-..."
-</code></pre>
-<ol start="8">
-<li>Enable in <code>config.toml</code>:</li>
-</ol>
-<pre><code class="language-toml">[channels.slack]
+
+# config.toml
+[channels.slack]
 enabled = true
+allowed_channels = ["C12345678"]
+allowed_users = []
+respond_to = "all"
 </code></pre>
 <h2 id="features-2"><a class="header" href="#features-2">Features</a></h2>
 <ul>
@@ -1637,18 +1785,35 @@ enabled = true
 <h1 id="whatsapp-1"><a class="header" href="#whatsapp-1">WhatsApp</a></h1>
 <p>Connect OpenCrabs to WhatsApp via QR code pairing.</p>
 <h2 id="setup-4"><a class="header" href="#setup-4">Setup</a></h2>
+<h3 id="configure-via-the-onboarding-wizard"><a class="header" href="#configure-via-the-onboarding-wizard">Configure via the Onboarding Wizard</a></h3>
+<p>Run <code>/onboard:channels</code> (or <code>/onboard</code> and navigate to the Channels step):</p>
 <ol>
-<li>Enable in <code>config.toml</code>:</li>
-</ol>
-<pre><code class="language-toml">[channels.whatsapp]
-enabled = true
-</code></pre>
-<ol start="2">
-<li>On first run, a QR code appears in the terminal</li>
+<li>Use <code>↑</code>/<code>↓</code> to focus <strong>WhatsApp</strong></li>
+<li>Press <code>Space</code> to toggle it on</li>
+<li>Press <code>Enter</code> to open the WhatsApp setup screen</li>
+<li>The setup screen has two fields:
+<ul>
+<li><strong>Connection</strong> — shows the QR code or connection status</li>
+<li><strong>Phone Allowlist</strong> — comma-separated phone numbers in E.164 format (e.g. <code>+15551234567</code>). Leave empty to accept all messages.</li>
+</ul>
+</li>
+<li>When not yet paired, a <strong>QR code</strong> appears in the terminal:
+<ul>
 <li>Open WhatsApp on your phone → Settings → Linked Devices → Link a Device</li>
 <li>Scan the QR code</li>
+<li>The status updates to “Connected” automatically</li>
+</ul>
+</li>
+<li>When already paired, press <code>R</code> on the Connection field to <strong>reset</strong> and re-pair</li>
+<li>Press <code>Enter</code> to save</li>
 </ol>
-<p>The session persists across restarts — no need to re-scan.</p>
+<p>The pairing session persists across restarts — no need to re-scan.</p>
+<h3 id="manual-configuration-advanced-3"><a class="header" href="#manual-configuration-advanced-3">Manual Configuration (advanced)</a></h3>
+<pre><code class="language-toml"># config.toml
+[channels.whatsapp]
+enabled = true
+allowed_phones = ["+15551234567"]
+</code></pre>
 <h2 id="features-3"><a class="header" href="#features-3">Features</a></h2>
 <ul>
 <li><strong>Personal and group chats</strong> — Works in DMs and group conversations</li>
@@ -1674,24 +1839,41 @@ enabled = true
 <h1 id="trello-1"><a class="header" href="#trello-1">Trello</a></h1>
 <p>OpenCrabs integrates with Trello for board and card management via the <code>trello_send</code> tool.</p>
 <h2 id="setup-5"><a class="header" href="#setup-5">Setup</a></h2>
+<h3 id="step-1-get-trello-credentials"><a class="header" href="#step-1-get-trello-credentials">Step 1: Get Trello Credentials</a></h3>
 <ol>
-<li>Get an API Key and Token from <a href="https://trello.com/power-ups/admin">trello.com/power-ups/admin</a></li>
-<li>Configure in <code>keys.toml</code>:</li>
+<li>Go to <a href="https://trello.com/power-ups/admin">trello.com/power-ups/admin</a></li>
+<li>Create a new Power-Up to get your <strong>API Key</strong></li>
+<li>Click the “Token” link next to your API key to generate an <strong>API Token</strong></li>
 </ol>
+<h3 id="step-2-configure-via-the-onboarding-wizard-3"><a class="header" href="#step-2-configure-via-the-onboarding-wizard-3">Step 2: Configure via the Onboarding Wizard</a></h3>
+<p>Run <code>/onboard:channels</code> (or <code>/onboard</code> and navigate to the Channels step):</p>
+<ol>
+<li>Use <code>↑</code>/<code>↓</code> to focus <strong>Trello</strong></li>
+<li>Press <code>Space</code> to toggle it on</li>
+<li>Press <code>Enter</code> to open the Trello setup screen</li>
+<li>Fill in the fields:
+<ul>
+<li><strong>API Key</strong> — from the Trello Power-Up admin page</li>
+<li><strong>API Token</strong> — generated alongside the API key</li>
+<li><strong>Board ID</strong> — board name or 24-character hex ID (names are resolved automatically)</li>
+<li><strong>Allowed Users</strong> — Trello member IDs allowed to interact with the bot (leave empty for all members)</li>
+</ul>
+</li>
+<li>Press <code>Enter</code> on <strong>Test Connection</strong> to verify board access</li>
+<li>Press <code>Enter</code> to save</li>
+</ol>
+<h3 id="manual-configuration-advanced-4"><a class="header" href="#manual-configuration-advanced-4">Manual Configuration (advanced)</a></h3>
 <pre><code class="language-toml"># keys.toml
 [channels.trello]
 api_key = "your-api-key"
 token = "your-token"
-</code></pre>
-<ol start="3">
-<li>Configure boards and access:</li>
-</ol>
-<pre><code class="language-toml"># config.toml
+
+# config.toml
 [channels.trello]
 enabled = true
 boards = ["Board Name or ID"]
-member_id = "your-member-id"
-# poll_interval_secs = 300  # Optional: poll for @mentions
+allowed_users = []
+# poll_interval_secs = 30  # Poll for new card comments
 </code></pre>
 <h2 id="tool-actions"><a class="header" href="#tool-actions">Tool Actions</a></h2>
 <p>The <code>trello_send</code> tool supports 22 actions:</p>
@@ -3802,7 +3984,7 @@ Instructions for the agent when this skill runs...
 </tbody>
 </table>
 </div>
-<h2 id="navigation"><a class="header" href="#navigation">Navigation</a></h2>
+<h2 id="navigation-1"><a class="header" href="#navigation-1">Navigation</a></h2>
 <div class="table-wrapper">
 <table>
 <thead>

@@ -4,25 +4,46 @@ Connect OpenCrabs to Slack workspaces.
 
 ## Setup
 
+### Step 1: Create a Slack App
+
 1. Go to [api.slack.com/apps](https://api.slack.com/apps)
-2. Create a new app
-3. Enable **Socket Mode**
-4. Add bot scopes: `chat:write`, `channels:history`, `groups:history`, `im:history`, `reactions:write`
-5. Install to workspace
-6. Copy the **Bot Token** and **App-Level Token**
-7. Add to `keys.toml`:
+2. Create a new app (From Scratch)
+3. Enable **Socket Mode** under Settings
+4. Generate an **App-Level Token** (Settings → Basic Information → App-Level Tokens) with `connections:write` scope
+5. Under **OAuth & Permissions**, add bot scopes: `chat:write`, `channels:history`, `groups:history`, `im:history`, `reactions:write`
+6. Install the app to your workspace
+7. Copy the **Bot Token** (`xoxb-...`) and **App-Level Token** (`xapp-...`)
+
+### Step 2: Configure via the Onboarding Wizard
+
+Run `/onboard:channels` (or `/onboard` and navigate to the Channels step):
+
+1. Use `↑`/`↓` to focus **Slack**
+2. Press `Space` to toggle it on
+3. Press `Enter` to open the Slack setup screen
+4. Fill in the fields:
+   - **Bot Token** — the `xoxb-...` token
+   - **App Token** — the `xapp-...` token
+   - **Channel ID** — right-click a channel → View channel details → copy the Channel ID at the bottom
+   - **Allowed Users** — comma-separated Slack user IDs (Profile → ⋯ → Copy member ID)
+   - **Respond To** — `all`, `dm_only`, or `mention`
+5. Press `Enter` on **Test Connection** to verify
+6. Press `Enter` to save
+
+### Manual Configuration (advanced)
 
 ```toml
+# keys.toml
 [channels.slack]
 bot_token = "xoxb-..."
 app_token = "xapp-..."
-```
 
-8. Enable in `config.toml`:
-
-```toml
+# config.toml
 [channels.slack]
 enabled = true
+allowed_channels = ["C12345678"]
+allowed_users = []
+respond_to = "all"
 ```
 
 ## Features

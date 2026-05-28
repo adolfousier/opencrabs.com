@@ -54,7 +54,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-d24c9d84.js";
+            window.path_to_searchindex_js = "../searchindex-d221e731.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-25972818.js"></script>
@@ -199,18 +199,35 @@
                         <h1 id="whatsapp"><a class="header" href="#whatsapp">WhatsApp</a></h1>
 <p>Connect OpenCrabs to WhatsApp via QR code pairing.</p>
 <h2 id="setup"><a class="header" href="#setup">Setup</a></h2>
+<h3 id="configure-via-the-onboarding-wizard"><a class="header" href="#configure-via-the-onboarding-wizard">Configure via the Onboarding Wizard</a></h3>
+<p>Run <code>/onboard:channels</code> (or <code>/onboard</code> and navigate to the Channels step):</p>
 <ol>
-<li>Enable in <code>config.toml</code>:</li>
-</ol>
-<pre><code class="language-toml">[channels.whatsapp]
-enabled = true
-</code></pre>
-<ol start="2">
-<li>On first run, a QR code appears in the terminal</li>
+<li>Use <code>↑</code>/<code>↓</code> to focus <strong>WhatsApp</strong></li>
+<li>Press <code>Space</code> to toggle it on</li>
+<li>Press <code>Enter</code> to open the WhatsApp setup screen</li>
+<li>The setup screen has two fields:
+<ul>
+<li><strong>Connection</strong> — shows the QR code or connection status</li>
+<li><strong>Phone Allowlist</strong> — comma-separated phone numbers in E.164 format (e.g. <code>+15551234567</code>). Leave empty to accept all messages.</li>
+</ul>
+</li>
+<li>When not yet paired, a <strong>QR code</strong> appears in the terminal:
+<ul>
 <li>Open WhatsApp on your phone → Settings → Linked Devices → Link a Device</li>
 <li>Scan the QR code</li>
+<li>The status updates to “Connected” automatically</li>
+</ul>
+</li>
+<li>When already paired, press <code>R</code> on the Connection field to <strong>reset</strong> and re-pair</li>
+<li>Press <code>Enter</code> to save</li>
 </ol>
-<p>The session persists across restarts — no need to re-scan.</p>
+<p>The pairing session persists across restarts — no need to re-scan.</p>
+<h3 id="manual-configuration-advanced"><a class="header" href="#manual-configuration-advanced">Manual Configuration (advanced)</a></h3>
+<pre><code class="language-toml"># config.toml
+[channels.whatsapp]
+enabled = true
+allowed_phones = ["+15551234567"]
+</code></pre>
 <h2 id="features"><a class="header" href="#features">Features</a></h2>
 <ul>
 <li><strong>Personal and group chats</strong> — Works in DMs and group conversations</li>

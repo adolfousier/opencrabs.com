@@ -4,25 +4,41 @@ OpenCrabs integrates with Trello for board and card management via the `trello_s
 
 ## Setup
 
-1. Get an API Key and Token from [trello.com/power-ups/admin](https://trello.com/power-ups/admin)
-2. Configure in `keys.toml`:
+### Step 1: Get Trello Credentials
+
+1. Go to [trello.com/power-ups/admin](https://trello.com/power-ups/admin)
+2. Create a new Power-Up to get your **API Key**
+3. Click the "Token" link next to your API key to generate an **API Token**
+
+### Step 2: Configure via the Onboarding Wizard
+
+Run `/onboard:channels` (or `/onboard` and navigate to the Channels step):
+
+1. Use `↑`/`↓` to focus **Trello**
+2. Press `Space` to toggle it on
+3. Press `Enter` to open the Trello setup screen
+4. Fill in the fields:
+   - **API Key** — from the Trello Power-Up admin page
+   - **API Token** — generated alongside the API key
+   - **Board ID** — board name or 24-character hex ID (names are resolved automatically)
+   - **Allowed Users** — Trello member IDs allowed to interact with the bot (leave empty for all members)
+5. Press `Enter` on **Test Connection** to verify board access
+6. Press `Enter` to save
+
+### Manual Configuration (advanced)
 
 ```toml
 # keys.toml
 [channels.trello]
 api_key = "your-api-key"
 token = "your-token"
-```
 
-3. Configure boards and access:
-
-```toml
 # config.toml
 [channels.trello]
 enabled = true
 boards = ["Board Name or ID"]
-member_id = "your-member-id"
-# poll_interval_secs = 300  # Optional: poll for @mentions
+allowed_users = []
+# poll_interval_secs = 30  # Poll for new card comments
 ```
 
 ## Tool Actions

@@ -2,6 +2,50 @@
 
 OpenCrabs connects to multiple messaging platforms simultaneously. All channels share the TUI session by default, with per-user sessions for non-owners.
 
+## Setting Up Channels
+
+Channels are configured through the **onboarding wizard**, not by editing TOML files manually.
+
+### Running the Wizard
+
+- **First launch** — the wizard runs automatically
+- **Re-run** — type `/onboard` in chat, or `/onboard:channels` to jump straight to the channels step
+- **Quick jump** — `/onboard:channels` opens the channel picker and returns to chat when done
+
+### Navigation
+
+The channel picker is a keyboard-driven TUI screen:
+
+| Key | Action |
+|-----|--------|
+| `↑` / `↓` or `j` / `k` | Move focus between channels |
+| `Space` | Toggle the focused channel on/off |
+| `Enter` on an enabled channel | Open that channel's setup screen |
+| `Enter` on **Continue** | Skip remaining setup and advance |
+| `Tab` | Same as Continue — advance to the next wizard step |
+| `Esc` | Go back to the previous step |
+
+### Channel Setup Screens
+
+When you press `Enter` on an enabled channel, a dedicated setup screen opens with the fields needed for that platform (bot token, channel ID, allowed users, etc.). Each field:
+
+- **Auto-detects existing values** from `config.toml` / `keys.toml` (shown as masked `••••••••` for secrets, plain text for IDs)
+- **Tab** moves to the next field
+- **Enter** on the last field (or the Test Connection button) saves and returns to the channel list
+- **BackTab** moves to the previous field
+
+### The Five Channels
+
+| # | Channel | Setup Fields | Test |
+|---|---------|-------------|------|
+| 0 | Telegram | Bot Token, Owner User ID, Respond To | Send test message |
+| 1 | Discord | Bot Token, Channel ID, Allowed Users, Respond To | Send test message |
+| 2 | WhatsApp | QR Code scan, Phone Allowlist | Connection status |
+| 3 | Slack | Bot Token, App Token, Channel ID, Allowed Users, Respond To | Send test message |
+| 4 | Trello | API Key, API Token, Board ID, Allowed Users | Board access check |
+
+After enabling and configuring your channels, the wizard saves everything to `config.toml` and `keys.toml` automatically. You can always re-run `/onboard:channels` to modify settings.
+
 ## Supported Channels
 
 | Channel | Protocol | Images In | Voice In | Image Gen Out | Setup |

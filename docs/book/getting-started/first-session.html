@@ -54,7 +54,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-d24c9d84.js";
+            window.path_to_searchindex_js = "../searchindex-d221e731.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-25972818.js"></script>
@@ -199,13 +199,50 @@
                         <h1 id="first-session"><a class="header" href="#first-session">First Session</a></h1>
 <p>When you launch OpenCrabs for the first time, the <strong>onboarding wizard</strong> walks you through setup.</p>
 <h2 id="onboarding-flow"><a class="header" href="#onboarding-flow">Onboarding Flow</a></h2>
-<ol>
-<li><strong>Provider selection</strong> — Choose your AI provider (Anthropic, OpenAI, Gemini, OpenRouter, or custom)</li>
-<li><strong>API key</strong> — Enter your API key</li>
-<li><strong>Model selection</strong> — Pick a default model (fetched live from the provider)</li>
-<li><strong>Channel setup</strong> (optional) — Connect Telegram, Discord, Slack, or WhatsApp</li>
-<li><strong>Image tools</strong> (optional) — Configure Gemini for image generation and vision</li>
-</ol>
+<p>The wizard is a keyboard-driven TUI with 8 steps. Navigate with arrow keys, <code>Tab</code> to advance, <code>Esc</code> to go back.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Step</th><th>Screen</th><th>What you do</th></tr>
+</thead>
+<tbody>
+<tr><td>1</td><td><strong>Mode Select</strong></td><td>Choose QuickStart (skip channels) or Advanced</td></tr>
+<tr><td>2</td><td><strong>Workspace</strong></td><td>Pick a working directory for file operations</td></tr>
+<tr><td>3</td><td><strong>Provider &amp; Auth</strong></td><td>Select provider → paste API key → pick model (fetched live)</td></tr>
+<tr><td>4</td><td><strong>Channels</strong></td><td>Space to toggle channels on/off → Enter on each to configure</td></tr>
+<tr><td>5</td><td><strong>Voice</strong></td><td>STT provider (Groq, local Whisper, or off) + TTS voice</td></tr>
+<tr><td>6</td><td><strong>Image</strong></td><td>Vision toggle + generation model + API key</td></tr>
+<tr><td>7</td><td><strong>Daemon</strong></td><td>Install background daemon (optional)</td></tr>
+<tr><td>8</td><td><strong>Brain Setup</strong></td><td>Auto-generate SOUL.md, IDENTITY.md from your profile</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="channel-setup-step-4"><a class="header" href="#channel-setup-step-4">Channel Setup (Step 4)</a></h3>
+<p>The channels screen lists 5 integrations: Telegram, Discord, WhatsApp, Slack, Trello.</p>
+<ul>
+<li><code>Space</code> toggles a channel on/off</li>
+<li><code>Enter</code> on an enabled channel opens its setup screen (token, IDs, allowlists)</li>
+<li><code>Enter</code> on <strong>Continue</strong> or <code>Tab</code> skips to the next step</li>
+<li>Each channel setup screen has a <strong>Test Connection</strong> button</li>
+</ul>
+<p>See <a href="../channels/overview.html">Channels Overview</a> for the full navigation guide.</p>
+<h3 id="re-running-setup"><a class="header" href="#re-running-setup">Re-running Setup</a></h3>
+<p>You can jump to any step without re-running the full wizard:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Command</th><th>Step</th></tr>
+</thead>
+<tbody>
+<tr><td><code>/onboard</code></td><td>Full wizard</td></tr>
+<tr><td><code>/onboard:provider</code></td><td>Provider &amp; model selection</td></tr>
+<tr><td><code>/onboard:channels</code></td><td>Channel picker</td></tr>
+<tr><td><code>/onboard:voice</code></td><td>Voice setup</td></tr>
+<tr><td><code>/onboard:image</code></td><td>Image setup</td></tr>
+<tr><td><code>/onboard:brain</code></td><td>Brain file generation</td></tr>
+</tbody>
+</table>
+</div>
 <p>After onboarding, your agent boots up and introduces itself. It reads its brain files (<code>SOUL.md</code>, <code>IDENTITY.md</code>, <code>AGENTS.md</code>, <code>TOOLS.md</code>) and starts a conversation.</p>
 <h2 id="bootstrap"><a class="header" href="#bootstrap">Bootstrap</a></h2>
 <p>On the very first run, the agent goes through a <strong>bootstrap</strong> phase:</p>

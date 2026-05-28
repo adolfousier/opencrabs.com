@@ -54,7 +54,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-d24c9d84.js";
+            window.path_to_searchindex_js = "../searchindex-d221e731.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-25972818.js"></script>
@@ -199,26 +199,48 @@
                         <h1 id="discord"><a class="header" href="#discord">Discord</a></h1>
 <p>Connect OpenCrabs to Discord for server and DM interactions.</p>
 <h2 id="setup"><a class="header" href="#setup">Setup</a></h2>
+<h3 id="step-1-create-a-discord-bot"><a class="header" href="#step-1-create-a-discord-bot">Step 1: Create a Discord Bot</a></h3>
 <ol>
 <li>Go to <a href="https://discord.com/developers/applications">discord.com/developers/applications</a></li>
 <li>Create a new application</li>
 <li>Go to <strong>Bot</strong> section, create a bot</li>
-<li><strong>Enable MESSAGE CONTENT Intent</strong> (required)</li>
+<li><strong>Enable MESSAGE CONTENT Intent</strong> (required — under Privileged Gateway Intents)</li>
 <li>Copy the bot token</li>
-<li>Add to <code>keys.toml</code>:</li>
+<li>Under <strong>OAuth2 → URL Generator</strong>, select <code>bot</code> scope with <code>Send Messages</code> and <code>Read Message History</code> permissions</li>
+<li>Use the generated URL to invite the bot to your server</li>
 </ol>
-<pre><code class="language-toml">[channels.discord]
-bot_token = "your-bot-token"
-</code></pre>
-<ol start="7">
-<li>Enable in <code>config.toml</code>:</li>
+<h3 id="step-2-configure-via-the-onboarding-wizard"><a class="header" href="#step-2-configure-via-the-onboarding-wizard">Step 2: Configure via the Onboarding Wizard</a></h3>
+<p>Run <code>/onboard:channels</code> (or <code>/onboard</code> and navigate to the Channels step):</p>
+<ol>
+<li>Use <code>↑</code>/<code>↓</code> to focus <strong>Discord</strong></li>
+<li>Press <code>Space</code> to toggle it on</li>
+<li>Press <code>Enter</code> to open the Discord setup screen</li>
+<li>Fill in the fields:
+<ul>
+<li><strong>Bot Token</strong> — paste the token from the Developer Portal</li>
+<li><strong>Channel ID</strong> — the Discord channel to send the welcome message to (right-click a channel with Developer Mode on → Copy Channel ID)</li>
+<li><strong>Allowed Users</strong> — comma-separated Discord user IDs (leave empty to allow everyone)</li>
+<li><strong>Respond To</strong> — <code>all</code>, <code>dm_only</code>, or <code>mention</code></li>
+</ul>
+</li>
+<li>Press <code>Enter</code> on <strong>Test Connection</strong> to verify</li>
+<li>Press <code>Enter</code> to save and return to the channel list</li>
 </ol>
-<pre><code class="language-toml">[channels.discord]
+<blockquote>
+<p>Enable Developer Mode in Discord: Settings → Advanced → Developer Mode</p>
+</blockquote>
+<h3 id="manual-configuration-advanced"><a class="header" href="#manual-configuration-advanced">Manual Configuration (advanced)</a></h3>
+<pre><code class="language-toml"># keys.toml
+[channels.discord]
+token = "your-bot-token"
+
+# config.toml
+[channels.discord]
 enabled = true
+allowed_channels = ["123456789"]
+allowed_users = []
+respond_to = "all"
 </code></pre>
-<ol start="8">
-<li>Invite the bot to your server using the OAuth2 URL with <code>bot</code> scope and <code>Send Messages</code>, <code>Read Message History</code> permissions</li>
-</ol>
 <h2 id="features"><a class="header" href="#features">Features</a></h2>
 <ul>
 <li><strong>Server channels and DMs</strong> — Works in text channels and direct messages</li>

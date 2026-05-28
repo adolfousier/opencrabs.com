@@ -54,7 +54,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-d24c9d84.js";
+            window.path_to_searchindex_js = "../searchindex-d221e731.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-25972818.js"></script>
@@ -199,24 +199,41 @@
                         <h1 id="trello"><a class="header" href="#trello">Trello</a></h1>
 <p>OpenCrabs integrates with Trello for board and card management via the <code>trello_send</code> tool.</p>
 <h2 id="setup"><a class="header" href="#setup">Setup</a></h2>
+<h3 id="step-1-get-trello-credentials"><a class="header" href="#step-1-get-trello-credentials">Step 1: Get Trello Credentials</a></h3>
 <ol>
-<li>Get an API Key and Token from <a href="https://trello.com/power-ups/admin">trello.com/power-ups/admin</a></li>
-<li>Configure in <code>keys.toml</code>:</li>
+<li>Go to <a href="https://trello.com/power-ups/admin">trello.com/power-ups/admin</a></li>
+<li>Create a new Power-Up to get your <strong>API Key</strong></li>
+<li>Click the “Token” link next to your API key to generate an <strong>API Token</strong></li>
 </ol>
+<h3 id="step-2-configure-via-the-onboarding-wizard"><a class="header" href="#step-2-configure-via-the-onboarding-wizard">Step 2: Configure via the Onboarding Wizard</a></h3>
+<p>Run <code>/onboard:channels</code> (or <code>/onboard</code> and navigate to the Channels step):</p>
+<ol>
+<li>Use <code>↑</code>/<code>↓</code> to focus <strong>Trello</strong></li>
+<li>Press <code>Space</code> to toggle it on</li>
+<li>Press <code>Enter</code> to open the Trello setup screen</li>
+<li>Fill in the fields:
+<ul>
+<li><strong>API Key</strong> — from the Trello Power-Up admin page</li>
+<li><strong>API Token</strong> — generated alongside the API key</li>
+<li><strong>Board ID</strong> — board name or 24-character hex ID (names are resolved automatically)</li>
+<li><strong>Allowed Users</strong> — Trello member IDs allowed to interact with the bot (leave empty for all members)</li>
+</ul>
+</li>
+<li>Press <code>Enter</code> on <strong>Test Connection</strong> to verify board access</li>
+<li>Press <code>Enter</code> to save</li>
+</ol>
+<h3 id="manual-configuration-advanced"><a class="header" href="#manual-configuration-advanced">Manual Configuration (advanced)</a></h3>
 <pre><code class="language-toml"># keys.toml
 [channels.trello]
 api_key = "your-api-key"
 token = "your-token"
-</code></pre>
-<ol start="3">
-<li>Configure boards and access:</li>
-</ol>
-<pre><code class="language-toml"># config.toml
+
+# config.toml
 [channels.trello]
 enabled = true
 boards = ["Board Name or ID"]
-member_id = "your-member-id"
-# poll_interval_secs = 300  # Optional: poll for @mentions
+allowed_users = []
+# poll_interval_secs = 30  # Poll for new card comments
 </code></pre>
 <h2 id="tool-actions"><a class="header" href="#tool-actions">Tool Actions</a></h2>
 <p>The <code>trello_send</code> tool supports 22 actions:</p>

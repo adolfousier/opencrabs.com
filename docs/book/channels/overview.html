@@ -54,7 +54,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-d24c9d84.js";
+            window.path_to_searchindex_js = "../searchindex-d221e731.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-25972818.js"></script>
@@ -198,6 +198,55 @@
                     <main>
                         <h1 id="channel-integrations"><a class="header" href="#channel-integrations">Channel Integrations</a></h1>
 <p>OpenCrabs connects to multiple messaging platforms simultaneously. All channels share the TUI session by default, with per-user sessions for non-owners.</p>
+<h2 id="setting-up-channels"><a class="header" href="#setting-up-channels">Setting Up Channels</a></h2>
+<p>Channels are configured through the <strong>onboarding wizard</strong>, not by editing TOML files manually.</p>
+<h3 id="running-the-wizard"><a class="header" href="#running-the-wizard">Running the Wizard</a></h3>
+<ul>
+<li><strong>First launch</strong> — the wizard runs automatically</li>
+<li><strong>Re-run</strong> — type <code>/onboard</code> in chat, or <code>/onboard:channels</code> to jump straight to the channels step</li>
+<li><strong>Quick jump</strong> — <code>/onboard:channels</code> opens the channel picker and returns to chat when done</li>
+</ul>
+<h3 id="navigation"><a class="header" href="#navigation">Navigation</a></h3>
+<p>The channel picker is a keyboard-driven TUI screen:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Key</th><th>Action</th></tr>
+</thead>
+<tbody>
+<tr><td><code>↑</code> / <code>↓</code> or <code>j</code> / <code>k</code></td><td>Move focus between channels</td></tr>
+<tr><td><code>Space</code></td><td>Toggle the focused channel on/off</td></tr>
+<tr><td><code>Enter</code> on an enabled channel</td><td>Open that channel’s setup screen</td></tr>
+<tr><td><code>Enter</code> on <strong>Continue</strong></td><td>Skip remaining setup and advance</td></tr>
+<tr><td><code>Tab</code></td><td>Same as Continue — advance to the next wizard step</td></tr>
+<tr><td><code>Esc</code></td><td>Go back to the previous step</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="channel-setup-screens"><a class="header" href="#channel-setup-screens">Channel Setup Screens</a></h3>
+<p>When you press <code>Enter</code> on an enabled channel, a dedicated setup screen opens with the fields needed for that platform (bot token, channel ID, allowed users, etc.). Each field:</p>
+<ul>
+<li><strong>Auto-detects existing values</strong> from <code>config.toml</code> / <code>keys.toml</code> (shown as masked <code>••••••••</code> for secrets, plain text for IDs)</li>
+<li><strong>Tab</strong> moves to the next field</li>
+<li><strong>Enter</strong> on the last field (or the Test Connection button) saves and returns to the channel list</li>
+<li><strong>BackTab</strong> moves to the previous field</li>
+</ul>
+<h3 id="the-five-channels"><a class="header" href="#the-five-channels">The Five Channels</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>#</th><th>Channel</th><th>Setup Fields</th><th>Test</th></tr>
+</thead>
+<tbody>
+<tr><td>0</td><td>Telegram</td><td>Bot Token, Owner User ID, Respond To</td><td>Send test message</td></tr>
+<tr><td>1</td><td>Discord</td><td>Bot Token, Channel ID, Allowed Users, Respond To</td><td>Send test message</td></tr>
+<tr><td>2</td><td>WhatsApp</td><td>QR Code scan, Phone Allowlist</td><td>Connection status</td></tr>
+<tr><td>3</td><td>Slack</td><td>Bot Token, App Token, Channel ID, Allowed Users, Respond To</td><td>Send test message</td></tr>
+<tr><td>4</td><td>Trello</td><td>API Key, API Token, Board ID, Allowed Users</td><td>Board access check</td></tr>
+</tbody>
+</table>
+</div>
+<p>After enabling and configuring your channels, the wizard saves everything to <code>config.toml</code> and <code>keys.toml</code> automatically. You can always re-run <code>/onboard:channels</code> to modify settings.</p>
 <h2 id="supported-channels"><a class="header" href="#supported-channels">Supported Channels</a></h2>
 <div class="table-wrapper">
 <table>

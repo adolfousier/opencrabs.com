@@ -54,7 +54,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-d24c9d84.js";
+            window.path_to_searchindex_js = "../searchindex-d221e731.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-25972818.js"></script>
@@ -199,25 +199,43 @@
                         <h1 id="telegram"><a class="header" href="#telegram">Telegram</a></h1>
 <p>Connect OpenCrabs to Telegram for DMs and group chats.</p>
 <h2 id="setup"><a class="header" href="#setup">Setup</a></h2>
+<h3 id="step-1-create-a-bot-with-botfather"><a class="header" href="#step-1-create-a-bot-with-botfather">Step 1: Create a Bot with BotFather</a></h3>
 <ol>
 <li>Message <a href="https://t.me/BotFather">@BotFather</a> on Telegram</li>
-<li>Create a new bot with <code>/newbot</code></li>
-<li>Copy the bot token</li>
-<li>Add to <code>keys.toml</code>:</li>
+<li>Send <code>/newbot</code> and follow the prompts</li>
+<li>Copy the bot token (format: <code>123456:ABC-DEF...</code>)</li>
 </ol>
-<pre><code class="language-toml">[channels.telegram]
-bot_token = "123456:ABC..."
-</code></pre>
-<ol start="5">
-<li>Enable in <code>config.toml</code>:</li>
+<h3 id="step-2-configure-via-the-onboarding-wizard"><a class="header" href="#step-2-configure-via-the-onboarding-wizard">Step 2: Configure via the Onboarding Wizard</a></h3>
+<p>Run <code>/onboard:channels</code> (or <code>/onboard</code> and navigate to the Channels step):</p>
+<ol>
+<li>Use <code>↑</code>/<code>↓</code> to focus <strong>Telegram</strong></li>
+<li>Press <code>Space</code> to toggle it on</li>
+<li>Press <code>Enter</code> to open the Telegram setup screen</li>
+<li>Fill in the fields:
+<ul>
+<li><strong>Bot Token</strong> — paste the token from BotFather</li>
+<li><strong>Owner User ID</strong> — your numeric Telegram chat ID</li>
+<li><strong>Respond To</strong> — <code>all</code>, <code>dm_only</code>, or <code>mention</code> (when to respond in groups)</li>
+</ul>
+</li>
+<li>Press <code>Enter</code> on <strong>Test Connection</strong> to verify the bot works</li>
+<li>Press <code>Enter</code> to save and return to the channel list</li>
 </ol>
-<pre><code class="language-toml">[channels.telegram]
-enabled = true
-owner_chat_id = 123456789  # Your Telegram user ID
-</code></pre>
 <blockquote>
 <p>Get your chat ID by messaging <a href="https://t.me/userinfobot">@userinfobot</a> on Telegram.</p>
 </blockquote>
+<h3 id="manual-configuration-advanced"><a class="header" href="#manual-configuration-advanced">Manual Configuration (advanced)</a></h3>
+<p>If you prefer editing files directly, the wizard writes to <code>~/.opencrabs/keys.toml</code> and <code>~/.opencrabs/config.toml</code>:</p>
+<pre><code class="language-toml"># keys.toml
+[channels.telegram]
+bot_token = "123456:ABC..."
+
+# config.toml
+[channels.telegram]
+enabled = true
+allowed_users = ["123456789"]
+respond_to = "all"
+</code></pre>
 <h2 id="features"><a class="header" href="#features">Features</a></h2>
 <ul>
 <li><strong>DMs and groups</strong> — Works in private chats and group conversations</li>

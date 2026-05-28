@@ -4,25 +4,43 @@ Connect OpenCrabs to Telegram for DMs and group chats.
 
 ## Setup
 
+### Step 1: Create a Bot with BotFather
+
 1. Message [@BotFather](https://t.me/BotFather) on Telegram
-2. Create a new bot with `/newbot`
-3. Copy the bot token
-4. Add to `keys.toml`:
+2. Send `/newbot` and follow the prompts
+3. Copy the bot token (format: `123456:ABC-DEF...`)
 
-```toml
-[channels.telegram]
-bot_token = "123456:ABC..."
-```
+### Step 2: Configure via the Onboarding Wizard
 
-5. Enable in `config.toml`:
+Run `/onboard:channels` (or `/onboard` and navigate to the Channels step):
 
-```toml
-[channels.telegram]
-enabled = true
-owner_chat_id = 123456789  # Your Telegram user ID
-```
+1. Use `↑`/`↓` to focus **Telegram**
+2. Press `Space` to toggle it on
+3. Press `Enter` to open the Telegram setup screen
+4. Fill in the fields:
+   - **Bot Token** — paste the token from BotFather
+   - **Owner User ID** — your numeric Telegram chat ID
+   - **Respond To** — `all`, `dm_only`, or `mention` (when to respond in groups)
+5. Press `Enter` on **Test Connection** to verify the bot works
+6. Press `Enter` to save and return to the channel list
 
 > Get your chat ID by messaging [@userinfobot](https://t.me/userinfobot) on Telegram.
+
+### Manual Configuration (advanced)
+
+If you prefer editing files directly, the wizard writes to `~/.opencrabs/keys.toml` and `~/.opencrabs/config.toml`:
+
+```toml
+# keys.toml
+[channels.telegram]
+bot_token = "123456:ABC..."
+
+# config.toml
+[channels.telegram]
+enabled = true
+allowed_users = ["123456789"]
+respond_to = "all"
+```
 
 ## Features
 

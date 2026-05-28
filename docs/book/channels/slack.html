@@ -54,7 +54,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-d24c9d84.js";
+            window.path_to_searchindex_js = "../searchindex-d221e731.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-25972818.js"></script>
@@ -199,24 +199,46 @@
                         <h1 id="slack"><a class="header" href="#slack">Slack</a></h1>
 <p>Connect OpenCrabs to Slack workspaces.</p>
 <h2 id="setup"><a class="header" href="#setup">Setup</a></h2>
+<h3 id="step-1-create-a-slack-app"><a class="header" href="#step-1-create-a-slack-app">Step 1: Create a Slack App</a></h3>
 <ol>
 <li>Go to <a href="https://api.slack.com/apps">api.slack.com/apps</a></li>
-<li>Create a new app</li>
-<li>Enable <strong>Socket Mode</strong></li>
-<li>Add bot scopes: <code>chat:write</code>, <code>channels:history</code>, <code>groups:history</code>, <code>im:history</code>, <code>reactions:write</code></li>
-<li>Install to workspace</li>
-<li>Copy the <strong>Bot Token</strong> and <strong>App-Level Token</strong></li>
-<li>Add to <code>keys.toml</code>:</li>
+<li>Create a new app (From Scratch)</li>
+<li>Enable <strong>Socket Mode</strong> under Settings</li>
+<li>Generate an <strong>App-Level Token</strong> (Settings → Basic Information → App-Level Tokens) with <code>connections:write</code> scope</li>
+<li>Under <strong>OAuth &amp; Permissions</strong>, add bot scopes: <code>chat:write</code>, <code>channels:history</code>, <code>groups:history</code>, <code>im:history</code>, <code>reactions:write</code></li>
+<li>Install the app to your workspace</li>
+<li>Copy the <strong>Bot Token</strong> (<code>xoxb-...</code>) and <strong>App-Level Token</strong> (<code>xapp-...</code>)</li>
 </ol>
-<pre><code class="language-toml">[channels.slack]
+<h3 id="step-2-configure-via-the-onboarding-wizard"><a class="header" href="#step-2-configure-via-the-onboarding-wizard">Step 2: Configure via the Onboarding Wizard</a></h3>
+<p>Run <code>/onboard:channels</code> (or <code>/onboard</code> and navigate to the Channels step):</p>
+<ol>
+<li>Use <code>↑</code>/<code>↓</code> to focus <strong>Slack</strong></li>
+<li>Press <code>Space</code> to toggle it on</li>
+<li>Press <code>Enter</code> to open the Slack setup screen</li>
+<li>Fill in the fields:
+<ul>
+<li><strong>Bot Token</strong> — the <code>xoxb-...</code> token</li>
+<li><strong>App Token</strong> — the <code>xapp-...</code> token</li>
+<li><strong>Channel ID</strong> — right-click a channel → View channel details → copy the Channel ID at the bottom</li>
+<li><strong>Allowed Users</strong> — comma-separated Slack user IDs (Profile → ⋯ → Copy member ID)</li>
+<li><strong>Respond To</strong> — <code>all</code>, <code>dm_only</code>, or <code>mention</code></li>
+</ul>
+</li>
+<li>Press <code>Enter</code> on <strong>Test Connection</strong> to verify</li>
+<li>Press <code>Enter</code> to save</li>
+</ol>
+<h3 id="manual-configuration-advanced"><a class="header" href="#manual-configuration-advanced">Manual Configuration (advanced)</a></h3>
+<pre><code class="language-toml"># keys.toml
+[channels.slack]
 bot_token = "xoxb-..."
 app_token = "xapp-..."
-</code></pre>
-<ol start="8">
-<li>Enable in <code>config.toml</code>:</li>
-</ol>
-<pre><code class="language-toml">[channels.slack]
+
+# config.toml
+[channels.slack]
 enabled = true
+allowed_channels = ["C12345678"]
+allowed_users = []
+respond_to = "all"
 </code></pre>
 <h2 id="features"><a class="header" href="#features">Features</a></h2>
 <ul>
