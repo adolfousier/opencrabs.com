@@ -1,6 +1,109 @@
 # AI Provider Setup
 
-OpenCrabs supports multiple AI providers. Configure them in `config.toml` and `keys.toml` at `~/.opencrabs/`.
+OpenCrabs supports 15 providers (14 built-in + Custom OpenAI-Compatible). Configure them through the **onboarding wizard** or manually via `config.toml` and `keys.toml` at `~/.opencrabs/`.
+
+## Setup via Onboarding Wizard
+
+The fastest way to configure a provider is the interactive wizard. Run `/onboard:provider` (or `/onboard` and navigate to step 3).
+
+### Keyboard Navigation
+
+| Key | Action |
+|-----|--------|
+| `↑` / `↓` or `j` / `k` | Move between providers / models |
+| `Enter` or `Tab` | Advance to next field |
+| `BackTab` or `Shift+Tab` | Go back to previous field |
+| `Esc` | Go back to previous wizard step |
+| Type any character | Filter model list (when on model picker) |
+
+### Live-Fetch Providers (recommended)
+
+For providers with a `/v1/models` API endpoint, the wizard fetches the model list live after you enter your API key.
+
+**Supported:** Anthropic, OpenAI, OpenRouter, Gemini, MiniMax, Qwen (DashScope), Ollama, z.ai GLM
+
+**Flow:**
+
+1. Use `↑`/`↓` to select your provider (e.g. **OpenRouter**)
+2. Press `Enter` — advances to the API key field
+3. Paste your API key (e.g. `sk-or-...`)
+4. Press `Enter` — triggers a live fetch from the provider's `/v1/models` endpoint
+5. Use `↑`/`↓` to browse models, or **type to filter** (case-insensitive substring match)
+6. Press `Enter` on your chosen model — saves config and advances
+
+> **Tip:** If you've already configured a key, the wizard detects it (shown as `••••••••`) and skips straight to the model picker. Press `Enter` to re-fetch models with the existing key.
+
+### OAuth Providers (GitHub Copilot, Codex)
+
+No API key needed — authenticate through your browser.
+
+**Flow:**
+
+1. Select **GitHub Copilot** or **Codex**
+2. Press `Enter` — starts the device-code PKCE flow
+3. A user code and URL appear (e.g. `github.com/login/device`)
+4. Open the URL in your browser, enter the code, and authorize
+5. Tokens are saved automatically to `~/.opencrabs/auth/`
+6. Models are fetched live — pick one and press `Enter`
+
+### CLI Providers (Claude CLI, OpenCode CLI, Codex CLI)
+
+Use your existing CLI subscription — no separate API key.
+
+**Flow:**
+
+1. Select the CLI provider (e.g. **Claude CLI**)
+2. Press `Enter` — skips the API key field (none needed)
+3. Models are fetched from the local binary (`claude models`, `opencode models`, etc.)
+4. Pick a model and press `Enter`
+
+**Requirements:** The CLI binary must be installed and authenticated in your PATH.
+
+### z.ai GLM (Zhipu AI)
+
+z.ai has two endpoint types. The wizard asks which one before the API key.
+
+**Flow:**
+
+1. Select **z.ai GLM**
+2. Press `Enter` — advances to **Endpoint Type** selector
+3. Use `↑`/`↓` to choose `API` (general) or `Coding` (CodeGeeX)
+4. Press `Enter` — advances to API key field
+5. Paste your key, press `Enter` — fetches models
+6. Pick a model and press `Enter`
+
+### Custom OpenAI-Compatible
+
+For Ollama, LM Studio, LocalAI, Groq, NVIDIA, vLLM, or any OpenAI-compatible endpoint.
+
+**Flow:**
+
+1. Select **Custom OpenAI-Compatible** (last in the list)
+2. Press `Enter` — advances to **Provider Name** (identifier, e.g. `ollama`, `nvidia`)
+3. Type a name and press `Enter` — normalized to a TOML-safe key
+4. **Base URL** — paste your endpoint (e.g. `http://localhost:11434/v1`)
+5. Press `Enter` — triggers a live model fetch from `{base_url}/models`
+6. **API Key** — paste if required (leave empty for local endpoints)
+7. Press `Enter` — re-fetches models with the key if provided
+8. **Model** — pick from fetched list or type a model name manually
+9. **Context Window** — enter the token limit (e.g. `128000`)
+10. Press `Enter` — saves and advances
+
+> **Local LLMs:** No API key needed — just set base URL and model. The wizard fetches models from your local server.
+
+### Re-running Provider Setup
+
+| Command | What it does |
+|---------|-------------|
+| `/onboard:provider` | Jump to provider setup, return to chat when done |
+| `/models` | Switch provider/model for the current session |
+| `/onboard` | Full wizard (all steps) |
+
+## Manual Configuration (advanced)
+
+If you prefer editing files directly, configure providers in `config.toml` and `keys.toml`.
+
+---
 
 ## Anthropic Claude
 
