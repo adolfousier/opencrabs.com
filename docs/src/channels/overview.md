@@ -56,6 +56,27 @@ After enabling and configuring your channels, the wizard saves everything to `co
 | [WhatsApp](./whatsapp.md) | QR pairing | Vision pipeline | STT | Native image | QR code |
 | [Trello](./trello.md) | REST API | Card attachments | — | Card attachment | API key + token |
 
+## Cross-Channel Session Resolution (v0.3.29)
+
+All messaging channels now share a stable `[chat:<id>]` suffix pattern for reliable session lookup. Previously only Telegram had this; Discord, Slack, and WhatsApp used exact-title matching which broke when the agent auto-renamed sessions (creating duplicates on every message).
+
+The shared `channels::session_resolve` module provides:
+- **Suffix-first lookup** — fast path using `[chat:discord-dm-<user_id>]`, `[chat:slack-<channel_id>]`, `[chat:wa-<phone>]` etc.
+- **Legacy forward-migration** — pre-suffix rows are migrated to the suffix format on first lookup
+- **`/sessions` binding** — explicit chat→session binding on switch so user choices win over suffix lookup
+
+## Follow-Up Cancel (v0.3.30)
+
+Sending a message while the agent is mid-run now acts as **ESC x2** (cancel current run) across all channels. The cancelled partial content is preserved, and the new message starts a fresh agent turn.
+
+## ZIP Attachments (v0.3.30)
+
+ZIP file attachments from users are extracted and processed inline:
+- Text files are inlined into the conversation
+- Images get vision markers for multimodal processing
+- PDFs get text extraction
+- Capped at **50 files / 10 MB** per ZIP entry
+
 ## Common Features
 
 All messaging channels support:

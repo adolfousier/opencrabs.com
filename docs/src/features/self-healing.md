@@ -369,6 +369,18 @@ Fixed CodeQL #64 (HIGH): Gemini API key was leaked in URL query string (`?key=..
 - **Ctx counter real-time only** (#119) — ripped out calibration system entirely, uses provider-reported `input_tokens` verbatim. No more "0/max" for uncalibrated providers
 - **Profile brain-template seeding** — seeds 8 templates on `profile create`, recovery path for empty profiles
 
+## v0.3.29 Fixes
+
+- **Auto-title thinking-block fallback** (#121) — reasoning models returning only a Thinking block (no Text block) now get a title extracted from the thinking content instead of dropping silently. `extract_title_candidate` falls back to `pluck_title_from_thinking` (last quoted phrase, then last short sentence)
+- **Telegram label-drift fix** (PR #123 @leshchenko1979) — auto-titled sessions no longer overwritten on every subsequent message. `should_refresh_label` policy only refreshes default→default-different or group label changes, never auto-titled or custom titles. Chat→session binding on `/sessions` switch
+
+## v0.3.30 Fixes
+
+- **5-language deferment stall detection** — self-heal catches "I need to X" / "I have to X" / "I must X" / "I should X" patterns in English, Spanish, Portuguese, French, and Russian
+- **Follow-up message = ESC x2 cancel** — all four channel handlers treat a follow-up message during an active agent run as double-Escape cancel, then starts fresh
+- **Dynamic Telegram status messages** — replaced hardcoded quips with context-aware messages showing actual tool being called, tokens streamed, and elapsed time
+- **rename_session rejects empty titles** (#128) — whitespace-only titles rejected so sessions can't become unidentifiable
+
 ## Notifications
 
 All self-healing events are delivered to:

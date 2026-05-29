@@ -54,7 +54,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-28b11308.js";
+            window.path_to_searchindex_js = "../searchindex-c372d91a.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-25972818.js"></script>
@@ -238,6 +238,10 @@
 <li><strong>Enter-to-load</strong>: type a model name not in the fetched list and press Enter — it’s added to the list and selected</li>
 <li><strong>Field refresh</strong>: saved values (base URL, API key, model list) appear instantly without restarting the dialog</li>
 </ul>
+<h2 id="qwen-cache-auto-enable-v0330"><a class="header" href="#qwen-cache-auto-enable-v0330">Qwen Cache Auto-Enable (v0.3.30)</a></h2>
+<p>Custom providers targeting Qwen-shaped endpoints (base URLs containing <code>dashscope</code>, <code>aliyun</code>, <code>aliyuncs</code>, <code>dialagram</code>, or models prefixed with <code>qwen-*</code>) automatically get ephemeral <code>cache_control</code> markers on the system prompt, last streaming message, and last tool call. Zero-config cost savings for Qwen custom providers — no API key or flag needed.</p>
+<h2 id="models-picker-v0330"><a class="header" href="#models-picker-v0330"><code>/models</code> Picker (v0.3.30)</a></h2>
+<p>The <code>/models</code> command now surfaces <strong>every known provider</strong> including unconfigured ones, marked with a 🔒 lock icon and setup help text. This helps users discover available providers without needing to know which ones need API keys. Custom providers with no configured models show a helpful empty-state message instead of an inert button.</p>
 <h2 id="openrouter-reasoning"><a class="header" href="#openrouter-reasoning">OpenRouter Reasoning</a></h2>
 <p>For models that support extended reasoning (e.g. Qwen 3.6 Plus), OpenCrabs sends <code>include_reasoning: true</code> automatically when using OpenRouter. Thinking/reasoning output is displayed in collapsible sections:</p>
 <pre><code>▶ Thinking... (click to expand)

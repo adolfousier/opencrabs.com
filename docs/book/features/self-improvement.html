@@ -54,7 +54,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-28b11308.js";
+            window.path_to_searchindex_js = "../searchindex-c372d91a.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-25972818.js"></script>
@@ -401,6 +401,10 @@ Agent notices pattern of 5+ corrections on output hygiene:
 <li><strong>Brain backup rotation</strong> — max 5 backups per file, max 7 days old. Prevents unbounded <code>.bak</code> accumulation in <code>~/.opencrabs/</code> from repeated RSI writes</li>
 <li><strong>Profile brain-template seeding</strong> — <code>profile create</code> now seeds 8 brain file templates automatically, with recovery path for empty profiles. Ensures new profiles start with complete brain file sets</li>
 <li><strong>Auto-title retry on LLM failure</strong> — auto-title no longer gives up on first LLM error; retries with backoff before falling back to truncated first message</li>
+</ul>
+<h2 id="v0330-additions"><a class="header" href="#v0330-additions">v0.3.30 Additions</a></h2>
+<ul>
+<li><strong>RSI rejects trivial content</strong> — <code>self_improve</code> apply action now rejects trivial test content before it can pollute brain files, preventing noise from accumulating in SOUL.md and TOOLS.md</li>
 </ul>
 <h2 id="self-healing-vs-self-improvement"><a class="header" href="#self-healing-vs-self-improvement">Self-Healing vs Self-Improvement</a></h2>
 <div class="table-wrapper">

@@ -27,6 +27,10 @@
 - **Cross-channel crash recovery** — pending requests route back to originating channel on restart (v0.2.93)
 - **DB-persisted channel sessions** — state survives restarts
 - **Voice support** — local Whisper STT + Piper TTS, fully offline. Voicebox with STT/TTS fallback chains, 2s liveness probe, librosa error translator, per-provider fallback chains in config.toml (v0.3.28)
+- **Cross-channel stable session suffixes** — Discord, Slack, WhatsApp all use `[chat:<id>]` suffix pattern for reliable session resolution, shared `channels::session_resolve` module with suffix-first lookup + legacy forward-migration (v0.3.29)
+- **Follow-up message = ESC x2 cancel** — sending a message during an active agent run cancels the current run and starts fresh, across all channels (v0.3.30)
+- **ZIP attachment handling** — extracts and processes ZIP files inline (text inlined, images get vision markers, PDFs extracted, 50 files/10MB cap) (v0.3.30)
+- **Topic-aware channel_search** — `topic_id` filter for Telegram forum supergroups (v0.3.30, #127)
 - **Video uploads across all channels** — Slack, Telegram, Discord, WhatsApp, and Trello automatically route video attachments to `analyze_video` when vision is enabled (v0.3.17)
 - **Telegram 20 MB Bot API cap** — surfaces "compress to under 20 MB and resend" message instead of silently failing on large uploads (v0.3.17)
 - **Telegram dropped video/animation** — now downloads and routes through vision processing, including iPhone `.mov` uploads auto-converted to MP4-backed Animation (v0.3.17)
@@ -56,6 +60,8 @@
 - **@ file picker fixed for large repos** — skips .git/.hg/.svn directories, raised result cap to 20k (v0.3.19)
 
 ### 🖥️ Terminal UI Excellence (v0.3.2)
+- **Real-time tok/s throughput meter** — footer displays live tokens-per-second during streaming (between model info and approval policy pill), counts only active streaming time, persists last rate during idle (v0.3.30)
+- **Dynamic plan widget** — hides tasks that don't fit terminal height instead of overflowing (v0.3.30)
 - **Per-pane error & notification banners** — dedicated error/notification display per TUI pane for better visibility (v0.3.20)
 - **Scroll fixes** — removed `load_more_history()` from scroll handler (was causing scroll-up to overshoot hundreds of pages), preserved scroll position during streaming and system messages, skip scroll compensation on first render (v0.3.25)
 - **Auto-title fires at end of first turn** — works across all channels, not just TUI (v0.3.25)
@@ -88,7 +94,8 @@
 - **Async proactive compaction** — at 65% context, compaction runs in background without blocking the chat (v0.3.16)
 - **`rename_session`** — agent proactively renames the current session with a descriptive title (3–8 words). Useful for long-running conversations where default titles become unhelpful (v0.3.24)
 - **`follow_up_question`** — agent asks the user a multi-choice question with up to 8 button options. Implemented across all channels: Telegram (inline keyboard), Discord (button components), Slack (Block Kit actions), WhatsApp (quick replies) (v0.3.24, #94)
-- **Auto-generated session titles** — new sessions get titles from the first user message via background LLM call. Never enters conversation context (v0.3.24)
+- **Auto-generated session titles** — new sessions get titles from the first user message via background LLM call. Never enters conversation context. Thinking-only model fallback extracts title from reasoning block (v0.3.24, v0.3.29 #121)
+- **`/models` picker overhaul** — surfaces unconfigured providers with 🔒 lock + setup help text, single-source CLI model list, custom-provider empty-state help (v0.3.30, #126)
 - **RTK Token Savings** — bundled RTK binary (4MB, v0.40.0) as default feature. Zero-config proxy intercepts tool output, filters via Rust, returns token-optimized version. 100+ commands (git, cargo, npm, docker, kubectl, grep, find, ls, tree, curl), blocklist for interactive commands. `/rtk` slash command shows savings stats. Real-world: 53.5% token savings (v0.3.25, #102)
 - **Tool call stacking** — 3+ consecutive tool call groups collapse into single summary line in TUI. Ctrl+O expands/collapses. Shows "N tool calls" or "N tool calls (M groups)" (v0.3.25)
 - **`hashline_edit` tool** — hash-anchored file editing. Each line gets 2-char content hash from `read_file(hashline=true)`. Reference lines as `LINE#ID`, stale hashes rejected before changes applied. Batch edits supported. Collision detection escalates to `edit_file` fallback (v0.3.25, #60; v0.3.26 #105)
@@ -100,6 +107,7 @@
 - **Fallback error reason surfaced in TUI** — when fallback fires, the underlying error shows as a system message (v0.3.18)
 - **OpenAI-compatible embedding API** — configure external embedding providers (OpenAI, Ollama, Jina, LM Studio) instead of downloading 300MB GGUF model. Dynamic vector dimensions from API response (v0.3.19)
 - **FTS5-only memory mode for VPS** — pure keyword search with zero RAM overhead. Auto-detects VPS environments and configures automatically (v0.3.19)
+- **img2img for `generate_image`** — optional `image` parameter (local path or HTTPS URL) feeds Gemini `inlineData` for editing user-uploaded images. OpenAI-shaped backends reject with clear error pointing at Gemini (v0.3.30)
 
 ### 🌐 Browser Automation
 - **Full CDP support**: navigate, click, type, screenshot, JS eval, wait for selectors, find elements
@@ -130,7 +138,7 @@
 - **Auto-approve propagation** — `approval_policy = "auto-always"` actually reaches tool loop (v0.3.2)
 
 ### 📊 Testing & Quality
-- **3,070+ tests** covering providers, tools, channels, TUI, self-healing, crash recovery, browser automation
+- **3,165+ tests** covering providers, tools, channels, TUI, self-healing, crash recovery, browser automation
 - **CI/CD**: GitHub Actions, CodeQL, `cargo audit` security checks, release automation
 
 ### 🔧 Built-in Skills (v0.3.17)

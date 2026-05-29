@@ -55,7 +55,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-28b11308.js";
+            window.path_to_searchindex_js = "searchindex-c372d91a.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-25972818.js"></script>
@@ -226,6 +226,10 @@
 <li><strong>Cross-channel crash recovery</strong> — pending requests route back to originating channel on restart (v0.2.93)</li>
 <li><strong>DB-persisted channel sessions</strong> — state survives restarts</li>
 <li><strong>Voice support</strong> — local Whisper STT + Piper TTS, fully offline. Voicebox with STT/TTS fallback chains, 2s liveness probe, librosa error translator, per-provider fallback chains in config.toml (v0.3.28)</li>
+<li><strong>Cross-channel stable session suffixes</strong> — Discord, Slack, WhatsApp all use <code>[chat:&lt;id&gt;]</code> suffix pattern for reliable session resolution, shared <code>channels::session_resolve</code> module with suffix-first lookup + legacy forward-migration (v0.3.29)</li>
+<li><strong>Follow-up message = ESC x2 cancel</strong> — sending a message during an active agent run cancels the current run and starts fresh, across all channels (v0.3.30)</li>
+<li><strong>ZIP attachment handling</strong> — extracts and processes ZIP files inline (text inlined, images get vision markers, PDFs extracted, 50 files/10MB cap) (v0.3.30)</li>
+<li><strong>Topic-aware channel_search</strong> — <code>topic_id</code> filter for Telegram forum supergroups (v0.3.30, #127)</li>
 <li><strong>Video uploads across all channels</strong> — Slack, Telegram, Discord, WhatsApp, and Trello automatically route video attachments to <code>analyze_video</code> when vision is enabled (v0.3.17)</li>
 <li><strong>Telegram 20 MB Bot API cap</strong> — surfaces “compress to under 20 MB and resend” message instead of silently failing on large uploads (v0.3.17)</li>
 <li><strong>Telegram dropped video/animation</strong> — now downloads and routes through vision processing, including iPhone <code>.mov</code> uploads auto-converted to MP4-backed Animation (v0.3.17)</li>
@@ -257,6 +261,8 @@
 </ul>
 <h3 id="-terminal-ui-excellence-v032"><a class="header" href="#-terminal-ui-excellence-v032">🖥️ Terminal UI Excellence (v0.3.2)</a></h3>
 <ul>
+<li><strong>Real-time tok/s throughput meter</strong> — footer displays live tokens-per-second during streaming (between model info and approval policy pill), counts only active streaming time, persists last rate during idle (v0.3.30)</li>
+<li><strong>Dynamic plan widget</strong> — hides tasks that don’t fit terminal height instead of overflowing (v0.3.30)</li>
 <li><strong>Per-pane error &amp; notification banners</strong> — dedicated error/notification display per TUI pane for better visibility (v0.3.20)</li>
 <li><strong>Scroll fixes</strong> — removed <code>load_more_history()</code> from scroll handler (was causing scroll-up to overshoot hundreds of pages), preserved scroll position during streaming and system messages, skip scroll compensation on first render (v0.3.25)</li>
 <li><strong>Auto-title fires at end of first turn</strong> — works across all channels, not just TUI (v0.3.25)</li>
@@ -290,7 +296,8 @@
 <li><strong>Async proactive compaction</strong> — at 65% context, compaction runs in background without blocking the chat (v0.3.16)</li>
 <li><strong><code>rename_session</code></strong> — agent proactively renames the current session with a descriptive title (3–8 words). Useful for long-running conversations where default titles become unhelpful (v0.3.24)</li>
 <li><strong><code>follow_up_question</code></strong> — agent asks the user a multi-choice question with up to 8 button options. Implemented across all channels: Telegram (inline keyboard), Discord (button components), Slack (Block Kit actions), WhatsApp (quick replies) (v0.3.24, #94)</li>
-<li><strong>Auto-generated session titles</strong> — new sessions get titles from the first user message via background LLM call. Never enters conversation context (v0.3.24)</li>
+<li><strong>Auto-generated session titles</strong> — new sessions get titles from the first user message via background LLM call. Never enters conversation context. Thinking-only model fallback extracts title from reasoning block (v0.3.24, v0.3.29 #121)</li>
+<li><strong><code>/models</code> picker overhaul</strong> — surfaces unconfigured providers with 🔒 lock + setup help text, single-source CLI model list, custom-provider empty-state help (v0.3.30, #126)</li>
 <li><strong>RTK Token Savings</strong> — bundled RTK binary (4MB, v0.40.0) as default feature. Zero-config proxy intercepts tool output, filters via Rust, returns token-optimized version. 100+ commands (git, cargo, npm, docker, kubectl, grep, find, ls, tree, curl), blocklist for interactive commands. <code>/rtk</code> slash command shows savings stats. Real-world: 53.5% token savings (v0.3.25, #102)</li>
 <li><strong>Tool call stacking</strong> — 3+ consecutive tool call groups collapse into single summary line in TUI. Ctrl+O expands/collapses. Shows “N tool calls” or “N tool calls (M groups)” (v0.3.25)</li>
 <li><strong><code>hashline_edit</code> tool</strong> — hash-anchored file editing. Each line gets 2-char content hash from <code>read_file(hashline=true)</code>. Reference lines as <code>LINE#ID</code>, stale hashes rejected before changes applied. Batch edits supported. Collision detection escalates to <code>edit_file</code> fallback (v0.3.25, #60; v0.3.26 #105)</li>
@@ -302,6 +309,7 @@
 <li><strong>Fallback error reason surfaced in TUI</strong> — when fallback fires, the underlying error shows as a system message (v0.3.18)</li>
 <li><strong>OpenAI-compatible embedding API</strong> — configure external embedding providers (OpenAI, Ollama, Jina, LM Studio) instead of downloading 300MB GGUF model. Dynamic vector dimensions from API response (v0.3.19)</li>
 <li><strong>FTS5-only memory mode for VPS</strong> — pure keyword search with zero RAM overhead. Auto-detects VPS environments and configures automatically (v0.3.19)</li>
+<li><strong>img2img for <code>generate_image</code></strong> — optional <code>image</code> parameter (local path or HTTPS URL) feeds Gemini <code>inlineData</code> for editing user-uploaded images. OpenAI-shaped backends reject with clear error pointing at Gemini (v0.3.30)</li>
 </ul>
 <h3 id="-browser-automation"><a class="header" href="#-browser-automation">🌐 Browser Automation</a></h3>
 <ul>
@@ -337,7 +345,7 @@
 </ul>
 <h3 id="-testing--quality"><a class="header" href="#-testing--quality">📊 Testing &amp; Quality</a></h3>
 <ul>
-<li><strong>3,070+ tests</strong> covering providers, tools, channels, TUI, self-healing, crash recovery, browser automation</li>
+<li><strong>3,165+ tests</strong> covering providers, tools, channels, TUI, self-healing, crash recovery, browser automation</li>
 <li><strong>CI/CD</strong>: GitHub Actions, CodeQL, <code>cargo audit</code> security checks, release automation</li>
 </ul>
 <h3 id="-built-in-skills-v0317"><a class="header" href="#-built-in-skills-v0317">🔧 Built-in Skills (v0.3.17)</a></h3>
@@ -1235,6 +1243,10 @@ cargo build --release
 <li><strong>Enter-to-load</strong>: type a model name not in the fetched list and press Enter — it’s added to the list and selected</li>
 <li><strong>Field refresh</strong>: saved values (base URL, API key, model list) appear instantly without restarting the dialog</li>
 </ul>
+<h2 id="qwen-cache-auto-enable-v0330"><a class="header" href="#qwen-cache-auto-enable-v0330">Qwen Cache Auto-Enable (v0.3.30)</a></h2>
+<p>Custom providers targeting Qwen-shaped endpoints (base URLs containing <code>dashscope</code>, <code>aliyun</code>, <code>aliyuncs</code>, <code>dialagram</code>, or models prefixed with <code>qwen-*</code>) automatically get ephemeral <code>cache_control</code> markers on the system prompt, last streaming message, and last tool call. Zero-config cost savings for Qwen custom providers — no API key or flag needed.</p>
+<h2 id="models-picker-v0330"><a class="header" href="#models-picker-v0330"><code>/models</code> Picker (v0.3.30)</a></h2>
+<p>The <code>/models</code> command now surfaces <strong>every known provider</strong> including unconfigured ones, marked with a 🔒 lock icon and setup help text. This helps users discover available providers without needing to know which ones need API keys. Custom providers with no configured models show a helpful empty-state message instead of an inert button.</p>
 <h2 id="openrouter-reasoning"><a class="header" href="#openrouter-reasoning">OpenRouter Reasoning</a></h2>
 <p>For models that support extended reasoning (e.g. Qwen 3.6 Plus), OpenCrabs sends <code>include_reasoning: true</code> automatically when using OpenRouter. Thinking/reasoning output is displayed in collapsible sections:</p>
 <pre><code>▶ Thinking... (click to expand)
@@ -1649,6 +1661,24 @@ model = "gemini-3.1-flash-image-preview"
 </tbody>
 </table>
 </div>
+<h2 id="cross-channel-session-resolution-v0329"><a class="header" href="#cross-channel-session-resolution-v0329">Cross-Channel Session Resolution (v0.3.29)</a></h2>
+<p>All messaging channels now share a stable <code>[chat:&lt;id&gt;]</code> suffix pattern for reliable session lookup. Previously only Telegram had this; Discord, Slack, and WhatsApp used exact-title matching which broke when the agent auto-renamed sessions (creating duplicates on every message).</p>
+<p>The shared <code>channels::session_resolve</code> module provides:</p>
+<ul>
+<li><strong>Suffix-first lookup</strong> — fast path using <code>[chat:discord-dm-&lt;user_id&gt;]</code>, <code>[chat:slack-&lt;channel_id&gt;]</code>, <code>[chat:wa-&lt;phone&gt;]</code> etc.</li>
+<li><strong>Legacy forward-migration</strong> — pre-suffix rows are migrated to the suffix format on first lookup</li>
+<li><strong><code>/sessions</code> binding</strong> — explicit chat→session binding on switch so user choices win over suffix lookup</li>
+</ul>
+<h2 id="follow-up-cancel-v0330"><a class="header" href="#follow-up-cancel-v0330">Follow-Up Cancel (v0.3.30)</a></h2>
+<p>Sending a message while the agent is mid-run now acts as <strong>ESC x2</strong> (cancel current run) across all channels. The cancelled partial content is preserved, and the new message starts a fresh agent turn.</p>
+<h2 id="zip-attachments-v0330"><a class="header" href="#zip-attachments-v0330">ZIP Attachments (v0.3.30)</a></h2>
+<p>ZIP file attachments from users are extracted and processed inline:</p>
+<ul>
+<li>Text files are inlined into the conversation</li>
+<li>Images get vision markers for multimodal processing</li>
+<li>PDFs get text extraction</li>
+<li>Capped at <strong>50 files / 10 MB</strong> per ZIP entry</li>
+</ul>
 <h2 id="common-features"><a class="header" href="#common-features">Common Features</a></h2>
 <p>All messaging channels support:</p>
 <ul>
@@ -3313,6 +3343,18 @@ providers = ["openrouter", "anthropic"]  # tried in order
 <li><strong>Ctx counter real-time only</strong> (#119) — ripped out calibration system entirely, uses provider-reported <code>input_tokens</code> verbatim. No more “0/max” for uncalibrated providers</li>
 <li><strong>Profile brain-template seeding</strong> — seeds 8 templates on <code>profile create</code>, recovery path for empty profiles</li>
 </ul>
+<h2 id="v0329-fixes"><a class="header" href="#v0329-fixes">v0.3.29 Fixes</a></h2>
+<ul>
+<li><strong>Auto-title thinking-block fallback</strong> (#121) — reasoning models returning only a Thinking block (no Text block) now get a title extracted from the thinking content instead of dropping silently. <code>extract_title_candidate</code> falls back to <code>pluck_title_from_thinking</code> (last quoted phrase, then last short sentence)</li>
+<li><strong>Telegram label-drift fix</strong> (PR #123 @leshchenko1979) — auto-titled sessions no longer overwritten on every subsequent message. <code>should_refresh_label</code> policy only refreshes default→default-different or group label changes, never auto-titled or custom titles. Chat→session binding on <code>/sessions</code> switch</li>
+</ul>
+<h2 id="v0330-fixes"><a class="header" href="#v0330-fixes">v0.3.30 Fixes</a></h2>
+<ul>
+<li><strong>5-language deferment stall detection</strong> — self-heal catches “I need to X” / “I have to X” / “I must X” / “I should X” patterns in English, Spanish, Portuguese, French, and Russian</li>
+<li><strong>Follow-up message = ESC x2 cancel</strong> — all four channel handlers treat a follow-up message during an active agent run as double-Escape cancel, then starts fresh</li>
+<li><strong>Dynamic Telegram status messages</strong> — replaced hardcoded quips with context-aware messages showing actual tool being called, tokens streamed, and elapsed time</li>
+<li><strong>rename_session rejects empty titles</strong> (#128) — whitespace-only titles rejected so sessions can’t become unidentifiable</li>
+</ul>
 <h2 id="notifications"><a class="header" href="#notifications">Notifications</a></h2>
 <p>All self-healing events are delivered to:</p>
 <ul>
@@ -3526,6 +3568,10 @@ Agent notices pattern of 5+ corrections on output hygiene:
 <li><strong>Brain backup rotation</strong> — max 5 backups per file, max 7 days old. Prevents unbounded <code>.bak</code> accumulation in <code>~/.opencrabs/</code> from repeated RSI writes</li>
 <li><strong>Profile brain-template seeding</strong> — <code>profile create</code> now seeds 8 brain file templates automatically, with recovery path for empty profiles. Ensures new profiles start with complete brain file sets</li>
 <li><strong>Auto-title retry on LLM failure</strong> — auto-title no longer gives up on first LLM error; retries with backoff before falling back to truncated first message</li>
+</ul>
+<h2 id="v0330-additions"><a class="header" href="#v0330-additions">v0.3.30 Additions</a></h2>
+<ul>
+<li><strong>RSI rejects trivial content</strong> — <code>self_improve</code> apply action now rejects trivial test content before it can pollute brain files, preventing noise from accumulating in SOUL.md and TOOLS.md</li>
 </ul>
 <h2 id="self-healing-vs-self-improvement"><a class="header" href="#self-healing-vs-self-improvement">Self-Healing vs Self-Improvement</a></h2>
 <div class="table-wrapper">
@@ -4355,7 +4401,7 @@ panic = "abort"
 <tr><td><strong>Pricing</strong></td><td style="text-align: right">17</td><td><code>src/pricing.rs</code></td></tr>
 <tr><td><strong>Memory</strong></td><td style="text-align: right">9</td><td><code>src/memory/</code></td></tr>
 <tr><td><strong>Logging</strong></td><td style="text-align: right">4</td><td><code>src/logging/</code></td></tr>
-<tr><td><strong>Total</strong></td><td style="text-align: right"><strong>3,070</strong></td><td></td></tr>
+<tr><td><strong>Total</strong></td><td style="text-align: right"><strong>3,165</strong></td><td></td></tr>
 </tbody>
 </table>
 </div>

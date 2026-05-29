@@ -211,6 +211,10 @@ RSI now bumps a violation counter on existing rules instead of deduping repeat v
 - **Profile brain-template seeding** — `profile create` now seeds 8 brain file templates automatically, with recovery path for empty profiles. Ensures new profiles start with complete brain file sets
 - **Auto-title retry on LLM failure** — auto-title no longer gives up on first LLM error; retries with backoff before falling back to truncated first message
 
+## v0.3.30 Additions
+
+- **RSI rejects trivial content** — `self_improve` apply action now rejects trivial test content before it can pollute brain files, preventing noise from accumulating in SOUL.md and TOOLS.md
+
 ## Self-Healing vs Self-Improvement
 
 | Self-Healing | Self-Improvement |

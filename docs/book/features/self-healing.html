@@ -54,7 +54,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-28b11308.js";
+            window.path_to_searchindex_js = "../searchindex-c372d91a.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-25972818.js"></script>
@@ -482,6 +482,18 @@ providers = ["openrouter", "anthropic"]  # tried in order
 <li><strong>Auto-title fixes</strong> (#118, #120) — fires on FIRST turn (not second), retries on LLM failure instead of giving up</li>
 <li><strong>Ctx counter real-time only</strong> (#119) — ripped out calibration system entirely, uses provider-reported <code>input_tokens</code> verbatim. No more “0/max” for uncalibrated providers</li>
 <li><strong>Profile brain-template seeding</strong> — seeds 8 templates on <code>profile create</code>, recovery path for empty profiles</li>
+</ul>
+<h2 id="v0329-fixes"><a class="header" href="#v0329-fixes">v0.3.29 Fixes</a></h2>
+<ul>
+<li><strong>Auto-title thinking-block fallback</strong> (#121) — reasoning models returning only a Thinking block (no Text block) now get a title extracted from the thinking content instead of dropping silently. <code>extract_title_candidate</code> falls back to <code>pluck_title_from_thinking</code> (last quoted phrase, then last short sentence)</li>
+<li><strong>Telegram label-drift fix</strong> (PR #123 @leshchenko1979) — auto-titled sessions no longer overwritten on every subsequent message. <code>should_refresh_label</code> policy only refreshes default→default-different or group label changes, never auto-titled or custom titles. Chat→session binding on <code>/sessions</code> switch</li>
+</ul>
+<h2 id="v0330-fixes"><a class="header" href="#v0330-fixes">v0.3.30 Fixes</a></h2>
+<ul>
+<li><strong>5-language deferment stall detection</strong> — self-heal catches “I need to X” / “I have to X” / “I must X” / “I should X” patterns in English, Spanish, Portuguese, French, and Russian</li>
+<li><strong>Follow-up message = ESC x2 cancel</strong> — all four channel handlers treat a follow-up message during an active agent run as double-Escape cancel, then starts fresh</li>
+<li><strong>Dynamic Telegram status messages</strong> — replaced hardcoded quips with context-aware messages showing actual tool being called, tokens streamed, and elapsed time</li>
+<li><strong>rename_session rejects empty titles</strong> (#128) — whitespace-only titles rejected so sessions can’t become unidentifiable</li>
 </ul>
 <h2 id="notifications"><a class="header" href="#notifications">Notifications</a></h2>
 <p>All self-healing events are delivered to:</p>

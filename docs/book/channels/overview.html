@@ -54,7 +54,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-28b11308.js";
+            window.path_to_searchindex_js = "../searchindex-c372d91a.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-25972818.js"></script>
@@ -262,6 +262,24 @@
 </tbody>
 </table>
 </div>
+<h2 id="cross-channel-session-resolution-v0329"><a class="header" href="#cross-channel-session-resolution-v0329">Cross-Channel Session Resolution (v0.3.29)</a></h2>
+<p>All messaging channels now share a stable <code>[chat:&lt;id&gt;]</code> suffix pattern for reliable session lookup. Previously only Telegram had this; Discord, Slack, and WhatsApp used exact-title matching which broke when the agent auto-renamed sessions (creating duplicates on every message).</p>
+<p>The shared <code>channels::session_resolve</code> module provides:</p>
+<ul>
+<li><strong>Suffix-first lookup</strong> — fast path using <code>[chat:discord-dm-&lt;user_id&gt;]</code>, <code>[chat:slack-&lt;channel_id&gt;]</code>, <code>[chat:wa-&lt;phone&gt;]</code> etc.</li>
+<li><strong>Legacy forward-migration</strong> — pre-suffix rows are migrated to the suffix format on first lookup</li>
+<li><strong><code>/sessions</code> binding</strong> — explicit chat→session binding on switch so user choices win over suffix lookup</li>
+</ul>
+<h2 id="follow-up-cancel-v0330"><a class="header" href="#follow-up-cancel-v0330">Follow-Up Cancel (v0.3.30)</a></h2>
+<p>Sending a message while the agent is mid-run now acts as <strong>ESC x2</strong> (cancel current run) across all channels. The cancelled partial content is preserved, and the new message starts a fresh agent turn.</p>
+<h2 id="zip-attachments-v0330"><a class="header" href="#zip-attachments-v0330">ZIP Attachments (v0.3.30)</a></h2>
+<p>ZIP file attachments from users are extracted and processed inline:</p>
+<ul>
+<li>Text files are inlined into the conversation</li>
+<li>Images get vision markers for multimodal processing</li>
+<li>PDFs get text extraction</li>
+<li>Capped at <strong>50 files / 10 MB</strong> per ZIP entry</li>
+</ul>
 <h2 id="common-features"><a class="header" href="#common-features">Common Features</a></h2>
 <p>All messaging channels support:</p>
 <ul>

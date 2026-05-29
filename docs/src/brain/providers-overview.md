@@ -37,6 +37,14 @@ Adding a custom OpenAI-compatible provider is now smoother:
 - **Enter-to-load**: type a model name not in the fetched list and press Enter — it's added to the list and selected
 - **Field refresh**: saved values (base URL, API key, model list) appear instantly without restarting the dialog
 
+## Qwen Cache Auto-Enable (v0.3.30)
+
+Custom providers targeting Qwen-shaped endpoints (base URLs containing `dashscope`, `aliyun`, `aliyuncs`, `dialagram`, or models prefixed with `qwen-*`) automatically get ephemeral `cache_control` markers on the system prompt, last streaming message, and last tool call. Zero-config cost savings for Qwen custom providers — no API key or flag needed.
+
+## `/models` Picker (v0.3.30)
+
+The `/models` command now surfaces **every known provider** including unconfigured ones, marked with a 🔒 lock icon and setup help text. This helps users discover available providers without needing to know which ones need API keys. Custom providers with no configured models show a helpful empty-state message instead of an inert button.
+
 ## OpenRouter Reasoning
 
 For models that support extended reasoning (e.g. Qwen 3.6 Plus), OpenCrabs sends `include_reasoning: true` automatically when using OpenRouter. Thinking/reasoning output is displayed in collapsible sections:
