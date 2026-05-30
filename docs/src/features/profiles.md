@@ -122,6 +122,4 @@ Multiple profile daemons can run simultaneously as separate OS services, each wi
 
 ## Per-Session Provider Isolation
 
-Changing the provider in the TUI for one profile does **not** affect other active profiles or Telegram/Discord/Slack sessions. Each session remembers its own provider independently.
-
-This was fixed in v0.2.95 where provider changes previously leaked across sessions.
+Changing the provider in one session does **not** affect other sessions or profiles. Each session remembers its own provider independently. See [Sessions](./sessions.md) for the full isolation story.

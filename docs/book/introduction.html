@@ -54,7 +54,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-c372d91a.js";
+            window.path_to_searchindex_js = "searchindex-04f68512.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-25972818.js"></script>
@@ -214,6 +214,7 @@
 </ul>
 <h3 id="-multi-agent-orchestration"><a class="header" href="#-multi-agent-orchestration">🤖 Multi-Agent Orchestration</a></h3>
 <ul>
+<li><strong>Sessions are fully isolated agents</strong> — each session is an independent agent with its own brain, provider, model, working directory, and history. Zero context contamination between concurrent sessions, guaranteed by Rust’s async runtime and type system</li>
 <li><strong>Typed sub-agents</strong>: <code>general</code>, <code>explore</code>, <code>plan</code>, <code>code</code>, <code>research</code> — each with tailored tool access</li>
 <li><strong>Team orchestration</strong>: <code>team_create</code>, <code>team_broadcast</code>, <code>team_delete</code> for coordinated workflows</li>
 <li><strong>Spawn/wait/resume</strong> sub-agents with A2A protocol support</li>

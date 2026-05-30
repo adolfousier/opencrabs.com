@@ -54,7 +54,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-c372d91a.js";
+            window.path_to_searchindex_js = "../searchindex-04f68512.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-25972818.js"></script>
@@ -284,8 +284,7 @@ opencrabs -p hermes service start
 </code></pre>
 <p>Multiple profile daemons can run simultaneously as separate OS services, each with its own ports, bot connections, and config.</p>
 <h2 id="per-session-provider-isolation"><a class="header" href="#per-session-provider-isolation">Per-Session Provider Isolation</a></h2>
-<p>Changing the provider in the TUI for one profile does <strong>not</strong> affect other active profiles or Telegram/Discord/Slack sessions. Each session remembers its own provider independently.</p>
-<p>This was fixed in v0.2.95 where provider changes previously leaked across sessions.</p>
+<p>Changing the provider in one session does <strong>not</strong> affect other sessions or profiles. Each session remembers its own provider independently. See <a href="./sessions.html">Sessions</a> for the full isolation story.</p>
 
                     </main>
 

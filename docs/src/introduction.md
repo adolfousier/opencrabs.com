@@ -17,6 +17,7 @@
 - **Prompt caching** across Anthropic, OpenRouter, Gemini, Qwen DashScope — reduces costs up to 95% (v0.3.2)
 
 ### 🤖 Multi-Agent Orchestration
+- **Sessions are fully isolated agents** — each session is an independent agent with its own brain, provider, model, working directory, and history. Zero context contamination between concurrent sessions, guaranteed by Rust's async runtime and type system
 - **Typed sub-agents**: `general`, `explore`, `plan`, `code`, `research` — each with tailored tool access
 - **Team orchestration**: `team_create`, `team_broadcast`, `team_delete` for coordinated workflows
 - **Spawn/wait/resume** sub-agents with A2A protocol support
