@@ -2,6 +2,41 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.21] - 2026-06-01
+
+### Added
+- Vision two-path setup — Path A (`vision_model` on any built-in or custom provider, preferred) vs Path B (Gemini global fallback). Full rewrite of images.md with `#[serde(skip)]` gotcha and `is_vision_available` diagnostic grep
+- `vision_model` works on ANY provider — documented in providers-overview.md with link to images.md
+- Forum topic routing (v0.3.31) — `thread_id` tracking through full Telegram pipeline, `list_topics` action, 20+ telegram_send actions
+- PDF `page_range` param — pass `"1-30"`, `"5,7,10-15"`, or `"3"` for targeted extraction. Text-first routing, ~60 page inline cap
+- Fun POST-COMPACTION PROTOCOL prompts — rotating playful system prompts after compaction, `[agent] silent_compaction = true` opt-out
+- RSI skill proposals — `skill` as third proposal kind writing `SKILL.md`, bash command visibility with subsystem classifier, successful patterns surfacing as proposals
+- Evolve hardening (#136) — remove+rename busy binary dance, delayed systemd-run restart, structured tracing, pre-flight `count_matching_systemd_units`
+- User-correction metadata (#138, PR #140) — `display_text_override` captures actual user message
+- Provider registry single source of truth (#141) — unreleased
+- Agent self-awareness — compiled features in system prompt, `Known paths` section
+
+### Changed
+- Test count: 3,165 → 3,482
+- telegram.md: Agent Tools table updated to 20+ actions with `thread_id` support
+- images.md: fully rewritten around Path A vs Path B vision architecture
+
+## [0.1.20] - 2026-05-31
+
+### Added
+- img2img for `generate_image` — optional `image` parameter feeds Gemini `inlineData` for editing user-uploaded images
+- tok/s footer — real-time tokens-per-second in TUI status bar
+- Cross-channel session suffixes — `[telegram:ID]`, `[discord:ID]`, etc.
+- 5-language deferment stall detection — English, Spanish, Portuguese, French, Russian
+- ZIP attachments support
+- Topic-aware search
+- Qwen cache auto-enable
+- `/models` picker overhaul
+
+### Changed
+- Test count: 3,070 → 3,165
+- Synced docs with OpenCrabs v0.3.29 + v0.3.30 (46 commits)
+
 ## [0.1.19] - 2026-05-27
 
 ### Added

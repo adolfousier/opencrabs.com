@@ -54,7 +54,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-04f68512.js";
+            window.path_to_searchindex_js = "../searchindex-9dc13673.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-25972818.js"></script>
@@ -230,6 +230,7 @@
 <li><strong>Models fetched live</strong> — no binary update needed when providers add new models</li>
 <li><strong>Function calling detection</strong> — OpenCrabs detects when a model doesn’t support tool use and warns you with a model switch suggestion, rather than silently failing</li>
 <li><strong><code>tool_choice: "auto"</code></strong> — sent automatically for OpenAI-compatible providers when tools are active, enabling function calling on models that require explicit opt-in</li>
+<li><strong><code>vision_model</code> works on ANY provider</strong> — add <code>vision_model = "..."</code> to any built-in or custom provider block and the agent routes incoming images through that model on the same endpoint. No second API key, no Gemini dependency. See <a href="./images.html">Image Generation &amp; Vision</a> for the full two-path setup</li>
 </ul>
 <h2 id="custom-provider-onboarding-v0324"><a class="header" href="#custom-provider-onboarding-v0324">Custom Provider Onboarding (v0.3.24)</a></h2>
 <p>Adding a custom OpenAI-compatible provider is now smoother:</p>

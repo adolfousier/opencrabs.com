@@ -54,7 +54,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-04f68512.js";
+            window.path_to_searchindex_js = "../searchindex-9dc13673.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-25972818.js"></script>
@@ -239,26 +239,31 @@ respond_to = "all"
 <h2 id="features"><a class="header" href="#features">Features</a></h2>
 <ul>
 <li><strong>DMs and groups</strong> — Works in private chats and group conversations</li>
+<li><strong>Forum topic routing</strong> (v0.3.31) — In supergroups with topics enabled, the bot tracks <code>thread_id</code> through the full pipeline. Use <code>list_topics</code> action to map topic names (e.g. <code>#announcements</code>) to numeric IDs, then pass <code>thread_id</code> to <code>send</code> / <code>reply</code> / <code>send_photo</code> to route into a specific topic</li>
+<li><strong>Context-aware pre-tool status</strong> (v0.3.31) — While a tool runs, the bot shows a live status message naming the tool, elapsed time, and either a reasoning excerpt or an anchored phrase from the user’s request</li>
 <li><strong>Inline buttons</strong> — Provider picker, model picker, session switcher use Telegram inline keyboards</li>
 <li><strong>Image support</strong> — Send images to the bot, receive generated images</li>
 <li><strong>Voice messages</strong> — STT transcription + TTS response</li>
 <li><strong>All slash commands</strong> — <code>/help</code>, <code>/models</code>, <code>/new</code>, <code>/sessions</code>, custom commands</li>
 <li><strong>Owner vs non-owner</strong> — Owner uses the shared TUI session, non-owners get per-user sessions</li>
+<li><strong>Onboarding overhaul</strong> (v0.3.30) — Auto-detects owner user ID from <code>getUpdates</code>, persists partial config on cancel, only Enter on the last step commits (Tab no longer silently rewrites ~30 config keys)</li>
 </ul>
 <h2 id="agent-tools"><a class="header" href="#agent-tools">Agent Tools</a></h2>
-<p>The agent can use <code>telegram_send</code> with 19 actions:</p>
+<p>The agent can use <code>telegram_send</code> with 20+ actions. The <code>thread_id</code> field on <code>send</code> / <code>reply</code> / <code>send_photo</code> targets a specific forum topic in supergroups with topics enabled.</p>
 <div class="table-wrapper">
 <table>
 <thead>
 <tr><th>Action</th><th>Description</th></tr>
 </thead>
 <tbody>
-<tr><td><code>send_message</code></td><td>Send text message</td></tr>
-<tr><td><code>send_image</code></td><td>Send image file</td></tr>
+<tr><td><code>send</code></td><td>Send text message (with optional <code>thread_id</code> for forum topics)</td></tr>
+<tr><td><code>reply</code></td><td>Reply to a message</td></tr>
+<tr><td><code>send_photo</code></td><td>Send image file</td></tr>
 <tr><td><code>send_document</code></td><td>Send document</td></tr>
 <tr><td><code>send_voice</code></td><td>Send voice message</td></tr>
-<tr><td><code>get_updates</code></td><td>Get recent messages</td></tr>
-<tr><td><code>pin_message</code></td><td>Pin a message</td></tr>
+<tr><td><code>list_topics</code></td><td>Returns <code>(thread_id, topic_name)</code> pairs the bot has observed — translate <code>#announcements</code> into a numeric <code>thread_id</code></td></tr>
+<tr><td><code>pin</code> / <code>unpin</code></td><td>Pin or unpin a message</td></tr>
+<tr><td><code>set_reaction</code></td><td>Add an emoji reaction</td></tr>
 <tr><td>And more…</td><td></td></tr>
 </tbody>
 </table>

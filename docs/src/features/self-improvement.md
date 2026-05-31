@@ -215,6 +215,12 @@ RSI now bumps a violation counter on existing rules instead of deduping repeat v
 
 - **RSI rejects trivial content** — `self_improve` apply action now rejects trivial test content before it can pollute brain files, preventing noise from accumulating in SOUL.md and TOOLS.md
 
+## v0.3.31 Additions
+
+- **RSI skill proposals** — `skill` is now a third proposal kind alongside `tool` and `command`. When RSI identifies a multi-stage workflow pattern that recurs across sessions, it proposes a `SKILL.md` file instead of a simple tool or command. Applied skill proposals write to `~/.opencrabs/skills/<name>/SKILL.md` and become immediately invocable as `/<name>` across all channels.
+- **Bash command visibility** — RSI now sees the actual bash command text plus a subsystem classifier (git, cargo, docker, npm, etc.) in feedback events. This lets RSI identify recurring shell patterns more accurately and propose targeted tools or skills.
+- **Successful patterns surface as proposals** — RSI doesn't only react to failures. When a tool/command/skill pattern works reliably across multiple sessions, RSI surfaces it as a proposal to make the pattern more discoverable or ergonomic.
+
 ## Self-Healing vs Self-Improvement
 
 | Self-Healing | Self-Improvement |

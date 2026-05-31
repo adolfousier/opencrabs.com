@@ -28,6 +28,7 @@ OpenCrabs supports 14 built-in providers + Custom OpenAI Compatible. Switch betw
 - **Models fetched live** — no binary update needed when providers add new models
 - **Function calling detection** — OpenCrabs detects when a model doesn't support tool use and warns you with a model switch suggestion, rather than silently failing
 - **`tool_choice: "auto"`** — sent automatically for OpenAI-compatible providers when tools are active, enabling function calling on models that require explicit opt-in
+- **`vision_model` works on ANY provider** — add `vision_model = "..."` to any built-in or custom provider block and the agent routes incoming images through that model on the same endpoint. No second API key, no Gemini dependency. See [Image Generation & Vision](./images.md) for the full two-path setup
 
 ## Custom Provider Onboarding (v0.3.24)
 

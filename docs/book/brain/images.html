@@ -54,7 +54,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-04f68512.js";
+            window.path_to_searchindex_js = "../searchindex-9dc13673.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-25972818.js"></script>
@@ -197,18 +197,34 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="image-generation--vision"><a class="header" href="#image-generation--vision">Image Generation &amp; Vision</a></h1>
-<p>OpenCrabs supports image generation and vision analysis via Google Gemini. These features are independent of the main chat provider — use Claude for chat and Gemini for images.</p>
-<h2 id="setup"><a class="header" href="#setup">Setup</a></h2>
-<ol>
-<li>Get a free API key from <a href="https://aistudio.google.com">aistudio.google.com</a></li>
-<li>Run <code>/onboard:image</code> in chat to configure interactively</li>
-<li>Or add manually:</li>
-</ol>
+<p>OpenCrabs supports <strong>image generation</strong> (text-to-image and img2img) and <strong>vision analysis</strong> (image-to-text). Vision works through two paths — pick whichever fits your provider setup.</p>
+<h2 id="vision-two-paths"><a class="header" href="#vision-two-paths">Vision: Two Paths</a></h2>
+<h3 id="path-a-vision_model-on-your-active-provider-preferred"><a class="header" href="#path-a-vision_model-on-your-active-provider-preferred">Path A: <code>vision_model</code> on Your Active Provider (Preferred)</a></h3>
+<p>Set <code>vision_model = "&lt;model&gt;"</code> inside the provider block you’re already using. Works for <strong>every</strong> built-in and custom provider. No second API key needed — the agent calls <code>analyze_image</code> against the vision model on the <strong>same provider endpoint</strong>.</p>
+<pre><code class="language-toml"># keys.toml
+[providers.openrouter]
+api_key = "sk-or-..."
+
+# config.toml
+[providers.openrouter]
+model = "anthropic/claude-sonnet-4"
+vision_model = "google/gemini-2.5-flash"   # ← any vision-capable model on the same endpoint
+</code></pre>
+<p>When a user sends an image and the chat model can’t handle it natively, the agent routes the image through <code>vision_model</code>, gets a text description back, and replies with that context.</p>
+<p><strong>Example:</strong> User sends an image while you’re on MiniMax M2.5 (no native vision). The agent calls the vision tool, which sends the image to <code>MiniMax-Text-01</code> (or any model you set), gets the description, and M2.5 replies using that context.</p>
+<p><strong>Why this is preferred:</strong></p>
+<ul>
+<li>Single API key, single billing account</li>
+<li>Works on any OpenAI-compatible endpoint (OpenRouter, Ollama, LM Studio, vLLM, Groq, custom)</li>
+<li>No extra onboarding step — just add one line to your existing provider block</li>
+</ul>
+<h3 id="path-b-gemini-global-fallback"><a class="header" href="#path-b-gemini-global-fallback">Path B: Gemini Global Fallback</a></h3>
+<p>Use this only when your active provider has <strong>no</strong> vision-capable model. Gemini acts as a dedicated vision+image backend, independent of your chat provider.</p>
 <pre><code class="language-toml"># keys.toml
 [image]
-api_key = "AIza..."
-</code></pre>
-<pre><code class="language-toml"># config.toml
+api_key = "AIza..."    # ← MUST go here. See gotcha below.
+
+# config.toml
 [image.generation]
 enabled = true
 model = "gemini-3.1-flash-image-preview"
@@ -217,8 +233,22 @@ model = "gemini-3.1-flash-image-preview"
 enabled = true
 model = "gemini-3.1-flash-image-preview"
 </code></pre>
+<p>Get a free API key from <a href="https://aistudio.google.com">aistudio.google.com</a>. Configure interactively with <code>/onboard:image</code>.</p>
+<h3 id="-gotcha-serdeskip-on-imagevision-api_key"><a class="header" href="#-gotcha-serdeskip-on-imagevision-api_key">⚠️ Gotcha: <code>#[serde(skip)]</code> on <code>[image.vision] api_key</code></a></h3>
+<p>The <code>api_key</code> field under <code>[image.vision]</code> in <code>config.toml</code> is silently ignored — it’s marked <code>#[serde(skip)]</code> in the source. <strong>Always put the Gemini key in <code>keys.toml</code> under <code>[image]</code></strong>, never in <code>config.toml</code>. If vision reports as unavailable despite a key being set, this is almost always the cause.</p>
+<h3 id="diagnostic-why-is-vision-unavailable"><a class="header" href="#diagnostic-why-is-vision-unavailable">Diagnostic: Why Is Vision Unavailable?</a></h3>
+<p><code>is_vision_available</code> logs the exact reason at INFO level with <code>target=vision</code>. Search your daily log:</p>
+<pre><code class="language-bash">grep 'target=vision' ~/.opencrabs/logs/opencrabs.$(date -u +%Y-%m-%d)
+</code></pre>
+<p>Common causes surfaced:</p>
+<ul>
+<li>Missing <code>vision_model</code> on active provider</li>
+<li>Missing <code>api_key</code> for that provider</li>
+<li>Missing Gemini <code>[image] api_key</code> in <code>keys.toml</code></li>
+<li>Key placed in <code>config.toml</code> where <code>#[serde(skip)]</code> drops it</li>
+</ul>
 <h2 id="agent-tools"><a class="header" href="#agent-tools">Agent Tools</a></h2>
-<p>When enabled, two tools become available automatically:</p>
+<p>When vision or image generation is enabled, these tools become available:</p>
 <div class="table-wrapper">
 <table>
 <thead>
@@ -226,29 +256,38 @@ model = "gemini-3.1-flash-image-preview"
 </thead>
 <tbody>
 <tr><td><code>generate_image</code></td><td>Generate an image from a text prompt — saves to <code>~/.opencrabs/images/</code></td></tr>
-<tr><td><code>analyze_image</code></td><td>Analyze an image file or URL via Gemini vision</td></tr>
+<tr><td><code>analyze_image</code></td><td>Analyze an image file or URL via the active vision path (Path A provider or Gemini fallback)</td></tr>
 </tbody>
 </table>
 </div>
 <p><strong>Example prompts:</strong></p>
 <ul>
 <li><em>“Generate a pixel art crab logo”</em> — agent calls <code>generate_image</code>, returns file path</li>
-<li><em>“What’s in this image: /tmp/screenshot.png”</em> — agent calls <code>analyze_image</code> via Gemini</li>
+<li><em>“What’s in this image: /tmp/screenshot.png”</em> — agent calls <code>analyze_image</code></li>
 </ul>
-<h2 id="incoming-images"><a class="header" href="#incoming-images">Incoming Images</a></h2>
+<h2 id="img2img-edit-images-with-context"><a class="header" href="#img2img-edit-images-with-context">img2img: Edit Images with Context</a></h2>
+<p><code>generate_image</code> accepts an optional <code>image</code> parameter (local file path or HTTPS URL). When provided, the model modifies, restyles, or composites onto that image instead of generating from scratch.</p>
+<pre><code class="language-text">User: "Make this logo darker and add a border"
+Agent: generate_image(prompt="dark background with thin white border", image="/tmp/logo.png")
+</code></pre>
+<ul>
+<li><strong>Gemini backend</strong> — full img2img support via <code>inlineData</code></li>
+<li><strong>OpenAI-shaped backends</strong> — reject with a clear error pointing at Gemini (img2img not supported)</li>
+</ul>
+<p>Use cases: replace elements, restyle photos, composite logos onto backgrounds, modify user-uploaded images in-place.</p>
+<h2 id="incoming-images-from-channels"><a class="header" href="#incoming-images-from-channels">Incoming Images from Channels</a></h2>
 <p>When a user sends an image from any channel, it arrives as <code>&lt;&lt;IMG:/tmp/path&gt;&gt;</code> in the message. The file is already downloaded — the agent can:</p>
 <ul>
-<li>See it directly (if the model supports vision)</li>
-<li>Pass the path to <code>analyze_image</code> for Gemini analysis</li>
+<li>See it directly (if the chat model supports vision natively)</li>
+<li>Pass the path to <code>analyze_image</code> for vision processing</li>
 <li>Use the path in <code>bash</code> commands or any tool that accepts file paths</li>
 <li>Reference it in replies with <code>&lt;&lt;IMG:path&gt;&gt;</code> to forward to channels</li>
 </ul>
-<h2 id="model"><a class="header" href="#model">Model</a></h2>
-<p>Both tools use <code>gemini-3.1-flash-image-preview</code> — Gemini’s dedicated image model that supports both vision input and image output in a single request.</p>
-<h2 id="per-provider-vision-model"><a class="header" href="#per-provider-vision-model">Per-Provider Vision Model</a></h2>
-<p>Separately from the Gemini <code>analyze_image</code> tool, any provider can have its own vision tool via <code>vision_model</code>. When the user sends an image and the chat model can’t handle it natively, the agent calls the provider’s vision tool — which sends the image to the <code>vision_model</code> on the same provider, gets a text description back, and uses that context to reply.</p>
-<p>Example: User sends an image to MiniMax M2.5 (no native vision). The agent calls the vision tool, which sends the image to MiniMax-Text-01, gets the description, and M2.5 replies using that context.</p>
-<p>See <a href="./providers.html#vision-model">Provider Setup — Vision Model</a>.</p>
+<h2 id="model-choices"><a class="header" href="#model-choices">Model Choices</a></h2>
+<ul>
+<li><strong>Path A</strong> — any vision-capable model on your active provider. On OpenRouter: <code>google/gemini-2.5-flash</code>, <code>anthropic/claude-sonnet-4</code>, <code>openai/gpt-4o</code>. On Ollama: <code>llava</code>, <code>bakllava</code>. On custom endpoints: whatever the server offers.</li>
+<li><strong>Path B</strong> — <code>gemini-3.1-flash-image-preview</code> handles both vision input and image output in a single request.</li>
+</ul>
 
                     </main>
 

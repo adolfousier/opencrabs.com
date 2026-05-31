@@ -54,7 +54,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-04f68512.js";
+            window.path_to_searchindex_js = "../searchindex-9dc13673.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-25972818.js"></script>
@@ -405,6 +405,12 @@ Agent notices pattern of 5+ corrections on output hygiene:
 <h2 id="v0330-additions"><a class="header" href="#v0330-additions">v0.3.30 Additions</a></h2>
 <ul>
 <li><strong>RSI rejects trivial content</strong> — <code>self_improve</code> apply action now rejects trivial test content before it can pollute brain files, preventing noise from accumulating in SOUL.md and TOOLS.md</li>
+</ul>
+<h2 id="v0331-additions"><a class="header" href="#v0331-additions">v0.3.31 Additions</a></h2>
+<ul>
+<li><strong>RSI skill proposals</strong> — <code>skill</code> is now a third proposal kind alongside <code>tool</code> and <code>command</code>. When RSI identifies a multi-stage workflow pattern that recurs across sessions, it proposes a <code>SKILL.md</code> file instead of a simple tool or command. Applied skill proposals write to <code>~/.opencrabs/skills/&lt;name&gt;/SKILL.md</code> and become immediately invocable as <code>/&lt;name&gt;</code> across all channels.</li>
+<li><strong>Bash command visibility</strong> — RSI now sees the actual bash command text plus a subsystem classifier (git, cargo, docker, npm, etc.) in feedback events. This lets RSI identify recurring shell patterns more accurately and propose targeted tools or skills.</li>
+<li><strong>Successful patterns surface as proposals</strong> — RSI doesn’t only react to failures. When a tool/command/skill pattern works reliably across multiple sessions, RSI surfaces it as a proposal to make the pattern more discoverable or ergonomic.</li>
 </ul>
 <h2 id="self-healing-vs-self-improvement"><a class="header" href="#self-healing-vs-self-improvement">Self-Healing vs Self-Improvement</a></h2>
 <div class="table-wrapper">

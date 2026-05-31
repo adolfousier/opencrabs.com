@@ -45,24 +45,29 @@ respond_to = "all"
 ## Features
 
 - **DMs and groups** — Works in private chats and group conversations
+- **Forum topic routing** (v0.3.31) — In supergroups with topics enabled, the bot tracks `thread_id` through the full pipeline. Use `list_topics` action to map topic names (e.g. `#announcements`) to numeric IDs, then pass `thread_id` to `send` / `reply` / `send_photo` to route into a specific topic
+- **Context-aware pre-tool status** (v0.3.31) — While a tool runs, the bot shows a live status message naming the tool, elapsed time, and either a reasoning excerpt or an anchored phrase from the user's request
 - **Inline buttons** — Provider picker, model picker, session switcher use Telegram inline keyboards
 - **Image support** — Send images to the bot, receive generated images
 - **Voice messages** — STT transcription + TTS response
 - **All slash commands** — `/help`, `/models`, `/new`, `/sessions`, custom commands
 - **Owner vs non-owner** — Owner uses the shared TUI session, non-owners get per-user sessions
+- **Onboarding overhaul** (v0.3.30) — Auto-detects owner user ID from `getUpdates`, persists partial config on cancel, only Enter on the last step commits (Tab no longer silently rewrites ~30 config keys)
 
 ## Agent Tools
 
-The agent can use `telegram_send` with 19 actions:
+The agent can use `telegram_send` with 20+ actions. The `thread_id` field on `send` / `reply` / `send_photo` targets a specific forum topic in supergroups with topics enabled.
 
 | Action | Description |
 |--------|-------------|
-| `send_message` | Send text message |
-| `send_image` | Send image file |
+| `send` | Send text message (with optional `thread_id` for forum topics) |
+| `reply` | Reply to a message |
+| `send_photo` | Send image file |
 | `send_document` | Send document |
 | `send_voice` | Send voice message |
-| `get_updates` | Get recent messages |
-| `pin_message` | Pin a message |
+| `list_topics` | Returns `(thread_id, topic_name)` pairs the bot has observed — translate `#announcements` into a numeric `thread_id` |
+| `pin` / `unpin` | Pin or unpin a message |
+| `set_reaction` | Add an emoji reaction |
 | And more... | |
 
 ## Group Chat Behavior

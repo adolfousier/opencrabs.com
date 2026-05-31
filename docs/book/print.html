@@ -55,7 +55,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-04f68512.js";
+            window.path_to_searchindex_js = "searchindex-9dc13673.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-25972818.js"></script>
@@ -311,6 +311,14 @@
 <li><strong>OpenAI-compatible embedding API</strong> — configure external embedding providers (OpenAI, Ollama, Jina, LM Studio) instead of downloading 300MB GGUF model. Dynamic vector dimensions from API response (v0.3.19)</li>
 <li><strong>FTS5-only memory mode for VPS</strong> — pure keyword search with zero RAM overhead. Auto-detects VPS environments and configures automatically (v0.3.19)</li>
 <li><strong>img2img for <code>generate_image</code></strong> — optional <code>image</code> parameter (local path or HTTPS URL) feeds Gemini <code>inlineData</code> for editing user-uploaded images. OpenAI-shaped backends reject with clear error pointing at Gemini (v0.3.30)</li>
+<li><strong>PDF <code>page_range</code> param</strong> — pass <code>"1-30"</code>, <code>"5,7,10-15"</code>, or <code>"3"</code> for targeted extraction. Text-first routing skips Gemini for text-native PDFs, inline cap raised to ~60 pages (v0.3.31)</li>
+<li><strong>Telegram forum topic routing</strong> — <code>thread_id</code> carries through full pipeline, new <code>list_topics</code> action surfaces topic names → IDs for proactive sends and replies (v0.3.31, #130, #131)</li>
+<li><strong>Agent self-awareness</strong> — compiled features surface in system prompt with check-first directive, <code>Known paths</code> section for logs so the agent stops guessing file locations (v0.3.31)</li>
+<li><strong>RSI skill proposals</strong> — <code>skill</code> as third proposal kind alongside tool/command, writes <code>SKILL.md</code> brain file (v0.3.31)</li>
+<li><strong>Fun POST-COMPACTION PROTOCOL prompts</strong> — compaction now delivers delightful re-orientation prompts; opt out with <code>[agent] silent_compaction = true</code> (v0.3.31)</li>
+<li><strong>Evolve hardening</strong> — remove+rename dance for busy Linux binaries, delayed <code>systemd-run</code> restart, structured tracing on every failure branch, pre-flight <code>count_matching_systemd_units</code> check (v0.3.32, #136)</li>
+<li><strong>User-correction metadata</strong> — captures actual user message via <code>display_text_override</code> instead of the 236-char Telegram channel prefix that was polluting the feedback ledger (v0.3.33, #138, PR #140)</li>
+<li><strong>Provider registry single source of truth</strong> — fixed opencode/ollama/bedrock/vertex silent TUI omission; one 16-entry table instead of drifted if-else chains (unreleased, #141)</li>
 </ul>
 <h3 id="-browser-automation"><a class="header" href="#-browser-automation">🌐 Browser Automation</a></h3>
 <ul>
@@ -346,7 +354,7 @@
 </ul>
 <h3 id="-testing--quality"><a class="header" href="#-testing--quality">📊 Testing &amp; Quality</a></h3>
 <ul>
-<li><strong>3,165+ tests</strong> covering providers, tools, channels, TUI, self-healing, crash recovery, browser automation</li>
+<li><strong>3,482+ tests</strong> covering providers, tools, channels, TUI, self-healing, crash recovery, browser automation</li>
 <li><strong>CI/CD</strong>: GitHub Actions, CodeQL, <code>cargo audit</code> security checks, release automation</li>
 </ul>
 <h3 id="-built-in-skills-v0317"><a class="header" href="#-built-in-skills-v0317">🔧 Built-in Skills (v0.3.17)</a></h3>
@@ -1236,6 +1244,7 @@ cargo build --release
 <li><strong>Models fetched live</strong> — no binary update needed when providers add new models</li>
 <li><strong>Function calling detection</strong> — OpenCrabs detects when a model doesn’t support tool use and warns you with a model switch suggestion, rather than silently failing</li>
 <li><strong><code>tool_choice: "auto"</code></strong> — sent automatically for OpenAI-compatible providers when tools are active, enabling function calling on models that require explicit opt-in</li>
+<li><strong><code>vision_model</code> works on ANY provider</strong> — add <code>vision_model = "..."</code> to any built-in or custom provider block and the agent routes incoming images through that model on the same endpoint. No second API key, no Gemini dependency. See <a href="#image-generation--vision">Image Generation &amp; Vision</a> for the full two-path setup</li>
 </ul>
 <h2 id="custom-provider-onboarding-v0324"><a class="header" href="#custom-provider-onboarding-v0324">Custom Provider Onboarding (v0.3.24)</a></h2>
 <p>Adding a custom OpenAI-compatible provider is now smoother:</p>
@@ -1543,18 +1552,34 @@ vision_model = "gpt-5-nano"
 <p>Each session remembers its provider and model. Switch to Claude in one session, Gemini in another — switching sessions restores the provider automatically.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="image-generation--vision"><a class="header" href="#image-generation--vision">Image Generation &amp; Vision</a></h1>
-<p>OpenCrabs supports image generation and vision analysis via Google Gemini. These features are independent of the main chat provider — use Claude for chat and Gemini for images.</p>
-<h2 id="setup"><a class="header" href="#setup">Setup</a></h2>
-<ol>
-<li>Get a free API key from <a href="https://aistudio.google.com">aistudio.google.com</a></li>
-<li>Run <code>/onboard:image</code> in chat to configure interactively</li>
-<li>Or add manually:</li>
-</ol>
+<p>OpenCrabs supports <strong>image generation</strong> (text-to-image and img2img) and <strong>vision analysis</strong> (image-to-text). Vision works through two paths — pick whichever fits your provider setup.</p>
+<h2 id="vision-two-paths"><a class="header" href="#vision-two-paths">Vision: Two Paths</a></h2>
+<h3 id="path-a-vision_model-on-your-active-provider-preferred"><a class="header" href="#path-a-vision_model-on-your-active-provider-preferred">Path A: <code>vision_model</code> on Your Active Provider (Preferred)</a></h3>
+<p>Set <code>vision_model = "&lt;model&gt;"</code> inside the provider block you’re already using. Works for <strong>every</strong> built-in and custom provider. No second API key needed — the agent calls <code>analyze_image</code> against the vision model on the <strong>same provider endpoint</strong>.</p>
+<pre><code class="language-toml"># keys.toml
+[providers.openrouter]
+api_key = "sk-or-..."
+
+# config.toml
+[providers.openrouter]
+model = "anthropic/claude-sonnet-4"
+vision_model = "google/gemini-2.5-flash"   # ← any vision-capable model on the same endpoint
+</code></pre>
+<p>When a user sends an image and the chat model can’t handle it natively, the agent routes the image through <code>vision_model</code>, gets a text description back, and replies with that context.</p>
+<p><strong>Example:</strong> User sends an image while you’re on MiniMax M2.5 (no native vision). The agent calls the vision tool, which sends the image to <code>MiniMax-Text-01</code> (or any model you set), gets the description, and M2.5 replies using that context.</p>
+<p><strong>Why this is preferred:</strong></p>
+<ul>
+<li>Single API key, single billing account</li>
+<li>Works on any OpenAI-compatible endpoint (OpenRouter, Ollama, LM Studio, vLLM, Groq, custom)</li>
+<li>No extra onboarding step — just add one line to your existing provider block</li>
+</ul>
+<h3 id="path-b-gemini-global-fallback"><a class="header" href="#path-b-gemini-global-fallback">Path B: Gemini Global Fallback</a></h3>
+<p>Use this only when your active provider has <strong>no</strong> vision-capable model. Gemini acts as a dedicated vision+image backend, independent of your chat provider.</p>
 <pre><code class="language-toml"># keys.toml
 [image]
-api_key = "AIza..."
-</code></pre>
-<pre><code class="language-toml"># config.toml
+api_key = "AIza..."    # ← MUST go here. See gotcha below.
+
+# config.toml
 [image.generation]
 enabled = true
 model = "gemini-3.1-flash-image-preview"
@@ -1563,8 +1588,22 @@ model = "gemini-3.1-flash-image-preview"
 enabled = true
 model = "gemini-3.1-flash-image-preview"
 </code></pre>
+<p>Get a free API key from <a href="https://aistudio.google.com">aistudio.google.com</a>. Configure interactively with <code>/onboard:image</code>.</p>
+<h3 id="-gotcha-serdeskip-on-imagevision-api_key"><a class="header" href="#-gotcha-serdeskip-on-imagevision-api_key">⚠️ Gotcha: <code>#[serde(skip)]</code> on <code>[image.vision] api_key</code></a></h3>
+<p>The <code>api_key</code> field under <code>[image.vision]</code> in <code>config.toml</code> is silently ignored — it’s marked <code>#[serde(skip)]</code> in the source. <strong>Always put the Gemini key in <code>keys.toml</code> under <code>[image]</code></strong>, never in <code>config.toml</code>. If vision reports as unavailable despite a key being set, this is almost always the cause.</p>
+<h3 id="diagnostic-why-is-vision-unavailable"><a class="header" href="#diagnostic-why-is-vision-unavailable">Diagnostic: Why Is Vision Unavailable?</a></h3>
+<p><code>is_vision_available</code> logs the exact reason at INFO level with <code>target=vision</code>. Search your daily log:</p>
+<pre><code class="language-bash">grep 'target=vision' ~/.opencrabs/logs/opencrabs.$(date -u +%Y-%m-%d)
+</code></pre>
+<p>Common causes surfaced:</p>
+<ul>
+<li>Missing <code>vision_model</code> on active provider</li>
+<li>Missing <code>api_key</code> for that provider</li>
+<li>Missing Gemini <code>[image] api_key</code> in <code>keys.toml</code></li>
+<li>Key placed in <code>config.toml</code> where <code>#[serde(skip)]</code> drops it</li>
+</ul>
 <h2 id="agent-tools"><a class="header" href="#agent-tools">Agent Tools</a></h2>
-<p>When enabled, two tools become available automatically:</p>
+<p>When vision or image generation is enabled, these tools become available:</p>
 <div class="table-wrapper">
 <table>
 <thead>
@@ -1572,29 +1611,38 @@ model = "gemini-3.1-flash-image-preview"
 </thead>
 <tbody>
 <tr><td><code>generate_image</code></td><td>Generate an image from a text prompt — saves to <code>~/.opencrabs/images/</code></td></tr>
-<tr><td><code>analyze_image</code></td><td>Analyze an image file or URL via Gemini vision</td></tr>
+<tr><td><code>analyze_image</code></td><td>Analyze an image file or URL via the active vision path (Path A provider or Gemini fallback)</td></tr>
 </tbody>
 </table>
 </div>
 <p><strong>Example prompts:</strong></p>
 <ul>
 <li><em>“Generate a pixel art crab logo”</em> — agent calls <code>generate_image</code>, returns file path</li>
-<li><em>“What’s in this image: /tmp/screenshot.png”</em> — agent calls <code>analyze_image</code> via Gemini</li>
+<li><em>“What’s in this image: /tmp/screenshot.png”</em> — agent calls <code>analyze_image</code></li>
 </ul>
-<h2 id="incoming-images"><a class="header" href="#incoming-images">Incoming Images</a></h2>
+<h2 id="img2img-edit-images-with-context"><a class="header" href="#img2img-edit-images-with-context">img2img: Edit Images with Context</a></h2>
+<p><code>generate_image</code> accepts an optional <code>image</code> parameter (local file path or HTTPS URL). When provided, the model modifies, restyles, or composites onto that image instead of generating from scratch.</p>
+<pre><code class="language-text">User: "Make this logo darker and add a border"
+Agent: generate_image(prompt="dark background with thin white border", image="/tmp/logo.png")
+</code></pre>
+<ul>
+<li><strong>Gemini backend</strong> — full img2img support via <code>inlineData</code></li>
+<li><strong>OpenAI-shaped backends</strong> — reject with a clear error pointing at Gemini (img2img not supported)</li>
+</ul>
+<p>Use cases: replace elements, restyle photos, composite logos onto backgrounds, modify user-uploaded images in-place.</p>
+<h2 id="incoming-images-from-channels"><a class="header" href="#incoming-images-from-channels">Incoming Images from Channels</a></h2>
 <p>When a user sends an image from any channel, it arrives as <code>&lt;&lt;IMG:/tmp/path&gt;&gt;</code> in the message. The file is already downloaded — the agent can:</p>
 <ul>
-<li>See it directly (if the model supports vision)</li>
-<li>Pass the path to <code>analyze_image</code> for Gemini analysis</li>
+<li>See it directly (if the chat model supports vision natively)</li>
+<li>Pass the path to <code>analyze_image</code> for vision processing</li>
 <li>Use the path in <code>bash</code> commands or any tool that accepts file paths</li>
 <li>Reference it in replies with <code>&lt;&lt;IMG:path&gt;&gt;</code> to forward to channels</li>
 </ul>
-<h2 id="model"><a class="header" href="#model">Model</a></h2>
-<p>Both tools use <code>gemini-3.1-flash-image-preview</code> — Gemini’s dedicated image model that supports both vision input and image output in a single request.</p>
-<h2 id="per-provider-vision-model"><a class="header" href="#per-provider-vision-model">Per-Provider Vision Model</a></h2>
-<p>Separately from the Gemini <code>analyze_image</code> tool, any provider can have its own vision tool via <code>vision_model</code>. When the user sends an image and the chat model can’t handle it natively, the agent calls the provider’s vision tool — which sends the image to the <code>vision_model</code> on the same provider, gets a text description back, and uses that context to reply.</p>
-<p>Example: User sends an image to MiniMax M2.5 (no native vision). The agent calls the vision tool, which sends the image to MiniMax-Text-01, gets the description, and M2.5 replies using that context.</p>
-<p>See <a href="#vision-model">Provider Setup — Vision Model</a>.</p>
+<h2 id="model-choices"><a class="header" href="#model-choices">Model Choices</a></h2>
+<ul>
+<li><strong>Path A</strong> — any vision-capable model on your active provider. On OpenRouter: <code>google/gemini-2.5-flash</code>, <code>anthropic/claude-sonnet-4</code>, <code>openai/gpt-4o</code>. On Ollama: <code>llava</code>, <code>bakllava</code>. On custom endpoints: whatever the server offers.</li>
+<li><strong>Path B</strong> — <code>gemini-3.1-flash-image-preview</code> handles both vision input and image output in a single request.</li>
+</ul>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="channel-integrations"><a class="header" href="#channel-integrations">Channel Integrations</a></h1>
 <p>OpenCrabs connects to multiple messaging platforms simultaneously. All channels share the TUI session by default, with per-user sessions for non-owners.</p>
@@ -1725,7 +1773,7 @@ model = "gemini-3.1-flash-image-preview"
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="telegram-1"><a class="header" href="#telegram-1">Telegram</a></h1>
 <p>Connect OpenCrabs to Telegram for DMs and group chats.</p>
-<h2 id="setup-1"><a class="header" href="#setup-1">Setup</a></h2>
+<h2 id="setup"><a class="header" href="#setup">Setup</a></h2>
 <h3 id="step-1-create-a-bot-with-botfather"><a class="header" href="#step-1-create-a-bot-with-botfather">Step 1: Create a Bot with BotFather</a></h3>
 <ol>
 <li>Message <a href="https://t.me/BotFather">@BotFather</a> on Telegram</li>
@@ -1766,26 +1814,31 @@ respond_to = "all"
 <h2 id="features"><a class="header" href="#features">Features</a></h2>
 <ul>
 <li><strong>DMs and groups</strong> — Works in private chats and group conversations</li>
+<li><strong>Forum topic routing</strong> (v0.3.31) — In supergroups with topics enabled, the bot tracks <code>thread_id</code> through the full pipeline. Use <code>list_topics</code> action to map topic names (e.g. <code>#announcements</code>) to numeric IDs, then pass <code>thread_id</code> to <code>send</code> / <code>reply</code> / <code>send_photo</code> to route into a specific topic</li>
+<li><strong>Context-aware pre-tool status</strong> (v0.3.31) — While a tool runs, the bot shows a live status message naming the tool, elapsed time, and either a reasoning excerpt or an anchored phrase from the user’s request</li>
 <li><strong>Inline buttons</strong> — Provider picker, model picker, session switcher use Telegram inline keyboards</li>
 <li><strong>Image support</strong> — Send images to the bot, receive generated images</li>
 <li><strong>Voice messages</strong> — STT transcription + TTS response</li>
 <li><strong>All slash commands</strong> — <code>/help</code>, <code>/models</code>, <code>/new</code>, <code>/sessions</code>, custom commands</li>
 <li><strong>Owner vs non-owner</strong> — Owner uses the shared TUI session, non-owners get per-user sessions</li>
+<li><strong>Onboarding overhaul</strong> (v0.3.30) — Auto-detects owner user ID from <code>getUpdates</code>, persists partial config on cancel, only Enter on the last step commits (Tab no longer silently rewrites ~30 config keys)</li>
 </ul>
 <h2 id="agent-tools-1"><a class="header" href="#agent-tools-1">Agent Tools</a></h2>
-<p>The agent can use <code>telegram_send</code> with 19 actions:</p>
+<p>The agent can use <code>telegram_send</code> with 20+ actions. The <code>thread_id</code> field on <code>send</code> / <code>reply</code> / <code>send_photo</code> targets a specific forum topic in supergroups with topics enabled.</p>
 <div class="table-wrapper">
 <table>
 <thead>
 <tr><th>Action</th><th>Description</th></tr>
 </thead>
 <tbody>
-<tr><td><code>send_message</code></td><td>Send text message</td></tr>
-<tr><td><code>send_image</code></td><td>Send image file</td></tr>
+<tr><td><code>send</code></td><td>Send text message (with optional <code>thread_id</code> for forum topics)</td></tr>
+<tr><td><code>reply</code></td><td>Reply to a message</td></tr>
+<tr><td><code>send_photo</code></td><td>Send image file</td></tr>
 <tr><td><code>send_document</code></td><td>Send document</td></tr>
 <tr><td><code>send_voice</code></td><td>Send voice message</td></tr>
-<tr><td><code>get_updates</code></td><td>Get recent messages</td></tr>
-<tr><td><code>pin_message</code></td><td>Pin a message</td></tr>
+<tr><td><code>list_topics</code></td><td>Returns <code>(thread_id, topic_name)</code> pairs the bot has observed — translate <code>#announcements</code> into a numeric <code>thread_id</code></td></tr>
+<tr><td><code>pin</code> / <code>unpin</code></td><td>Pin or unpin a message</td></tr>
+<tr><td><code>set_reaction</code></td><td>Add an emoji reaction</td></tr>
 <tr><td>And more…</td><td></td></tr>
 </tbody>
 </table>
@@ -1800,7 +1853,7 @@ respond_to = "all"
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="discord-1"><a class="header" href="#discord-1">Discord</a></h1>
 <p>Connect OpenCrabs to Discord for server and DM interactions.</p>
-<h2 id="setup-2"><a class="header" href="#setup-2">Setup</a></h2>
+<h2 id="setup-1"><a class="header" href="#setup-1">Setup</a></h2>
 <h3 id="step-1-create-a-discord-bot"><a class="header" href="#step-1-create-a-discord-bot">Step 1: Create a Discord Bot</a></h3>
 <ol>
 <li>Go to <a href="https://discord.com/developers/applications">discord.com/developers/applications</a></li>
@@ -1860,7 +1913,7 @@ respond_to = "all"
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="slack-1"><a class="header" href="#slack-1">Slack</a></h1>
 <p>Connect OpenCrabs to Slack workspaces.</p>
-<h2 id="setup-3"><a class="header" href="#setup-3">Setup</a></h2>
+<h2 id="setup-2"><a class="header" href="#setup-2">Setup</a></h2>
 <h3 id="step-1-create-a-slack-app"><a class="header" href="#step-1-create-a-slack-app">Step 1: Create a Slack App</a></h3>
 <ol>
 <li>Go to <a href="https://api.slack.com/apps">api.slack.com/apps</a></li>
@@ -1916,7 +1969,7 @@ respond_to = "all"
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="whatsapp-1"><a class="header" href="#whatsapp-1">WhatsApp</a></h1>
 <p>Connect OpenCrabs to WhatsApp via QR code pairing.</p>
-<h2 id="setup-4"><a class="header" href="#setup-4">Setup</a></h2>
+<h2 id="setup-3"><a class="header" href="#setup-3">Setup</a></h2>
 <h3 id="configure-via-the-onboarding-wizard"><a class="header" href="#configure-via-the-onboarding-wizard">Configure via the Onboarding Wizard</a></h3>
 <p>Run <code>/onboard:channels</code> (or <code>/onboard</code> and navigate to the Channels step):</p>
 <ol>
@@ -1970,7 +2023,7 @@ allowed_phones = ["+15551234567"]
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="trello-1"><a class="header" href="#trello-1">Trello</a></h1>
 <p>OpenCrabs integrates with Trello for board and card management via the <code>trello_send</code> tool.</p>
-<h2 id="setup-5"><a class="header" href="#setup-5">Setup</a></h2>
+<h2 id="setup-4"><a class="header" href="#setup-4">Setup</a></h2>
 <h3 id="step-1-get-trello-credentials"><a class="header" href="#step-1-get-trello-credentials">Step 1: Get Trello Credentials</a></h3>
 <ol>
 <li>Go to <a href="https://trello.com/power-ups/admin">trello.com/power-ups/admin</a></li>
@@ -3395,6 +3448,20 @@ providers = ["openrouter", "anthropic"]  # tried in order
 <li><strong>Dynamic Telegram status messages</strong> — replaced hardcoded quips with context-aware messages showing actual tool being called, tokens streamed, and elapsed time</li>
 <li><strong>rename_session rejects empty titles</strong> (#128) — whitespace-only titles rejected so sessions can’t become unidentifiable</li>
 </ul>
+<h2 id="v0331-fixes"><a class="header" href="#v0331-fixes">v0.3.31 Fixes</a></h2>
+<ul>
+<li><strong>Fun POST-COMPACTION PROTOCOL prompts</strong> — after compaction, the agent receives a playful system prompt instead of a sterile summary marker. These rotating prompts (e.g. “You just woke up from a nap. The summary above is everything you remember.”) make the post-compaction experience less robotic. Users can opt out with <code>[agent] silent_compaction = true</code> in config.toml.</li>
+<li><strong>Telegram forum topic routing</strong> — in supergroups with topics enabled, <code>thread_id</code> is tracked through the full pipeline. The agent can use <code>list_topics</code> to map topic names to IDs, then route responses to specific topics via <code>thread_id</code> on send/reply/send_photo.</li>
+<li><strong>PDF <code>page_range</code> param</strong> — <code>parse_document</code> now accepts <code>page_range</code> strings like <code>"1-30"</code>, <code>"5,7,10-15"</code>, or <code>"3"</code> for targeted extraction. Text-first routing skips Gemini for text-native PDFs. Inline preview cap raised to ~60 pages.</li>
+</ul>
+<h2 id="v0332-fixes"><a class="header" href="#v0332-fixes">v0.3.32 Fixes</a></h2>
+<ul>
+<li><strong>Evolve hardening</strong> (#136) — the <code>/evolve</code> command now handles busy Linux binaries with a remove+rename dance (can’t overwrite a running binary on Linux), delayed <code>systemd-run</code> restart to let the current process finish cleanly, structured tracing for better error diagnosis, and a pre-flight <code>count_matching_systemd_units</code> check to avoid restarting when multiple OpenCrabs instances are running.</li>
+</ul>
+<h2 id="v0333-fixes"><a class="header" href="#v0333-fixes">v0.3.33 Fixes</a></h2>
+<ul>
+<li><strong>User-correction metadata</strong> (#138, PR #140) — <code>display_text_override</code> now captures the actual user message text instead of the 236-character Telegram channel prefix that was previously stored. This makes user correction entries in the feedback ledger readable and actionable.</li>
+</ul>
 <h2 id="notifications"><a class="header" href="#notifications">Notifications</a></h2>
 <p>All self-healing events are delivered to:</p>
 <ul>
@@ -3612,6 +3679,12 @@ Agent notices pattern of 5+ corrections on output hygiene:
 <h2 id="v0330-additions"><a class="header" href="#v0330-additions">v0.3.30 Additions</a></h2>
 <ul>
 <li><strong>RSI rejects trivial content</strong> — <code>self_improve</code> apply action now rejects trivial test content before it can pollute brain files, preventing noise from accumulating in SOUL.md and TOOLS.md</li>
+</ul>
+<h2 id="v0331-additions"><a class="header" href="#v0331-additions">v0.3.31 Additions</a></h2>
+<ul>
+<li><strong>RSI skill proposals</strong> — <code>skill</code> is now a third proposal kind alongside <code>tool</code> and <code>command</code>. When RSI identifies a multi-stage workflow pattern that recurs across sessions, it proposes a <code>SKILL.md</code> file instead of a simple tool or command. Applied skill proposals write to <code>~/.opencrabs/skills/&lt;name&gt;/SKILL.md</code> and become immediately invocable as <code>/&lt;name&gt;</code> across all channels.</li>
+<li><strong>Bash command visibility</strong> — RSI now sees the actual bash command text plus a subsystem classifier (git, cargo, docker, npm, etc.) in feedback events. This lets RSI identify recurring shell patterns more accurately and propose targeted tools or skills.</li>
+<li><strong>Successful patterns surface as proposals</strong> — RSI doesn’t only react to failures. When a tool/command/skill pattern works reliably across multiple sessions, RSI surfaces it as a proposal to make the pattern more discoverable or ergonomic.</li>
 </ul>
 <h2 id="self-healing-vs-self-improvement"><a class="header" href="#self-healing-vs-self-improvement">Self-Healing vs Self-Improvement</a></h2>
 <div class="table-wrapper">
@@ -4440,7 +4513,7 @@ panic = "abort"
 <tr><td><strong>Pricing</strong></td><td style="text-align: right">17</td><td><code>src/pricing.rs</code></td></tr>
 <tr><td><strong>Memory</strong></td><td style="text-align: right">9</td><td><code>src/memory/</code></td></tr>
 <tr><td><strong>Logging</strong></td><td style="text-align: right">4</td><td><code>src/logging/</code></td></tr>
-<tr><td><strong>Total</strong></td><td style="text-align: right"><strong>3,165</strong></td><td></td></tr>
+<tr><td><strong>Total</strong></td><td style="text-align: right"><strong>3,482</strong></td><td></td></tr>
 </tbody>
 </table>
 </div>

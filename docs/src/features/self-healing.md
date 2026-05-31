@@ -381,6 +381,20 @@ Fixed CodeQL #64 (HIGH): Gemini API key was leaked in URL query string (`?key=..
 - **Dynamic Telegram status messages** — replaced hardcoded quips with context-aware messages showing actual tool being called, tokens streamed, and elapsed time
 - **rename_session rejects empty titles** (#128) — whitespace-only titles rejected so sessions can't become unidentifiable
 
+## v0.3.31 Fixes
+
+- **Fun POST-COMPACTION PROTOCOL prompts** — after compaction, the agent receives a playful system prompt instead of a sterile summary marker. These rotating prompts (e.g. "You just woke up from a nap. The summary above is everything you remember.") make the post-compaction experience less robotic. Users can opt out with `[agent] silent_compaction = true` in config.toml.
+- **Telegram forum topic routing** — in supergroups with topics enabled, `thread_id` is tracked through the full pipeline. The agent can use `list_topics` to map topic names to IDs, then route responses to specific topics via `thread_id` on send/reply/send_photo.
+- **PDF `page_range` param** — `parse_document` now accepts `page_range` strings like `"1-30"`, `"5,7,10-15"`, or `"3"` for targeted extraction. Text-first routing skips Gemini for text-native PDFs. Inline preview cap raised to ~60 pages.
+
+## v0.3.32 Fixes
+
+- **Evolve hardening** (#136) — the `/evolve` command now handles busy Linux binaries with a remove+rename dance (can't overwrite a running binary on Linux), delayed `systemd-run` restart to let the current process finish cleanly, structured tracing for better error diagnosis, and a pre-flight `count_matching_systemd_units` check to avoid restarting when multiple OpenCrabs instances are running.
+
+## v0.3.33 Fixes
+
+- **User-correction metadata** (#138, PR #140) — `display_text_override` now captures the actual user message text instead of the 236-character Telegram channel prefix that was previously stored. This makes user correction entries in the feedback ledger readable and actionable.
+
 ## Notifications
 
 All self-healing events are delivered to:

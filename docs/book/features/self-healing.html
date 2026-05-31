@@ -54,7 +54,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-04f68512.js";
+            window.path_to_searchindex_js = "../searchindex-9dc13673.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-25972818.js"></script>
@@ -494,6 +494,20 @@ providers = ["openrouter", "anthropic"]  # tried in order
 <li><strong>Follow-up message = ESC x2 cancel</strong> — all four channel handlers treat a follow-up message during an active agent run as double-Escape cancel, then starts fresh</li>
 <li><strong>Dynamic Telegram status messages</strong> — replaced hardcoded quips with context-aware messages showing actual tool being called, tokens streamed, and elapsed time</li>
 <li><strong>rename_session rejects empty titles</strong> (#128) — whitespace-only titles rejected so sessions can’t become unidentifiable</li>
+</ul>
+<h2 id="v0331-fixes"><a class="header" href="#v0331-fixes">v0.3.31 Fixes</a></h2>
+<ul>
+<li><strong>Fun POST-COMPACTION PROTOCOL prompts</strong> — after compaction, the agent receives a playful system prompt instead of a sterile summary marker. These rotating prompts (e.g. “You just woke up from a nap. The summary above is everything you remember.”) make the post-compaction experience less robotic. Users can opt out with <code>[agent] silent_compaction = true</code> in config.toml.</li>
+<li><strong>Telegram forum topic routing</strong> — in supergroups with topics enabled, <code>thread_id</code> is tracked through the full pipeline. The agent can use <code>list_topics</code> to map topic names to IDs, then route responses to specific topics via <code>thread_id</code> on send/reply/send_photo.</li>
+<li><strong>PDF <code>page_range</code> param</strong> — <code>parse_document</code> now accepts <code>page_range</code> strings like <code>"1-30"</code>, <code>"5,7,10-15"</code>, or <code>"3"</code> for targeted extraction. Text-first routing skips Gemini for text-native PDFs. Inline preview cap raised to ~60 pages.</li>
+</ul>
+<h2 id="v0332-fixes"><a class="header" href="#v0332-fixes">v0.3.32 Fixes</a></h2>
+<ul>
+<li><strong>Evolve hardening</strong> (#136) — the <code>/evolve</code> command now handles busy Linux binaries with a remove+rename dance (can’t overwrite a running binary on Linux), delayed <code>systemd-run</code> restart to let the current process finish cleanly, structured tracing for better error diagnosis, and a pre-flight <code>count_matching_systemd_units</code> check to avoid restarting when multiple OpenCrabs instances are running.</li>
+</ul>
+<h2 id="v0333-fixes"><a class="header" href="#v0333-fixes">v0.3.33 Fixes</a></h2>
+<ul>
+<li><strong>User-correction metadata</strong> (#138, PR #140) — <code>display_text_override</code> now captures the actual user message text instead of the 236-character Telegram channel prefix that was previously stored. This makes user correction entries in the feedback ledger readable and actionable.</li>
 </ul>
 <h2 id="notifications"><a class="header" href="#notifications">Notifications</a></h2>
 <p>All self-healing events are delivered to:</p>

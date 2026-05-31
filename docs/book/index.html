@@ -54,7 +54,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-04f68512.js";
+            window.path_to_searchindex_js = "searchindex-9dc13673.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-25972818.js"></script>
@@ -310,6 +310,14 @@
 <li><strong>OpenAI-compatible embedding API</strong> — configure external embedding providers (OpenAI, Ollama, Jina, LM Studio) instead of downloading 300MB GGUF model. Dynamic vector dimensions from API response (v0.3.19)</li>
 <li><strong>FTS5-only memory mode for VPS</strong> — pure keyword search with zero RAM overhead. Auto-detects VPS environments and configures automatically (v0.3.19)</li>
 <li><strong>img2img for <code>generate_image</code></strong> — optional <code>image</code> parameter (local path or HTTPS URL) feeds Gemini <code>inlineData</code> for editing user-uploaded images. OpenAI-shaped backends reject with clear error pointing at Gemini (v0.3.30)</li>
+<li><strong>PDF <code>page_range</code> param</strong> — pass <code>"1-30"</code>, <code>"5,7,10-15"</code>, or <code>"3"</code> for targeted extraction. Text-first routing skips Gemini for text-native PDFs, inline cap raised to ~60 pages (v0.3.31)</li>
+<li><strong>Telegram forum topic routing</strong> — <code>thread_id</code> carries through full pipeline, new <code>list_topics</code> action surfaces topic names → IDs for proactive sends and replies (v0.3.31, #130, #131)</li>
+<li><strong>Agent self-awareness</strong> — compiled features surface in system prompt with check-first directive, <code>Known paths</code> section for logs so the agent stops guessing file locations (v0.3.31)</li>
+<li><strong>RSI skill proposals</strong> — <code>skill</code> as third proposal kind alongside tool/command, writes <code>SKILL.md</code> brain file (v0.3.31)</li>
+<li><strong>Fun POST-COMPACTION PROTOCOL prompts</strong> — compaction now delivers delightful re-orientation prompts; opt out with <code>[agent] silent_compaction = true</code> (v0.3.31)</li>
+<li><strong>Evolve hardening</strong> — remove+rename dance for busy Linux binaries, delayed <code>systemd-run</code> restart, structured tracing on every failure branch, pre-flight <code>count_matching_systemd_units</code> check (v0.3.32, #136)</li>
+<li><strong>User-correction metadata</strong> — captures actual user message via <code>display_text_override</code> instead of the 236-char Telegram channel prefix that was polluting the feedback ledger (v0.3.33, #138, PR #140)</li>
+<li><strong>Provider registry single source of truth</strong> — fixed opencode/ollama/bedrock/vertex silent TUI omission; one 16-entry table instead of drifted if-else chains (unreleased, #141)</li>
 </ul>
 <h3 id="-browser-automation"><a class="header" href="#-browser-automation">🌐 Browser Automation</a></h3>
 <ul>
@@ -345,7 +353,7 @@
 </ul>
 <h3 id="-testing--quality"><a class="header" href="#-testing--quality">📊 Testing &amp; Quality</a></h3>
 <ul>
-<li><strong>3,165+ tests</strong> covering providers, tools, channels, TUI, self-healing, crash recovery, browser automation</li>
+<li><strong>3,482+ tests</strong> covering providers, tools, channels, TUI, self-healing, crash recovery, browser automation</li>
 <li><strong>CI/CD</strong>: GitHub Actions, CodeQL, <code>cargo audit</code> security checks, release automation</li>
 </ul>
 <h3 id="-built-in-skills-v0317"><a class="header" href="#-built-in-skills-v0317">🔧 Built-in Skills (v0.3.17)</a></h3>

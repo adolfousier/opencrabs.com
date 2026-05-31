@@ -109,6 +109,14 @@
 - **OpenAI-compatible embedding API** — configure external embedding providers (OpenAI, Ollama, Jina, LM Studio) instead of downloading 300MB GGUF model. Dynamic vector dimensions from API response (v0.3.19)
 - **FTS5-only memory mode for VPS** — pure keyword search with zero RAM overhead. Auto-detects VPS environments and configures automatically (v0.3.19)
 - **img2img for `generate_image`** — optional `image` parameter (local path or HTTPS URL) feeds Gemini `inlineData` for editing user-uploaded images. OpenAI-shaped backends reject with clear error pointing at Gemini (v0.3.30)
+- **PDF `page_range` param** — pass `"1-30"`, `"5,7,10-15"`, or `"3"` for targeted extraction. Text-first routing skips Gemini for text-native PDFs, inline cap raised to ~60 pages (v0.3.31)
+- **Telegram forum topic routing** — `thread_id` carries through full pipeline, new `list_topics` action surfaces topic names → IDs for proactive sends and replies (v0.3.31, #130, #131)
+- **Agent self-awareness** — compiled features surface in system prompt with check-first directive, `Known paths` section for logs so the agent stops guessing file locations (v0.3.31)
+- **RSI skill proposals** — `skill` as third proposal kind alongside tool/command, writes `SKILL.md` brain file (v0.3.31)
+- **Fun POST-COMPACTION PROTOCOL prompts** — compaction now delivers delightful re-orientation prompts; opt out with `[agent] silent_compaction = true` (v0.3.31)
+- **Evolve hardening** — remove+rename dance for busy Linux binaries, delayed `systemd-run` restart, structured tracing on every failure branch, pre-flight `count_matching_systemd_units` check (v0.3.32, #136)
+- **User-correction metadata** — captures actual user message via `display_text_override` instead of the 236-char Telegram channel prefix that was polluting the feedback ledger (v0.3.33, #138, PR #140)
+- **Provider registry single source of truth** — fixed opencode/ollama/bedrock/vertex silent TUI omission; one 16-entry table instead of drifted if-else chains (unreleased, #141)
 
 ### 🌐 Browser Automation
 - **Full CDP support**: navigate, click, type, screenshot, JS eval, wait for selectors, find elements
@@ -139,7 +147,7 @@
 - **Auto-approve propagation** — `approval_policy = "auto-always"` actually reaches tool loop (v0.3.2)
 
 ### 📊 Testing & Quality
-- **3,165+ tests** covering providers, tools, channels, TUI, self-healing, crash recovery, browser automation
+- **3,482+ tests** covering providers, tools, channels, TUI, self-healing, crash recovery, browser automation
 - **CI/CD**: GitHub Actions, CodeQL, `cargo audit` security checks, release automation
 
 ### 🔧 Built-in Skills (v0.3.17)
