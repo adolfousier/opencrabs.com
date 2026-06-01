@@ -116,6 +116,8 @@
 - **Fun POST-COMPACTION PROTOCOL prompts** — compaction now delivers delightful re-orientation prompts; opt out with `[agent] silent_compaction = true` (v0.3.31)
 - **Evolve hardening** — remove+rename dance for busy Linux binaries, delayed `systemd-run` restart, structured tracing on every failure branch, pre-flight `count_matching_systemd_units` check (v0.3.32, #136)
 - **User-correction metadata** — captures actual user message via `display_text_override` instead of the 236-char Telegram channel prefix that was polluting the feedback ledger (v0.3.33, #138, PR #140)
+- **Phantom post-success exemption** — turn-scoped `tool_calls_completed_this_turn` counter + `phantom_eligible` gate prevent the phantom detector from firing on completion acks ("Pushed.", "Done.") after real tool runs. New `FINISHING A TURN` directive enforces one-line ack, no verification re-runs, no restating conclusions (unreleased)
+- **`follow_up_question` intermediate flush** — Telegram, Discord, Slack, and WhatsApp now flush pending intermediate text before sending the question, closing a race where buttons arrived before the explanatory text that preceded them (issue #142)
 - **Provider registry single source of truth** — fixed opencode/ollama/bedrock/vertex silent TUI omission; one 16-entry table instead of drifted if-else chains (unreleased, #141)
 
 ### 🌐 Browser Automation
@@ -147,7 +149,7 @@
 - **Auto-approve propagation** — `approval_policy = "auto-always"` actually reaches tool loop (v0.3.2)
 
 ### 📊 Testing & Quality
-- **3,482+ tests** covering providers, tools, channels, TUI, self-healing, crash recovery, browser automation
+- **3,492+ tests** covering providers, tools, channels, TUI, self-healing, crash recovery, browser automation
 - **CI/CD**: GitHub Actions, CodeQL, `cargo audit` security checks, release automation
 
 ### 🔧 Built-in Skills (v0.3.17)

@@ -395,6 +395,11 @@ Fixed CodeQL #64 (HIGH): Gemini API key was leaked in URL query string (`?key=..
 
 - **User-correction metadata** (#138, PR #140) — `display_text_override` now captures the actual user message text instead of the 236-character Telegram channel prefix that was previously stored. This makes user correction entries in the feedback ledger readable and actionable.
 
+## Unreleased (post-v0.3.33)
+
+- **Phantom post-success exemption** — the phantom detector used to fire on short completion acknowledgments like "Pushed.", "Done.", or "Committed as abc123" because those look like past-tense completion claims without a tool call. But when the agent just finished a real tool run, that one-line ack is the *correct* behavior. A turn-scoped `tool_calls_completed_this_turn` counter and a `phantom_eligible` gate now suppress phantom detection once real tool calls have landed in the current turn. The complementary `FINISHING A TURN` brain preamble directive tells the agent to reply with one short ack, skip verification re-runs, and stop restating conclusions in different wording.
+- **`follow_up_question` intermediate flush** (issue #142) — when the agent called `follow_up_question` after typing an explanatory preamble, Telegram/Discord/Slack/WhatsApp sometimes delivered the button block *before* the preamble text because intermediate text sat in a 500ms-polled queue while `follow_up_question` sent directly. All four channel handlers now flush pending intermediate `JoinHandle`s before dispatching the question, guaranteeing the explanatory text renders above the buttons.
+
 ## Notifications
 
 All self-healing events are delivered to:

@@ -54,7 +54,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-9dc13673.js";
+            window.path_to_searchindex_js = "searchindex-42024407.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-25972818.js"></script>
@@ -317,6 +317,8 @@
 <li><strong>Fun POST-COMPACTION PROTOCOL prompts</strong> — compaction now delivers delightful re-orientation prompts; opt out with <code>[agent] silent_compaction = true</code> (v0.3.31)</li>
 <li><strong>Evolve hardening</strong> — remove+rename dance for busy Linux binaries, delayed <code>systemd-run</code> restart, structured tracing on every failure branch, pre-flight <code>count_matching_systemd_units</code> check (v0.3.32, #136)</li>
 <li><strong>User-correction metadata</strong> — captures actual user message via <code>display_text_override</code> instead of the 236-char Telegram channel prefix that was polluting the feedback ledger (v0.3.33, #138, PR #140)</li>
+<li><strong>Phantom post-success exemption</strong> — turn-scoped <code>tool_calls_completed_this_turn</code> counter + <code>phantom_eligible</code> gate prevent the phantom detector from firing on completion acks (“Pushed.”, “Done.”) after real tool runs. New <code>FINISHING A TURN</code> directive enforces one-line ack, no verification re-runs, no restating conclusions (unreleased)</li>
+<li><strong><code>follow_up_question</code> intermediate flush</strong> — Telegram, Discord, Slack, and WhatsApp now flush pending intermediate text before sending the question, closing a race where buttons arrived before the explanatory text that preceded them (issue #142)</li>
 <li><strong>Provider registry single source of truth</strong> — fixed opencode/ollama/bedrock/vertex silent TUI omission; one 16-entry table instead of drifted if-else chains (unreleased, #141)</li>
 </ul>
 <h3 id="-browser-automation"><a class="header" href="#-browser-automation">🌐 Browser Automation</a></h3>
@@ -353,7 +355,7 @@
 </ul>
 <h3 id="-testing--quality"><a class="header" href="#-testing--quality">📊 Testing &amp; Quality</a></h3>
 <ul>
-<li><strong>3,482+ tests</strong> covering providers, tools, channels, TUI, self-healing, crash recovery, browser automation</li>
+<li><strong>3,492+ tests</strong> covering providers, tools, channels, TUI, self-healing, crash recovery, browser automation</li>
 <li><strong>CI/CD</strong>: GitHub Actions, CodeQL, <code>cargo audit</code> security checks, release automation</li>
 </ul>
 <h3 id="-built-in-skills-v0317"><a class="header" href="#-built-in-skills-v0317">🔧 Built-in Skills (v0.3.17)</a></h3>
