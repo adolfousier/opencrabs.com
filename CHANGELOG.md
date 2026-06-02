@@ -2,6 +2,30 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.22] - 2026-06-02
+
+### Added
+- Subagent config docs expansion — full rewrite of multi-agent.md subagent section with 4 concrete provider examples (OpenRouter/Qwen, Kimi/OpenCode, local Ollama, Gemini parent + Flash children), "premium parent / cheap children" pattern, gotchas list, and note that `subagent_provider`/`subagent_model` surface in spawn tool descriptions
+- Brain dedup scan (closes #147) — new RSI proposal kind scanning 11 brain files daily, clusters duplicate lines, files proposals into Mission Control
+- Skill description injection (closes #151) — skills now auto-invoke from system prompt
+- RSI decorative counters removed (closes #149, PR #150) — SQLite feedback ledger is the canonical source
+- `follow_up_question` race fix (closes #142) — all 4 channels flush intermediate text before keyboard
+- `follow_up_question` polish (closes #148) — Telegram single-column, 40-char cap, silent LLM call
+- Provider registry single source of truth (closes #141)
+- RTK sysadmin expansion — 11 new commands + bundled filter template
+- Phantom detector hardening — pronounless + gerund + FR accent markers
+- Fallback cascade on /models swap (closes #152)
+- Claude CLI model auto-learn — footer self-corrects to CLI-resolved version
+- tok/s in channel footers — parity with TUI
+- Error persistence — agent failures as permanent chat bubbles
+- File extract double-extension fix (closes #146, PR #146)
+- FINISHING A TURN rewrite — side-effect vs analysis split
+
+### Changed
+- Test count: 3,492 → 3,616
+- Synced docs with OpenCrabs v0.3.34 (39 commits, 80 files, +5,010/-398)
+- Contributors: Alexey Leshchenko (`leshchenko1979`) — file_extract fix (#146), RSI counter cleanup (#150)
+
 ## [0.1.21] - 2026-06-01
 
 ### Added

@@ -54,7 +54,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-42024407.js";
+            window.path_to_searchindex_js = "../searchindex-f6ad76f4.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-25972818.js"></script>
@@ -241,6 +241,7 @@ respond_to = "all"
 <li><strong>DMs and groups</strong> — Works in private chats and group conversations</li>
 <li><strong>Forum topic routing</strong> (v0.3.31) — In supergroups with topics enabled, the bot tracks <code>thread_id</code> through the full pipeline. Use <code>list_topics</code> action to map topic names (e.g. <code>#announcements</code>) to numeric IDs, then pass <code>thread_id</code> to <code>send</code> / <code>reply</code> / <code>send_photo</code> to route into a specific topic</li>
 <li><strong>Context-aware pre-tool status</strong> (v0.3.31) — While a tool runs, the bot shows a live status message naming the tool, elapsed time, and either a reasoning excerpt or an anchored phrase from the user’s request</li>
+<li><strong><code>follow_up_question</code> polish</strong> (v0.3.34) — Telegram keyboard is now single-column with a 40-character label cap (longer options rejected with a clear error). The rolling “Running follow_up_question (16s)” status is suppressed while the keyboard is pending so buttons don’t get visually buried. The LLM is instructed to call the tool silently without echoing the question text in surrounding prose</li>
 <li><strong>Inline buttons</strong> — Provider picker, model picker, session switcher use Telegram inline keyboards</li>
 <li><strong>Image support</strong> — Send images to the bot, receive generated images</li>
 <li><strong>Voice messages</strong> — STT transcription + TTS response</li>

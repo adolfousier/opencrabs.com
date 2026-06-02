@@ -97,7 +97,7 @@
 - **`follow_up_question`** — agent asks the user a multi-choice question with up to 8 button options. Implemented across all channels: Telegram (inline keyboard), Discord (button components), Slack (Block Kit actions), WhatsApp (quick replies) (v0.3.24, #94)
 - **Auto-generated session titles** — new sessions get titles from the first user message via background LLM call. Never enters conversation context. Thinking-only model fallback extracts title from reasoning block (v0.3.24, v0.3.29 #121)
 - **`/models` picker overhaul** — surfaces unconfigured providers with 🔒 lock + setup help text, single-source CLI model list, custom-provider empty-state help (v0.3.30, #126)
-- **RTK Token Savings** — bundled RTK binary (4MB, v0.40.0) as default feature. Zero-config proxy intercepts tool output, filters via Rust, returns token-optimized version. 100+ commands (git, cargo, npm, docker, kubectl, grep, find, ls, tree, curl), blocklist for interactive commands. `/rtk` slash command shows savings stats. Real-world: 53.5% token savings (v0.3.25, #102)
+- **RTK Token Savings** — bundled RTK binary (4MB, v0.40.0) as default feature. Zero-config proxy intercepts tool output, filters via Rust, returns token-optimized version. 100+ commands (git, cargo, npm, docker, kubectl, grep, find, ls, tree, curl), blocklist for interactive commands. `/rtk` slash command shows savings stats. Real-world: 53.5% token savings (v0.3.25, #102). **Sysadmin expansion** (v0.3.34): added 11 sysadmin commands (`ps`, `top`, `lsof`, `netstat`, `ss`, `journalctl`, `dmesg`, `dig`, `nslookup`, `host`, `traceroute`) that were bypassing RTK entirely, plus bundled `rtk_filters.toml.example` with 8 conservative starter rules
 - **Tool call stacking** — 3+ consecutive tool call groups collapse into single summary line in TUI. Ctrl+O expands/collapses. Shows "N tool calls" or "N tool calls (M groups)" (v0.3.25)
 - **`hashline_edit` tool** — hash-anchored file editing. Each line gets 2-char content hash from `read_file(hashline=true)`. Reference lines as `LINE#ID`, stale hashes rejected before changes applied. Batch edits supported. Collision detection escalates to `edit_file` fallback (v0.3.25, #60; v0.3.26 #105)
 - **Sensitive data redaction** — applied to tool output in TUI and all channels. Patterns: env var suffixes (_pass=, _password=, _secret=, _token=, _key=, _apikey=, _api_key=, _credential=, _auth=), piped secrets, plus existing (sk-*, ghp_*, xoxb-*, AWS keys, Bearer tokens) (v0.3.25)
@@ -149,7 +149,7 @@
 - **Auto-approve propagation** — `approval_policy = "auto-always"` actually reaches tool loop (v0.3.2)
 
 ### 📊 Testing & Quality
-- **3,492+ tests** covering providers, tools, channels, TUI, self-healing, crash recovery, browser automation
+- **3,616+ tests** covering providers, tools, channels, TUI, self-healing, crash recovery, browser automation
 - **CI/CD**: GitHub Actions, CodeQL, `cargo audit` security checks, release automation
 
 ### 🔧 Built-in Skills (v0.3.17)

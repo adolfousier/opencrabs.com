@@ -47,6 +47,7 @@ respond_to = "all"
 - **DMs and groups** — Works in private chats and group conversations
 - **Forum topic routing** (v0.3.31) — In supergroups with topics enabled, the bot tracks `thread_id` through the full pipeline. Use `list_topics` action to map topic names (e.g. `#announcements`) to numeric IDs, then pass `thread_id` to `send` / `reply` / `send_photo` to route into a specific topic
 - **Context-aware pre-tool status** (v0.3.31) — While a tool runs, the bot shows a live status message naming the tool, elapsed time, and either a reasoning excerpt or an anchored phrase from the user's request
+- **`follow_up_question` polish** (v0.3.34) — Telegram keyboard is now single-column with a 40-character label cap (longer options rejected with a clear error). The rolling "Running follow_up_question (16s)" status is suppressed while the keyboard is pending so buttons don't get visually buried. The LLM is instructed to call the tool silently without echoing the question text in surrounding prose
 - **Inline buttons** — Provider picker, model picker, session switcher use Telegram inline keyboards
 - **Image support** — Send images to the bot, receive generated images
 - **Voice messages** — STT transcription + TTS response

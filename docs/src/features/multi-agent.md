@@ -120,17 +120,80 @@ Cancels all running agents and cleans up resources. Completed agents are left in
 
 ## Subagent Provider/Model Config
 
-By default, spawned agents inherit the parent's provider and model. You can override this globally in `config.toml`:
+By default, every spawned agent inherits the parent session's provider and model. You can override this globally in `config.toml` so child agents route to a different (usually cheaper or faster) backend:
 
 ```toml
 [agent]
 subagent_provider = "openrouter"   # Provider for child agents
-subagent_model = "qwen/qwen3-235b" # Model override
+subagent_model    = "qwen/qwen3-235b" # Model override
+
+# Omit both keys and child agents inherit the parent session's provider
+# and run on that provider's default model.
 ```
 
-This lets you run a powerful model (e.g. Claude Opus) for the main session while using a cheaper/faster model (e.g. Qwen) for sub-tasks. The override applies to all `spawn_agent` and `resume_agent` calls.
+The override applies to `spawn_agent`, `resume_agent`, and every member of a `team_create` team. Per-call overrides on the spawn tools are a planned follow-up — until then, the config is the single knob. Changes take effect on next session start; running sessions keep their existing provider.
 
-If `subagent_provider` or `subagent_model` is not set, the spawned agent loads from the global default provider.
+### Why It Matters
+
+The common pattern is **premium parent, cheap children**. Your main conversation stays on a reasoning-capable model (Opus, GPT-5, Gemini 2.5 Pro) while subtasks — file exploration, test writing, web research, bulk refactors — run on a faster, cheaper model. With a 4-agent team running 10 minutes each, the cost delta between Opus and Qwen on the children is roughly 50x.
+
+### Concrete Examples
+
+**OpenRouter parent, Qwen children** — best bang-for-buck on mixed workloads:
+```toml
+[providers.openrouter]
+enabled = true
+api_key = "sk-or-..."
+model = "anthropic/claude-opus-4"
+
+[agent]
+subagent_provider = "openrouter"
+subagent_model    = "qwen/qwen3-235b-a22b-instruct"
+```
+
+**Kimi on custom OpenCode provider** — fast code generation for `code` and `explore` agents:
+```toml
+[providers.opencode-kimi]
+enabled = true
+base_url = "https://api.kimi.com/v1"
+api_key  = "..."
+model    = "kimi-k2.5"
+
+[agent]
+subagent_provider = "opencode-kimi"
+subagent_model    = "kimi-k2.6"
+```
+
+**Local Ollama children** — zero cost, fully offline, good for `explore` agents that just read files:
+```toml
+[providers.ollama]
+enabled = true
+model = "qwen3:14b"
+
+[agent]
+subagent_provider = "ollama"
+subagent_model    = "qwen3:14b"
+```
+
+**Gemini parent, Gemini Flash children** — single billing account, reasoning on main, flash on team:
+```toml
+[providers.gemini]
+enabled = true
+model = "gemini-2.5-pro"
+
+[agent]
+subagent_provider = "gemini"
+subagent_model    = "gemini-2.5-flash"
+```
+
+### Gotchas
+
+- The subagent provider must be enabled and have a valid API key (or be a CLI/none-auth provider). Missing keys cause the spawn to fail with a provider resolution error.
+- `subagent_model` must be a model the provider actually serves. `qwen/qwen3-235b` works on OpenRouter, not on Anthropic. Check `/models` on the target provider to confirm.
+- `team_create` members all share the same subagent config. If you need heterogeneous routing (e.g. a research agent on web-search model, a code agent on code-specialized model), spawn them individually with `spawn_agent` under different config profiles.
+- The CLI model override is surfaced in the `spawn_agent`, `resume_agent`, and `team_create` tool descriptions themselves, so the LLM knows to mention these keys to you instead of inventing per-call overrides.
+
+If `subagent_provider` or `subagent_model` is not set, the spawned agent loads from the parent session's provider and runs on that provider's default model.
 
 ## Workflow Patterns
 

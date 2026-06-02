@@ -54,7 +54,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-42024407.js";
+            window.path_to_searchindex_js = "../searchindex-f6ad76f4.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-25972818.js"></script>
@@ -411,6 +411,12 @@ Agent notices pattern of 5+ corrections on output hygiene:
 <li><strong>RSI skill proposals</strong> — <code>skill</code> is now a third proposal kind alongside <code>tool</code> and <code>command</code>. When RSI identifies a multi-stage workflow pattern that recurs across sessions, it proposes a <code>SKILL.md</code> file instead of a simple tool or command. Applied skill proposals write to <code>~/.opencrabs/skills/&lt;name&gt;/SKILL.md</code> and become immediately invocable as <code>/&lt;name&gt;</code> across all channels.</li>
 <li><strong>Bash command visibility</strong> — RSI now sees the actual bash command text plus a subsystem classifier (git, cargo, docker, npm, etc.) in feedback events. This lets RSI identify recurring shell patterns more accurately and propose targeted tools or skills.</li>
 <li><strong>Successful patterns surface as proposals</strong> — RSI doesn’t only react to failures. When a tool/command/skill pattern works reliably across multiple sessions, RSI surfaces it as a proposal to make the pattern more discoverable or ergonomic.</li>
+</ul>
+<h2 id="v0334-additions"><a class="header" href="#v0334-additions">v0.3.34 Additions</a></h2>
+<ul>
+<li><strong>Brain dedup scan (closes #147)</strong> — new RSI proposal kind <code>BrainDedup</code> that scans all 11 brain files daily, clusters duplicate lines (minimum 10 chars, skips structural markdown like headings and separators), and files dedup proposals into Mission Control with a soft purple badge. Runs every 24 RSI cycles (about once per day at 1-hour intervals), never auto-applies — human approval required through the existing <code>rsi_proposals</code> apply/reject flow. Core scan logic in <code>dedup_scan.rs</code> (393 lines), hooked into the RSI cycle with periodicity gating, 14 regression tests covering empty files, short-line filtering, cross-file detection, proposal format, and canonical selection.</li>
+<li><strong>Skill description injection (closes #151)</strong> — skill descriptions were documented in TOOLS.md as LLM auto-invoking triggers but were never actually injected into the system prompt, so the LLM could not auto-invoke from description alone. Added <code>push_skills_section()</code> to <code>prompt_builder.rs</code> that loads all skills via <code>crate::brain::skills::load_all_skills()</code> and formats each as <code>- skill_name: description</code>, appending an <code>## Available Skills</code> block to both <code>build_core_brain()</code> and <code>build_system_brain()</code>. 2 regression tests.</li>
+<li><strong>RSI decorative counters removed (closes #149, PR #150)</strong> — removed the counter-bumping logic that incremented inline counters in SOUL.md like <code>phantom_tool_call: 219</code>. These counters were decorative only, nothing read them, and the real canonical source is the SQLite feedback ledger at <code>~/.opencrabs/feedback.db</code>. Counters went stale (ledger showed 302, SOUL.md showed 219) and got wiped by upstream template sync. Replaced with evidence appends (date/session). DB stays the single source of truth. Follow-up commit escaped unescaped double quotes the PR introduced in the prompt string literal and added text regression tests.</li>
 </ul>
 <h2 id="self-healing-vs-self-improvement"><a class="header" href="#self-healing-vs-self-improvement">Self-Healing vs Self-Improvement</a></h2>
 <div class="table-wrapper">

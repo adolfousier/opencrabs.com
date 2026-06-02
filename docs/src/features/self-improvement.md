@@ -221,6 +221,12 @@ RSI now bumps a violation counter on existing rules instead of deduping repeat v
 - **Bash command visibility** — RSI now sees the actual bash command text plus a subsystem classifier (git, cargo, docker, npm, etc.) in feedback events. This lets RSI identify recurring shell patterns more accurately and propose targeted tools or skills.
 - **Successful patterns surface as proposals** — RSI doesn't only react to failures. When a tool/command/skill pattern works reliably across multiple sessions, RSI surfaces it as a proposal to make the pattern more discoverable or ergonomic.
 
+## v0.3.34 Additions
+
+- **Brain dedup scan (closes #147)** — new RSI proposal kind `BrainDedup` that scans all 11 brain files daily, clusters duplicate lines (minimum 10 chars, skips structural markdown like headings and separators), and files dedup proposals into Mission Control with a soft purple badge. Runs every 24 RSI cycles (about once per day at 1-hour intervals), never auto-applies — human approval required through the existing `rsi_proposals` apply/reject flow. Core scan logic in `dedup_scan.rs` (393 lines), hooked into the RSI cycle with periodicity gating, 14 regression tests covering empty files, short-line filtering, cross-file detection, proposal format, and canonical selection.
+- **Skill description injection (closes #151)** — skill descriptions were documented in TOOLS.md as LLM auto-invoking triggers but were never actually injected into the system prompt, so the LLM could not auto-invoke from description alone. Added `push_skills_section()` to `prompt_builder.rs` that loads all skills via `crate::brain::skills::load_all_skills()` and formats each as `- skill_name: description`, appending an `## Available Skills` block to both `build_core_brain()` and `build_system_brain()`. 2 regression tests.
+- **RSI decorative counters removed (closes #149, PR #150)** — removed the counter-bumping logic that incremented inline counters in SOUL.md like `phantom_tool_call: 219`. These counters were decorative only, nothing read them, and the real canonical source is the SQLite feedback ledger at `~/.opencrabs/feedback.db`. Counters went stale (ledger showed 302, SOUL.md showed 219) and got wiped by upstream template sync. Replaced with evidence appends (date/session). DB stays the single source of truth. Follow-up commit escaped unescaped double quotes the PR introduced in the prompt string literal and added text regression tests.
+
 ## Self-Healing vs Self-Improvement
 
 | Self-Healing | Self-Improvement |

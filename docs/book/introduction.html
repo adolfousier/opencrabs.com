@@ -54,7 +54,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-42024407.js";
+            window.path_to_searchindex_js = "searchindex-f6ad76f4.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-25972818.js"></script>
@@ -298,7 +298,7 @@
 <li><strong><code>follow_up_question</code></strong> — agent asks the user a multi-choice question with up to 8 button options. Implemented across all channels: Telegram (inline keyboard), Discord (button components), Slack (Block Kit actions), WhatsApp (quick replies) (v0.3.24, #94)</li>
 <li><strong>Auto-generated session titles</strong> — new sessions get titles from the first user message via background LLM call. Never enters conversation context. Thinking-only model fallback extracts title from reasoning block (v0.3.24, v0.3.29 #121)</li>
 <li><strong><code>/models</code> picker overhaul</strong> — surfaces unconfigured providers with 🔒 lock + setup help text, single-source CLI model list, custom-provider empty-state help (v0.3.30, #126)</li>
-<li><strong>RTK Token Savings</strong> — bundled RTK binary (4MB, v0.40.0) as default feature. Zero-config proxy intercepts tool output, filters via Rust, returns token-optimized version. 100+ commands (git, cargo, npm, docker, kubectl, grep, find, ls, tree, curl), blocklist for interactive commands. <code>/rtk</code> slash command shows savings stats. Real-world: 53.5% token savings (v0.3.25, #102)</li>
+<li><strong>RTK Token Savings</strong> — bundled RTK binary (4MB, v0.40.0) as default feature. Zero-config proxy intercepts tool output, filters via Rust, returns token-optimized version. 100+ commands (git, cargo, npm, docker, kubectl, grep, find, ls, tree, curl), blocklist for interactive commands. <code>/rtk</code> slash command shows savings stats. Real-world: 53.5% token savings (v0.3.25, #102). <strong>Sysadmin expansion</strong> (v0.3.34): added 11 sysadmin commands (<code>ps</code>, <code>top</code>, <code>lsof</code>, <code>netstat</code>, <code>ss</code>, <code>journalctl</code>, <code>dmesg</code>, <code>dig</code>, <code>nslookup</code>, <code>host</code>, <code>traceroute</code>) that were bypassing RTK entirely, plus bundled <code>rtk_filters.toml.example</code> with 8 conservative starter rules</li>
 <li><strong>Tool call stacking</strong> — 3+ consecutive tool call groups collapse into single summary line in TUI. Ctrl+O expands/collapses. Shows “N tool calls” or “N tool calls (M groups)” (v0.3.25)</li>
 <li><strong><code>hashline_edit</code> tool</strong> — hash-anchored file editing. Each line gets 2-char content hash from <code>read_file(hashline=true)</code>. Reference lines as <code>LINE#ID</code>, stale hashes rejected before changes applied. Batch edits supported. Collision detection escalates to <code>edit_file</code> fallback (v0.3.25, #60; v0.3.26 #105)</li>
 <li><strong>Sensitive data redaction</strong> — applied to tool output in TUI and all channels. Patterns: env var suffixes (_pass=, _password=, _secret=, _token=, _key=, _apikey=, _api_key=, _credential=, <em>auth=), piped secrets, plus existing (sk-*, ghp</em><em>, xoxb-</em>, AWS keys, Bearer tokens) (v0.3.25)</li>
@@ -355,7 +355,7 @@
 </ul>
 <h3 id="-testing--quality"><a class="header" href="#-testing--quality">📊 Testing &amp; Quality</a></h3>
 <ul>
-<li><strong>3,492+ tests</strong> covering providers, tools, channels, TUI, self-healing, crash recovery, browser automation</li>
+<li><strong>3,616+ tests</strong> covering providers, tools, channels, TUI, self-healing, crash recovery, browser automation</li>
 <li><strong>CI/CD</strong>: GitHub Actions, CodeQL, <code>cargo audit</code> security checks, release automation</li>
 </ul>
 <h3 id="-built-in-skills-v0317"><a class="header" href="#-built-in-skills-v0317">🔧 Built-in Skills (v0.3.17)</a></h3>

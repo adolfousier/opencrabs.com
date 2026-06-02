@@ -38,6 +38,10 @@ Adding a custom OpenAI-compatible provider is now smoother:
 - **Enter-to-load**: type a model name not in the fetched list and press Enter — it's added to the list and selected
 - **Field refresh**: saved values (base URL, API key, model list) appear instantly without restarting the dialog
 
+## Provider Registry (v0.3.34)
+
+All provider resolution now routes through a single registry source of truth — no more hardcoded if-else ladders scattered across the codebase. The registry correctly enforces `api_key` requirements for API providers (Anthropic, OpenAI, GitHub Copilot, Gemini, OpenRouter, MiniMax), so resolution skips them cleanly when keys are missing instead of silently falling back. Adding a new provider is now a one-file change.
+
 ## Qwen Cache Auto-Enable (v0.3.30)
 
 Custom providers targeting Qwen-shaped endpoints (base URLs containing `dashscope`, `aliyun`, `aliyuncs`, `dialagram`, or models prefixed with `qwen-*`) automatically get ephemeral `cache_control` markers on the system prompt, last streaming message, and last tool call. Zero-config cost savings for Qwen custom providers — no API key or flag needed.

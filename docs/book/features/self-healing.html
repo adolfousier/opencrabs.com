@@ -54,7 +54,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-42024407.js";
+            window.path_to_searchindex_js = "../searchindex-f6ad76f4.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-25972818.js"></script>
@@ -508,6 +508,17 @@ providers = ["openrouter", "anthropic"]  # tried in order
 <h2 id="v0333-fixes"><a class="header" href="#v0333-fixes">v0.3.33 Fixes</a></h2>
 <ul>
 <li><strong>User-correction metadata</strong> (#138, PR #140) — <code>display_text_override</code> now captures the actual user message text instead of the 236-character Telegram channel prefix that was previously stored. This makes user correction entries in the feedback ledger readable and actionable.</li>
+</ul>
+<h2 id="v0334-fixes"><a class="header" href="#v0334-fixes">v0.3.34 Fixes</a></h2>
+<ul>
+<li><strong><code>follow_up_question</code> race fix (closes #142)</strong> — all four channels (Telegram, Discord, Slack, WhatsApp) now flush intermediate text handles before presenting the follow-up keyboard. Prevents the race where the bot’s in-progress message got orphaned or duplicated when the user tapped a button mid-stream. Each channel got its own atomic commit with per-channel regression tests pinning the flush-before-keyboard sequence.</li>
+<li><strong><code>follow_up_question</code> display polish (closes #148)</strong> — Telegram keyboard is now single-column with a 40-character label cap (rejects options longer than 40 chars in the tool validator with a clear error). Rolling “Running follow_up_question (16s)” status is suppressed while the keyboard is pending, and the LLM is now instructed to call the tool silently without echoing the question text in surrounding prose. Discord left alone due to its 5-ActionRow-per-message hard limit.</li>
+<li><strong>Phantom detector hardening</strong> — two narration shapes had been leaking past the phantom detector: pronounless deferment (<code>Need to read the X</code>) and bare gerunds (<code>Reading the current state of the affected files</code>). Added 28 pronounless EN variants, 15 telegraphic FR <code>besoin de</code> variants, and gerund+determiner bigrams. New regression file pins both leaked sentences verbatim. Follow-up fixed French accent detection: <code>detect_language</code> missed <code>é/è/ë/ü</code>, so French narration fell through to English and the new <code>besoin de</code> phrases never matched. Added the 4 markers.</li>
+<li><strong>Fallback provider cascade (closes #152)</strong> — <code>/models</code> swaps and session restores were storing a raw provider instead of wrapping it in <code>FallbackProvider</code>, so the fallback cascade could not fire on 5xx/429 errors after a model switch. Every active provider now gets wrapped unless it is already a chain or no fallbacks are configured. 174-line integration test simulating 5xx cascades across swapped providers.</li>
+<li><strong>Error persistence</strong> — agent failures now persist as permanent chat bubbles with actionable wording on TUI and channels instead of vanishing after the turn. UTF-8 panic after redact-prefix scan fixed by snapping to char boundary.</li>
+<li><strong>FINISHING A TURN rewrite</strong> — split the brain preamble directive into side-effect vs analysis response shapes, added a nudge on empty data-fetch closes so the agent never ends a turn silently after running research tools, and requires an explicit acknowledgement sentence instead of letting <code>finish_reason: stop</code> with no content reach the user.</li>
+<li><strong>Claude CLI model auto-learn</strong> — footer showed Opus 4.7 after Anthropic shipped 4.8 because <code>default_for_alias</code> hardcoded <code>opus -&gt; opus-4-7</code>. Now the provider learns the CLI-resolved version from <code>message_start</code> events, persists to <code>~/.opencrabs/claude_cli_models.json</code> (rewriting only when the value changes), and the TUI refreshes the session model live so the footer self-corrects to the actual version without code changes. <code>default_for_alias</code> prefers the learned cache and falls back to a build-time seed only on a fresh install.</li>
+<li><strong>tok/s in channel footers</strong> — channel context budget footers showed only <code>ctx: XK/YK Z%</code> while the TUI also showed <code>| N tok/s</code>. Added <code>tokens_per_second: Option&lt;f64&gt;</code> to <code>AgentResponse</code>, extended <code>format_ctx_footer</code> to accept a third <code>tps</code> parameter, computed tok/s from <code>total_output_tokens / turn_duration</code> across the whole turn in <code>tool_loop.rs</code>, and wired it through all four channels.</li>
 </ul>
 <h2 id="unreleased-post-v0333"><a class="header" href="#unreleased-post-v0333">Unreleased (post-v0.3.33)</a></h2>
 <ul>
