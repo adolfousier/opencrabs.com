@@ -54,7 +54,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-f6ad76f4.js";
+            window.path_to_searchindex_js = "../searchindex-56b8a5b7.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-25972818.js"></script>
@@ -198,6 +198,58 @@
                     <main>
                         <h1 id="first-session"><a class="header" href="#first-session">First Session</a></h1>
 <p>When you launch OpenCrabs for the first time, the <strong>onboarding wizard</strong> walks you through setup.</p>
+<h2 id="-full-onboarding-walkthrough"><a class="header" href="#-full-onboarding-walkthrough">🎬 Full Onboarding Walkthrough</a></h2>
+<video controls="" width="100%" preload="metadata" playsinline="">
+  <source src="https://github.com/user-attachments/assets/cf7494fa-755d-4ed5-8be6-267562b7a80e" type="video/mp4">
+  Your browser does not support the video tag. <a href="https://github.com/user-attachments/assets/cf7494fa-755d-4ed5-8be6-267562b7a80e">Watch the video</a>.
+</video>
+<p>Narrated step-by-step covering both the Quick and Advanced paths below.</p>
+<h2 id="quick-start-3-minutes"><a class="header" href="#quick-start-3-minutes">Quick Start (3 minutes)</a></h2>
+<p>The fast path gets you chatting with the agent in under 3 minutes.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Step</th><th>Action</th></tr>
+</thead>
+<tbody>
+<tr><td>1. Mode</td><td>Hit <code>Enter</code> on <strong>QuickStart</strong></td></tr>
+<tr><td>2. Workspace</td><td>Hit <code>Enter</code> to accept the default path</td></tr>
+<tr><td>3. Provider</td><td>Arrow to your provider (e.g. z.ai), hit <code>Enter</code>. Arrow down to select a plan (e.g. Coding), hit <code>Enter</code></td></tr>
+<tr><td>4. API Key</td><td>Paste your key (<code>Cmd+V</code> / <code>Ctrl+V</code> / <code>Cmd+Shift+V</code> / <code>Ctrl+Shift+V</code>), hit <code>Enter</code>. Model list loads live</td></tr>
+<tr><td>5. Model</td><td>Arrow to your model (e.g. gemini-2.5-pro), hit <code>Enter</code></td></tr>
+<tr><td>6. Daemon</td><td>Arrow to select whether to run as background daemon, hit <code>Enter</code></td></tr>
+<tr><td>7. Vibe Check</td><td>All checks should show ✅. Hit <code>Enter</code></td></tr>
+<tr><td>8. About You</td><td>Write something about yourself, the more the agent knows, the better. Hit <code>Enter</code></td></tr>
+<tr><td>9. About Agent</td><td>Write something about the agent’s personality. Hit <code>Enter</code></td></tr>
+<tr><td>10. Chat</td><td>You’re in. Start talking to your agent</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="advanced-setup-7-minutes"><a class="header" href="#advanced-setup-7-minutes">Advanced Setup (7 minutes)</a></h2>
+<p>Full setup with Telegram, local voice, vision, and image generation.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Step</th><th>Action</th></tr>
+</thead>
+<tbody>
+<tr><td>1. Mode</td><td>Hit <code>Enter</code> on <strong>QuickStart</strong></td></tr>
+<tr><td>2. Workspace</td><td>Hit <code>Enter</code> to accept the default path</td></tr>
+<tr><td>3. Provider</td><td>Arrow to your provider (e.g. z.ai), hit <code>Enter</code>. Arrow down to select a plan, hit <code>Enter</code></td></tr>
+<tr><td>4. API Key</td><td>Paste your key, hit <code>Enter</code>. Model list loads live</td></tr>
+<tr><td>5. Model</td><td>Arrow to your model, hit <code>Enter</code></td></tr>
+<tr><td>6. Channels</td><td>Arrow to <strong>Other</strong>, hit <code>Space</code> to select Telegram, hit <code>Enter</code>. Paste your bot token, follow the instructions to get your chat ID, hit <code>Enter</code>. Select mention mode, hit <code>Enter</code>. Once it says <strong>Connected</strong>, hit <code>Enter</code> again. Arrow down to <strong>Continue</strong>, hit <code>Enter</code></td></tr>
+<tr><td>7. STT</td><td>Select <strong>Local</strong>, hit <code>Enter</code>. Pick model size (e.g. tiny for speed), hit <code>Enter</code></td></tr>
+<tr><td>8. TTS</td><td>Select <strong>Local</strong> again, hit <code>Enter</code>. Pick a voice (e.g. Ryan), hit <code>Enter</code>. Wait for the model download, arrow down to <strong>Continue</strong>, hit <code>Enter</code></td></tr>
+<tr><td>9. Image</td><td>Hit <code>Space</code> to select Vision and Image Generation, hit <code>Enter</code>. Paste your Gemini API key, hit <code>Enter</code></td></tr>
+<tr><td>10. Daemon</td><td>Arrow to select whether to run as background daemon, hit <code>Enter</code></td></tr>
+<tr><td>11. Vibe Check</td><td>All checks should show ✅. Hit <code>Enter</code></td></tr>
+<tr><td>12. About You</td><td>Write something about yourself, the more the agent knows, the better. Hit <code>Enter</code></td></tr>
+<tr><td>13. About Agent</td><td>Write something about the agent’s personality. Hit <code>Enter</code></td></tr>
+<tr><td>14. Chat</td><td>You’re in. Start talking to your agent</td></tr>
+</tbody>
+</table>
+</div>
 <h2 id="onboarding-flow"><a class="header" href="#onboarding-flow">Onboarding Flow</a></h2>
 <p>The wizard is a keyboard-driven TUI with 8 steps. Navigate with arrow keys, <code>Tab</code> to advance, <code>Esc</code> to go back.</p>
 <div class="table-wrapper">
@@ -293,7 +345,7 @@
 <li>Directory picker in the TUI (Tab to select)</li>
 <li><code>config_manager set_working_directory</code> tool</li>
 </ul>
-<p>The working directory is persisted per-session — switching sessions restores the directory automatically.</p>
+<p>The working directory is persisted per-session. Switching sessions restores the directory automatically.</p>
 
                     </main>
 
