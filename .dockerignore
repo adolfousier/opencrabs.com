@@ -1,0 +1,8 @@
+target/
+node_modules/
+.git/
+dist/
+docs/book/
+*.tar.gz
+*.zip
+.DS_Store
