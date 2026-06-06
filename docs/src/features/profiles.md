@@ -123,3 +123,7 @@ Multiple profile daemons can run simultaneously as separate OS services, each wi
 ## Per-Session Provider Isolation
 
 Changing the provider in one session does **not** affect other sessions or profiles. Each session remembers its own provider independently. See [Sessions](./sessions.md) for the full isolation story.
+
+## Profile-Aware Paths (v0.3.35)
+
+All internal paths now resolve through `opencrabs_home()` instead of hardcoded `~/.opencrabs/`. This means subagent status directories, `tools.toml` fallback resolution, and `write_opencrabs_file` confirmation messages all respect the active profile. No more cross-profile contamination when running multiple instances.

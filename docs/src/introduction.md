@@ -116,9 +116,16 @@
 - **Fun POST-COMPACTION PROTOCOL prompts** — compaction now delivers delightful re-orientation prompts; opt out with `[agent] silent_compaction = true` (v0.3.31)
 - **Evolve hardening** — remove+rename dance for busy Linux binaries, delayed `systemd-run` restart, structured tracing on every failure branch, pre-flight `count_matching_systemd_units` check (v0.3.32, #136)
 - **User-correction metadata** — captures actual user message via `display_text_override` instead of the 236-char Telegram channel prefix that was polluting the feedback ledger (v0.3.33, #138, PR #140)
-- **Phantom post-success exemption** — turn-scoped `tool_calls_completed_this_turn` counter + `phantom_eligible` gate prevent the phantom detector from firing on completion acks ("Pushed.", "Done.") after real tool runs. New `FINISHING A TURN` directive enforces one-line ack, no verification re-runs, no restating conclusions (unreleased)
-- **`follow_up_question` intermediate flush** — Telegram, Discord, Slack, and WhatsApp now flush pending intermediate text before sending the question, closing a race where buttons arrived before the explanatory text that preceded them (issue #142)
-- **Provider registry single source of truth** — fixed opencode/ollama/bedrock/vertex silent TUI omission; one 16-entry table instead of drifted if-else chains (unreleased, #141)
+- **Phantom post-success exemption** — turn-scoped `tool_calls_completed_this_turn` counter + `phantom_eligible` gate prevent the phantom detector from firing on completion acks ("Pushed.", "Done.") after real tool runs. New `FINISHING A TURN` directive enforces one-line ack, no verification re-runs, no restating conclusions (v0.3.34)
+- **`follow_up_question` intermediate flush** — Telegram, Discord, Slack, and WhatsApp now flush pending intermediate text before sending the question, closing a race where buttons arrived before the explanatory text that preceded them (v0.3.34, issue #142)
+- **Provider registry single source of truth** — fixed opencode/ollama/bedrock/vertex silent TUI omission; one 16-entry table instead of drifted if-else chains (v0.3.34, #141)
+- **Plan import from JSON** — `plan(operation: "import", file_path: "...")` loads pre-defined plans. Bundled reference plans for Rust and Python workflows. Target-only symlink check + orphan dependency validation (v0.3.35, #160)
+- **Per-call subagent provider/model overrides** — `spawn_agent`, `resume_agent`, and `team_create` now accept optional `provider` and `model` fields. Enables mixed-model teams (plan with GLM, code with Deepseek, review with Kimi). Precedence: per-call > config > parent session (v0.3.35, #152)
+- **`opencrabs evolve` CLI** — terminal command to check for and install updates, matching the existing `/evolve` TUI slash command. Supports `--check-only` flag (v0.3.35)
+- **IDENTITY.md consolidation** — dropped redundant IDENTITY.md template. SOUL.md already owns identity (name, vibe, boundaries). Brain file count reduced by one (v0.3.35, #159)
+- **Profile-aware paths** — replaced hardcoded `~/.opencrabs/` paths with `opencrabs_home()` throughout. Subagent status dir, `tools.toml` fallback, and `write_opencrabs_file` confirmations all respect the active profile (v0.3.35, #155, #156, #157)
+- **Teloxide upgrade** — upgraded from 0.13 to 0.17 with member join detection before allowlist and join notification tests (v0.3.35)
+- **tok/s footer accuracy** — channel and TUI tok/s now uses provider-reported tokens divided by active streaming time instead of total turn duration (v0.3.35)
 
 ### 🌐 Browser Automation
 - **Full CDP support**: navigate, click, type, screenshot, JS eval, wait for selectors, find elements
@@ -149,7 +156,7 @@
 - **Auto-approve propagation** — `approval_policy = "auto-always"` actually reaches tool loop (v0.3.2)
 
 ### 📊 Testing & Quality
-- **3,616+ tests** covering providers, tools, channels, TUI, self-healing, crash recovery, browser automation
+- **3,813+ tests** covering providers, tools, channels, TUI, self-healing, crash recovery, browser automation
 - **CI/CD**: GitHub Actions, CodeQL, `cargo audit` security checks, release automation
 
 ### 🔧 Built-in Skills (v0.3.17)

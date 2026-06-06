@@ -62,7 +62,7 @@ The wizard is a keyboard-driven TUI with 8 steps. Navigate with arrow keys, `Tab
 | 5 | **Voice** | STT provider (Groq, local Whisper, or off) + TTS voice |
 | 6 | **Image** | Vision toggle + generation model + API key |
 | 7 | **Daemon** | Install background daemon (optional) |
-| 8 | **Brain Setup** | Auto-generate SOUL.md, IDENTITY.md from your profile |
+| 8 | **Brain Setup** | Auto-generate SOUL.md from your profile |
 
 ### Channel Setup (Step 4)
 
@@ -88,7 +88,7 @@ You can jump to any step without re-running the full wizard:
 | `/onboard:image` | Image setup |
 | `/onboard:brain` | Brain file generation |
 
-After onboarding, your agent boots up and introduces itself. It reads its brain files (`SOUL.md`, `IDENTITY.md`, `AGENTS.md`, `TOOLS.md`) and starts a conversation.
+After onboarding, your agent boots up and introduces itself. It reads its brain files (`SOUL.md`, `AGENTS.md`, `TOOLS.md`) and starts a conversation.
 
 ## Bootstrap
 

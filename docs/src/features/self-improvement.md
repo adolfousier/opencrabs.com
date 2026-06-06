@@ -227,6 +227,10 @@ RSI now bumps a violation counter on existing rules instead of deduping repeat v
 - **Skill description injection (closes #151)** — skill descriptions were documented in TOOLS.md as LLM auto-invoking triggers but were never actually injected into the system prompt, so the LLM could not auto-invoke from description alone. Added `push_skills_section()` to `prompt_builder.rs` that loads all skills via `crate::brain::skills::load_all_skills()` and formats each as `- skill_name: description`, appending an `## Available Skills` block to both `build_core_brain()` and `build_system_brain()`. 2 regression tests.
 - **RSI decorative counters removed (closes #149, PR #150)** — removed the counter-bumping logic that incremented inline counters in SOUL.md like `phantom_tool_call: 219`. These counters were decorative only, nothing read them, and the real canonical source is the SQLite feedback ledger at `~/.opencrabs/feedback.db`. Counters went stale (ledger showed 302, SOUL.md showed 219) and got wiped by upstream template sync. Replaced with evidence appends (date/session). DB stays the single source of truth. Follow-up commit escaped unescaped double quotes the PR introduced in the prompt string literal and added text regression tests.
 
+## v0.3.35 Additions
+
+- **`cycle_number` persistence** — `cycle_number` now persists to `~/.opencrabs/rsi/cycle_number` across TUI restarts. Previously it reset to 0 on every process restart, meaning the brain dedup scan (which fires every 24 cycles) would never trigger if the TUI restarted more frequently than 24 hours. Now the cycle counter survives restarts and the daily dedup scan fires as intended.
+
 ## Self-Healing vs Self-Improvement
 
 | Self-Healing | Self-Improvement |

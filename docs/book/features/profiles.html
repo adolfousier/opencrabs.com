@@ -54,7 +54,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-56b8a5b7.js";
+            window.path_to_searchindex_js = "../searchindex-2d5e60da.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-25972818.js"></script>
@@ -285,6 +285,8 @@ opencrabs -p hermes service start
 <p>Multiple profile daemons can run simultaneously as separate OS services, each with its own ports, bot connections, and config.</p>
 <h2 id="per-session-provider-isolation"><a class="header" href="#per-session-provider-isolation">Per-Session Provider Isolation</a></h2>
 <p>Changing the provider in one session does <strong>not</strong> affect other sessions or profiles. Each session remembers its own provider independently. See <a href="./sessions.html">Sessions</a> for the full isolation story.</p>
+<h2 id="profile-aware-paths-v0335"><a class="header" href="#profile-aware-paths-v0335">Profile-Aware Paths (v0.3.35)</a></h2>
+<p>All internal paths now resolve through <code>opencrabs_home()</code> instead of hardcoded <code>~/.opencrabs/</code>. This means subagent status directories, <code>tools.toml</code> fallback resolution, and <code>write_opencrabs_file</code> confirmation messages all respect the active profile. No more cross-profile contamination when running multiple instances.</p>
 
                     </main>
 

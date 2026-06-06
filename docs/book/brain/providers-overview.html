@@ -54,7 +54,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-56b8a5b7.js";
+            window.path_to_searchindex_js = "../searchindex-2d5e60da.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-25972818.js"></script>
@@ -242,7 +242,9 @@
 <h2 id="provider-registry-v0334"><a class="header" href="#provider-registry-v0334">Provider Registry (v0.3.34)</a></h2>
 <p>All provider resolution now routes through a single registry source of truth — no more hardcoded if-else ladders scattered across the codebase. The registry correctly enforces <code>api_key</code> requirements for API providers (Anthropic, OpenAI, GitHub Copilot, Gemini, OpenRouter, MiniMax), so resolution skips them cleanly when keys are missing instead of silently falling back. Adding a new provider is now a one-file change.</p>
 <h2 id="qwen-cache-auto-enable-v0330"><a class="header" href="#qwen-cache-auto-enable-v0330">Qwen Cache Auto-Enable (v0.3.30)</a></h2>
-<p>Custom providers targeting Qwen-shaped endpoints (base URLs containing <code>dashscope</code>, <code>aliyun</code>, <code>aliyuncs</code>, <code>dialagram</code>, or models prefixed with <code>qwen-*</code>) automatically get ephemeral <code>cache_control</code> markers on the system prompt, last streaming message, and last tool call. Zero-config cost savings for Qwen custom providers — no API key or flag needed.</p>
+<p>Custom providers targeting Qwen-shaped endpoints (base URLs containing <code>dashscope</code>, <code>aliyun</code>, <code>aliyuncs</code>, <code>dialagram</code>, or models prefixed with <code>qwen-*</code>) automatically get ephemeral <code>cache_control</code> markers on the system prompt, last streaming message, and last tool call. Zero-config cost savings for Qwen custom providers, no API key or flag needed.</p>
+<h2 id="qwen-tool-call-leak-strip-v0335"><a class="header" href="#qwen-tool-call-leak-strip-v0335">Qwen Tool-Call Leak Strip (v0.3.35)</a></h2>
+<p>Qwen models sometimes emit bare JSON tool-call objects like <code>{"name":"bash","arguments":{"command":"ls"}}</code> directly in the content text instead of through the proper tool-call API. A new <code>bare_tool_call_extractor</code> detects and strips these leaks so they don’t appear as raw JSON in the chat output.</p>
 <h2 id="models-picker-v0330"><a class="header" href="#models-picker-v0330"><code>/models</code> Picker (v0.3.30)</a></h2>
 <p>The <code>/models</code> command now surfaces <strong>every known provider</strong> including unconfigured ones, marked with a 🔒 lock icon and setup help text. This helps users discover available providers without needing to know which ones need API keys. Custom providers with no configured models show a helpful empty-state message instead of an inert button.</p>
 <h2 id="openrouter-reasoning"><a class="header" href="#openrouter-reasoning">OpenRouter Reasoning</a></h2>

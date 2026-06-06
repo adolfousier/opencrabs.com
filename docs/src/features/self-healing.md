@@ -411,6 +411,11 @@ Fixed CodeQL #64 (HIGH): Gemini API key was leaked in URL query string (`?key=..
 - **Phantom post-success exemption** — the phantom detector used to fire on short completion acknowledgments like "Pushed.", "Done.", or "Committed as abc123" because those look like past-tense completion claims without a tool call. But when the agent just finished a real tool run, that one-line ack is the *correct* behavior. A turn-scoped `tool_calls_completed_this_turn` counter and a `phantom_eligible` gate now suppress phantom detection once real tool calls have landed in the current turn. The complementary `FINISHING A TURN` brain preamble directive tells the agent to reply with one short ack, skip verification re-runs, and stop restating conclusions in different wording.
 - **`follow_up_question` intermediate flush** (issue #142) — when the agent called `follow_up_question` after typing an explanatory preamble, Telegram/Discord/Slack/WhatsApp sometimes delivered the button block *before* the preamble text because intermediate text sat in a 500ms-polled queue while `follow_up_question` sent directly. All four channel handlers now flush pending intermediate `JoinHandle`s before dispatching the question, guaranteeing the explanatory text renders above the buttons.
 
+## v0.3.35 Phantom Hardening
+
+- **Re-engaged on forward intent** — phantom detector now re-engages self-heal when forward intent is detected after a successful tool call, preventing the agent from narrating what it's about to do instead of just doing it.
+- **Five-language cleanup** — destructive verb intent phrases cleaned up across EN, ES, FR, PT, and RU. Prevents the agent from narrating destructive actions ("I'll now delete the file") when it should just execute the tool.
+
 ## Notifications
 
 All self-healing events are delivered to:

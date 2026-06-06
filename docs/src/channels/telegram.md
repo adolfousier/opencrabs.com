@@ -54,6 +54,7 @@ respond_to = "all"
 - **All slash commands** — `/help`, `/models`, `/new`, `/sessions`, custom commands
 - **Owner vs non-owner** — Owner uses the shared TUI session, non-owners get per-user sessions
 - **Onboarding overhaul** (v0.3.30) — Auto-detects owner user ID from `getUpdates`, persists partial config on cancel, only Enter on the last step commits (Tab no longer silently rewrites ~30 config keys)
+- **Teloxide upgrade + join detection** (v0.3.35) — Upgraded from teloxide 0.13 to 0.17. New members joining a group are now detected before the allowlist check, so the bot can greet or moderate join events. Marathon-bucket rolling status rotates through project-author quip pool for more varied status messages.
 
 ## Agent Tools
 

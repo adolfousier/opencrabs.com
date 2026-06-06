@@ -44,7 +44,11 @@ All provider resolution now routes through a single registry source of truth —
 
 ## Qwen Cache Auto-Enable (v0.3.30)
 
-Custom providers targeting Qwen-shaped endpoints (base URLs containing `dashscope`, `aliyun`, `aliyuncs`, `dialagram`, or models prefixed with `qwen-*`) automatically get ephemeral `cache_control` markers on the system prompt, last streaming message, and last tool call. Zero-config cost savings for Qwen custom providers — no API key or flag needed.
+Custom providers targeting Qwen-shaped endpoints (base URLs containing `dashscope`, `aliyun`, `aliyuncs`, `dialagram`, or models prefixed with `qwen-*`) automatically get ephemeral `cache_control` markers on the system prompt, last streaming message, and last tool call. Zero-config cost savings for Qwen custom providers, no API key or flag needed.
+
+## Qwen Tool-Call Leak Strip (v0.3.35)
+
+Qwen models sometimes emit bare JSON tool-call objects like `{"name":"bash","arguments":{"command":"ls"}}` directly in the content text instead of through the proper tool-call API. A new `bare_tool_call_extractor` detects and strips these leaks so they don't appear as raw JSON in the chat output.
 
 ## `/models` Picker (v0.3.30)
 

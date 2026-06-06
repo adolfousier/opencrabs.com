@@ -60,3 +60,17 @@ Plans are managed through natural language:
 ```
 
 The agent handles plan creation, approval, execution, and status reporting through the `plan` tool.
+
+## Importing Pre-Defined Plans (v0.3.35)
+
+Plans can be loaded from JSON files for repeatable workflows:
+
+```
+plan(operation: "import", file_path: "~/plans/rust-refactor.json")
+```
+
+Bundled reference plans ship with OpenCrabs at `~/.opencrabs/profiles/<profile>/plans/` covering common patterns like `rust-fast`, `rust-medium`, `rust-full`, `python-fast`, `python-medium`, `python-full`, and `sample-minimal-plan`.
+
+The JSON format requires a minimum of 6 fields: `title`, `description`, plus 3 fields per task (`title`, `description`, `task_type`). Full schema supports dependencies, complexity ratings, acceptance criteria, and technical stack.
+
+**Security:** Import validates symlinks against the target path only (rejecting ancestor false positives on macOS) and checks for orphan dependencies that reference non-existent tasks.

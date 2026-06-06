@@ -16,7 +16,6 @@ OpenCrabs uses two config files stored at `~/.opencrabs/`:
 ├── commands.toml        # Custom slash commands
 ├── opencrabs.db         # SQLite database
 ├── SOUL.md              # Agent personality
-├── IDENTITY.md          # Agent identity
 ├── USER.md              # Your profile
 ├── MEMORY.md            # Long-term memory
 ├── AGENTS.md            # Agent behavior docs

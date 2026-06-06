@@ -19,9 +19,6 @@ Brain files define the agent's personality, knowledge, and behavior. They live a
 ### SOUL.md
 Agent personality. Core truths: strong opinions, brevity, resourcefulness, honesty. Hard rules: never delete files without approval, never send emails without request, never commit code directly.
 
-### IDENTITY.md
-Agent identity created during bootstrap: name, creature type, vibe, emoji, prohibited patterns.
-
 ### USER.md
 Your profile: name, location, timezone, role, specialties, communication preferences, pet peeves.
 

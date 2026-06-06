@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.23] - 2026-06-04
+
+### Added
+- Plan import from JSON (closes #160) — bundled reference plans, symlink validation, orphan dependency checks
+- Per-call subagent provider/model overrides (closes #152) — mixed-model teams via spawn_agent, resume_agent, team_create
+- `opencrabs evolve` CLI — terminal update command with `--check-only` flag
+- Profile-aware paths (closes #155, #156, #157) — `opencrabs_home()` replaces hardcoded paths
+- Phantom detector re-engagement on forward intent after successful tool calls
+- Five-language destructive verb cleanup (EN, ES, FR, PT, RU)
+- RSI `cycle_number` persistence across TUI restarts
+- Teloxide 0.13 → 0.17 upgrade with member join detection
+- tok/s footer accuracy — provider-reported tokens / active streaming time
+- Qwen bare tool-call JSON leak stripping
+- Shell tool single-quote parameter escaping (closes #153, PR #153)
+
+### Changed
+- Removed IDENTITY.md template (closes #159) — SOUL.md already owns identity
+- Test count: 3,616 → 3,813
+- Synced docs with OpenCrabs v0.3.35 (22 commits, 82 files, +3,358/-776)
+- Contributors: Alexey Leshchenko (`leshchenko1979`) — shell tool escaping (#153), plan import (#160)
+
 ## [0.1.22] - 2026-06-02
 
 ### Added

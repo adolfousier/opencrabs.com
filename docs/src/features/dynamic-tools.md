@@ -80,3 +80,7 @@ A shell tool with an optional `--verbose` flag no longer breaks when the paramet
 External contributions now enable `tools.toml` to be loaded in **run mode** and **agent mode** (not just the TUI). Previously, dynamic tools only worked in the interactive TUI session. Now they're available across all modes, allowing headless automation and scripted workflows to use custom tools.
 
 ([#79](https://github.com/adolfousier/opencrabs/issues/79) — thanks @leshchenko)
+
+## Shell Parameter Escaping (v0.3.35)
+
+Dynamic shell tool parameters now properly escape single quotes, preventing command injection edge cases when user-supplied values contain quotes. Contributed by @leshchenko1979.

@@ -54,7 +54,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-56b8a5b7.js";
+            window.path_to_searchindex_js = "../searchindex-2d5e60da.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-25972818.js"></script>
@@ -300,7 +300,19 @@ subagent_model    = "qwen/qwen3-235b" # Model override
 # Omit both keys and child agents inherit the parent session's provider
 # and run on that provider's default model.
 </code></pre>
-<p>The override applies to <code>spawn_agent</code>, <code>resume_agent</code>, and every member of a <code>team_create</code> team. Per-call overrides on the spawn tools are a planned follow-up — until then, the config is the single knob. Changes take effect on next session start; running sessions keep their existing provider.</p>
+<p>The override applies to <code>spawn_agent</code>, <code>resume_agent</code>, and every member of a <code>team_create</code> team. Changes take effect on next session start; running sessions keep their existing provider.</p>
+<h3 id="per-call-overrides-v0335"><a class="header" href="#per-call-overrides-v0335">Per-Call Overrides (v0.3.35)</a></h3>
+<p><code>spawn_agent</code>, <code>resume_agent</code>, and <code>team_create</code> now accept optional <code>provider</code> and <code>model</code> fields that override config defaults for a single call. This enables mixed-model teams:</p>
+<pre><code>team_create(
+  team_name: "mixed-stack",
+  agents: [
+    { label: "planner", provider: "zhipu", model: "glm-5", prompt: "Architect the feature" },
+    { label: "coder", provider: "deepseek", model: "deepseek-coder", prompt: "Implement it" },
+    { label: "reviewer", provider: "kimi", model: "kimi-k2.5", prompt: "Review the code" }
+  ]
+)
+</code></pre>
+<p>Precedence order (highest first): per-call <code>provider</code>/<code>model</code> &gt; <code>[agent] subagent_provider</code>/<code>subagent_model</code> in config &gt; parent session’s provider.</p>
 <h3 id="why-it-matters"><a class="header" href="#why-it-matters">Why It Matters</a></h3>
 <p>The common pattern is <strong>premium parent, cheap children</strong>. Your main conversation stays on a reasoning-capable model (Opus, GPT-5, Gemini 2.5 Pro) while subtasks — file exploration, test writing, web research, bulk refactors — run on a faster, cheaper model. With a 4-agent team running 10 minutes each, the cost delta between Opus and Qwen on the children is roughly 50x.</p>
 <h3 id="concrete-examples"><a class="header" href="#concrete-examples">Concrete Examples</a></h3>

@@ -131,7 +131,24 @@ subagent_model    = "qwen/qwen3-235b" # Model override
 # and run on that provider's default model.
 ```
 
-The override applies to `spawn_agent`, `resume_agent`, and every member of a `team_create` team. Per-call overrides on the spawn tools are a planned follow-up — until then, the config is the single knob. Changes take effect on next session start; running sessions keep their existing provider.
+The override applies to `spawn_agent`, `resume_agent`, and every member of a `team_create` team. Changes take effect on next session start; running sessions keep their existing provider.
+
+### Per-Call Overrides (v0.3.35)
+
+`spawn_agent`, `resume_agent`, and `team_create` now accept optional `provider` and `model` fields that override config defaults for a single call. This enables mixed-model teams:
+
+```
+team_create(
+  team_name: "mixed-stack",
+  agents: [
+    { label: "planner", provider: "zhipu", model: "glm-5", prompt: "Architect the feature" },
+    { label: "coder", provider: "deepseek", model: "deepseek-coder", prompt: "Implement it" },
+    { label: "reviewer", provider: "kimi", model: "kimi-k2.5", prompt: "Review the code" }
+  ]
+)
+```
+
+Precedence order (highest first): per-call `provider`/`model` > `[agent] subagent_provider`/`subagent_model` in config > parent session's provider.
 
 ### Why It Matters
 

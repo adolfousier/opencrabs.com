@@ -54,7 +54,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-56b8a5b7.js";
+            window.path_to_searchindex_js = "../searchindex-2d5e60da.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-25972818.js"></script>
@@ -246,6 +246,13 @@
 "Skip task 3"
 </code></pre>
 <p>The agent handles plan creation, approval, execution, and status reporting through the <code>plan</code> tool.</p>
+<h2 id="importing-pre-defined-plans-v0335"><a class="header" href="#importing-pre-defined-plans-v0335">Importing Pre-Defined Plans (v0.3.35)</a></h2>
+<p>Plans can be loaded from JSON files for repeatable workflows:</p>
+<pre><code>plan(operation: "import", file_path: "~/plans/rust-refactor.json")
+</code></pre>
+<p>Bundled reference plans ship with OpenCrabs at <code>~/.opencrabs/profiles/&lt;profile&gt;/plans/</code> covering common patterns like <code>rust-fast</code>, <code>rust-medium</code>, <code>rust-full</code>, <code>python-fast</code>, <code>python-medium</code>, <code>python-full</code>, and <code>sample-minimal-plan</code>.</p>
+<p>The JSON format requires a minimum of 6 fields: <code>title</code>, <code>description</code>, plus 3 fields per task (<code>title</code>, <code>description</code>, <code>task_type</code>). Full schema supports dependencies, complexity ratings, acceptance criteria, and technical stack.</p>
+<p><strong>Security:</strong> Import validates symlinks against the target path only (rejecting ancestor false positives on macOS) and checks for orphan dependencies that reference non-existent tasks.</p>
 
                     </main>
 

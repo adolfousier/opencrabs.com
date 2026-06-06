@@ -54,7 +54,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-56b8a5b7.js";
+            window.path_to_searchindex_js = "../searchindex-2d5e60da.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-25972818.js"></script>
@@ -270,6 +270,8 @@ coerce_empty_to = "--quiet"
 <p>(<a href="https://github.com/adolfousier/opencrabs/issues/95">#95</a>)</p>
 <p>External contributions now enable <code>tools.toml</code> to be loaded in <strong>run mode</strong> and <strong>agent mode</strong> (not just the TUI). Previously, dynamic tools only worked in the interactive TUI session. Now they’re available across all modes, allowing headless automation and scripted workflows to use custom tools.</p>
 <p>(<a href="https://github.com/adolfousier/opencrabs/issues/79">#79</a> — thanks @leshchenko)</p>
+<h2 id="shell-parameter-escaping-v0335"><a class="header" href="#shell-parameter-escaping-v0335">Shell Parameter Escaping (v0.3.35)</a></h2>
+<p>Dynamic shell tool parameters now properly escape single quotes, preventing command injection edge cases when user-supplied values contain quotes. Contributed by @leshchenko1979.</p>
 
                     </main>
 

@@ -54,7 +54,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-56b8a5b7.js";
+            window.path_to_searchindex_js = "../searchindex-2d5e60da.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-25972818.js"></script>
@@ -417,6 +417,10 @@ Agent notices pattern of 5+ corrections on output hygiene:
 <li><strong>Brain dedup scan (closes #147)</strong> — new RSI proposal kind <code>BrainDedup</code> that scans all 11 brain files daily, clusters duplicate lines (minimum 10 chars, skips structural markdown like headings and separators), and files dedup proposals into Mission Control with a soft purple badge. Runs every 24 RSI cycles (about once per day at 1-hour intervals), never auto-applies — human approval required through the existing <code>rsi_proposals</code> apply/reject flow. Core scan logic in <code>dedup_scan.rs</code> (393 lines), hooked into the RSI cycle with periodicity gating, 14 regression tests covering empty files, short-line filtering, cross-file detection, proposal format, and canonical selection.</li>
 <li><strong>Skill description injection (closes #151)</strong> — skill descriptions were documented in TOOLS.md as LLM auto-invoking triggers but were never actually injected into the system prompt, so the LLM could not auto-invoke from description alone. Added <code>push_skills_section()</code> to <code>prompt_builder.rs</code> that loads all skills via <code>crate::brain::skills::load_all_skills()</code> and formats each as <code>- skill_name: description</code>, appending an <code>## Available Skills</code> block to both <code>build_core_brain()</code> and <code>build_system_brain()</code>. 2 regression tests.</li>
 <li><strong>RSI decorative counters removed (closes #149, PR #150)</strong> — removed the counter-bumping logic that incremented inline counters in SOUL.md like <code>phantom_tool_call: 219</code>. These counters were decorative only, nothing read them, and the real canonical source is the SQLite feedback ledger at <code>~/.opencrabs/feedback.db</code>. Counters went stale (ledger showed 302, SOUL.md showed 219) and got wiped by upstream template sync. Replaced with evidence appends (date/session). DB stays the single source of truth. Follow-up commit escaped unescaped double quotes the PR introduced in the prompt string literal and added text regression tests.</li>
+</ul>
+<h2 id="v0335-additions"><a class="header" href="#v0335-additions">v0.3.35 Additions</a></h2>
+<ul>
+<li><strong><code>cycle_number</code> persistence</strong> — <code>cycle_number</code> now persists to <code>~/.opencrabs/rsi/cycle_number</code> across TUI restarts. Previously it reset to 0 on every process restart, meaning the brain dedup scan (which fires every 24 cycles) would never trigger if the TUI restarted more frequently than 24 hours. Now the cycle counter survives restarts and the daily dedup scan fires as intended.</li>
 </ul>
 <h2 id="self-healing-vs-self-improvement"><a class="header" href="#self-healing-vs-self-improvement">Self-Healing vs Self-Improvement</a></h2>
 <div class="table-wrapper">

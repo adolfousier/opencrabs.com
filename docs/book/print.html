@@ -55,7 +55,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-56b8a5b7.js";
+            window.path_to_searchindex_js = "searchindex-2d5e60da.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-25972818.js"></script>
@@ -318,9 +318,16 @@
 <li><strong>Fun POST-COMPACTION PROTOCOL prompts</strong> — compaction now delivers delightful re-orientation prompts; opt out with <code>[agent] silent_compaction = true</code> (v0.3.31)</li>
 <li><strong>Evolve hardening</strong> — remove+rename dance for busy Linux binaries, delayed <code>systemd-run</code> restart, structured tracing on every failure branch, pre-flight <code>count_matching_systemd_units</code> check (v0.3.32, #136)</li>
 <li><strong>User-correction metadata</strong> — captures actual user message via <code>display_text_override</code> instead of the 236-char Telegram channel prefix that was polluting the feedback ledger (v0.3.33, #138, PR #140)</li>
-<li><strong>Phantom post-success exemption</strong> — turn-scoped <code>tool_calls_completed_this_turn</code> counter + <code>phantom_eligible</code> gate prevent the phantom detector from firing on completion acks (“Pushed.”, “Done.”) after real tool runs. New <code>FINISHING A TURN</code> directive enforces one-line ack, no verification re-runs, no restating conclusions (unreleased)</li>
-<li><strong><code>follow_up_question</code> intermediate flush</strong> — Telegram, Discord, Slack, and WhatsApp now flush pending intermediate text before sending the question, closing a race where buttons arrived before the explanatory text that preceded them (issue #142)</li>
-<li><strong>Provider registry single source of truth</strong> — fixed opencode/ollama/bedrock/vertex silent TUI omission; one 16-entry table instead of drifted if-else chains (unreleased, #141)</li>
+<li><strong>Phantom post-success exemption</strong> — turn-scoped <code>tool_calls_completed_this_turn</code> counter + <code>phantom_eligible</code> gate prevent the phantom detector from firing on completion acks (“Pushed.”, “Done.”) after real tool runs. New <code>FINISHING A TURN</code> directive enforces one-line ack, no verification re-runs, no restating conclusions (v0.3.34)</li>
+<li><strong><code>follow_up_question</code> intermediate flush</strong> — Telegram, Discord, Slack, and WhatsApp now flush pending intermediate text before sending the question, closing a race where buttons arrived before the explanatory text that preceded them (v0.3.34, issue #142)</li>
+<li><strong>Provider registry single source of truth</strong> — fixed opencode/ollama/bedrock/vertex silent TUI omission; one 16-entry table instead of drifted if-else chains (v0.3.34, #141)</li>
+<li><strong>Plan import from JSON</strong> — <code>plan(operation: "import", file_path: "...")</code> loads pre-defined plans. Bundled reference plans for Rust and Python workflows. Target-only symlink check + orphan dependency validation (v0.3.35, #160)</li>
+<li><strong>Per-call subagent provider/model overrides</strong> — <code>spawn_agent</code>, <code>resume_agent</code>, and <code>team_create</code> now accept optional <code>provider</code> and <code>model</code> fields. Enables mixed-model teams (plan with GLM, code with Deepseek, review with Kimi). Precedence: per-call &gt; config &gt; parent session (v0.3.35, #152)</li>
+<li><strong><code>opencrabs evolve</code> CLI</strong> — terminal command to check for and install updates, matching the existing <code>/evolve</code> TUI slash command. Supports <code>--check-only</code> flag (v0.3.35)</li>
+<li><strong>IDENTITY.md consolidation</strong> — dropped redundant IDENTITY.md template. SOUL.md already owns identity (name, vibe, boundaries). Brain file count reduced by one (v0.3.35, #159)</li>
+<li><strong>Profile-aware paths</strong> — replaced hardcoded <code>~/.opencrabs/</code> paths with <code>opencrabs_home()</code> throughout. Subagent status dir, <code>tools.toml</code> fallback, and <code>write_opencrabs_file</code> confirmations all respect the active profile (v0.3.35, #155, #156, #157)</li>
+<li><strong>Teloxide upgrade</strong> — upgraded from 0.13 to 0.17 with member join detection before allowlist and join notification tests (v0.3.35)</li>
+<li><strong>tok/s footer accuracy</strong> — channel and TUI tok/s now uses provider-reported tokens divided by active streaming time instead of total turn duration (v0.3.35)</li>
 </ul>
 <h3 id="-browser-automation"><a class="header" href="#-browser-automation">🌐 Browser Automation</a></h3>
 <ul>
@@ -356,7 +363,7 @@
 </ul>
 <h3 id="-testing--quality"><a class="header" href="#-testing--quality">📊 Testing &amp; Quality</a></h3>
 <ul>
-<li><strong>3,616+ tests</strong> covering providers, tools, channels, TUI, self-healing, crash recovery, browser automation</li>
+<li><strong>3,813+ tests</strong> covering providers, tools, channels, TUI, self-healing, crash recovery, browser automation</li>
 <li><strong>CI/CD</strong>: GitHub Actions, CodeQL, <code>cargo audit</code> security checks, release automation</li>
 </ul>
 <h3 id="-built-in-skills-v0317"><a class="header" href="#-built-in-skills-v0317">🔧 Built-in Skills (v0.3.17)</a></h3>
@@ -612,7 +619,6 @@ Register-ScheduledTask -TaskName "OpenCrabs" -Action $action -Trigger $trigger -
 ├── commands.toml        # Custom slash commands
 ├── opencrabs.db         # SQLite database
 ├── SOUL.md              # Agent personality
-├── IDENTITY.md          # Agent identity
 ├── USER.md              # Your profile
 ├── MEMORY.md            # Long-term memory
 ├── AGENTS.md            # Agent behavior docs
@@ -730,7 +736,7 @@ model = "gemini-3.1-flash-image-preview"
 <tr><td>5</td><td><strong>Voice</strong></td><td>STT provider (Groq, local Whisper, or off) + TTS voice</td></tr>
 <tr><td>6</td><td><strong>Image</strong></td><td>Vision toggle + generation model + API key</td></tr>
 <tr><td>7</td><td><strong>Daemon</strong></td><td>Install background daemon (optional)</td></tr>
-<tr><td>8</td><td><strong>Brain Setup</strong></td><td>Auto-generate SOUL.md, IDENTITY.md from your profile</td></tr>
+<tr><td>8</td><td><strong>Brain Setup</strong></td><td>Auto-generate SOUL.md from your profile</td></tr>
 </tbody>
 </table>
 </div>
@@ -760,7 +766,7 @@ model = "gemini-3.1-flash-image-preview"
 </tbody>
 </table>
 </div>
-<p>After onboarding, your agent boots up and introduces itself. It reads its brain files (<code>SOUL.md</code>, <code>IDENTITY.md</code>, <code>AGENTS.md</code>, <code>TOOLS.md</code>) and starts a conversation.</p>
+<p>After onboarding, your agent boots up and introduces itself. It reads its brain files (<code>SOUL.md</code>, <code>AGENTS.md</code>, <code>TOOLS.md</code>) and starts a conversation.</p>
 <h2 id="bootstrap"><a class="header" href="#bootstrap">Bootstrap</a></h2>
 <p>On the very first run, the agent goes through a <strong>bootstrap</strong> phase:</p>
 <ul>
@@ -1310,7 +1316,9 @@ cargo build --release
 <h2 id="provider-registry-v0334"><a class="header" href="#provider-registry-v0334">Provider Registry (v0.3.34)</a></h2>
 <p>All provider resolution now routes through a single registry source of truth — no more hardcoded if-else ladders scattered across the codebase. The registry correctly enforces <code>api_key</code> requirements for API providers (Anthropic, OpenAI, GitHub Copilot, Gemini, OpenRouter, MiniMax), so resolution skips them cleanly when keys are missing instead of silently falling back. Adding a new provider is now a one-file change.</p>
 <h2 id="qwen-cache-auto-enable-v0330"><a class="header" href="#qwen-cache-auto-enable-v0330">Qwen Cache Auto-Enable (v0.3.30)</a></h2>
-<p>Custom providers targeting Qwen-shaped endpoints (base URLs containing <code>dashscope</code>, <code>aliyun</code>, <code>aliyuncs</code>, <code>dialagram</code>, or models prefixed with <code>qwen-*</code>) automatically get ephemeral <code>cache_control</code> markers on the system prompt, last streaming message, and last tool call. Zero-config cost savings for Qwen custom providers — no API key or flag needed.</p>
+<p>Custom providers targeting Qwen-shaped endpoints (base URLs containing <code>dashscope</code>, <code>aliyun</code>, <code>aliyuncs</code>, <code>dialagram</code>, or models prefixed with <code>qwen-*</code>) automatically get ephemeral <code>cache_control</code> markers on the system prompt, last streaming message, and last tool call. Zero-config cost savings for Qwen custom providers, no API key or flag needed.</p>
+<h2 id="qwen-tool-call-leak-strip-v0335"><a class="header" href="#qwen-tool-call-leak-strip-v0335">Qwen Tool-Call Leak Strip (v0.3.35)</a></h2>
+<p>Qwen models sometimes emit bare JSON tool-call objects like <code>{"name":"bash","arguments":{"command":"ls"}}</code> directly in the content text instead of through the proper tool-call API. A new <code>bare_tool_call_extractor</code> detects and strips these leaks so they don’t appear as raw JSON in the chat output.</p>
 <h2 id="models-picker-v0330"><a class="header" href="#models-picker-v0330"><code>/models</code> Picker (v0.3.30)</a></h2>
 <p>The <code>/models</code> command now surfaces <strong>every known provider</strong> including unconfigured ones, marked with a 🔒 lock icon and setup help text. This helps users discover available providers without needing to know which ones need API keys. Custom providers with no configured models show a helpful empty-state message instead of an inert button.</p>
 <h2 id="openrouter-reasoning"><a class="header" href="#openrouter-reasoning">OpenRouter Reasoning</a></h2>
@@ -1879,6 +1887,7 @@ respond_to = "all"
 <li><strong>All slash commands</strong> — <code>/help</code>, <code>/models</code>, <code>/new</code>, <code>/sessions</code>, custom commands</li>
 <li><strong>Owner vs non-owner</strong> — Owner uses the shared TUI session, non-owners get per-user sessions</li>
 <li><strong>Onboarding overhaul</strong> (v0.3.30) — Auto-detects owner user ID from <code>getUpdates</code>, persists partial config on cancel, only Enter on the last step commits (Tab no longer silently rewrites ~30 config keys)</li>
+<li><strong>Teloxide upgrade + join detection</strong> (v0.3.35) — Upgraded from teloxide 0.13 to 0.17. New members joining a group are now detected before the allowlist check, so the bot can greet or moderate join events. Marathon-bucket rolling status rotates through project-author quip pool for more varied status messages.</li>
 </ul>
 <h2 id="agent-tools-1"><a class="header" href="#agent-tools-1">Agent Tools</a></h2>
 <p>The agent can use <code>telegram_send</code> with 20+ actions. The <code>thread_id</code> field on <code>send</code> / <code>reply</code> / <code>send_photo</code> targets a specific forum topic in supergroups with topics enabled.</p>
@@ -2490,8 +2499,6 @@ value = "System is operational. All channels connected."
 <h2 id="file-reference"><a class="header" href="#file-reference">File Reference</a></h2>
 <h3 id="soulmd"><a class="header" href="#soulmd">SOUL.md</a></h3>
 <p>Agent personality. Core truths: strong opinions, brevity, resourcefulness, honesty. Hard rules: never delete files without approval, never send emails without request, never commit code directly.</p>
-<h3 id="identitymd"><a class="header" href="#identitymd">IDENTITY.md</a></h3>
-<p>Agent identity created during bootstrap: name, creature type, vibe, emoji, prohibited patterns.</p>
 <h3 id="usermd"><a class="header" href="#usermd">USER.md</a></h3>
 <p>Your profile: name, location, timezone, role, specialties, communication preferences, pet peeves.</p>
 <h3 id="agentsmd"><a class="header" href="#agentsmd">AGENTS.md</a></h3>
@@ -2742,6 +2749,8 @@ coerce_empty_to = "--quiet"
 <p>(<a href="https://github.com/adolfousier/opencrabs/issues/95">#95</a>)</p>
 <p>External contributions now enable <code>tools.toml</code> to be loaded in <strong>run mode</strong> and <strong>agent mode</strong> (not just the TUI). Previously, dynamic tools only worked in the interactive TUI session. Now they’re available across all modes, allowing headless automation and scripted workflows to use custom tools.</p>
 <p>(<a href="https://github.com/adolfousier/opencrabs/issues/79">#79</a> — thanks @leshchenko)</p>
+<h2 id="shell-parameter-escaping-v0335"><a class="header" href="#shell-parameter-escaping-v0335">Shell Parameter Escaping (v0.3.35)</a></h2>
+<p>Dynamic shell tool parameters now properly escape single quotes, preventing command injection edge cases when user-supplied values contain quotes. Contributed by @leshchenko1979.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="browser-automation-1"><a class="header" href="#browser-automation-1">Browser Automation</a></h1>
 <p>OpenCrabs includes native headless Chrome control via the Chrome DevTools Protocol (CDP). No Selenium, no Playwright — direct browser control built into the binary.</p>
@@ -2908,6 +2917,13 @@ opencrabs cron remove "Morning Report"
 "Skip task 3"
 </code></pre>
 <p>The agent handles plan creation, approval, execution, and status reporting through the <code>plan</code> tool.</p>
+<h2 id="importing-pre-defined-plans-v0335"><a class="header" href="#importing-pre-defined-plans-v0335">Importing Pre-Defined Plans (v0.3.35)</a></h2>
+<p>Plans can be loaded from JSON files for repeatable workflows:</p>
+<pre><code>plan(operation: "import", file_path: "~/plans/rust-refactor.json")
+</code></pre>
+<p>Bundled reference plans ship with OpenCrabs at <code>~/.opencrabs/profiles/&lt;profile&gt;/plans/</code> covering common patterns like <code>rust-fast</code>, <code>rust-medium</code>, <code>rust-full</code>, <code>python-fast</code>, <code>python-medium</code>, <code>python-full</code>, and <code>sample-minimal-plan</code>.</p>
+<p>The JSON format requires a minimum of 6 fields: <code>title</code>, <code>description</code>, plus 3 fields per task (<code>title</code>, <code>description</code>, <code>task_type</code>). Full schema supports dependencies, complexity ratings, acceptance criteria, and technical stack.</p>
+<p><strong>Security:</strong> Import validates symlinks against the target path only (rejecting ancestor false positives on macOS) and checks for orphan dependencies that reference non-existent tasks.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="multi-agent-orchestration"><a class="header" href="#multi-agent-orchestration">Multi-Agent Orchestration</a></h1>
 <p>OpenCrabs supports spawning specialized sub-agents that run autonomously in isolated sessions. Each child agent gets its own context, tool registry, and cancel token. Introduced in <strong>v0.2.97</strong> with a typed agent system and team orchestration.</p>
@@ -3013,7 +3029,19 @@ subagent_model    = "qwen/qwen3-235b" # Model override
 # Omit both keys and child agents inherit the parent session's provider
 # and run on that provider's default model.
 </code></pre>
-<p>The override applies to <code>spawn_agent</code>, <code>resume_agent</code>, and every member of a <code>team_create</code> team. Per-call overrides on the spawn tools are a planned follow-up — until then, the config is the single knob. Changes take effect on next session start; running sessions keep their existing provider.</p>
+<p>The override applies to <code>spawn_agent</code>, <code>resume_agent</code>, and every member of a <code>team_create</code> team. Changes take effect on next session start; running sessions keep their existing provider.</p>
+<h3 id="per-call-overrides-v0335"><a class="header" href="#per-call-overrides-v0335">Per-Call Overrides (v0.3.35)</a></h3>
+<p><code>spawn_agent</code>, <code>resume_agent</code>, and <code>team_create</code> now accept optional <code>provider</code> and <code>model</code> fields that override config defaults for a single call. This enables mixed-model teams:</p>
+<pre><code>team_create(
+  team_name: "mixed-stack",
+  agents: [
+    { label: "planner", provider: "zhipu", model: "glm-5", prompt: "Architect the feature" },
+    { label: "coder", provider: "deepseek", model: "deepseek-coder", prompt: "Implement it" },
+    { label: "reviewer", provider: "kimi", model: "kimi-k2.5", prompt: "Review the code" }
+  ]
+)
+</code></pre>
+<p>Precedence order (highest first): per-call <code>provider</code>/<code>model</code> &gt; <code>[agent] subagent_provider</code>/<code>subagent_model</code> in config &gt; parent session’s provider.</p>
 <h3 id="why-it-matters"><a class="header" href="#why-it-matters">Why It Matters</a></h3>
 <p>The common pattern is <strong>premium parent, cheap children</strong>. Your main conversation stays on a reasoning-capable model (Opus, GPT-5, Gemini 2.5 Pro) while subtasks — file exploration, test writing, web research, bulk refactors — run on a faster, cheaper model. With a 4-agent team running 10 minutes each, the cost delta between Opus and Qwen on the children is roughly 50x.</p>
 <h3 id="concrete-examples"><a class="header" href="#concrete-examples">Concrete Examples</a></h3>
@@ -3587,6 +3615,11 @@ providers = ["openrouter", "anthropic"]  # tried in order
 <li><strong>Phantom post-success exemption</strong> — the phantom detector used to fire on short completion acknowledgments like “Pushed.”, “Done.”, or “Committed as abc123” because those look like past-tense completion claims without a tool call. But when the agent just finished a real tool run, that one-line ack is the <em>correct</em> behavior. A turn-scoped <code>tool_calls_completed_this_turn</code> counter and a <code>phantom_eligible</code> gate now suppress phantom detection once real tool calls have landed in the current turn. The complementary <code>FINISHING A TURN</code> brain preamble directive tells the agent to reply with one short ack, skip verification re-runs, and stop restating conclusions in different wording.</li>
 <li><strong><code>follow_up_question</code> intermediate flush</strong> (issue #142) — when the agent called <code>follow_up_question</code> after typing an explanatory preamble, Telegram/Discord/Slack/WhatsApp sometimes delivered the button block <em>before</em> the preamble text because intermediate text sat in a 500ms-polled queue while <code>follow_up_question</code> sent directly. All four channel handlers now flush pending intermediate <code>JoinHandle</code>s before dispatching the question, guaranteeing the explanatory text renders above the buttons.</li>
 </ul>
+<h2 id="v0335-phantom-hardening"><a class="header" href="#v0335-phantom-hardening">v0.3.35 Phantom Hardening</a></h2>
+<ul>
+<li><strong>Re-engaged on forward intent</strong> — phantom detector now re-engages self-heal when forward intent is detected after a successful tool call, preventing the agent from narrating what it’s about to do instead of just doing it.</li>
+<li><strong>Five-language cleanup</strong> — destructive verb intent phrases cleaned up across EN, ES, FR, PT, and RU. Prevents the agent from narrating destructive actions (“I’ll now delete the file”) when it should just execute the tool.</li>
+</ul>
 <h2 id="notifications"><a class="header" href="#notifications">Notifications</a></h2>
 <p>All self-healing events are delivered to:</p>
 <ul>
@@ -3817,6 +3850,10 @@ Agent notices pattern of 5+ corrections on output hygiene:
 <li><strong>Skill description injection (closes #151)</strong> — skill descriptions were documented in TOOLS.md as LLM auto-invoking triggers but were never actually injected into the system prompt, so the LLM could not auto-invoke from description alone. Added <code>push_skills_section()</code> to <code>prompt_builder.rs</code> that loads all skills via <code>crate::brain::skills::load_all_skills()</code> and formats each as <code>- skill_name: description</code>, appending an <code>## Available Skills</code> block to both <code>build_core_brain()</code> and <code>build_system_brain()</code>. 2 regression tests.</li>
 <li><strong>RSI decorative counters removed (closes #149, PR #150)</strong> — removed the counter-bumping logic that incremented inline counters in SOUL.md like <code>phantom_tool_call: 219</code>. These counters were decorative only, nothing read them, and the real canonical source is the SQLite feedback ledger at <code>~/.opencrabs/feedback.db</code>. Counters went stale (ledger showed 302, SOUL.md showed 219) and got wiped by upstream template sync. Replaced with evidence appends (date/session). DB stays the single source of truth. Follow-up commit escaped unescaped double quotes the PR introduced in the prompt string literal and added text regression tests.</li>
 </ul>
+<h2 id="v0335-additions"><a class="header" href="#v0335-additions">v0.3.35 Additions</a></h2>
+<ul>
+<li><strong><code>cycle_number</code> persistence</strong> — <code>cycle_number</code> now persists to <code>~/.opencrabs/rsi/cycle_number</code> across TUI restarts. Previously it reset to 0 on every process restart, meaning the brain dedup scan (which fires every 24 cycles) would never trigger if the TUI restarted more frequently than 24 hours. Now the cycle counter survives restarts and the daily dedup scan fires as intended.</li>
+</ul>
 <h2 id="self-healing-vs-self-improvement"><a class="header" href="#self-healing-vs-self-improvement">Self-Healing vs Self-Improvement</a></h2>
 <div class="table-wrapper">
 <table>
@@ -4008,6 +4045,8 @@ opencrabs -p hermes service start
 <p>Multiple profile daemons can run simultaneously as separate OS services, each with its own ports, bot connections, and config.</p>
 <h2 id="per-session-provider-isolation"><a class="header" href="#per-session-provider-isolation">Per-Session Provider Isolation</a></h2>
 <p>Changing the provider in one session does <strong>not</strong> affect other sessions or profiles. Each session remembers its own provider independently. See <a href="#sessions">Sessions</a> for the full isolation story.</p>
+<h2 id="profile-aware-paths-v0335"><a class="header" href="#profile-aware-paths-v0335">Profile-Aware Paths (v0.3.35)</a></h2>
+<p>All internal paths now resolve through <code>opencrabs_home()</code> instead of hardcoded <code>~/.opencrabs/</code>. This means subagent status directories, <code>tools.toml</code> fallback resolution, and <code>write_opencrabs_file</code> confirmation messages all respect the active profile. No more cross-profile contamination when running multiple instances.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="voice-tts--stt"><a class="header" href="#voice-tts--stt">Voice (TTS &amp; STT)</a></h1>
 <p>OpenCrabs supports text-to-speech and speech-to-text with five provider tiers: <strong>Off</strong>, <strong>Groq</strong> (API), <strong>OpenAI-compatible</strong> (any <code>/v1/audio</code> endpoint), <strong>Voicebox</strong> (self-hosted), or <strong>Local</strong> (on-device, zero cost).</p>
@@ -4644,7 +4683,7 @@ panic = "abort"
 <tr><td><strong>Pricing</strong></td><td style="text-align: right">17</td><td><code>src/pricing.rs</code></td></tr>
 <tr><td><strong>Memory</strong></td><td style="text-align: right">9</td><td><code>src/memory/</code></td></tr>
 <tr><td><strong>Logging</strong></td><td style="text-align: right">4</td><td><code>src/logging/</code></td></tr>
-<tr><td><strong>Total</strong></td><td style="text-align: right"><strong>3,616</strong></td><td></td></tr>
+<tr><td><strong>Total</strong></td><td style="text-align: right"><strong>3,813</strong></td><td></td></tr>
 </tbody>
 </table>
 </div>
