@@ -54,7 +54,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-2d5e60da.js";
+            window.path_to_searchindex_js = "../searchindex-4a8cbbe7.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-25972818.js"></script>
@@ -268,6 +268,9 @@
 <p>A horizontal bar chart ranking your most-used tools. <code>bash</code> and <code>read_file</code> typically dominate. Useful for understanding your agent’s workflow patterns.</p>
 <h3 id="by-activity-footer"><a class="header" href="#by-activity-footer">By Activity (footer)</a></h3>
 <p>A summary table showing cost and turns by activity category (Development, CI/Deploy, Features), plus the 1-shot success rate for each.</p>
+<h2 id="cache-efficiency-card-v0336"><a class="header" href="#cache-efficiency-card-v0336">Cache Efficiency Card (v0.3.36)</a></h2>
+<p>A new card on the dashboard shows your <strong>cache hit rate</strong> as a percentage. Providers that support prompt caching (like Anthropic and Z.AI) return <code>cache_creation_input_tokens</code> and <code>cache_read_input_tokens</code> in their usage data. These are now persisted to the messages table (DB migration #25), and the dashboard aggregates them into a hit-rate percentage.</p>
+<p>When cache data is unavailable (provider doesn’t report it, or no cached tokens yet), the card degrades gracefully with a dash instead of showing <code>0%</code>.</p>
 <h2 id="time-filters"><a class="header" href="#time-filters">Time Filters</a></h2>
 <div class="table-wrapper">
 <table>

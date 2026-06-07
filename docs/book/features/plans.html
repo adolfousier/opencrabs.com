@@ -54,7 +54,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-2d5e60da.js";
+            window.path_to_searchindex_js = "../searchindex-4a8cbbe7.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-25972818.js"></script>
@@ -246,6 +246,12 @@
 "Skip task 3"
 </code></pre>
 <p>The agent handles plan creation, approval, execution, and status reporting through the <code>plan</code> tool.</p>
+<h2 id="mid-plan-insertion-v0336"><a class="header" href="#mid-plan-insertion-v0336">Mid-Plan Insertion (v0.3.36)</a></h2>
+<p>Tasks can be inserted at any position in an existing plan using <code>insert_after</code>:</p>
+<pre><code>plan(operation: "add_task", insert_after: 3, title: "Re-run tests after fix", ...)
+</code></pre>
+<p>This inserts the new task as task #4, and all existing tasks from #4 onward are <strong>renumbered automatically</strong>. Dependencies between tasks are preserved through the renumber.</p>
+<p>This is useful when a later task introduces a bug caught by an earlier test. Instead of re-opening the completed test task, insert a fresh re-test task right after the fix.</p>
 <h2 id="importing-pre-defined-plans-v0335"><a class="header" href="#importing-pre-defined-plans-v0335">Importing Pre-Defined Plans (v0.3.35)</a></h2>
 <p>Plans can be loaded from JSON files for repeatable workflows:</p>
 <pre><code>plan(operation: "import", file_path: "~/plans/rust-refactor.json")

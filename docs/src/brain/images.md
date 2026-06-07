@@ -103,6 +103,17 @@ When a user sends an image from any channel, it arrives as `<<IMG:/tmp/path>>` i
 - Use the path in `bash` commands or any tool that accepts file paths
 - Reference it in replies with `<<IMG:path>>` to forward to channels
 
+## analyze_video: Frame-Extraction Fallback (v0.3.36)
+
+The `analyze_video` tool sends the full video to Gemini's video API for multimodal analysis. When that fails (network error, upload timeout, unsupported format), the agent falls back to **ffmpeg frame extraction**:
+
+1. Extract frames at **1 fps** via ffmpeg
+2. **Cap at 30 frames** (one frame per second for the first 30 seconds)
+3. Send each frame to Gemini vision via `analyze_image`
+4. Combine per-frame descriptions into a **chronological summary**
+
+This means `analyze_video` works even when the video API is unreachable, as long as ffmpeg is installed and at least one vision path (Path A or Path B) is configured. The fallback activates automatically. No user configuration needed.
+
 ## Model Choices
 
 - **Path A** — any vision-capable model on your active provider. On OpenRouter: `google/gemini-2.5-flash`, `anthropic/claude-sonnet-4`, `openai/gpt-4o`. On Ollama: `llava`, `bakllava`. On custom endpoints: whatever the server offers.

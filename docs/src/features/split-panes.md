@@ -51,6 +51,14 @@ v0.2.92 fixed several rendering issues:
 
 Deleting a session now properly cleans up cached pane state. Previously, deleting a session left stale entries in the pane cache, which could cause phantom panes on restart.
 
+## Live Background Updates (v0.3.36)
+
+Inactive panes now update **live** in the background. Previously, non-focused panes only refreshed when you switched focus to them. Now a background-session live-state cache routes `IntermediateText` and `QueuedUserMessage` events into per-session deltas, so you can watch tool calls and responses appearing in other panes in real time without switching focus.
+
+**Provider/model contamination prevention:** When closing or switching panes, the old session's provider is captured *before* the switch. This blocks cross-provider model leaks at 27 call sites throughout the codebase. The footer always shows the correct provider+model for the focused pane.
+
+**Ctrl+N** binds the focused pane and live-refreshes the footer title, so new sessions show up immediately in the status bar.
+
 ## Limits
 
 There is no hard limit on pane count -- you can run as many as your terminal fits. Each pane is a full session with its own token tracking and working directory.

@@ -54,7 +54,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-2d5e60da.js";
+            window.path_to_searchindex_js = "../searchindex-4a8cbbe7.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-25972818.js"></script>
@@ -242,6 +242,10 @@
 </ul>
 <h2 id="state-management"><a class="header" href="#state-management">State Management</a></h2>
 <p>Deleting a session now properly cleans up cached pane state. Previously, deleting a session left stale entries in the pane cache, which could cause phantom panes on restart.</p>
+<h2 id="live-background-updates-v0336"><a class="header" href="#live-background-updates-v0336">Live Background Updates (v0.3.36)</a></h2>
+<p>Inactive panes now update <strong>live</strong> in the background. Previously, non-focused panes only refreshed when you switched focus to them. Now a background-session live-state cache routes <code>IntermediateText</code> and <code>QueuedUserMessage</code> events into per-session deltas, so you can watch tool calls and responses appearing in other panes in real time without switching focus.</p>
+<p><strong>Provider/model contamination prevention:</strong> When closing or switching panes, the old session’s provider is captured <em>before</em> the switch. This blocks cross-provider model leaks at 27 call sites throughout the codebase. The footer always shows the correct provider+model for the focused pane.</p>
+<p><strong>Ctrl+N</strong> binds the focused pane and live-refreshes the footer title, so new sessions show up immediately in the status bar.</p>
 <h2 id="limits"><a class="header" href="#limits">Limits</a></h2>
 <p>There is no hard limit on pane count – you can run as many as your terminal fits. Each pane is a full session with its own token tracking and working directory.</p>
 

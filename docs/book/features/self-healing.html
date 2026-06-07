@@ -54,7 +54,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-2d5e60da.js";
+            window.path_to_searchindex_js = "../searchindex-4a8cbbe7.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-25972818.js"></script>
@@ -524,6 +524,13 @@ providers = ["openrouter", "anthropic"]  # tried in order
 <ul>
 <li><strong>Phantom post-success exemption</strong> — the phantom detector used to fire on short completion acknowledgments like “Pushed.”, “Done.”, or “Committed as abc123” because those look like past-tense completion claims without a tool call. But when the agent just finished a real tool run, that one-line ack is the <em>correct</em> behavior. A turn-scoped <code>tool_calls_completed_this_turn</code> counter and a <code>phantom_eligible</code> gate now suppress phantom detection once real tool calls have landed in the current turn. The complementary <code>FINISHING A TURN</code> brain preamble directive tells the agent to reply with one short ack, skip verification re-runs, and stop restating conclusions in different wording.</li>
 <li><strong><code>follow_up_question</code> intermediate flush</strong> (issue #142) — when the agent called <code>follow_up_question</code> after typing an explanatory preamble, Telegram/Discord/Slack/WhatsApp sometimes delivered the button block <em>before</em> the preamble text because intermediate text sat in a 500ms-polled queue while <code>follow_up_question</code> sent directly. All four channel handlers now flush pending intermediate <code>JoinHandle</code>s before dispatching the question, guaranteeing the explanatory text renders above the buttons.</li>
+</ul>
+<h2 id="v0336-fixes"><a class="header" href="#v0336-fixes">v0.3.36 Fixes</a></h2>
+<ul>
+<li><strong>Near-miss tool name self-heal (closes #176)</strong> — when the model guesses a wrong tool name (e.g. <code>tg_send_message</code> instead of <code>telegram_send</code>), the tool registry now tries three fallback strategies before returning NotFound: (1) normalized match (strip underscores, lowercase), (2) abbreviation expansion (<code>tg</code> → <code>telegram</code>, <code>wa</code> → <code>whatsapp</code>), (3) typo fallback (Levenshtein distance). Conservative: only heals on a unique high-confidence match, so ambiguous guesses still return an error.</li>
+<li><strong>Retry overhaul</strong> — patient backoff defaults changed from 100ms hammering to 1s/2s/4s/8s. Rate limits now retry in-place (3 retries) before falling through the fallback chain. Hard-down endpoints (DNS failure, connection refused) fail fast instead of wasting retries. Transient 4xx HTML infra pages (Cloudflare, nginx error pages) are retried. Each retry surfaces as a <code>RetryAttempt N/M - reason</code> event to the user.</li>
+<li><strong>Provider/model contamination prevention</strong> — atomic provider+model swap across 27 call sites prevents the footer from showing a stale provider after switching panes or sessions.</li>
+<li><strong>Secret redaction expanded</strong> — query-param keys (<code>?api_key=...</code>) and URL passwords (<code>https://user:pass@host</code>) now redacted alongside Bearer tokens and API key patterns. RSI TUI notifications also redacted.</li>
 </ul>
 <h2 id="v0335-phantom-hardening"><a class="header" href="#v0335-phantom-hardening">v0.3.35 Phantom Hardening</a></h2>
 <ul>

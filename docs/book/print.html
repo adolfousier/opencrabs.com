@@ -55,7 +55,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-2d5e60da.js";
+            window.path_to_searchindex_js = "searchindex-4a8cbbe7.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-25972818.js"></script>
@@ -328,6 +328,17 @@
 <li><strong>Profile-aware paths</strong> — replaced hardcoded <code>~/.opencrabs/</code> paths with <code>opencrabs_home()</code> throughout. Subagent status dir, <code>tools.toml</code> fallback, and <code>write_opencrabs_file</code> confirmations all respect the active profile (v0.3.35, #155, #156, #157)</li>
 <li><strong>Teloxide upgrade</strong> — upgraded from 0.13 to 0.17 with member join detection before allowlist and join notification tests (v0.3.35)</li>
 <li><strong>tok/s footer accuracy</strong> — channel and TUI tok/s now uses provider-reported tokens divided by active streaming time instead of total turn duration (v0.3.35)</li>
+<li><strong>Multi-pane live updates</strong> — inactive panes now update live in the background. Provider/model contamination blocked at 27 call sites. Ctrl+N binds focused pane + live-refreshes footer (v0.3.36, #163, #165)</li>
+<li><strong>Retry overhaul</strong> — patient backoff defaults (1s/2s/4s/8s instead of 100ms hammering), in-place rate limit retry before fallback chain, retry events surfaced as <code>RetryAttempt N/M</code> to user. Fail fast on hard-down endpoints, patient on transient (v0.3.36)</li>
+<li><strong>Near-miss tool name self-heal</strong> — when the model guesses a wrong tool name (<code>tg_send_message</code>), the registry tries normalized match, abbreviation expansion (tg→telegram), and typo fallback before returning NotFound. Conservative: only heals on unique high-confidence match (v0.3.36, #176)</li>
+<li><strong>Channel UX overhaul</strong> — inline ctx budget footer into last response message (all 4 channels). Telegram rolling status edits in-place instead of delete+recreate. Bot commands hot-reload on config change. Guard tok/s against burst-delivery artifacts (v0.3.36, #174, #175)</li>
+<li><strong>analyze_video ffmpeg fallback</strong> — when Gemini video API fails, auto-extracts frames via ffmpeg at 1 fps (cap 30 frames), analyzes each with Gemini vision, combines results chronologically (v0.3.36)</li>
+<li><strong>Cache efficiency dashboard</strong> — new card on <code>/usage</code> showing hit rate %. Cache creation/read tokens persisted to messages table (migration #25) (v0.3.36)</li>
+<li><strong>Plan <code>insert_after</code></strong> — mid-plan task insertion with automatic renumbering of existing tasks (v0.3.36, #169)</li>
+<li><strong>Secret redaction expanded</strong> — query-param keys, URL passwords, and RSI TUI notifications now redacted alongside existing Bearer/API-key patterns (v0.3.36)</li>
+<li><strong>TUI polish</strong> — thinking display capped to 12-line rolling window, git branch in footer + <code>/sessions</code> dialog (cyan), profile chip, atomic provider+model swap, reasoning-only iterations render as separate Thinking rows (v0.3.36, #167, #170)</li>
+<li><strong>TOOLS.md template slimmed</strong> — from 660 to 56 lines with regression tests preventing bloat (v0.3.36, #171)</li>
+<li><strong>CI overhaul</strong> — gated on PR + main push (not tags), kills double-build on tag events, routine pushes run lint + Linux test only (~5-8 min) (v0.3.36)</li>
 </ul>
 <h3 id="-browser-automation"><a class="header" href="#-browser-automation">🌐 Browser Automation</a></h3>
 <ul>
@@ -363,7 +374,7 @@
 </ul>
 <h3 id="-testing--quality"><a class="header" href="#-testing--quality">📊 Testing &amp; Quality</a></h3>
 <ul>
-<li><strong>3,813+ tests</strong> covering providers, tools, channels, TUI, self-healing, crash recovery, browser automation</li>
+<li><strong>3,871+ tests</strong> covering providers, tools, channels, TUI, self-healing, crash recovery, browser automation</li>
 <li><strong>CI/CD</strong>: GitHub Actions, CodeQL, <code>cargo audit</code> security checks, release automation</li>
 </ul>
 <h3 id="-built-in-skills-v0317"><a class="header" href="#-built-in-skills-v0317">🔧 Built-in Skills (v0.3.17)</a></h3>
@@ -1314,7 +1325,17 @@ cargo build --release
 <li><strong>Field refresh</strong>: saved values (base URL, API key, model list) appear instantly without restarting the dialog</li>
 </ul>
 <h2 id="provider-registry-v0334"><a class="header" href="#provider-registry-v0334">Provider Registry (v0.3.34)</a></h2>
-<p>All provider resolution now routes through a single registry source of truth — no more hardcoded if-else ladders scattered across the codebase. The registry correctly enforces <code>api_key</code> requirements for API providers (Anthropic, OpenAI, GitHub Copilot, Gemini, OpenRouter, MiniMax), so resolution skips them cleanly when keys are missing instead of silently falling back. Adding a new provider is now a one-file change.</p>
+<p>All provider resolution now routes through a single registry source of truth: no more hardcoded if-else ladders scattered across the codebase. The registry correctly enforces <code>api_key</code> requirements for API providers (Anthropic, OpenAI, GitHub Copilot, Gemini, OpenRouter, MiniMax), so resolution skips them cleanly when keys are missing instead of silently falling back. Adding a new provider is now a one-file change.</p>
+<h2 id="retry--fallback-overhaul-v0336"><a class="header" href="#retry--fallback-overhaul-v0336">Retry &amp; Fallback Overhaul (v0.3.36)</a></h2>
+<p>The provider retry and fallback system was rebuilt for reliability:</p>
+<ul>
+<li><strong>Patient backoff</strong> — defaults changed from 100ms hammering to 1s / 2s / 4s / 8s, giving rate-limited endpoints time to recover</li>
+<li><strong>In-place rate limit retry</strong> — hits 3 retries on the same provider before falling through the fallback chain, preventing unnecessary provider switches</li>
+<li><strong>Full fallback chain on any HTTP error</strong> — previously only 5xx/429 triggered fallback; now any HTTP error walks the chain</li>
+<li><strong>Fail fast on hard-down endpoints</strong> — DNS failures and connection refused bail immediately instead of wasting retries</li>
+<li><strong>Retry events surfaced to user</strong> — each retry shows as <code>RetryAttempt 1/3 - rate_limit_exceeded</code> so you always know what’s happening</li>
+<li><strong>Transient 4xx HTML pages retried</strong> — Cloudflare/nginx error pages that look like 4xx but are actually transient infra issues are now retried</li>
+</ul>
 <h2 id="qwen-cache-auto-enable-v0330"><a class="header" href="#qwen-cache-auto-enable-v0330">Qwen Cache Auto-Enable (v0.3.30)</a></h2>
 <p>Custom providers targeting Qwen-shaped endpoints (base URLs containing <code>dashscope</code>, <code>aliyun</code>, <code>aliyuncs</code>, <code>dialagram</code>, or models prefixed with <code>qwen-*</code>) automatically get ephemeral <code>cache_control</code> markers on the system prompt, last streaming message, and last tool call. Zero-config cost savings for Qwen custom providers, no API key or flag needed.</p>
 <h2 id="qwen-tool-call-leak-strip-v0335"><a class="header" href="#qwen-tool-call-leak-strip-v0335">Qwen Tool-Call Leak Strip (v0.3.35)</a></h2>
@@ -1702,6 +1723,15 @@ Agent: generate_image(prompt="dark background with thin white border", image="/t
 <li>Use the path in <code>bash</code> commands or any tool that accepts file paths</li>
 <li>Reference it in replies with <code>&lt;&lt;IMG:path&gt;&gt;</code> to forward to channels</li>
 </ul>
+<h2 id="analyze_video-frame-extraction-fallback-v0336"><a class="header" href="#analyze_video-frame-extraction-fallback-v0336">analyze_video: Frame-Extraction Fallback (v0.3.36)</a></h2>
+<p>The <code>analyze_video</code> tool sends the full video to Gemini’s video API for multimodal analysis. When that fails (network error, upload timeout, unsupported format), the agent falls back to <strong>ffmpeg frame extraction</strong>:</p>
+<ol>
+<li>Extract frames at <strong>1 fps</strong> via ffmpeg</li>
+<li><strong>Cap at 30 frames</strong> (one frame per second for the first 30 seconds)</li>
+<li>Send each frame to Gemini vision via <code>analyze_image</code></li>
+<li>Combine per-frame descriptions into a <strong>chronological summary</strong></li>
+</ol>
+<p>This means <code>analyze_video</code> works even when the video API is unreachable, as long as ffmpeg is installed and at least one vision path (Path A or Path B) is configured. The fallback activates automatically. No user configuration needed.</p>
 <h2 id="model-choices"><a class="header" href="#model-choices">Model Choices</a></h2>
 <ul>
 <li><strong>Path A</strong> — any vision-capable model on your active provider. On OpenRouter: <code>google/gemini-2.5-flash</code>, <code>anthropic/claude-sonnet-4</code>, <code>openai/gpt-4o</code>. On Ollama: <code>llava</code>, <code>bakllava</code>. On custom endpoints: whatever the server offers.</li>
@@ -1880,6 +1910,10 @@ respond_to = "all"
 <li><strong>DMs and groups</strong> — Works in private chats and group conversations</li>
 <li><strong>Forum topic routing</strong> (v0.3.31) — In supergroups with topics enabled, the bot tracks <code>thread_id</code> through the full pipeline. Use <code>list_topics</code> action to map topic names (e.g. <code>#announcements</code>) to numeric IDs, then pass <code>thread_id</code> to <code>send</code> / <code>reply</code> / <code>send_photo</code> to route into a specific topic</li>
 <li><strong>Context-aware pre-tool status</strong> (v0.3.31) — While a tool runs, the bot shows a live status message naming the tool, elapsed time, and either a reasoning excerpt or an anchored phrase from the user’s request</li>
+<li><strong>Inline ctx budget footer</strong> (v0.3.36) — context budget footer (<code>ctx: XK/YK Z% | N tok/s</code>) is now appended to the last response message instead of sent as a separate message. Keeps the chat clean.</li>
+<li><strong>Rolling status edit-in-place</strong> (v0.3.36) — tool status messages (⚙️ running, ✅ done) are edited in-place instead of delete+recreate, preventing flicker and preserving scroll position.</li>
+<li><strong>Bot command hot-reload</strong> (v0.3.36) — bot commands refresh automatically when config or skills change, without restarting the bot.</li>
+<li><strong>Guard tok/s against burst-delivery</strong> (v0.3.36) — tok/s footer is guarded against burst-delivery artifacts so the number stays stable.</li>
 <li><strong><code>follow_up_question</code> polish</strong> (v0.3.34) — Telegram keyboard is now single-column with a 40-character label cap (longer options rejected with a clear error). The rolling “Running follow_up_question (16s)” status is suppressed while the keyboard is pending so buttons don’t get visually buried. The LLM is instructed to call the tool silently without echoing the question text in surrounding prose</li>
 <li><strong>Inline buttons</strong> — Provider picker, model picker, session switcher use Telegram inline keyboards</li>
 <li><strong>Image support</strong> — Send images to the bot, receive generated images</li>
@@ -2672,6 +2706,10 @@ value = "System is operational. All channels connected."
 </ul>
 <h2 id="state-management-1"><a class="header" href="#state-management-1">State Management</a></h2>
 <p>Deleting a session now properly cleans up cached pane state. Previously, deleting a session left stale entries in the pane cache, which could cause phantom panes on restart.</p>
+<h2 id="live-background-updates-v0336"><a class="header" href="#live-background-updates-v0336">Live Background Updates (v0.3.36)</a></h2>
+<p>Inactive panes now update <strong>live</strong> in the background. Previously, non-focused panes only refreshed when you switched focus to them. Now a background-session live-state cache routes <code>IntermediateText</code> and <code>QueuedUserMessage</code> events into per-session deltas, so you can watch tool calls and responses appearing in other panes in real time without switching focus.</p>
+<p><strong>Provider/model contamination prevention:</strong> When closing or switching panes, the old session’s provider is captured <em>before</em> the switch. This blocks cross-provider model leaks at 27 call sites throughout the codebase. The footer always shows the correct provider+model for the focused pane.</p>
+<p><strong>Ctrl+N</strong> binds the focused pane and live-refreshes the footer title, so new sessions show up immediately in the status bar.</p>
 <h2 id="limits"><a class="header" href="#limits">Limits</a></h2>
 <p>There is no hard limit on pane count – you can run as many as your terminal fits. Each pane is a full session with its own token tracking and working directory.</p>
 <div style="break-before: page; page-break-before: always;"></div>
@@ -2917,6 +2955,12 @@ opencrabs cron remove "Morning Report"
 "Skip task 3"
 </code></pre>
 <p>The agent handles plan creation, approval, execution, and status reporting through the <code>plan</code> tool.</p>
+<h2 id="mid-plan-insertion-v0336"><a class="header" href="#mid-plan-insertion-v0336">Mid-Plan Insertion (v0.3.36)</a></h2>
+<p>Tasks can be inserted at any position in an existing plan using <code>insert_after</code>:</p>
+<pre><code>plan(operation: "add_task", insert_after: 3, title: "Re-run tests after fix", ...)
+</code></pre>
+<p>This inserts the new task as task #4, and all existing tasks from #4 onward are <strong>renumbered automatically</strong>. Dependencies between tasks are preserved through the renumber.</p>
+<p>This is useful when a later task introduces a bug caught by an earlier test. Instead of re-opening the completed test task, insert a fresh re-test task right after the fix.</p>
 <h2 id="importing-pre-defined-plans-v0335"><a class="header" href="#importing-pre-defined-plans-v0335">Importing Pre-Defined Plans (v0.3.35)</a></h2>
 <p>Plans can be loaded from JSON files for repeatable workflows:</p>
 <pre><code>plan(operation: "import", file_path: "~/plans/rust-refactor.json")
@@ -3614,6 +3658,13 @@ providers = ["openrouter", "anthropic"]  # tried in order
 <ul>
 <li><strong>Phantom post-success exemption</strong> — the phantom detector used to fire on short completion acknowledgments like “Pushed.”, “Done.”, or “Committed as abc123” because those look like past-tense completion claims without a tool call. But when the agent just finished a real tool run, that one-line ack is the <em>correct</em> behavior. A turn-scoped <code>tool_calls_completed_this_turn</code> counter and a <code>phantom_eligible</code> gate now suppress phantom detection once real tool calls have landed in the current turn. The complementary <code>FINISHING A TURN</code> brain preamble directive tells the agent to reply with one short ack, skip verification re-runs, and stop restating conclusions in different wording.</li>
 <li><strong><code>follow_up_question</code> intermediate flush</strong> (issue #142) — when the agent called <code>follow_up_question</code> after typing an explanatory preamble, Telegram/Discord/Slack/WhatsApp sometimes delivered the button block <em>before</em> the preamble text because intermediate text sat in a 500ms-polled queue while <code>follow_up_question</code> sent directly. All four channel handlers now flush pending intermediate <code>JoinHandle</code>s before dispatching the question, guaranteeing the explanatory text renders above the buttons.</li>
+</ul>
+<h2 id="v0336-fixes"><a class="header" href="#v0336-fixes">v0.3.36 Fixes</a></h2>
+<ul>
+<li><strong>Near-miss tool name self-heal (closes #176)</strong> — when the model guesses a wrong tool name (e.g. <code>tg_send_message</code> instead of <code>telegram_send</code>), the tool registry now tries three fallback strategies before returning NotFound: (1) normalized match (strip underscores, lowercase), (2) abbreviation expansion (<code>tg</code> → <code>telegram</code>, <code>wa</code> → <code>whatsapp</code>), (3) typo fallback (Levenshtein distance). Conservative: only heals on a unique high-confidence match, so ambiguous guesses still return an error.</li>
+<li><strong>Retry overhaul</strong> — patient backoff defaults changed from 100ms hammering to 1s/2s/4s/8s. Rate limits now retry in-place (3 retries) before falling through the fallback chain. Hard-down endpoints (DNS failure, connection refused) fail fast instead of wasting retries. Transient 4xx HTML infra pages (Cloudflare, nginx error pages) are retried. Each retry surfaces as a <code>RetryAttempt N/M - reason</code> event to the user.</li>
+<li><strong>Provider/model contamination prevention</strong> — atomic provider+model swap across 27 call sites prevents the footer from showing a stale provider after switching panes or sessions.</li>
+<li><strong>Secret redaction expanded</strong> — query-param keys (<code>?api_key=...</code>) and URL passwords (<code>https://user:pass@host</code>) now redacted alongside Bearer tokens and API key patterns. RSI TUI notifications also redacted.</li>
 </ul>
 <h2 id="v0335-phantom-hardening"><a class="header" href="#v0335-phantom-hardening">v0.3.35 Phantom Hardening</a></h2>
 <ul>
@@ -4398,6 +4449,9 @@ Instructions for the agent when this skill runs...
 <p>A horizontal bar chart ranking your most-used tools. <code>bash</code> and <code>read_file</code> typically dominate. Useful for understanding your agent’s workflow patterns.</p>
 <h3 id="by-activity-footer"><a class="header" href="#by-activity-footer">By Activity (footer)</a></h3>
 <p>A summary table showing cost and turns by activity category (Development, CI/Deploy, Features), plus the 1-shot success rate for each.</p>
+<h2 id="cache-efficiency-card-v0336"><a class="header" href="#cache-efficiency-card-v0336">Cache Efficiency Card (v0.3.36)</a></h2>
+<p>A new card on the dashboard shows your <strong>cache hit rate</strong> as a percentage. Providers that support prompt caching (like Anthropic and Z.AI) return <code>cache_creation_input_tokens</code> and <code>cache_read_input_tokens</code> in their usage data. These are now persisted to the messages table (DB migration #25), and the dashboard aggregates them into a hit-rate percentage.</p>
+<p>When cache data is unavailable (provider doesn’t report it, or no cached tokens yet), the card degrades gracefully with a dash instead of showing <code>0%</code>.</p>
 <h2 id="time-filters"><a class="header" href="#time-filters">Time Filters</a></h2>
 <div class="table-wrapper">
 <table>
@@ -4683,7 +4737,7 @@ panic = "abort"
 <tr><td><strong>Pricing</strong></td><td style="text-align: right">17</td><td><code>src/pricing.rs</code></td></tr>
 <tr><td><strong>Memory</strong></td><td style="text-align: right">9</td><td><code>src/memory/</code></td></tr>
 <tr><td><strong>Logging</strong></td><td style="text-align: right">4</td><td><code>src/logging/</code></td></tr>
-<tr><td><strong>Total</strong></td><td style="text-align: right"><strong>3,813</strong></td><td></td></tr>
+<tr><td><strong>Total</strong></td><td style="text-align: right"><strong>3,871</strong></td><td></td></tr>
 </tbody>
 </table>
 </div>

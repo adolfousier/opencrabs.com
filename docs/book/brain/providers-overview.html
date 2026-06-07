@@ -54,7 +54,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-2d5e60da.js";
+            window.path_to_searchindex_js = "../searchindex-4a8cbbe7.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-25972818.js"></script>
@@ -240,7 +240,17 @@
 <li><strong>Field refresh</strong>: saved values (base URL, API key, model list) appear instantly without restarting the dialog</li>
 </ul>
 <h2 id="provider-registry-v0334"><a class="header" href="#provider-registry-v0334">Provider Registry (v0.3.34)</a></h2>
-<p>All provider resolution now routes through a single registry source of truth — no more hardcoded if-else ladders scattered across the codebase. The registry correctly enforces <code>api_key</code> requirements for API providers (Anthropic, OpenAI, GitHub Copilot, Gemini, OpenRouter, MiniMax), so resolution skips them cleanly when keys are missing instead of silently falling back. Adding a new provider is now a one-file change.</p>
+<p>All provider resolution now routes through a single registry source of truth: no more hardcoded if-else ladders scattered across the codebase. The registry correctly enforces <code>api_key</code> requirements for API providers (Anthropic, OpenAI, GitHub Copilot, Gemini, OpenRouter, MiniMax), so resolution skips them cleanly when keys are missing instead of silently falling back. Adding a new provider is now a one-file change.</p>
+<h2 id="retry--fallback-overhaul-v0336"><a class="header" href="#retry--fallback-overhaul-v0336">Retry &amp; Fallback Overhaul (v0.3.36)</a></h2>
+<p>The provider retry and fallback system was rebuilt for reliability:</p>
+<ul>
+<li><strong>Patient backoff</strong> — defaults changed from 100ms hammering to 1s / 2s / 4s / 8s, giving rate-limited endpoints time to recover</li>
+<li><strong>In-place rate limit retry</strong> — hits 3 retries on the same provider before falling through the fallback chain, preventing unnecessary provider switches</li>
+<li><strong>Full fallback chain on any HTTP error</strong> — previously only 5xx/429 triggered fallback; now any HTTP error walks the chain</li>
+<li><strong>Fail fast on hard-down endpoints</strong> — DNS failures and connection refused bail immediately instead of wasting retries</li>
+<li><strong>Retry events surfaced to user</strong> — each retry shows as <code>RetryAttempt 1/3 - rate_limit_exceeded</code> so you always know what’s happening</li>
+<li><strong>Transient 4xx HTML pages retried</strong> — Cloudflare/nginx error pages that look like 4xx but are actually transient infra issues are now retried</li>
+</ul>
 <h2 id="qwen-cache-auto-enable-v0330"><a class="header" href="#qwen-cache-auto-enable-v0330">Qwen Cache Auto-Enable (v0.3.30)</a></h2>
 <p>Custom providers targeting Qwen-shaped endpoints (base URLs containing <code>dashscope</code>, <code>aliyun</code>, <code>aliyuncs</code>, <code>dialagram</code>, or models prefixed with <code>qwen-*</code>) automatically get ephemeral <code>cache_control</code> markers on the system prompt, last streaming message, and last tool call. Zero-config cost savings for Qwen custom providers, no API key or flag needed.</p>
 <h2 id="qwen-tool-call-leak-strip-v0335"><a class="header" href="#qwen-tool-call-leak-strip-v0335">Qwen Tool-Call Leak Strip (v0.3.35)</a></h2>

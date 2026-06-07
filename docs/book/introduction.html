@@ -54,7 +54,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-2d5e60da.js";
+            window.path_to_searchindex_js = "searchindex-4a8cbbe7.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-25972818.js"></script>
@@ -327,6 +327,17 @@
 <li><strong>Profile-aware paths</strong> — replaced hardcoded <code>~/.opencrabs/</code> paths with <code>opencrabs_home()</code> throughout. Subagent status dir, <code>tools.toml</code> fallback, and <code>write_opencrabs_file</code> confirmations all respect the active profile (v0.3.35, #155, #156, #157)</li>
 <li><strong>Teloxide upgrade</strong> — upgraded from 0.13 to 0.17 with member join detection before allowlist and join notification tests (v0.3.35)</li>
 <li><strong>tok/s footer accuracy</strong> — channel and TUI tok/s now uses provider-reported tokens divided by active streaming time instead of total turn duration (v0.3.35)</li>
+<li><strong>Multi-pane live updates</strong> — inactive panes now update live in the background. Provider/model contamination blocked at 27 call sites. Ctrl+N binds focused pane + live-refreshes footer (v0.3.36, #163, #165)</li>
+<li><strong>Retry overhaul</strong> — patient backoff defaults (1s/2s/4s/8s instead of 100ms hammering), in-place rate limit retry before fallback chain, retry events surfaced as <code>RetryAttempt N/M</code> to user. Fail fast on hard-down endpoints, patient on transient (v0.3.36)</li>
+<li><strong>Near-miss tool name self-heal</strong> — when the model guesses a wrong tool name (<code>tg_send_message</code>), the registry tries normalized match, abbreviation expansion (tg→telegram), and typo fallback before returning NotFound. Conservative: only heals on unique high-confidence match (v0.3.36, #176)</li>
+<li><strong>Channel UX overhaul</strong> — inline ctx budget footer into last response message (all 4 channels). Telegram rolling status edits in-place instead of delete+recreate. Bot commands hot-reload on config change. Guard tok/s against burst-delivery artifacts (v0.3.36, #174, #175)</li>
+<li><strong>analyze_video ffmpeg fallback</strong> — when Gemini video API fails, auto-extracts frames via ffmpeg at 1 fps (cap 30 frames), analyzes each with Gemini vision, combines results chronologically (v0.3.36)</li>
+<li><strong>Cache efficiency dashboard</strong> — new card on <code>/usage</code> showing hit rate %. Cache creation/read tokens persisted to messages table (migration #25) (v0.3.36)</li>
+<li><strong>Plan <code>insert_after</code></strong> — mid-plan task insertion with automatic renumbering of existing tasks (v0.3.36, #169)</li>
+<li><strong>Secret redaction expanded</strong> — query-param keys, URL passwords, and RSI TUI notifications now redacted alongside existing Bearer/API-key patterns (v0.3.36)</li>
+<li><strong>TUI polish</strong> — thinking display capped to 12-line rolling window, git branch in footer + <code>/sessions</code> dialog (cyan), profile chip, atomic provider+model swap, reasoning-only iterations render as separate Thinking rows (v0.3.36, #167, #170)</li>
+<li><strong>TOOLS.md template slimmed</strong> — from 660 to 56 lines with regression tests preventing bloat (v0.3.36, #171)</li>
+<li><strong>CI overhaul</strong> — gated on PR + main push (not tags), kills double-build on tag events, routine pushes run lint + Linux test only (~5-8 min) (v0.3.36)</li>
 </ul>
 <h3 id="-browser-automation"><a class="header" href="#-browser-automation">🌐 Browser Automation</a></h3>
 <ul>
@@ -362,7 +373,7 @@
 </ul>
 <h3 id="-testing--quality"><a class="header" href="#-testing--quality">📊 Testing &amp; Quality</a></h3>
 <ul>
-<li><strong>3,813+ tests</strong> covering providers, tools, channels, TUI, self-healing, crash recovery, browser automation</li>
+<li><strong>3,871+ tests</strong> covering providers, tools, channels, TUI, self-healing, crash recovery, browser automation</li>
 <li><strong>CI/CD</strong>: GitHub Actions, CodeQL, <code>cargo audit</code> security checks, release automation</li>
 </ul>
 <h3 id="-built-in-skills-v0317"><a class="header" href="#-built-in-skills-v0317">🔧 Built-in Skills (v0.3.17)</a></h3>

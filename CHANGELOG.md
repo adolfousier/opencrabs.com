@@ -2,6 +2,40 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.24] - 2026-06-07
+
+### Added
+- analyze_video ffmpeg frame-extraction fallback (1 fps, cap 30 frames, Gemini vision per frame)
+- Cache efficiency dashboard card with hit rate % (migration #25)
+- Plan `insert_after` for mid-plan insertion with automatic renumbering
+- Near-miss tool name self-heal — normalized match + abbreviation expansion + typo fallback (closes #176)
+- Multi-pane live background updates — inactive panes update in real time (closes #163, #165)
+- Channel UX: inline ctx budget footer, rolling status edit-in-place, bot command hot-reload (closes #174, #175)
+- Retry events surfaced as `RetryAttempt N/M` to user
+- Git branch in footer + `/sessions` dialog (cyan), profile chip
+- Thinking display capped to 12-line rolling window
+- CI gated on PR + main push (not tags)
+
+### Changed
+- Retry backoff defaults: 100ms → 1s/2s/4s/8s patient backoff
+- TOOLS.md template slimmed from 660 to 56 lines with regression tests (closes #171)
+- Provider/model contamination prevention: atomic swap at 27 call sites
+- Secret redaction expanded: query-param keys, URL passwords, RSI notifications
+
+### Fixed
+- Rate limit retry: 3 in-place retries before fallback chain
+- DNS failure / connection refused fail fast instead of wasting retries
+- Transient 4xx HTML infra pages retried
+- Full fallback chain on any HTTP error (not just 5xx/429)
+- Cross-provider model leaks blocked at request time
+- /models per-field save corruption on last-active custom section
+- Custom provider rename: orphan keys.toml section cleanup
+- RSI: exclude sentinel dimensions from opportunity generation
+- Brain dedup: apply_brain_dedup removes ALL occurrences instead of just the first
+- Intermediate text preserved when strip_llm_artifacts zeros it out
+- Reasoning-only iterations render as separate Thinking rows
+- Evolve: check user-level systemd units when scheduling restart
+
 ## [0.1.23] - 2026-06-04
 
 ### Added

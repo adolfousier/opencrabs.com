@@ -61,6 +61,18 @@ Plans are managed through natural language:
 
 The agent handles plan creation, approval, execution, and status reporting through the `plan` tool.
 
+## Mid-Plan Insertion (v0.3.36)
+
+Tasks can be inserted at any position in an existing plan using `insert_after`:
+
+```
+plan(operation: "add_task", insert_after: 3, title: "Re-run tests after fix", ...)
+```
+
+This inserts the new task as task #4, and all existing tasks from #4 onward are **renumbered automatically**. Dependencies between tasks are preserved through the renumber.
+
+This is useful when a later task introduces a bug caught by an earlier test. Instead of re-opening the completed test task, insert a fresh re-test task right after the fix.
+
 ## Importing Pre-Defined Plans (v0.3.35)
 
 Plans can be loaded from JSON files for repeatable workflows:

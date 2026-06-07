@@ -126,6 +126,17 @@
 - **Profile-aware paths** — replaced hardcoded `~/.opencrabs/` paths with `opencrabs_home()` throughout. Subagent status dir, `tools.toml` fallback, and `write_opencrabs_file` confirmations all respect the active profile (v0.3.35, #155, #156, #157)
 - **Teloxide upgrade** — upgraded from 0.13 to 0.17 with member join detection before allowlist and join notification tests (v0.3.35)
 - **tok/s footer accuracy** — channel and TUI tok/s now uses provider-reported tokens divided by active streaming time instead of total turn duration (v0.3.35)
+- **Multi-pane live updates** — inactive panes now update live in the background. Provider/model contamination blocked at 27 call sites. Ctrl+N binds focused pane + live-refreshes footer (v0.3.36, #163, #165)
+- **Retry overhaul** — patient backoff defaults (1s/2s/4s/8s instead of 100ms hammering), in-place rate limit retry before fallback chain, retry events surfaced as `RetryAttempt N/M` to user. Fail fast on hard-down endpoints, patient on transient (v0.3.36)
+- **Near-miss tool name self-heal** — when the model guesses a wrong tool name (`tg_send_message`), the registry tries normalized match, abbreviation expansion (tg→telegram), and typo fallback before returning NotFound. Conservative: only heals on unique high-confidence match (v0.3.36, #176)
+- **Channel UX overhaul** — inline ctx budget footer into last response message (all 4 channels). Telegram rolling status edits in-place instead of delete+recreate. Bot commands hot-reload on config change. Guard tok/s against burst-delivery artifacts (v0.3.36, #174, #175)
+- **analyze_video ffmpeg fallback** — when Gemini video API fails, auto-extracts frames via ffmpeg at 1 fps (cap 30 frames), analyzes each with Gemini vision, combines results chronologically (v0.3.36)
+- **Cache efficiency dashboard** — new card on `/usage` showing hit rate %. Cache creation/read tokens persisted to messages table (migration #25) (v0.3.36)
+- **Plan `insert_after`** — mid-plan task insertion with automatic renumbering of existing tasks (v0.3.36, #169)
+- **Secret redaction expanded** — query-param keys, URL passwords, and RSI TUI notifications now redacted alongside existing Bearer/API-key patterns (v0.3.36)
+- **TUI polish** — thinking display capped to 12-line rolling window, git branch in footer + `/sessions` dialog (cyan), profile chip, atomic provider+model swap, reasoning-only iterations render as separate Thinking rows (v0.3.36, #167, #170)
+- **TOOLS.md template slimmed** — from 660 to 56 lines with regression tests preventing bloat (v0.3.36, #171)
+- **CI overhaul** — gated on PR + main push (not tags), kills double-build on tag events, routine pushes run lint + Linux test only (~5-8 min) (v0.3.36)
 
 ### 🌐 Browser Automation
 - **Full CDP support**: navigate, click, type, screenshot, JS eval, wait for selectors, find elements
@@ -156,7 +167,7 @@
 - **Auto-approve propagation** — `approval_policy = "auto-always"` actually reaches tool loop (v0.3.2)
 
 ### 📊 Testing & Quality
-- **3,813+ tests** covering providers, tools, channels, TUI, self-healing, crash recovery, browser automation
+- **3,871+ tests** covering providers, tools, channels, TUI, self-healing, crash recovery, browser automation
 - **CI/CD**: GitHub Actions, CodeQL, `cargo audit` security checks, release automation
 
 ### 🔧 Built-in Skills (v0.3.17)

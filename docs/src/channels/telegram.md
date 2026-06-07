@@ -47,6 +47,10 @@ respond_to = "all"
 - **DMs and groups** — Works in private chats and group conversations
 - **Forum topic routing** (v0.3.31) — In supergroups with topics enabled, the bot tracks `thread_id` through the full pipeline. Use `list_topics` action to map topic names (e.g. `#announcements`) to numeric IDs, then pass `thread_id` to `send` / `reply` / `send_photo` to route into a specific topic
 - **Context-aware pre-tool status** (v0.3.31) — While a tool runs, the bot shows a live status message naming the tool, elapsed time, and either a reasoning excerpt or an anchored phrase from the user's request
+- **Inline ctx budget footer** (v0.3.36) — context budget footer (`ctx: XK/YK Z% | N tok/s`) is now appended to the last response message instead of sent as a separate message. Keeps the chat clean.
+- **Rolling status edit-in-place** (v0.3.36) — tool status messages (⚙️ running, ✅ done) are edited in-place instead of delete+recreate, preventing flicker and preserving scroll position.
+- **Bot command hot-reload** (v0.3.36) — bot commands refresh automatically when config or skills change, without restarting the bot.
+- **Guard tok/s against burst-delivery** (v0.3.36) — tok/s footer is guarded against burst-delivery artifacts so the number stays stable.
 - **`follow_up_question` polish** (v0.3.34) — Telegram keyboard is now single-column with a 40-character label cap (longer options rejected with a clear error). The rolling "Running follow_up_question (16s)" status is suppressed while the keyboard is pending so buttons don't get visually buried. The LLM is instructed to call the tool silently without echoing the question text in surrounding prose
 - **Inline buttons** — Provider picker, model picker, session switcher use Telegram inline keyboards
 - **Image support** — Send images to the bot, receive generated images

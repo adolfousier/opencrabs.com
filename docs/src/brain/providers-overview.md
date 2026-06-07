@@ -40,7 +40,18 @@ Adding a custom OpenAI-compatible provider is now smoother:
 
 ## Provider Registry (v0.3.34)
 
-All provider resolution now routes through a single registry source of truth — no more hardcoded if-else ladders scattered across the codebase. The registry correctly enforces `api_key` requirements for API providers (Anthropic, OpenAI, GitHub Copilot, Gemini, OpenRouter, MiniMax), so resolution skips them cleanly when keys are missing instead of silently falling back. Adding a new provider is now a one-file change.
+All provider resolution now routes through a single registry source of truth: no more hardcoded if-else ladders scattered across the codebase. The registry correctly enforces `api_key` requirements for API providers (Anthropic, OpenAI, GitHub Copilot, Gemini, OpenRouter, MiniMax), so resolution skips them cleanly when keys are missing instead of silently falling back. Adding a new provider is now a one-file change.
+
+## Retry & Fallback Overhaul (v0.3.36)
+
+The provider retry and fallback system was rebuilt for reliability:
+
+- **Patient backoff** — defaults changed from 100ms hammering to 1s / 2s / 4s / 8s, giving rate-limited endpoints time to recover
+- **In-place rate limit retry** — hits 3 retries on the same provider before falling through the fallback chain, preventing unnecessary provider switches
+- **Full fallback chain on any HTTP error** — previously only 5xx/429 triggered fallback; now any HTTP error walks the chain
+- **Fail fast on hard-down endpoints** — DNS failures and connection refused bail immediately instead of wasting retries
+- **Retry events surfaced to user** — each retry shows as `RetryAttempt 1/3 - rate_limit_exceeded` so you always know what's happening
+- **Transient 4xx HTML pages retried** — Cloudflare/nginx error pages that look like 4xx but are actually transient infra issues are now retried
 
 ## Qwen Cache Auto-Enable (v0.3.30)
 

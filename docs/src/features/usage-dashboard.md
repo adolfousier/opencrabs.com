@@ -67,6 +67,12 @@ A horizontal bar chart ranking your most-used tools. `bash` and `read_file` typi
 
 A summary table showing cost and turns by activity category (Development, CI/Deploy, Features), plus the 1-shot success rate for each.
 
+## Cache Efficiency Card (v0.3.36)
+
+A new card on the dashboard shows your **cache hit rate** as a percentage. Providers that support prompt caching (like Anthropic and Z.AI) return `cache_creation_input_tokens` and `cache_read_input_tokens` in their usage data. These are now persisted to the messages table (DB migration #25), and the dashboard aggregates them into a hit-rate percentage.
+
+When cache data is unavailable (provider doesn't report it, or no cached tokens yet), the card degrades gracefully with a dash instead of showing `0%`.
+
 ## Time Filters
 
 | Key | Filter |

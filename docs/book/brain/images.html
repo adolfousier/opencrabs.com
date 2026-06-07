@@ -54,7 +54,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-2d5e60da.js";
+            window.path_to_searchindex_js = "../searchindex-4a8cbbe7.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-25972818.js"></script>
@@ -283,6 +283,15 @@ Agent: generate_image(prompt="dark background with thin white border", image="/t
 <li>Use the path in <code>bash</code> commands or any tool that accepts file paths</li>
 <li>Reference it in replies with <code>&lt;&lt;IMG:path&gt;&gt;</code> to forward to channels</li>
 </ul>
+<h2 id="analyze_video-frame-extraction-fallback-v0336"><a class="header" href="#analyze_video-frame-extraction-fallback-v0336">analyze_video: Frame-Extraction Fallback (v0.3.36)</a></h2>
+<p>The <code>analyze_video</code> tool sends the full video to Gemini’s video API for multimodal analysis. When that fails (network error, upload timeout, unsupported format), the agent falls back to <strong>ffmpeg frame extraction</strong>:</p>
+<ol>
+<li>Extract frames at <strong>1 fps</strong> via ffmpeg</li>
+<li><strong>Cap at 30 frames</strong> (one frame per second for the first 30 seconds)</li>
+<li>Send each frame to Gemini vision via <code>analyze_image</code></li>
+<li>Combine per-frame descriptions into a <strong>chronological summary</strong></li>
+</ol>
+<p>This means <code>analyze_video</code> works even when the video API is unreachable, as long as ffmpeg is installed and at least one vision path (Path A or Path B) is configured. The fallback activates automatically. No user configuration needed.</p>
 <h2 id="model-choices"><a class="header" href="#model-choices">Model Choices</a></h2>
 <ul>
 <li><strong>Path A</strong> — any vision-capable model on your active provider. On OpenRouter: <code>google/gemini-2.5-flash</code>, <code>anthropic/claude-sonnet-4</code>, <code>openai/gpt-4o</code>. On Ollama: <code>llava</code>, <code>bakllava</code>. On custom endpoints: whatever the server offers.</li>
