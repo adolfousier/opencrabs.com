@@ -104,7 +104,7 @@ The bootstrap file (`BOOTSTRAP.md`) deletes itself when complete.
 
 ## Migrating From Another Tool
 
-Already using ClaudeCode, OpenClaw, or Hermes? Or maybe Cursor, Aider, Cline, Windsurf, or any other AI agent harness? Your agent can migrate your existing data (memory, skills, custom commands, preferences) into its own brain files using natural language. No manual file shuffling needed.
+Already using ClaudeCode, OpenClaw, Hermes, or any other AI agent harness? Your agent can migrate your existing data (memory, skills, custom commands, preferences) into its own brain files using natural language. No manual file shuffling needed.
 
 This works with **any** agent or coding harness that stores config locally. The migration searches your filesystem for the other tool's config directories, reads their contents, and maps them into OpenCrabs' own brain file format (`SOUL.md`, `USER.md`, `TOOLS.md`, `MEMORY.md`, `AGENTS.md`, `CODE.md`).
 
@@ -112,7 +112,7 @@ This works with **any** agent or coding harness that stores config locally. The 
 
 If you want to review what gets migrated before it happens:
 
-> Search for my existing agent/harness data locally (ClaudeCode, OpenClaw, Hermes, Cursor, Aider, Cline, or whatever I was using) and audit a migration to our own brain files, report back once its done, execute when I confirm and approve.
+> Search for my ClaudeCode/OpenClaw/Hermes data locally (or any other agent harness I was using) and audit a migration to our own brain files, report back once its done, execute when I confirm and approve.
 
 The agent will:
 1. Search your filesystem for the other tool's config directories
