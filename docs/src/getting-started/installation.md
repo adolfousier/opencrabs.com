@@ -2,7 +2,7 @@
 
 Three ways to get OpenCrabs running.
 
-## Option 1: Download Binary (recommended)
+## Option 1: Download Binary (quick install, recommended)
 
 Grab a pre-built binary from [GitHub Releases](https://github.com/adolfousier/opencrabs/releases).
 
@@ -52,7 +52,7 @@ The onboarding wizard handles everything on first run.
 
 Required for `/rebuild`, adding custom tools, or modifying the agent.
 
-### Quick setup (recommended)
+### Setup script (recommended)
 
 The setup script auto-detects your platform (macOS, Debian/Ubuntu, Fedora/RHEL, Arch) and installs all build dependencies + Rust:
 
