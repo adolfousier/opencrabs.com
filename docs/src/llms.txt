@@ -24,7 +24,7 @@ OpenCrabs is an autonomous AI agent built in Rust. It connects to any LLM provid
 ## Documentation Pages
 - Getting Started: https://docs.opencrabs.com/getting-started/installation.html
 - Configuration: https://docs.opencrabs.com/getting-started/configuration.html
-- First Session: https://docs.opencrabs.com/getting-started/first-session.html
+- Onboarding: https://docs.opencrabs.com/getting-started/onboarding.html
 - CLI Commands: https://docs.opencrabs.com/getting-started/cli-commands.html
 - Provider Setup: https://docs.opencrabs.com/brain/providers.html
 - Image Generation & Vision: https://docs.opencrabs.com/brain/images.html

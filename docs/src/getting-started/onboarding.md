@@ -1,4 +1,4 @@
-# First Session
+# Onboarding
 
 When you launch OpenCrabs for the first time, the **onboarding wizard** walks you through setup.
 

@@ -5,8 +5,8 @@
 # Getting Started
 
 - [Installation](./getting-started/installation.md)
+- [Onboarding](./getting-started/onboarding.md)
 - [Configuration](./getting-started/configuration.md)
-- [First Session](./getting-started/first-session.md)
 - [CLI Commands](./getting-started/cli-commands.md)
 - [Troubleshooting](./getting-started/troubleshooting.md)
 

@@ -55,10 +55,10 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-4a8cbbe7.js";
+            window.path_to_searchindex_js = "searchindex-402f8be3.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-25972818.js"></script>
+        <script src="toc-55c89599.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -610,75 +610,7 @@ Register-ScheduledTask -TaskName "OpenCrabs" -Action $action -Trigger $trigger -
 <li><strong>Docker users:</strong> <code>docker compose pull &amp;&amp; docker compose up -d</code></li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="configuration"><a class="header" href="#configuration">Configuration</a></h1>
-<p>OpenCrabs uses two config files stored at <code>~/.opencrabs/</code>:</p>
-<div class="table-wrapper">
-<table>
-<thead>
-<tr><th>File</th><th>Purpose</th></tr>
-</thead>
-<tbody>
-<tr><td><code>config.toml</code></td><td>Provider settings, features, channel connections</td></tr>
-<tr><td><code>keys.toml</code></td><td>API keys and secrets (never committed to git)</td></tr>
-</tbody>
-</table>
-</div>
-<h2 id="workspace-layout"><a class="header" href="#workspace-layout">Workspace Layout</a></h2>
-<pre><code>~/.opencrabs/
-├── config.toml          # Main configuration
-├── keys.toml            # API keys (gitignored)
-├── commands.toml        # Custom slash commands
-├── opencrabs.db         # SQLite database
-├── SOUL.md              # Agent personality
-├── USER.md              # Your profile
-├── MEMORY.md            # Long-term memory
-├── AGENTS.md            # Agent behavior docs
-├── TOOLS.md             # Tool reference
-├── SECURITY.md          # Security policies
-├── HEARTBEAT.md         # Periodic check tasks
-├── memory/              # Daily memory notes
-│   └── YYYY-MM-DD.md
-├── images/              # Generated images
-├── logs/                # Application logs
-└── skills/              # Custom skills/plugins
-</code></pre>
-<h2 id="provider-configuration"><a class="header" href="#provider-configuration">Provider Configuration</a></h2>
-<p>See <a href="#ai-provider-setup">Provider Setup</a> for detailed provider configuration.</p>
-<p><strong>Quick example</strong> — add Anthropic:</p>
-<pre><code class="language-toml"># config.toml
-[providers.anthropic]
-enabled = true
-default_model = "claude-sonnet-4-20250514"
-</code></pre>
-<pre><code class="language-toml"># keys.toml
-[providers.anthropic]
-api_key = "sk-ant-..."
-</code></pre>
-<h2 id="provider-priority"><a class="header" href="#provider-priority">Provider Priority</a></h2>
-<p>When multiple providers are enabled, the first one found in this order is used for new sessions:</p>
-<p>MiniMax &gt; OpenRouter &gt; Anthropic &gt; OpenAI &gt; Gemini &gt; Custom</p>
-<p>Each session remembers which provider and model it was using. Switch providers per-session via <code>/models</code>.</p>
-<h2 id="feature-flags"><a class="header" href="#feature-flags">Feature Flags</a></h2>
-<pre><code class="language-toml"># config.toml
-[agent]
-working_directory = "/path/to/default/dir"
-thinking = "on"                # "on", "off", or "budget_XXk"
-
-[a2a]
-enabled = false
-bind = "127.0.0.1"
-port = 18790
-
-[image.generation]
-enabled = true
-model = "gemini-3.1-flash-image-preview"
-
-[image.vision]
-enabled = true
-model = "gemini-3.1-flash-image-preview"
-</code></pre>
-<div style="break-before: page; page-break-before: always;"></div>
-<h1 id="first-session"><a class="header" href="#first-session">First Session</a></h1>
+<h1 id="onboarding"><a class="header" href="#onboarding">Onboarding</a></h1>
 <p>When you launch OpenCrabs for the first time, the <strong>onboarding wizard</strong> walks you through setup.</p>
 <h2 id="-full-onboarding-walkthrough"><a class="header" href="#-full-onboarding-walkthrough">🎬 Full Onboarding Walkthrough</a></h2>
 <video controls="" width="100%" preload="metadata" playsinline="">
@@ -828,6 +760,74 @@ model = "gemini-3.1-flash-image-preview"
 <li><code>config_manager set_working_directory</code> tool</li>
 </ul>
 <p>The working directory is persisted per-session. Switching sessions restores the directory automatically.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="configuration"><a class="header" href="#configuration">Configuration</a></h1>
+<p>OpenCrabs uses two config files stored at <code>~/.opencrabs/</code>:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>File</th><th>Purpose</th></tr>
+</thead>
+<tbody>
+<tr><td><code>config.toml</code></td><td>Provider settings, features, channel connections</td></tr>
+<tr><td><code>keys.toml</code></td><td>API keys and secrets (never committed to git)</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="workspace-layout"><a class="header" href="#workspace-layout">Workspace Layout</a></h2>
+<pre><code>~/.opencrabs/
+├── config.toml          # Main configuration
+├── keys.toml            # API keys (gitignored)
+├── commands.toml        # Custom slash commands
+├── opencrabs.db         # SQLite database
+├── SOUL.md              # Agent personality
+├── USER.md              # Your profile
+├── MEMORY.md            # Long-term memory
+├── AGENTS.md            # Agent behavior docs
+├── TOOLS.md             # Tool reference
+├── SECURITY.md          # Security policies
+├── HEARTBEAT.md         # Periodic check tasks
+├── memory/              # Daily memory notes
+│   └── YYYY-MM-DD.md
+├── images/              # Generated images
+├── logs/                # Application logs
+└── skills/              # Custom skills/plugins
+</code></pre>
+<h2 id="provider-configuration"><a class="header" href="#provider-configuration">Provider Configuration</a></h2>
+<p>See <a href="#ai-provider-setup">Provider Setup</a> for detailed provider configuration.</p>
+<p><strong>Quick example</strong> — add Anthropic:</p>
+<pre><code class="language-toml"># config.toml
+[providers.anthropic]
+enabled = true
+default_model = "claude-sonnet-4-20250514"
+</code></pre>
+<pre><code class="language-toml"># keys.toml
+[providers.anthropic]
+api_key = "sk-ant-..."
+</code></pre>
+<h2 id="provider-priority"><a class="header" href="#provider-priority">Provider Priority</a></h2>
+<p>When multiple providers are enabled, the first one found in this order is used for new sessions:</p>
+<p>MiniMax &gt; OpenRouter &gt; Anthropic &gt; OpenAI &gt; Gemini &gt; Custom</p>
+<p>Each session remembers which provider and model it was using. Switch providers per-session via <code>/models</code>.</p>
+<h2 id="feature-flags"><a class="header" href="#feature-flags">Feature Flags</a></h2>
+<pre><code class="language-toml"># config.toml
+[agent]
+working_directory = "/path/to/default/dir"
+thinking = "on"                # "on", "off", or "budget_XXk"
+
+[a2a]
+enabled = false
+bind = "127.0.0.1"
+port = 18790
+
+[image.generation]
+enabled = true
+model = "gemini-3.1-flash-image-preview"
+
+[image.vision]
+enabled = true
+model = "gemini-3.1-flash-image-preview"
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="cli-commands"><a class="header" href="#cli-commands">CLI Commands</a></h1>
 <p>OpenCrabs has a full CLI with 20+ subcommands for managing every aspect of the agent.</p>
