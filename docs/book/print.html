@@ -55,7 +55,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-171b4b76.js";
+            window.path_to_searchindex_js = "searchindex-dfbd047b.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-55c89599.js"></script>
@@ -478,7 +478,12 @@ curl -fsSL "https://github.com/adolfousier/opencrabs/releases/download/${TAG}/op
 ./opencrabs
 </code></pre>
 <h3 id="windows"><a class="header" href="#windows">Windows</a></h3>
-<p>Download from <a href="https://github.com/adolfousier/opencrabs/releases/latest">GitHub Releases</a>.</p>
+<pre><code class="language-powershell">$tag = (Invoke-RestMethod https://api.github.com/repos/adolfousier/opencrabs/releases/latest).tag_name
+$ProgressPreference = 'SilentlyContinue'
+Invoke-WebRequest "https://github.com/adolfousier/opencrabs/releases/download/$tag/opencrabs-$tag-windows-amd64.zip" -OutFile opencrabs.zip
+Expand-Archive opencrabs.zip -Force
+.\opencrabs.exe
+</code></pre>
 <p>The onboarding wizard handles everything on first run.</p>
 <blockquote>
 <p><strong>Terminal permissions required.</strong> OpenCrabs reads/writes brain files, config, and project files. Your terminal app needs filesystem access or the OS will block operations.</p>
@@ -500,7 +505,7 @@ curl -fsSL "https://github.com/adolfousier/opencrabs/releases/download/${TAG}/op
 </blockquote>
 <h2 id="option-2-build-from-source"><a class="header" href="#option-2-build-from-source">Option 2: Build from Source</a></h2>
 <p>Required for <code>/rebuild</code>, adding custom tools, or modifying the agent.</p>
-<h3 id="setup-script-recommended"><a class="header" href="#setup-script-recommended">Setup script (recommended)</a></h3>
+<h3 id="quick-setup-recommended"><a class="header" href="#quick-setup-recommended">Quick setup (recommended)</a></h3>
 <p>The setup script auto-detects your platform (macOS, Debian/Ubuntu, Fedora/RHEL, Arch) and installs all build dependencies + Rust:</p>
 <pre><code class="language-bash"># Install all dependencies
 curl -fsSL https://raw.githubusercontent.com/adolfousier/opencrabs/main/scripts/setup.sh | bash

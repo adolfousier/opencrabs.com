@@ -34,7 +34,13 @@ curl -fsSL "https://github.com/adolfousier/opencrabs/releases/download/${TAG}/op
 
 ### Windows
 
-Download from [GitHub Releases](https://github.com/adolfousier/opencrabs/releases/latest).
+```powershell
+$tag = (Invoke-RestMethod https://api.github.com/repos/adolfousier/opencrabs/releases/latest).tag_name
+$ProgressPreference = 'SilentlyContinue'
+Invoke-WebRequest "https://github.com/adolfousier/opencrabs/releases/download/$tag/opencrabs-$tag-windows-amd64.zip" -OutFile opencrabs.zip
+Expand-Archive opencrabs.zip -Force
+.\opencrabs.exe
+```
 
 The onboarding wizard handles everything on first run.
 
@@ -52,7 +58,7 @@ The onboarding wizard handles everything on first run.
 
 Required for `/rebuild`, adding custom tools, or modifying the agent.
 
-### Setup script (recommended)
+### Quick setup (recommended)
 
 The setup script auto-detects your platform (macOS, Debian/Ubuntu, Fedora/RHEL, Arch) and installs all build dependencies + Rust:
 
