@@ -102,6 +102,45 @@ On the very first run, the agent goes through a **bootstrap** phase:
 
 The bootstrap file (`BOOTSTRAP.md`) deletes itself when complete.
 
+## Migrating From Another Tool
+
+Already using Claude Code, OpenClaw, Hermes, Cursor, Aider, Cline, Windsurf, or any other AI agent harness? Your agent can migrate your existing data (memory, skills, custom commands, preferences) into its own brain files using natural language. No manual file shuffling needed.
+
+This works with **any** agent or coding harness that stores config locally. The migration searches your filesystem for the other tool's config directories, reads their contents, and maps them into OpenCrabs' own brain file format (`SOUL.md`, `USER.md`, `TOOLS.md`, `MEMORY.md`, `AGENTS.md`, `CODE.md`).
+
+### Hand-Held Migration
+
+If you want to review what gets migrated before it happens:
+
+> Search for my existing agent/harness data locally (ClaudeCode, OpenClaw, Hermes, Cursor, Aider, Cline, or whatever I was using) and audit a migration to our own brain files, report back once its done, execute when I confirm and approve.
+
+The agent will:
+1. Search your filesystem for the other tool's config directories
+2. Read and parse all relevant files (memory, commands, skills, preferences)
+3. Produce an audit showing exactly what maps where
+4. Wait for your confirmation
+5. Execute the migration and report a full breakdown
+
+### Autonomous Migration
+
+If you just want it done:
+
+> Search for my existing agent/harness data locally and migrate anything to our own brain files, no need my approval, just go, plan and execute, report back once its done with a full breakdown.
+
+The agent skips the audit step, plans the migration internally, executes it, and gives you a summary of everything that moved.
+
+### What Gets Mapped
+
+| Source | Destination | Example |
+|--------|-------------|---------|
+| Memory / CLAUDE.md / context files | `MEMORY.md` | Project decisions, past context |
+| Custom commands | `commands.toml` | Slash commands and their definitions |
+| Skills / agent instructions | `AGENTS.md`, `TOOLS.md` | Workflow rules, tool configs |
+| User preferences / profile | `USER.md` | Name, timezone, coding style |
+| Coding standards / linting rules | `CODE.md` | Style guides, conventions |
+
+> **Tip:** Run migration right after onboarding while the context is fresh. The agent already has your `USER.md` and `SOUL.md` from the wizard, so it can merge intelligently instead of overwriting.
+
 ## Key Commands
 
 | Command | Description |

@@ -54,7 +54,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-402f8be3.js";
+            window.path_to_searchindex_js = "../searchindex-26e068c4.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-55c89599.js"></script>
@@ -306,6 +306,46 @@
 <li>Sets up <code>USER.md</code> with your profile</li>
 </ul>
 <p>The bootstrap file (<code>BOOTSTRAP.md</code>) deletes itself when complete.</p>
+<h2 id="migrating-from-another-tool"><a class="header" href="#migrating-from-another-tool">Migrating From Another Tool</a></h2>
+<p>Already using Claude Code, OpenClaw, Hermes, Cursor, Aider, Cline, Windsurf, or any other AI agent harness? Your agent can migrate your existing data (memory, skills, custom commands, preferences) into its own brain files using natural language. No manual file shuffling needed.</p>
+<p>This works with <strong>any</strong> agent or coding harness that stores config locally. The migration searches your filesystem for the other tool’s config directories, reads their contents, and maps them into OpenCrabs’ own brain file format (<code>SOUL.md</code>, <code>USER.md</code>, <code>TOOLS.md</code>, <code>MEMORY.md</code>, <code>AGENTS.md</code>, <code>CODE.md</code>).</p>
+<h3 id="hand-held-migration"><a class="header" href="#hand-held-migration">Hand-Held Migration</a></h3>
+<p>If you want to review what gets migrated before it happens:</p>
+<blockquote>
+<p>Search for my existing agent/harness data locally (ClaudeCode, OpenClaw, Hermes, Cursor, Aider, Cline, or whatever I was using) and audit a migration to our own brain files, report back once its done, execute when I confirm and approve.</p>
+</blockquote>
+<p>The agent will:</p>
+<ol>
+<li>Search your filesystem for the other tool’s config directories</li>
+<li>Read and parse all relevant files (memory, commands, skills, preferences)</li>
+<li>Produce an audit showing exactly what maps where</li>
+<li>Wait for your confirmation</li>
+<li>Execute the migration and report a full breakdown</li>
+</ol>
+<h3 id="autonomous-migration"><a class="header" href="#autonomous-migration">Autonomous Migration</a></h3>
+<p>If you just want it done:</p>
+<blockquote>
+<p>Search for my existing agent/harness data locally and migrate anything to our own brain files, no need my approval, just go, plan and execute, report back once its done with a full breakdown.</p>
+</blockquote>
+<p>The agent skips the audit step, plans the migration internally, executes it, and gives you a summary of everything that moved.</p>
+<h3 id="what-gets-mapped"><a class="header" href="#what-gets-mapped">What Gets Mapped</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Source</th><th>Destination</th><th>Example</th></tr>
+</thead>
+<tbody>
+<tr><td>Memory / CLAUDE.md / context files</td><td><code>MEMORY.md</code></td><td>Project decisions, past context</td></tr>
+<tr><td>Custom commands</td><td><code>commands.toml</code></td><td>Slash commands and their definitions</td></tr>
+<tr><td>Skills / agent instructions</td><td><code>AGENTS.md</code>, <code>TOOLS.md</code></td><td>Workflow rules, tool configs</td></tr>
+<tr><td>User preferences / profile</td><td><code>USER.md</code></td><td>Name, timezone, coding style</td></tr>
+<tr><td>Coding standards / linting rules</td><td><code>CODE.md</code></td><td>Style guides, conventions</td></tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p><strong>Tip:</strong> Run migration right after onboarding while the context is fresh. The agent already has your <code>USER.md</code> and <code>SOUL.md</code> from the wizard, so it can merge intelligently instead of overwriting.</p>
+</blockquote>
 <h2 id="key-commands"><a class="header" href="#key-commands">Key Commands</a></h2>
 <div class="table-wrapper">
 <table>
