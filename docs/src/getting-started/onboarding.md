@@ -5,8 +5,9 @@ When you launch OpenCrabs for the first time, the **onboarding wizard** walks yo
 ## 🎬 Full Onboarding Walkthrough
 
 <video controls width="100%" preload="metadata" playsinline>
-  <source src="https://github.com/user-attachments/assets/cf7494fa-755d-4ed5-8be6-267562b7a80e" type="video/mp4">
-  Your browser does not support the video tag. <a href="https://github.com/user-attachments/assets/cf7494fa-755d-4ed5-8be6-267562b7a80e">Watch the video</a>.
+  <source src="https://github.com/user-attachments/assets/833dd5e9-3bcc-432a-96ac-3a5bb97b5966" type="video/mp4">
+  <track kind="subtitles" src="../assets/advanced-onboard.vtt" srclang="en" label="English" default>
+  Your browser does not support the video tag. <a href="https://github.com/user-attachments/assets/833dd5e9-3bcc-432a-96ac-3a5bb97b5966">Watch the video</a>.
 </video>
 
 Narrated step-by-step covering both the Quick and Advanced paths below.
