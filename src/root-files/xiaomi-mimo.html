@@ -261,7 +261,8 @@
             </div>
 
             <div class="cta">
-                <a href="https://opencrabs.com#install" class="cta-button">Get OpenCrabs Free</a>
+                <a href="#" class="cta-button" id="download-btn" onclick="downloadOpenCrabs(); return false;">Get OpenCrabs Free</a>
+                <p style="margin-top: 12px; color: #888; font-size: 0.9rem;" id="download-hint">Detecting your platform...</p>
             </div>
 
             <div class="note">
@@ -269,5 +270,78 @@
             </div>
         </div>
     </div>
+
+    <script>
+        const REPO = 'adolfousier/opencrabs';
+
+        function detectOS() {
+            const ua = navigator.userAgent.toLowerCase();
+            if (ua.includes('mac')) {
+                // Detect Apple Silicon vs Intel
+                const isAppleSilicon = navigator.userAgentData
+                    ? navigator.userAgentData.platform === 'macOS' && navigator.userAgentData.getHighEntropyValues
+                    : /mac os x 10_15|mac os x 1[1-9]|mac os x [2-9]/.test(ua);
+                // If we can't tell for sure, prefer arm64 (Apple Silicon is more common now)
+                return 'macos';
+            }
+            if (ua.includes('win')) return 'windows';
+            return 'linux';
+        }
+
+        function getAssetName(os, tag) {
+            switch (os) {
+                case 'macos': return `opencrabs-${tag}-macos-arm64.tar.gz`;
+                case 'windows': return 'opencrabs-windows-amd64.zip';
+                default: return `opencrabs-${tag}-linux-amd64.tar.gz`;
+            }
+        }
+
+        function getDownloadHint(os) {
+            switch (os) {
+                case 'macos': return 'Download for macOS (Apple Silicon)';
+                case 'windows': return 'Download for Windows';
+                default: return 'Download for Linux';
+            }
+        }
+
+        async function downloadOpenCrabs() {
+            const btn = document.getElementById('download-btn');
+            const hint = document.getElementById('download-hint');
+            btn.textContent = 'Downloading...';
+            btn.style.pointerEvents = 'none';
+
+            try {
+                const os = detectOS();
+                const resp = await fetch(`https://api.github.com/repos/${REPO}/releases/latest`);
+                const data = await resp.json();
+                const tag = data.tag_name;
+                const asset = getAssetName(os, tag);
+                const url = `https://github.com/${REPO}/releases/download/${tag}/${asset}`;
+
+                // Trigger download
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = '';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+
+                btn.textContent = 'Download Started!';
+                hint.textContent = 'Extract and run ./opencrabs to start the onboarding wizard.';
+            } catch (e) {
+                // Fallback to releases page
+                window.open(`https://github.com/${REPO}/releases/latest`, '_blank');
+                btn.textContent = 'Get OpenCrabs Free';
+            }
+
+            btn.style.pointerEvents = 'auto';
+        }
+
+        // Set hint text on page load
+        (function() {
+            const os = detectOS();
+            document.getElementById('download-hint').textContent = getDownloadHint(os);
+        })();
+    </script>
 </body>
 </html>
