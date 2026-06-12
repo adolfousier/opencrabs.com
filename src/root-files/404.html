@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 — Page Not Found | OpenCrabs</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0f;
+            color: #e0e0e0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+        }
+        .container { max-width: 600px; }
+        .crab { font-size: 5rem; margin-bottom: 1rem; animation: wiggle 2s ease-in-out infinite; }
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-5deg); }
+            75% { transform: rotate(5deg); }
+        }
+        h1 {
+            font-size: 3rem;
+            background: linear-gradient(135deg, #ff6b6b, #ff8e53);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+        .subtitle {
+            color: #888;
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        .links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-top: 2rem;
+        }
+        .links a {
+            color: #ff8e53;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: color 0.2s;
+        }
+        .links a:hover { color: #ff6b6b; text-decoration: underline; }
+        .links a::before { content: "→ "; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="crab">🦀</div>
+        <h1>404</h1>
+        <p class="subtitle">This page got lost at sea. Even crabs misplace things sometimes.</p>
+        <div class="links">
+            <a href="/">Back to Home</a>
+            <a href="https://docs.opencrabs.com">Documentation</a>
+            <a href="https://docs.opencrabs.com/getting-started/onboarding.html">Onboarding</a>
+            <a href="https://docs.opencrabs.com/features/rtk.html">RTK Token Savings</a>
+            <a href="https://github.com/adolfousier/opencrabs">GitHub</a>
+        </div>
+    </div>
+</body>
+</html>
