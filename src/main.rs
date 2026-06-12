@@ -616,6 +616,16 @@ fn Testimonials() -> impl IntoView {
             "@anschmieg",
             "https://github.com/adolfousier/opencrabs/pull/61#issuecomment-4201983933",
         ),
+        (
+            "I decided to check out Opencrabs. I installed it on Ubuntu Linux and it just works. Lot better than openclaw and if continued development it may even get enough traction among developers.",
+            "@0xMaheshK",
+            "https://x.com/0xMaheshK/status/2062763007529320646",
+        ),
+        (
+            "I'm using OpenCrabs 24x7 now. Generally - I love the speed, simplicity and the self-improvement process. One profile for coding and devops. Another for the investment business in Russian with Google Drive / Telegram userbot / PDF processing.",
+            "@leshchenko1979",
+            "https://x.com/leshchenko1979",
+        ),
     ];
 
     view! {
