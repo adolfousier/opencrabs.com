@@ -1,7 +1,8 @@
 FROM rust:1.94-bookworm AS builder
 
 RUN rustup target add wasm32-unknown-unknown
-RUN cargo install trunk
+# Pin trunk to 0.20.3 to avoid time crate conflict in 0.21.x
+RUN cargo install trunk --version 0.20.3
 
 WORKDIR /app
 COPY Cargo.toml Cargo.lock ./
