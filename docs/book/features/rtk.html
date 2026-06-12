@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Telegram - OpenCrabs</title>
+        <title>RTK — Token Savings - OpenCrabs</title>
 
 
         <!-- Custom HTML head -->
@@ -196,101 +196,146 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="telegram"><a class="header" href="#telegram">Telegram</a></h1>
-<p>Connect OpenCrabs to Telegram for DMs and group chats.</p>
-<h2 id="setup"><a class="header" href="#setup">Setup</a></h2>
-<h3 id="step-1-create-a-bot-with-botfather"><a class="header" href="#step-1-create-a-bot-with-botfather">Step 1: Create a Bot with BotFather</a></h3>
+                        <h1 id="rtk--rust-token-killer"><a class="header" href="#rtk--rust-token-killer">RTK — Rust Token Killer</a></h1>
+<p>RTK is natively bundled into OpenCrabs as a built-in feature. It intercepts bash commands before they run, filters and compresses their output, and returns a token-optimized version to the LLM context. The result: <strong>60-90% token savings</strong> on common development commands, which directly translates to lower API costs and faster responses.</p>
+<h2 id="what-it-does"><a class="header" href="#what-it-does">What It Does</a></h2>
+<p>When OpenCrabs runs a bash command like <code>git status</code> or <code>cargo build</code>, RTK:</p>
 <ol>
-<li>Message <a href="https://t.me/BotFather">@BotFather</a> on Telegram</li>
-<li>Send <code>/newbot</code> and follow the prompts</li>
-<li>Copy the bot token (format: <code>123456:ABC-DEF...</code>)</li>
+<li><strong>Intercepts</strong> the command before execution</li>
+<li><strong>Runs</strong> it through RTK’s filtering engine</li>
+<li><strong>Compresses</strong> verbose output (removes noise, keeps signal)</li>
+<li><strong>Returns</strong> the optimized output to the agent</li>
 </ol>
-<h3 id="step-2-configure-via-the-onboarding-wizard"><a class="header" href="#step-2-configure-via-the-onboarding-wizard">Step 2: Configure via the Onboarding Wizard</a></h3>
-<p>Run <code>/onboard:channels</code> (or <code>/onboard</code> and navigate to the Channels step):</p>
-<ol>
-<li>Use <code>↑</code>/<code>↓</code> to focus <strong>Telegram</strong></li>
-<li>Press <code>Space</code> to toggle it on</li>
-<li>Press <code>Enter</code> to open the Telegram setup screen</li>
-<li>Fill in the fields:
-<ul>
-<li><strong>Bot Token</strong> — paste the token from BotFather</li>
-<li><strong>Owner User ID</strong> — your numeric Telegram chat ID</li>
-<li><strong>Respond To</strong> — <code>all</code>, <code>dm_only</code>, or <code>mention</code> (when to respond in groups)</li>
-</ul>
-</li>
-<li>Press <code>Enter</code> on <strong>Test Connection</strong> to verify the bot works</li>
-<li>Press <code>Enter</code> to save and return to the channel list</li>
-</ol>
-<blockquote>
-<p>Get your chat ID by messaging <a href="https://t.me/userinfobot">@userinfobot</a> on Telegram.</p>
-</blockquote>
-<h3 id="manual-configuration-advanced"><a class="header" href="#manual-configuration-advanced">Manual Configuration (advanced)</a></h3>
-<p>If you prefer editing files directly, the wizard writes to <code>~/.opencrabs/keys.toml</code> and <code>~/.opencrabs/config.toml</code>:</p>
-<pre><code class="language-toml"># keys.toml
-[channels.telegram]
-bot_token = "123456:ABC..."
-
-# config.toml
-[channels.telegram]
-enabled = true
-allowed_users = ["123456789"]
-respond_to = "all"
-</code></pre>
-<h2 id="features"><a class="header" href="#features">Features</a></h2>
-<ul>
-<li><strong>DMs and groups</strong> — Works in private chats and group conversations</li>
-<li><strong>Forum topic routing</strong> (v0.3.31) — In supergroups with topics enabled, the bot tracks <code>thread_id</code> through the full pipeline. Use <code>list_topics</code> action to map topic names (e.g. <code>#announcements</code>) to numeric IDs, then pass <code>thread_id</code> to <code>send</code> / <code>reply</code> / <code>send_photo</code> to route into a specific topic</li>
-<li><strong>Context-aware pre-tool status</strong> (v0.3.31) — While a tool runs, the bot shows a live status message naming the tool, elapsed time, and either a reasoning excerpt or an anchored phrase from the user’s request</li>
-<li><strong>Inline ctx budget footer</strong> (v0.3.36) — context budget footer (<code>ctx: XK/YK Z% | N tok/s</code>) is now appended to the last response message instead of sent as a separate message. Keeps the chat clean.</li>
-<li><strong>Rolling status edit-in-place</strong> (v0.3.36) — tool status messages (⚙️ running, ✅ done) are edited in-place instead of delete+recreate, preventing flicker and preserving scroll position.</li>
-<li><strong>Bot command hot-reload</strong> (v0.3.36) — bot commands refresh automatically when config or skills change, without restarting the bot.</li>
-<li><strong>Guard tok/s against burst-delivery</strong> (v0.3.36) — tok/s footer is guarded against burst-delivery artifacts so the number stays stable.</li>
-<li><strong><code>follow_up_question</code> polish</strong> (v0.3.34) — Telegram keyboard is now single-column with a 40-character label cap (longer options rejected with a clear error). The rolling “Running follow_up_question (16s)” status is suppressed while the keyboard is pending so buttons don’t get visually buried. The LLM is instructed to call the tool silently without echoing the question text in surrounding prose</li>
-<li><strong>Inline buttons</strong> — Provider picker, model picker, session switcher use Telegram inline keyboards</li>
-<li><strong>Image support</strong> — Send images to the bot, receive generated images</li>
-<li><strong>Voice messages</strong> — STT transcription + TTS response</li>
-<li><strong>All slash commands</strong> — <code>/help</code>, <code>/models</code>, <code>/new</code>, <code>/sessions</code>, custom commands</li>
-<li><strong>Owner vs non-owner</strong> — Owner uses the shared TUI session, non-owners get per-user sessions</li>
-<li><strong>Onboarding overhaul</strong> (v0.3.30) — Auto-detects owner user ID from <code>getUpdates</code>, persists partial config on cancel, only Enter on the last step commits (Tab no longer silently rewrites ~30 config keys)</li>
-<li><strong>Teloxide upgrade + join detection</strong> (v0.3.35) — Upgraded from teloxide 0.13 to 0.17. New members joining a group are now detected before the allowlist check, so the bot can greet or moderate join events. Marathon-bucket rolling status rotates through project-author quip pool for more varied status messages.</li>
-</ul>
-<h2 id="agent-tools"><a class="header" href="#agent-tools">Agent Tools</a></h2>
-<p>The agent can use <code>telegram_send</code> with 20+ actions. The <code>thread_id</code> field on <code>send</code> / <code>reply</code> / <code>send_photo</code> targets a specific forum topic in supergroups with topics enabled.</p>
+<p>The agent sees the same information, but using a fraction of the tokens.</p>
+<h2 id="real-world-impact"><a class="header" href="#real-world-impact">Real-World Impact</a></h2>
+<p>From production usage (1,360 commands executed):</p>
 <div class="table-wrapper">
 <table>
 <thead>
-<tr><th>Action</th><th>Description</th></tr>
+<tr><th>Metric</th><th>Value</th></tr>
 </thead>
 <tbody>
-<tr><td><code>send</code></td><td>Send text message (with optional <code>thread_id</code> for forum topics)</td></tr>
-<tr><td><code>reply</code></td><td>Reply to a message</td></tr>
-<tr><td><code>send_photo</code></td><td>Send image file</td></tr>
-<tr><td><code>send_document</code></td><td>Send document</td></tr>
-<tr><td><code>send_voice</code></td><td>Send voice message</td></tr>
-<tr><td><code>list_topics</code></td><td>Returns <code>(thread_id, topic_name)</code> pairs the bot has observed — translate <code>#announcements</code> into a numeric <code>thread_id</code></td></tr>
-<tr><td><code>pin</code> / <code>unpin</code></td><td>Pin or unpin a message</td></tr>
-<tr><td><code>set_reaction</code></td><td>Add an emoji reaction</td></tr>
-<tr><td>And more…</td><td></td></tr>
+<tr><td><strong>Total Commands</strong></td><td>1,360</td></tr>
+<tr><td><strong>Input Tokens</strong></td><td>24.5M</td></tr>
+<tr><td><strong>Output Tokens</strong></td><td>3.5M</td></tr>
+<tr><td><strong>Tokens Saved</strong></td><td>20.9M</td></tr>
+<tr><td><strong>Savings Rate</strong></td><td><strong>85.6%</strong></td></tr>
+<tr><td><strong>Total Exec Time</strong></td><td>245m 30s (avg 10.8s per command)</td></tr>
 </tbody>
 </table>
 </div>
-<h2 id="group-chat-behavior"><a class="header" href="#group-chat-behavior">Group Chat Behavior</a></h2>
-<p>In groups, the agent:</p>
+<h3 id="top-commands-by-savings"><a class="header" href="#top-commands-by-savings">Top Commands by Savings</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Command</th><th>Count</th><th>Tokens Saved</th><th>Avg Savings</th></tr>
+</thead>
+<tbody>
+<tr><td><code>rtk grep</code></td><td>192</td><td>17.5M</td><td>16.3%</td></tr>
+<tr><td><code>rtk find</code></td><td>167</td><td>2.4M</td><td>71.1%</td></tr>
+<tr><td><code>rtk cargo test --all-...</code></td><td>9</td><td>541.2K</td><td>99.8%</td></tr>
+<tr><td><code>rtk cargo test</code></td><td>4</td><td>208.4K</td><td>100.0%</td></tr>
+<tr><td><code>rtk:toml ps aux</code></td><td>3</td><td>121.9K</td><td>97.9%</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="supported-commands"><a class="header" href="#supported-commands">Supported Commands</a></h2>
+<p>RTK supports 40+ common development and sysadmin commands:</p>
+<h3 id="version-control"><a class="header" href="#version-control">Version Control</a></h3>
 <ul>
-<li>Responds when mentioned by name or replied to</li>
-<li>Stays quiet when the conversation doesn’t involve it</li>
-<li>Tracks context from group messages passively</li>
+<li><code>git</code>, <code>gh</code> (GitHub CLI), <code>glab</code> (GitLab CLI)</li>
+</ul>
+<h3 id="package-managers"><a class="header" href="#package-managers">Package Managers</a></h3>
+<ul>
+<li><code>npm</code>, <code>npx</code>, <code>pnpm</code>, <code>cargo</code>, <code>dotnet</code></li>
+</ul>
+<h3 id="build--test"><a class="header" href="#build--test">Build &amp; Test</a></h3>
+<ul>
+<li><code>jest</code>, <code>vitest</code>, <code>tsc</code>, <code>next</code>, <code>prisma</code>, <code>prettier</code>, <code>eslint</code>, <code>playwright</code></li>
+</ul>
+<h3 id="cloud--infrastructure"><a class="header" href="#cloud--infrastructure">Cloud &amp; Infrastructure</a></h3>
+<ul>
+<li><code>aws</code>, <code>docker</code>, <code>kubectl</code>, <code>psql</code></li>
+</ul>
+<h3 id="system-inspection-sysadmin"><a class="header" href="#system-inspection-sysadmin">System Inspection (Sysadmin)</a></h3>
+<ul>
+<li><code>ps</code>, <code>top</code>, <code>lsof</code>, <code>netstat</code>, <code>ss</code>, <code>journalctl</code>, <code>dmesg</code>, <code>dig</code>, <code>nslookup</code>, <code>host</code>, <code>traceroute</code></li>
+</ul>
+<h3 id="file-operations"><a class="header" href="#file-operations">File Operations</a></h3>
+<ul>
+<li><code>grep</code>, <code>find</code>, <code>ls</code>, <code>tree</code>, <code>diff</code>, <code>curl</code>, <code>wget</code></li>
+</ul>
+<h3 id="blocked-commands"><a class="header" href="#blocked-commands">Blocked Commands</a></h3>
+<p>RTK never rewrites these (too interactive, security-sensitive, or already RTK meta-commands):</p>
+<p><code>sudo</code>, <code>ssh</code>, <code>scp</code>, <code>sftp</code>, <code>rsync</code>, <code>vim</code>, <code>vi</code>, <code>nvim</code>, <code>nano</code>, <code>emacs</code>, <code>less</code>, <code>more</code>, <code>man</code>, <code>python</code>, <code>python3</code>, <code>node</code>, <code>mysql</code>, <code>redis-cli</code>, <code>psql</code></p>
+<h2 id="how-it-works"><a class="header" href="#how-it-works">How It Works</a></h2>
+<h3 id="command-rewriting"><a class="header" href="#command-rewriting">Command Rewriting</a></h3>
+<p>When the agent runs <code>git status</code>, OpenCrabs automatically rewrites it to <code>rtk git status</code>. RTK then:</p>
+<ol>
+<li>Executes <code>git status</code> internally</li>
+<li>Parses the output structure</li>
+<li>Applies command-specific filters (e.g., for <code>git diff</code>: show file names and change stats, not full diffs)</li>
+<li>Returns the compressed output</li>
+</ol>
+<h3 id="smart-filtering"><a class="header" href="#smart-filtering">Smart Filtering</a></h3>
+<p>RTK uses different strategies per command:</p>
+<ul>
+<li><strong>Git commands</strong>: Show file-level summaries, not full diffs</li>
+<li><strong>Cargo build/test</strong>: Show errors and warnings, skip successful compilations</li>
+<li><strong>System commands</strong> (<code>ps</code>, <code>top</code>): Use TOML filter templates to extract key metrics</li>
+<li><strong>File searches</strong> (<code>grep</code>, <code>find</code>): Limit output length, show context only when relevant</li>
+</ul>
+<h3 id="rtk-command"><a class="header" href="#rtk-command">/rtk Command</a></h3>
+<p>In the TUI, type <code>/rtk</code> to see your token savings dashboard:</p>
+<pre><code>═══ RTK Token Savings Report ═══
+
+Total Commands: 1360
+Total Tokens Saved: 20.9M
+Average Savings: 85.6%
+Tracking Since: 2026-05-15 10:30:00 UTC
+
+Savings by Command Type:
+  grep: 192 cmds, 17.5M tokens saved, 16.3% avg
+  find: 167 cmds, 2.4M tokens saved, 71.1% avg
+  cargo: 13 cmds, 749.6K tokens saved, 99.9% avg
+  ...
+</code></pre>
+<h2 id="installation"><a class="header" href="#installation">Installation</a></h2>
+<p>RTK is <strong>enabled by default</strong> in all OpenCrabs builds. No setup required.</p>
+<p>If you’re building from source and want to disable it:</p>
+<pre><code class="language-bash">cargo build --no-default-features --features telegram,whatsapp,discord,slack,trello,local-stt,local-tts,browser
+</code></pre>
+<p>To verify RTK is active:</p>
+<pre><code class="language-bash"># In the TUI, type:
+/rtk
+
+# Or check if the binary is available:
+which rtk
+</code></pre>
+<h2 id="why-it-matters"><a class="header" href="#why-it-matters">Why It Matters</a></h2>
+<p>LLM API costs are based on token count. A typical <code>git diff</code> on a large repo can produce 50,000+ tokens of output. With RTK, that same diff might use only 5,000 tokens — a <strong>90% reduction</strong>.</p>
+<p>Over a day of heavy development work:</p>
+<ul>
+<li><strong>Without RTK</strong>: ~25M tokens consumed by command outputs</li>
+<li><strong>With RTK</strong>: ~3.5M tokens consumed</li>
+<li><strong>Savings</strong>: ~21.5M tokens per day</li>
+</ul>
+<p>At typical API pricing ($3-15 per 1M input tokens), that’s <strong>$60-300+ saved per day</strong> in token costs alone.</p>
+<h2 id="learn-more"><a class="header" href="#learn-more">Learn More</a></h2>
+<ul>
+<li>RTK source: <a href="https://github.com/rtk-ai/rtk">github.com/rtk-ai/rtk</a></li>
+<li>RTK is developed by <a href="https://github.com/fast-rlm">fast-rlm</a> and integrated natively into OpenCrabs</li>
 </ul>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../channels/overview.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../features/usage-dashboard.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="../channels/discord.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../development/building.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -300,11 +345,11 @@ respond_to = "all"
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../channels/overview.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../features/usage-dashboard.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="../channels/discord.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../development/building.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>

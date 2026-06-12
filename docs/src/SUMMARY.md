@@ -49,6 +49,7 @@
 - [Voice (TTS & STT)](./features/voice.md)
 - [Skills System](./features/skills.md)
 - [Usage Dashboard](./features/usage-dashboard.md)
+- [RTK — Token Savings](./features/rtk.md)
 
 # Development
 
