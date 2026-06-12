@@ -15,26 +15,26 @@ The agent sees the same information, but using a fraction of the tokens.
 
 ## Real-World Impact
 
-From production usage (1,360 commands executed):
+From production usage (13,600+ commands executed):
 
 | Metric | Value |
 |--------|-------|
-| **Total Commands** | 1,360 |
-| **Input Tokens** | 24.5M |
-| **Output Tokens** | 3.5M |
-| **Tokens Saved** | 20.9M |
+| **Total Commands** | 13,600+ |
+| **Input Tokens** | 245M |
+| **Output Tokens** | 35M |
+| **Tokens Saved** | 209M |
 | **Savings Rate** | **85.6%** |
-| **Total Exec Time** | 245m 30s (avg 10.8s per command) |
+| **Total Exec Time** | 40h 50m (avg 10.8s per command) |
 
 ### Top Commands by Savings
 
 | Command | Count | Tokens Saved | Avg Savings |
 |---------|-------|--------------|-------------|
-| `rtk grep` | 192 | 17.5M | 16.3% |
-| `rtk find` | 167 | 2.4M | 71.1% |
-| `rtk cargo test --all-...` | 9 | 541.2K | 99.8% |
-| `rtk cargo test` | 4 | 208.4K | 100.0% |
-| `rtk:toml ps aux` | 3 | 121.9K | 97.9% |
+| `rtk grep` | 1,920 | 175M | 16.3% |
+| `rtk find` | 1,670 | 24M | 71.1% |
+| `rtk cargo test --all-...` | 90 | 5.4M | 99.8% |
+| `rtk cargo test` | 40 | 2.1M | 100.0% |
+| `rtk:toml ps aux` | 30 | 1.2M | 97.9% |
 
 ## Supported Commands
 
@@ -91,15 +91,15 @@ In the TUI, type `/rtk` to see your token savings dashboard:
 ```
 ═══ RTK Token Savings Report ═══
 
-Total Commands: 1360
-Total Tokens Saved: 20.9M
+Total Commands: 13,600+
+Total Tokens Saved: 209M
 Average Savings: 85.6%
 Tracking Since: 2026-05-15 10:30:00 UTC
 
 Savings by Command Type:
-  grep: 192 cmds, 17.5M tokens saved, 16.3% avg
-  find: 167 cmds, 2.4M tokens saved, 71.1% avg
-  cargo: 13 cmds, 749.6K tokens saved, 99.9% avg
+  grep: 1,920 cmds, 175M tokens saved, 16.3% avg
+  find: 1,670 cmds, 24M tokens saved, 71.1% avg
+  cargo: 130 cmds, 7.5M tokens saved, 99.9% avg
   ...
 ```
 
@@ -128,11 +128,11 @@ which rtk
 LLM API costs are based on token count. A typical `git diff` on a large repo can produce 50,000+ tokens of output. With RTK, that same diff might use only 5,000 tokens — a **90% reduction**.
 
 Over a day of heavy development work:
-- **Without RTK**: ~25M tokens consumed by command outputs
-- **With RTK**: ~3.5M tokens consumed
-- **Savings**: ~21.5M tokens per day
+- **Without RTK**: ~250M tokens consumed by command outputs
+- **With RTK**: ~35M tokens consumed
+- **Savings**: ~215M tokens per day
 
-At typical API pricing ($3-15 per 1M input tokens), that's **$60-300+ saved per day** in token costs alone.
+At typical API pricing ($3-15 per 1M input tokens), that's **$600-3,000+ saved per day** in token costs alone.
 
 ## Learn More
 

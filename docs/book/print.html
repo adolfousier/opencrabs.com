@@ -55,7 +55,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-69a96e4e.js";
+            window.path_to_searchindex_js = "searchindex-ec2972dc.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-bb9bc9e2.js"></script>
@@ -4539,19 +4539,19 @@ Instructions for the agent when this skill runs...
 </ol>
 <p>The agent sees the same information, but using a fraction of the tokens.</p>
 <h2 id="real-world-impact"><a class="header" href="#real-world-impact">Real-World Impact</a></h2>
-<p>From production usage (1,360 commands executed):</p>
+<p>From production usage (13,600+ commands executed):</p>
 <div class="table-wrapper">
 <table>
 <thead>
 <tr><th>Metric</th><th>Value</th></tr>
 </thead>
 <tbody>
-<tr><td><strong>Total Commands</strong></td><td>1,360</td></tr>
-<tr><td><strong>Input Tokens</strong></td><td>24.5M</td></tr>
-<tr><td><strong>Output Tokens</strong></td><td>3.5M</td></tr>
-<tr><td><strong>Tokens Saved</strong></td><td>20.9M</td></tr>
+<tr><td><strong>Total Commands</strong></td><td>13,600+</td></tr>
+<tr><td><strong>Input Tokens</strong></td><td>245M</td></tr>
+<tr><td><strong>Output Tokens</strong></td><td>35M</td></tr>
+<tr><td><strong>Tokens Saved</strong></td><td>209M</td></tr>
 <tr><td><strong>Savings Rate</strong></td><td><strong>85.6%</strong></td></tr>
-<tr><td><strong>Total Exec Time</strong></td><td>245m 30s (avg 10.8s per command)</td></tr>
+<tr><td><strong>Total Exec Time</strong></td><td>40h 50m (avg 10.8s per command)</td></tr>
 </tbody>
 </table>
 </div>
@@ -4562,11 +4562,11 @@ Instructions for the agent when this skill runs...
 <tr><th>Command</th><th>Count</th><th>Tokens Saved</th><th>Avg Savings</th></tr>
 </thead>
 <tbody>
-<tr><td><code>rtk grep</code></td><td>192</td><td>17.5M</td><td>16.3%</td></tr>
-<tr><td><code>rtk find</code></td><td>167</td><td>2.4M</td><td>71.1%</td></tr>
-<tr><td><code>rtk cargo test --all-...</code></td><td>9</td><td>541.2K</td><td>99.8%</td></tr>
-<tr><td><code>rtk cargo test</code></td><td>4</td><td>208.4K</td><td>100.0%</td></tr>
-<tr><td><code>rtk:toml ps aux</code></td><td>3</td><td>121.9K</td><td>97.9%</td></tr>
+<tr><td><code>rtk grep</code></td><td>1,920</td><td>175M</td><td>16.3%</td></tr>
+<tr><td><code>rtk find</code></td><td>1,670</td><td>24M</td><td>71.1%</td></tr>
+<tr><td><code>rtk cargo test --all-...</code></td><td>90</td><td>5.4M</td><td>99.8%</td></tr>
+<tr><td><code>rtk cargo test</code></td><td>40</td><td>2.1M</td><td>100.0%</td></tr>
+<tr><td><code>rtk:toml ps aux</code></td><td>30</td><td>1.2M</td><td>97.9%</td></tr>
 </tbody>
 </table>
 </div>
@@ -4620,15 +4620,15 @@ Instructions for the agent when this skill runs...
 <p>In the TUI, type <code>/rtk</code> to see your token savings dashboard:</p>
 <pre><code>═══ RTK Token Savings Report ═══
 
-Total Commands: 1360
-Total Tokens Saved: 20.9M
+Total Commands: 13,600+
+Total Tokens Saved: 209M
 Average Savings: 85.6%
 Tracking Since: 2026-05-15 10:30:00 UTC
 
 Savings by Command Type:
-  grep: 192 cmds, 17.5M tokens saved, 16.3% avg
-  find: 167 cmds, 2.4M tokens saved, 71.1% avg
-  cargo: 13 cmds, 749.6K tokens saved, 99.9% avg
+  grep: 1,920 cmds, 175M tokens saved, 16.3% avg
+  find: 1,670 cmds, 24M tokens saved, 71.1% avg
+  cargo: 130 cmds, 7.5M tokens saved, 99.9% avg
   ...
 </code></pre>
 <h2 id="installation-1"><a class="header" href="#installation-1">Installation</a></h2>
@@ -4647,11 +4647,11 @@ which rtk
 <p>LLM API costs are based on token count. A typical <code>git diff</code> on a large repo can produce 50,000+ tokens of output. With RTK, that same diff might use only 5,000 tokens — a <strong>90% reduction</strong>.</p>
 <p>Over a day of heavy development work:</p>
 <ul>
-<li><strong>Without RTK</strong>: ~25M tokens consumed by command outputs</li>
-<li><strong>With RTK</strong>: ~3.5M tokens consumed</li>
-<li><strong>Savings</strong>: ~21.5M tokens per day</li>
+<li><strong>Without RTK</strong>: ~250M tokens consumed by command outputs</li>
+<li><strong>With RTK</strong>: ~35M tokens consumed</li>
+<li><strong>Savings</strong>: ~215M tokens per day</li>
 </ul>
-<p>At typical API pricing ($3-15 per 1M input tokens), that’s <strong>$60-300+ saved per day</strong> in token costs alone.</p>
+<p>At typical API pricing ($3-15 per 1M input tokens), that’s <strong>$600-3,000+ saved per day</strong> in token costs alone.</p>
 <h2 id="learn-more"><a class="header" href="#learn-more">Learn More</a></h2>
 <ul>
 <li>RTK source: <a href="https://github.com/rtk-ai/rtk">github.com/rtk-ai/rtk</a></li>
