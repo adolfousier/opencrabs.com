@@ -54,7 +54,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-ec2972dc.js";
+            window.path_to_searchindex_js = "searchindex-93375ea7.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-bb9bc9e2.js"></script>
@@ -198,6 +198,7 @@
                     <main>
                         <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
 <p><strong>OpenCrabs</strong> is a self-hosted, provider-agnostic AI orchestration agent that runs as a single Rust binary. It automates your terminal, browser, channels (Telegram/Discord/Slack/WhatsApp/Trello), and codebase — all while respecting your privacy and keeping you in control.</p>
+<p><strong>Test coverage</strong>: 3,925+ tests (v0.3.37)</p>
 <h2 id="what-makes-opencrabs-different"><a class="header" href="#what-makes-opencrabs-different">What Makes OpenCrabs Different</a></h2>
 <h3 id="-provider-agnostic-with-native-cli-integration"><a class="header" href="#-provider-agnostic-with-native-cli-integration">🔄 Provider-Agnostic with Native CLI Integration</a></h3>
 <ul>
@@ -211,6 +212,13 @@
 <li><strong>OpenRouter response caching</strong> — zero cost for identical requests (v0.3.17)</li>
 <li><strong>TCP keepalive on all HTTP clients</strong> — 15s keepalive detects silent TCP drops in ~15-45s instead of waiting for 300s idle timeout (v0.3.17)</li>
 <li><strong>Prompt caching</strong> across Anthropic, OpenRouter, Gemini, Qwen DashScope — reduces costs up to 95% (v0.3.2)</li>
+<li><strong>Restart failure fix</strong> (v0.3.37) — pre-built binaries now use <code>std::env::current_exe()</code> as <code>binary_path</code> instead of pointing at a never-built <code>target/release/opencrabs</code>. Source only gets cloned when <code>/rebuild</code> is invoked</li>
+<li><strong>Mid-turn model switch fix</strong> (v0.3.37) — mid-turn manual switch applies next turn, current request completes</li>
+<li><strong>Onboarding keyless fix</strong> (v0.3.37) — keyless providers skip API key field, reach model select</li>
+<li><strong>RSI dedup fix</strong> (v0.3.37) — dedup before appending to brain files. Stops append→dedup→append loop</li>
+<li><strong>Context usage fix</strong> (v0.3.37) — reject over-reported provider usage to prevent inflated counters</li>
+<li><strong>Logging self-healing</strong> (v0.3.37) — self-healing daily file writer recovers from lost fd mid-run</li>
+<li><strong>Cache efficiency metric fix</strong> (v0.3.37) — measures caching-capable requests only, excludes non-caching providers</li>
 </ul>
 <h3 id="-multi-agent-orchestration"><a class="header" href="#-multi-agent-orchestration">🤖 Multi-Agent Orchestration</a></h3>
 <ul>
@@ -219,6 +227,8 @@
 <li><strong>Team orchestration</strong>: <code>team_create</code>, <code>team_broadcast</code>, <code>team_delete</code> for coordinated workflows</li>
 <li><strong>Spawn/wait/resume</strong> sub-agents with A2A protocol support</li>
 <li><strong>ALWAYS_EXCLUDED tools</strong> per agent type for safety boundaries</li>
+<li><strong>Multi-profile cron daemon</strong> (v0.3.37) — one process now covers all profiles’ cron jobs. No need to run separate daemons per profile</li>
+<li><strong>Cron job profile isolation</strong> (v0.3.37) — cron jobs are now isolated to their origin profile. Each job is stamped with its profile at creation. The scheduler skips any job whose stamp doesn’t match the running process</li>
 </ul>
 <h3 id="-channel-native-communication"><a class="header" href="#-channel-native-communication">🌐 Channel-Native Communication</a></h3>
 <ul>
@@ -235,6 +245,9 @@
 <li><strong>Telegram dropped video/animation</strong> — now downloads and routes through vision processing, including iPhone <code>.mov</code> uploads auto-converted to MP4-backed Animation (v0.3.17)</li>
 <li><strong>Slack intermediate-vs-final dedup race closed</strong> — captures and awaits all IntermediateText JoinHandles before dedup check, with post-completion sweep for late entries (v0.3.17)</li>
 <li><strong>Clean display text</strong> — all channels persist clean text to DB and TUI instead of LLM metadata brackets (v0.3.17)</li>
+<li><strong>Local file paths in telegram_send</strong> (v0.3.37) — <code>telegram_send</code> now accepts local file paths in <code>send_photo</code>/<code>send_document</code>, not just HTTPS URLs</li>
+<li><strong>Telegram model picker fix</strong> (v0.3.37) — no longer hung on ‘loading’ for long model names</li>
+<li><strong>Telegram media fix</strong> (v0.3.37) — pass user’s caption alongside media to the agent</li>
 </ul>
 <h3 id="-self-healing--self-improvement-v037"><a class="header" href="#-self-healing--self-improvement-v037">🧠 Self-Healing &amp; Self-Improvement (v0.3.7)</a></h3>
 <ul>
@@ -258,6 +271,10 @@
 <li><strong>Per-session message queue isolation</strong> — prevents cross-session message bleeding in split panes and channels (v0.3.13)</li>
 <li><strong>Tool loop reasoning markers persisted</strong> — reasoning content survives across tool loop iterations (v0.3.19)</li>
 <li><strong>@ file picker fixed for large repos</strong> — skips .git/.hg/.svn directories, raised result cap to 20k (v0.3.19)</li>
+<li><strong>RSI efficiency gate</strong> (v0.3.37) — RSI tool proposals now require the rationale to explicitly state which efficiency gate applies: TOKEN SAVINGS, ERROR REDUCTION, or CAPABILITY ADDITION. Commands and skills exempt</li>
+<li><strong>Lock file corruption fix</strong> (v0.3.37) — <code>is_pid_alive(0)</code> returns false; corrupted lock files taken over. Fixes Telegram startup wedge</li>
+<li><strong>Retry backoff</strong> (v0.3.37) — patient backoff for DNS/connection errors. Stops fast-failing flaky providers</li>
+<li><strong>Disable sensitive data redaction</strong> (v0.3.37) — <code>agent.redact_sensitive_data = false</code> disables redaction for sysadmin/devops work where IPs, tokens, etc. need to be visible</li>
 </ul>
 <h3 id="-terminal-ui-excellence-v032"><a class="header" href="#-terminal-ui-excellence-v032">🖥️ Terminal UI Excellence (v0.3.2)</a></h3>
 <ul>
@@ -281,6 +298,11 @@
 <ul>
 <li><strong>Bang operator (<code>!cmd</code>)</strong> — run shell commands directly from TUI input, no LLM round-trip (v0.3.1)</li>
 <li><strong>Full CLI surface</strong>: 20+ subcommands (<code>/models</code>, <code>/approve</code>, <code>/compact</code>, <code>/rebuild</code>, <code>/evolve</code>, <code>/new</code>, <code>/doctor</code>, <code>/btw</code>, <code>/mission-control</code>, <code>/skills</code>, <code>/repo-audit</code>, etc.)</li>
+<li><strong>Background /rebuild</strong> (v0.3.37) — <code>/rebuild</code> now runs in the background via a one-shot cron job instead of blocking the TUI</li>
+<li><strong>Version in /doctor output</strong> (v0.3.37) — <code>/doctor</code> now shows <code>Health Check (v0.3.x)</code> in the header on Telegram, Discord, Slack, WhatsApp</li>
+<li><strong>Deprecate execute_code/task_manager</strong> (v0.3.37) — <code>execute_code</code> and <code>task_manager</code> marked DEPRECATED in their tool descriptions</li>
+<li><strong>Bash guard fix</strong> (v0.3.37) — allow <code>python -m</code> module invocations (no false-positive REPL rejection). Fixes the main reason agents fell back to <code>execute_code</code></li>
+<li><strong>Daemon file logs</strong> (v0.3.37) — reliable daemon file logs + self-healing daily file writer. Recovers from lost fd mid-run</li>
 <li><strong><code>/btw</code> parallel agent</strong> — spawn an isolated sub-agent for side tasks while the main conversation continues (v0.3.15)</li>
 <li><strong>Mission Control</strong> (<code>/mission-control</code>) — full-screen dashboard showing RSI inbox, activity log, and cron schedule in one view (v0.3.16)</li>
 <li><strong>Skills system</strong> (<code>/skills</code>) — browse and launch workflow templates with fuzzy-finding, auto-registered as slash commands (v0.3.16)</li>
@@ -288,7 +310,9 @@
 <li><strong>Auto-update on startup</strong> — <code>[agent] auto_update = true</code> silently installs + hot-restarts (v0.3.1)</li>
 <li><strong>Dynamic tools</strong> — runtime-defined via TOML (HTTP + shell executors)</li>
 <li><strong>Split panes</strong> — tmux-style parallel sessions with layout persistence</li>
+<li><strong>Inactive pane markdown rendering</strong> (v0.3.37) — inactive pane now routes content through the same <code>parse_markdown</code> + <code>wrap_line_with_padding</code> pipeline as the focused pane. No more raw <code>**asterisks**</code>, no more truncated words, no more broken list indentation</li>
 <li><strong>Usage Dashboard</strong> — <code>/usage</code> command shows daily tokens, cost, active models, session categories, project activity (v0.3.9)</li>
+<li><strong>Per-model cache efficiency</strong> (v0.3.37) — the Cache card now shows a per-model breakdown with hit rates, sorted highest-first. See at a glance which models cache well</li>
 <li><strong>Onboarding welcome</strong> — personalized first-time detection with welcome message and guided setup (v0.3.13)</li>
 <li><strong>Recent file memory</strong> — persists recent file paths across sessions to anchor the agent (v0.3.13)</li>
 <li><strong>Bash hardening</strong> — rejects interactive commands up-front, short-circuits exact same failing command retries, tilde expansion fixed (v0.3.13)</li>
@@ -299,6 +323,8 @@
 <li><strong>Auto-generated session titles</strong> — new sessions get titles from the first user message via background LLM call. Never enters conversation context. Thinking-only model fallback extracts title from reasoning block (v0.3.24, v0.3.29 #121)</li>
 <li><strong><code>/models</code> picker overhaul</strong> — surfaces unconfigured providers with 🔒 lock + setup help text, single-source CLI model list, custom-provider empty-state help (v0.3.30, #126)</li>
 <li><strong>RTK Token Savings</strong> — bundled RTK binary (4MB, v0.40.0) as default feature. Zero-config proxy intercepts tool output, filters via Rust, returns token-optimized version. 100+ commands (git, cargo, npm, docker, kubectl, grep, find, ls, tree, curl), blocklist for interactive commands. <code>/rtk</code> slash command shows savings stats. Real-world: 53.5% token savings (v0.3.25, #102). <strong>Sysadmin expansion</strong> (v0.3.34): added 11 sysadmin commands (<code>ps</code>, <code>top</code>, <code>lsof</code>, <code>netstat</code>, <code>ss</code>, <code>journalctl</code>, <code>dmesg</code>, <code>dig</code>, <code>nslookup</code>, <code>host</code>, <code>traceroute</code>) that were bypassing RTK entirely, plus bundled <code>rtk_filters.toml.example</code> with 8 conservative starter rules</li>
+<li><strong>Lazy tool-schema loading</strong> (v0.3.37) — tool discovery via <code>tool_search</code>, core tools only by default. Reduces startup time and context usage. Flag-gated (<code>[agent] lazy_tools</code>), enabled by default</li>
+<li><strong>Xiaomi MiMo collaboration</strong> (v0.3.37) — Xiaomi MiMo is now the default provider for new users. 2 weeks completely free with keyless mode via proxy (no API key needed). Models: mimo-v2.5-pro (1M context), mimo-v2-pro, mimo-v2.5, mimo-v2-omni, mimo-v2-flash. Thinking enabled by default. After the free window (2026-06-25), users can add their own key or switch providers. Full integration with keyless proxy mode, live model fetch, automatic caching</li>
 <li><strong>Tool call stacking</strong> — 3+ consecutive tool call groups collapse into single summary line in TUI. Ctrl+O expands/collapses. Shows “N tool calls” or “N tool calls (M groups)” (v0.3.25)</li>
 <li><strong><code>hashline_edit</code> tool</strong> — hash-anchored file editing. Each line gets 2-char content hash from <code>read_file(hashline=true)</code>. Reference lines as <code>LINE#ID</code>, stale hashes rejected before changes applied. Batch edits supported. Collision detection escalates to <code>edit_file</code> fallback (v0.3.25, #60; v0.3.26 #105)</li>
 <li><strong>Sensitive data redaction</strong> — applied to tool output in TUI and all channels. Patterns: env var suffixes (_pass=, _password=, _secret=, _token=, _key=, _apikey=, _api_key=, _credential=, <em>auth=), piped secrets, plus existing (sk-*, ghp</em><em>, xoxb-</em>, AWS keys, Bearer tokens) (v0.3.25)</li>
@@ -346,6 +372,7 @@
 <li><strong><code>browser_find</code> tool</strong> — enumerate elements by CSS, XPath, text, or aria-label with stable selectors (v0.3.13)</li>
 <li><strong><code>browser_close</code> tool</strong> — close browser tabs and free CDP sessions, prevents stale page reuse (v0.3.18)</li>
 <li><strong>Headless or headed</strong> mode, element-specific screenshots</li>
+<li><strong>CDP endpoint config</strong> (v0.3.37) — <code>browser.cdp_endpoint</code> allows connecting to a shared Chromium instance instead of spawning per-profile. Reduces memory usage in multi-profile setups (~260MB vs ~750MB for 3 profiles)</li>
 <li><strong>Cookie/session persistence</strong> across browser sessions</li>
 <li><strong>Per-session tab isolation</strong> — no cross-session DOM stomping (v0.3.13)</li>
 <li><strong>Smart default browser detection</strong> — auto-detects your default Chromium on macOS, Linux, and Windows (v0.3.13)</li>

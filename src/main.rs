@@ -294,6 +294,11 @@ fn Hero() -> impl IntoView {
                     {badge_text}
                     <span class="arrow">" →"</span>
                 </a>
+                <div class="xiaomi-collab-banner">
+                    <a href="/xiaomi-mimo.html">
+                        <img src="public/opencrabs_x_xiaomi_mimo_orbit_program.png" alt="OpenCrabs × Xiaomi MiMo Orbit Program" />
+                    </a>
+                </div>
             </div>
         </section>
     }

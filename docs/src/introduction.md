@@ -2,6 +2,8 @@
 
 **OpenCrabs** is a self-hosted, provider-agnostic AI orchestration agent that runs as a single Rust binary. It automates your terminal, browser, channels (Telegram/Discord/Slack/WhatsApp/Trello), and codebase — all while respecting your privacy and keeping you in control.
 
+**Test coverage**: 3,925+ tests (v0.3.37)
+
 ## What Makes OpenCrabs Different
 
 ### 🔄 Provider-Agnostic with Native CLI Integration
@@ -15,6 +17,13 @@
 - **OpenRouter response caching** — zero cost for identical requests (v0.3.17)
 - **TCP keepalive on all HTTP clients** — 15s keepalive detects silent TCP drops in ~15-45s instead of waiting for 300s idle timeout (v0.3.17)
 - **Prompt caching** across Anthropic, OpenRouter, Gemini, Qwen DashScope — reduces costs up to 95% (v0.3.2)
+- **Restart failure fix** (v0.3.37) — pre-built binaries now use `std::env::current_exe()` as `binary_path` instead of pointing at a never-built `target/release/opencrabs`. Source only gets cloned when `/rebuild` is invoked
+- **Mid-turn model switch fix** (v0.3.37) — mid-turn manual switch applies next turn, current request completes
+- **Onboarding keyless fix** (v0.3.37) — keyless providers skip API key field, reach model select
+- **RSI dedup fix** (v0.3.37) — dedup before appending to brain files. Stops append→dedup→append loop
+- **Context usage fix** (v0.3.37) — reject over-reported provider usage to prevent inflated counters
+- **Logging self-healing** (v0.3.37) — self-healing daily file writer recovers from lost fd mid-run
+- **Cache efficiency metric fix** (v0.3.37) — measures caching-capable requests only, excludes non-caching providers
 
 ### 🤖 Multi-Agent Orchestration
 - **Sessions are fully isolated agents** — each session is an independent agent with its own brain, provider, model, working directory, and history. Zero context contamination between concurrent sessions, guaranteed by Rust's async runtime and type system
@@ -22,6 +31,8 @@
 - **Team orchestration**: `team_create`, `team_broadcast`, `team_delete` for coordinated workflows
 - **Spawn/wait/resume** sub-agents with A2A protocol support
 - **ALWAYS_EXCLUDED tools** per agent type for safety boundaries
+- **Multi-profile cron daemon** (v0.3.37) — one process now covers all profiles' cron jobs. No need to run separate daemons per profile
+- **Cron job profile isolation** (v0.3.37) — cron jobs are now isolated to their origin profile. Each job is stamped with its profile at creation. The scheduler skips any job whose stamp doesn't match the running process
 
 ### 🌐 Channel-Native Communication
 - **Telegram, Discord, Slack, WhatsApp, Trello** — respond to messages, send files, manage threads
@@ -37,6 +48,9 @@
 - **Telegram dropped video/animation** — now downloads and routes through vision processing, including iPhone `.mov` uploads auto-converted to MP4-backed Animation (v0.3.17)
 - **Slack intermediate-vs-final dedup race closed** — captures and awaits all IntermediateText JoinHandles before dedup check, with post-completion sweep for late entries (v0.3.17)
 - **Clean display text** — all channels persist clean text to DB and TUI instead of LLM metadata brackets (v0.3.17)
+- **Local file paths in telegram_send** (v0.3.37) — `telegram_send` now accepts local file paths in `send_photo`/`send_document`, not just HTTPS URLs
+- **Telegram model picker fix** (v0.3.37) — no longer hung on 'loading' for long model names
+- **Telegram media fix** (v0.3.37) — pass user's caption alongside media to the agent
 
 ### 🧠 Self-Healing & Self-Improvement (v0.3.7)
 - **Recursive Self-Improvement (RSI)** — agent analyzes its own performance, identifies patterns, and autonomously rewrites brain files (v0.3.6)
@@ -59,6 +73,10 @@
 - **Per-session message queue isolation** — prevents cross-session message bleeding in split panes and channels (v0.3.13)
 - **Tool loop reasoning markers persisted** — reasoning content survives across tool loop iterations (v0.3.19)
 - **@ file picker fixed for large repos** — skips .git/.hg/.svn directories, raised result cap to 20k (v0.3.19)
+- **RSI efficiency gate** (v0.3.37) — RSI tool proposals now require the rationale to explicitly state which efficiency gate applies: TOKEN SAVINGS, ERROR REDUCTION, or CAPABILITY ADDITION. Commands and skills exempt
+- **Lock file corruption fix** (v0.3.37) — `is_pid_alive(0)` returns false; corrupted lock files taken over. Fixes Telegram startup wedge
+- **Retry backoff** (v0.3.37) — patient backoff for DNS/connection errors. Stops fast-failing flaky providers
+- **Disable sensitive data redaction** (v0.3.37) — `agent.redact_sensitive_data = false` disables redaction for sysadmin/devops work where IPs, tokens, etc. need to be visible
 
 ### 🖥️ Terminal UI Excellence (v0.3.2)
 - **Real-time tok/s throughput meter** — footer displays live tokens-per-second during streaming (between model info and approval policy pill), counts only active streaming time, persists last rate during idle (v0.3.30)
@@ -80,6 +98,11 @@
 ### 🔧 Developer Experience
 - **Bang operator (`!cmd`)** — run shell commands directly from TUI input, no LLM round-trip (v0.3.1)
 - **Full CLI surface**: 20+ subcommands (`/models`, `/approve`, `/compact`, `/rebuild`, `/evolve`, `/new`, `/doctor`, `/btw`, `/mission-control`, `/skills`, `/repo-audit`, etc.)
+- **Background /rebuild** (v0.3.37) — `/rebuild` now runs in the background via a one-shot cron job instead of blocking the TUI
+- **Version in /doctor output** (v0.3.37) — `/doctor` now shows `Health Check (v0.3.x)` in the header on Telegram, Discord, Slack, WhatsApp
+- **Deprecate execute_code/task_manager** (v0.3.37) — `execute_code` and `task_manager` marked DEPRECATED in their tool descriptions
+- **Bash guard fix** (v0.3.37) — allow `python -m` module invocations (no false-positive REPL rejection). Fixes the main reason agents fell back to `execute_code`
+- **Daemon file logs** (v0.3.37) — reliable daemon file logs + self-healing daily file writer. Recovers from lost fd mid-run
 - **`/btw` parallel agent** — spawn an isolated sub-agent for side tasks while the main conversation continues (v0.3.15)
 - **Mission Control** (`/mission-control`) — full-screen dashboard showing RSI inbox, activity log, and cron schedule in one view (v0.3.16)
 - **Skills system** (`/skills`) — browse and launch workflow templates with fuzzy-finding, auto-registered as slash commands (v0.3.16)
@@ -87,7 +110,9 @@
 - **Auto-update on startup** — `[agent] auto_update = true` silently installs + hot-restarts (v0.3.1)
 - **Dynamic tools** — runtime-defined via TOML (HTTP + shell executors)
 - **Split panes** — tmux-style parallel sessions with layout persistence
+- **Inactive pane markdown rendering** (v0.3.37) — inactive pane now routes content through the same `parse_markdown` + `wrap_line_with_padding` pipeline as the focused pane. No more raw `**asterisks**`, no more truncated words, no more broken list indentation
 - **Usage Dashboard** — `/usage` command shows daily tokens, cost, active models, session categories, project activity (v0.3.9)
+- **Per-model cache efficiency** (v0.3.37) — the Cache card now shows a per-model breakdown with hit rates, sorted highest-first. See at a glance which models cache well
 - **Onboarding welcome** — personalized first-time detection with welcome message and guided setup (v0.3.13)
 - **Recent file memory** — persists recent file paths across sessions to anchor the agent (v0.3.13)
 - **Bash hardening** — rejects interactive commands up-front, short-circuits exact same failing command retries, tilde expansion fixed (v0.3.13)
@@ -98,6 +123,8 @@
 - **Auto-generated session titles** — new sessions get titles from the first user message via background LLM call. Never enters conversation context. Thinking-only model fallback extracts title from reasoning block (v0.3.24, v0.3.29 #121)
 - **`/models` picker overhaul** — surfaces unconfigured providers with 🔒 lock + setup help text, single-source CLI model list, custom-provider empty-state help (v0.3.30, #126)
 - **RTK Token Savings** — bundled RTK binary (4MB, v0.40.0) as default feature. Zero-config proxy intercepts tool output, filters via Rust, returns token-optimized version. 100+ commands (git, cargo, npm, docker, kubectl, grep, find, ls, tree, curl), blocklist for interactive commands. `/rtk` slash command shows savings stats. Real-world: 53.5% token savings (v0.3.25, #102). **Sysadmin expansion** (v0.3.34): added 11 sysadmin commands (`ps`, `top`, `lsof`, `netstat`, `ss`, `journalctl`, `dmesg`, `dig`, `nslookup`, `host`, `traceroute`) that were bypassing RTK entirely, plus bundled `rtk_filters.toml.example` with 8 conservative starter rules
+- **Lazy tool-schema loading** (v0.3.37) — tool discovery via `tool_search`, core tools only by default. Reduces startup time and context usage. Flag-gated (`[agent] lazy_tools`), enabled by default
+- **Xiaomi MiMo collaboration** (v0.3.37) — Xiaomi MiMo is now the default provider for new users. 2 weeks completely free with keyless mode via proxy (no API key needed). Models: mimo-v2.5-pro (1M context), mimo-v2-pro, mimo-v2.5, mimo-v2-omni, mimo-v2-flash. Thinking enabled by default. After the free window (2026-06-25), users can add their own key or switch providers. Full integration with keyless proxy mode, live model fetch, automatic caching
 - **Tool call stacking** — 3+ consecutive tool call groups collapse into single summary line in TUI. Ctrl+O expands/collapses. Shows "N tool calls" or "N tool calls (M groups)" (v0.3.25)
 - **`hashline_edit` tool** — hash-anchored file editing. Each line gets 2-char content hash from `read_file(hashline=true)`. Reference lines as `LINE#ID`, stale hashes rejected before changes applied. Batch edits supported. Collision detection escalates to `edit_file` fallback (v0.3.25, #60; v0.3.26 #105)
 - **Sensitive data redaction** — applied to tool output in TUI and all channels. Patterns: env var suffixes (_pass=, _password=, _secret=, _token=, _key=, _apikey=, _api_key=, _credential=, _auth=), piped secrets, plus existing (sk-*, ghp_*, xoxb-*, AWS keys, Bearer tokens) (v0.3.25)
@@ -144,6 +171,7 @@
 - **`browser_find` tool** — enumerate elements by CSS, XPath, text, or aria-label with stable selectors (v0.3.13)
 - **`browser_close` tool** — close browser tabs and free CDP sessions, prevents stale page reuse (v0.3.18)
 - **Headless or headed** mode, element-specific screenshots
+- **CDP endpoint config** (v0.3.37) — `browser.cdp_endpoint` allows connecting to a shared Chromium instance instead of spawning per-profile. Reduces memory usage in multi-profile setups (~260MB vs ~750MB for 3 profiles)
 - **Cookie/session persistence** across browser sessions
 - **Per-session tab isolation** — no cross-session DOM stomping (v0.3.13)
 - **Smart default browser detection** — auto-detects your default Chromium on macOS, Linux, and Windows (v0.3.13)

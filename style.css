@@ -235,6 +235,28 @@ nav .container {
     color: var(--text-muted);
 }
 
+.xiaomi-collab-banner {
+    margin-top: 32px;
+    text-align: center;
+}
+
+.xiaomi-collab-banner a {
+    display: inline-block;
+    transition: transform 0.2s, opacity 0.2s;
+}
+
+.xiaomi-collab-banner a:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+}
+
+.xiaomi-collab-banner img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 24px rgba(232, 64, 64, 0.15);
+}
+
 /* ── Quick Start ─────────────────────────────────────────────── */
 .terminal {
     background: var(--bg-secondary);
