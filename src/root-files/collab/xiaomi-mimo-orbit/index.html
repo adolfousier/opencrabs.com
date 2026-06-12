@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenCrabs × Xiaomi MiMo Orbit Program</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #0a0a0a;
+            color: #e0e0e0;
+            line-height: 1.6;
+            padding-top: 64px;
+        }
+
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(124, 58, 237, 0.15);
+            padding: 0 2rem;
+        }
+        .nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 64px;
+        }
+        .nav-logo {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #f1f5f9;
+            text-decoration: none;
+        }
+        .nav-logo:hover { color: #a78bfa; }
+        .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+        .nav-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover { color: #f1f5f9; }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+
+        .hero {
+            text-align: center;
+            padding: 60px 20px 20px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            color: #a0a0a0;
+            margin-bottom: 32px;
+        }
+
+        .banner {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto 40px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+        }
+        .banner img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .content { padding: 0 20px 60px; }
+
+        .dates {
+            background: rgba(102, 126, 234, 0.1);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        .dates h2 { font-size: 1.2rem; color: #667eea; margin-bottom: 8px; }
+        .dates p { font-size: 1.1rem; color: #e0e0e0; }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+        .feature {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 24px;
+        }
+        .feature h3 { font-size: 1.1rem; color: #667eea; margin-bottom: 12px; }
+        .feature p { color: #b0b0b0; font-size: 0.95rem; }
+
+        .how-it-works { margin-bottom: 40px; }
+        .how-it-works h2 { font-size: 1.8rem; margin-bottom: 24px; color: #e0e0e0; }
+        .step { display: flex; gap: 20px; margin-bottom: 24px; align-items: flex-start; }
+        .step-number {
+            flex-shrink: 0;
+            width: 40px; height: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 700; font-size: 1.2rem;
+        }
+        .step-content h3 { font-size: 1.1rem; margin-bottom: 8px; color: #e0e0e0; }
+        .step-content p { color: #b0b0b0; }
+        .step-content code {
+            background: rgba(102,126,234,0.15);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            color: #a78bfa;
+        }
+
+        .cta { text-align: center; margin: 48px 0; }
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            padding: 16px 48px;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+            border: none;
+        }
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(102,126,234,0.4);
+        }
+
+        .note {
+            background: rgba(255,255,255,0.03);
+            border-left: 3px solid #667eea;
+            padding: 16px 20px;
+            margin-top: 40px;
+            border-radius: 4px;
+        }
+        .note p { color: #a0a0a0; font-size: 0.95rem; }
+
+        footer {
+            text-align: center;
+            padding: 32px 20px;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            color: #666;
+            font-size: 0.85rem;
+        }
+        footer a { color: #667eea; text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            .subtitle { font-size: 1.1rem; }
+            .features { grid-template-columns: 1fr; }
+            .hero { padding: 40px 16px 16px; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-inner">
+            <a href="/" class="nav-logo">🦀 OpenCrabs</a>
+            <div class="nav-links">
+                <a href="https://docs.opencrabs.com">Docs</a>
+                <a href="https://github.com/adolfousier/opencrabs">GitHub</a>
+                <a href="https://discord.gg/JqHBEege">Discord</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <h1>OpenCrabs × Xiaomi MiMo</h1>
+        <p class="subtitle">Two weeks of free, friction-free AI. No API keys. No setup. Just install and go.</p>
+    </section>
+
+    <div class="banner">
+        <img src="/public/opencrabs_x_xiaomi_mimo_orbit_program.png" alt="OpenCrabs × Xiaomi MiMo Orbit Program">
+    </div>
+
+    <div class="content">
+        <div class="container">
+            <div class="dates">
+                <h2>📅 Program Dates</h2>
+                <p><strong>June 12, 2025 ~16:00 UTC</strong> → <strong>June 27, 2025 00:00 UTC</strong></p>
+            </div>
+
+            <div class="features">
+                <div class="feature">
+                    <h3>🚀 Zero Setup</h3>
+                    <p>No API keys to configure. No provider accounts to create. OpenCrabs proxies everything through our servers.</p>
+                </div>
+                <div class="feature">
+                    <h3>🧠 MiMo V2.5 Pro</h3>
+                    <p>New users get Xiaomi's MiMo V2.5 Pro model out of the box. State-of-the-art reasoning and coding capabilities.</p>
+                </div>
+                <div class="feature">
+                    <h3>🔄 Full Flexibility</h3>
+                    <p>Switch to any provider anytime via <code>/onboard:provider</code> or <code>/models</code>. Use OpenRouter, Anthropic, OpenAI, or any custom endpoint.</p>
+                </div>
+                <div class="feature">
+                    <h3>⚡ All Features</h3>
+                    <p>Full access to OpenCrabs: multi-agent orchestration, brain files, self-improvement, Telegram/Discord/Slack/WhatsApp integration, and more.</p>
+                </div>
+            </div>
+
+            <div class="how-it-works">
+                <h2>How It Works</h2>
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Install OpenCrabs</h3>
+                        <p>Download the binary for your platform. One command, no dependencies.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Run the Onboarding</h3>
+                        <p>Execute <code>opencrabs</code> and follow the interactive setup. MiMo V2.5 Pro is pre-configured as your default model.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Start Using</h3>
+                        <p>That's it. Tokens are free for 2 weeks. No credit card. No API setup. Just start chatting, coding, or orchestrating agents.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Switch Providers (Optional)</h3>
+                        <p>Want to use a different model? Run <code>/onboard:provider</code> or <code>/models</code> to add your own API keys and switch anytime.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cta">
+                <a class="cta-button" id="download-btn" onclick="downloadOpenCrabs(); return false;">Get OpenCrabs Free</a>
+                <p style="margin-top: 12px; color: #888; font-size: 0.9rem;" id="download-hint">Detecting your platform...</p>
+            </div>
+
+            <div class="note">
+                <p><strong>About MiMo:</strong> MiMo is Xiaomi's family of large language models, designed for advanced reasoning, coding, and multi-modal tasks. The MiMo Orbit Program brings these capabilities to developers through OpenCrabs' friction-free platform.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p><a href="https://opencrabs.com">opencrabs.com</a> · <a href="https://docs.opencrabs.com">Documentation</a> · <a href="https://github.com/adolfousier/opencrabs">GitHub</a></p>
+    </footer>
+
+    <script>
+        // Page view tracking
+        (function() {
+            try {
+                var url = '/api/track?page=xiaomi-mimo-orbit&t=' + Date.now();
+                if (navigator.sendBeacon) {
+                    navigator.sendBeacon(url);
+                } else {
+                    new Image().src = url;
+                }
+            } catch(e) {}
+        })();
+
+        // OS detection and download
+        var REPO = 'adolfousier/opencrabs';
+
+        function detectOS() {
+            var ua = navigator.userAgent.toLowerCase();
+            if (ua.indexOf('mac') !== -1) return 'macos';
+            if (ua.indexOf('win') !== -1) return 'windows';
+            return 'linux';
+        }
+
+        function getAssetName(os, tag) {
+            if (os === 'macos') return 'opencrabs-' + tag + '-macos-arm64.tar.gz';
+            if (os === 'windows') return 'opencrabs-windows-amd64.zip';
+            return 'opencrabs-' + tag + '-linux-amd64.tar.gz';
+        }
+
+        function getDownloadHint(os) {
+            if (os === 'macos') return 'Download for macOS (Apple Silicon)';
+            if (os === 'windows') return 'Download for Windows';
+            return 'Download for Linux';
+        }
+
+        function downloadOpenCrabs() {
+            var btn = document.getElementById('download-btn');
+            var hint = document.getElementById('download-hint');
+            btn.textContent = 'Downloading...';
+            btn.style.pointerEvents = 'none';
+
+            var os = detectOS();
+            fetch('https://api.github.com/repos/' + REPO + '/releases/latest')
+                .then(function(r) { return r.json(); })
+                .then(function(data) {
+                    var tag = data.tag_name;
+                    var asset = getAssetName(os, tag);
+                    var url = 'https://github.com/' + REPO + '/releases/download/' + tag + '/' + asset;
+                    var a = document.createElement('a');
+                    a.href = url;
+                    a.download = '';
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    btn.textContent = 'Download Started!';
+                    hint.textContent = 'Extract and run ./opencrabs to start the onboarding wizard.';
+                    btn.style.pointerEvents = 'auto';
+                })
+                .catch(function() {
+                    window.open('https://github.com/' + REPO + '/releases/latest', '_blank');
+                    btn.textContent = 'Get OpenCrabs Free';
+                    btn.style.pointerEvents = 'auto';
+                });
+        }
+
+        (function() {
+            var os = detectOS();
+            document.getElementById('download-hint').textContent = getDownloadHint(os);
+        })();
+    </script>
+</body>
+</html>
