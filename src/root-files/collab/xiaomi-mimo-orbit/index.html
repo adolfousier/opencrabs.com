@@ -15,51 +15,125 @@
     </script>
 
     <style>
+        /* ── CSS Variables (matches landing page) ── */
+        :root {
+            --bg-primary: #08080d;
+            --bg-secondary: #0e0e16;
+            --bg-card: #12121c;
+            --bg-card-hover: #181826;
+            --border: #1e1e2e;
+            --text-primary: #e8e8ef;
+            --text-secondary: #8888a0;
+            --text-muted: #55556a;
+            --accent: #e84040;
+            --accent-glow: #e8404040;
+            --accent-soft: #ff6b6b;
+            --green: #4ade80;
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'JetBrains Mono', 'SF Mono', monospace;
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
+        html { font-size: 16px; scroll-behavior: smooth; }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: #0a0a0a;
-            color: #e0e0e0;
+            font-family: var(--font-sans);
+            background: var(--bg-primary);
+            color: var(--text-primary);
             line-height: 1.6;
-            padding-top: 64px;
+            min-height: 100vh;
+            overflow-x: hidden;
+            padding-top: 80px;
         }
 
+        /* ── Nav (matches landing page exactly) ── */
         nav {
             position: fixed;
-            top: 0; left: 0; right: 0;
+            top: 0;
+            left: 0;
+            right: 0;
             z-index: 100;
-            background: rgba(15, 23, 42, 0.95);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(124, 58, 237, 0.15);
-            padding: 0 2rem;
+            padding: 16px 0;
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            background: rgba(8, 8, 13, 0.85);
         }
-        .nav-inner {
-            max-width: 1200px;
-            margin: 0 auto;
+
+        nav .container {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            height: 64px;
         }
+
         .nav-logo {
+            font-family: var(--font-mono);
             font-size: 1.2rem;
             font-weight: 700;
-            color: #f1f5f9;
+            color: var(--text-primary);
             text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
-        .nav-logo:hover { color: #a78bfa; }
-        .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+
+        .nav-logo .crab-icon {
+            width: 44px;
+            height: 44px;
+            object-fit: contain;
+            position: relative;
+            top: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            list-style: none;
+        }
+
         .nav-links a {
-            color: #94a3b8;
+            color: var(--text-secondary);
             text-decoration: none;
             font-size: 0.9rem;
+            font-weight: 500;
             transition: color 0.2s;
         }
-        .nav-links a:hover { color: #f1f5f9; }
 
-        .container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-links .nav-download {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .nav-links .btn-github {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 8px 16px;
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .nav-links .btn-github:hover {
+            border-color: var(--accent);
+            background: var(--bg-card-hover);
+        }
+
+        .github-stars {
+            color: #f0c040;
+            font-size: 0.85em;
+            margin-left: 2px;
+        }
+
+        /* ── Container ── */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
 
         .hero {
             text-align: center;
@@ -78,7 +152,7 @@
 
         .subtitle {
             font-size: 1.3rem;
-            color: #a0a0a0;
+            color: var(--text-secondary);
             margin-bottom: 32px;
         }
 
@@ -107,7 +181,7 @@
             text-align: center;
         }
         .dates h2 { font-size: 1.2rem; color: #667eea; margin-bottom: 8px; }
-        .dates p { font-size: 1.1rem; color: #e0e0e0; }
+        .dates p { font-size: 1.1rem; color: var(--text-primary); }
 
         .features {
             display: grid;
@@ -116,16 +190,23 @@
             margin-bottom: 40px;
         }
         .feature {
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.1);
+            background: var(--bg-card);
+            border: 1px solid var(--border);
             border-radius: 12px;
             padding: 24px;
         }
         .feature h3 { font-size: 1.1rem; color: #667eea; margin-bottom: 12px; }
-        .feature p { color: #b0b0b0; font-size: 0.95rem; }
+        .feature p { color: var(--text-secondary); font-size: 0.95rem; }
+        .feature code {
+            background: rgba(102,126,234,0.15);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            color: #a78bfa;
+        }
 
         .how-it-works { margin-bottom: 40px; }
-        .how-it-works h2 { font-size: 1.8rem; margin-bottom: 24px; color: #e0e0e0; }
+        .how-it-works h2 { font-size: 1.8rem; margin-bottom: 24px; color: var(--text-primary); }
         .step { display: flex; gap: 20px; margin-bottom: 24px; align-items: flex-start; }
         .step-number {
             flex-shrink: 0;
@@ -135,8 +216,8 @@
             display: flex; align-items: center; justify-content: center;
             font-weight: 700; font-size: 1.2rem;
         }
-        .step-content h3 { font-size: 1.1rem; margin-bottom: 8px; color: #e0e0e0; }
-        .step-content p { color: #b0b0b0; }
+        .step-content h3 { font-size: 1.1rem; margin-bottom: 8px; color: var(--text-primary); }
+        .step-content p { color: var(--text-secondary); }
         .step-content code {
             background: rgba(102,126,234,0.15);
             padding: 2px 6px;
@@ -165,41 +246,102 @@
         }
 
         .note {
-            background: rgba(255,255,255,0.03);
+            background: var(--bg-card);
             border-left: 3px solid #667eea;
             padding: 16px 20px;
             margin-top: 40px;
             border-radius: 4px;
         }
-        .note p { color: #a0a0a0; font-size: 0.95rem; }
+        .note p { color: var(--text-secondary); font-size: 0.95rem; }
 
+        /* ── Footer (matches landing page exactly) ── */
         footer {
+            padding: 48px 0;
             text-align: center;
-            padding: 32px 20px;
-            border-top: 1px solid rgba(255,255,255,0.06);
-            color: #666;
-            font-size: 0.85rem;
+            border-top: 1px solid var(--border);
+            position: relative;
+            z-index: 1;
         }
-        footer a { color: #667eea; text-decoration: none; }
-        footer a:hover { text-decoration: underline; }
 
+        .footer-links {
+            display: flex;
+            gap: 24px;
+            justify-content: center;
+            margin-bottom: 16px;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .footer-star-cta {
+            display: inline-block;
+            color: #f0c040;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-decoration: none;
+            margin-bottom: 1.2rem;
+            padding: 8px 20px;
+            border: 1px solid #f0c04030;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+
+        .footer-star-cta:hover {
+            border-color: #f0c040;
+            background: #f0c04010;
+        }
+
+        .footer-tagline {
+            color: var(--text-muted);
+            font-size: 0.82rem;
+        }
+
+        .footer-tagline a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        /* ── Responsive ── */
         @media (max-width: 768px) {
             h1 { font-size: 2rem; }
             .subtitle { font-size: 1.1rem; }
             .features { grid-template-columns: 1fr; }
             .hero { padding: 40px 16px 16px; }
+            .nav-links { gap: 16px; }
+        }
+
+        @media (max-width: 480px) {
+            .nav-links a:not(.btn-github) { display: none; }
         }
     </style>
 </head>
 <body>
     <nav>
-        <div class="nav-inner">
-            <a href="/" class="nav-logo">🦀 OpenCrabs</a>
-            <div class="nav-links">
-                <a href="https://docs.opencrabs.com">Docs</a>
-                <a href="https://github.com/adolfousier/opencrabs">GitHub</a>
-                <a href="https://discord.gg/JqHBEege">Discord</a>
-            </div>
+        <div class="container">
+            <a href="/" class="nav-logo">
+                <img class="crab-icon" src="/public/opencrabs-logo.png" alt="" />
+                OpenCrabs
+            </a>
+            <ul class="nav-links">
+                <li><a href="https://docs.opencrabs.com" target="_blank">Docs</a></li>
+                <li><a href="/#features">Features</a></li>
+                <li><a href="/#integrations">Integrations</a></li>
+                <li><a href="#" class="nav-download" id="nav-download-btn">Download</a></li>
+                <li>
+                    <a href="https://github.com/adolfousier/opencrabs" class="btn-github" target="_blank">
+                        GitHub
+                        <span class="github-stars" id="nav-stars"></span>
+                    </a>
+                </li>
+            </ul>
         </div>
     </nav>
 
@@ -213,7 +355,7 @@
     </div>
 
     <div class="content">
-        <div class="container">
+        <div class="container" style="max-width: 900px;">
             <div class="dates">
                 <h2>📅 Program Dates</h2>
                 <p><strong>June 12, 2025 ~16:00 UTC</strong> → <strong>June 27, 2025 00:00 UTC</strong></p>
@@ -272,7 +414,7 @@
 
             <div class="cta">
                 <a class="cta-button" id="download-btn" onclick="downloadOpenCrabs(); return false;">Get OpenCrabs Free</a>
-                <p style="margin-top: 12px; color: #888; font-size: 0.9rem;" id="download-hint">Detecting your platform...</p>
+                <p style="margin-top: 12px; color: var(--text-secondary); font-size: 0.9rem;" id="download-hint">Detecting your platform...</p>
             </div>
 
             <div class="note">
@@ -282,25 +424,40 @@
     </div>
 
     <footer>
-        <p><a href="https://opencrabs.com">opencrabs.com</a> · <a href="https://docs.opencrabs.com">Documentation</a> · <a href="https://github.com/adolfousier/opencrabs">GitHub</a></p>
+        <div class="container">
+            <a href="https://github.com/adolfousier/opencrabs" class="footer-star-cta" target="_blank" id="footer-star-cta">
+                ★ Star us on GitHub!
+            </a>
+            <div class="footer-links">
+                <a href="https://docs.opencrabs.com" target="_blank">Docs</a>
+                <a href="https://github.com/adolfousier/opencrabs">GitHub</a>
+                <a href="https://github.com/adolfousier/opencrabs/blob/main/CHANGELOG.md">Changelog</a>
+                <a href="https://github.com/adolfousier/opencrabs/blob/main/LICENSE">MIT License</a>
+            </div>
+            <p class="footer-tagline">
+                Built with 🦀 by
+                <a href="https://github.com/adolfousier">Adolfo Usier</a>
+                &amp; the OpenCrabs community.
+            </p>
+        </div>
     </footer>
 
     <script>
-        // Page view tracking
-        (function() {
-            try {
-                var url = '/api/track?page=xiaomi-mimo-orbit&t=' + Date.now();
-                if (navigator.sendBeacon) {
-                    navigator.sendBeacon(url);
-                } else {
-                    new Image().src = url;
-                }
-            } catch(e) {}
-        })();
-
-        // OS detection and download
         var REPO = 'adolfousier/opencrabs';
 
+        // Fetch GitHub star count for nav + footer
+        fetch('https://api.github.com/repos/' + REPO)
+            .then(function(r) { return r.json(); })
+            .then(function(data) {
+                var stars = data.stargazers_count || 0;
+                if (stars > 0) {
+                    document.getElementById('nav-stars').textContent = ' ★ ' + stars;
+                    document.getElementById('footer-star-cta').textContent = '★ ' + stars + ' stars on GitHub \u2014 give us one more!';
+                }
+            })
+            .catch(function() {});
+
+        // OS detection for nav Download link
         function detectOS() {
             var ua = navigator.userAgent.toLowerCase();
             if (ua.indexOf('mac') !== -1) return 'macos';
@@ -320,6 +477,25 @@
             return 'Download for Linux';
         }
 
+        // Set nav Download link to OS-specific release
+        (function() {
+            var os = detectOS();
+            fetch('https://api.github.com/repos/' + REPO + '/releases/latest')
+                .then(function(r) { return r.json(); })
+                .then(function(data) {
+                    var tag = data.tag_name;
+                    var asset = getAssetName(os, tag);
+                    var url = 'https://github.com/' + REPO + '/releases/download/' + tag + '/' + asset;
+                    document.getElementById('nav-download-btn').href = url;
+                })
+                .catch(function() {
+                    document.getElementById('nav-download-btn').href = 'https://github.com/' + REPO + '/releases/latest';
+                });
+
+            document.getElementById('download-hint').textContent = getDownloadHint(os);
+        })();
+
+        // CTA button download
         function downloadOpenCrabs() {
             var btn = document.getElementById('download-btn');
             var hint = document.getElementById('download-hint');
@@ -349,11 +525,6 @@
                     btn.style.pointerEvents = 'auto';
                 });
         }
-
-        (function() {
-            var os = detectOS();
-            document.getElementById('download-hint').textContent = getDownloadHint(os);
-        })();
     </script>
 </body>
 </html>
