@@ -631,6 +631,11 @@ fn Testimonials() -> impl IntoView {
             "@leshchenko1979",
             "https://x.com/leshchenko1979",
         ),
+        (
+            "It's easy to become obsessed w/ crabs, I already feel it.",
+            "Roman Gall · Telegram DM",
+            "",
+        ),
     ];
 
     view! {
