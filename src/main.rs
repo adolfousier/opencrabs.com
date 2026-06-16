@@ -453,7 +453,7 @@ fn Features() -> impl IntoView {
         (
             "💬",
             "Any Chat App",
-            "Talk to it on Telegram, Discord, Slack, WhatsApp, or Trello. Works in DMs and group chats with persistent sessions. Or just use the TUI.",
+            "Talk to it on Telegram, Discord, Slack, WhatsApp, or Trello. Native rich message rendering in Telegram with tables, lists, code blocks, and math. Session search across all channels with /sessions. Works in DMs and group chats with persistent sessions. Or just use the TUI.",
         ),
         (
             "🧠",
@@ -463,7 +463,7 @@ fn Features() -> impl IntoView {
         (
             "⚡",
             "50+ Built-in Tools",
-            "File ops, bash, web search, code execution, image gen, browser automation, local voice STT & TTS, sub-agent orchestration. Define custom tools at runtime.",
+            "File ops, bash, web search, code execution, image gen, browser automation, local voice STT & TTS, PDF rendering, sub-agent orchestration. Auto-download RTK for 10x token savings on 100+ commands. Define custom tools at runtime.",
         ),
         (
             "🪟",
@@ -473,7 +473,7 @@ fn Features() -> impl IntoView {
         (
             "🎯",
             "Mission Control",
-            "Full-screen TUI dashboard with three panels: Inbox for reviewing RSI-proposed tools, commands, and skills (approve/reject inline with a/r keys), Activity log showing recent self-improvements, and Schedule queue for cron jobs. Keyboard-driven — Tab/Shift-Tab cycle panels, j/k navigate, Enter for details, Esc to close. The central hub for everything your agent wants to do autonomously.",
+            "Full-screen TUI dashboard with four panels: Analytics showing brain file sizes, tool usage bars, and failure rates, Inbox for reviewing RSI-proposed tools, commands, and skills (approve/reject inline with a/r keys), Activity log showing recent self-improvements, and Schedule queue for cron jobs. Keyboard-driven — Tab/Shift-Tab cycle panels, j/k navigate, Enter for details, Esc to close. The central hub for everything your agent wants to do autonomously.",
         ),
         (
             "🤖",
@@ -498,12 +498,17 @@ fn Features() -> impl IntoView {
         (
             "🔧",
             "Self-Improving",
-            "Recursive Self-Improvement (RSI) — the agent analyzes its own performance via a persistent feedback ledger, identifies failure patterns, and autonomously updates its own brain files. Proposes new tools and commands via Mission Control inbox for human review. RSI escalation for repeat violations. Append-only protection, upstream template sync, RSI alert suppression. Generic deliver_api_key for cron HTTP webhooks. File paths no longer misdetected as slash commands. Truncation continuations stay on same provider. Fallback error reasons surfaced in TUI.",
+            "Recursive Self-Improvement (RSI) — the agent analyzes its own performance via a persistent feedback ledger, identifies failure patterns, and autonomously updates its own brain files. Proposes new tools, commands, and skills via Mission Control inbox for human review. RSI efficiency gate requires proposals to state TOKEN SAVINGS, ERROR REDUCTION, or CAPABILITY ADDITION. Migrate from OpenClaw, Hermes, or any other tool with built-in CLI migration. Append-only protection, upstream template sync, RSI alert suppression.",
         ),
         (
             "👤",
             "Multi-Profile",
             "Run multiple isolated instances from one binary. Each profile gets its own config, brain files, sessions, and daemon service. Token-lock isolation prevents two profiles from fighting over the same bot. Export/import profiles as portable archives.",
+        ),
+        (
+            "📁",
+            "Projects",
+            "Organize work into projects with dedicated sessions. Assign sessions with a single keypress. Per-project colours and badges for visual organization. Project-scoped file artifacts. Full CRUD UI with SQLite-backed persistence.",
         ),
     ];
 
@@ -545,6 +550,7 @@ fn Integrations() -> impl IntoView {
         "💎 Gemini",
         "🌐 OpenRouter",
         "🐙 GitHub Copilot",
+        "🇨🇳 Xiaomi MiMo",
         "🇨🇳 z.ai GLM",
         "🏠 Ollama",
         "📡 LM Studio",
