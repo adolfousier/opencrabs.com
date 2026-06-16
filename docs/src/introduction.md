@@ -2,7 +2,7 @@
 
 **OpenCrabs** is a self-hosted, provider-agnostic AI orchestration agent that runs as a single Rust binary. It automates your terminal, browser, channels (Telegram/Discord/Slack/WhatsApp/Trello), and codebase — all while respecting your privacy and keeping you in control.
 
-**Test coverage**: 3,925+ tests (v0.3.37)
+**Test coverage**: 4,089+ tests (v0.3.41)
 
 ## What Makes OpenCrabs Different
 
@@ -24,6 +24,10 @@
 - **Context usage fix** (v0.3.37) — reject over-reported provider usage to prevent inflated counters
 - **Logging self-healing** (v0.3.37) — self-healing daily file writer recovers from lost fd mid-run
 - **Cache efficiency metric fix** (v0.3.37) — measures caching-capable requests only, excludes non-caching providers
+- **Context window override** (v0.3.40) — native and CLI providers honor `context_window` config, letting you cap or expand context for any model
+- **OpenRouter cache by default** (v0.3.40) — caching enabled on OpenRouter by default. Prompt Caching docs section with TTL behavior and cost-safety notes
+- **Xiaomi MiMo keyless fix** (v0.3.38) — `config_defaults` now seeds a default Xiaomi section so keyless onboarding works from a blank slate
+- **Xiaomi MiMo tool-call parsing** (v0.3.38) — parse tool calls wrapped in `<tool_call_list>` XML that MiMo models emit
 
 ### 🤖 Multi-Agent Orchestration
 - **Sessions are fully isolated agents** — each session is an independent agent with its own brain, provider, model, working directory, and history. Zero context contamination between concurrent sessions, guaranteed by Rust's async runtime and type system
@@ -51,6 +55,12 @@
 - **Local file paths in telegram_send** (v0.3.37) — `telegram_send` now accepts local file paths in `send_photo`/`send_document`, not just HTTPS URLs
 - **Telegram model picker fix** (v0.3.37) — no longer hung on 'loading' for long model names
 - **Telegram media fix** (v0.3.37) — pass user's caption alongside media to the agent
+- **Telegram native rich messages** (v0.3.40) — full markdown-to-rich rendering gated behind `channels.telegram.rich_messages`. AST parser handles headings, tables with alignment, nested/ordered/task lists, fenced code, blockquotes, and inline+block math. Responsive table rendering with card layout for wide tables
+- **Telegram group bot handling** (v0.3.38) — hold a bot's text message in a group until its edit stream settles, then dispatch the final text. Each edit resets the settle timer
+- **Telegram peer-bot settle window** (v0.3.38) — wait ~2s of edit silence before processing a peer bot's message in groups
+- **Session search in channels** (v0.3.41) — `/sessions:<query>` filter for channel commands
+- **Telegram rich fallback** (v0.3.41) — rich fallback when final reply deduped to zero
+- **Plan summary uses markdown task lists** (v0.3.41) — for rich Telegram rendering
 
 ### 🧠 Self-Healing & Self-Improvement (v0.3.7)
 - **Recursive Self-Improvement (RSI)** — agent analyzes its own performance, identifies patterns, and autonomously rewrites brain files (v0.3.6)
@@ -77,6 +87,10 @@
 - **Lock file corruption fix** (v0.3.37) — `is_pid_alive(0)` returns false; corrupted lock files taken over. Fixes Telegram startup wedge
 - **Retry backoff** (v0.3.37) — patient backoff for DNS/connection errors. Stops fast-failing flaky providers
 - **Disable sensitive data redaction** (v0.3.37) — `agent.redact_sensitive_data = false` disables redaction for sysadmin/devops work where IPs, tokens, etc. need to be visible
+- **Multilingual phantom self-heal** (v0.3.38) — intent-phrase matching now scans all languages at once instead of gating on `detect_language()`. Single-word verbs stay language-gated
+- **Hot-reload tools** (v0.3.39) — config/key-gated tools (browser, local STT, local TTS, knowledge base, Trello, WhatsApp, X) now register/deregister at runtime when you edit config or add/remove API keys, no daemon restart needed
+- **Brief work announcements** (v0.3.38) — short announcements like "Running checks now." are now caught as phantom intents
+- **Vision model fallback** (v0.3.40) — register setup-hint analyze_image, Xiaomi vision_model + Gemini fallback
 
 ### 🖥️ Terminal UI Excellence (v0.3.2)
 - **Real-time tok/s throughput meter** — footer displays live tokens-per-second during streaming (between model info and approval policy pill), counts only active streaming time, persists last rate during idle (v0.3.30)
@@ -94,6 +108,11 @@
 - **Video attachments in TUI** — pasting a video path emits `<<VID:path>>`, top-right indicator labels each as `Video #N`, chat display rewrites to `[VID: clip.mp4]` (v0.3.17)
 - **Thinking content persisted to DB** — captured on both ResponseComplete and IntermediateText events (v0.3.17)
 - **Approval policy read at runtime** — loaded from config on every tool request instead of cached at startup (v0.3.17)
+- **Session search in TUI** (v0.3.41) — search filter + viewport scroll across all sessions
+- **Agent-driven onboarding welcome** (v0.3.41) — new welcome flow with agent-guided setup
+- **Assigned session highlight** (v0.3.41) — green highlight for assigned sessions in assign mode
+- **Clipboard image paste** (v0.3.39) — paste images copied from the browser or any app directly into TUI input
+- **Detect shell-escaped and PDF/doc drag-dropped paths** (v0.3.41) — improved file detection
 
 ### 🔧 Developer Experience
 - **Bang operator (`!cmd`)** — run shell commands directly from TUI input, no LLM round-trip (v0.3.1)
@@ -164,6 +183,14 @@
 - **TUI polish** — thinking display capped to 12-line rolling window, git branch in footer + `/sessions` dialog (cyan), profile chip, atomic provider+model swap, reasoning-only iterations render as separate Thinking rows (v0.3.36, #167, #170)
 - **TOOLS.md template slimmed** — from 660 to 56 lines with regression tests preventing bloat (v0.3.36, #171)
 - **CI overhaul** — gated on PR + main push (not tags), kills double-build on tag events, routine pushes run lint + Linux test only (~5-8 min) (v0.3.36)
+- **Projects system** (v0.3.40) — full CRUD UI with ProjectRepository (SQLite), ProjectService, and TUI mode. Assign sessions with A key. Project name badges with per-project colours. Session file artifacts for per-project file management
+- **Migrate CLI** (v0.3.39) — `opencrabs migrate openclaw` and `opencrabs migrate hermes` to migrate config, brain files, memory logs, and skills from other AI agent tools. Scans the system for source instances, shows interactive picker if multiple found
+- **RTK auto-download** (v0.3.39) — when RTK is not bundled or on PATH, OpenCrabs downloads the pinned release for your platform on first use. Runs in background at startup so bash commands never block
+- **PDF rendering tools** (v0.3.41) — `pdf_to_images` for rendering PDF pages the text path can't show. Poppler installed alongside binary. Preserves scanned PDFs on render failure
+- **Prompt formatting instruction** (v0.3.40) — model instructed to format responses with headings, tables, and fenced code blocks by default
+- **Per-model cache efficiency** (v0.3.37) — the Cache card now shows a per-model breakdown with hit rates, sorted highest-first
+- **Windows fix** (v0.3.41) — gracefully handle Kitty keyboard enhancement on Windows (#203)
+- **Tmp file cleanup extended** (v0.3.41) — from 3 to 30 days
 
 ### 🌐 Browser Automation
 - **Full CDP support**: navigate, click, type, screenshot, JS eval, wait for selectors, find elements
@@ -195,7 +222,7 @@
 - **Auto-approve propagation** — `approval_policy = "auto-always"` actually reaches tool loop (v0.3.2)
 
 ### 📊 Testing & Quality
-- **3,871+ tests** covering providers, tools, channels, TUI, self-healing, crash recovery, browser automation
+- **4,089+ tests** covering providers, tools, channels, TUI, self-healing, crash recovery, browser automation
 - **CI/CD**: GitHub Actions, CodeQL, `cargo audit` security checks, release automation
 
 ### 🔧 Built-in Skills (v0.3.17)
