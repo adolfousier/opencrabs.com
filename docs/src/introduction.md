@@ -2,7 +2,7 @@
 
 **OpenCrabs** is a self-hosted, provider-agnostic AI orchestration agent that runs as a single Rust binary. It automates your terminal, browser, channels (Telegram/Discord/Slack/WhatsApp/Trello), and codebase — all while respecting your privacy and keeping you in control.
 
-**Test coverage**: 4,089+ tests (v0.3.41)
+**Test coverage**: 4,147+ tests (v0.3.43)
 
 ## What Makes OpenCrabs Different
 
@@ -61,6 +61,16 @@
 - **Session search in channels** (v0.3.41) — `/sessions:<query>` filter for channel commands
 - **Telegram rich fallback** (v0.3.41) — rich fallback when final reply deduped to zero
 - **Plan summary uses markdown task lists** (v0.3.41) — for rich Telegram rendering
+- **`/cowork` workspace creation** (v0.3.42) — create shared Telegram workspaces from channels and TUI via `cowork_connect` agent tool. Auto-registers workspace in config
+- **`/rename` command** (v0.3.42) — rename sessions from Telegram, Discord, Slack, WhatsApp
+- **Fast-cancel** (v0.3.42) — "stop" / "/stop" kills active task immediately instead of waiting for the agent to finish
+- **Telegram group security** (v0.3.42) — `silence_group_start` config param silences non-allowed users in groups. Bot respects allowlist before responding
+- **Track incoming files in groups** (v0.3.42) — store untagged group photos to tmp and pick up when tagged. Archive shared images into session's project files dir
+- **WhatsApp QR as scannable PNG** (v0.3.42) — pairing QR rendered as a scannable PNG for channels
+- **Channel-capable `/onboard`** (v0.3.42) — `/onboard:image`, `/onboard:voice`, `/onboard:channels` now work from any channel. OpenAI-compatible vision models supported in onboard flow
+- **Telegram scroll to bottom on rich completion** (v0.3.42) — delete placeholder before fresh send
+- **Bot-command registration fix** (v0.3.43) — hyphen in `mission-control` no longer breaks Telegram command registration
+- **`/help` HTML escape fix** (v0.3.43) — text commands no longer silently fail due to unescaped HTML in md_to_html
 
 ### 🧠 Self-Healing & Self-Improvement (v0.3.7)
 - **Recursive Self-Improvement (RSI)** — agent analyzes its own performance, identifies patterns, and autonomously rewrites brain files (v0.3.6)
@@ -91,6 +101,10 @@
 - **Hot-reload tools** (v0.3.39) — config/key-gated tools (browser, local STT, local TTS, knowledge base, Trello, WhatsApp, X) now register/deregister at runtime when you edit config or add/remove API keys, no daemon restart needed
 - **Brief work announcements** (v0.3.38) — short announcements like "Running checks now." are now caught as phantom intents
 - **Vision model fallback** (v0.3.40) — register setup-hint analyze_image, Xiaomi vision_model + Gemini fallback
+- **Reasoning repetition loop detection** (v0.3.42) — flags when the agent gets stuck repeating the same reasoning pattern
+- **Stuck-loop precision** (v0.3.43) — only flags a stuck loop when the SAME intent line repeats, not similar ones
+- **Config auto-repair** (v0.3.43) — auto-repair broken config.toml and never poison last-good config
+- **Credential redaction improvements** (v0.3.42) — labeled credentials with colon separator now redacted, key prefix fragments (< 8 chars) skipped to avoid false positives
 
 ### 🖥️ Terminal UI Excellence (v0.3.2)
 - **Real-time tok/s throughput meter** — footer displays live tokens-per-second during streaming (between model info and approval policy pill), counts only active streaming time, persists last rate during idle (v0.3.30)
@@ -113,6 +127,7 @@
 - **Assigned session highlight** (v0.3.41) — green highlight for assigned sessions in assign mode
 - **Clipboard image paste** (v0.3.39) — paste images copied from the browser or any app directly into TUI input
 - **Detect shell-escaped and PDF/doc drag-dropped paths** (v0.3.41) — improved file detection
+- **Plan pinning** (v0.3.43) — active plan pinned at the end of the prompt each turn so the agent never loses track of what it's working on
 
 ### 🔧 Developer Experience
 - **Bang operator (`!cmd`)** — run shell commands directly from TUI input, no LLM round-trip (v0.3.1)
@@ -191,6 +206,11 @@
 - **Per-model cache efficiency** (v0.3.37) — the Cache card now shows a per-model breakdown with hit rates, sorted highest-first
 - **Windows fix** (v0.3.41) — gracefully handle Kitty keyboard enhancement on Windows (#203)
 - **Tmp file cleanup extended** (v0.3.41) — from 3 to 30 days
+- **Profile-aware paths** (v0.3.42) — all hardcoded `~/.opencrabs/` paths removed from agent-facing strings, system prompt, and vision hint. RSI state, tmp purge, telegram tmp all route through profile home. Projects dir, known-paths, config edits all profile-aware
+- **Project file archiving** (v0.3.42) — project-assigned sessions archive files under `projects/<name>/files/`. Shared images from Telegram archived automatically
+- **Xiaomi MiMo context window default 200k** (v0.3.42) — default MiMo context window bumped to 200k
+- **Voice & Audio docs** (v0.3.43) — new Voice & Audio reference section in docs
+- **Config refactoring** (v0.3.43) — config/keys file IO extracted into `types/io.rs`, `Config` impl split into `types/loader.rs`
 
 ### 🌐 Browser Automation
 - **Full CDP support**: navigate, click, type, screenshot, JS eval, wait for selectors, find elements
@@ -202,6 +222,8 @@
 - **Cookie/session persistence** across browser sessions
 - **Per-session tab isolation** — no cross-session DOM stomping (v0.3.13)
 - **Smart default browser detection** — auto-detects your default Chromium on macOS, Linux, and Windows (v0.3.13)
+- **Browser automation rules in system prompt** (v0.3.42) — system prompt now includes rules for browser interaction best practices
+- **React-safe browser_type** (v0.3.42) — replace value + dispatch input/change events for React compatibility
 
 ### 🎥 Video Vision (v0.3.17)
 - **`analyze_video` tool** — routes video attachments through Gemini's multimodal API. Inline bytes for files ≤18 MB, resumable Files API upload for larger files
@@ -222,7 +244,7 @@
 - **Auto-approve propagation** — `approval_policy = "auto-always"` actually reaches tool loop (v0.3.2)
 
 ### 📊 Testing & Quality
-- **4,089+ tests** covering providers, tools, channels, TUI, self-healing, crash recovery, browser automation
+- **4,147+ tests** covering providers, tools, channels, TUI, self-healing, crash recovery, browser automation
 - **CI/CD**: GitHub Actions, CodeQL, `cargo audit` security checks, release automation
 
 ### 🔧 Built-in Skills (v0.3.17)
