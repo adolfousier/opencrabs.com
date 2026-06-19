@@ -453,7 +453,7 @@ fn Features() -> impl IntoView {
         (
             "💬",
             "Any Chat App",
-            "Talk to it on Telegram, Discord, Slack, WhatsApp, or Trello. Native rich message rendering in Telegram with tables, lists, code blocks, and math. Session search across all channels with /sessions. Works in DMs and group chats with persistent sessions. Or just use the TUI.",
+            "Talk to it on Telegram, Discord, Slack, WhatsApp, or Trello. Native rich message rendering in Telegram with tables, lists, code blocks, and math. /cowork workspaces, /rename sessions, instant fast-cancel on /stop. Session search across all channels. Works in DMs and group chats with persistent sessions. Or just use the TUI.",
         ),
         (
             "🧠",
@@ -483,7 +483,7 @@ fn Features() -> impl IntoView {
         (
             "🌐",
             "Browser Automation",
-            "Native headless Chrome control via CDP. Navigate, click, type, screenshot, find elements by CSS/XPath/text/aria, extract content, run JS. Per-session tab isolation. Smart detection of your default Chromium browser.",
+            "Native headless Chrome control via CDP. Navigate, click, type, screenshot, find elements by CSS/XPath/text/aria, extract content, run JS. System prompt rules enforce best practices. Per-session tab isolation. Smart detection of your default Chromium browser.",
         ),
         (
             "📐",
@@ -493,7 +493,7 @@ fn Features() -> impl IntoView {
         (
             "🛡️",
             "Self-Healing",
-            "Auto-recovers corrupted config, tracks per-provider health with auto-failover, 65% context budget management with async LLM compaction (no more frozen UI). Cross-channel crash recovery routes pending requests back to the originating chat on restart. Stuck stream detection, 10-min CLI idle timeout, DB integrity checks. Append-only brain files with upstream template sync. Expanded phantom detection, RSI escalation for repeat violations, partial JSON repair, TCP keepalive on all HTTP clients. Browser resilience: network idle wait, CDP health checks, lock release before await. Cloud handshake timeout bumped to 60s. Gemini API key moved from URL to header.",
+            "Auto-recovers corrupted config with auto-repair that never poisons last-good. Tracks per-provider health with auto-failover, 65% context budget management with async LLM compaction. Cross-channel crash recovery. Stuck stream detection, reasoning repetition loop detection (flags only when the same intent line repeats), 10-min CLI idle timeout, DB integrity checks. Append-only brain files with upstream template sync. Expanded phantom detection, RSI escalation for repeat violations, partial JSON repair, TCP keepalive on all HTTP clients. Browser resilience: network idle wait, CDP health checks, lock release before await.",
         ),
         (
             "🔧",
@@ -503,12 +503,12 @@ fn Features() -> impl IntoView {
         (
             "👤",
             "Multi-Profile",
-            "Run multiple isolated instances from one binary. Each profile gets its own config, brain files, sessions, and daemon service. Token-lock isolation prevents two profiles from fighting over the same bot. Export/import profiles as portable archives.",
+            "Run multiple isolated instances from one binary. Each profile gets its own config, brain files, sessions, and daemon service. Token-lock isolation prevents two profiles from fighting over the same bot. All paths are profile-aware: RSI state, tmp purge, config edits all route through the active profile home. Export/import profiles as portable archives.",
         ),
         (
             "📁",
             "Projects",
-            "Organize work into projects with dedicated sessions. Assign sessions with a single keypress. Per-project colours and badges for visual organization. Project-scoped file artifacts. Full CRUD UI with SQLite-backed persistence.",
+            "Organize work into projects with dedicated sessions. Assign sessions with a single keypress. Per-project colours and badges for visual organization. Project-scoped file artifacts archived under projects/<name>/files/. Shared images from Telegram archived automatically. Full CRUD UI with SQLite-backed persistence.",
         ),
     ];
 
