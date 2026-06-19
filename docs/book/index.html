@@ -63,7 +63,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-93375ea7.js";
+            window.path_to_searchindex_js = "searchindex-f8d08d9d.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-bb9bc9e2.js"></script>
@@ -207,7 +207,7 @@
                     <main>
                         <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
 <p><strong>OpenCrabs</strong> is a self-hosted, provider-agnostic AI orchestration agent that runs as a single Rust binary. It automates your terminal, browser, channels (Telegram/Discord/Slack/WhatsApp/Trello), and codebase — all while respecting your privacy and keeping you in control.</p>
-<p><strong>Test coverage</strong>: 3,925+ tests (v0.3.37)</p>
+<p><strong>Test coverage</strong>: 4,033+ tests (v0.3.43)</p>
 <h2 id="what-makes-opencrabs-different"><a class="header" href="#what-makes-opencrabs-different">What Makes OpenCrabs Different</a></h2>
 <h3 id="-provider-agnostic-with-native-cli-integration"><a class="header" href="#-provider-agnostic-with-native-cli-integration">🔄 Provider-Agnostic with Native CLI Integration</a></h3>
 <ul>
@@ -228,6 +228,10 @@
 <li><strong>Context usage fix</strong> (v0.3.37) — reject over-reported provider usage to prevent inflated counters</li>
 <li><strong>Logging self-healing</strong> (v0.3.37) — self-healing daily file writer recovers from lost fd mid-run</li>
 <li><strong>Cache efficiency metric fix</strong> (v0.3.37) — measures caching-capable requests only, excludes non-caching providers</li>
+<li><strong>Context window override</strong> (v0.3.40) — native and CLI providers honor <code>context_window</code> config, letting you cap or expand context for any model</li>
+<li><strong>OpenRouter cache by default</strong> (v0.3.40) — caching enabled on OpenRouter by default. Prompt Caching docs section with TTL behavior and cost-safety notes</li>
+<li><strong>Xiaomi MiMo keyless fix</strong> (v0.3.38) — <code>config_defaults</code> now seeds a default Xiaomi section so keyless onboarding works from a blank slate</li>
+<li><strong>Xiaomi MiMo tool-call parsing</strong> (v0.3.38) — parse tool calls wrapped in <code>&lt;tool_call_list&gt;</code> XML that MiMo models emit</li>
 </ul>
 <h3 id="-multi-agent-orchestration"><a class="header" href="#-multi-agent-orchestration">🤖 Multi-Agent Orchestration</a></h3>
 <ul>
@@ -257,6 +261,22 @@
 <li><strong>Local file paths in telegram_send</strong> (v0.3.37) — <code>telegram_send</code> now accepts local file paths in <code>send_photo</code>/<code>send_document</code>, not just HTTPS URLs</li>
 <li><strong>Telegram model picker fix</strong> (v0.3.37) — no longer hung on ‘loading’ for long model names</li>
 <li><strong>Telegram media fix</strong> (v0.3.37) — pass user’s caption alongside media to the agent</li>
+<li><strong>Telegram native rich messages</strong> (v0.3.40) — full markdown-to-rich rendering gated behind <code>channels.telegram.rich_messages</code>. AST parser handles headings, tables with alignment, nested/ordered/task lists, fenced code, blockquotes, and inline+block math. Responsive table rendering with card layout for wide tables</li>
+<li><strong>Telegram group bot handling</strong> (v0.3.38) — hold a bot’s text message in a group until its edit stream settles, then dispatch the final text. Each edit resets the settle timer</li>
+<li><strong>Telegram peer-bot settle window</strong> (v0.3.38) — wait ~2s of edit silence before processing a peer bot’s message in groups</li>
+<li><strong>Session search in channels</strong> (v0.3.41) — <code>/sessions:&lt;query&gt;</code> filter for channel commands</li>
+<li><strong>Telegram rich fallback</strong> (v0.3.41) — rich fallback when final reply deduped to zero</li>
+<li><strong>Plan summary uses markdown task lists</strong> (v0.3.41) — for rich Telegram rendering</li>
+<li><strong><code>/cowork</code> workspace creation</strong> (v0.3.42) — create shared Telegram workspaces from channels and TUI via <code>cowork_connect</code> agent tool. Auto-registers workspace in config</li>
+<li><strong><code>/rename</code> command</strong> (v0.3.42) — rename sessions from Telegram, Discord, Slack, WhatsApp</li>
+<li><strong>Fast-cancel</strong> (v0.3.42) — “stop” / “/stop” kills active task immediately instead of waiting for the agent to finish</li>
+<li><strong>Telegram group security</strong> (v0.3.42) — <code>silence_group_start</code> config param silences non-allowed users in groups. Bot respects allowlist before responding</li>
+<li><strong>Track incoming files in groups</strong> (v0.3.42) — store untagged group photos to tmp and pick up when tagged. Archive shared images into session’s project files dir</li>
+<li><strong>WhatsApp QR as scannable PNG</strong> (v0.3.42) — pairing QR rendered as a scannable PNG for channels</li>
+<li><strong>Channel-capable <code>/onboard</code></strong> (v0.3.42) — <code>/onboard:image</code>, <code>/onboard:voice</code>, <code>/onboard:channels</code> now work from any channel. OpenAI-compatible vision models supported in onboard flow</li>
+<li><strong>Telegram scroll to bottom on rich completion</strong> (v0.3.42) — delete placeholder before fresh send</li>
+<li><strong>Bot-command registration fix</strong> (v0.3.43) — hyphen in <code>mission-control</code> no longer breaks Telegram command registration</li>
+<li><strong><code>/help</code> HTML escape fix</strong> (v0.3.43) — text commands no longer silently fail due to unescaped HTML in md_to_html</li>
 </ul>
 <h3 id="-self-healing--self-improvement-v037"><a class="header" href="#-self-healing--self-improvement-v037">🧠 Self-Healing &amp; Self-Improvement (v0.3.7)</a></h3>
 <ul>
@@ -284,6 +304,14 @@
 <li><strong>Lock file corruption fix</strong> (v0.3.37) — <code>is_pid_alive(0)</code> returns false; corrupted lock files taken over. Fixes Telegram startup wedge</li>
 <li><strong>Retry backoff</strong> (v0.3.37) — patient backoff for DNS/connection errors. Stops fast-failing flaky providers</li>
 <li><strong>Disable sensitive data redaction</strong> (v0.3.37) — <code>agent.redact_sensitive_data = false</code> disables redaction for sysadmin/devops work where IPs, tokens, etc. need to be visible</li>
+<li><strong>Multilingual phantom self-heal</strong> (v0.3.38) — intent-phrase matching now scans all languages at once instead of gating on <code>detect_language()</code>. Single-word verbs stay language-gated</li>
+<li><strong>Hot-reload tools</strong> (v0.3.39) — config/key-gated tools (browser, local STT, local TTS, knowledge base, Trello, WhatsApp, X) now register/deregister at runtime when you edit config or add/remove API keys, no daemon restart needed</li>
+<li><strong>Brief work announcements</strong> (v0.3.38) — short announcements like “Running checks now.” are now caught as phantom intents</li>
+<li><strong>Vision model fallback</strong> (v0.3.40) — register setup-hint analyze_image, Xiaomi vision_model + Gemini fallback</li>
+<li><strong>Reasoning repetition loop detection</strong> (v0.3.42) — flags when the agent gets stuck repeating the same reasoning pattern</li>
+<li><strong>Stuck-loop precision</strong> (v0.3.43) — only flags a stuck loop when the SAME intent line repeats, not similar ones</li>
+<li><strong>Config auto-repair</strong> (v0.3.43) — auto-repair broken config.toml and never poison last-good config</li>
+<li><strong>Credential redaction improvements</strong> (v0.3.42) — labeled credentials with colon separator now redacted, key prefix fragments (&lt; 8 chars) skipped to avoid false positives</li>
 </ul>
 <h3 id="-terminal-ui-excellence-v032"><a class="header" href="#-terminal-ui-excellence-v032">🖥️ Terminal UI Excellence (v0.3.2)</a></h3>
 <ul>
@@ -302,6 +330,12 @@
 <li><strong>Video attachments in TUI</strong> — pasting a video path emits <code>&lt;&lt;VID:path&gt;&gt;</code>, top-right indicator labels each as <code>Video #N</code>, chat display rewrites to <code>[VID: clip.mp4]</code> (v0.3.17)</li>
 <li><strong>Thinking content persisted to DB</strong> — captured on both ResponseComplete and IntermediateText events (v0.3.17)</li>
 <li><strong>Approval policy read at runtime</strong> — loaded from config on every tool request instead of cached at startup (v0.3.17)</li>
+<li><strong>Session search in TUI</strong> (v0.3.41) — search filter + viewport scroll across all sessions</li>
+<li><strong>Agent-driven onboarding welcome</strong> (v0.3.41) — new welcome flow with agent-guided setup</li>
+<li><strong>Assigned session highlight</strong> (v0.3.41) — green highlight for assigned sessions in assign mode</li>
+<li><strong>Clipboard image paste</strong> (v0.3.39) — paste images copied from the browser or any app directly into TUI input</li>
+<li><strong>Detect shell-escaped and PDF/doc drag-dropped paths</strong> (v0.3.41) — improved file detection</li>
+<li><strong>Plan pinning</strong> (v0.3.43) — active plan pinned at the end of the prompt each turn so the agent never loses track of what it’s working on</li>
 </ul>
 <h3 id="-developer-experience"><a class="header" href="#-developer-experience">🔧 Developer Experience</a></h3>
 <ul>
@@ -373,6 +407,19 @@
 <li><strong>TUI polish</strong> — thinking display capped to 12-line rolling window, git branch in footer + <code>/sessions</code> dialog (cyan), profile chip, atomic provider+model swap, reasoning-only iterations render as separate Thinking rows (v0.3.36, #167, #170)</li>
 <li><strong>TOOLS.md template slimmed</strong> — from 660 to 56 lines with regression tests preventing bloat (v0.3.36, #171)</li>
 <li><strong>CI overhaul</strong> — gated on PR + main push (not tags), kills double-build on tag events, routine pushes run lint + Linux test only (~5-8 min) (v0.3.36)</li>
+<li><strong>Projects system</strong> (v0.3.40) — full CRUD UI with ProjectRepository (SQLite), ProjectService, and TUI mode. Assign sessions with A key. Project name badges with per-project colours. Session file artifacts for per-project file management</li>
+<li><strong>Migrate CLI</strong> (v0.3.39) — <code>opencrabs migrate openclaw</code> and <code>opencrabs migrate hermes</code> to migrate config, brain files, memory logs, and skills from other AI agent tools. Scans the system for source instances, shows interactive picker if multiple found</li>
+<li><strong>RTK auto-download</strong> (v0.3.39) — when RTK is not bundled or on PATH, OpenCrabs downloads the pinned release for your platform on first use. Runs in background at startup so bash commands never block</li>
+<li><strong>PDF rendering tools</strong> (v0.3.41) — <code>pdf_to_images</code> for rendering PDF pages the text path can’t show. Poppler installed alongside binary. Preserves scanned PDFs on render failure</li>
+<li><strong>Prompt formatting instruction</strong> (v0.3.40) — model instructed to format responses with headings, tables, and fenced code blocks by default</li>
+<li><strong>Per-model cache efficiency</strong> (v0.3.37) — the Cache card now shows a per-model breakdown with hit rates, sorted highest-first</li>
+<li><strong>Windows fix</strong> (v0.3.41) — gracefully handle Kitty keyboard enhancement on Windows (#203)</li>
+<li><strong>Tmp file cleanup extended</strong> (v0.3.41) — from 3 to 30 days</li>
+<li><strong>Profile-aware paths</strong> (v0.3.42) — all hardcoded <code>~/.opencrabs/</code> paths removed from agent-facing strings, system prompt, and vision hint. RSI state, tmp purge, telegram tmp all route through profile home. Projects dir, known-paths, config edits all profile-aware</li>
+<li><strong>Project file archiving</strong> (v0.3.42) — project-assigned sessions archive files under <code>projects/&lt;name&gt;/files/</code>. Shared images from Telegram archived automatically</li>
+<li><strong>Xiaomi MiMo context window default 200k</strong> (v0.3.42) — default MiMo context window bumped to 200k</li>
+<li><strong>Voice &amp; Audio docs</strong> (v0.3.43) — new Voice &amp; Audio reference section in docs</li>
+<li><strong>Config refactoring</strong> (v0.3.43) — config/keys file IO extracted into <code>types/io.rs</code>, <code>Config</code> impl split into <code>types/loader.rs</code></li>
 </ul>
 <h3 id="-browser-automation"><a class="header" href="#-browser-automation">🌐 Browser Automation</a></h3>
 <ul>
@@ -385,6 +432,8 @@
 <li><strong>Cookie/session persistence</strong> across browser sessions</li>
 <li><strong>Per-session tab isolation</strong> — no cross-session DOM stomping (v0.3.13)</li>
 <li><strong>Smart default browser detection</strong> — auto-detects your default Chromium on macOS, Linux, and Windows (v0.3.13)</li>
+<li><strong>Browser automation rules in system prompt</strong> (v0.3.42) — system prompt now includes rules for browser interaction best practices</li>
+<li><strong>React-safe browser_type</strong> (v0.3.42) — replace value + dispatch input/change events for React compatibility</li>
 </ul>
 <h3 id="-video-vision-v0317"><a class="header" href="#-video-vision-v0317">🎥 Video Vision (v0.3.17)</a></h3>
 <ul>
@@ -409,7 +458,7 @@
 </ul>
 <h3 id="-testing--quality"><a class="header" href="#-testing--quality">📊 Testing &amp; Quality</a></h3>
 <ul>
-<li><strong>3,871+ tests</strong> covering providers, tools, channels, TUI, self-healing, crash recovery, browser automation</li>
+<li><strong>4,033+ tests</strong> covering providers, tools, channels, TUI, self-healing, crash recovery, browser automation</li>
 <li><strong>CI/CD</strong>: GitHub Actions, CodeQL, <code>cargo audit</code> security checks, release automation</li>
 </ul>
 <h3 id="-built-in-skills-v0317"><a class="header" href="#-built-in-skills-v0317">🔧 Built-in Skills (v0.3.17)</a></h3>
