@@ -1,0 +1,21 @@
+# OpenCrabs - AI Agent Documentation
+
+This site contains documentation for OpenCrabs, an open-source AI agent built in Rust.
+
+## Crawling Policy
+User-agent: *
+Allow: /
+
+## Site Structure
+- / - Introduction and overview
+- /getting-started/ - Installation, configuration, first session, CLI commands
+- /brain/ - AI providers, tools, memory, brain files, images, commands
+- /channels/ - Telegram, Discord, Slack, WhatsApp, Trello integrations
+- /features/ - Sessions, cron jobs, plans, A2A protocol, voice
+- /development/ - Building, architecture, contributing, security
+- /changelog.html - Release history
+
+## Contact
+- Website: https://opencrabs.com
+- GitHub: https://github.com/adolfousier/opencrabs
+- Author: Adolfo Usier
