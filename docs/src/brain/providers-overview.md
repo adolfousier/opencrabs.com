@@ -1,6 +1,6 @@
 # Supported AI Providers
 
-OpenCrabs supports 14 built-in providers + Custom OpenAI Compatible. Switch between them at any time via `/models` in the TUI or any channel.
+OpenCrabs supports 15 built-in providers + Custom OpenAI Compatible. Switch between them at any time via `/models` in the TUI or any channel.
 
 | Provider | Auth | Models | Streaming | Tools | Notes |
 |----------|------|--------|-----------|-------|-------|
@@ -10,6 +10,7 @@ OpenCrabs supports 14 built-in providers + Custom OpenAI Compatible. Switch betw
 | [OpenRouter](./providers.md#openrouter--400-models) | API key | 400+ models | Yes | Yes | Free models available. Reasoning output support (Qwen 3.6 Plus, etc.) |
 | [Google Gemini](./providers.md#google-gemini) | API key | Gemini 2.5 Flash, 2.0, 1.5 Pro | Yes | Yes | 1M+ context, vision, image generation |
 | [MiniMax](./providers.md#minimax) | API key | M2.7, M2.5, M2.1, Text-01 | Yes | Yes | Competitive pricing, auto-configured vision |
+| [Xiaomi MiMo](./providers.md#xiaomi-mimo) | API key (auto) | MiMo V2.5 Pro, MiMo V2 Pro, MiMo V2.5, MiMo V2 Omni, MiMo V2 Flash | Yes | Yes | Default provider for new users. Keyless mode with automatic token provisioning during collab windows. 30 models across 5 tiers. |
 | [z.ai GLM](./providers.md#zai-zhipu-ai) | API key | GLM-4.5 through GLM-5 Turbo | Yes | Yes | General API + Coding API endpoints |
 | [Claude CLI](./providers.md#claude-cli) | CLI auth | Via `claude` binary | Yes | Yes | Uses your Claude Code subscription |
 | [Codex](./providers.md#codex-oauth) | OAuth (PKCE) | GPT-5.5, GPT-5.4, GPT-5.3-Codex | Yes | Yes | Native Codex subscription auth via device-code PKCE — no CLI, no API key |
