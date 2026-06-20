@@ -71,6 +71,8 @@
 - **Telegram scroll to bottom on rich completion** (v0.3.42) — delete placeholder before fresh send
 - **Bot-command registration fix** (v0.3.43) — hyphen in `mission-control` no longer breaks Telegram command registration
 - **`/help` HTML escape fix** (v0.3.43) — text commands no longer silently fail due to unescaped HTML in md_to_html
+- **DuckDuckGo Lite search** (v0.3.44) — `web_search` tool switched from Instant Answer API to DuckDuckGo Lite for more reliable results
+- **Route "check the website" to `http_request`** (v0.3.44) — URL content requests correctly routed to `http_request` instead of browser
 
 ### 🧠 Self-Healing & Self-Improvement (v0.3.7)
 - **Recursive Self-Improvement (RSI)** — agent analyzes its own performance, identifies patterns, and autonomously rewrites brain files (v0.3.6)
@@ -105,6 +107,8 @@
 - **Stuck-loop precision** (v0.3.43) — only flags a stuck loop when the SAME intent line repeats, not similar ones
 - **Config auto-repair** (v0.3.43) — auto-repair broken config.toml and never poison last-good config
 - **Credential redaction improvements** (v0.3.42) — labeled credentials with colon separator now redacted, key prefix fragments (< 8 chars) skipped to avoid false positives
+- **Evolve migration guard** (v0.3.44) — checks migration compatibility before swapping binary during `opencrabs evolve`
+- **Evolve single-flight** (v0.3.45) — process-unique temp paths prevent concurrent-evolve race conditions
 
 ### 🖥️ Terminal UI Excellence (v0.3.2)
 - **Real-time tok/s throughput meter** — footer displays live tokens-per-second during streaming (between model info and approval policy pill), counts only active streaming time, persists last rate during idle (v0.3.30)
@@ -128,6 +132,8 @@
 - **Clipboard image paste** (v0.3.39) — paste images copied from the browser or any app directly into TUI input
 - **Detect shell-escaped and PDF/doc drag-dropped paths** (v0.3.41) — improved file detection
 - **Plan pinning** (v0.3.43) — active plan pinned at the end of the prompt each turn so the agent never loses track of what it's working on
+- **`/compact` brief confirmation** (v0.3.44) — manual `/compact` adds brief continuation to context instead of raw compaction summary
+- **Rich schedule detail popup** (v0.3.45) — cron job detail popup shows prompt, delivery method, and run history in Mission Control
 
 ### 🔧 Developer Experience
 - **Bang operator (`!cmd`)** — run shell commands directly from TUI input, no LLM round-trip (v0.3.1)
@@ -206,6 +212,9 @@
 - **Per-model cache efficiency** (v0.3.37) — the Cache card now shows a per-model breakdown with hit rates, sorted highest-first
 - **Windows fix** (v0.3.41) — gracefully handle Kitty keyboard enhancement on Windows (#203)
 - **Tmp file cleanup extended** (v0.3.41) — from 3 to 30 days
+- **Plan double-bug fix** (v0.3.44) — stop deleting completed plans + auto-complete stale InProgress tasks
+- **Cron job safeguards** (v0.3.45) — system-level safeguard against accidental job deletion
+- **Mission control detail popup** (v0.3.45) — popup fits content instead of fixed 70% height
 - **Profile-aware paths** (v0.3.42) — all hardcoded `~/.opencrabs/` paths removed from agent-facing strings, system prompt, and vision hint. RSI state, tmp purge, telegram tmp all route through profile home. Projects dir, known-paths, config edits all profile-aware
 - **Project file archiving** (v0.3.42) — project-assigned sessions archive files under `projects/<name>/files/`. Shared images from Telegram archived automatically
 - **Xiaomi MiMo context window default 200k** (v0.3.42) — default MiMo context window bumped to 200k
