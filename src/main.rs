@@ -633,9 +633,9 @@ fn Testimonials() -> impl IntoView {
             "https://x.com/0xMaheshK/status/2062763007529320646",
         ),
         (
-            "I'm using OpenCrabs 24x7 now. Generally - I love the speed, simplicity and the self-improvement process. One profile for coding and devops. Another for the investment business in Russian with Google Drive / Telegram userbot / PDF processing.",
+            "I fired my assistant bc of OpenCrabs! The crab now monitors my Telegram group, OCRs invoices, puts them into the banking app, I approve manually, it downloads notification and puts it back to the Telegram group, and files transactions in my management accounting app.",
             "@leshchenko1979",
-            "https://x.com/leshchenko1979",
+            "https://x.com/leshchenko1979/status/2068603163448353058",
         ),
         (
             "It's easy to become obsessed w/ crabs, I already feel it.",
