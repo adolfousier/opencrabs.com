@@ -285,9 +285,9 @@ fn Hero() -> impl IntoView {
             <div class="container">
                 <img class="hero-crab" src="public/opencrabs-logo.png" alt="OpenCrabs" />
                 <h1>"OpenCrabs"</h1>
-                <p class="hero-tagline">"THE AI AGENT THAT LIVES IN YOUR TERMINAL."</p>
+                <p class="hero-tagline">"THE ALL-IN-ONE AI AGENT LIVING IN YOUR TERMINAL."</p>
                 <p class="hero-description">
-                    "Build landing, mobile apps, backends, manages files, searches the web, deep research, schedule tasks and events. Self-improving, self-healing and fully autonomous. Connects from terminal UI, CLI or your favorite channels."
+                    "Build apps, backends, landing pages. Manages files, searches the web, runs deep research, schedules tasks and events. Self-improving, self-healing, fully autonomous. Connects from Terminal UI, CLI or your favorite channels."
                 </p>
                 <a href="https://github.com/adolfousier/opencrabs/releases/latest" class="hero-badge">
                     <span class="badge-new">"LATEST"</span>
