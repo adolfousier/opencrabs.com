@@ -2,7 +2,7 @@
 
 **OpenCrabs** is a self-hosted, provider-agnostic AI orchestration agent that runs as a single Rust binary. It automates your terminal, browser, channels (Telegram/Discord/Slack/WhatsApp/Trello), and codebase — all while respecting your privacy and keeping you in control.
 
-**Test coverage**: 4,033+ tests (v0.3.43)
+**Test coverage**: 4,103+ tests (v0.3.47)
 
 ## What Makes OpenCrabs Different
 
@@ -73,6 +73,14 @@
 - **`/help` HTML escape fix** (v0.3.43) — text commands no longer silently fail due to unescaped HTML in md_to_html
 - **DuckDuckGo Lite search** (v0.3.44) — `web_search` tool switched from Instant Answer API to DuckDuckGo Lite for more reliable results
 - **Route "check the website" to `http_request`** (v0.3.44) — URL content requests correctly routed to `http_request` instead of browser
+- **Forum topic session isolation** (v0.3.47) — each forum topic in Telegram supergroups gets its own session context. No more cross-topic bleed (#215)
+- **Follow-up question topic routing** (v0.3.47) — questions go to the correct topic thread instead of #general
+- **Telegram /cd directory browser** (v0.3.46) — browse and navigate directories from Telegram with inline keyboard. /cd callback routing with directory browser state
+- **`/profiles` command** (v0.3.47) — manage AI profiles from any channel
+- **Owner impersonation detection** (v0.3.47) — detect non-owners trying to act as the owner in Telegram group chats
+- **`bot_owner` config field** (v0.3.47) — TelegramConfig with `is_owner()` helper for identity checks
+- **Cron Discord and Slack delivery** (v0.3.46) — wire cron job result delivery to Discord and Slack channels
+- **Cron timezone and validation** (v0.3.46) — honor timezone, validate schedule with next-run feedback, document format
 
 ### 🧠 Self-Healing & Self-Improvement (v0.3.7)
 - **Recursive Self-Improvement (RSI)** — agent analyzes its own performance, identifies patterns, and autonomously rewrites brain files (v0.3.6)
@@ -109,6 +117,14 @@
 - **Credential redaction improvements** (v0.3.42) — labeled credentials with colon separator now redacted, key prefix fragments (< 8 chars) skipped to avoid false positives
 - **Evolve migration guard** (v0.3.44) — checks migration compatibility before swapping binary during `opencrabs evolve`
 - **Evolve single-flight** (v0.3.45) — process-unique temp paths prevent concurrent-evolve race conditions
+- **System brain rebuild on change** (v0.3.47) — system brain rebuilt from disk when brain files change (#213)
+- **JIT tool activation** (v0.3.47) — extended tools activated on-demand when called by name, no pre-registration needed (#214)
+- **tool_search guidance to preamble** (v0.3.47) — extended tool guidance moved to preamble + RSI so it's always available (#214)
+- **RSI tool success rate fix** (v0.3.47) — pre-execution misses no longer penalize tool success rate (#214)
+- **Internal-state query routing** (v0.3.47) — queries about sessions, usage, and cron route to their dedicated tools instead of raw DB access
+- **rm-blocklist bypasses closed** (v0.3.47) — reversed flags, quoted $HOME, long flags, and chained rm all caught by the destructive-command blocklist
+- **Blocklist recursion** (v0.3.47) — blocklist recurses through interpreter indirection (bash -c "rm ..." is caught)
+- **@botname stripping defense** (v0.3.47) — defense-in-depth stripping + tracing for group command bugs
 
 ### 🖥️ Terminal UI Excellence (v0.3.2)
 - **Real-time tok/s throughput meter** — footer displays live tokens-per-second during streaming (between model info and approval policy pill), counts only active streaming time, persists last rate during idle (v0.3.30)
@@ -220,6 +236,16 @@
 - **Xiaomi MiMo context window default 200k** (v0.3.42) — default MiMo context window bumped to 200k
 - **Voice & Audio docs** (v0.3.43) — new Voice & Audio reference section in docs
 - **Config refactoring** (v0.3.43) — config/keys file IO extracted into `types/io.rs`, `Config` impl split into `types/loader.rs`
+- **Proactive tool discovery** (v0.3.47) — agent searches for available tools before claiming inability, plus project-directive loading
+- **Per-project brain overlay** (v0.3.47) — project-specific brain files layer on top of profile brain files for project-scoped customization
+- **Confidential file protection** (v0.3.47) — SSH keys, .env, credentials, and private configs protected. Owner verification required in group chats. Never shared without explicit request
+- **AGENTS.md always-loaded** (v0.3.46) — hard rules and governance promoted to always-loaded so they're enforced every turn
+- **Brain-file ownership model** (v0.3.46) — each brain file owns exactly one kind of content. SOUL.md = personality only, AGENTS.md = hard rules + governance
+- **Runtime commands index** (v0.3.46) — live commands and skills index injected so the agent sees runtime-available tools
+- **Project file shares** (v0.3.46) — symlink local shares, copy ephemeral ones into project files
+- **/cd hidden dirs toggle** (v0.3.47) — show/hide hidden directories in the TUI directory picker
+- **Plan auto-approve** (v0.3.47) — plan auto-approved on first start without requiring explicit approval step
+- **TOOLS.md template capped** (v0.3.47) — trimmed below 100-line regression cap to keep system prompt lean
 
 ### 🌐 Browser Automation
 - **Full CDP support**: navigate, click, type, screenshot, JS eval, wait for selectors, find elements
@@ -251,10 +277,17 @@
 - **API key security**: `zeroize` on drop, separate `keys.toml` (chmod 600)
 - **Tool path resolution centralized** — tilde expansion, relative paths, symlink handling in one place (v0.3.2)
 - **Auto-approve propagation** — `approval_policy = "auto-always"` actually reaches tool loop (v0.3.2)
+- **Confidential file protection** (v0.3.47) — SSH keys, .env, credentials, private configs, personal documents never copied, moved, or shared without explicit owner request. Owner verification in group chats
+- **Owner impersonation detection** (v0.3.47) — catches non-owners trying to act as the owner in Telegram group chats
+- **Docker e2e adversarial eval harness** (v0.3.47) — real-LLM sandboxed adversarial testing for security validation
 
 ### 📊 Testing & Quality
-- **4,033+ tests** covering providers, tools, channels, TUI, self-healing, crash recovery, browser automation
+- **4,103+ tests** covering providers, tools, channels, TUI, self-healing, crash recovery, browser automation
 - **CI/CD**: GitHub Actions, CodeQL, `cargo audit` security checks, release automation
+- **Live system-brain rebuild test** (v0.3.47) — verifies brain files are rebuilt from disk when changed
+- **Per-project brain overlay integration test** (v0.3.47) — validates project-specific brain files layer correctly on profile brain
+- **Docker e2e adversarial eval harness** (v0.3.47) — real-LLM sandboxed adversarial testing for security validation
+- **STT-chain umbrella error acceptance** (v0.3.47) — CI no longer fails on transient STT network errors
 
 ### 🔧 Built-in Skills (v0.3.17)
 - **5 safe built-in skills**: opencli, browser-cdp, a2a-gateway, dynamic-tools, repo-audit
