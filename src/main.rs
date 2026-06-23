@@ -453,7 +453,7 @@ fn Features() -> impl IntoView {
         (
             "💬",
             "Any Chat App",
-            "Talk to it on Telegram, Discord, Slack, WhatsApp, or Trello. Native rich message rendering in Telegram with tables, lists, code blocks, and math. /cowork workspaces, /rename sessions, instant fast-cancel on /stop. Session search across all channels. Works in DMs and group chats with persistent sessions. Or just use the TUI.",
+            "Talk to it on Telegram, Discord, Slack, WhatsApp, or Trello. Native rich message rendering in Telegram with tables, lists, code blocks, math. Forum topic session isolation gives each topic its own context. /cowork workspaces, /rename sessions, instant fast-cancel on /stop. /cd directory browser with inline keyboard, /profiles command for managing AI profiles. Owner impersonation detection in group chats. Session search across all channels. Works in DMs and group chats with persistent sessions. Or just use the TUI.",
         ),
         (
             "🧠",
@@ -463,7 +463,7 @@ fn Features() -> impl IntoView {
         (
             "⚡",
             "50+ Built-in Tools",
-            "File ops, bash, web search, code execution, image gen, browser automation, local voice STT & TTS, PDF rendering, sub-agent orchestration. Auto-download RTK for 10x token savings on 100+ commands. Define custom tools at runtime.",
+            "File ops, bash, web search, code execution, image gen, browser automation, local voice STT & TTS, PDF rendering, sub-agent orchestration. Proactive tool discovery — agent searches for tools before claiming inability. JIT activation for extended tools on-demand. Auto-download RTK for 10x token savings on 100+ commands. Define custom tools at runtime.",
         ),
         (
             "🪟",
@@ -473,7 +473,7 @@ fn Features() -> impl IntoView {
         (
             "🎯",
             "Mission Control",
-            "Full-screen TUI dashboard with four panels: Analytics showing brain file sizes, tool usage bars, and failure rates, Inbox for reviewing RSI-proposed tools, commands, and skills (approve/reject inline with a/r keys), Activity log showing recent self-improvements, and Schedule queue for cron jobs. Keyboard-driven — Tab/Shift-Tab cycle panels, j/k navigate, Enter for details, Esc to close. The central hub for everything your agent wants to do autonomously.",
+            "Full-screen TUI dashboard with four panels: Analytics showing brain file sizes, tool usage bars, and failure rates, Inbox for reviewing RSI-proposed tools, commands, and skills (approve/reject inline with a/r keys), Activity log showing recent self-improvements, and Schedule queue for cron jobs. Rich schedule detail popup shows prompt, delivery target, run history with cost and duration. Cron delivery to Discord and Slack. Two-step delete safeguard with auto-backup. Keyboard-driven: Tab/Shift-Tab cycle panels, j/k navigate, Enter for details, Esc to close.",
         ),
         (
             "🤖",
@@ -491,24 +491,29 @@ fn Features() -> impl IntoView {
             "Ships with a brain template that enforces modular files, strict size limits, test coverage, and security-first patterns. Your agent writes production code, not prototypes.",
         ),
         (
+            "🔒",
+            "Security & Trust",
+            "Confidential file protection: SSH keys, .env, credentials, and private configs are sacred. Never shared without explicit owner verification. Owner impersonation detection catches non-owners trying to act as the owner in Telegram group chats. bot_owner config field with is_owner() helper for identity checks. rm-blocklist prevents destructive commands with reversed-flag, quoted-path, and chained-flag defenses.",
+        ),
+        (
             "🛡️",
             "Self-Healing",
-            "Auto-recovers corrupted config with auto-repair that never poisons last-good. Tracks per-provider health with auto-failover, 65% context budget management with async LLM compaction. Cross-channel crash recovery. Stuck stream detection, reasoning repetition loop detection (flags only when the same intent line repeats), 10-min CLI idle timeout, DB integrity checks. Append-only brain files with upstream template sync. Expanded phantom detection, RSI escalation for repeat violations, partial JSON repair, TCP keepalive on all HTTP clients. Browser resilience: network idle wait, CDP health checks, lock release before await.",
+            "Auto-recovers corrupted config with auto-repair that never poisons last-good. Tracks per-provider health with auto-failover, 65% context budget management with async LLM compaction. Cross-channel crash recovery. Stuck stream detection, reasoning repetition loop detection (flags only when the same intent line repeats), 10-min CLI idle timeout, DB integrity checks. Append-only brain files with upstream template sync. System brain auto-rebuilds when brain files change. Expanded phantom detection, RSI escalation for repeat violations, partial JSON repair, TCP keepalive on all HTTP clients. Browser resilience: network idle wait, CDP health checks, lock release before await.",
         ),
         (
             "🔧",
             "Self-Improving",
-            "Recursive Self-Improvement (RSI) — the agent analyzes its own performance via a persistent feedback ledger, identifies failure patterns, and autonomously updates its own brain files. Proposes new tools, commands, and skills via Mission Control inbox for human review. RSI efficiency gate requires proposals to state TOKEN SAVINGS, ERROR REDUCTION, or CAPABILITY ADDITION. Migrate from OpenClaw, Hermes, or any other tool with built-in CLI migration. Append-only protection, upstream template sync, RSI alert suppression.",
+            "Recursive Self-Improvement (RSI) — the agent analyzes its own performance via a persistent feedback ledger, identifies failure patterns, and autonomously updates its own brain files. Proposes new tools, commands, and skills via Mission Control inbox for human review. RSI efficiency gate requires proposals to state TOKEN SAVINGS, ERROR REDUCTION, or CAPABILITY ADDITION. Per-project brain overlay layers project-specific files on top of profile brain. AGENTS.md is always-loaded so hard rules are enforced every turn. Runtime commands and skills index injected so the agent sees live tools. Migrate from OpenClaw, Hermes, or any other tool with built-in CLI migration. Append-only protection, upstream template sync.",
         ),
         (
             "👤",
             "Multi-Profile",
-            "Run multiple isolated instances from one binary. Each profile gets its own config, brain files, sessions, and daemon service. Token-lock isolation prevents two profiles from fighting over the same bot. All paths are profile-aware: RSI state, tmp purge, config edits all route through the active profile home. Export/import profiles as portable archives.",
+            "Run multiple isolated instances from one binary. Each profile gets its own config, brain files, sessions, and daemon service. Token-lock isolation prevents two profiles from fighting over the same bot. All paths are profile-aware: RSI state, tmp purge, config edits all route through the active profile home. /profiles command to manage profiles from any channel. Export/import profiles as portable archives.",
         ),
         (
             "📁",
             "Projects",
-            "Organize work into projects with dedicated sessions. Assign sessions with a single keypress. Per-project colours and badges for visual organization. Project-scoped file artifacts archived under projects/<name>/files/. Shared images from Telegram archived automatically. Full CRUD UI with SQLite-backed persistence.",
+            "Organize work into projects with dedicated sessions. Assign sessions with a single keypress. Per-project colours and badges for visual organization. Per-project brain overlay layers project-specific files on top of profile brain. Project file shares: symlink local copies, copy ephemeral ones into project files. Project-scoped file artifacts archived under projects/<name>/files/. Shared images from Telegram archived automatically. Full CRUD UI with SQLite-backed persistence.",
         ),
     ];
 
@@ -607,6 +612,11 @@ fn Integrations() -> impl IntoView {
 #[component]
 fn Testimonials() -> impl IntoView {
     let quotes: Vec<(&str, &str, &str)> = vec![
+        (
+            "Outperforms Hermes because it's in Rust and very tight use case wise. Reminds me of what I hoped OpenClaw would be.",
+            "@5fakb48",
+            "https://x.com/5fakb48/status/2069564004104561125",
+        ),
         (
             "I tested OpenCrabs with OpenRouter and a random Nvidia free model, and right off the bat I like it more than the alternatives. Setup was a lot easier.",
             "@mariodian",
