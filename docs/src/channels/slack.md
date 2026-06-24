@@ -46,6 +46,31 @@ allowed_users = []
 respond_to = "all"
 ```
 
+## Configuration
+
+All Slack options live under `[channels.slack]` in `~/.opencrabs/config.toml`:
+
+```toml
+[channels.slack]
+enabled = true
+token = "xoxb-your-bot-token"          # or store in keys.toml
+app_token = "xapp-your-app-token"      # Socket Mode token
+allowed_users = ["U12345678"]           # Slack user IDs
+allowed_channels = ["C12345678"]
+respond_to = "mention"                  # "all", "dm_only", "mention" (default)
+session_idle_hours = 24.0               # idle timeout for non-owner sessions
+```
+
+| Field | Default | Description |
+|-------|---------|-------------|
+| `enabled` | `false` | Enable the Slack bot channel |
+| `token` | `None` | Bot token (`xoxb-...`) |
+| `app_token` | `None` | App-level token for Socket Mode (`xapp-...`) |
+| `allowed_users` | `[]` (accept all) | Slack user IDs (`U12345678`) |
+| `allowed_channels` | `[]` (all channels) | Restrict bot to specific channel IDs |
+| `respond_to` | `"mention"` | When to respond: `"all"`, `"dm_only"`, `"mention"` |
+| `session_idle_hours` | `None` (no timeout) | Idle timeout for non-owner sessions. Owner sessions never expire |
+
 ## Features
 
 - **Channels and DMs** — Works in public/private channels and direct messages

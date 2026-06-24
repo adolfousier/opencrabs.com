@@ -46,6 +46,29 @@ allowed_users = []
 respond_to = "all"
 ```
 
+## Configuration
+
+All Discord options live under `[channels.discord]` in `~/.opencrabs/config.toml`:
+
+```toml
+[channels.discord]
+enabled = true
+token = "your-discord-bot-token"       # or store in keys.toml
+allowed_users = ["123456789012345678"]  # Discord user IDs
+allowed_channels = ["123456789012345678"]
+respond_to = "mention"                  # "all", "dm_only", "mention" (default)
+session_idle_hours = 24.0               # idle timeout for non-owner sessions
+```
+
+| Field | Default | Description |
+|-------|---------|-------------|
+| `enabled` | `false` | Enable the Discord bot channel |
+| `token` | `None` | Discord bot token from the Developer Portal |
+| `allowed_users` | `[]` (accept all) | Discord user IDs. Accepts int or string arrays |
+| `allowed_channels` | `[]` (all channels) | Restrict bot to specific channel IDs |
+| `respond_to` | `"mention"` | When to respond: `"all"`, `"dm_only"`, `"mention"` |
+| `session_idle_hours` | `None` (no timeout) | Idle timeout for non-owner sessions. Owner sessions never expire |
+
 ## Features
 
 - **Server channels and DMs** — Works in text channels and direct messages

@@ -41,6 +41,31 @@ allowed_users = []
 # poll_interval_secs = 30  # Poll for new card comments
 ```
 
+## Configuration
+
+All Trello options live under `[channels.trello]` in `~/.opencrabs/config.toml`:
+
+```toml
+[channels.trello]
+enabled = true
+token = "your-trello-api-token"        # or store in keys.toml
+app_token = "your-trello-api-key"      # stored as app_token for keys.toml symmetry
+allowed_users = ["memberId1"]           # Trello member IDs
+board_ids = ["boardId1", "boardId2"]   # boards to monitor (also accepts allowed_channels)
+poll_interval_secs = 60                 # polling interval (absent or 0 = tool-only mode)
+session_idle_hours = 24.0               # idle timeout for non-owner sessions
+```
+
+| Field | Default | Description |
+|-------|---------|-------------|
+| `enabled` | `false` | Enable the Trello channel |
+| `token` | `None` | Trello API token |
+| `app_token` | `None` | Trello API key (stored as `app_token` for keys.toml symmetry) |
+| `allowed_users` | `[]` (accept all) | Trello member IDs |
+| `board_ids` | `[]` (all boards) | Board IDs to monitor for @mentions. Also accepts `allowed_channels` as alias |
+| `poll_interval_secs` | `None` (tool-only) | Polling interval in seconds. Absent or 0 = no polling (tool-only mode) |
+| `session_idle_hours` | `None` (no timeout) | Idle timeout for non-owner sessions. Owner sessions never expire |
+
 ## Tool Actions
 
 The `trello_send` tool supports 22 actions:

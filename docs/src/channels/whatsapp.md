@@ -32,6 +32,23 @@ enabled = true
 allowed_phones = ["+15551234567"]
 ```
 
+## Configuration
+
+WhatsApp options live under `[channels.whatsapp]` in `~/.opencrabs/config.toml`:
+
+```toml
+[channels.whatsapp]
+enabled = true
+allowed_phones = ["+15551234567"]      # E.164 format
+session_idle_hours = 24.0              # idle timeout for non-owner sessions
+```
+
+| Field | Default | Description |
+|-------|---------|-------------|
+| `enabled` | `false` | Enable the WhatsApp channel |
+| `allowed_phones` | `[]` (accept all) | E.164 phone numbers. Empty = accept everyone (not recommended for business numbers) |
+| `session_idle_hours` | `None` (no timeout) | Idle timeout for non-owner sessions. Owner sessions never expire |
+
 ## Features
 
 - **Personal and group chats** — Works in DMs and group conversations
