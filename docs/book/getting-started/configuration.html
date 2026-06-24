@@ -63,7 +63,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-f8d08d9d.js";
+            window.path_to_searchindex_js = "../searchindex-06398ada.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-bb9bc9e2.js"></script>
@@ -253,18 +253,317 @@ api_key = "sk-ant-..."
 <p>When multiple providers are enabled, the first one found in this order is used for new sessions:</p>
 <p>MiniMax &gt; OpenRouter &gt; Anthropic &gt; OpenAI &gt; Gemini &gt; Custom</p>
 <p>Each session remembers which provider and model it was using. Switch providers per-session via <code>/models</code>.</p>
-<h2 id="feature-flags"><a class="header" href="#feature-flags">Feature Flags</a></h2>
-<pre><code class="language-toml"># config.toml
-[agent]
+<h2 id="agent-behavior"><a class="header" href="#agent-behavior">Agent Behavior</a></h2>
+<pre><code class="language-toml">[agent]
 working_directory = "/path/to/default/dir"
-thinking = "on"                # "on", "off", or "budget_XXk"
+thinking = "on"                     # "on", "off", or "budget_XXk"
+approval_policy = "auto-always"     # "ask", "auto-session", "auto-always"
+max_concurrent = 4                  # max parallel tool calls
+context_limit = 200000              # context window cap (tokens)
+max_tokens = 65536                  # max output tokens per API call
+auto_update = true                  # auto-install releases on startup
+silent_compaction = false           # suppress post-compaction personality narration
+lazy_tools = true                   # JIT tool-schema loading (ships core + tool_search only)
+redact_sensitive_data = true        # redact API keys, tokens, passwords, IPs from output
+</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Field</th><th>Default</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>working_directory</code></td><td>home dir</td><td>Default working directory for the agent</td></tr>
+<tr><td><code>thinking</code></td><td><code>"on"</code></td><td>Extended thinking mode: <code>"on"</code>, <code>"off"</code>, or <code>"budget_XXk"</code></td></tr>
+<tr><td><code>approval_policy</code></td><td><code>"auto-always"</code></td><td><code>"ask"</code> = confirm every tool call, <code>"auto-session"</code> = auto-approve for session, <code>"auto-always"</code> = never ask</td></tr>
+<tr><td><code>max_concurrent</code></td><td><code>4</code></td><td>Max tool calls running in parallel</td></tr>
+<tr><td><code>context_limit</code></td><td><code>200000</code></td><td>Context window limit in tokens. When exceeded, oldest messages are dropped</td></tr>
+<tr><td><code>max_tokens</code></td><td><code>65536</code></td><td>Max output tokens per single API call</td></tr>
+<tr><td><code>auto_update</code></td><td><code>true</code></td><td>Automatically install new releases on startup (binary mode only)</td></tr>
+<tr><td><code>silent_compaction</code></td><td><code>false</code></td><td>When true, suppresses the agent’s playful post-compaction narration. Useful for corporate/formal deployments</td></tr>
+<tr><td><code>lazy_tools</code></td><td><code>true</code></td><td>Ships only core tool schemas (~4k tokens) plus <code>tool_search</code> per request. The agent discovers and activates extended tools on demand via <code>tool_search</code>. Set <code>false</code> to load all ~95 schemas every request</td></tr>
+<tr><td><code>redact_sensitive_data</code></td><td><code>true</code></td><td>Redacts API keys, tokens, passwords, and IPs from tool outputs and display. Set <code>false</code> during sysadmin/devops work where seeing IPs/tokens/passwords is necessary</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="sub-agent-and-rsi-overrides"><a class="header" href="#sub-agent-and-rsi-overrides">Sub-agent and RSI Overrides</a></h3>
+<p>Route spawned sub-agents and RSI (self-improvement) cycles to separate providers so they never compete with your main chat for quota:</p>
+<pre><code class="language-toml">[agent]
+subagent_provider = "minimax"           # provider for spawned sub-agents
+subagent_model = "MiniMax-M2.7"         # model for spawned sub-agents
+self_improvement_provider = "minimax"   # provider for RSI self-improvement cycles
+self_improvement_model = "MiniMax-M2.7" # model for RSI cycles
+</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Field</th><th>Default</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>subagent_provider</code></td><td><code>None</code> (uses session provider)</td><td>Provider for spawned sub-agents. Keeps sub-agents off your main provider</td></tr>
+<tr><td><code>subagent_model</code></td><td><code>None</code> (uses session model)</td><td>Model for spawned sub-agents</td></tr>
+<tr><td><code>self_improvement_provider</code></td><td><code>None</code> (uses session provider)</td><td>Provider for RSI self-improvement cycles. RSI runs on its own provider chain</td></tr>
+<tr><td><code>self_improvement_model</code></td><td><code>None</code> (uses session model)</td><td>Model for RSI cycles. Prefer cheap, fast models since results are deterministic</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="channel-configuration"><a class="header" href="#channel-configuration">Channel Configuration</a></h2>
+<h3 id="telegram"><a class="header" href="#telegram">Telegram</a></h3>
+<pre><code class="language-toml">[channels.telegram]
+enabled = true
+token = "123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11"
+allowed_users = ["123456789"]       # numeric Telegram user IDs
+allowed_channels = ["-100123456"]   # restrict to specific group/channel IDs (empty = all)
+respond_to = "mention"              # "all", "dm_only", "mention" (default)
+session_idle_hours = 24.0           # idle timeout for non-owner sessions
+rich_messages = false               # native Telegram rich messages (Bot API 10.1)
+silence_group_start = true          # silently ignore /start from non-allowed users in groups
+bot_owner = ["123456789"]           # owner IDs (gated commands, /cd hidden dirs, /profiles)
+</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Field</th><th>Default</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>enabled</code></td><td><code>false</code></td><td>Enable the Telegram bot channel</td></tr>
+<tr><td><code>token</code></td><td><code>None</code></td><td>Telegram Bot API token from @BotFather</td></tr>
+<tr><td><code>allowed_users</code></td><td><code>[]</code> (accept all)</td><td>Numeric Telegram user IDs. Accepts int or string arrays. Empty = open mode</td></tr>
+<tr><td><code>allowed_channels</code></td><td><code>[]</code> (all channels)</td><td>Restrict bot to specific channel/group IDs. DMs always pass</td></tr>
+<tr><td><code>respond_to</code></td><td><code>"mention"</code></td><td>When to respond in groups: <code>"all"</code> = every message, <code>"dm_only"</code> = ignore groups, <code>"mention"</code> = only when @mentioned or replied-to</td></tr>
+<tr><td><code>session_idle_hours</code></td><td><code>None</code> (no timeout)</td><td>Idle timeout in hours for non-owner sessions. Owner sessions never expire</td></tr>
+<tr><td><code>rich_messages</code></td><td><code>false</code></td><td>Send structured replies as native Telegram rich messages (tables, headings, lists, math). Only works on current mobile/desktop Telegram clients. Telegram Web and older clients show a “not supported” placeholder. Enable only when your audience is on modern clients</td></tr>
+<tr><td><code>silence_group_start</code></td><td><code>true</code></td><td>Silently ignore /start from non-allowed users in group chats. Users who need their ID can DM the bot</td></tr>
+<tr><td><code>bot_owner</code></td><td><code>[]</code> (first allowed_user)</td><td>Bot owner user IDs. Owners can access gated commands (/profiles, hidden files in /cd), manage profiles. When unset, defaults to first entry in <code>allowed_users</code></td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="discord"><a class="header" href="#discord">Discord</a></h3>
+<pre><code class="language-toml">[channels.discord]
+enabled = true
+token = "your-discord-bot-token"
+allowed_users = ["123456789012345678"]
+allowed_channels = ["123456789012345678"]
+respond_to = "mention"
+session_idle_hours = 24.0
+</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Field</th><th>Default</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>enabled</code></td><td><code>false</code></td><td>Enable the Discord bot channel</td></tr>
+<tr><td><code>token</code></td><td><code>None</code></td><td>Discord bot token from the Developer Portal</td></tr>
+<tr><td><code>allowed_users</code></td><td><code>[]</code> (accept all)</td><td>Discord user IDs. Accepts int or string arrays</td></tr>
+<tr><td><code>allowed_channels</code></td><td><code>[]</code> (all channels)</td><td>Restrict bot to specific channel IDs</td></tr>
+<tr><td><code>respond_to</code></td><td><code>"mention"</code></td><td>When to respond: <code>"all"</code>, <code>"dm_only"</code>, <code>"mention"</code></td></tr>
+<tr><td><code>session_idle_hours</code></td><td><code>None</code></td><td>Idle timeout for non-owner sessions</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="slack"><a class="header" href="#slack">Slack</a></h3>
+<pre><code class="language-toml">[channels.slack]
+enabled = true
+token = "xoxb-your-bot-token"
+app_token = "xapp-your-app-token"      # Socket Mode token
+allowed_users = ["U12345678"]
+allowed_channels = ["C12345678"]
+respond_to = "mention"
+session_idle_hours = 24.0
+</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Field</th><th>Default</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>enabled</code></td><td><code>false</code></td><td>Enable the Slack bot channel</td></tr>
+<tr><td><code>token</code></td><td><code>None</code></td><td>Bot token (<code>xoxb-...</code>)</td></tr>
+<tr><td><code>app_token</code></td><td><code>None</code></td><td>App-level token for Socket Mode (<code>xapp-...</code>)</td></tr>
+<tr><td><code>allowed_users</code></td><td><code>[]</code> (accept all)</td><td>Slack user IDs (<code>U12345678</code>)</td></tr>
+<tr><td><code>allowed_channels</code></td><td><code>[]</code> (all channels)</td><td>Restrict bot to specific channel IDs</td></tr>
+<tr><td><code>respond_to</code></td><td><code>"mention"</code></td><td>When to respond: <code>"all"</code>, <code>"dm_only"</code>, <code>"mention"</code></td></tr>
+<tr><td><code>session_idle_hours</code></td><td><code>None</code></td><td>Idle timeout for non-owner sessions</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="whatsapp"><a class="header" href="#whatsapp">WhatsApp</a></h3>
+<pre><code class="language-toml">[channels.whatsapp]
+enabled = true
+allowed_phones = ["+15551234567"]      # E.164 format
+session_idle_hours = 24.0
+</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Field</th><th>Default</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>enabled</code></td><td><code>false</code></td><td>Enable the WhatsApp channel</td></tr>
+<tr><td><code>allowed_phones</code></td><td><code>[]</code> (accept all)</td><td>E.164 phone numbers. Empty = accept everyone (not recommended for business numbers)</td></tr>
+<tr><td><code>session_idle_hours</code></td><td><code>None</code></td><td>Idle timeout for non-owner sessions</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="trello"><a class="header" href="#trello">Trello</a></h3>
+<pre><code class="language-toml">[channels.trello]
+enabled = true
+token = "your-trello-api-token"
+app_token = "your-trello-api-key"
+allowed_users = ["memberId1"]
+board_ids = ["boardId1", "boardId2"]
+poll_interval_secs = 60
+session_idle_hours = 24.0
+</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Field</th><th>Default</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>enabled</code></td><td><code>false</code></td><td>Enable the Trello channel</td></tr>
+<tr><td><code>token</code></td><td><code>None</code></td><td>Trello API token</td></tr>
+<tr><td><code>app_token</code></td><td><code>None</code></td><td>Trello API key (stored as <code>app_token</code> for keys.toml symmetry)</td></tr>
+<tr><td><code>allowed_users</code></td><td><code>[]</code> (accept all)</td><td>Trello member IDs</td></tr>
+<tr><td><code>board_ids</code></td><td><code>[]</code> (all boards)</td><td>Board IDs to monitor for @mentions. Also accepts <code>allowed_channels</code> as an alias</td></tr>
+<tr><td><code>poll_interval_secs</code></td><td><code>None</code> (tool-only)</td><td>Polling interval in seconds. Absent or 0 = no polling (tool-only mode)</td></tr>
+<tr><td><code>session_idle_hours</code></td><td><code>None</code></td><td>Idle timeout for non-owner sessions</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="other-channels-preview"><a class="header" href="#other-channels-preview">Other Channels (Preview)</a></h3>
+<p>Signal, Google Chat, and iMessage are available as preview placeholders:</p>
+<pre><code class="language-toml">[channels.signal]
+enabled = true
+allowed_phones = ["+15551234567"]
 
-[a2a]
+[channels.google_chat]
+enabled = true
+token = "your-google-chat-token"
+allowed_users = ["user@example.com"]
+
+[channels.imessage]
+enabled = true
+allowed_phones = ["+15551234567"]
+</code></pre>
+<h2 id="cron-defaults"><a class="header" href="#cron-defaults">Cron Defaults</a></h2>
+<p>Route cron jobs to cheaper providers so they never compete with your interactive session:</p>
+<pre><code class="language-toml">[cron]
+default_provider = "minimax"
+default_model = "MiniMax-M2.7"
+</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Field</th><th>Default</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>default_provider</code></td><td><code>None</code> (uses active provider)</td><td>Default provider for cron jobs without an explicit provider</td></tr>
+<tr><td><code>default_model</code></td><td><code>None</code> (uses active model)</td><td>Default model for cron jobs without an explicit model</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="memory-and-embeddings"><a class="header" href="#memory-and-embeddings">Memory and Embeddings</a></h2>
+<pre><code class="language-toml">[memory]
+vector_enabled = true
+
+[memory.embedding]
+url = "https://api.openai.com/v1"
+model = "text-embedding-3-small"
+# api_key loaded from keys.toml: [providers.memory_embedding] api_key = "sk-..."
+# dimensions = 1536  # auto-detected from first API response if unset
+</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Field</th><th>Default</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>vector_enabled</code></td><td><code>true</code> (desktop), <code>false</code> (VPS)</td><td>Enable vector embeddings for semantic memory search. When disabled, only FTS5 keyword search is used. Auto-disabled on systems with &lt; 2GB RAM or detected cloud instances</td></tr>
+<tr><td><code>embedding.url</code></td><td><code>None</code></td><td>OpenAI-compatible API base URL. The <code>/embeddings</code> path is appended automatically</td></tr>
+<tr><td><code>embedding.model</code></td><td><code>None</code></td><td>Embedding model name (e.g. <code>text-embedding-3-small</code>, <code>nomic-embed-text</code>)</td></tr>
+<tr><td><code>embedding.api_key</code></td><td><code>None</code></td><td>API key for the embedding endpoint. Also loaded from <code>keys.toml</code> under <code>[providers.memory_embedding]</code></td></tr>
+<tr><td><code>embedding.dimensions</code></td><td><code>None</code> (auto-detected)</td><td>Embedding vector dimensions. Auto-detected from the first API response if unset. Local GGUF model always produces 768-dim vectors</td></tr>
+</tbody>
+</table>
+</div>
+<p>When <code>[memory.embedding]</code> is not set, embeddings are generated locally via the embeddinggemma-300M GGUF model (~300MB download, ~2.9GB RAM). Setting <code>[memory.embedding]</code> with an API endpoint eliminates the local model overhead.</p>
+<h2 id="brain-files"><a class="header" href="#brain-files">Brain Files</a></h2>
+<pre><code class="language-toml">[brain]
+strip_empty_sections = true
+default_cap = 500
+
+[brain.caps]
+SOUL.md = 300
+AGENTS.md = 800
+</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Field</th><th>Default</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>strip_empty_sections</code></td><td><code>true</code></td><td>Strip empty header stubs (<code>## Header</code> with no body) from brain-file reads. Writes are never affected, only the loaded view is filtered</td></tr>
+<tr><td><code>default_cap</code></td><td><code>500</code></td><td>Per-file line cap for <code>sync_templates</code>. When a merged file exceeds its cap, the sync bails instead of writing</td></tr>
+<tr><td><code>caps</code></td><td><code>{}</code> (empty)</td><td>Per-file line caps overrides. Keys are filenames (case-sensitive: <code>TOOLS.md</code> and <code>tools.md</code> are distinct)</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="browser"><a class="header" href="#browser">Browser</a></h2>
+<pre><code class="language-toml">[browser]
+cdp_endpoint = "http://localhost:9222"
+</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Field</th><th>Default</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>cdp_endpoint</code></td><td><code>None</code> (spawn new browser)</td><td>CDP endpoint for an existing Chromium instance. When set, connects via Chrome DevTools Protocol instead of spawning a new browser. Useful for sharing a single browser across multiple profiles to save memory (~250-300MB per instance)</td></tr>
+</tbody>
+</table>
+</div>
+<p>To start a standalone Chromium with CDP enabled:</p>
+<pre><code class="language-bash">chromium --remote-debugging-port=9222 --headless --no-sandbox
+</code></pre>
+<h2 id="a2a-agent-to-agent-gateway"><a class="header" href="#a2a-agent-to-agent-gateway">A2A (Agent-to-Agent) Gateway</a></h2>
+<pre><code class="language-toml">[a2a]
 enabled = false
 bind = "127.0.0.1"
 port = 18790
-
-[image.generation]
+allowed_origins = ["https://your-app.com"]
+# api_key = "your-secret-key"  # Bearer token for incoming requests
+</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Field</th><th>Default</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>enabled</code></td><td><code>false</code></td><td>Enable the A2A JSON-RPC 2.0 gateway</td></tr>
+<tr><td><code>bind</code></td><td><code>"127.0.0.1"</code></td><td>Bind address</td></tr>
+<tr><td><code>port</code></td><td><code>18790</code></td><td>Gateway port</td></tr>
+<tr><td><code>allowed_origins</code></td><td><code>[]</code></td><td>CORS origins. Must be set explicitly, no cross-origin requests allowed by default</td></tr>
+<tr><td><code>api_key</code></td><td><code>None</code></td><td>Bearer token for authenticating incoming A2A requests. If unset, no authentication required</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="daemon-mode"><a class="header" href="#daemon-mode">Daemon Mode</a></h2>
+<pre><code class="language-toml">[daemon]
+health_port = 8080
+</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Field</th><th>Default</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>health_port</code></td><td><code>None</code> (no health server)</td><td>HTTP port for <code>GET /health</code> endpoint. Useful for systemd watchdog, uptime monitors, and external health probes</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="image-generation-and-vision"><a class="header" href="#image-generation-and-vision">Image Generation and Vision</a></h2>
+<pre><code class="language-toml">[image.generation]
 enabled = true
 model = "gemini-3.1-flash-image-preview"
 
@@ -272,6 +571,19 @@ model = "gemini-3.1-flash-image-preview"
 enabled = true
 model = "gemini-3.1-flash-image-preview"
 </code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Section</th><th>Field</th><th>Default</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>image.generation</code></td><td><code>enabled</code></td><td><code>false</code></td><td>Enable image generation via the <code>generate_image</code> tool</td></tr>
+<tr><td><code>image.generation</code></td><td><code>model</code></td><td><code>"gemini-3.1-flash-image-preview"</code></td><td>Model for image generation</td></tr>
+<tr><td><code>image.vision</code></td><td><code>enabled</code></td><td><code>false</code></td><td>Enable vision analysis via the <code>analyze_image</code> tool</td></tr>
+<tr><td><code>image.vision</code></td><td><code>model</code></td><td><code>"gemini-3.1-flash-image-preview"</code></td><td>Model for image/vision analysis</td></tr>
+</tbody>
+</table>
+</div>
 
                     </main>
 

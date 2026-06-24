@@ -63,7 +63,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-f8d08d9d.js";
+            window.path_to_searchindex_js = "../searchindex-06398ada.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-bb9bc9e2.js"></script>
@@ -250,6 +250,31 @@ allowed_channels = ["123456789"]
 allowed_users = []
 respond_to = "all"
 </code></pre>
+<h2 id="configuration"><a class="header" href="#configuration">Configuration</a></h2>
+<p>All Discord options live under <code>[channels.discord]</code> in <code>~/.opencrabs/config.toml</code>:</p>
+<pre><code class="language-toml">[channels.discord]
+enabled = true
+token = "your-discord-bot-token"       # or store in keys.toml
+allowed_users = ["123456789012345678"]  # Discord user IDs
+allowed_channels = ["123456789012345678"]
+respond_to = "mention"                  # "all", "dm_only", "mention" (default)
+session_idle_hours = 24.0               # idle timeout for non-owner sessions
+</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Field</th><th>Default</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>enabled</code></td><td><code>false</code></td><td>Enable the Discord bot channel</td></tr>
+<tr><td><code>token</code></td><td><code>None</code></td><td>Discord bot token from the Developer Portal</td></tr>
+<tr><td><code>allowed_users</code></td><td><code>[]</code> (accept all)</td><td>Discord user IDs. Accepts int or string arrays</td></tr>
+<tr><td><code>allowed_channels</code></td><td><code>[]</code> (all channels)</td><td>Restrict bot to specific channel IDs</td></tr>
+<tr><td><code>respond_to</code></td><td><code>"mention"</code></td><td>When to respond: <code>"all"</code>, <code>"dm_only"</code>, <code>"mention"</code></td></tr>
+<tr><td><code>session_idle_hours</code></td><td><code>None</code> (no timeout)</td><td>Idle timeout for non-owner sessions. Owner sessions never expire</td></tr>
+</tbody>
+</table>
+</div>
 <h2 id="features"><a class="header" href="#features">Features</a></h2>
 <ul>
 <li><strong>Server channels and DMs</strong> — Works in text channels and direct messages</li>

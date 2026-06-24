@@ -63,7 +63,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-f8d08d9d.js";
+            window.path_to_searchindex_js = "../searchindex-06398ada.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-bb9bc9e2.js"></script>
@@ -244,6 +244,33 @@ boards = ["Board Name or ID"]
 allowed_users = []
 # poll_interval_secs = 30  # Poll for new card comments
 </code></pre>
+<h2 id="configuration"><a class="header" href="#configuration">Configuration</a></h2>
+<p>All Trello options live under <code>[channels.trello]</code> in <code>~/.opencrabs/config.toml</code>:</p>
+<pre><code class="language-toml">[channels.trello]
+enabled = true
+token = "your-trello-api-token"        # or store in keys.toml
+app_token = "your-trello-api-key"      # stored as app_token for keys.toml symmetry
+allowed_users = ["memberId1"]           # Trello member IDs
+board_ids = ["boardId1", "boardId2"]   # boards to monitor (also accepts allowed_channels)
+poll_interval_secs = 60                 # polling interval (absent or 0 = tool-only mode)
+session_idle_hours = 24.0               # idle timeout for non-owner sessions
+</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Field</th><th>Default</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>enabled</code></td><td><code>false</code></td><td>Enable the Trello channel</td></tr>
+<tr><td><code>token</code></td><td><code>None</code></td><td>Trello API token</td></tr>
+<tr><td><code>app_token</code></td><td><code>None</code></td><td>Trello API key (stored as <code>app_token</code> for keys.toml symmetry)</td></tr>
+<tr><td><code>allowed_users</code></td><td><code>[]</code> (accept all)</td><td>Trello member IDs</td></tr>
+<tr><td><code>board_ids</code></td><td><code>[]</code> (all boards)</td><td>Board IDs to monitor for @mentions. Also accepts <code>allowed_channels</code> as alias</td></tr>
+<tr><td><code>poll_interval_secs</code></td><td><code>None</code> (tool-only)</td><td>Polling interval in seconds. Absent or 0 = no polling (tool-only mode)</td></tr>
+<tr><td><code>session_idle_hours</code></td><td><code>None</code> (no timeout)</td><td>Idle timeout for non-owner sessions. Owner sessions never expire</td></tr>
+</tbody>
+</table>
+</div>
 <h2 id="tool-actions"><a class="header" href="#tool-actions">Tool Actions</a></h2>
 <p>The <code>trello_send</code> tool supports 22 actions:</p>
 <div class="table-wrapper">

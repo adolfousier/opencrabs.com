@@ -63,7 +63,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-f8d08d9d.js";
+            window.path_to_searchindex_js = "../searchindex-06398ada.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-bb9bc9e2.js"></script>
@@ -237,6 +237,25 @@
 enabled = true
 allowed_phones = ["+15551234567"]
 </code></pre>
+<h2 id="configuration"><a class="header" href="#configuration">Configuration</a></h2>
+<p>WhatsApp options live under <code>[channels.whatsapp]</code> in <code>~/.opencrabs/config.toml</code>:</p>
+<pre><code class="language-toml">[channels.whatsapp]
+enabled = true
+allowed_phones = ["+15551234567"]      # E.164 format
+session_idle_hours = 24.0              # idle timeout for non-owner sessions
+</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Field</th><th>Default</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>enabled</code></td><td><code>false</code></td><td>Enable the WhatsApp channel</td></tr>
+<tr><td><code>allowed_phones</code></td><td><code>[]</code> (accept all)</td><td>E.164 phone numbers. Empty = accept everyone (not recommended for business numbers)</td></tr>
+<tr><td><code>session_idle_hours</code></td><td><code>None</code> (no timeout)</td><td>Idle timeout for non-owner sessions. Owner sessions never expire</td></tr>
+</tbody>
+</table>
+</div>
 <h2 id="features"><a class="header" href="#features">Features</a></h2>
 <ul>
 <li><strong>Personal and group chats</strong> — Works in DMs and group conversations</li>

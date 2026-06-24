@@ -63,7 +63,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-f8d08d9d.js";
+            window.path_to_searchindex_js = "../searchindex-06398ada.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-bb9bc9e2.js"></script>
@@ -263,6 +263,37 @@ respond_to = "all"
 <li><strong>Onboarding overhaul</strong> (v0.3.30) — Auto-detects owner user ID from <code>getUpdates</code>, persists partial config on cancel, only Enter on the last step commits (Tab no longer silently rewrites ~30 config keys)</li>
 <li><strong>Teloxide upgrade + join detection</strong> (v0.3.35) — Upgraded from teloxide 0.13 to 0.17. New members joining a group are now detected before the allowlist check, so the bot can greet or moderate join events. Marathon-bucket rolling status rotates through project-author quip pool for more varied status messages.</li>
 </ul>
+<h2 id="configuration"><a class="header" href="#configuration">Configuration</a></h2>
+<p>All Telegram options live under <code>[channels.telegram]</code> in <code>~/.opencrabs/config.toml</code>:</p>
+<pre><code class="language-toml">[channels.telegram]
+enabled = true
+token = "123456:ABC-DEF..."          # or store in keys.toml
+allowed_users = ["123456789"]         # numeric Telegram user IDs
+allowed_channels = ["-100123456"]     # restrict to specific group/channel IDs (empty = all)
+respond_to = "mention"                # "all", "dm_only", "mention" (default)
+session_idle_hours = 24.0             # idle timeout for non-owner sessions
+rich_messages = false                 # native Telegram rich messages (Bot API 10.1)
+silence_group_start = true            # silently ignore /start from non-allowed users in groups
+bot_owner = ["123456789"]             # owner IDs (gated commands, /cd hidden dirs, /profiles)
+</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Field</th><th>Default</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>enabled</code></td><td><code>false</code></td><td>Enable the Telegram bot channel</td></tr>
+<tr><td><code>token</code></td><td><code>None</code></td><td>Telegram Bot API token from @BotFather</td></tr>
+<tr><td><code>allowed_users</code></td><td><code>[]</code> (accept all)</td><td>Numeric Telegram user IDs. Accepts int or string arrays. Empty = open mode</td></tr>
+<tr><td><code>allowed_channels</code></td><td><code>[]</code> (all channels)</td><td>Restrict bot to specific channel/group IDs. DMs always pass</td></tr>
+<tr><td><code>respond_to</code></td><td><code>"mention"</code></td><td>When to respond in groups: <code>"all"</code> = every message, <code>"dm_only"</code> = ignore groups, <code>"mention"</code> = only when @mentioned or replied-to</td></tr>
+<tr><td><code>session_idle_hours</code></td><td><code>None</code> (no timeout)</td><td>Idle timeout in hours for non-owner sessions. Owner sessions never expire</td></tr>
+<tr><td><code>rich_messages</code></td><td><code>false</code></td><td>Send structured replies as native Telegram rich messages (tables, headings, lists, math). Requires current mobile/desktop Telegram clients. Telegram Web and older clients show a “not supported” placeholder</td></tr>
+<tr><td><code>silence_group_start</code></td><td><code>true</code></td><td>Silently ignore /start from non-allowed users in group chats. Users who need their ID can DM the bot</td></tr>
+<tr><td><code>bot_owner</code></td><td><code>[]</code> (first allowed_user)</td><td>Bot owner user IDs. Owners can access gated commands (/profiles, hidden files in /cd), manage profiles. Defaults to first entry in <code>allowed_users</code></td></tr>
+</tbody>
+</table>
+</div>
 <h2 id="agent-tools"><a class="header" href="#agent-tools">Agent Tools</a></h2>
 <p>The agent can use <code>telegram_send</code> with 20+ actions. The <code>thread_id</code> field on <code>send</code> / <code>reply</code> / <code>send_photo</code> targets a specific forum topic in supergroups with topics enabled.</p>
 <div class="table-wrapper">

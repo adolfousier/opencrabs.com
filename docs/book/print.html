@@ -64,7 +64,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-f8d08d9d.js";
+            window.path_to_searchindex_js = "searchindex-06398ada.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-bb9bc9e2.js"></script>
@@ -207,282 +207,90 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
-<p><strong>OpenCrabs</strong> is a self-hosted, provider-agnostic AI orchestration agent that runs as a single Rust binary. It automates your terminal, browser, channels (Telegram/Discord/Slack/WhatsApp/Trello), and codebase — all while respecting your privacy and keeping you in control.</p>
-<p><strong>Test coverage</strong>: 4,033+ tests (v0.3.43)</p>
+<p><strong>OpenCrabs</strong> is a self-hosted, provider-agnostic AI orchestration agent that runs as a single Rust binary. It automates your terminal, browser, channels (Telegram/Discord/Slack/WhatsApp/Trello), and codebase, all while respecting your privacy and keeping you in control.</p>
+<p><strong>4,103+ tests</strong> across providers, tools, channels, TUI, self-healing, and browser automation.</p>
 <h2 id="what-makes-opencrabs-different"><a class="header" href="#what-makes-opencrabs-different">What Makes OpenCrabs Different</a></h2>
-<h3 id="-provider-agnostic-with-native-cli-integration"><a class="header" href="#-provider-agnostic-with-native-cli-integration">🔄 Provider-Agnostic with Native CLI Integration</a></h3>
+<h3 id="provider-agnostic-by-design"><a class="header" href="#provider-agnostic-by-design">Provider-Agnostic by Design</a></h3>
 <ul>
-<li><strong>14 built-in providers + Custom OpenAI Compatible</strong>: Anthropic Claude, OpenAI, Gemini, OpenRouter, Qwen (DashScope), MiniMax, Ollama, z.ai GLM, GitHub Copilot, Codex, Codex CLI, OpenCode, OpenCode CLI</li>
-<li><strong>Claude Code CLI, OpenCode CLI, Codex CLI &amp; Codex OAuth</strong> integrated as native providers — use their models without API keys</li>
-<li><strong>Codex (OAuth)</strong> — native OpenAI Codex subscription auth via device-code PKCE flow. No CLI dependency, no API key. Authenticate through browser once; tokens stored with automatic refresh (v0.3.19)</li>
-<li><strong>Ollama as native provider</strong> — run any local model via Ollama API without custom provider setup (v0.3.15)</li>
-<li><strong>Custom OpenAI-compatible backends</strong> now stream thinking tokens, tool calls, and intermediate text exactly like native providers (v0.3.2)</li>
-<li><strong>Sticky fallback chain</strong> — auto-failover to secondary providers on rate limits or errors</li>
-<li><strong>Health-aware sticky fallback persistence</strong> — fallback state survives restarts, checks provider health on creation and advances if primary has 2+ consecutive failures (v0.3.17)</li>
-<li><strong>OpenRouter response caching</strong> — zero cost for identical requests (v0.3.17)</li>
-<li><strong>TCP keepalive on all HTTP clients</strong> — 15s keepalive detects silent TCP drops in ~15-45s instead of waiting for 300s idle timeout (v0.3.17)</li>
-<li><strong>Prompt caching</strong> across Anthropic, OpenRouter, Gemini, Qwen DashScope — reduces costs up to 95% (v0.3.2)</li>
-<li><strong>Restart failure fix</strong> (v0.3.37) — pre-built binaries now use <code>std::env::current_exe()</code> as <code>binary_path</code> instead of pointing at a never-built <code>target/release/opencrabs</code>. Source only gets cloned when <code>/rebuild</code> is invoked</li>
-<li><strong>Mid-turn model switch fix</strong> (v0.3.37) — mid-turn manual switch applies next turn, current request completes</li>
-<li><strong>Onboarding keyless fix</strong> (v0.3.37) — keyless providers skip API key field, reach model select</li>
-<li><strong>RSI dedup fix</strong> (v0.3.37) — dedup before appending to brain files. Stops append→dedup→append loop</li>
-<li><strong>Context usage fix</strong> (v0.3.37) — reject over-reported provider usage to prevent inflated counters</li>
-<li><strong>Logging self-healing</strong> (v0.3.37) — self-healing daily file writer recovers from lost fd mid-run</li>
-<li><strong>Cache efficiency metric fix</strong> (v0.3.37) — measures caching-capable requests only, excludes non-caching providers</li>
-<li><strong>Context window override</strong> (v0.3.40) — native and CLI providers honor <code>context_window</code> config, letting you cap or expand context for any model</li>
-<li><strong>OpenRouter cache by default</strong> (v0.3.40) — caching enabled on OpenRouter by default. Prompt Caching docs section with TTL behavior and cost-safety notes</li>
-<li><strong>Xiaomi MiMo keyless fix</strong> (v0.3.38) — <code>config_defaults</code> now seeds a default Xiaomi section so keyless onboarding works from a blank slate</li>
-<li><strong>Xiaomi MiMo tool-call parsing</strong> (v0.3.38) — parse tool calls wrapped in <code>&lt;tool_call_list&gt;</code> XML that MiMo models emit</li>
+<li><strong>15 built-in providers + Custom OpenAI Compatible</strong>: Anthropic Claude, OpenAI, Gemini, Xiaomi MiMo, OpenRouter, Qwen (DashScope), MiniMax, Ollama, z.ai GLM, GitHub Copilot, Codex, Codex CLI, OpenCode, OpenCode CLI</li>
+<li><strong>Native CLI integration</strong> — use Claude Code CLI, OpenCode CLI, and Codex CLI as providers without API keys</li>
+<li><strong>Sticky fallback chain</strong> — auto-failover on rate limits or errors, health-aware persistence survives restarts</li>
+<li><strong>Prompt caching</strong> across Anthropic, OpenRouter, Gemini, Qwen DashScope reduces costs up to 95%</li>
+<li><strong>Context window override</strong> — cap or expand context for any model via config</li>
+<li><strong>Xiaomi MiMo default</strong> — keyless mode for new users, 30 models, thinking enabled by default</li>
 </ul>
-<h3 id="-multi-agent-orchestration"><a class="header" href="#-multi-agent-orchestration">🤖 Multi-Agent Orchestration</a></h3>
+<h3 id="multi-agent-orchestration"><a class="header" href="#multi-agent-orchestration">Multi-Agent Orchestration</a></h3>
 <ul>
-<li><strong>Sessions are fully isolated agents</strong> — each session is an independent agent with its own brain, provider, model, working directory, and history. Zero context contamination between concurrent sessions, guaranteed by Rust’s async runtime and type system</li>
-<li><strong>Typed sub-agents</strong>: <code>general</code>, <code>explore</code>, <code>plan</code>, <code>code</code>, <code>research</code> — each with tailored tool access</li>
+<li><strong>Sessions are fully isolated agents</strong> — each with its own brain, provider, model, working directory, and history</li>
+<li><strong>Typed sub-agents</strong>: <code>general</code>, <code>explore</code>, <code>plan</code>, <code>code</code>, <code>research</code> with tailored tool access</li>
 <li><strong>Team orchestration</strong>: <code>team_create</code>, <code>team_broadcast</code>, <code>team_delete</code> for coordinated workflows</li>
-<li><strong>Spawn/wait/resume</strong> sub-agents with A2A protocol support</li>
-<li><strong>ALWAYS_EXCLUDED tools</strong> per agent type for safety boundaries</li>
-<li><strong>Multi-profile cron daemon</strong> (v0.3.37) — one process now covers all profiles’ cron jobs. No need to run separate daemons per profile</li>
-<li><strong>Cron job profile isolation</strong> (v0.3.37) — cron jobs are now isolated to their origin profile. Each job is stamped with its profile at creation. The scheduler skips any job whose stamp doesn’t match the running process</li>
+<li><strong>Per-call provider/model overrides</strong> — mix models across teams (plan with GLM, code with Deepseek, review with Kimi)</li>
+<li><strong>A2A protocol</strong> — JSON-RPC 2.0 gateway for agent-to-agent communication</li>
 </ul>
-<h3 id="-channel-native-communication"><a class="header" href="#-channel-native-communication">🌐 Channel-Native Communication</a></h3>
+<h3 id="channel-native-communication"><a class="header" href="#channel-native-communication">Channel-Native Communication</a></h3>
 <ul>
-<li><strong>Telegram, Discord, Slack, WhatsApp, Trello</strong> — respond to messages, send files, manage threads</li>
-<li><strong>Cross-channel crash recovery</strong> — pending requests route back to originating channel on restart (v0.2.93)</li>
-<li><strong>DB-persisted channel sessions</strong> — state survives restarts</li>
-<li><strong>Voice support</strong> — local Whisper STT + Piper TTS, fully offline. Voicebox with STT/TTS fallback chains, 2s liveness probe, librosa error translator, per-provider fallback chains in config.toml (v0.3.28)</li>
-<li><strong>Cross-channel stable session suffixes</strong> — Discord, Slack, WhatsApp all use <code>[chat:&lt;id&gt;]</code> suffix pattern for reliable session resolution, shared <code>channels::session_resolve</code> module with suffix-first lookup + legacy forward-migration (v0.3.29)</li>
-<li><strong>Follow-up message = ESC x2 cancel</strong> — sending a message during an active agent run cancels the current run and starts fresh, across all channels (v0.3.30)</li>
-<li><strong>ZIP attachment handling</strong> — extracts and processes ZIP files inline (text inlined, images get vision markers, PDFs extracted, 50 files/10MB cap) (v0.3.30)</li>
-<li><strong>Topic-aware channel_search</strong> — <code>topic_id</code> filter for Telegram forum supergroups (v0.3.30, #127)</li>
-<li><strong>Video uploads across all channels</strong> — Slack, Telegram, Discord, WhatsApp, and Trello automatically route video attachments to <code>analyze_video</code> when vision is enabled (v0.3.17)</li>
-<li><strong>Telegram 20 MB Bot API cap</strong> — surfaces “compress to under 20 MB and resend” message instead of silently failing on large uploads (v0.3.17)</li>
-<li><strong>Telegram dropped video/animation</strong> — now downloads and routes through vision processing, including iPhone <code>.mov</code> uploads auto-converted to MP4-backed Animation (v0.3.17)</li>
-<li><strong>Slack intermediate-vs-final dedup race closed</strong> — captures and awaits all IntermediateText JoinHandles before dedup check, with post-completion sweep for late entries (v0.3.17)</li>
-<li><strong>Clean display text</strong> — all channels persist clean text to DB and TUI instead of LLM metadata brackets (v0.3.17)</li>
-<li><strong>Local file paths in telegram_send</strong> (v0.3.37) — <code>telegram_send</code> now accepts local file paths in <code>send_photo</code>/<code>send_document</code>, not just HTTPS URLs</li>
-<li><strong>Telegram model picker fix</strong> (v0.3.37) — no longer hung on ‘loading’ for long model names</li>
-<li><strong>Telegram media fix</strong> (v0.3.37) — pass user’s caption alongside media to the agent</li>
-<li><strong>Telegram native rich messages</strong> (v0.3.40) — full markdown-to-rich rendering gated behind <code>channels.telegram.rich_messages</code>. AST parser handles headings, tables with alignment, nested/ordered/task lists, fenced code, blockquotes, and inline+block math. Responsive table rendering with card layout for wide tables</li>
-<li><strong>Telegram group bot handling</strong> (v0.3.38) — hold a bot’s text message in a group until its edit stream settles, then dispatch the final text. Each edit resets the settle timer</li>
-<li><strong>Telegram peer-bot settle window</strong> (v0.3.38) — wait ~2s of edit silence before processing a peer bot’s message in groups</li>
-<li><strong>Session search in channels</strong> (v0.3.41) — <code>/sessions:&lt;query&gt;</code> filter for channel commands</li>
-<li><strong>Telegram rich fallback</strong> (v0.3.41) — rich fallback when final reply deduped to zero</li>
-<li><strong>Plan summary uses markdown task lists</strong> (v0.3.41) — for rich Telegram rendering</li>
-<li><strong><code>/cowork</code> workspace creation</strong> (v0.3.42) — create shared Telegram workspaces from channels and TUI via <code>cowork_connect</code> agent tool. Auto-registers workspace in config</li>
-<li><strong><code>/rename</code> command</strong> (v0.3.42) — rename sessions from Telegram, Discord, Slack, WhatsApp</li>
-<li><strong>Fast-cancel</strong> (v0.3.42) — “stop” / “/stop” kills active task immediately instead of waiting for the agent to finish</li>
-<li><strong>Telegram group security</strong> (v0.3.42) — <code>silence_group_start</code> config param silences non-allowed users in groups. Bot respects allowlist before responding</li>
-<li><strong>Track incoming files in groups</strong> (v0.3.42) — store untagged group photos to tmp and pick up when tagged. Archive shared images into session’s project files dir</li>
-<li><strong>WhatsApp QR as scannable PNG</strong> (v0.3.42) — pairing QR rendered as a scannable PNG for channels</li>
-<li><strong>Channel-capable <code>/onboard</code></strong> (v0.3.42) — <code>/onboard:image</code>, <code>/onboard:voice</code>, <code>/onboard:channels</code> now work from any channel. OpenAI-compatible vision models supported in onboard flow</li>
-<li><strong>Telegram scroll to bottom on rich completion</strong> (v0.3.42) — delete placeholder before fresh send</li>
-<li><strong>Bot-command registration fix</strong> (v0.3.43) — hyphen in <code>mission-control</code> no longer breaks Telegram command registration</li>
-<li><strong><code>/help</code> HTML escape fix</strong> (v0.3.43) — text commands no longer silently fail due to unescaped HTML in md_to_html</li>
+<li><strong>Telegram, Discord, Slack, WhatsApp, Trello</strong> — full bot integration with DMs, groups, and threads</li>
+<li><strong>Telegram rich messages</strong> — native tables, headings, lists, math via <code>rich_messages</code> config</li>
+<li><strong>Forum topic session isolation</strong> — each topic in Telegram supergroups gets its own session</li>
+<li><strong>Voice support</strong> — local Whisper STT + Piper TTS, fully offline</li>
+<li><strong>Cross-channel crash recovery</strong> — pending requests route back to originating channel on restart</li>
+<li><strong><code>/cowork</code></strong> — create shared workspaces from channels and TUI</li>
+<li><strong><code>/rename</code>, <code>/profiles</code>, <code>/cd</code></strong> — manage sessions, profiles, and directories from any channel</li>
 </ul>
-<h3 id="-self-healing--self-improvement-v037"><a class="header" href="#-self-healing--self-improvement-v037">🧠 Self-Healing &amp; Self-Improvement (v0.3.7)</a></h3>
+<h3 id="self-healing--self-improvement"><a class="header" href="#self-healing--self-improvement">Self-Healing &amp; Self-Improvement</a></h3>
 <ul>
-<li><strong>Recursive Self-Improvement (RSI)</strong> — agent analyzes its own performance, identifies patterns, and autonomously rewrites brain files (v0.3.6)</li>
-<li><strong>Feedback ledger</strong> — persistent SQLite table recording every tool success/failure, user correction, provider error (v0.3.6)</li>
-<li><strong>Phantom tool call detection</strong> — catches when the model narrates file changes in prose without executing tools (v0.3.7)</li>
-<li><strong>Expanded phantom detection</strong> — catches “Now &lt;file-op gerund&gt;” phantoms (creating/writing/editing) and build/deploy intent + past-tense completion claims. Gaslighting and phantom detectors extracted into their own module (v0.3.17)</li>
-<li><strong>RSI escalation for repeat violations</strong> — violation counter bumps on existing rules instead of deduping away. Rules that keep getting broken get louder, not silenced (v0.3.17)</li>
-<li><strong>RSI feedback records actual model used</strong> — when helpers remap a mismatched model to the provider default, RSI now records the resolved model instead of the impossible original pair (v0.3.19)</li>
-<li><strong>Append-only brain files</strong> — brain files (SOUL.md, TOOLS.md, etc.) are now append-only with backup-before-write to prevent data loss (v0.3.13)</li>
-<li><strong>Upstream template sync</strong> — automatically syncs brain file templates from the repo with version gating and append-only diffs (v0.3.15)</li>
-<li><strong>RSI alert suppression</strong> — suppresses alerts whose dimension already has a fix commit, stale alerts age out (v0.3.13)</li>
-<li><strong>Partial JSON repair</strong> — closes unterminated strings, balances brackets, strips trailing commas. Wired into 5 drop sites across OpenAI-compatible providers (v0.3.17)</li>
-<li><strong>Context budget management</strong>: 65% soft / 90% hard compaction thresholds with 3-retry LLM fallback. Real-time ctx counter uses provider-reported <code>input_tokens</code> verbatim (v0.3.28, calibration system removed)</li>
-<li><strong>Stuck stream detection</strong>: 2048-byte rolling window catches repeating patterns, auto-recover</li>
-<li><strong>Gaslighting defense</strong>: strips tool-refusal preambles mid-turn across 4+ phrase families</li>
-<li><strong>Auto-fallback on rate limits</strong> — saves state mid-stream, resumes on fallback provider</li>
-<li><strong>RetryAttempt progress event</strong> — TUI shows “⏳ Retry 2/3 — stream dropped” so you see transient recovery in progress (v0.3.17)</li>
-<li><strong>Mid-stream decode retry</strong> — 3x backoff before provider fallback (v0.3.0)</li>
-<li><strong>Non-streaming compatibility</strong> — synthesizes full stream events from non-streaming JSON (v0.3.7)</li>
-<li><strong>Per-session message queue isolation</strong> — prevents cross-session message bleeding in split panes and channels (v0.3.13)</li>
-<li><strong>Tool loop reasoning markers persisted</strong> — reasoning content survives across tool loop iterations (v0.3.19)</li>
-<li><strong>@ file picker fixed for large repos</strong> — skips .git/.hg/.svn directories, raised result cap to 20k (v0.3.19)</li>
-<li><strong>RSI efficiency gate</strong> (v0.3.37) — RSI tool proposals now require the rationale to explicitly state which efficiency gate applies: TOKEN SAVINGS, ERROR REDUCTION, or CAPABILITY ADDITION. Commands and skills exempt</li>
-<li><strong>Lock file corruption fix</strong> (v0.3.37) — <code>is_pid_alive(0)</code> returns false; corrupted lock files taken over. Fixes Telegram startup wedge</li>
-<li><strong>Retry backoff</strong> (v0.3.37) — patient backoff for DNS/connection errors. Stops fast-failing flaky providers</li>
-<li><strong>Disable sensitive data redaction</strong> (v0.3.37) — <code>agent.redact_sensitive_data = false</code> disables redaction for sysadmin/devops work where IPs, tokens, etc. need to be visible</li>
-<li><strong>Multilingual phantom self-heal</strong> (v0.3.38) — intent-phrase matching now scans all languages at once instead of gating on <code>detect_language()</code>. Single-word verbs stay language-gated</li>
-<li><strong>Hot-reload tools</strong> (v0.3.39) — config/key-gated tools (browser, local STT, local TTS, knowledge base, Trello, WhatsApp, X) now register/deregister at runtime when you edit config or add/remove API keys, no daemon restart needed</li>
-<li><strong>Brief work announcements</strong> (v0.3.38) — short announcements like “Running checks now.” are now caught as phantom intents</li>
-<li><strong>Vision model fallback</strong> (v0.3.40) — register setup-hint analyze_image, Xiaomi vision_model + Gemini fallback</li>
-<li><strong>Reasoning repetition loop detection</strong> (v0.3.42) — flags when the agent gets stuck repeating the same reasoning pattern</li>
-<li><strong>Stuck-loop precision</strong> (v0.3.43) — only flags a stuck loop when the SAME intent line repeats, not similar ones</li>
-<li><strong>Config auto-repair</strong> (v0.3.43) — auto-repair broken config.toml and never poison last-good config</li>
-<li><strong>Credential redaction improvements</strong> (v0.3.42) — labeled credentials with colon separator now redacted, key prefix fragments (&lt; 8 chars) skipped to avoid false positives</li>
+<li><strong>Recursive Self-Improvement (RSI)</strong> — agent analyzes performance, identifies patterns, and rewrites brain files</li>
+<li><strong>Phantom tool call detection</strong> — catches when the model narrates changes without executing tools</li>
+<li><strong>System brain rebuild</strong> — brain files rebuilt from disk when changed, no restart needed</li>
+<li><strong>Proactive tool discovery</strong> — searches for available tools before claiming inability</li>
+<li><strong>JIT tool activation</strong> — extended tools activated on-demand, no pre-registration needed</li>
+<li><strong>Config auto-repair</strong> — auto-repair broken config.toml, never poison last-good config</li>
+<li><strong>Context budget management</strong> — 65% soft / 90% hard compaction thresholds with LLM fallback</li>
+<li><strong>Stuck stream detection</strong> — 2048-byte rolling window catches repeating patterns</li>
+<li><strong>Gaslighting defense</strong> — strips tool-refusal preambles mid-turn</li>
 </ul>
-<h3 id="-terminal-ui-excellence-v032"><a class="header" href="#-terminal-ui-excellence-v032">🖥️ Terminal UI Excellence (v0.3.2)</a></h3>
+<h3 id="terminal-ui"><a class="header" href="#terminal-ui">Terminal UI</a></h3>
 <ul>
-<li><strong>Real-time tok/s throughput meter</strong> — footer displays live tokens-per-second during streaming (between model info and approval policy pill), counts only active streaming time, persists last rate during idle (v0.3.30)</li>
-<li><strong>Dynamic plan widget</strong> — hides tasks that don’t fit terminal height instead of overflowing (v0.3.30)</li>
-<li><strong>Per-pane error &amp; notification banners</strong> — dedicated error/notification display per TUI pane for better visibility (v0.3.20)</li>
-<li><strong>Scroll fixes</strong> — removed <code>load_more_history()</code> from scroll handler (was causing scroll-up to overshoot hundreds of pages), preserved scroll position during streaming and system messages, skip scroll compensation on first render (v0.3.25)</li>
-<li><strong>Auto-title fires at end of first turn</strong> — works across all channels, not just TUI (v0.3.25)</li>
-<li><strong>Header card overlay</strong> replaces splash screen — animated, responsive, vanishes after load</li>
-<li><strong>Select/Drag to Copy</strong> — native mouse selection in TUI, auto-copies to clipboard on release</li>
-<li><strong>O(N) input render</strong> — tall pastes no longer cause quadratic render cost; scroll-to-cursor preserved</li>
-<li><strong>Emoji cursor rendering</strong> — grapheme cluster extraction for multi-byte emoji highlighting</li>
-<li><strong>Line navigation in multiline</strong> — Up/Down navigates lines inside recalled multi-line input</li>
-<li><strong>F12 mouse capture toggle</strong> — toggle native terminal text selection without exiting TUI</li>
-<li><strong>Async session load</strong> — instant first paint, messages load in background</li>
-<li><strong>Video attachments in TUI</strong> — pasting a video path emits <code>&lt;&lt;VID:path&gt;&gt;</code>, top-right indicator labels each as <code>Video #N</code>, chat display rewrites to <code>[VID: clip.mp4]</code> (v0.3.17)</li>
-<li><strong>Thinking content persisted to DB</strong> — captured on both ResponseComplete and IntermediateText events (v0.3.17)</li>
-<li><strong>Approval policy read at runtime</strong> — loaded from config on every tool request instead of cached at startup (v0.3.17)</li>
-<li><strong>Session search in TUI</strong> (v0.3.41) — search filter + viewport scroll across all sessions</li>
-<li><strong>Agent-driven onboarding welcome</strong> (v0.3.41) — new welcome flow with agent-guided setup</li>
-<li><strong>Assigned session highlight</strong> (v0.3.41) — green highlight for assigned sessions in assign mode</li>
-<li><strong>Clipboard image paste</strong> (v0.3.39) — paste images copied from the browser or any app directly into TUI input</li>
-<li><strong>Detect shell-escaped and PDF/doc drag-dropped paths</strong> (v0.3.41) — improved file detection</li>
-<li><strong>Plan pinning</strong> (v0.3.43) — active plan pinned at the end of the prompt each turn so the agent never loses track of what it’s working on</li>
-</ul>
-<h3 id="-developer-experience"><a class="header" href="#-developer-experience">🔧 Developer Experience</a></h3>
-<ul>
-<li><strong>Bang operator (<code>!cmd</code>)</strong> — run shell commands directly from TUI input, no LLM round-trip (v0.3.1)</li>
-<li><strong>Full CLI surface</strong>: 20+ subcommands (<code>/models</code>, <code>/approve</code>, <code>/compact</code>, <code>/rebuild</code>, <code>/evolve</code>, <code>/new</code>, <code>/doctor</code>, <code>/btw</code>, <code>/mission-control</code>, <code>/skills</code>, <code>/repo-audit</code>, etc.)</li>
-<li><strong>Background /rebuild</strong> (v0.3.37) — <code>/rebuild</code> now runs in the background via a one-shot cron job instead of blocking the TUI</li>
-<li><strong>Version in /doctor output</strong> (v0.3.37) — <code>/doctor</code> now shows <code>Health Check (v0.3.x)</code> in the header on Telegram, Discord, Slack, WhatsApp</li>
-<li><strong>Deprecate execute_code/task_manager</strong> (v0.3.37) — <code>execute_code</code> and <code>task_manager</code> marked DEPRECATED in their tool descriptions</li>
-<li><strong>Bash guard fix</strong> (v0.3.37) — allow <code>python -m</code> module invocations (no false-positive REPL rejection). Fixes the main reason agents fell back to <code>execute_code</code></li>
-<li><strong>Daemon file logs</strong> (v0.3.37) — reliable daemon file logs + self-healing daily file writer. Recovers from lost fd mid-run</li>
-<li><strong><code>/btw</code> parallel agent</strong> — spawn an isolated sub-agent for side tasks while the main conversation continues (v0.3.15)</li>
-<li><strong>Mission Control</strong> (<code>/mission-control</code>) — full-screen dashboard showing RSI inbox, activity log, and cron schedule in one view (v0.3.16)</li>
-<li><strong>Skills system</strong> (<code>/skills</code>) — browse and launch workflow templates with fuzzy-finding, auto-registered as slash commands (v0.3.16)</li>
-<li><strong>Programmatic <code>/evolve</code></strong> — bypasses LLM, runs update directly (v0.3.1)</li>
-<li><strong>Auto-update on startup</strong> — <code>[agent] auto_update = true</code> silently installs + hot-restarts (v0.3.1)</li>
-<li><strong>Dynamic tools</strong> — runtime-defined via TOML (HTTP + shell executors)</li>
+<li><strong>Real-time tok/s throughput meter</strong> — live tokens-per-second during streaming</li>
+<li><strong>Session search</strong> — search filter + viewport scroll across all sessions</li>
 <li><strong>Split panes</strong> — tmux-style parallel sessions with layout persistence</li>
-<li><strong>Inactive pane markdown rendering</strong> (v0.3.37) — inactive pane now routes content through the same <code>parse_markdown</code> + <code>wrap_line_with_padding</code> pipeline as the focused pane. No more raw <code>**asterisks**</code>, no more truncated words, no more broken list indentation</li>
-<li><strong>Usage Dashboard</strong> — <code>/usage</code> command shows daily tokens, cost, active models, session categories, project activity (v0.3.9)</li>
-<li><strong>Per-model cache efficiency</strong> (v0.3.37) — the Cache card now shows a per-model breakdown with hit rates, sorted highest-first. See at a glance which models cache well</li>
-<li><strong>Onboarding welcome</strong> — personalized first-time detection with welcome message and guided setup (v0.3.13)</li>
-<li><strong>Recent file memory</strong> — persists recent file paths across sessions to anchor the agent (v0.3.13)</li>
-<li><strong>Bash hardening</strong> — rejects interactive commands up-front, short-circuits exact same failing command retries, tilde expansion fixed (v0.3.13)</li>
-<li><strong>SSH askpass detection</strong> — detects password prompts on remote servers and aborts gracefully instead of hanging (v0.3.16)</li>
-<li><strong>Async proactive compaction</strong> — at 65% context, compaction runs in background without blocking the chat (v0.3.16)</li>
-<li><strong><code>rename_session</code></strong> — agent proactively renames the current session with a descriptive title (3–8 words). Useful for long-running conversations where default titles become unhelpful (v0.3.24)</li>
-<li><strong><code>follow_up_question</code></strong> — agent asks the user a multi-choice question with up to 8 button options. Implemented across all channels: Telegram (inline keyboard), Discord (button components), Slack (Block Kit actions), WhatsApp (quick replies) (v0.3.24, #94)</li>
-<li><strong>Auto-generated session titles</strong> — new sessions get titles from the first user message via background LLM call. Never enters conversation context. Thinking-only model fallback extracts title from reasoning block (v0.3.24, v0.3.29 #121)</li>
-<li><strong><code>/models</code> picker overhaul</strong> — surfaces unconfigured providers with 🔒 lock + setup help text, single-source CLI model list, custom-provider empty-state help (v0.3.30, #126)</li>
-<li><strong>RTK Token Savings</strong> — bundled RTK binary (4MB, v0.40.0) as default feature. Zero-config proxy intercepts tool output, filters via Rust, returns token-optimized version. 100+ commands (git, cargo, npm, docker, kubectl, grep, find, ls, tree, curl), blocklist for interactive commands. <code>/rtk</code> slash command shows savings stats. Real-world: 53.5% token savings (v0.3.25, #102). <strong>Sysadmin expansion</strong> (v0.3.34): added 11 sysadmin commands (<code>ps</code>, <code>top</code>, <code>lsof</code>, <code>netstat</code>, <code>ss</code>, <code>journalctl</code>, <code>dmesg</code>, <code>dig</code>, <code>nslookup</code>, <code>host</code>, <code>traceroute</code>) that were bypassing RTK entirely, plus bundled <code>rtk_filters.toml.example</code> with 8 conservative starter rules</li>
-<li><strong>Lazy tool-schema loading</strong> (v0.3.37) — tool discovery via <code>tool_search</code>, core tools only by default. Reduces startup time and context usage. Flag-gated (<code>[agent] lazy_tools</code>), enabled by default</li>
-<li><strong>Xiaomi MiMo collaboration</strong> (v0.3.37) — Xiaomi MiMo is now the default provider for new users. 2 weeks completely free with keyless mode via proxy (no API key needed). Models: mimo-v2.5-pro (1M context), mimo-v2-pro, mimo-v2.5, mimo-v2-omni, mimo-v2-flash. Thinking enabled by default. After the free window (2026-06-25), users can add their own key or switch providers. Full integration with keyless proxy mode, live model fetch, automatic caching</li>
-<li><strong>Tool call stacking</strong> — 3+ consecutive tool call groups collapse into single summary line in TUI. Ctrl+O expands/collapses. Shows “N tool calls” or “N tool calls (M groups)” (v0.3.25)</li>
-<li><strong><code>hashline_edit</code> tool</strong> — hash-anchored file editing. Each line gets 2-char content hash from <code>read_file(hashline=true)</code>. Reference lines as <code>LINE#ID</code>, stale hashes rejected before changes applied. Batch edits supported. Collision detection escalates to <code>edit_file</code> fallback (v0.3.25, #60; v0.3.26 #105)</li>
-<li><strong>Sensitive data redaction</strong> — applied to tool output in TUI and all channels. Patterns: env var suffixes (_pass=, _password=, _secret=, _token=, _key=, _apikey=, _api_key=, _credential=, <em>auth=), piped secrets, plus existing (sk-*, ghp</em><em>, xoxb-</em>, AWS keys, Bearer tokens) (v0.3.25)</li>
-<li><strong>Context budget footer for channels</strong> — every channel (Telegram, Discord, Slack, WhatsApp) appends “ctx: 8K/200K 4%” footer to final message, matching TUI footer. Always delivered even when body fully consumed (v0.3.25, #104)</li>
-<li><strong>Generic <code>deliver_api_key</code> for cron jobs</strong> — HTTP webhook Bearer token auth configurable per-job via <code>cron_manage</code> tool (v0.3.18)</li>
-<li><strong>File paths starting with <code>/</code> no longer treated as slash command typos</strong> — <code>/Users/.../file.pdf yo crabs check this</code> works correctly (v0.3.18)</li>
-<li><strong>Truncation continuations no longer trigger provider fallback</strong> — mid-sentence continuations stay on the same provider (v0.3.18)</li>
-<li><strong>Fallback error reason surfaced in TUI</strong> — when fallback fires, the underlying error shows as a system message (v0.3.18)</li>
-<li><strong>OpenAI-compatible embedding API</strong> — configure external embedding providers (OpenAI, Ollama, Jina, LM Studio) instead of downloading 300MB GGUF model. Dynamic vector dimensions from API response (v0.3.19)</li>
-<li><strong>FTS5-only memory mode for VPS</strong> — pure keyword search with zero RAM overhead. Auto-detects VPS environments and configures automatically (v0.3.19)</li>
-<li><strong>img2img for <code>generate_image</code></strong> — optional <code>image</code> parameter (local path or HTTPS URL) feeds Gemini <code>inlineData</code> for editing user-uploaded images. OpenAI-shaped backends reject with clear error pointing at Gemini (v0.3.30)</li>
-<li><strong>PDF <code>page_range</code> param</strong> — pass <code>"1-30"</code>, <code>"5,7,10-15"</code>, or <code>"3"</code> for targeted extraction. Text-first routing skips Gemini for text-native PDFs, inline cap raised to ~60 pages (v0.3.31)</li>
-<li><strong>Telegram forum topic routing</strong> — <code>thread_id</code> carries through full pipeline, new <code>list_topics</code> action surfaces topic names → IDs for proactive sends and replies (v0.3.31, #130, #131)</li>
-<li><strong>Agent self-awareness</strong> — compiled features surface in system prompt with check-first directive, <code>Known paths</code> section for logs so the agent stops guessing file locations (v0.3.31)</li>
-<li><strong>RSI skill proposals</strong> — <code>skill</code> as third proposal kind alongside tool/command, writes <code>SKILL.md</code> brain file (v0.3.31)</li>
-<li><strong>Fun POST-COMPACTION PROTOCOL prompts</strong> — compaction now delivers delightful re-orientation prompts; opt out with <code>[agent] silent_compaction = true</code> (v0.3.31)</li>
-<li><strong>Evolve hardening</strong> — remove+rename dance for busy Linux binaries, delayed <code>systemd-run</code> restart, structured tracing on every failure branch, pre-flight <code>count_matching_systemd_units</code> check (v0.3.32, #136)</li>
-<li><strong>User-correction metadata</strong> — captures actual user message via <code>display_text_override</code> instead of the 236-char Telegram channel prefix that was polluting the feedback ledger (v0.3.33, #138, PR #140)</li>
-<li><strong>Phantom post-success exemption</strong> — turn-scoped <code>tool_calls_completed_this_turn</code> counter + <code>phantom_eligible</code> gate prevent the phantom detector from firing on completion acks (“Pushed.”, “Done.”) after real tool runs. New <code>FINISHING A TURN</code> directive enforces one-line ack, no verification re-runs, no restating conclusions (v0.3.34)</li>
-<li><strong><code>follow_up_question</code> intermediate flush</strong> — Telegram, Discord, Slack, and WhatsApp now flush pending intermediate text before sending the question, closing a race where buttons arrived before the explanatory text that preceded them (v0.3.34, issue #142)</li>
-<li><strong>Provider registry single source of truth</strong> — fixed opencode/ollama/bedrock/vertex silent TUI omission; one 16-entry table instead of drifted if-else chains (v0.3.34, #141)</li>
-<li><strong>Plan import from JSON</strong> — <code>plan(operation: "import", file_path: "...")</code> loads pre-defined plans. Bundled reference plans for Rust and Python workflows. Target-only symlink check + orphan dependency validation (v0.3.35, #160)</li>
-<li><strong>Per-call subagent provider/model overrides</strong> — <code>spawn_agent</code>, <code>resume_agent</code>, and <code>team_create</code> now accept optional <code>provider</code> and <code>model</code> fields. Enables mixed-model teams (plan with GLM, code with Deepseek, review with Kimi). Precedence: per-call &gt; config &gt; parent session (v0.3.35, #152)</li>
-<li><strong><code>opencrabs evolve</code> CLI</strong> — terminal command to check for and install updates, matching the existing <code>/evolve</code> TUI slash command. Supports <code>--check-only</code> flag (v0.3.35)</li>
-<li><strong>IDENTITY.md consolidation</strong> — dropped redundant IDENTITY.md template. SOUL.md already owns identity (name, vibe, boundaries). Brain file count reduced by one (v0.3.35, #159)</li>
-<li><strong>Profile-aware paths</strong> — replaced hardcoded <code>~/.opencrabs/</code> paths with <code>opencrabs_home()</code> throughout. Subagent status dir, <code>tools.toml</code> fallback, and <code>write_opencrabs_file</code> confirmations all respect the active profile (v0.3.35, #155, #156, #157)</li>
-<li><strong>Teloxide upgrade</strong> — upgraded from 0.13 to 0.17 with member join detection before allowlist and join notification tests (v0.3.35)</li>
-<li><strong>tok/s footer accuracy</strong> — channel and TUI tok/s now uses provider-reported tokens divided by active streaming time instead of total turn duration (v0.3.35)</li>
-<li><strong>Multi-pane live updates</strong> — inactive panes now update live in the background. Provider/model contamination blocked at 27 call sites. Ctrl+N binds focused pane + live-refreshes footer (v0.3.36, #163, #165)</li>
-<li><strong>Retry overhaul</strong> — patient backoff defaults (1s/2s/4s/8s instead of 100ms hammering), in-place rate limit retry before fallback chain, retry events surfaced as <code>RetryAttempt N/M</code> to user. Fail fast on hard-down endpoints, patient on transient (v0.3.36)</li>
-<li><strong>Near-miss tool name self-heal</strong> — when the model guesses a wrong tool name (<code>tg_send_message</code>), the registry tries normalized match, abbreviation expansion (tg→telegram), and typo fallback before returning NotFound. Conservative: only heals on unique high-confidence match (v0.3.36, #176)</li>
-<li><strong>Channel UX overhaul</strong> — inline ctx budget footer into last response message (all 4 channels). Telegram rolling status edits in-place instead of delete+recreate. Bot commands hot-reload on config change. Guard tok/s against burst-delivery artifacts (v0.3.36, #174, #175)</li>
-<li><strong>analyze_video ffmpeg fallback</strong> — when Gemini video API fails, auto-extracts frames via ffmpeg at 1 fps (cap 30 frames), analyzes each with Gemini vision, combines results chronologically (v0.3.36)</li>
-<li><strong>Cache efficiency dashboard</strong> — new card on <code>/usage</code> showing hit rate %. Cache creation/read tokens persisted to messages table (migration #25) (v0.3.36)</li>
-<li><strong>Plan <code>insert_after</code></strong> — mid-plan task insertion with automatic renumbering of existing tasks (v0.3.36, #169)</li>
-<li><strong>Secret redaction expanded</strong> — query-param keys, URL passwords, and RSI TUI notifications now redacted alongside existing Bearer/API-key patterns (v0.3.36)</li>
-<li><strong>TUI polish</strong> — thinking display capped to 12-line rolling window, git branch in footer + <code>/sessions</code> dialog (cyan), profile chip, atomic provider+model swap, reasoning-only iterations render as separate Thinking rows (v0.3.36, #167, #170)</li>
-<li><strong>TOOLS.md template slimmed</strong> — from 660 to 56 lines with regression tests preventing bloat (v0.3.36, #171)</li>
-<li><strong>CI overhaul</strong> — gated on PR + main push (not tags), kills double-build on tag events, routine pushes run lint + Linux test only (~5-8 min) (v0.3.36)</li>
-<li><strong>Projects system</strong> (v0.3.40) — full CRUD UI with ProjectRepository (SQLite), ProjectService, and TUI mode. Assign sessions with A key. Project name badges with per-project colours. Session file artifacts for per-project file management</li>
-<li><strong>Migrate CLI</strong> (v0.3.39) — <code>opencrabs migrate openclaw</code> and <code>opencrabs migrate hermes</code> to migrate config, brain files, memory logs, and skills from other AI agent tools. Scans the system for source instances, shows interactive picker if multiple found</li>
-<li><strong>RTK auto-download</strong> (v0.3.39) — when RTK is not bundled or on PATH, OpenCrabs downloads the pinned release for your platform on first use. Runs in background at startup so bash commands never block</li>
-<li><strong>PDF rendering tools</strong> (v0.3.41) — <code>pdf_to_images</code> for rendering PDF pages the text path can’t show. Poppler installed alongside binary. Preserves scanned PDFs on render failure</li>
-<li><strong>Prompt formatting instruction</strong> (v0.3.40) — model instructed to format responses with headings, tables, and fenced code blocks by default</li>
-<li><strong>Per-model cache efficiency</strong> (v0.3.37) — the Cache card now shows a per-model breakdown with hit rates, sorted highest-first</li>
-<li><strong>Windows fix</strong> (v0.3.41) — gracefully handle Kitty keyboard enhancement on Windows (#203)</li>
-<li><strong>Tmp file cleanup extended</strong> (v0.3.41) — from 3 to 30 days</li>
-<li><strong>Profile-aware paths</strong> (v0.3.42) — all hardcoded <code>~/.opencrabs/</code> paths removed from agent-facing strings, system prompt, and vision hint. RSI state, tmp purge, telegram tmp all route through profile home. Projects dir, known-paths, config edits all profile-aware</li>
-<li><strong>Project file archiving</strong> (v0.3.42) — project-assigned sessions archive files under <code>projects/&lt;name&gt;/files/</code>. Shared images from Telegram archived automatically</li>
-<li><strong>Xiaomi MiMo context window default 200k</strong> (v0.3.42) — default MiMo context window bumped to 200k</li>
-<li><strong>Voice &amp; Audio docs</strong> (v0.3.43) — new Voice &amp; Audio reference section in docs</li>
-<li><strong>Config refactoring</strong> (v0.3.43) — config/keys file IO extracted into <code>types/io.rs</code>, <code>Config</code> impl split into <code>types/loader.rs</code></li>
+<li><strong>Clipboard image paste</strong> — paste images from browser or any app directly into TUI</li>
+<li><strong>Plan pinning</strong> — active plan pinned at end of prompt each turn</li>
+<li><strong>Agent-driven onboarding</strong> — personalized first-time setup with guided flow</li>
 </ul>
-<h3 id="-browser-automation"><a class="header" href="#-browser-automation">🌐 Browser Automation</a></h3>
+<h3 id="developer-experience"><a class="header" href="#developer-experience">Developer Experience</a></h3>
 <ul>
-<li><strong>Full CDP support</strong>: navigate, click, type, screenshot, JS eval, wait for selectors, find elements</li>
-<li><strong>Multi-step navigation hardening</strong> — <code>text=</code>/<code>xpath=</code> selector prefixes, recovery hints on click failures, semantic loop detection (4+ screenshots in 8 iterations triggers abort), no-op screenshot rejection, same-URL short-circuit (v0.3.28)</li>
-<li><strong><code>browser_find</code> tool</strong> — enumerate elements by CSS, XPath, text, or aria-label with stable selectors (v0.3.13)</li>
-<li><strong><code>browser_close</code> tool</strong> — close browser tabs and free CDP sessions, prevents stale page reuse (v0.3.18)</li>
-<li><strong>Headless or headed</strong> mode, element-specific screenshots</li>
-<li><strong>CDP endpoint config</strong> (v0.3.37) — <code>browser.cdp_endpoint</code> allows connecting to a shared Chromium instance instead of spawning per-profile. Reduces memory usage in multi-profile setups (~260MB vs ~750MB for 3 profiles)</li>
+<li><strong>50+ built-in tools</strong> — file ops, bash, web search, code execution, browser automation, image gen, voice, PDF rendering</li>
+<li><strong>Proactive tool discovery</strong> — agent finds tools before saying “I can’t”</li>
+<li><strong>Skills system</strong> — workflow templates with fuzzy-finding, auto-registered as slash commands</li>
+<li><strong>Dynamic tools</strong> — runtime-defined via TOML (HTTP + shell executors)</li>
+<li><strong>Projects system</strong> — dedicated sessions with per-project brain overlays, file archiving, and color badges</li>
+<li><strong>Hashline editing</strong> — hash-anchored file editing with batch support and collision detection</li>
+<li><strong>Mission Control</strong> — full-screen dashboard with RSI inbox, activity log, and cron schedule</li>
+<li><strong>RTK auto-download</strong> — bundled 4MB proxy for 53.5% token savings on 100+ commands</li>
+<li><strong>Confidential file protection</strong> — SSH keys, .env, credentials protected by default</li>
+<li><strong>AGENTS always-loaded</strong> — hard rules and governance enforced every turn</li>
+</ul>
+<h3 id="browser-automation"><a class="header" href="#browser-automation">Browser Automation</a></h3>
+<ul>
+<li><strong>Full CDP support</strong> — navigate, click, type, screenshot, JS eval, find elements</li>
+<li><strong>Headless or headed</strong> mode with element-specific screenshots</li>
 <li><strong>Cookie/session persistence</strong> across browser sessions</li>
-<li><strong>Per-session tab isolation</strong> — no cross-session DOM stomping (v0.3.13)</li>
-<li><strong>Smart default browser detection</strong> — auto-detects your default Chromium on macOS, Linux, and Windows (v0.3.13)</li>
-<li><strong>Browser automation rules in system prompt</strong> (v0.3.42) — system prompt now includes rules for browser interaction best practices</li>
-<li><strong>React-safe browser_type</strong> (v0.3.42) — replace value + dispatch input/change events for React compatibility</li>
-</ul>
-<h3 id="-video-vision-v0317"><a class="header" href="#-video-vision-v0317">🎥 Video Vision (v0.3.17)</a></h3>
-<ul>
-<li><strong><code>analyze_video</code> tool</strong> — routes video attachments through Gemini’s multimodal API. Inline bytes for files ≤18 MB, resumable Files API upload for larger files</li>
-<li><strong>Video uploads across all channels</strong> — Slack, Telegram, Discord, WhatsApp, and Trello automatically route video attachments to <code>analyze_video</code></li>
-<li><strong><code>&lt;&lt;VID:path&gt;&gt;</code> marker</strong> — analogous to <code>&lt;&lt;IMG:&gt;&gt;</code> for images. Supports mp4/m4v/mov/webm/mkv/avi/3gp/flv</li>
-</ul>
-<h3 id="-usage-analytics-v039"><a class="header" href="#-usage-analytics-v039">📊 Usage Analytics (v0.3.9)</a></h3>
-<ul>
-<li><strong>Interactive dashboard</strong> — <code>/usage</code> command with daily token counts, cost estimates, active models, session categories</li>
-<li><strong>Session auto-categorizer</strong> — heuristic classification (dev, ops, research, chat, etc.)</li>
-<li><strong>Tool execution tracking</strong> — DB records every tool call for per-project analytics</li>
-<li><strong>Project activity view</strong> — normalized paths, category breakdown, token distribution</li>
-<li><strong>Soft-delete sessions</strong> — metadata preserved even after session removal</li>
-</ul>
-<h3 id="-security--privacy"><a class="header" href="#-security--privacy">🔐 Security &amp; Privacy</a></h3>
-<ul>
-<li><strong>Zero telemetry</strong> — nothing sent anywhere, ever</li>
-<li><strong>API key security</strong>: <code>zeroize</code> on drop, separate <code>keys.toml</code> (chmod 600)</li>
-<li><strong>Tool path resolution centralized</strong> — tilde expansion, relative paths, symlink handling in one place (v0.3.2)</li>
-<li><strong>Auto-approve propagation</strong> — <code>approval_policy = "auto-always"</code> actually reaches tool loop (v0.3.2)</li>
-</ul>
-<h3 id="-testing--quality"><a class="header" href="#-testing--quality">📊 Testing &amp; Quality</a></h3>
-<ul>
-<li><strong>4,033+ tests</strong> covering providers, tools, channels, TUI, self-healing, crash recovery, browser automation</li>
-<li><strong>CI/CD</strong>: GitHub Actions, CodeQL, <code>cargo audit</code> security checks, release automation</li>
-</ul>
-<h3 id="-built-in-skills-v0317"><a class="header" href="#-built-in-skills-v0317">🔧 Built-in Skills (v0.3.17)</a></h3>
-<ul>
-<li><strong>5 safe built-in skills</strong>: opencli, browser-cdp, a2a-gateway, dynamic-tools, repo-audit</li>
-<li><strong>SKILLS section</strong> added to help screen and splash integration</li>
-<li><strong><code>/repo-audit</code> skill</strong> — language-agnostic repository health checks. 5-phase pipeline: language detection → native tool execution → git metrics → AST analysis → scoring + recommendations (v0.3.18)</li>
+<li><strong>Per-session tab isolation</strong> — no cross-session DOM stomping</li>
 </ul>
 <h2 id="quick-start"><a class="header" href="#quick-start">Quick Start</a></h2>
 <pre><code class="language-bash"># Install (Linux/macOS)
 ARCH=$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/')
 OS=$(uname -s | tr A-Z a-z)
-# Requires jq for reliable tag parsing; fallback to grep if unavailable
 TAG=$(command -v jq &gt;/dev/null 2&gt;&amp;1 &amp;&amp; curl -s https://api.github.com/repos/adolfousier/opencrabs/releases/latest | jq -r .tag_name || curl -s https://api.github.com/repos/adolfousier/opencrabs/releases/latest | grep -o '"tag_name":"[^"]*"' | cut -d'"' -f4)
 curl -fsSL "https://github.com/adolfousier/opencrabs/releases/download/${TAG}/opencrabs-${TAG}-${OS}-${ARCH}.tar.gz" | tar xz
 ./opencrabs
 
 # Or via Cargo (requires Rust 1.94+)
 cargo install opencrabs --locked
-
-# Auto-update enabled by default; disable with [agent] auto_update = false in ~/.opencrabs/config.toml
 </code></pre>
-<h2 id="architecture-overview"><a class="header" href="#architecture-overview">Architecture Overview</a></h2>
+<p>Auto-update enabled by default. Disable with <code>[agent] auto_update = false</code> in <code>~/.opencrabs/config.toml</code>.</p>
+<h2 id="architecture"><a class="header" href="#architecture">Architecture</a></h2>
 <pre><code>┌─────────────────────────────────────────┐
 │           OpenCrabs Binary              │
 │  (Single 17-22 MB Rust executable)      │
@@ -494,51 +302,45 @@ cargo install opencrabs --locked
 │                                         │
 │  ┌─────────────────────────────────┐   │
 │  │        Provider Registry         │   │
-│  │  • Native: Anthropic, OpenAI... │   │
-│  │  • CLI: Claude Code, OpenCode   │   │
-│  │  • Custom: any OpenAI-compatible│   │
-│  │  • Fallback chain w/ sticky swap│   │
+│  │  15 built-in + Custom OpenAI    │   │
+│  │  Sticky fallback chain          │   │
 │  └─────────────────────────────────┘   │
 │                                         │
 │  ┌─────────────────────────────────┐   │
 │  │        Tool Layer                │   │
-│  │  • 50+ built-in tools           │   │
-│  │  • Dynamic tools via TOML       │   │
-│  │  • ALWAYS_EXCLUDED per agent    │   │
-│  │  • Centralized path resolution  │   │
+│  │  50+ built-in tools             │   │
+│  │  Dynamic tools via TOML         │   │
+│  │  JIT activation                 │   │
 │  └─────────────────────────────────┘   │
 │                                         │
 │  ┌─────────────────────────────────┐   │
 │  │        Channel Adapters          │   │
-│  │  • Telegram/Discord/Slack/      │   │
-│  │    WhatsApp/Trello/Voice        │   │
-│  │  • Cross-channel crash recovery │   │
-│  └─────────────────────────────────┘   │
+│  │  Telegram / Discord / Slack /    │   │
+│  │  WhatsApp / Trello / Voice      │   │
+│  └────────────────���────────────────┘   │
 │                                         │
 │  ┌─────────────────────────────────┐   │
 │  │        Self-Healing Layer       │   │
-│  │  • Context budget management    │   │
-│  │  • Stuck stream detection       │   │
-│  │  • Gaslighting refusal strip    │   │
-│  │  • Panic recovery + cancel persist││
+│  │  Context budget / Stuck stream  │   │
+│  │  Phantom detection / RSI        │   │
 │  └─────────────────────────────────┘   │
 │                                         │
 │  ┌─────────────────────────────────┐   │
 │  │        Persistence              │   │
-│  │  • SQLite sessions + memory DB  │   │
-│  │  • Brain files (~/.opencrabs/)  │   │
-│  │  • Hybrid FTS5 + vector search  │   │
+│  │  SQLite + Brain files           │   │
+│  │  FTS5 + vector search           │   │
 │  └─────────────────────────────────┘   │
 └─────────────────────────────────────────┘
 </code></pre>
 <h2 id="next-steps"><a class="header" href="#next-steps">Next Steps</a></h2>
 <ul>
-<li><a href="#installation">Getting Started</a> — Install and configure</li>
+<li><a href="#installation">Installation</a> — Install and configure</li>
+<li><a href="#configuration">Configuration</a> — All config options</li>
 <li><a href="#supported-ai-providers">Providers</a> — Connect your LLM backends</li>
-<li><a href="#built-in-tools">Tools</a> — Explore 50+ built-in capabilities</li>
 <li><a href="#channel-integrations">Channels</a> — Connect Telegram, Discord, etc.</li>
-<li><a href="#self-healing">Self-Healing</a> — Understand resilience features</li>
-<li><a href="#multi-agent-orchestration">Multi-Agent</a> — Orchestrate sub-agents and teams</li>
+<li><a href="#built-in-tools">Tools</a> — Explore 50+ built-in capabilities</li>
+<li><a href="#self-healing">Self-Healing</a> — Resilience features</li>
+<li><a href="#multi-agent-orchestration-1">Multi-Agent</a> — Orchestrate sub-agents and teams</li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="installation"><a class="header" href="#installation">Installation</a></h1>
@@ -940,18 +742,317 @@ api_key = "sk-ant-..."
 <p>When multiple providers are enabled, the first one found in this order is used for new sessions:</p>
 <p>MiniMax &gt; OpenRouter &gt; Anthropic &gt; OpenAI &gt; Gemini &gt; Custom</p>
 <p>Each session remembers which provider and model it was using. Switch providers per-session via <code>/models</code>.</p>
-<h2 id="feature-flags"><a class="header" href="#feature-flags">Feature Flags</a></h2>
-<pre><code class="language-toml"># config.toml
-[agent]
+<h2 id="agent-behavior"><a class="header" href="#agent-behavior">Agent Behavior</a></h2>
+<pre><code class="language-toml">[agent]
 working_directory = "/path/to/default/dir"
-thinking = "on"                # "on", "off", or "budget_XXk"
+thinking = "on"                     # "on", "off", or "budget_XXk"
+approval_policy = "auto-always"     # "ask", "auto-session", "auto-always"
+max_concurrent = 4                  # max parallel tool calls
+context_limit = 200000              # context window cap (tokens)
+max_tokens = 65536                  # max output tokens per API call
+auto_update = true                  # auto-install releases on startup
+silent_compaction = false           # suppress post-compaction personality narration
+lazy_tools = true                   # JIT tool-schema loading (ships core + tool_search only)
+redact_sensitive_data = true        # redact API keys, tokens, passwords, IPs from output
+</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Field</th><th>Default</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>working_directory</code></td><td>home dir</td><td>Default working directory for the agent</td></tr>
+<tr><td><code>thinking</code></td><td><code>"on"</code></td><td>Extended thinking mode: <code>"on"</code>, <code>"off"</code>, or <code>"budget_XXk"</code></td></tr>
+<tr><td><code>approval_policy</code></td><td><code>"auto-always"</code></td><td><code>"ask"</code> = confirm every tool call, <code>"auto-session"</code> = auto-approve for session, <code>"auto-always"</code> = never ask</td></tr>
+<tr><td><code>max_concurrent</code></td><td><code>4</code></td><td>Max tool calls running in parallel</td></tr>
+<tr><td><code>context_limit</code></td><td><code>200000</code></td><td>Context window limit in tokens. When exceeded, oldest messages are dropped</td></tr>
+<tr><td><code>max_tokens</code></td><td><code>65536</code></td><td>Max output tokens per single API call</td></tr>
+<tr><td><code>auto_update</code></td><td><code>true</code></td><td>Automatically install new releases on startup (binary mode only)</td></tr>
+<tr><td><code>silent_compaction</code></td><td><code>false</code></td><td>When true, suppresses the agent’s playful post-compaction narration. Useful for corporate/formal deployments</td></tr>
+<tr><td><code>lazy_tools</code></td><td><code>true</code></td><td>Ships only core tool schemas (~4k tokens) plus <code>tool_search</code> per request. The agent discovers and activates extended tools on demand via <code>tool_search</code>. Set <code>false</code> to load all ~95 schemas every request</td></tr>
+<tr><td><code>redact_sensitive_data</code></td><td><code>true</code></td><td>Redacts API keys, tokens, passwords, and IPs from tool outputs and display. Set <code>false</code> during sysadmin/devops work where seeing IPs/tokens/passwords is necessary</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="sub-agent-and-rsi-overrides"><a class="header" href="#sub-agent-and-rsi-overrides">Sub-agent and RSI Overrides</a></h3>
+<p>Route spawned sub-agents and RSI (self-improvement) cycles to separate providers so they never compete with your main chat for quota:</p>
+<pre><code class="language-toml">[agent]
+subagent_provider = "minimax"           # provider for spawned sub-agents
+subagent_model = "MiniMax-M2.7"         # model for spawned sub-agents
+self_improvement_provider = "minimax"   # provider for RSI self-improvement cycles
+self_improvement_model = "MiniMax-M2.7" # model for RSI cycles
+</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Field</th><th>Default</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>subagent_provider</code></td><td><code>None</code> (uses session provider)</td><td>Provider for spawned sub-agents. Keeps sub-agents off your main provider</td></tr>
+<tr><td><code>subagent_model</code></td><td><code>None</code> (uses session model)</td><td>Model for spawned sub-agents</td></tr>
+<tr><td><code>self_improvement_provider</code></td><td><code>None</code> (uses session provider)</td><td>Provider for RSI self-improvement cycles. RSI runs on its own provider chain</td></tr>
+<tr><td><code>self_improvement_model</code></td><td><code>None</code> (uses session model)</td><td>Model for RSI cycles. Prefer cheap, fast models since results are deterministic</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="channel-configuration"><a class="header" href="#channel-configuration">Channel Configuration</a></h2>
+<h3 id="telegram"><a class="header" href="#telegram">Telegram</a></h3>
+<pre><code class="language-toml">[channels.telegram]
+enabled = true
+token = "123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11"
+allowed_users = ["123456789"]       # numeric Telegram user IDs
+allowed_channels = ["-100123456"]   # restrict to specific group/channel IDs (empty = all)
+respond_to = "mention"              # "all", "dm_only", "mention" (default)
+session_idle_hours = 24.0           # idle timeout for non-owner sessions
+rich_messages = false               # native Telegram rich messages (Bot API 10.1)
+silence_group_start = true          # silently ignore /start from non-allowed users in groups
+bot_owner = ["123456789"]           # owner IDs (gated commands, /cd hidden dirs, /profiles)
+</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Field</th><th>Default</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>enabled</code></td><td><code>false</code></td><td>Enable the Telegram bot channel</td></tr>
+<tr><td><code>token</code></td><td><code>None</code></td><td>Telegram Bot API token from @BotFather</td></tr>
+<tr><td><code>allowed_users</code></td><td><code>[]</code> (accept all)</td><td>Numeric Telegram user IDs. Accepts int or string arrays. Empty = open mode</td></tr>
+<tr><td><code>allowed_channels</code></td><td><code>[]</code> (all channels)</td><td>Restrict bot to specific channel/group IDs. DMs always pass</td></tr>
+<tr><td><code>respond_to</code></td><td><code>"mention"</code></td><td>When to respond in groups: <code>"all"</code> = every message, <code>"dm_only"</code> = ignore groups, <code>"mention"</code> = only when @mentioned or replied-to</td></tr>
+<tr><td><code>session_idle_hours</code></td><td><code>None</code> (no timeout)</td><td>Idle timeout in hours for non-owner sessions. Owner sessions never expire</td></tr>
+<tr><td><code>rich_messages</code></td><td><code>false</code></td><td>Send structured replies as native Telegram rich messages (tables, headings, lists, math). Only works on current mobile/desktop Telegram clients. Telegram Web and older clients show a “not supported” placeholder. Enable only when your audience is on modern clients</td></tr>
+<tr><td><code>silence_group_start</code></td><td><code>true</code></td><td>Silently ignore /start from non-allowed users in group chats. Users who need their ID can DM the bot</td></tr>
+<tr><td><code>bot_owner</code></td><td><code>[]</code> (first allowed_user)</td><td>Bot owner user IDs. Owners can access gated commands (/profiles, hidden files in /cd), manage profiles. When unset, defaults to first entry in <code>allowed_users</code></td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="discord"><a class="header" href="#discord">Discord</a></h3>
+<pre><code class="language-toml">[channels.discord]
+enabled = true
+token = "your-discord-bot-token"
+allowed_users = ["123456789012345678"]
+allowed_channels = ["123456789012345678"]
+respond_to = "mention"
+session_idle_hours = 24.0
+</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Field</th><th>Default</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>enabled</code></td><td><code>false</code></td><td>Enable the Discord bot channel</td></tr>
+<tr><td><code>token</code></td><td><code>None</code></td><td>Discord bot token from the Developer Portal</td></tr>
+<tr><td><code>allowed_users</code></td><td><code>[]</code> (accept all)</td><td>Discord user IDs. Accepts int or string arrays</td></tr>
+<tr><td><code>allowed_channels</code></td><td><code>[]</code> (all channels)</td><td>Restrict bot to specific channel IDs</td></tr>
+<tr><td><code>respond_to</code></td><td><code>"mention"</code></td><td>When to respond: <code>"all"</code>, <code>"dm_only"</code>, <code>"mention"</code></td></tr>
+<tr><td><code>session_idle_hours</code></td><td><code>None</code></td><td>Idle timeout for non-owner sessions</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="slack"><a class="header" href="#slack">Slack</a></h3>
+<pre><code class="language-toml">[channels.slack]
+enabled = true
+token = "xoxb-your-bot-token"
+app_token = "xapp-your-app-token"      # Socket Mode token
+allowed_users = ["U12345678"]
+allowed_channels = ["C12345678"]
+respond_to = "mention"
+session_idle_hours = 24.0
+</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Field</th><th>Default</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>enabled</code></td><td><code>false</code></td><td>Enable the Slack bot channel</td></tr>
+<tr><td><code>token</code></td><td><code>None</code></td><td>Bot token (<code>xoxb-...</code>)</td></tr>
+<tr><td><code>app_token</code></td><td><code>None</code></td><td>App-level token for Socket Mode (<code>xapp-...</code>)</td></tr>
+<tr><td><code>allowed_users</code></td><td><code>[]</code> (accept all)</td><td>Slack user IDs (<code>U12345678</code>)</td></tr>
+<tr><td><code>allowed_channels</code></td><td><code>[]</code> (all channels)</td><td>Restrict bot to specific channel IDs</td></tr>
+<tr><td><code>respond_to</code></td><td><code>"mention"</code></td><td>When to respond: <code>"all"</code>, <code>"dm_only"</code>, <code>"mention"</code></td></tr>
+<tr><td><code>session_idle_hours</code></td><td><code>None</code></td><td>Idle timeout for non-owner sessions</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="whatsapp"><a class="header" href="#whatsapp">WhatsApp</a></h3>
+<pre><code class="language-toml">[channels.whatsapp]
+enabled = true
+allowed_phones = ["+15551234567"]      # E.164 format
+session_idle_hours = 24.0
+</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Field</th><th>Default</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>enabled</code></td><td><code>false</code></td><td>Enable the WhatsApp channel</td></tr>
+<tr><td><code>allowed_phones</code></td><td><code>[]</code> (accept all)</td><td>E.164 phone numbers. Empty = accept everyone (not recommended for business numbers)</td></tr>
+<tr><td><code>session_idle_hours</code></td><td><code>None</code></td><td>Idle timeout for non-owner sessions</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="trello"><a class="header" href="#trello">Trello</a></h3>
+<pre><code class="language-toml">[channels.trello]
+enabled = true
+token = "your-trello-api-token"
+app_token = "your-trello-api-key"
+allowed_users = ["memberId1"]
+board_ids = ["boardId1", "boardId2"]
+poll_interval_secs = 60
+session_idle_hours = 24.0
+</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Field</th><th>Default</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>enabled</code></td><td><code>false</code></td><td>Enable the Trello channel</td></tr>
+<tr><td><code>token</code></td><td><code>None</code></td><td>Trello API token</td></tr>
+<tr><td><code>app_token</code></td><td><code>None</code></td><td>Trello API key (stored as <code>app_token</code> for keys.toml symmetry)</td></tr>
+<tr><td><code>allowed_users</code></td><td><code>[]</code> (accept all)</td><td>Trello member IDs</td></tr>
+<tr><td><code>board_ids</code></td><td><code>[]</code> (all boards)</td><td>Board IDs to monitor for @mentions. Also accepts <code>allowed_channels</code> as an alias</td></tr>
+<tr><td><code>poll_interval_secs</code></td><td><code>None</code> (tool-only)</td><td>Polling interval in seconds. Absent or 0 = no polling (tool-only mode)</td></tr>
+<tr><td><code>session_idle_hours</code></td><td><code>None</code></td><td>Idle timeout for non-owner sessions</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="other-channels-preview"><a class="header" href="#other-channels-preview">Other Channels (Preview)</a></h3>
+<p>Signal, Google Chat, and iMessage are available as preview placeholders:</p>
+<pre><code class="language-toml">[channels.signal]
+enabled = true
+allowed_phones = ["+15551234567"]
 
-[a2a]
+[channels.google_chat]
+enabled = true
+token = "your-google-chat-token"
+allowed_users = ["user@example.com"]
+
+[channels.imessage]
+enabled = true
+allowed_phones = ["+15551234567"]
+</code></pre>
+<h2 id="cron-defaults"><a class="header" href="#cron-defaults">Cron Defaults</a></h2>
+<p>Route cron jobs to cheaper providers so they never compete with your interactive session:</p>
+<pre><code class="language-toml">[cron]
+default_provider = "minimax"
+default_model = "MiniMax-M2.7"
+</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Field</th><th>Default</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>default_provider</code></td><td><code>None</code> (uses active provider)</td><td>Default provider for cron jobs without an explicit provider</td></tr>
+<tr><td><code>default_model</code></td><td><code>None</code> (uses active model)</td><td>Default model for cron jobs without an explicit model</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="memory-and-embeddings"><a class="header" href="#memory-and-embeddings">Memory and Embeddings</a></h2>
+<pre><code class="language-toml">[memory]
+vector_enabled = true
+
+[memory.embedding]
+url = "https://api.openai.com/v1"
+model = "text-embedding-3-small"
+# api_key loaded from keys.toml: [providers.memory_embedding] api_key = "sk-..."
+# dimensions = 1536  # auto-detected from first API response if unset
+</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Field</th><th>Default</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>vector_enabled</code></td><td><code>true</code> (desktop), <code>false</code> (VPS)</td><td>Enable vector embeddings for semantic memory search. When disabled, only FTS5 keyword search is used. Auto-disabled on systems with &lt; 2GB RAM or detected cloud instances</td></tr>
+<tr><td><code>embedding.url</code></td><td><code>None</code></td><td>OpenAI-compatible API base URL. The <code>/embeddings</code> path is appended automatically</td></tr>
+<tr><td><code>embedding.model</code></td><td><code>None</code></td><td>Embedding model name (e.g. <code>text-embedding-3-small</code>, <code>nomic-embed-text</code>)</td></tr>
+<tr><td><code>embedding.api_key</code></td><td><code>None</code></td><td>API key for the embedding endpoint. Also loaded from <code>keys.toml</code> under <code>[providers.memory_embedding]</code></td></tr>
+<tr><td><code>embedding.dimensions</code></td><td><code>None</code> (auto-detected)</td><td>Embedding vector dimensions. Auto-detected from the first API response if unset. Local GGUF model always produces 768-dim vectors</td></tr>
+</tbody>
+</table>
+</div>
+<p>When <code>[memory.embedding]</code> is not set, embeddings are generated locally via the embeddinggemma-300M GGUF model (~300MB download, ~2.9GB RAM). Setting <code>[memory.embedding]</code> with an API endpoint eliminates the local model overhead.</p>
+<h2 id="brain-files"><a class="header" href="#brain-files">Brain Files</a></h2>
+<pre><code class="language-toml">[brain]
+strip_empty_sections = true
+default_cap = 500
+
+[brain.caps]
+SOUL.md = 300
+AGENTS.md = 800
+</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Field</th><th>Default</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>strip_empty_sections</code></td><td><code>true</code></td><td>Strip empty header stubs (<code>## Header</code> with no body) from brain-file reads. Writes are never affected, only the loaded view is filtered</td></tr>
+<tr><td><code>default_cap</code></td><td><code>500</code></td><td>Per-file line cap for <code>sync_templates</code>. When a merged file exceeds its cap, the sync bails instead of writing</td></tr>
+<tr><td><code>caps</code></td><td><code>{}</code> (empty)</td><td>Per-file line caps overrides. Keys are filenames (case-sensitive: <code>TOOLS.md</code> and <code>tools.md</code> are distinct)</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="browser"><a class="header" href="#browser">Browser</a></h2>
+<pre><code class="language-toml">[browser]
+cdp_endpoint = "http://localhost:9222"
+</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Field</th><th>Default</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>cdp_endpoint</code></td><td><code>None</code> (spawn new browser)</td><td>CDP endpoint for an existing Chromium instance. When set, connects via Chrome DevTools Protocol instead of spawning a new browser. Useful for sharing a single browser across multiple profiles to save memory (~250-300MB per instance)</td></tr>
+</tbody>
+</table>
+</div>
+<p>To start a standalone Chromium with CDP enabled:</p>
+<pre><code class="language-bash">chromium --remote-debugging-port=9222 --headless --no-sandbox
+</code></pre>
+<h2 id="a2a-agent-to-agent-gateway"><a class="header" href="#a2a-agent-to-agent-gateway">A2A (Agent-to-Agent) Gateway</a></h2>
+<pre><code class="language-toml">[a2a]
 enabled = false
 bind = "127.0.0.1"
 port = 18790
-
-[image.generation]
+allowed_origins = ["https://your-app.com"]
+# api_key = "your-secret-key"  # Bearer token for incoming requests
+</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Field</th><th>Default</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>enabled</code></td><td><code>false</code></td><td>Enable the A2A JSON-RPC 2.0 gateway</td></tr>
+<tr><td><code>bind</code></td><td><code>"127.0.0.1"</code></td><td>Bind address</td></tr>
+<tr><td><code>port</code></td><td><code>18790</code></td><td>Gateway port</td></tr>
+<tr><td><code>allowed_origins</code></td><td><code>[]</code></td><td>CORS origins. Must be set explicitly, no cross-origin requests allowed by default</td></tr>
+<tr><td><code>api_key</code></td><td><code>None</code></td><td>Bearer token for authenticating incoming A2A requests. If unset, no authentication required</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="daemon-mode"><a class="header" href="#daemon-mode">Daemon Mode</a></h2>
+<pre><code class="language-toml">[daemon]
+health_port = 8080
+</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Field</th><th>Default</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>health_port</code></td><td><code>None</code> (no health server)</td><td>HTTP port for <code>GET /health</code> endpoint. Useful for systemd watchdog, uptime monitors, and external health probes</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="image-generation-and-vision"><a class="header" href="#image-generation-and-vision">Image Generation and Vision</a></h2>
+<pre><code class="language-toml">[image.generation]
 enabled = true
 model = "gemini-3.1-flash-image-preview"
 
@@ -959,6 +1060,19 @@ model = "gemini-3.1-flash-image-preview"
 enabled = true
 model = "gemini-3.1-flash-image-preview"
 </code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Section</th><th>Field</th><th>Default</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>image.generation</code></td><td><code>enabled</code></td><td><code>false</code></td><td>Enable image generation via the <code>generate_image</code> tool</td></tr>
+<tr><td><code>image.generation</code></td><td><code>model</code></td><td><code>"gemini-3.1-flash-image-preview"</code></td><td>Model for image generation</td></tr>
+<tr><td><code>image.vision</code></td><td><code>enabled</code></td><td><code>false</code></td><td>Enable vision analysis via the <code>analyze_image</code> tool</td></tr>
+<tr><td><code>image.vision</code></td><td><code>model</code></td><td><code>"gemini-3.1-flash-image-preview"</code></td><td>Model for image/vision analysis</td></tr>
+</tbody>
+</table>
+</div>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="cli-commands"><a class="header" href="#cli-commands">CLI Commands</a></h1>
 <p>OpenCrabs has a full CLI with 20+ subcommands for managing every aspect of the agent.</p>
@@ -1041,7 +1155,7 @@ opencrabs agent
 # Single-message mode
 opencrabs agent -m "What files changed today?"
 </code></pre>
-<h2 id="daemon-mode"><a class="header" href="#daemon-mode">Daemon Mode</a></h2>
+<h2 id="daemon-mode-1"><a class="header" href="#daemon-mode-1">Daemon Mode</a></h2>
 <p>Run OpenCrabs without the TUI — useful for servers where you only need channel bots. Supports a health endpoint for monitoring.</p>
 <pre><code class="language-bash">opencrabs daemon
 </code></pre>
@@ -1229,7 +1343,7 @@ cp ~/.opencrabs/commands.toml ~/.opencrabs/commands.toml.backup
 </code></pre>
 <hr>
 <h2 id="channel-issues"><a class="header" href="#channel-issues">Channel Issues</a></h2>
-<h3 id="telegram"><a class="header" href="#telegram">Telegram</a></h3>
+<h3 id="telegram-1"><a class="header" href="#telegram-1">Telegram</a></h3>
 <p><strong>Bot not responding:</strong></p>
 <ol>
 <li>Verify token from @BotFather is in <code>keys.toml</code></li>
@@ -1244,7 +1358,7 @@ cp ~/.opencrabs/commands.toml ~/.opencrabs/commands.toml.backup
 <li>Restart OpenCrabs</li>
 </ol>
 <p><strong>Re-setup from scratch:</strong> Run <code>/onboard:channels</code> in the TUI.</p>
-<h3 id="whatsapp"><a class="header" href="#whatsapp">WhatsApp</a></h3>
+<h3 id="whatsapp-1"><a class="header" href="#whatsapp-1">WhatsApp</a></h3>
 <p><strong>QR code / session expired:</strong></p>
 <p>WhatsApp sessions are stored at <code>~/.opencrabs/whatsapp/session.db</code>. To reconnect:</p>
 <pre><code class="language-bash"># Delete the session file
@@ -1259,7 +1373,7 @@ opencrabs chat --onboard
 <li>Verify phone number is in <code>allowed_phones</code> using E.164 format: <code>"+15551234567"</code></li>
 <li>Empty <code>allowed_phones = []</code> means accept from everyone</li>
 </ul>
-<h3 id="discord"><a class="header" href="#discord">Discord</a></h3>
+<h3 id="discord-1"><a class="header" href="#discord-1">Discord</a></h3>
 <p><strong>Bot not receiving messages:</strong></p>
 <ol>
 <li>Ensure <strong>Message Content Intent</strong> is enabled in Discord Developer Portal → Bot settings</li>
@@ -1267,7 +1381,7 @@ opencrabs chat --onboard
 <li>Use the <strong>bot token</strong> (starts with <code>MTk...</code>), not the application ID</li>
 </ol>
 <p><strong>Regenerate token:</strong> Discord Developer Portal → Bot → Regenerate Token</p>
-<h3 id="slack"><a class="header" href="#slack">Slack</a></h3>
+<h3 id="slack-1"><a class="header" href="#slack-1">Slack</a></h3>
 <p><strong>Both tokens required:</strong></p>
 <ul>
 <li><strong>Bot token</strong> (<code>xoxb-...</code>): For sending messages</li>
@@ -1275,7 +1389,7 @@ opencrabs chat --onboard
 </ul>
 <p>Without the app token, the bot can send but not receive messages.</p>
 <p><strong>Socket Mode:</strong> Must be enabled in app settings → Features → Socket Mode → ON</p>
-<h3 id="trello"><a class="header" href="#trello">Trello</a></h3>
+<h3 id="trello-1"><a class="header" href="#trello-1">Trello</a></h3>
 <p><strong>Setup:</strong></p>
 <ol>
 <li>Get API key: <a href="https://trello.com/app-key">trello.com/app-key</a></li>
@@ -1388,7 +1502,7 @@ cargo build --release
 <h3 id="build-without-voice-smaller-binary"><a class="header" href="#build-without-voice-smaller-binary">Build Without Voice (Smaller Binary)</a></h3>
 <pre><code class="language-bash">cargo build --release --no-default-features --features telegram,whatsapp,discord,slack,trello
 </code></pre>
-<h3 id="feature-flags-1"><a class="header" href="#feature-flags-1">Feature Flags</a></h3>
+<h3 id="feature-flags"><a class="header" href="#feature-flags">Feature Flags</a></h3>
 <div class="table-wrapper">
 <table>
 <thead>
@@ -1413,7 +1527,7 @@ cargo build --release
 <p>Logs go to <code>~/.opencrabs/logs/</code> with 7-day retention.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="supported-ai-providers"><a class="header" href="#supported-ai-providers">Supported AI Providers</a></h1>
-<p>OpenCrabs supports 14 built-in providers + Custom OpenAI Compatible. Switch between them at any time via <code>/models</code> in the TUI or any channel.</p>
+<p>OpenCrabs supports 15 built-in providers + Custom OpenAI Compatible. Switch between them at any time via <code>/models</code> in the TUI or any channel.</p>
 <div class="table-wrapper">
 <table>
 <thead>
@@ -1426,6 +1540,7 @@ cargo build --release
 <tr><td><a href="#openrouter--400-models">OpenRouter</a></td><td>API key</td><td>400+ models</td><td>Yes</td><td>Yes</td><td>Free models available. Reasoning output support (Qwen 3.6 Plus, etc.)</td></tr>
 <tr><td><a href="#google-gemini">Google Gemini</a></td><td>API key</td><td>Gemini 2.5 Flash, 2.0, 1.5 Pro</td><td>Yes</td><td>Yes</td><td>1M+ context, vision, image generation</td></tr>
 <tr><td><a href="#minimax">MiniMax</a></td><td>API key</td><td>M2.7, M2.5, M2.1, Text-01</td><td>Yes</td><td>Yes</td><td>Competitive pricing, auto-configured vision</td></tr>
+<tr><td><a href="#xiaomi-mimo">Xiaomi MiMo</a></td><td>API key (auto)</td><td>MiMo V2.5 Pro, MiMo V2 Pro, MiMo V2.5, MiMo V2 Omni, MiMo V2 Flash</td><td>Yes</td><td>Yes</td><td>Default provider for new users. Keyless mode with automatic token provisioning during collab windows. 30 models across 5 tiers.</td></tr>
 <tr><td><a href="#zai-zhipu-ai">z.ai GLM</a></td><td>API key</td><td>GLM-4.5 through GLM-5 Turbo</td><td>Yes</td><td>Yes</td><td>General API + Coding API endpoints</td></tr>
 <tr><td><a href="#claude-cli">Claude CLI</a></td><td>CLI auth</td><td>Via <code>claude</code> binary</td><td>Yes</td><td>Yes</td><td>Uses your Claude Code subscription</td></tr>
 <tr><td><a href="#codex-oauth">Codex</a></td><td>OAuth (PKCE)</td><td>GPT-5.5, GPT-5.4, GPT-5.3-Codex</td><td>Yes</td><td>Yes</td><td>Native Codex subscription auth via device-code PKCE — no CLI, no API key</td></tr>
@@ -1927,11 +2042,11 @@ Agent: generate_image(prompt="dark background with thin white border", image="/t
 <tr><th>Channel</th><th>Protocol</th><th>Images In</th><th>Voice In</th><th>Image Gen Out</th><th>Setup</th></tr>
 </thead>
 <tbody>
-<tr><td><a href="#telegram-1">Telegram</a></td><td>Long polling</td><td>Vision pipeline</td><td>STT</td><td>Native photo</td><td>Bot token</td></tr>
-<tr><td><a href="#discord-1">Discord</a></td><td>WebSocket</td><td>Vision pipeline</td><td>STT</td><td>File attachment</td><td>Bot token</td></tr>
-<tr><td><a href="#slack-1">Slack</a></td><td>Socket Mode</td><td>Vision pipeline</td><td>STT</td><td>File upload</td><td>Bot + App token</td></tr>
-<tr><td><a href="#whatsapp-1">WhatsApp</a></td><td>QR pairing</td><td>Vision pipeline</td><td>STT</td><td>Native image</td><td>QR code</td></tr>
-<tr><td><a href="#trello-1">Trello</a></td><td>REST API</td><td>Card attachments</td><td>—</td><td>Card attachment</td><td>API key + token</td></tr>
+<tr><td><a href="#telegram-2">Telegram</a></td><td>Long polling</td><td>Vision pipeline</td><td>STT</td><td>Native photo</td><td>Bot token</td></tr>
+<tr><td><a href="#discord-2">Discord</a></td><td>WebSocket</td><td>Vision pipeline</td><td>STT</td><td>File attachment</td><td>Bot token</td></tr>
+<tr><td><a href="#slack-2">Slack</a></td><td>Socket Mode</td><td>Vision pipeline</td><td>STT</td><td>File upload</td><td>Bot + App token</td></tr>
+<tr><td><a href="#whatsapp-2">WhatsApp</a></td><td>QR pairing</td><td>Vision pipeline</td><td>STT</td><td>Native image</td><td>QR code</td></tr>
+<tr><td><a href="#trello-2">Trello</a></td><td>REST API</td><td>Card attachments</td><td>—</td><td>Card attachment</td><td>API key + token</td></tr>
 </tbody>
 </table>
 </div>
@@ -1996,7 +2111,7 @@ Agent: generate_image(prompt="dark background with thin white border", image="/t
 <h2 id="channel-voice-parity"><a class="header" href="#channel-voice-parity">Channel Voice Parity</a></h2>
 <p>All four messaging channels (Telegram, Discord, WhatsApp, Slack) now share a single code path via <code>crate::channels::voice::{transcribe, synthesize}</code>. Bot replies are recorded in the <code>channel_messages</code> table for conversation context — previously only user messages were stored.</p>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="telegram-1"><a class="header" href="#telegram-1">Telegram</a></h1>
+<h1 id="telegram-2"><a class="header" href="#telegram-2">Telegram</a></h1>
 <p>Connect OpenCrabs to Telegram for DMs and group chats.</p>
 <h2 id="setup"><a class="header" href="#setup">Setup</a></h2>
 <h3 id="step-1-create-a-bot-with-botfather"><a class="header" href="#step-1-create-a-bot-with-botfather">Step 1: Create a Bot with BotFather</a></h3>
@@ -2054,6 +2169,37 @@ respond_to = "all"
 <li><strong>Onboarding overhaul</strong> (v0.3.30) — Auto-detects owner user ID from <code>getUpdates</code>, persists partial config on cancel, only Enter on the last step commits (Tab no longer silently rewrites ~30 config keys)</li>
 <li><strong>Teloxide upgrade + join detection</strong> (v0.3.35) — Upgraded from teloxide 0.13 to 0.17. New members joining a group are now detected before the allowlist check, so the bot can greet or moderate join events. Marathon-bucket rolling status rotates through project-author quip pool for more varied status messages.</li>
 </ul>
+<h2 id="configuration-1"><a class="header" href="#configuration-1">Configuration</a></h2>
+<p>All Telegram options live under <code>[channels.telegram]</code> in <code>~/.opencrabs/config.toml</code>:</p>
+<pre><code class="language-toml">[channels.telegram]
+enabled = true
+token = "123456:ABC-DEF..."          # or store in keys.toml
+allowed_users = ["123456789"]         # numeric Telegram user IDs
+allowed_channels = ["-100123456"]     # restrict to specific group/channel IDs (empty = all)
+respond_to = "mention"                # "all", "dm_only", "mention" (default)
+session_idle_hours = 24.0             # idle timeout for non-owner sessions
+rich_messages = false                 # native Telegram rich messages (Bot API 10.1)
+silence_group_start = true            # silently ignore /start from non-allowed users in groups
+bot_owner = ["123456789"]             # owner IDs (gated commands, /cd hidden dirs, /profiles)
+</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Field</th><th>Default</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>enabled</code></td><td><code>false</code></td><td>Enable the Telegram bot channel</td></tr>
+<tr><td><code>token</code></td><td><code>None</code></td><td>Telegram Bot API token from @BotFather</td></tr>
+<tr><td><code>allowed_users</code></td><td><code>[]</code> (accept all)</td><td>Numeric Telegram user IDs. Accepts int or string arrays. Empty = open mode</td></tr>
+<tr><td><code>allowed_channels</code></td><td><code>[]</code> (all channels)</td><td>Restrict bot to specific channel/group IDs. DMs always pass</td></tr>
+<tr><td><code>respond_to</code></td><td><code>"mention"</code></td><td>When to respond in groups: <code>"all"</code> = every message, <code>"dm_only"</code> = ignore groups, <code>"mention"</code> = only when @mentioned or replied-to</td></tr>
+<tr><td><code>session_idle_hours</code></td><td><code>None</code> (no timeout)</td><td>Idle timeout in hours for non-owner sessions. Owner sessions never expire</td></tr>
+<tr><td><code>rich_messages</code></td><td><code>false</code></td><td>Send structured replies as native Telegram rich messages (tables, headings, lists, math). Requires current mobile/desktop Telegram clients. Telegram Web and older clients show a “not supported” placeholder</td></tr>
+<tr><td><code>silence_group_start</code></td><td><code>true</code></td><td>Silently ignore /start from non-allowed users in group chats. Users who need their ID can DM the bot</td></tr>
+<tr><td><code>bot_owner</code></td><td><code>[]</code> (first allowed_user)</td><td>Bot owner user IDs. Owners can access gated commands (/profiles, hidden files in /cd), manage profiles. Defaults to first entry in <code>allowed_users</code></td></tr>
+</tbody>
+</table>
+</div>
 <h2 id="agent-tools-1"><a class="header" href="#agent-tools-1">Agent Tools</a></h2>
 <p>The agent can use <code>telegram_send</code> with 20+ actions. The <code>thread_id</code> field on <code>send</code> / <code>reply</code> / <code>send_photo</code> targets a specific forum topic in supergroups with topics enabled.</p>
 <div class="table-wrapper">
@@ -2082,7 +2228,7 @@ respond_to = "all"
 <li>Tracks context from group messages passively</li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="discord-1"><a class="header" href="#discord-1">Discord</a></h1>
+<h1 id="discord-2"><a class="header" href="#discord-2">Discord</a></h1>
 <p>Connect OpenCrabs to Discord for server and DM interactions.</p>
 <h2 id="setup-1"><a class="header" href="#setup-1">Setup</a></h2>
 <h3 id="step-1-create-a-discord-bot"><a class="header" href="#step-1-create-a-discord-bot">Step 1: Create a Discord Bot</a></h3>
@@ -2127,6 +2273,31 @@ allowed_channels = ["123456789"]
 allowed_users = []
 respond_to = "all"
 </code></pre>
+<h2 id="configuration-2"><a class="header" href="#configuration-2">Configuration</a></h2>
+<p>All Discord options live under <code>[channels.discord]</code> in <code>~/.opencrabs/config.toml</code>:</p>
+<pre><code class="language-toml">[channels.discord]
+enabled = true
+token = "your-discord-bot-token"       # or store in keys.toml
+allowed_users = ["123456789012345678"]  # Discord user IDs
+allowed_channels = ["123456789012345678"]
+respond_to = "mention"                  # "all", "dm_only", "mention" (default)
+session_idle_hours = 24.0               # idle timeout for non-owner sessions
+</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Field</th><th>Default</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>enabled</code></td><td><code>false</code></td><td>Enable the Discord bot channel</td></tr>
+<tr><td><code>token</code></td><td><code>None</code></td><td>Discord bot token from the Developer Portal</td></tr>
+<tr><td><code>allowed_users</code></td><td><code>[]</code> (accept all)</td><td>Discord user IDs. Accepts int or string arrays</td></tr>
+<tr><td><code>allowed_channels</code></td><td><code>[]</code> (all channels)</td><td>Restrict bot to specific channel IDs</td></tr>
+<tr><td><code>respond_to</code></td><td><code>"mention"</code></td><td>When to respond: <code>"all"</code>, <code>"dm_only"</code>, <code>"mention"</code></td></tr>
+<tr><td><code>session_idle_hours</code></td><td><code>None</code> (no timeout)</td><td>Idle timeout for non-owner sessions. Owner sessions never expire</td></tr>
+</tbody>
+</table>
+</div>
 <h2 id="features-1"><a class="header" href="#features-1">Features</a></h2>
 <ul>
 <li><strong>Server channels and DMs</strong> — Works in text channels and direct messages</li>
@@ -2142,7 +2313,7 @@ respond_to = "all"
 <li>Wrap multiple links in <code>&lt;url&gt;</code> to suppress embeds</li>
 </ul>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="slack-1"><a class="header" href="#slack-1">Slack</a></h1>
+<h1 id="slack-2"><a class="header" href="#slack-2">Slack</a></h1>
 <p>Connect OpenCrabs to Slack workspaces.</p>
 <h2 id="setup-2"><a class="header" href="#setup-2">Setup</a></h2>
 <h3 id="step-1-create-a-slack-app"><a class="header" href="#step-1-create-a-slack-app">Step 1: Create a Slack App</a></h3>
@@ -2186,6 +2357,33 @@ allowed_channels = ["C12345678"]
 allowed_users = []
 respond_to = "all"
 </code></pre>
+<h2 id="configuration-3"><a class="header" href="#configuration-3">Configuration</a></h2>
+<p>All Slack options live under <code>[channels.slack]</code> in <code>~/.opencrabs/config.toml</code>:</p>
+<pre><code class="language-toml">[channels.slack]
+enabled = true
+token = "xoxb-your-bot-token"          # or store in keys.toml
+app_token = "xapp-your-app-token"      # Socket Mode token
+allowed_users = ["U12345678"]           # Slack user IDs
+allowed_channels = ["C12345678"]
+respond_to = "mention"                  # "all", "dm_only", "mention" (default)
+session_idle_hours = 24.0               # idle timeout for non-owner sessions
+</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Field</th><th>Default</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>enabled</code></td><td><code>false</code></td><td>Enable the Slack bot channel</td></tr>
+<tr><td><code>token</code></td><td><code>None</code></td><td>Bot token (<code>xoxb-...</code>)</td></tr>
+<tr><td><code>app_token</code></td><td><code>None</code></td><td>App-level token for Socket Mode (<code>xapp-...</code>)</td></tr>
+<tr><td><code>allowed_users</code></td><td><code>[]</code> (accept all)</td><td>Slack user IDs (<code>U12345678</code>)</td></tr>
+<tr><td><code>allowed_channels</code></td><td><code>[]</code> (all channels)</td><td>Restrict bot to specific channel IDs</td></tr>
+<tr><td><code>respond_to</code></td><td><code>"mention"</code></td><td>When to respond: <code>"all"</code>, <code>"dm_only"</code>, <code>"mention"</code></td></tr>
+<tr><td><code>session_idle_hours</code></td><td><code>None</code> (no timeout)</td><td>Idle timeout for non-owner sessions. Owner sessions never expire</td></tr>
+</tbody>
+</table>
+</div>
 <h2 id="features-2"><a class="header" href="#features-2">Features</a></h2>
 <ul>
 <li><strong>Channels and DMs</strong> — Works in public/private channels and direct messages</li>
@@ -2198,7 +2396,7 @@ respond_to = "all"
 <h2 id="socket-mode"><a class="header" href="#socket-mode">Socket Mode</a></h2>
 <p>Slack uses Socket Mode (WebSocket) instead of HTTP webhooks — no public URL or ngrok needed. The connection is outbound from your machine.</p>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="whatsapp-1"><a class="header" href="#whatsapp-1">WhatsApp</a></h1>
+<h1 id="whatsapp-2"><a class="header" href="#whatsapp-2">WhatsApp</a></h1>
 <p>Connect OpenCrabs to WhatsApp via QR code pairing.</p>
 <h2 id="setup-3"><a class="header" href="#setup-3">Setup</a></h2>
 <h3 id="configure-via-the-onboarding-wizard"><a class="header" href="#configure-via-the-onboarding-wizard">Configure via the Onboarding Wizard</a></h3>
@@ -2230,6 +2428,25 @@ respond_to = "all"
 enabled = true
 allowed_phones = ["+15551234567"]
 </code></pre>
+<h2 id="configuration-4"><a class="header" href="#configuration-4">Configuration</a></h2>
+<p>WhatsApp options live under <code>[channels.whatsapp]</code> in <code>~/.opencrabs/config.toml</code>:</p>
+<pre><code class="language-toml">[channels.whatsapp]
+enabled = true
+allowed_phones = ["+15551234567"]      # E.164 format
+session_idle_hours = 24.0              # idle timeout for non-owner sessions
+</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Field</th><th>Default</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>enabled</code></td><td><code>false</code></td><td>Enable the WhatsApp channel</td></tr>
+<tr><td><code>allowed_phones</code></td><td><code>[]</code> (accept all)</td><td>E.164 phone numbers. Empty = accept everyone (not recommended for business numbers)</td></tr>
+<tr><td><code>session_idle_hours</code></td><td><code>None</code> (no timeout)</td><td>Idle timeout for non-owner sessions. Owner sessions never expire</td></tr>
+</tbody>
+</table>
+</div>
 <h2 id="features-3"><a class="header" href="#features-3">Features</a></h2>
 <ul>
 <li><strong>Personal and group chats</strong> — Works in DMs and group conversations</li>
@@ -2252,7 +2469,7 @@ allowed_phones = ["+15551234567"]
 <li>Optionally generates TTS audio response</li>
 </ol>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="trello-1"><a class="header" href="#trello-1">Trello</a></h1>
+<h1 id="trello-2"><a class="header" href="#trello-2">Trello</a></h1>
 <p>OpenCrabs integrates with Trello for board and card management via the <code>trello_send</code> tool.</p>
 <h2 id="setup-4"><a class="header" href="#setup-4">Setup</a></h2>
 <h3 id="step-1-get-trello-credentials"><a class="header" href="#step-1-get-trello-credentials">Step 1: Get Trello Credentials</a></h3>
@@ -2291,6 +2508,33 @@ boards = ["Board Name or ID"]
 allowed_users = []
 # poll_interval_secs = 30  # Poll for new card comments
 </code></pre>
+<h2 id="configuration-5"><a class="header" href="#configuration-5">Configuration</a></h2>
+<p>All Trello options live under <code>[channels.trello]</code> in <code>~/.opencrabs/config.toml</code>:</p>
+<pre><code class="language-toml">[channels.trello]
+enabled = true
+token = "your-trello-api-token"        # or store in keys.toml
+app_token = "your-trello-api-key"      # stored as app_token for keys.toml symmetry
+allowed_users = ["memberId1"]           # Trello member IDs
+board_ids = ["boardId1", "boardId2"]   # boards to monitor (also accepts allowed_channels)
+poll_interval_secs = 60                 # polling interval (absent or 0 = tool-only mode)
+session_idle_hours = 24.0               # idle timeout for non-owner sessions
+</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Field</th><th>Default</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>enabled</code></td><td><code>false</code></td><td>Enable the Trello channel</td></tr>
+<tr><td><code>token</code></td><td><code>None</code></td><td>Trello API token</td></tr>
+<tr><td><code>app_token</code></td><td><code>None</code></td><td>Trello API key (stored as <code>app_token</code> for keys.toml symmetry)</td></tr>
+<tr><td><code>allowed_users</code></td><td><code>[]</code> (accept all)</td><td>Trello member IDs</td></tr>
+<tr><td><code>board_ids</code></td><td><code>[]</code> (all boards)</td><td>Board IDs to monitor for @mentions. Also accepts <code>allowed_channels</code> as alias</td></tr>
+<tr><td><code>poll_interval_secs</code></td><td><code>None</code> (tool-only)</td><td>Polling interval in seconds. Absent or 0 = no polling (tool-only mode)</td></tr>
+<tr><td><code>session_idle_hours</code></td><td><code>None</code> (no timeout)</td><td>Idle timeout for non-owner sessions. Owner sessions never expire</td></tr>
+</tbody>
+</table>
+</div>
 <h2 id="tool-actions"><a class="header" href="#tool-actions">Tool Actions</a></h2>
 <p>The <code>trello_send</code> tool supports 22 actions:</p>
 <div class="table-wrapper">
@@ -2450,7 +2694,7 @@ allowed_users = []
 </table>
 </div>
 <p><strong>ALWAYS_EXCLUDED tools</strong> (no agent type has these): <code>spawn_agent</code>, <code>resume_agent</code>, <code>wait_agent</code>, <code>send_input</code>, <code>close_agent</code>, <code>rebuild</code>, <code>evolve</code> – no recursive spawning, no self-modification from subagents.</p>
-<h2 id="browser-automation"><a class="header" href="#browser-automation">Browser Automation</a></h2>
+<h2 id="browser-automation-1"><a class="header" href="#browser-automation-1">Browser Automation</a></h2>
 <p>Native headless Chrome control via Chrome DevTools Protocol (CDP):</p>
 <div class="table-wrapper">
 <table>
@@ -2548,7 +2792,7 @@ node dist/cli.js linkedin connect &lt;profile-url&gt;
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="custom-commands"><a class="header" href="#custom-commands">Custom Commands</a></h1>
 <p>Define your own slash commands in <code>~/.opencrabs/commands.toml</code>. Commands work from the TUI and all channels (Telegram, Discord, Slack, WhatsApp).</p>
-<h2 id="configuration-1"><a class="header" href="#configuration-1">Configuration</a></h2>
+<h2 id="configuration-6"><a class="header" href="#configuration-6">Configuration</a></h2>
 <pre><code class="language-toml"># ~/.opencrabs/commands.toml
 
 [commands.credits]
@@ -2644,10 +2888,10 @@ value = "System is operational. All channels connected."
 <li>You say “remember this”</li>
 <li>Errors take &gt;5 minutes to debug</li>
 </ul>
-<h2 id="brain-files"><a class="header" href="#brain-files">Brain Files</a></h2>
-<p>See <a href="#brain-files-1">Brain Files</a> for the full list of files the agent reads on startup.</p>
+<h2 id="brain-files-1"><a class="header" href="#brain-files-1">Brain Files</a></h2>
+<p>See <a href="#brain-files-2">Brain Files</a> for the full list of files the agent reads on startup.</p>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="brain-files-1"><a class="header" href="#brain-files-1">Brain Files</a></h1>
+<h1 id="brain-files-2"><a class="header" href="#brain-files-2">Brain Files</a></h1>
 <p>Brain files define the agent’s personality, knowledge, and behavior. They live at <code>~/.opencrabs/</code> and are loaded on every session start.</p>
 <h2 id="startup-read-order"><a class="header" href="#startup-read-order">Startup Read Order</a></h2>
 <ol>
@@ -2921,7 +3165,7 @@ coerce_empty_to = "--quiet"
 <h2 id="shell-parameter-escaping-v0335"><a class="header" href="#shell-parameter-escaping-v0335">Shell Parameter Escaping (v0.3.35)</a></h2>
 <p>Dynamic shell tool parameters now properly escape single quotes, preventing command injection edge cases when user-supplied values contain quotes. Contributed by @leshchenko1979.</p>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="browser-automation-1"><a class="header" href="#browser-automation-1">Browser Automation</a></h1>
+<h1 id="browser-automation-2"><a class="header" href="#browser-automation-2">Browser Automation</a></h1>
 <p>OpenCrabs includes native headless Chrome control via the Chrome DevTools Protocol (CDP). No Selenium, no Playwright — direct browser control built into the binary.</p>
 <h2 id="requirements-1"><a class="header" href="#requirements-1">Requirements</a></h2>
 <ul>
@@ -2956,7 +3200,7 @@ coerce_empty_to = "--quiet"
 <p>“Go to our staging site, log in with the test account, navigate to the dashboard, and take a screenshot”</p>
 </blockquote>
 <p>The agent will chain <code>navigate</code> → <code>type</code> (username) → <code>type</code> (password) → <code>click</code> (login button) → <code>navigate</code> (dashboard) → <code>screenshot</code> — all autonomously.</p>
-<h2 id="configuration-2"><a class="header" href="#configuration-2">Configuration</a></h2>
+<h2 id="configuration-7"><a class="header" href="#configuration-7">Configuration</a></h2>
 <p>No configuration needed. The browser feature is enabled by default. To disable it at build time:</p>
 <pre><code class="language-bash">cargo build --release --no-default-features --features "telegram,discord,slack"
 </code></pre>
@@ -3100,7 +3344,7 @@ opencrabs cron remove "Morning Report"
 <p>The JSON format requires a minimum of 6 fields: <code>title</code>, <code>description</code>, plus 3 fields per task (<code>title</code>, <code>description</code>, <code>task_type</code>). Full schema supports dependencies, complexity ratings, acceptance criteria, and technical stack.</p>
 <p><strong>Security:</strong> Import validates symlinks against the target path only (rejecting ancestor false positives on macOS) and checks for orphan dependencies that reference non-existent tasks.</p>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="multi-agent-orchestration"><a class="header" href="#multi-agent-orchestration">Multi-Agent Orchestration</a></h1>
+<h1 id="multi-agent-orchestration-1"><a class="header" href="#multi-agent-orchestration-1">Multi-Agent Orchestration</a></h1>
 <p>OpenCrabs supports spawning specialized sub-agents that run autonomously in isolated sessions. Each child agent gets its own context, tool registry, and cancel token. Introduced in <strong>v0.2.97</strong> with a typed agent system and team orchestration.</p>
 <h2 id="agent-types-1"><a class="header" href="#agent-types-1">Agent Types</a></h2>
 <p>When spawning an agent, an <code>agent_type</code> parameter selects a specialized role with a curated tool set:</p>
@@ -4114,7 +4358,7 @@ Agent notices pattern of 5+ corrections on output hygiene:
 </tbody>
 </table>
 </div>
-<h2 id="architecture"><a class="header" href="#architecture">Architecture</a></h2>
+<h2 id="architecture-1"><a class="header" href="#architecture-1">Architecture</a></h2>
 <p>Mission Control is split into three module trees:</p>
 <div class="table-wrapper">
 <table>
@@ -4264,7 +4508,7 @@ opencrabs -p hermes service start
 </table>
 </div>
 <p>Models auto-download from HuggingFace to <code>~/.local/share/opencrabs/models/whisper/</code> on first use.</p>
-<h3 id="configuration-3"><a class="header" href="#configuration-3">Configuration</a></h3>
+<h3 id="configuration-8"><a class="header" href="#configuration-8">Configuration</a></h3>
 <pre><code class="language-toml"># config.toml
 [voice]
 stt_enabled = true
@@ -4766,7 +5010,7 @@ cd opencrabs
 cargo build --release
 </code></pre>
 <p>The binary is at <code>target/release/opencrabs</code>.</p>
-<h2 id="feature-flags-2"><a class="header" href="#feature-flags-2">Feature Flags</a></h2>
+<h2 id="feature-flags-1"><a class="header" href="#feature-flags-1">Feature Flags</a></h2>
 <p>OpenCrabs uses Cargo features to toggle channel support:</p>
 <div class="table-wrapper">
 <table>
@@ -4813,7 +5057,7 @@ panic = "abort"
 <h2 id="self-update"><a class="header" href="#self-update">Self-Update</a></h2>
 <p>If you build from source, use <code>git pull &amp;&amp; cargo build --release</code> instead of <code>/evolve</code>. The <code>/evolve</code> command downloads pre-built binaries from GitHub Releases.</p>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="architecture-1"><a class="header" href="#architecture-1">Architecture</a></h1>
+<h1 id="architecture-2"><a class="header" href="#architecture-2">Architecture</a></h1>
 <h2 id="high-level-overview"><a class="header" href="#high-level-overview">High-Level Overview</a></h2>
 <pre><code>┌─────────────────────────────────────────────────┐
 │          TUI (ratatui) + Split Panes             │
@@ -4936,70 +5180,238 @@ panic = "abort"
 <tr><th>Category</th><th style="text-align: right">Tests</th><th>Location</th></tr>
 </thead>
 <tbody>
-<tr><td><strong>Tests — CLI Parsing</strong></td><td style="text-align: right">28</td><td><code>src/tests/cli_test.rs</code></td></tr>
-<tr><td><strong>Tests — Cron Jobs &amp; Scheduling</strong></td><td style="text-align: right">49</td><td><code>src/tests/cron_test.rs</code></td></tr>
-<tr><td><strong>Tests — Channel Search</strong></td><td style="text-align: right">24</td><td><code>src/tests/channel_search_test.rs</code></td></tr>
-<tr><td><strong>Tests — Voice STT Dispatch</strong></td><td style="text-align: right">11</td><td><code>src/tests/voice_stt_dispatch_test.rs</code></td></tr>
-<tr><td><strong>Tests — Voice Onboarding</strong></td><td style="text-align: right">62</td><td><code>src/tests/voice_onboarding_test.rs</code></td></tr>
-<tr><td><strong>Tests — Candle Whisper</strong></td><td style="text-align: right">6</td><td><code>src/tests/candle_whisper_test.rs</code></td></tr>
-<tr><td><strong>Tests — Evolve (Self-Update)</strong></td><td style="text-align: right">23</td><td><code>src/tests/evolve_test.rs</code></td></tr>
-<tr><td><strong>Tests — Session &amp; Working Dir</strong></td><td style="text-align: right">15</td><td><code>src/tests/session_working_dir_test.rs</code></td></tr>
-<tr><td><strong>Tests — Message Compaction</strong></td><td style="text-align: right">24</td><td><code>src/tests/compaction_test.rs</code></td></tr>
-<tr><td><strong>Tests — Fallback Vision</strong></td><td style="text-align: right">35</td><td><code>src/tests/fallback_vision_test.rs</code></td></tr>
-<tr><td><strong>Tests — GitHub Copilot Provider</strong></td><td style="text-align: right">38</td><td><code>src/tests/github_provider_test.rs</code></td></tr>
-<tr><td><strong>Tests — File Extract</strong></td><td style="text-align: right">36</td><td><code>src/tests/file_extract_test.rs</code></td></tr>
-<tr><td><strong>Tests — Image Utils</strong></td><td style="text-align: right">9</td><td><code>src/tests/image_util_test.rs</code></td></tr>
-<tr><td><strong>Tests — Onboarding Brain</strong></td><td style="text-align: right">21</td><td><code>src/tests/onboarding_brain_test.rs</code></td></tr>
-<tr><td><strong>Tests — Onboarding Navigation</strong></td><td style="text-align: right">26</td><td><code>src/tests/onboarding_navigation_test.rs</code></td></tr>
-<tr><td><strong>Tests — Onboarding Types</strong></td><td style="text-align: right">16</td><td><code>src/tests/onboarding_types_test.rs</code></td></tr>
-<tr><td><strong>Tests — Onboarding Keys</strong></td><td style="text-align: right">4</td><td><code>src/tests/onboarding_keys_test.rs</code></td></tr>
-<tr><td><strong>Tests — OpenAI Provider</strong></td><td style="text-align: right">16</td><td><code>src/tests/openai_provider_test.rs</code></td></tr>
-<tr><td><strong>Tests — Plan Document</strong></td><td style="text-align: right">15</td><td><code>src/tests/plan_document_test.rs</code></td></tr>
-<tr><td><strong>Tests — TUI Error</strong></td><td style="text-align: right">16</td><td><code>src/tests/tui_error_test.rs</code></td></tr>
-<tr><td><strong>Tests — Queued Messages</strong></td><td style="text-align: right">15</td><td><code>src/tests/queued_message_test.rs</code></td></tr>
-<tr><td><strong>Tests — Custom Provider</strong></td><td style="text-align: right">27</td><td><code>src/tests/custom_provider_test.rs</code></td></tr>
-<tr><td><strong>Tests — Context Window</strong></td><td style="text-align: right">14</td><td><code>src/tests/context_window_test.rs</code></td></tr>
-<tr><td><strong>Tests — Onboarding Field Nav</strong></td><td style="text-align: right">46</td><td><code>src/tests/onboarding_field_nav_test.rs</code></td></tr>
-<tr><td><strong>Tests — Provider Sync</strong></td><td style="text-align: right">10</td><td><code>src/tests/provider_sync_test.rs</code></td></tr>
-<tr><td><strong>Tests — Brain Templates</strong></td><td style="text-align: right">8</td><td><code>src/tests/brain_templates_test.rs</code></td></tr>
-<tr><td><strong>Tests — Collapse Build Output</strong></td><td style="text-align: right">9</td><td><code>src/tests/collapse_build_output_test.rs</code></td></tr>
-<tr><td><strong>Tests — Reasoning Lines</strong></td><td style="text-align: right">6</td><td><code>src/tests/reasoning_lines_test.rs</code></td></tr>
-<tr><td><strong>Tests — AltGr Input</strong></td><td style="text-align: right">8</td><td><code>src/tests/altgr_input_test.rs</code></td></tr>
-<tr><td><strong>Tests — System Continuation</strong></td><td style="text-align: right">6</td><td><code>src/tests/system_continuation_test.rs</code></td></tr>
-<tr><td><strong>Tests — QR Render</strong></td><td style="text-align: right">8</td><td><code>src/tests/qr_render_test.rs</code></td></tr>
-<tr><td><strong>Tests — WhatsApp State</strong></td><td style="text-align: right">7</td><td><code>src/tests/whatsapp_state_test.rs</code></td></tr>
-<tr><td><strong>Tests — Post-Evolve</strong></td><td style="text-align: right">5</td><td><code>src/tests/post_evolve_test.rs</code></td></tr>
-<tr><td><strong>Tests — Stream Loop Detection</strong></td><td style="text-align: right">15</td><td><code>src/tests/stream_loop_test.rs</code></td></tr>
-<tr><td><strong>Tests — XML Tool Fallback</strong></td><td style="text-align: right">10</td><td><code>src/tests/xml_tool_fallback_test.rs</code></td></tr>
-<tr><td><strong>Tests — TUI Render Clear</strong></td><td style="text-align: right">4</td><td><code>src/tests/tui_render_clear_test.rs</code></td></tr>
-<tr><td><strong>Tests — Split Panes</strong></td><td style="text-align: right">21</td><td><code>src/tests/split_pane_test.rs</code></td></tr>
-<tr><td><strong>Tests — Slack Formatting</strong></td><td style="text-align: right">21</td><td><code>src/tests/slack_formatting_test.rs</code></td></tr>
-<tr><td><strong>Tests — Daemon Health</strong></td><td style="text-align: right">10</td><td><code>src/tests/daemon_health_test.rs</code></td></tr>
-<tr><td><strong>Tests — Claude CLI Cache</strong></td><td style="text-align: right">5</td><td><code>src/tests/claude_cli_cache_test.rs</code></td></tr>
-<tr><td><strong>Tests — Browser Headless</strong></td><td style="text-align: right">4</td><td><code>src/tests/browser_headless_test.rs</code></td></tr>
-<tr><td><strong>Tests — Provider Registry</strong></td><td style="text-align: right">8</td><td><code>src/tests/provider_registry_test.rs</code></td></tr>
-<tr><td><strong>Tests — Self-Healing System</strong></td><td style="text-align: right">27</td><td><code>src/tests/self_healing_test.rs</code></td></tr>
-<tr><td><strong>Tests — Emergency Compaction</strong></td><td style="text-align: right">2</td><td><code>src/tests/compaction_test.rs</code></td></tr>
-<tr><td><strong>Tests — Cross-Channel Crash Recovery</strong></td><td style="text-align: right">12</td><td><code>src/tests/pending_request_test.rs</code></td></tr>
-<tr><td><strong>Tests — Profile System</strong></td><td style="text-align: right">57</td><td><code>src/tests/profile_test.rs</code></td></tr>
-<tr><td><strong>Tests — Token Tracking</strong></td><td style="text-align: right">29</td><td><code>src/tests/token_tracking_test.rs</code></td></tr>
-<tr><td><strong>Tests — Cron Execution Storage</strong></td><td style="text-align: right">6</td><td><code>src/tests/cron_results_test.rs</code></td></tr>
-<tr><td><strong>Tests — LLM Artifact Stripping</strong></td><td style="text-align: right">8</td><td><code>src/tests/artifact_strip_test.rs</code></td></tr>
-<tr><td><strong>Tests — Subagent &amp; Team Orchestration</strong></td><td style="text-align: right">84</td><td><code>src/tests/subagent_test.rs</code></td></tr>
-<tr><td><strong>Tests — Telegram Resume Pipeline</strong></td><td style="text-align: right">55</td><td><code>src/tests/telegram_resume_test.rs</code></td></tr>
-<tr><td><strong>Brain (all modules)</strong></td><td style="text-align: right">365</td><td><code>src/brain/</code></td></tr>
-<tr><td><strong>TUI (all modules)</strong></td><td style="text-align: right">141</td><td><code>src/tui/</code></td></tr>
-<tr><td><strong>Channels (all modules)</strong></td><td style="text-align: right">105</td><td><code>src/channels/</code></td></tr>
-<tr><td><strong>Utils (all modules)</strong></td><td style="text-align: right">56</td><td><code>src/utils/</code></td></tr>
-<tr><td><strong>Services (all modules)</strong></td><td style="text-align: right">44</td><td><code>src/services/</code></td></tr>
-<tr><td><strong>DB (all modules)</strong></td><td style="text-align: right">40</td><td><code>src/db/</code></td></tr>
-<tr><td><strong>Config (all modules)</strong></td><td style="text-align: right">32</td><td><code>src/config/</code></td></tr>
-<tr><td><strong>A2A (all modules)</strong></td><td style="text-align: right">21</td><td><code>src/a2a/</code></td></tr>
-<tr><td><strong>Usage</strong></td><td style="text-align: right">17</td><td><code>src/usage.rs</code></td></tr>
+<tr><td><strong>Brain — Agent Service</strong></td><td style="text-align: right">26</td><td><code>src/brain/agent/service/</code></td></tr>
+<tr><td><strong>Brain — Prompt Builder</strong></td><td style="text-align: right">20</td><td><code>src/brain/prompt_builder.rs</code></td></tr>
+<tr><td><strong>Brain — Agent Context</strong></td><td style="text-align: right">12</td><td><code>src/brain/agent/context.rs</code></td></tr>
+<tr><td><strong>Brain — Provider (Anthropic)</strong></td><td style="text-align: right">9</td><td><code>src/brain/provider/anthropic.rs</code></td></tr>
+<tr><td><strong>Provider Retry (consolidated)</strong></td><td style="text-align: right">19</td><td><code>src/utils/retry.rs</code> (8 inline) + <code>src/tests/provider_retry_consolidation_test.rs</code> (11) — <code>brain/provider/retry.rs</code> was deleted and folded onto <code>utils::retry</code>; covers patient backoff schedule, hard-down fast-fail, Retry-After clamp, and retry-notify surfacing</td></tr>
+<tr><td><strong>Brain — Provider (Custom OpenAI)</strong></td><td style="text-align: right">9</td><td><code>src/brain/provider/custom_openai_compatible.rs</code></td></tr>
+<tr><td><strong>Brain — Provider (Copilot)</strong></td><td style="text-align: right">8</td><td><code>src/brain/provider/copilot.rs</code></td></tr>
+<tr><td><strong>Brain — Provider (Factory)</strong></td><td style="text-align: right">4</td><td><code>src/brain/provider/factory.rs</code></td></tr>
+<tr><td><strong>Brain — Provider (Claude CLI)</strong></td><td style="text-align: right">4</td><td><code>src/brain/provider/claude_cli.rs</code></td></tr>
+<tr><td><strong>Brain — Provider (Types/Error/Trait)</strong></td><td style="text-align: right">7</td><td><code>src/brain/provider/</code></td></tr>
+<tr><td><strong>Brain — Provider (Qwen)</strong></td><td style="text-align: right">13</td><td><code>src/brain/provider/qwen.rs</code></td></tr>
+<tr><td><strong>Brain — Provider (JSON Repair)</strong></td><td style="text-align: right">10</td><td><code>src/brain/provider/json_repair.rs</code></td></tr>
+<tr><td><strong>Brain — Provider (Codex OAuth)</strong></td><td style="text-align: right">6</td><td><code>src/brain/provider/codex_oauth.rs</code></td></tr>
+<tr><td><strong>Brain — Tokenizer</strong></td><td style="text-align: right">8</td><td><code>src/brain/tokenizer.rs</code></td></tr>
+<tr><td><strong>Brain — Commands</strong></td><td style="text-align: right">6</td><td><code>src/brain/commands.rs</code></td></tr>
+<tr><td><strong>Brain — Self-Update</strong></td><td style="text-align: right">1</td><td><code>src/brain/self_update.rs</code></td></tr>
+<tr><td><strong>Brain Tools — Bash</strong></td><td style="text-align: right">21</td><td><code>src/brain/tools/bash.rs</code></td></tr>
+<tr><td><strong>Brain Tools — Plan Security</strong></td><td style="text-align: right">20</td><td><code>src/brain/tools/plan_tool.rs</code></td></tr>
+<tr><td><strong>Brain Tools — Exa Search</strong></td><td style="text-align: right">18</td><td><code>src/brain/tools/exa_search.rs</code></td></tr>
+<tr><td><strong>Brain Tools — Write File</strong></td><td style="text-align: right">17</td><td><code>src/brain/tools/write_opencrabs_file.rs</code></td></tr>
+<tr><td><strong>Brain Tools — A2A Send</strong></td><td style="text-align: right">16</td><td><code>src/brain/tools/a2a_send.rs</code></td></tr>
+<tr><td><strong>Brain Tools — Load Brain File</strong></td><td style="text-align: right">15</td><td><code>src/brain/tools/load_brain_file.rs</code></td></tr>
+<tr><td><strong>Brain Tools — Brave Search</strong></td><td style="text-align: right">12</td><td><code>src/brain/tools/brave_search.rs</code></td></tr>
+<tr><td><strong>Brain Tools — Browser Manager</strong></td><td style="text-align: right">12</td><td><code>src/brain/tools/browser/manager.rs</code></td></tr>
+<tr><td><strong>Brain Tools — Tool Manage</strong></td><td style="text-align: right">11</td><td><code>src/brain/tools/tool_manage.rs</code></td></tr>
+<tr><td><strong>Brain Tools — Dynamic Tools</strong></td><td style="text-align: right">17</td><td><code>src/brain/tools/dynamic/</code></td></tr>
+<tr><td><strong>Brain Tools — Doc Parser</strong></td><td style="text-align: right">10</td><td><code>src/brain/tools/doc_parser.rs</code></td></tr>
+<tr><td><strong>Brain Tools — Registry</strong></td><td style="text-align: right">7</td><td><code>src/brain/tools/registry.rs</code></td></tr>
+<tr><td><strong>Brain Tools — Slash Command</strong></td><td style="text-align: right">6</td><td><code>src/brain/tools/slash_command.rs</code></td></tr>
+<tr><td><strong>Brain Tools — Write/Read/Config/Memory/Error</strong></td><td style="text-align: right">20</td><td><code>src/brain/tools/</code></td></tr>
+<tr><td><strong>Brain Tools — Subagent</strong></td><td style="text-align: right">9</td><td><code>src/brain/tools/subagent.rs</code></td></tr>
+<tr><td><strong>Brain Tools — Error</strong></td><td style="text-align: right">6</td><td><code>src/brain/tools/error.rs</code></td></tr>
+<tr><td><strong>Brain Tools — Config Tool</strong></td><td style="text-align: right">5</td><td><code>src/brain/tools/config_tool.rs</code></td></tr>
+<tr><td><strong>Brain Tools — Write</strong></td><td style="text-align: right">5</td><td><code>src/brain/tools/write.rs</code></td></tr>
+<tr><td><strong>Brain Tools — Read</strong></td><td style="text-align: right">4</td><td><code>src/brain/tools/read.rs</code></td></tr>
+<tr><td><strong>Brain Tools — Memory Search</strong></td><td style="text-align: right">2</td><td><code>src/brain/tools/memory_search.rs</code></td></tr>
+<tr><td><strong>Brain Tools — Trait</strong></td><td style="text-align: right">3</td><td><code>src/brain/tools/trait.rs</code></td></tr>
+<tr><td><strong>Channels — Voice Local Whisper</strong></td><td style="text-align: right">25</td><td><code>src/channels/voice/local_whisper.rs</code></td></tr>
+<tr><td><strong>Channels — Voice Service</strong></td><td style="text-align: right">14</td><td><code>src/channels/voice/service.rs</code></td></tr>
+<tr><td><strong>Channels — Voice Local TTS</strong></td><td style="text-align: right">14</td><td><code>src/channels/voice/local_tts.rs</code></td></tr>
+<tr><td><strong>Channels — Commands</strong></td><td style="text-align: right">15</td><td><code>src/channels/commands.rs</code></td></tr>
+<tr><td><strong>Channels — WhatsApp Store</strong></td><td style="text-align: right">15</td><td><code>src/channels/whatsapp/store.rs</code></td></tr>
+<tr><td><strong>Channels — Telegram Handler</strong></td><td style="text-align: right">8</td><td><code>src/channels/telegram/handler.rs</code></td></tr>
+<tr><td><strong>Channels — WhatsApp Handler</strong></td><td style="text-align: right">5</td><td><code>src/channels/whatsapp/handler.rs</code></td></tr>
+<tr><td><strong>Channels — General</strong></td><td style="text-align: right">5</td><td><code>src/channels/</code></td></tr>
+<tr><td><strong>Channels — Slack Handler</strong></td><td style="text-align: right">2</td><td><code>src/channels/slack/handler.rs</code></td></tr>
+<tr><td><strong>Channels — Discord Handler</strong></td><td style="text-align: right">2</td><td><code>src/channels/discord/handler.rs</code></td></tr>
+<tr><td><strong>Config — Types</strong></td><td style="text-align: right">19</td><td><code>src/config/types.rs</code></td></tr>
+<tr><td><strong>Config — Secrets</strong></td><td style="text-align: right">5</td><td><code>src/config/secrets.rs</code></td></tr>
+<tr><td><strong>Config — Update</strong></td><td style="text-align: right">4</td><td><code>src/config/update.rs</code></td></tr>
+<tr><td><strong>Config — Crabrace</strong></td><td style="text-align: right">3</td><td><code>src/config/crabrace.rs</code></td></tr>
+<tr><td><strong>DB — Repository (Plan)</strong></td><td style="text-align: right">15</td><td><code>src/db/repository/plan.rs</code></td></tr>
+<tr><td><strong>DB — Retry</strong></td><td style="text-align: right">8</td><td><code>src/db/retry.rs</code></td></tr>
+<tr><td><strong>DB — Repository (Other)</strong></td><td style="text-align: right">9</td><td><code>src/db/repository/</code></td></tr>
+<tr><td><strong>DB — Database</strong></td><td style="text-align: right">5</td><td><code>src/db/database.rs</code></td></tr>
+<tr><td><strong>DB — Models</strong></td><td style="text-align: right">4</td><td><code>src/db/models.rs</code></td></tr>
+<tr><td><strong>Services — Plan</strong></td><td style="text-align: right">11</td><td><code>src/services/plan.rs</code></td></tr>
+<tr><td><strong>Services — File</strong></td><td style="text-align: right">11</td><td><code>src/services/file.rs</code></td></tr>
+<tr><td><strong>Services — Message</strong></td><td style="text-align: right">10</td><td><code>src/services/message.rs</code></td></tr>
+<tr><td><strong>Services — Session</strong></td><td style="text-align: right">10</td><td><code>src/services/session.rs</code></td></tr>
+<tr><td><strong>Services — Context</strong></td><td style="text-align: right">2</td><td><code>src/services/context.rs</code></td></tr>
+<tr><td><strong>TUI — Onboarding</strong></td><td style="text-align: right">67</td><td><code>src/tui/onboarding/</code></td></tr>
+<tr><td><strong>TUI — Plan</strong></td><td style="text-align: right">25</td><td><code>src/tui/plan.rs</code></td></tr>
+<tr><td><strong>TUI — Render Utils</strong></td><td style="text-align: right">12</td><td><code>src/tui/render/utils.rs</code></td></tr>
+<tr><td><strong>TUI — Prompt Analyzer</strong></td><td style="text-align: right">8</td><td><code>src/tui/prompt_analyzer.rs</code></td></tr>
+<tr><td><strong>TUI — Highlight</strong></td><td style="text-align: right">8</td><td><code>src/tui/highlight.rs</code></td></tr>
+<tr><td><strong>TUI — Markdown</strong></td><td style="text-align: right">7</td><td><code>src/tui/markdown.rs</code></td></tr>
+<tr><td><strong>TUI — Error</strong></td><td style="text-align: right">5</td><td><code>src/tui/error.rs</code></td></tr>
+<tr><td><strong>TUI — Events</strong></td><td style="text-align: right">4</td><td><code>src/tui/events.rs</code></td></tr>
+<tr><td><strong>TUI — Components</strong></td><td style="text-align: right">2</td><td><code>src/tui/components/</code></td></tr>
+<tr><td><strong>TUI — App State</strong></td><td style="text-align: right">1</td><td><code>src/tui/app/state.rs</code></td></tr>
+<tr><td><strong>A2A — Debate</strong></td><td style="text-align: right">8</td><td><code>src/a2a/debate.rs</code></td></tr>
+<tr><td><strong>A2A — Types</strong></td><td style="text-align: right">6</td><td><code>src/a2a/types.rs</code></td></tr>
+<tr><td><strong>A2A — Server/Handler/Agent Card</strong></td><td style="text-align: right">7</td><td><code>src/a2a/</code></td></tr>
+<tr><td><strong>Memory — Store</strong></td><td style="text-align: right">6</td><td><code>src/memory/store.rs</code></td></tr>
+<tr><td><strong>Memory — Search</strong></td><td style="text-align: right">3</td><td><code>src/memory/search.rs</code></td></tr>
 <tr><td><strong>Pricing</strong></td><td style="text-align: right">17</td><td><code>src/pricing.rs</code></td></tr>
-<tr><td><strong>Memory</strong></td><td style="text-align: right">9</td><td><code>src/memory/</code></td></tr>
-<tr><td><strong>Logging</strong></td><td style="text-align: right">4</td><td><code>src/logging/</code></td></tr>
-<tr><td><strong>Total</strong></td><td style="text-align: right"><strong>4,033</strong></td><td></td></tr>
+<tr><td><strong>Utils — Sanitize</strong></td><td style="text-align: right">41</td><td><code>src/utils/sanitize.rs</code> + <code>src/tests/sanitize_redaction_test.rs</code></td></tr>
+<tr><td><strong>Utils — Retry</strong></td><td style="text-align: right">8</td><td><code>src/utils/retry.rs</code></td></tr>
+<tr><td><strong>Utils — String</strong></td><td style="text-align: right">6</td><td><code>src/utils/string.rs</code></td></tr>
+<tr><td><strong>Utils — Install</strong></td><td style="text-align: right">6</td><td><code>src/utils/install.rs</code></td></tr>
+<tr><td><strong>Utils — Config Watcher</strong></td><td style="text-align: right">2</td><td><code>src/utils/config_watcher.rs</code></td></tr>
+<tr><td><strong>Logging</strong></td><td style="text-align: right">4</td><td><code>src/logging/logger.rs</code></td></tr>
+<tr><td>Tests — RSI Template Sync</td><td style="text-align: right">12</td><td><code>src/tests/rsi_sync_test.rs</code></td></tr>
+<tr><td>Tests — Model Fetching</td><td style="text-align: right">10</td><td><code>src/tests/model_fetch_test.rs</code></td></tr>
+<tr><td>Tests — Provider Factory Regression</td><td style="text-align: right">30</td><td><code>src/tests/provider_factory_regression_test.rs</code></td></tr>
+<tr><td>Tests — Onboarding Welcome</td><td style="text-align: right">10</td><td><code>src/tests/onboarding_welcome_test.rs</code></td></tr>
+<tr><td>Tests — Voice STT Dispatch</td><td style="text-align: right">11</td><td><code>src/tests/voice_stt_dispatch_test.rs</code></td></tr>
+<tr><td>Tests — Voice Onboarding</td><td style="text-align: right">61</td><td><code>src/tests/voice_onboarding_test.rs</code></td></tr>
+<tr><td>Tests — Voice OpenAI Compatible</td><td style="text-align: right">12</td><td><code>src/tests/voice_openai_compatible_test.rs</code></td></tr>
+<tr><td>Tests — Cron Jobs &amp; Scheduling</td><td style="text-align: right">55</td><td><code>src/tests/cron_test.rs</code></td></tr>
+<tr><td>Tests — Onboarding Field Nav</td><td style="text-align: right">49</td><td><code>src/tests/onboarding_field_nav_test.rs</code></td></tr>
+<tr><td>Tests — GitHub Copilot Provider</td><td style="text-align: right">38</td><td><code>src/tests/github_provider_test.rs</code></td></tr>
+<tr><td>Tests — File Extract</td><td style="text-align: right">36</td><td><code>src/tests/file_extract_test.rs</code></td></tr>
+<tr><td>Tests — Fallback Vision</td><td style="text-align: right">39</td><td><code>src/tests/fallback_vision_test.rs</code></td></tr>
+<tr><td>Tests — CLI Parsing</td><td style="text-align: right">28</td><td><code>src/tests/cli_test.rs</code></td></tr>
+<tr><td>Tests — Custom Provider</td><td style="text-align: right">27</td><td><code>src/tests/custom_provider_test.rs</code></td></tr>
+<tr><td>Tests — Onboarding Navigation</td><td style="text-align: right">26</td><td><code>src/tests/onboarding_navigation_test.rs</code></td></tr>
+<tr><td>Tests — Message Compaction</td><td style="text-align: right">28</td><td><code>src/tests/compaction_test.rs</code></td></tr>
+<tr><td>Tests — Channel Search</td><td style="text-align: right">24</td><td><code>src/tests/channel_search_test.rs</code></td></tr>
+<tr><td>Tests — Evolve (Self-Update)</td><td style="text-align: right">23</td><td><code>src/tests/evolve_test.rs</code></td></tr>
+<tr><td>Tests — Slack Formatting</td><td style="text-align: right">21</td><td><code>src/tests/slack_fmt_test.rs</code></td></tr>
+<tr><td>Tests — Split Pane</td><td style="text-align: right">21</td><td><code>src/tests/split_pane_test.rs</code></td></tr>
+<tr><td>Tests — OpenCode CLI Provider</td><td style="text-align: right">21</td><td><code>src/tests/opencode_provider_test.rs</code></td></tr>
+<tr><td>Tests — Onboarding Brain</td><td style="text-align: right">23</td><td><code>src/tests/onboarding_brain_test.rs</code></td></tr>
+<tr><td>Tests — Onboarding Types</td><td style="text-align: right">16</td><td><code>src/tests/onboarding_types_test.rs</code></td></tr>
+<tr><td>Tests — OpenAI Provider</td><td style="text-align: right">16</td><td><code>src/tests/openai_provider_test.rs</code></td></tr>
+<tr><td>Tests — TUI Error</td><td style="text-align: right">16</td><td><code>src/tests/tui_error_test.rs</code></td></tr>
+<tr><td>Tests — Queued Messages</td><td style="text-align: right">15</td><td><code>src/tests/queued_message_test.rs</code></td></tr>
+<tr><td>Tests — Plan Document</td><td style="text-align: right">15</td><td><code>src/tests/plan_document_test.rs</code></td></tr>
+<tr><td>Tests — Session &amp; Working Dir</td><td style="text-align: right">15</td><td><code>src/tests/session_working_dir_test.rs</code></td></tr>
+<tr><td>Tests — Stream Loop Detection</td><td style="text-align: right">15</td><td><code>src/tests/stream_loop_test.rs</code></td></tr>
+<tr><td>Tests — Context Window</td><td style="text-align: right">14</td><td><code>src/tests/context_window_test.rs</code></td></tr>
+<tr><td>Tests — HTML Comment Strip</td><td style="text-align: right">11</td><td><code>src/tests/html_comment_strip_test.rs</code></td></tr>
+<tr><td>Tests — Daemon Health &amp; Config</td><td style="text-align: right">10</td><td><code>src/tests/daemon_health_test.rs</code></td></tr>
+<tr><td>Tests — XML Tool Fallback</td><td style="text-align: right">10</td><td><code>src/tests/xml_tool_fallback_test.rs</code></td></tr>
+<tr><td>Tests — Collapse Build Output</td><td style="text-align: right">9</td><td><code>src/tests/collapse_build_output_test.rs</code></td></tr>
+<tr><td>Tests — Image Utils</td><td style="text-align: right">9</td><td><code>src/tests/image_util_test.rs</code></td></tr>
+<tr><td>Tests — Brain Templates</td><td style="text-align: right">8</td><td><code>src/tests/brain_templates_test.rs</code></td></tr>
+<tr><td>Tests — AltGr Input</td><td style="text-align: right">8</td><td><code>src/tests/altgr_input_test.rs</code></td></tr>
+<tr><td>Tests — QR Render</td><td style="text-align: right">8</td><td><code>src/tests/qr_render_test.rs</code></td></tr>
+<tr><td>Tests — Provider Sync</td><td style="text-align: right">8</td><td><code>src/tests/provider_sync_test.rs</code></td></tr>
+<tr><td>Tests — WhatsApp State</td><td style="text-align: right">7</td><td><code>src/tests/whatsapp_state_test.rs</code></td></tr>
+<tr><td>Tests — Reasoning Lines</td><td style="text-align: right">6</td><td><code>src/tests/reasoning_lines_test.rs</code></td></tr>
+<tr><td>Tests — System Continuation</td><td style="text-align: right">6</td><td><code>src/tests/system_continuation_test.rs</code></td></tr>
+<tr><td>Tests — Candle Whisper</td><td style="text-align: right">6</td><td><code>src/tests/candle_whisper_test.rs</code></td></tr>
+<tr><td>Tests — Post-Evolve</td><td style="text-align: right">5</td><td><code>src/tests/post_evolve_test.rs</code></td></tr>
+<tr><td>Tests — Onboarding Keys</td><td style="text-align: right">4</td><td><code>src/tests/onboarding_keys_test.rs</code></td></tr>
+<tr><td>Tests — TUI Render Clear</td><td style="text-align: right">4</td><td><code>src/tests/tui_render_clear_test.rs</code></td></tr>
+<tr><td>Tests — TUI Tool Stack</td><td style="text-align: right">6</td><td><code>src/tests/tui_tool_stack_test.rs</code></td></tr>
+<tr><td>Tests — Gemini Fetch</td><td style="text-align: right">3</td><td><code>src/tests/gemini_fetch_test.rs</code></td></tr>
+<tr><td>Tests — Profiles</td><td style="text-align: right">57</td><td><code>src/tests/profile_test.rs</code></td></tr>
+<tr><td>Tests — Subagent / Swarm</td><td style="text-align: right">83</td><td><code>src/tests/subagent_test.rs</code></td></tr>
+<tr><td>Tests — Telegram Resume &amp; Helpers</td><td style="text-align: right">55</td><td><code>src/tests/telegram_resume_test.rs</code></td></tr>
+<tr><td>Tests — Token Tracking</td><td style="text-align: right">29</td><td><code>src/tests/token_tracking_test.rs</code></td></tr>
+<tr><td>Tests — wait_agent Resolver</td><td style="text-align: right">12</td><td><code>src/tests/wait_agent_resolver_test.rs</code></td></tr>
+<tr><td>Tests — Browser Default (macOS LSHandlers parser)</td><td style="text-align: right">8</td><td><code>src/tests/browser_default_test.rs</code></td></tr>
+<tr><td>Tests — Browser Default (Linux xdg-settings parser)</td><td style="text-align: right">4</td><td><code>src/tests/browser_default_linux_test.rs</code> (Linux-only)</td></tr>
+<tr><td>Tests — Browser Default (Windows reg-query parser)</td><td style="text-align: right">6</td><td><code>src/tests/browser_default_windows_test.rs</code> (Windows-only)</td></tr>
+<tr><td>Tests — Browser Profile Lock Sweeper</td><td style="text-align: right">5</td><td><code>src/tests/browser_locks_test.rs</code></td></tr>
+<tr><td>Tests — Browser CDP Handler Health</td><td style="text-align: right">4</td><td><code>src/tests/browser_health_test.rs</code></td></tr>
+<tr><td>Tests — Browser Stealth JS Regression Guards</td><td style="text-align: right">6</td><td><code>src/tests/browser_stealth_test.rs</code></td></tr>
+<tr><td>Tests — Browser Manager Drop</td><td style="text-align: right">2</td><td><code>src/tests/browser_drop_test.rs</code></td></tr>
+<tr><td>Tests — Browser Session-Scoped Tabs</td><td style="text-align: right">4</td><td><code>src/tests/browser_session_test.rs</code></td></tr>
+<tr><td>Tests — Browser Profile Unlock Backoff</td><td style="text-align: right">4</td><td><code>src/tests/browser_profile_wait_test.rs</code></td></tr>
+<tr><td>Tests — Browser Eval Output Cap</td><td style="text-align: right">5</td><td><code>src/tests/browser_eval_cap_test.rs</code></td></tr>
+<tr><td>Tests — Browser Screenshot-Failure Surface</td><td style="text-align: right">2</td><td><code>src/tests/browser_screenshot_surface_test.rs</code></td></tr>
+<tr><td>Tests — Browser Find JS Builder</td><td style="text-align: right">9</td><td><code>src/tests/browser_find_test.rs</code></td></tr>
+<tr><td>Tests — exa_search MCP Handshake</td><td style="text-align: right">4</td><td><code>src/tests/exa_search_test.rs</code></td></tr>
+<tr><td>Tests — http_request User-Agent</td><td style="text-align: right">3</td><td><code>src/tests/http_request_test.rs</code></td></tr>
+<tr><td>Tests — Self-Healing (Phantom Detection + stuck-intent loop)</td><td style="text-align: right">88</td><td><code>src/tests/self_healing_test.rs</code></td></tr>
+<tr><td>Tests — Bash SSH Detection</td><td style="text-align: right">10</td><td><code>src/tests/bash_ssh_detection_test.rs</code></td></tr>
+<tr><td>Tests — Bash POSIX Quote (askpass)</td><td style="text-align: right">9</td><td><code>src/tests/bash_posix_quote_test.rs</code></td></tr>
+<tr><td>Tests — RSI Proposals Inbox</td><td style="text-align: right">13</td><td><code>src/tests/rsi_proposals_test.rs</code></td></tr>
+<tr><td>Tests — Skills Loader</td><td style="text-align: right">14</td><td><code>src/tests/skills_test.rs</code></td></tr>
+<tr><td>Tests — Skill Slash Dispatch</td><td style="text-align: right">7</td><td><code>src/tests/skill_slash_dispatch_test.rs</code></td></tr>
+<tr><td>Tests — Slash Autocomplete Dimensions</td><td style="text-align: right">12</td><td><code>src/tests/slash_autocomplete_dimensions_test.rs</code></td></tr>
+<tr><td>Tests — Mission Control Layout</td><td style="text-align: right">7</td><td><code>src/tests/mission_control_layout_test.rs</code></td></tr>
+<tr><td>Tests — Mission Control Inbox Service</td><td style="text-align: right">6</td><td><code>src/tests/mission_control_inbox_service_test.rs</code></td></tr>
+<tr><td>Tests — Mission Control Activity Service</td><td style="text-align: right">8</td><td><code>src/tests/mission_control_activity_service_test.rs</code></td></tr>
+<tr><td>Tests — Mission Control Schedule Service</td><td style="text-align: right">5</td><td><code>src/tests/mission_control_schedule_service_test.rs</code></td></tr>
+<tr><td>Tests — Mission Control Input</td><td style="text-align: right">23</td><td><code>src/tests/mission_control_input_test.rs</code></td></tr>
+<tr><td>Tests — Skills Dialog</td><td style="text-align: right">18</td><td><code>src/tests/skills_dialog_test.rs</code></td></tr>
+<tr><td>Tests — merge_provider_keys (OpenCode persistence regression)</td><td style="text-align: right">4</td><td><code>src/tests/merge_provider_keys_test.rs</code></td></tr>
+<tr><td>Tests — Onboarding Wizard</td><td style="text-align: right">67</td><td><code>src/tests/onboarding_wizard_test.rs</code></td></tr>
+<tr><td>Tests — RSI (Recursive Self-Improvement)</td><td style="text-align: right">79</td><td><code>src/tests/rsi_test.rs</code></td></tr>
+<tr><td>Tests — Dynamic Tool Coercion</td><td style="text-align: right">11</td><td><code>src/tests/dynamic_tool_coerce_test.rs</code></td></tr>
+<tr><td>Tests — Follow-Up Question Tool</td><td style="text-align: right">9</td><td><code>src/tests/follow_up_question_test.rs</code></td></tr>
+<tr><td>Tests — Gemini Schema Sanitization</td><td style="text-align: right">7</td><td><code>src/tests/gemini_schema_sanitize_test.rs</code></td></tr>
+<tr><td>Tests — Rename Session Tool</td><td style="text-align: right">6</td><td><code>src/tests/rename_session_test.rs</code></td></tr>
+<tr><td>Tests — Custom Model Paste</td><td style="text-align: right">5</td><td><code>src/tests/custom_model_paste_test.rs</code></td></tr>
+<tr><td>Tests — Brain File Generic Guard</td><td style="text-align: right">4</td><td><code>src/tests/brain_file_generic_guard_test.rs</code></td></tr>
+<tr><td>Tests — Phantom DB Persistence</td><td style="text-align: right">2</td><td><code>src/tests/phantom_db_persistence_test.rs</code></td></tr>
+<tr><td>Tests — Bash Interactive Reject</td><td style="text-align: right">36</td><td><code>src/tests/bash_interactive_reject_test.rs</code></td></tr>
+<tr><td>Tests — Qwen Tool-Call Extractor</td><td style="text-align: right">34</td><td><code>src/tests/qwen_tool_extractor_test.rs</code></td></tr>
+<tr><td>Tests — Brain File Safety (append-only enforcement, cleanup_intent)</td><td style="text-align: right">37</td><td><code>src/tests/brain_file_safety_test.rs</code></td></tr>
+<tr><td>Tests — Provider Config Regression</td><td style="text-align: right">28</td><td><code>src/tests/provider_config_regression_test.rs</code></td></tr>
+<tr><td>Tests — Tool-Loop Helpers (Linor P0 hotspot)</td><td style="text-align: right">27</td><td><code>src/tests/tool_loop_helpers_test.rs</code></td></tr>
+<tr><td>Tests �� Recent Paths</td><td style="text-align: right">17</td><td><code>src/tests/recent_paths_test.rs</code></td></tr>
+<tr><td>Tests — Provider Error Proxy</td><td style="text-align: right">16</td><td><code>src/tests/provider_error_proxy_test.rs</code></td></tr>
+<tr><td>Tests — Mouse Fragment Filter</td><td style="text-align: right">13</td><td><code>src/tests/mouse_fragment_filter_test.rs</code></td></tr>
+<tr><td>Tests — Agent Basic</td><td style="text-align: right">12</td><td><code>src/tests/agent_basic_test.rs</code></td></tr>
+<tr><td>Tests — RSI Git History</td><td style="text-align: right">12</td><td><code>src/tests/rsi_git_history_test.rs</code></td></tr>
+<tr><td>Tests — Bash Retry Loop</td><td style="text-align: right">10</td><td><code>src/tests/bash_retry_loop_test.rs</code></td></tr>
+<tr><td>Tests — Agent Tool Normalization</td><td style="text-align: right">10</td><td><code>src/tests/agent_tool_normalization_test.rs</code></td></tr>
+<tr><td>Tests — Kimi Reasoning Markers</td><td style="text-align: right">9</td><td><code>src/tests/kimi_reasoning_test.rs</code></td></tr>
+<tr><td>Tests — Usage Activity Columns</td><td style="text-align: right">9</td><td><code>src/tests/usage_activity_columns_test.rs</code></td></tr>
+<tr><td>Tests — Agent Context Tracking</td><td style="text-align: right">8</td><td><code>src/tests/agent_context_tracking_test.rs</code></td></tr>
+<tr><td>Tests — Collapse <code>$HOME</code> to <code>~</code></td><td style="text-align: right">8</td><td><code>src/tests/collapse_home_test.rs</code></td></tr>
+<tr><td>Tests — Rate Limiter</td><td style="text-align: right">8</td><td><code>src/tests/rate_limiter_test.rs</code></td></tr>
+<tr><td>Tests — Session Chat-ID Lookup</td><td style="text-align: right">8</td><td><code>src/tests/session_chat_id_lookup_test.rs</code></td></tr>
+<tr><td>Tests — Agent Approval Policies</td><td style="text-align: right">7</td><td><code>src/tests/agent_approval_policies_test.rs</code></td></tr>
+<tr><td>Tests — Agent Model Selection</td><td style="text-align: right">6</td><td><code>src/tests/agent_model_selection_test.rs</code></td></tr>
+<tr><td>Tests — Browser Close Tool</td><td style="text-align: right">6</td><td><code>src/tests/browser_close_test.rs</code></td></tr>
+<tr><td>Tests — Local-Provider Gate</td><td style="text-align: right">6</td><td><code>src/tests/local_provider_gate_test.rs</code></td></tr>
+<tr><td>Tests — Agent Parallel Sessions</td><td style="text-align: right">5</td><td><code>src/tests/agent_parallel_sessions_test.rs</code></td></tr>
+<tr><td>Tests — Agent Streaming Usage</td><td style="text-align: right">5</td><td><code>src/tests/agent_streaming_usage_test.rs</code></td></tr>
+<tr><td>Tests — Claude CLI Model Selection</td><td style="text-align: right">5</td><td><code>src/tests/claude_cli_model_test.rs</code></td></tr>
+<tr><td>Tests — Codex CLI Provider</td><td style="text-align: right">5</td><td><code>src/tests/codex_cli_test.rs</code></td></tr>
+<tr><td>Tests — Non-stream Compatibility</td><td style="text-align: right">5</td><td><code>src/tests/nonstream_compat_test.rs</code></td></tr>
+<tr><td>Tests — Runtime Info <code>$HOME</code> Anchor</td><td style="text-align: right">5</td><td><code>src/tests/runtime_info_home_anchor_test.rs</code></td></tr>
+<tr><td>Tests — Handshake Timeout</td><td style="text-align: right">4</td><td><code>src/tests/handshake_timeout_test.rs</code></td></tr>
+<tr><td>Tests — Usage Ledger</td><td style="text-align: right">4</td><td><code>src/tests/usage_ledger_test.rs</code></td></tr>
+<tr><td>Tests — Browser E2E (opt-in, <code>#[ignore]</code>)</td><td style="text-align: right">3</td><td><code>src/tests/browser_e2e_test.rs</code></td></tr>
+<tr><td>Tests — CLI Arg Length Cap</td><td style="text-align: right">2</td><td><code>src/tests/cli_arg_too_long_test.rs</code></td></tr>
+<tr><td>Tests — Config Watcher (integration)</td><td style="text-align: right">2</td><td><code>src/tests/config_watcher_test.rs</code></td></tr>
+<tr><td>Tests — Usage Model Grouping (<code>.gguf</code> + provider-prefix normalization)</td><td style="text-align: right">13</td><td><code>src/tests/usage_grouping_test.rs</code></td></tr>
+<tr><td>Tests — Tool-Execution Repo (empty <code>tool_name</code> guard)</td><td style="text-align: right">4</td><td><code>src/tests/tool_execution_repo_test.rs</code></td></tr>
+<tr><td>Tests — Generate Image Backend Dispatch (Gemini vs OpenAI-compatible)</td><td style="text-align: right">5</td><td><code>src/tests/generate_image_backend_test.rs</code></td></tr>
+<tr><td><strong>Usage — Categorizer</strong></td><td style="text-align: right">4</td><td><code>src/usage/categorizer.rs</code></td></tr>
+<tr><td><strong>Usage — Dashboard</strong></td><td style="text-align: right">6</td><td><code>src/usage/dashboard.rs</code></td></tr>
+<tr><td><strong>Usage — Data</strong></td><td style="text-align: right">7</td><td><code>src/usage/data.rs</code></td></tr>
+<tr><td><strong>Hashline Edit</strong></td><td style="text-align: right">51</td><td><code>src/tests/hashline_test.rs</code> (28 integration tests) + inline unit tests in <code>hash.rs</code> (9) and <code>types.rs</code> (14) — hash computation, HashRef parsing, edit operations (replace/append/prepend), hash mismatch detection, overlap detection, batch edits, prefix stripping, read_file hashline mode</td></tr>
+<tr><td>Tests — Auto-Title (channel prefix preservation)</td><td style="text-align: right">9</td><td><code>src/tests/auto_title_test.rs</code></td></tr>
+<tr><td>Tests — Self-Improve Failure Log Guard</td><td style="text-align: right">3</td><td><code>src/tests/self_improve_failure_log_guard_test.rs</code></td></tr>
+<tr><td>Tests — Provider Retry Consolidation</td><td style="text-align: right">11</td><td><code>src/tests/provider_retry_consolidation_test.rs</code> — patient backoff, hard-down/DNS fast-fail, Retry-After clamp, retry-notify surfacing</td></tr>
+<tr><td>Tests — Tool-Name Self-Heal (#176)</td><td style="text-align: right">11</td><td><code>src/tests/tool_name_heal_test.rs</code> — maps a model’s near-miss tool name (<code>tg_send_message</code> → <code>telegram_send</code>) to the registered tool</td></tr>
+<tr><td>Tests — Secret Redaction (tool summary)</td><td style="text-align: right">6</td><td><code>src/tests/tool_description_redaction_test.rs</code> — redacts Bearer/api_key/URL-password from the one-line tool display</td></tr>
+<tr><td>Tests — Secret Redaction (RSI notifications)</td><td style="text-align: right">5</td><td><code>src/tests/rsi_notification_redaction_test.rs</code> — redacts secrets from RSI TUI alerts</td></tr>
+<tr><td>Tests — Provider Error / HTML-page retry</td><td style="text-align: right">(in proxy test)</td><td><code>src/tests/provider_error_proxy_test.rs</code> — 4xx HTML infra error pages classified retryable (modelscope 405)</td></tr>
+<tr><td>Tests — Cross-Provider Model Leak Guard</td><td style="text-align: right">6</td><td><code>src/tests/cross_provider_model_leak_guard_test.rs</code></td></tr>
+<tr><td>Tests — Session Provider Wrap / model pairing</td><td style="text-align: right">—</td><td><code>src/tests/session_provider_wrap_test.rs</code> — swap wraps in FallbackProvider; provider+model set atomically, never invents a default</td></tr>
+<tr><td>Tests — Streaming tok/s Guard</td><td style="text-align: right">10</td><td><code>src/tests/streaming_tok_per_sec_guard_test.rs</code> — floors/ceilings burst-delivery tok/s artifacts</td></tr>
+<tr><td>Tests — Telegram Last-Intermediate Footer</td><td style="text-align: right">7</td><td><code>src/tests/telegram_last_intermediate_footer_test.rs</code> — ctx/tok-s footer appended to the last completion message</td></tr>
+<tr><td>Tests — analyze_video Frame-Extraction Fallback</td><td style="text-align: right">6</td><td><code>src/tests/analyze_video_fallback_test.rs</code></td></tr>
+<tr><td>Tests — Git Branch Footer</td><td style="text-align: right">8</td><td><code>src/tests/git_branch_test.rs</code></td></tr>
+<tr><td>Tests — TOOLS.md Slim Regression</td><td style="text-align: right">9</td><td><code>src/tests/tools_md_regression_test.rs</code></td></tr>
+<tr><td>Tests — Telegram Command Sanitize</td><td style="text-align: right">10</td><td><code>src/tests/telegram_command_sanitize_test.rs</code></td></tr>
+<tr><td>Tests — Usage Cache</td><td style="text-align: right">13</td><td><code>src/tests/usage_cache_test.rs</code></td></tr>
+<tr><td>Tests — Config Auto-Repair</td><td style="text-align: right">7</td><td><code>src/tests/config_repair_test.rs</code> — closes unterminated arrays/inline tables in a broken <code>config.toml</code>, gated on the result re-parsing; leaves valid/nested/string cases and unfixable errors alone</td></tr>
+<tr><td>Tests — Config Last-Good Recovery</td><td style="text-align: right">3</td><td><code>src/tests/config_last_good_recovery_test.rs</code> — a broken config never poisons the last-good snapshot; fixable configs auto-repair in place; unfixable ones recover from last-good (preserves auto-always so yolo mode survives a typo)</td></tr>
+<tr><td><strong>Total</strong></td><td style="text-align: right"><strong>4,033</strong></td><td>Authoritative count from <code>cargo test --all-features</code> (lib test binary): 4,010 run by default + 23 <code>#[ignore]</code>d. The per-category rows above are a maintained snapshot; recent additions include config resilience tests (auto-repair + last-good recovery) and the <code>config/types.rs</code> split into <code>types/loader.rs</code> (load/merge/repair) and <code>types/io.rs</code> (file IO). Re-run <code>cargo test</code> for the live number.</td></tr>
 </tbody>
 </table>
 </div>
@@ -5036,6 +5448,32 @@ cargo test --all-features -- --nocapture
 cargo test --features local-stt -- local_whisper
 </code></pre>
 <hr>
+<h2 id="profile-tests"><a class="header" href="#profile-tests">Profile Tests</a></h2>
+<p>Profile tests live in <code>src/tests/profile_test.rs</code> and cover multi-instance isolation:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Area</th><th>What’s tested</th></tr>
+</thead>
+<tbody>
+<tr><td>Name validation</td><td>Reserved names, length bounds, special characters</td></tr>
+<tr><td>Token hashing</td><td>Determinism, uniqueness, fixed length, hex output</td></tr>
+<tr><td>Registry (in-memory)</td><td>CRUD, serde roundtrip, touch timestamps</td></tr>
+<tr><td>Path resolution</td><td>Base dir, env var override, default vs named profiles</td></tr>
+<tr><td>Filesystem CRUD</td><td>Create/delete lifecycle, duplicate detection, registry sync</td></tr>
+<tr><td>Export/Import</td><td>Roundtrip with config files, nested memory directories</td></tr>
+<tr><td>Migration</td><td>Copy <code>.md</code>/<code>.toml</code> files, skip/force behavior, default source</td></tr>
+<tr><td>Token locks</td><td>Acquire/release, stale PID cleanup, cross-profile conflict</td></tr>
+<tr><td>Profile isolation</td><td>Separate directories, concurrent writes, default vs named</td></tr>
+<tr><td>Concurrent writes</td><td>Tokio tasks creating 5 profiles simultaneously</td></tr>
+</tbody>
+</table>
+</div>
+<pre><code class="language-bash"># Run profile tests only
+cargo test --all-features -p opencrabs -- profile_test
+</code></pre>
+<p><strong>Note:</strong> All filesystem-touching tests acquire a global <code>fs_lock()</code> mutex to prevent concurrent write corruption of <code>~/.opencrabs/profiles.toml</code>. The mutex uses <code>unwrap_or_else(|p| p.into_inner())</code> to recover from poison (a prior test panic won’t cascade-fail every subsequent test). In-memory tests run in parallel without the lock. The <code>test_set_and_get_active_profile</code> test accounts for <code>OnceLock</code> semantics (can only be set once per process).</p>
+<hr>
 <h2 id="disabled-test-modules"><a class="header" href="#disabled-test-modules">Disabled Test Modules</a></h2>
 <p>These modules exist but are commented out in <code>src/tests/mod.rs</code> (require network or external services):</p>
 <div class="table-wrapper">
@@ -5051,6 +5489,35 @@ cargo test --features local-stt -- local_whisper
 </tbody>
 </table>
 </div>
+<hr>
+<h2 id="phantom-detection-tests"><a class="header" href="#phantom-detection-tests">Phantom Detection Tests</a></h2>
+<p>The self-healing phantom detector prevents the agent from dropping requests mid-stream when it says it will investigate something but never calls tools.</p>
+<h3 id="coverage"><a class="header" href="#coverage">Coverage</a></h3>
+<p>Tests in <code>src/tests/self_healing_test.rs</code> verify detection of investigative intent phrases:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Phrase Pattern</th><th>Examples</th></tr>
+</thead>
+<tbody>
+<tr><td><code>let me hunt/trace/track</code></td><td>“let me hunt down the bug”, “let me trace the request”</td></tr>
+<tr><td><code>let me look into/check into</code></td><td>“let me look into that”, “let me check into the logs”</td></tr>
+<tr><td><code>let me find out/dig into</code></td><td>“let me find out why”, “let me dig into the code”</td></tr>
+<tr><td><code>i'll hunt/trace/track</code></td><td>“i’ll hunt that down”, “i’ll trace the flow”</td></tr>
+<tr><td><code>i'll look into/check into</code></td><td>“i’ll look into it”, “i’ll check into the error”</td></tr>
+<tr><td><code>i'll find out/dig into</code></td><td>“i’ll find out what’s wrong”, “i’ll dig into the issue”</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="behavior-1"><a class="header" href="#behavior-1">Behavior</a></h3>
+<p>When the agent outputs one of these phrases with zero tool calls, the phantom detector:</p>
+<ol>
+<li>Catches the mismatch between intent and action</li>
+<li>Injects a correction forcing tool invocation</li>
+<li>Prevents the response from ending with unexecuted promises</li>
+</ol>
+<h3 id="test-count"><a class="header" href="#test-count">Test Count</a></h3>
+<p>88 tests covering phrase detection, edge cases, and integration with the tool loop.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="contributing"><a class="header" href="#contributing">Contributing</a></h1>
 <h2 id="getting-started"><a class="header" href="#getting-started">Getting Started</a></h2>
