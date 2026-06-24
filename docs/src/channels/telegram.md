@@ -60,6 +60,35 @@ respond_to = "all"
 - **Onboarding overhaul** (v0.3.30) — Auto-detects owner user ID from `getUpdates`, persists partial config on cancel, only Enter on the last step commits (Tab no longer silently rewrites ~30 config keys)
 - **Teloxide upgrade + join detection** (v0.3.35) — Upgraded from teloxide 0.13 to 0.17. New members joining a group are now detected before the allowlist check, so the bot can greet or moderate join events. Marathon-bucket rolling status rotates through project-author quip pool for more varied status messages.
 
+## Configuration
+
+All Telegram options live under `[channels.telegram]` in `~/.opencrabs/config.toml`:
+
+```toml
+[channels.telegram]
+enabled = true
+token = "123456:ABC-DEF..."          # or store in keys.toml
+allowed_users = ["123456789"]         # numeric Telegram user IDs
+allowed_channels = ["-100123456"]     # restrict to specific group/channel IDs (empty = all)
+respond_to = "mention"                # "all", "dm_only", "mention" (default)
+session_idle_hours = 24.0             # idle timeout for non-owner sessions
+rich_messages = false                 # native Telegram rich messages (Bot API 10.1)
+silence_group_start = true            # silently ignore /start from non-allowed users in groups
+bot_owner = ["123456789"]             # owner IDs (gated commands, /cd hidden dirs, /profiles)
+```
+
+| Field | Default | Description |
+|-------|---------|-------------|
+| `enabled` | `false` | Enable the Telegram bot channel |
+| `token` | `None` | Telegram Bot API token from @BotFather |
+| `allowed_users` | `[]` (accept all) | Numeric Telegram user IDs. Accepts int or string arrays. Empty = open mode |
+| `allowed_channels` | `[]` (all channels) | Restrict bot to specific channel/group IDs. DMs always pass |
+| `respond_to` | `"mention"` | When to respond in groups: `"all"` = every message, `"dm_only"` = ignore groups, `"mention"` = only when @mentioned or replied-to |
+| `session_idle_hours` | `None` (no timeout) | Idle timeout in hours for non-owner sessions. Owner sessions never expire |
+| `rich_messages` | `false` | Send structured replies as native Telegram rich messages (tables, headings, lists, math). Requires current mobile/desktop Telegram clients. Telegram Web and older clients show a "not supported" placeholder |
+| `silence_group_start` | `true` | Silently ignore /start from non-allowed users in group chats. Users who need their ID can DM the bot |
+| `bot_owner` | `[]` (first allowed_user) | Bot owner user IDs. Owners can access gated commands (/profiles, hidden files in /cd), manage profiles. Defaults to first entry in `allowed_users` |
+
 ## Agent Tools
 
 The agent can use `telegram_send` with 20+ actions. The `thread_id` field on `send` / `reply` / `send_photo` targets a specific forum topic in supergroups with topics enabled.
