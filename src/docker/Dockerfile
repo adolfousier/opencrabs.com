@@ -2,18 +2,22 @@ FROM rust:1.94-bookworm AS builder
 
 RUN rustup target add wasm32-unknown-unknown
 
-# Use pre-built trunk binary to avoid dependency hell
+# Use pre-built binaries to avoid dependency hell
 RUN curl -fsSL https://github.com/trunk-rs/trunk/releases/download/v0.21.7/trunk-x86_64-unknown-linux-gnu.tar.gz | tar -xz -C /usr/local/bin
+RUN curl -fsSL https://github.com/rust-lang/mdBook/releases/download/v0.4.44/mdbook-v0.4.44-x86_64-unknown-linux-gnu.tar.gz | tar -xz -C /usr/local/bin
 
 WORKDIR /app
 COPY Cargo.toml Cargo.lock ./
 COPY src/ src/
 COPY index.html style.css Trunk.toml ./
+COPY docs/ docs/
 
 RUN trunk build --release
+RUN cd docs && mdbook build
 
 FROM nginx:alpine
 COPY --from=builder /app/dist /usr/share/nginx/html
 COPY --from=builder /app/src/root-files/ /usr/share/nginx/html/
+COPY --from=builder /app/docs/book /usr/share/nginx/html/docs
 COPY src/docker/nginx.conf /etc/nginx/conf.d/default.conf
 EXPOSE 19283

@@ -287,7 +287,7 @@ fn Hero() -> impl IntoView {
                 <h1>"OpenCrabs"</h1>
                 <p class="hero-tagline">"THE ALL-IN-ONE AI AGENT LIVING IN YOUR TERMINAL."</p>
                 <p class="hero-description">
-                    "Build apps, backends, landing pages. Manages files, searches the web, runs deep research, schedules tasks and events. Self-improving, self-healing, fully autonomous. Connects from Terminal UI, CLI or your favorite channels."
+                    "Build apps, backends, landing pages. Manages files, searches the web, runs deep research, schedules tasks and events. Set a goal with /goal and watch it loop autonomously until done. Self-improving, self-healing, fully autonomous. Connects from Terminal UI, CLI or your favorite channels."
                 </p>
                 <a href="https://github.com/adolfousier/opencrabs/releases/latest" class="hero-badge">
                     <span class="badge-new">"LATEST"</span>
@@ -447,13 +447,13 @@ fn Features() -> impl IntoView {
     let features = vec![
         (
             "🖥️",
-            "~23 MB Single Binary",
+            "~34-36 MB Single Binary",
             "Mac, Windows, or Linux. Anthropic, OpenAI, Gemini, GitHub Copilot, or any local model. Private by default — your data stays yours.",
         ),
         (
             "💬",
             "Any Chat App",
-            "Talk to it on Telegram, Discord, Slack, WhatsApp, or Trello. Native rich message rendering in Telegram with tables, lists, code blocks, math. Forum topic session isolation gives each topic its own context. /cowork workspaces, /rename sessions, instant fast-cancel on /stop. /cd directory browser with inline keyboard, /profiles command for managing AI profiles. Owner impersonation detection in group chats. Session search across all channels. Works in DMs and group chats with persistent sessions. Or just use the TUI.",
+            "Talk to it on Telegram, Discord, Slack, WhatsApp, or Trello. Native rich message rendering with tables, lists, code blocks, math. Draft message streaming shows live \"typing...\" updates as tokens generate. Collapsible <details>/<summary> blocks for long outputs. Forum topic session isolation gives each topic its own context. /cowork workspaces, /rename sessions, instant fast-cancel on /stop. /cd directory browser with auto project assignment. /profiles command for managing AI profiles. Owner impersonation detection in group chats. Session search across all channels. Works in DMs and group chats with persistent sessions. Or just use the TUI.",
         ),
         (
             "🧠",
@@ -463,7 +463,7 @@ fn Features() -> impl IntoView {
         (
             "⚡",
             "50+ Built-in Tools",
-            "File ops, bash, web search, code execution, image gen, browser automation, local voice STT & TTS, PDF rendering, sub-agent orchestration. Proactive tool discovery — agent searches for tools before claiming inability. JIT activation for extended tools on-demand. Auto-download RTK for 10x token savings on 100+ commands. Define custom tools at runtime.",
+            "File ops, bash, web search, code execution, image gen, browser automation, local voice STT & TTS, PDF rendering, sub-agent orchestration. Proactive tool discovery — agent searches for tools before claiming inability. JIT activation for extended tools on-demand. Auto-download RTK for 10x token savings on 100+ commands. Define custom tools at runtime. Race-free multi-image pickup from any channel. Tool registry shared across all entry points so startup tools are available everywhere.",
         ),
         (
             "🪟",
@@ -471,14 +471,19 @@ fn Features() -> impl IntoView {
             "Tmux-style horizontal and vertical pane splitting. Run 10 sessions side by side, each with its own provider and context. All processing in parallel.",
         ),
         (
+            "🔄",
+            "/goal — Autonomous Goal Loop",
+            "Set a goal with /goal <text> and the agent loops autonomously: executing, self-evaluating with an LLM judge, and continuing with a correction prompt until the goal is satisfied or the turn budget runs out. Supports /goal pause, /goal resume, /goal status, and /goal clear. Fully hands-off task execution.",
+        ),
+        (
             "🎯",
             "Mission Control",
-            "Full-screen TUI dashboard with four panels: Analytics showing brain file sizes, tool usage bars, and failure rates, Inbox for reviewing RSI-proposed tools, commands, and skills (approve/reject inline with a/r keys), Activity log showing recent self-improvements, and Schedule queue for cron jobs. Rich schedule detail popup shows prompt, delivery target, run history with cost and duration. Cron delivery to Discord and Slack. Two-step delete safeguard with auto-backup. Keyboard-driven: Tab/Shift-Tab cycle panels, j/k navigate, Enter for details, Esc to close.",
+            "Full-screen TUI dashboard with four panels: Analytics showing brain file sizes, tool usage bars, and failure rates, Inbox for reviewing RSI-proposed tools, commands, and skills (approve/reject inline with a/r keys), Activity log showing recent self-improvements, and Schedule queue for cron jobs. Rich schedule detail popup shows prompt, delivery target, run history with cost and duration. Cron delivery to Discord and Slack. Two-step delete safeguard with auto-backup. Race-free cron startup (no double-fire on first tick). Shared session per cron job with compaction isolation. Keyboard-driven: Tab/Shift-Tab cycle panels, j/k navigate, Enter for details, Esc to close.",
         ),
         (
             "🤖",
             "Multi-Agent & Teams",
-            "Typed sub-agents (General, Explore, Plan, Code, Research) with filtered tool registries. Team orchestration spawns N agents in parallel and broadcasts to all. 20+ CLI subcommands including /mission-control dashboard, /skills picker, /btw parallel agent, /security-audit, /cost-estimate, and /repo-audit. Cross-harness skill system with auto-registered slash commands. Daemon mode with health endpoints.",
+            "Typed sub-agents (General, Explore, Plan, Code, Research) with filtered tool registries. Team orchestration spawns N agents in parallel and broadcasts to all. 20+ CLI subcommands including /mission-control dashboard, /skills picker, /btw parallel agent, /security-audit, /cost-estimate, and /repo-audit. Cross-harness skill system with auto-registered slash commands. Promoted most-used commands to top of /help. All slash commands render through rich AST pipeline with table formatting. Standardized bot menu on underscore form. Daemon mode with health endpoints.",
         ),
         (
             "🌐",
@@ -493,12 +498,12 @@ fn Features() -> impl IntoView {
         (
             "🔒",
             "Security & Trust",
-            "Confidential file protection: SSH keys, .env, credentials, and private configs are sacred. Never shared without explicit owner verification. Owner impersonation detection catches non-owners trying to act as the owner in Telegram group chats. bot_owner config field with is_owner() helper for identity checks. rm-blocklist prevents destructive commands with reversed-flag, quoted-path, and chained-flag defenses.",
+            "Confidential file protection: SSH keys, .env, credentials, and private configs are sacred. Never shared without explicit owner verification. Owner impersonation detection catches non-owners trying to act as the owner in Telegram group chats. bot_owner config field with is_owner() helper for identity checks. /cowork checks bot admin status before creating invite links. rm-blocklist prevents destructive commands with reversed-flag, quoted-path, and chained-flag defenses.",
         ),
         (
             "🛡️",
             "Self-Healing",
-            "Auto-recovers corrupted config with auto-repair that never poisons last-good. Tracks per-provider health with auto-failover, 65% context budget management with async LLM compaction. Cross-channel crash recovery. Stuck stream detection, reasoning repetition loop detection (flags only when the same intent line repeats), 10-min CLI idle timeout, DB integrity checks. Append-only brain files with upstream template sync. System brain auto-rebuilds when brain files change. Expanded phantom detection, RSI escalation for repeat violations, partial JSON repair, TCP keepalive on all HTTP clients. Browser resilience: network idle wait, CDP health checks, lock release before await.",
+            "Auto-recovers corrupted config with auto-repair that never poisons last-good. Tracks per-provider health with auto-failover, 65% context budget management with async LLM compaction. Cross-channel crash recovery. Stuck stream detection, reasoning repetition loop detection, thinking/reasoning tag stripping from output so reasoning models never leak internal thoughts. 10-min CLI idle timeout, DB integrity checks. Append-only brain files with upstream template sync. System brain auto-rebuilds when brain files change. Expanded phantom detection, RSI escalation for repeat violations, partial JSON repair, TCP keepalive on all HTTP clients. Browser resilience: network idle wait, CDP health checks, lock release before await.",
         ),
         (
             "🔧",
