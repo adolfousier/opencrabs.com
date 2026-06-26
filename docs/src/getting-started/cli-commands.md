@@ -35,6 +35,7 @@ opencrabs [COMMAND] [OPTIONS]
 | `/security-audit` | **Security audit** — Comprehensive language-agnostic security & CVE audit. Detects project type, runs the right scanner, reviews recent diff for injection/auth/crypto patterns, scores 0-100. |
 | `/cost-estimate` | **Cost estimate** — Codebase cost-to-build estimate, AI-assisted ROI breakdown, and fair-market valuation. Asks for business context before producing the valuation range. |
 | `/repo-audit` | **Repo audit** — Language-agnostic repository health checks. 5-phase pipeline: language detection → native tool execution → git metrics → AST analysis → scoring + recommendations. Covers Rust, JS/TS, Python, Go. |
+| `/goal` | **Autonomous goal loop** — Set a goal with `/goal <text>` and the agent loops autonomously: executing, self-evaluating with an LLM judge, and continuing until the goal is satisfied or the turn budget (default 20) runs out. Supports `/goal pause`, `/goal resume`, `/goal status`, `/goal clear`. |
 
 ## Configuration Flags
 

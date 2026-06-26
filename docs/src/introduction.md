@@ -48,6 +48,7 @@
 - **Clipboard image paste** — paste images from browser or any app directly into TUI
 - **Plan pinning** — active plan pinned at end of prompt each turn
 - **Agent-driven onboarding** — personalized first-time setup with guided flow
+- **`/goal` autonomous loop** — set a goal and the agent loops until an LLM judge says it's done, with pause/resume/status controls
 
 ### Developer Experience
 - **50+ built-in tools** — file ops, bash, web search, code execution, browser automation, image gen, voice, PDF rendering

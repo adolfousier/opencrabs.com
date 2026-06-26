@@ -50,6 +50,7 @@
 - [Skills System](./features/skills.md)
 - [Usage Dashboard](./features/usage-dashboard.md)
 - [RTK — Token Savings](./features/rtk.md)
+- [/goal — Autonomous Goal Loop](./features/goal.md)
 
 # Development
 

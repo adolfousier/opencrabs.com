@@ -64,10 +64,10 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-06398ada.js";
+            window.path_to_searchindex_js = "searchindex-477395a6.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-bb9bc9e2.js"></script>
+        <script src="toc-e7000d62.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -208,7 +208,7 @@
                     <main>
                         <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
 <p><strong>OpenCrabs</strong> is a self-hosted, provider-agnostic AI orchestration agent that runs as a single Rust binary. It automates your terminal, browser, channels (Telegram/Discord/Slack/WhatsApp/Trello), and codebase, all while respecting your privacy and keeping you in control.</p>
-<p><strong>4,103+ tests</strong> across providers, tools, channels, TUI, self-healing, and browser automation.</p>
+<p><strong>4,147+ tests</strong> across providers, tools, channels, TUI, self-healing, and browser automation.</p>
 <h2 id="what-makes-opencrabs-different"><a class="header" href="#what-makes-opencrabs-different">What Makes OpenCrabs Different</a></h2>
 <h3 id="provider-agnostic-by-design"><a class="header" href="#provider-agnostic-by-design">Provider-Agnostic by Design</a></h3>
 <ul>
@@ -257,6 +257,7 @@
 <li><strong>Clipboard image paste</strong> — paste images from browser or any app directly into TUI</li>
 <li><strong>Plan pinning</strong> — active plan pinned at end of prompt each turn</li>
 <li><strong>Agent-driven onboarding</strong> — personalized first-time setup with guided flow</li>
+<li><strong><code>/goal</code> autonomous loop</strong> — set a goal and the agent loops until an LLM judge says it’s done, with pause/resume/status controls</li>
 </ul>
 <h3 id="developer-experience"><a class="header" href="#developer-experience">Developer Experience</a></h3>
 <ul>
@@ -1109,6 +1110,7 @@ model = "gemini-3.1-flash-image-preview"
 <tr><td><code>/security-audit</code></td><td><strong>Security audit</strong> — Comprehensive language-agnostic security &amp; CVE audit. Detects project type, runs the right scanner, reviews recent diff for injection/auth/crypto patterns, scores 0-100.</td></tr>
 <tr><td><code>/cost-estimate</code></td><td><strong>Cost estimate</strong> — Codebase cost-to-build estimate, AI-assisted ROI breakdown, and fair-market valuation. Asks for business context before producing the valuation range.</td></tr>
 <tr><td><code>/repo-audit</code></td><td><strong>Repo audit</strong> — Language-agnostic repository health checks. 5-phase pipeline: language detection → native tool execution → git metrics → AST analysis → scoring + recommendations. Covers Rust, JS/TS, Python, Go.</td></tr>
+<tr><td><code>/goal</code></td><td><strong>Autonomous goal loop</strong> — Set a goal with <code>/goal &lt;text&gt;</code> and the agent loops autonomously: executing, self-evaluating with an LLM judge, and continuing until the goal is satisfied or the turn budget (default 20) runs out. Supports <code>/goal pause</code>, <code>/goal resume</code>, <code>/goal status</code>, <code>/goal clear</code>.</td></tr>
 </tbody>
 </table>
 </div>
@@ -4986,6 +4988,56 @@ which rtk
 <li>RTK source: <a href="https://github.com/rtk-ai/rtk">github.com/rtk-ai/rtk</a></li>
 <li>RTK is developed by <a href="https://github.com/fast-rlm">fast-rlm</a> and integrated natively into OpenCrabs</li>
 </ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="autonomous-goal-loop-goal"><a class="header" href="#autonomous-goal-loop-goal">Autonomous Goal Loop (/goal)</a></h1>
+<p>The <code>/goal</code> command lets you set a high-level goal and have OpenCrabs work toward it <strong>autonomously</strong> — executing actions, self-evaluating with an LLM judge, and continuing until the goal is satisfied or a turn budget runs out.</p>
+<h2 id="how-it-works-5"><a class="header" href="#how-it-works-5">How It Works</a></h2>
+<ol>
+<li><strong>Set a goal</strong>: <code>/goal &lt;description of what you want&gt;</code></li>
+<li><strong>The agent loops</strong>: executes an action, then an LLM judge evaluates whether the goal is met</li>
+<li><strong>Self-correction</strong>: if the goal isn’t satisfied, the agent continues with a correction prompt</li>
+<li><strong>Completion</strong>: the loop ends when the judge says the goal is met, or the turn budget (default 20 turns) is exhausted</li>
+</ol>
+<p>This is fully hands-off. Set the goal, walk away, come back to results.</p>
+<h2 id="usage-1"><a class="header" href="#usage-1">Usage</a></h2>
+<pre><code>/goal &lt;text&gt;       — Set a new goal and start the autonomous loop
+/goal status       — Check current goal progress
+/goal pause        — Pause the autonomous loop
+/goal resume       — Resume a paused goal
+/goal clear        — Remove the current goal
+</code></pre>
+<h2 id="examples-1"><a class="header" href="#examples-1">Examples</a></h2>
+<pre><code>/goal Fix all failing tests in the auth module and make sure clippy passes
+/goal Research the top 5 Rust web frameworks and write a comparison in research/frameworks.md
+/goal Set up a CI pipeline with GitHub Actions for this project
+/goal Refactor the database layer to use connection pooling
+/goal Find and fix all TODO comments in src/handlers/
+</code></pre>
+<h2 id="turn-budget"><a class="header" href="#turn-budget">Turn Budget</a></h2>
+<p>The default turn budget is <strong>20 autonomous turns</strong>. Each turn is one full LLM round-trip (action + evaluation). The agent uses a lightweight LLM judge to evaluate progress, keeping costs low.</p>
+<p>If the budget runs out before the goal is satisfied, the agent reports what it accomplished and what remains.</p>
+<h2 id="best-practices"><a class="header" href="#best-practices">Best Practices</a></h2>
+<ul>
+<li><strong>Be specific</strong>: “Fix the login bug” works better than “make the app better”</li>
+<li><strong>Set boundaries</strong>: mention files, modules, or constraints in the goal</li>
+<li><strong>Use for multi-step tasks</strong>: <code>/goal</code> shines on tasks that need repeated execution and self-correction</li>
+<li><strong>Check status</strong>: use <code>/goal status</code> to monitor progress on long-running goals</li>
+<li><strong>Pause when needed</strong>: <code>/goal pause</code> if you need the agent for something else</li>
+</ul>
+<h2 id="when-to-use-goal-vs-btw-vs-plans"><a class="header" href="#when-to-use-goal-vs-btw-vs-plans">When to Use /goal vs /btw vs Plans</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Feature</th><th>Use Case</th></tr>
+</thead>
+<tbody>
+<tr><td><code>/goal</code></td><td>Autonomous loop for a single clear objective. Agent self-evaluates until done.</td></tr>
+<tr><td><code>/btw</code></td><td>Spawn a parallel side task while you keep chatting.</td></tr>
+<tr><td>Plans</td><td>Multi-step structured work with explicit tasks, dependencies, and acceptance criteria.</td></tr>
+</tbody>
+</table>
+</div>
+<p><code>/goal</code> is best when you have a clear outcome and want the agent to figure out the steps itself.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="building-from-source-1"><a class="header" href="#building-from-source-1">Building from Source</a></h1>
 <h2 id="prerequisites"><a class="header" href="#prerequisites">Prerequisites</a></h2>
