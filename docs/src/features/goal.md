@@ -45,6 +45,10 @@ If the budget runs out before the goal is satisfied, the agent reports what it a
 - **Check status**: use `/goal status` to monitor progress on long-running goals
 - **Pause when needed**: `/goal pause` if you need the agent for something else
 
+## Availability
+
+`/goal` works across **all channels**: TUI, Telegram, Discord, Slack, and WhatsApp. Set autonomous goals from wherever you talk to your agent.
+
 ## When to Use /goal vs /btw vs Plans
 
 | Feature | Use Case |

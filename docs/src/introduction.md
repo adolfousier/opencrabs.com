@@ -2,7 +2,7 @@
 
 **OpenCrabs** is a self-hosted, provider-agnostic AI orchestration agent that runs as a single Rust binary. It automates your terminal, browser, channels (Telegram/Discord/Slack/WhatsApp/Trello), and codebase, all while respecting your privacy and keeping you in control.
 
-**4,147+ tests** across providers, tools, channels, TUI, self-healing, and browser automation.
+**4,193+ tests** across providers, tools, channels, TUI, self-healing, and browser automation.
 
 ## What Makes OpenCrabs Different
 
@@ -12,7 +12,7 @@
 - **Sticky fallback chain** — auto-failover on rate limits or errors, health-aware persistence survives restarts
 - **Prompt caching** across Anthropic, OpenRouter, Gemini, Qwen DashScope reduces costs up to 95%
 - **Context window override** — cap or expand context for any model via config
-- **Xiaomi MiMo default** — keyless mode for new users, 30 models, thinking enabled by default
+- **Xiaomi MiMo** — 30+ models including the MiMo reasoning series, keyed provider
 
 ### Multi-Agent Orchestration
 - **Sessions are fully isolated agents** — each with its own brain, provider, model, working directory, and history
@@ -24,7 +24,10 @@
 ### Channel-Native Communication
 - **Telegram, Discord, Slack, WhatsApp, Trello** — full bot integration with DMs, groups, and threads
 - **Telegram rich messages** — native tables, headings, lists, math via `rich_messages` config
+- **Draft message streaming** — live "typing..." updates as tokens generate in DMs
+- **Collapsible blocks** — `<details>/<summary>` sections for long outputs
 - **Forum topic session isolation** — each topic in Telegram supergroups gets its own session
+- **`/goal` across all channels** — set autonomous goals from Telegram, Discord, Slack, WhatsApp
 - **Voice support** — local Whisper STT + Piper TTS, fully offline
 - **Cross-channel crash recovery** — pending requests route back to originating channel on restart
 - **`/cowork`** — create shared workspaces from channels and TUI
@@ -42,6 +45,7 @@
 - **Gaslighting defense** — strips tool-refusal preambles mid-turn
 
 ### Terminal UI
+- **Native markdown rendering** — emphasis, lists, links, and task items render directly in the terminal
 - **Real-time tok/s throughput meter** — live tokens-per-second during streaming
 - **Session search** — search filter + viewport scroll across all sessions
 - **Split panes** — tmux-style parallel sessions with layout persistence
@@ -89,7 +93,7 @@ Auto-update enabled by default. Disable with `[agent] auto_update = false` in `~
 ```
 ┌─────────────────────────────────────────┐
 │           OpenCrabs Binary              │
-│  (Single 17-22 MB Rust executable)      │
+│  (Single 34-36 MB Rust executable)      │
 ├─────────────────────────────────────────┤
 │  ┌─────────────┐  ┌─────────────────┐  │
 │  │   TUI       │  │   CLI Daemon    │  │

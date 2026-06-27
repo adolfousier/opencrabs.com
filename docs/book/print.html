@@ -64,7 +64,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-477395a6.js";
+            window.path_to_searchindex_js = "searchindex-f4720526.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-e7000d62.js"></script>
@@ -208,7 +208,7 @@
                     <main>
                         <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
 <p><strong>OpenCrabs</strong> is a self-hosted, provider-agnostic AI orchestration agent that runs as a single Rust binary. It automates your terminal, browser, channels (Telegram/Discord/Slack/WhatsApp/Trello), and codebase, all while respecting your privacy and keeping you in control.</p>
-<p><strong>4,147+ tests</strong> across providers, tools, channels, TUI, self-healing, and browser automation.</p>
+<p><strong>4,193+ tests</strong> across providers, tools, channels, TUI, self-healing, and browser automation.</p>
 <h2 id="what-makes-opencrabs-different"><a class="header" href="#what-makes-opencrabs-different">What Makes OpenCrabs Different</a></h2>
 <h3 id="provider-agnostic-by-design"><a class="header" href="#provider-agnostic-by-design">Provider-Agnostic by Design</a></h3>
 <ul>
@@ -217,7 +217,7 @@
 <li><strong>Sticky fallback chain</strong> — auto-failover on rate limits or errors, health-aware persistence survives restarts</li>
 <li><strong>Prompt caching</strong> across Anthropic, OpenRouter, Gemini, Qwen DashScope reduces costs up to 95%</li>
 <li><strong>Context window override</strong> — cap or expand context for any model via config</li>
-<li><strong>Xiaomi MiMo default</strong> — keyless mode for new users, 30 models, thinking enabled by default</li>
+<li><strong>Xiaomi MiMo</strong> — 30+ models including the MiMo reasoning series, keyed provider</li>
 </ul>
 <h3 id="multi-agent-orchestration"><a class="header" href="#multi-agent-orchestration">Multi-Agent Orchestration</a></h3>
 <ul>
@@ -231,7 +231,10 @@
 <ul>
 <li><strong>Telegram, Discord, Slack, WhatsApp, Trello</strong> — full bot integration with DMs, groups, and threads</li>
 <li><strong>Telegram rich messages</strong> — native tables, headings, lists, math via <code>rich_messages</code> config</li>
+<li><strong>Draft message streaming</strong> — live “typing…” updates as tokens generate in DMs</li>
+<li><strong>Collapsible blocks</strong> — <code>&lt;details&gt;/&lt;summary&gt;</code> sections for long outputs</li>
 <li><strong>Forum topic session isolation</strong> — each topic in Telegram supergroups gets its own session</li>
+<li><strong><code>/goal</code> across all channels</strong> — set autonomous goals from Telegram, Discord, Slack, WhatsApp</li>
 <li><strong>Voice support</strong> — local Whisper STT + Piper TTS, fully offline</li>
 <li><strong>Cross-channel crash recovery</strong> — pending requests route back to originating channel on restart</li>
 <li><strong><code>/cowork</code></strong> — create shared workspaces from channels and TUI</li>
@@ -251,6 +254,7 @@
 </ul>
 <h3 id="terminal-ui"><a class="header" href="#terminal-ui">Terminal UI</a></h3>
 <ul>
+<li><strong>Native markdown rendering</strong> — emphasis, lists, links, and task items render directly in the terminal</li>
 <li><strong>Real-time tok/s throughput meter</strong> — live tokens-per-second during streaming</li>
 <li><strong>Session search</strong> — search filter + viewport scroll across all sessions</li>
 <li><strong>Split panes</strong> — tmux-style parallel sessions with layout persistence</li>
@@ -294,7 +298,7 @@ cargo install opencrabs --locked
 <h2 id="architecture"><a class="header" href="#architecture">Architecture</a></h2>
 <pre><code>┌─────────────────────────────────────────┐
 │           OpenCrabs Binary              │
-│  (Single 17-22 MB Rust executable)      │
+│  (Single 34-36 MB Rust executable)      │
 ├─────────────────────────────────────────┤
 │  ┌─────────────┐  ┌─────────────────┐  │
 │  │   TUI       │  │   CLI Daemon    │  │
@@ -5024,6 +5028,8 @@ which rtk
 <li><strong>Check status</strong>: use <code>/goal status</code> to monitor progress on long-running goals</li>
 <li><strong>Pause when needed</strong>: <code>/goal pause</code> if you need the agent for something else</li>
 </ul>
+<h2 id="availability"><a class="header" href="#availability">Availability</a></h2>
+<p><code>/goal</code> works across <strong>all channels</strong>: TUI, Telegram, Discord, Slack, and WhatsApp. Set autonomous goals from wherever you talk to your agent.</p>
 <h2 id="when-to-use-goal-vs-btw-vs-plans"><a class="header" href="#when-to-use-goal-vs-btw-vs-plans">When to Use /goal vs /btw vs Plans</a></h2>
 <div class="table-wrapper">
 <table>
