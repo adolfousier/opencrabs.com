@@ -294,11 +294,7 @@ fn Hero() -> impl IntoView {
                     {badge_text}
                     <span class="arrow">" →"</span>
                 </a>
-                <div class="xiaomi-collab-banner">
-                    <a href="/xiaomi-mimo.html">
-                        <img src="public/opencrabs_x_xiaomi_mimo_orbit_program.png" alt="OpenCrabs × Xiaomi MiMo Orbit Program" />
-                    </a>
-                </div>
+                // Xiaomi collab ended — MiMo is now a normal keyed provider
             </div>
         </section>
     }
@@ -463,17 +459,17 @@ fn Features() -> impl IntoView {
         (
             "⚡",
             "50+ Built-in Tools",
-            "File ops, bash, web search, code execution, image gen, browser automation, local voice STT & TTS, PDF rendering, sub-agent orchestration. Proactive tool discovery — agent searches for tools before claiming inability. JIT activation for extended tools on-demand. Auto-download RTK for 10x token savings on 100+ commands. Define custom tools at runtime. Race-free multi-image pickup from any channel. Tool registry shared across all entry points so startup tools are available everywhere.",
+            "File ops, bash, web search, code execution, image gen, browser automation, local voice STT & TTS, PDF rendering, sub-agent orchestration. Proactive tool discovery — agent searches for tools before claiming inability. JIT activation for extended tools on-demand. Auto-download RTK for 10x token savings on 100+ commands. Define custom tools at runtime. Race-free multi-image pickup from any channel. Tool registry shared across all entry points so startup tools are available everywhere. Malformed tools.toml surfaces parse errors instead of silently dropping every tool.",
         ),
         (
             "🪟",
             "Split Panes",
-            "Tmux-style horizontal and vertical pane splitting. Run 10 sessions side by side, each with its own provider and context. All processing in parallel.",
+            "Tmux-style horizontal and vertical pane splitting. Run 10 sessions side by side, each with its own provider and context. All processing in parallel. Native markdown rendering: emphasis, lists, links, and task items render directly in the terminal.",
         ),
         (
             "🔄",
             "/goal — Autonomous Goal Loop",
-            "Set a goal with /goal <text> and the agent loops autonomously: executing, self-evaluating with an LLM judge, and continuing with a correction prompt until the goal is satisfied or the turn budget runs out. Supports /goal pause, /goal resume, /goal status, and /goal clear. Fully hands-off task execution.",
+            "Set a goal with /goal <text> and the agent loops autonomously: executing, self-evaluating with an LLM judge, and continuing with a correction prompt until the goal is satisfied or the turn budget runs out. Supports /goal pause, /goal resume, /goal status, and /goal clear. Works across TUI, Telegram, Discord, Slack, and WhatsApp. Fully hands-off task execution.",
         ),
         (
             "🎯",
