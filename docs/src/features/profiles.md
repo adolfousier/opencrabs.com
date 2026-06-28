@@ -127,3 +127,24 @@ Changing the provider in one session does **not** affect other sessions or profi
 ## Profile-Aware Paths (v0.3.35)
 
 All internal paths now resolve through `opencrabs_home()` instead of hardcoded `~/.opencrabs/`. This means subagent status directories, `tools.toml` fallback resolution, and `write_opencrabs_file` confirmation messages all respect the active profile. No more cross-profile contamination when running multiple instances.
+
+## /profiles Command and TUI Dialog (v0.3.55)
+
+The `/profiles` command works across every channel: TUI, Telegram, Discord, WhatsApp, and Slack.
+
+**In the TUI**, `/profiles` opens a native dialog with full keyboard navigation:
+
+- **Browse** all profiles with active profile highlighted
+- **Create** a new profile inline with name validation
+- **Delete** a profile with confirmation
+- **Migrate** brain files and config from one profile to another
+- **Switch** instantly to another profile
+
+On **Discord, WhatsApp, and Slack**, `/profiles` renders a rich profile browser showing all profiles, the active one, and quick switch/delete/create actions.
+
+```bash
+# From any channel
+/profiles
+
+# In the TUI, use j/k to navigate, Enter to select, d to delete, c to create, m to migrate
+```
