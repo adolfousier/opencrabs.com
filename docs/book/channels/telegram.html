@@ -63,10 +63,10 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-41bbca80.js";
+            window.path_to_searchindex_js = "../searchindex-8f9b7cae.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-e7000d62.js"></script>
+        <script src="../toc-347fede7.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -294,7 +294,31 @@ bot_owner = ["123456789"]             # owner IDs (gated commands, /cd hidden di
 </tbody>
 </table>
 </div>
-<h2 id="agent-tools"><a class="header" href="#agent-tools">Agent Tools</a></h2>
+<h2 id="per-group-access-control-per-chat-acl"><a class="header" href="#per-group-access-control-per-chat-acl">Per-group access control (per-chat ACL)</a></h2>
+<p>Telegram groups can have their own member list, so a user can be allowed in one group without gaining DM access:</p>
+<ul>
+<li><code>allowed_users</code> (channel level) — <strong>admins</strong>: may DM the bot and act in any chat.</li>
+<li><code>bot_owner</code> — the <strong>owner</strong>: always allowed everywhere.</li>
+<li><code>[channels.telegram.groups.&lt;chat_id&gt;].allowed_users</code> — allowed in that group only. These users are refused in DMs unless they are also an admin or the owner, which closes the “DM the bot privately to escape group oversight” bypass.</li>
+</ul>
+<p>DMs are gated to admins + owner. If neither <code>allowed_users</code> nor <code>bot_owner</code> is set, the bot is unconfigured and stays open (no hard lockout); set either one to lock it down.</p>
+<p>Each group can also override <code>respond_to</code> just for itself.</p>
+<pre><code class="language-toml">[channels.telegram]
+allowed_users = ["111"]                  # admins: DM + any chat
+respond_to = "mention"                   # global default
+
+[channels.telegram.groups.-1001234567890]
+allowed_users = ["222", "333"]           # allowed in this group only, never via DM
+respond_to = "all"                       # per-group override of the global respond_to
+</code></pre>
+<p><code>respond_to</code> accepts <code>all</code>, <code>mention</code>, <code>dm_only</code>, or <code>auto</code> (reply to all while there is at most one active sender, then switch to mention-only once a second unique sender appears).</p>
+<h2 id="voice-and-file-pickup-in-groups"><a class="header" href="#voice-and-file-pickup-in-groups">Voice and file pickup in groups</a></h2>
+<p>In mention-only groups (<code>respond_to = "mention"</code>), users can share files and voice messages even when the bot isn’t directly tagged in the same message:</p>
+<ol>
+<li><strong>Fire-and-forget file capture</strong> — The bot downloads ALL incoming voice, video, document, and audio files from group messages to <code>~/.opencrabs/tmp/</code>, regardless of whether the bot was mentioned. This happens silently in the background.</li>
+<li><strong>Tag-then-ask</strong> — A user sends a voice message, then tags the bot in a follow-up message (e.g. <code>@bot what did I just say?</code>). The bot scans the tmp directory for recent voice files from that chat (5-minute window), transcribes the most recent one, and prepends the transcript to the user’s message.</li>
+</ol>
+<p>This solves the core UX problem in mention-only groups: previously, tagging the bot in the same message as a voice note didn’t work because Telegram sends voice and text as separate messages.</p>
 <p>The agent can use <code>telegram_send</code> with 20+ actions. The <code>thread_id</code> field on <code>send</code> / <code>reply</code> / <code>send_photo</code> targets a specific forum topic in supergroups with topics enabled.</p>
 <div class="table-wrapper">
 <table>

@@ -63,10 +63,10 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-41bbca80.js";
+            window.path_to_searchindex_js = "../searchindex-8f9b7cae.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-e7000d62.js"></script>
+        <script src="../toc-347fede7.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -253,10 +253,15 @@ session_idle_hours = 24.0              # idle timeout for non-owner sessions
 <tr><td><code>enabled</code></td><td><code>false</code></td><td>Enable the WhatsApp channel</td></tr>
 <tr><td><code>allowed_phones</code></td><td><code>[]</code> (accept all)</td><td>E.164 phone numbers. Empty = accept everyone (not recommended for business numbers)</td></tr>
 <tr><td><code>session_idle_hours</code></td><td><code>None</code> (no timeout)</td><td>Idle timeout for non-owner sessions. Owner sessions never expire</td></tr>
+<tr><td><code>response_policy</code></td><td><code>"auto"</code></td><td>Who the bot responds to. <code>auto</code>: reply to all while there is at most one active sender, then switch to mention-only once a second unique sender appears. <code>owner_only</code>: only the bot owner. <code>allowlist</code>: only allowed phones. <code>open</code>: everyone</td></tr>
+<tr><td><code>bot_owner</code></td><td><code>None</code> (auto-seeded from <code>allowed_phones[0]</code>)</td><td>Phone number of the bot owner in E.164 format. The owner gets access that other allowlisted users do not. Commands that expose personal data or the host system are owner-only</td></tr>
 </tbody>
 </table>
 </div>
-<h2 id="features"><a class="header" href="#features">Features</a></h2>
+<h2 id="how-it-works"><a class="header" href="#how-it-works">How it works</a></h2>
+<p><strong>One account per instance.</strong> Each OpenCrabs instance supports one WhatsApp account (one companion device). You run the bot AS whatever account you scan: your own number (talk via “Message Yourself”), or any other number you own, including a WhatsApp Business account.</p>
+<p><strong>The bot talks to itself.</strong> If you message the bot’s own paired number, the bot replies to you. This is by design. The paired account’s self-chat is always allowed, regardless of <code>response_policy</code> or <code>allowed_phones</code>.</p>
+<p><strong>Allowlist behavior.</strong> Anyone messaging the paired number who is on the <code>allowed_phones</code> list gets a reply. The <code>response_policy</code> controls who else can interact beyond the allowlist.</p>
 <ul>
 <li><strong>Personal and group chats</strong> — Works in DMs and group conversations</li>
 <li><strong>Image support</strong> — Send and receive images</li>
@@ -277,6 +282,42 @@ session_idle_hours = 24.0              # idle timeout for non-owner sessions
 <li>Sends text response first (searchable)</li>
 <li>Optionally generates TTS audio response</li>
 </ol>
+<h2 id="features"><a class="header" href="#features">Features</a></h2>
+<ul>
+<li><strong>Personal and group chats</strong> — Works in DMs and group conversations</li>
+<li><strong>Image support</strong> — Send and receive images</li>
+<li><strong>Voice messages</strong> — STT transcription + TTS response</li>
+<li><strong>Plain text UI</strong> — No buttons (WhatsApp limitation), uses text-based menus</li>
+<li><strong>Slash commands</strong> — All built-in and custom commands work</li>
+</ul>
+<h2 id="troubleshooting"><a class="header" href="#troubleshooting">Troubleshooting</a></h2>
+<h3 id="wrong-number-replying"><a class="header" href="#wrong-number-replying">Wrong number replying</a></h3>
+<p>Each OpenCrabs instance supports one WhatsApp account (one companion device). If you connected multiple numbers or the wrong number is replying, you need a full reset. The bot always uses the last number you connected.</p>
+<blockquote>
+<p><strong>Critical:</strong> Always reset the connection before connecting a new number. OpenCrabs only keeps the last paired number.</p>
+</blockquote>
+<p><strong>Full reset steps:</strong></p>
+<ol>
+<li><strong>Remove the OpenCrabs device from WhatsApp</strong> — open WhatsApp on your phone, go to <strong>Settings &gt; Linked Devices</strong>, find the <code>opencrabs</code> device, and <strong>remove it</strong>. This is mandatory.</li>
+<li><strong>Reset the connection in OpenCrabs</strong> — in the TUI or from a channel, go to <code>/onboard:channels</code> and press <strong>R</strong> to reset the WhatsApp connection. Wait for confirmation that the reset is complete.</li>
+<li><strong>Re-pair from scratch</strong> — after the reset is confirmed, go to WhatsApp &gt; <strong>Settings &gt; Linked Devices</strong> &gt; <strong>Link a Device</strong> and scan the new QR code shown by OpenCrabs.</li>
+</ol>
+<p>If the bot still shows the old number after resetting, make sure you completed step 1 (removing the device from WhatsApp) before step 2.</p>
+<h3 id="common-issues"><a class="header" href="#common-issues">Common issues</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Symptom</th><th>Cause</th><th>Fix</th></tr>
+</thead>
+<tbody>
+<tr><td>Old number still replying</td><td>Old device not removed from WhatsApp app</td><td>Remove <code>opencrabs</code> from WhatsApp &gt; Settings &gt; Linked Devices, then press <strong>R</strong> in <code>/onboard:channels</code></td></tr>
+<tr><td>QR code doesn’t appear</td><td>Agent is still connected (no restart triggered)</td><td>Press <strong>R</strong> in <code>/onboard:channels</code> to force a restart, then wait for the new QR</td></tr>
+<tr><td>Bot doesn’t reply to anyone</td><td><code>response_policy</code> is too restrictive</td><td>Set <code>response_policy = "allowlist"</code> and add phone numbers to <code>allowed_phones</code> in <code>config.toml</code></td></tr>
+<tr><td>Bot replies to everyone</td><td><code>response_policy</code> is <code>open</code></td><td>Set <code>response_policy = "allowlist"</code> or <code>"owner_only"</code> in <code>config.toml</code></td></tr>
+<tr><td>Bot doesn’t reply to self-chat</td><td><code>allowed_phones</code> doesn’t include the paired number</td><td>The paired number’s self-chat is always allowed, regardless of <code>allowed_phones</code>. If it’s not working, check that <code>response_policy</code> isn’t too restrictive</td></tr>
+</tbody>
+</table>
+</div>
 
                     </main>
 

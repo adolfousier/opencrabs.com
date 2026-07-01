@@ -63,10 +63,10 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-41bbca80.js";
+            window.path_to_searchindex_js = "../searchindex-8f9b7cae.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-e7000d62.js"></script>
+        <script src="../toc-347fede7.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -562,6 +562,8 @@ health_port = 8080
 </tbody>
 </table>
 </div>
+<p>OpenCrabs runs in two modes: <strong>TUI</strong> (interactive terminal UI with chat) and <strong>Daemon</strong> (headless background service for channels + cron). For any one profile, run only one at a time. The TUI always wins: opening it while a daemon runs shuts the daemon down and takes over the channels.</p>
+<p>For full service lifecycle management (TUI vs Daemon comparison, <code>opencrabs service install/start/stop</code>, profile-aware services, <code>OPENCRABS_PROFILE</code> env var, troubleshooting), see the <a href="../getting-started/cli-commands#daemon-mode-vs-tui">CLI Commands</a> reference.</p>
 <h2 id="image-generation-and-vision"><a class="header" href="#image-generation-and-vision">Image Generation and Vision</a></h2>
 <pre><code class="language-toml">[image.generation]
 enabled = true
@@ -584,6 +586,27 @@ model = "gemini-3.1-flash-image-preview"
 </tbody>
 </table>
 </div>
+<p>Vision analysis automatically scans all enabled providers (Google, OpenRouter, OpenAI-compatible, Anthropic) before returning an error. No configuration needed.</p>
+<h2 id="voice-provider-fallback"><a class="header" href="#voice-provider-fallback">Voice Provider Fallback</a></h2>
+<p>STT and TTS providers support automatic failover via <code>fallback_chain</code>. When the primary returns a 5xx, fails a liveness probe (Voicebox), or is otherwise unreachable, the dispatcher walks the chain in order and tries each entry that has the credentials/config it needs.</p>
+<pre><code class="language-toml">[providers.stt]
+fallback_chain = ["groq", "openai_compatible", "local"]
+
+[providers.tts]
+fallback_chain = ["openai_compatible", "openai", "local"]
+</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Chain</th><th>Valid labels</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>STT</strong></td><td><code>voicebox</code>, <code>openai_compatible</code>, <code>groq</code>, <code>local</code> (aliases: <code>whisper</code>, <code>local_whisper</code>)</td></tr>
+<tr><td><strong>TTS</strong></td><td><code>voicebox</code>, <code>openai_compatible</code>, <code>openai</code>, <code>local</code> (aliases: <code>piper</code>, <code>local_piper</code>). <code>groq</code> is STT-only, the TTS chain rejects it</td></tr>
+</tbody>
+</table>
+</div>
+<p>Empty or omitted chain means “use the default priority order with the primary removed.”</p>
 
                     </main>
 

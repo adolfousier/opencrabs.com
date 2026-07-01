@@ -64,10 +64,10 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-41bbca80.js";
+            window.path_to_searchindex_js = "searchindex-8f9b7cae.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-e7000d62.js"></script>
+        <script src="toc-347fede7.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -208,7 +208,7 @@
                     <main>
                         <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
 <p><strong>OpenCrabs</strong> is a self-hosted, provider-agnostic AI orchestration agent that runs as a single Rust binary. It automates your terminal, browser, channels (Telegram/Discord/Slack/WhatsApp/Trello), and codebase, all while respecting your privacy and keeping you in control.</p>
-<p><strong>4,257+ tests</strong> across providers, tools, channels, TUI, self-healing, and browser automation.</p>
+<p><strong>4,350+ tests</strong> across providers, tools, channels, TUI, self-healing, and browser automation.</p>
 <h2 id="what-makes-opencrabs-different"><a class="header" href="#what-makes-opencrabs-different">What Makes OpenCrabs Different</a></h2>
 <h3 id="provider-agnostic-by-design"><a class="header" href="#provider-agnostic-by-design">Provider-Agnostic by Design</a></h3>
 <ul>
@@ -1056,6 +1056,8 @@ health_port = 8080
 </tbody>
 </table>
 </div>
+<p>OpenCrabs runs in two modes: <strong>TUI</strong> (interactive terminal UI with chat) and <strong>Daemon</strong> (headless background service for channels + cron). For any one profile, run only one at a time. The TUI always wins: opening it while a daemon runs shuts the daemon down and takes over the channels.</p>
+<p>For full service lifecycle management (TUI vs Daemon comparison, <code>opencrabs service install/start/stop</code>, profile-aware services, <code>OPENCRABS_PROFILE</code> env var, troubleshooting), see the <a href="getting-started/cli-commands#daemon-mode-vs-tui">CLI Commands</a> reference.</p>
 <h2 id="image-generation-and-vision"><a class="header" href="#image-generation-and-vision">Image Generation and Vision</a></h2>
 <pre><code class="language-toml">[image.generation]
 enabled = true
@@ -1078,6 +1080,27 @@ model = "gemini-3.1-flash-image-preview"
 </tbody>
 </table>
 </div>
+<p>Vision analysis automatically scans all enabled providers (Google, OpenRouter, OpenAI-compatible, Anthropic) before returning an error. No configuration needed.</p>
+<h2 id="voice-provider-fallback"><a class="header" href="#voice-provider-fallback">Voice Provider Fallback</a></h2>
+<p>STT and TTS providers support automatic failover via <code>fallback_chain</code>. When the primary returns a 5xx, fails a liveness probe (Voicebox), or is otherwise unreachable, the dispatcher walks the chain in order and tries each entry that has the credentials/config it needs.</p>
+<pre><code class="language-toml">[providers.stt]
+fallback_chain = ["groq", "openai_compatible", "local"]
+
+[providers.tts]
+fallback_chain = ["openai_compatible", "openai", "local"]
+</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Chain</th><th>Valid labels</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>STT</strong></td><td><code>voicebox</code>, <code>openai_compatible</code>, <code>groq</code>, <code>local</code> (aliases: <code>whisper</code>, <code>local_whisper</code>)</td></tr>
+<tr><td><strong>TTS</strong></td><td><code>voicebox</code>, <code>openai_compatible</code>, <code>openai</code>, <code>local</code> (aliases: <code>piper</code>, <code>local_piper</code>). <code>groq</code> is STT-only, the TTS chain rejects it</td></tr>
+</tbody>
+</table>
+</div>
+<p>Empty or omitted chain means “use the default priority order with the primary removed.”</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="cli-commands"><a class="header" href="#cli-commands">CLI Commands</a></h1>
 <p>OpenCrabs has a full CLI with 20+ subcommands for managing every aspect of the agent.</p>
@@ -1161,11 +1184,38 @@ opencrabs agent
 # Single-message mode
 opencrabs agent -m "What files changed today?"
 </code></pre>
-<h2 id="daemon-mode-1"><a class="header" href="#daemon-mode-1">Daemon Mode</a></h2>
-<p>Run OpenCrabs without the TUI — useful for servers where you only need channel bots. Supports a health endpoint for monitoring.</p>
-<pre><code class="language-bash">opencrabs daemon
-</code></pre>
-<p>The agent processes messages from all connected channels (Telegram, Discord, Slack, WhatsApp) but without the terminal UI. Channel bots auto-reconnect on network failures with 5-second backoff.</p>
+<h2 id="daemon-mode-vs-tui"><a class="header" href="#daemon-mode-vs-tui">Daemon Mode vs TUI</a></h2>
+<p>OpenCrabs runs in one of two modes. Pick the one that fits the machine. <strong>For any one profile, run only one at a time.</strong></p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Mode</th><th>How you start it</th><th>What it is</th><th>Use it on</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>TUI (interactive)</strong></td><td><code>opencrabs</code></td><td>The full terminal UI: chat panes, sessions, settings. Your channels run too and share your session.</td><td>A machine you sit at (laptop/desktop)</td></tr>
+<tr><td><strong>Daemon (headless)</strong></td><td><code>opencrabs daemon</code>, or install as a service: <code>opencrabs service install &amp;&amp; opencrabs service start</code></td><td>No UI. Channels only (Telegram, Discord, Slack, WhatsApp) + cron. Survives reboots, SSH disconnects, and crashes.</td><td>An always-on box or VPS</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="why-not-both-at-once"><a class="header" href="#why-not-both-at-once">Why not both at once?</a></h3>
+<p>A bot credential (e.g. a Telegram token) can only hold one live <code>getUpdates</code> poll. If a daemon and a TUI both own the same profile’s token they fight (HTTP 409) and the channel drops.</p>
+<h3 id="the-tui-always-wins"><a class="header" href="#the-tui-always-wins">The TUI always wins</a></h3>
+<p>When you open the TUI while a daemon for the <em>same profile</em> is running, the TUI shuts that daemon down first, takes over the channels, and shows a banner saying so. Your channels were already set up, so they just resume, no reconnecting. The daemon stays down until you start it again (<code>opencrabs service start</code>, or relaunch <code>opencrabs daemon</code>).</p>
+<p>On a box where the daemon usually runs, the everyday flow is: open <code>opencrabs</code> when you want to sit down with it; close the TUI and <code>opencrabs service start</code> when you want it headless again.</p>
+<h3 id="auto-start-on-boot"><a class="header" href="#auto-start-on-boot">Auto-start on boot</a></h3>
+<ul>
+<li><strong>Daemon</strong> — use the service installer (<code>opencrabs service install</code>); it wires up systemd (Linux) / launchd (macOS) to start on boot and restart on crash. This is the recommended always-on setup.</li>
+<li><strong>TUI</strong> — to have the terminal UI open automatically on login, use a terminal/desktop autostart, not the service installer:
+<ul>
+<li><strong>Linux desktop:</strong> drop a <code>.desktop</code> file in <code>~/.config/autostart/</code> with <code>Exec=x-terminal-emulator -e opencrabs</code>.</li>
+<li><strong>macOS:</strong> System Settings &gt; General &gt; Login Items &gt; add a <code>.command</code> script that runs <code>opencrabs</code>.</li>
+<li><strong>VPS over SSH:</strong> run inside <code>tmux</code>/<code>screen</code> and reattach. On a headless VPS you usually want the daemon, not the TUI.</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><strong>Strongly recommended for everyday users.</strong> If you plan to use OpenCrabs daily, ask it to set itself up as a system service. Just say something like <em>“set yourself up to start with my computer”</em> or <em>“remove the auto-start service”</em>. The agent handles the launchd (macOS) or systemd (Linux) setup and removal for you automatically.</p>
+</blockquote>
 <h3 id="health-endpoint"><a class="header" href="#health-endpoint">Health Endpoint</a></h3>
 <p>Add to <code>config.toml</code> to expose a health check:</p>
 <pre><code class="language-toml">[daemon]
@@ -1181,6 +1231,31 @@ opencrabs service restart
 opencrabs service status
 opencrabs service uninstall
 </code></pre>
+<h3 id="profile-aware-services"><a class="header" href="#profile-aware-services">Profile-aware services</a></h3>
+<p>Each profile gets its own independent service:</p>
+<pre><code class="language-bash"># Install a specific profile as a service
+opencrabs -p hermes service install
+opencrabs -p hermes service start
+
+# Each profile gets its own service name
+# macOS: com.opencrabs.daemon.hermes
+# Linux: opencrabs-hermes.service
+
+# Manage independently
+opencrabs -p hermes service status
+opencrabs -p hermes service stop
+opencrabs -p hermes service uninstall
+</code></pre>
+<p>Multiple profiles can run as simultaneous daemon services with full isolation.</p>
+<h3 id="opencrabs_profile-environment-variable"><a class="header" href="#opencrabs_profile-environment-variable">OPENCRABS_PROFILE environment variable</a></h3>
+<p>Set <code>OPENCRABS_PROFILE=hermes</code> to select a profile without the <code>-p</code> flag. Useful for systemd services, cron jobs, and daemon mode.</p>
+<h3 id="troubleshooting-daemon-stays-down"><a class="header" href="#troubleshooting-daemon-stays-down">Troubleshooting: daemon stays down</a></h3>
+<p>If <code>opencrabs service status</code> says stopped:</p>
+<ol>
+<li><strong>Did you open the TUI?</strong> Opening <code>opencrabs</code> deliberately shuts the daemon down so the interactive session can own the channels. The daemon stays down until you <code>opencrabs service start</code> again.</li>
+<li><strong>Old builds</strong> may still have <code>Restart=on-failure</code> instead of <code>Restart=always</code>. Re-generate the unit with <code>opencrabs service install</code> (then <code>service start</code>) to pick up the always-restart policy.</li>
+<li><strong>Config, keys, commands, and tools hot-reload at runtime.</strong> Editing <code>config.toml</code> or <code>keys.toml</code> never needs a daemon restart. If a change isn’t taking effect, check the logs for a <code>ConfigWatcher: reloaded</code> line rather than restarting.</li>
+</ol>
 <h2 id="cron-management"><a class="header" href="#cron-management">Cron Management</a></h2>
 <pre><code class="language-bash"># List all cron jobs
 opencrabs cron list
@@ -1364,6 +1439,17 @@ cp ~/.opencrabs/commands.toml ~/.opencrabs/commands.toml.backup
 <li>Restart OpenCrabs</li>
 </ol>
 <p><strong>Re-setup from scratch:</strong> Run <code>/onboard:channels</code> in the TUI.</p>
+<h3 id="telegram-wont-connect--reconnect"><a class="header" href="#telegram-wont-connect--reconnect">Telegram Won’t Connect / Reconnect</a></h3>
+<p>If the Telegram bot stops responding or you need to re-link it, re-run the channels setup and re-confirm the token + your numeric user ID.</p>
+<p><strong>Fix:</strong></p>
+<ol>
+<li>Run <code>/onboard:channels</code> (TUI: opens the wizard; on a channel: the agent walks you through it).</li>
+<li>Paste your <strong>bot token</strong> again if it’s missing (get it from <a href="https://t.me/BotFather">@BotFather</a>).</li>
+<li>Paste your <strong>numeric user ID</strong> and hit Enter to confirm.</li>
+<li>If the bot sends you a message on Telegram, it worked.</li>
+</ol>
+<p>On a channel you can do it in one line: <code>/onboard:channels telegram &lt;BOT_TOKEN&gt; &lt;YOUR_NUMERIC_ID&gt;</code>.</p>
+<p><strong>Why you have to provide your numeric ID:</strong> Telegram’s Bot API exposes only the bot’s identity from a token (via <code>getMe</code>) — it has no way to reveal who created the bot in BotFather. A bot only learns a human’s ID when that human messages it. The onboarding wizard auto-detects your ID via <code>getUpdates</code> when you leave the field blank, but that only works if (a) you’ve already messaged the bot and (b) the bot isn’t already running and consuming those updates — which is exactly the case during a reconnect. So on reconnect, message the bot first, or just paste the ID (get it from <a href="https://t.me/userinfobot">@userinfobot</a>).</p>
 <h3 id="whatsapp-1"><a class="header" href="#whatsapp-1">WhatsApp</a></h3>
 <p><strong>QR code / session expired:</strong></p>
 <p>WhatsApp sessions are stored at <code>~/.opencrabs/whatsapp/session.db</code>. To reconnect:</p>
@@ -1379,6 +1465,33 @@ opencrabs chat --onboard
 <li>Verify phone number is in <code>allowed_phones</code> using E.164 format: <code>"+15551234567"</code></li>
 <li>Empty <code>allowed_phones = []</code> means accept from everyone</li>
 </ul>
+<h3 id="whatsapp-wont-connect--wrong-number-replying"><a class="header" href="#whatsapp-wont-connect--wrong-number-replying">WhatsApp Won’t Connect / Wrong Number Replying</a></h3>
+<p>Each OpenCrabs instance supports one WhatsApp account (one companion device). If you connected multiple numbers or the wrong number is replying, you need a full reset. The bot always uses the last number you connected.</p>
+<blockquote>
+<p><strong>Critical:</strong> Always reset the connection before connecting a new number. OpenCrabs only keeps the last paired number.</p>
+</blockquote>
+<p><strong>Full reset steps:</strong></p>
+<ol>
+<li><strong>Remove the OpenCrabs device from WhatsApp</strong> — open WhatsApp on your phone, go to <strong>Settings &gt; Linked Devices</strong>, find the <code>opencrabs</code> device, and <strong>remove it</strong>. This is mandatory.</li>
+<li><strong>Reset the connection in OpenCrabs</strong> — in the TUI or from a channel, go to <code>/onboard:channels</code> and press <strong>R</strong> to reset the WhatsApp connection. Wait for confirmation that the reset is complete.</li>
+<li><strong>Re-pair from scratch</strong> — after the reset is confirmed, go to WhatsApp &gt; <strong>Settings &gt; Linked Devices</strong> &gt; <strong>Link a Device</strong> and scan the new QR code shown by OpenCrabs.</li>
+</ol>
+<p>If the bot still shows the old number after resetting, make sure you completed step 1 (removing the device from WhatsApp) before step 2.</p>
+<p><strong>Common issues:</strong></p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Symptom</th><th>Cause</th><th>Fix</th></tr>
+</thead>
+<tbody>
+<tr><td>Old number still replying</td><td>Old device not removed from WhatsApp app</td><td>Remove <code>opencrabs</code> from WhatsApp &gt; Settings &gt; Linked Devices, then press <strong>R</strong> in <code>/onboard:channels</code></td></tr>
+<tr><td>QR code doesn’t appear</td><td>Agent is still connected (no restart triggered)</td><td>Press <strong>R</strong> in <code>/onboard:channels</code> to force a restart, then wait for the new QR</td></tr>
+<tr><td>Bot doesn’t reply to anyone</td><td><code>response_policy</code> is too restrictive</td><td>Set <code>response_policy = "allowlist"</code> and add phone numbers to <code>allowed_phones</code> in <code>config.toml</code></td></tr>
+<tr><td>Bot replies to everyone</td><td><code>response_policy</code> is <code>open</code></td><td>Set <code>response_policy = "allowlist"</code> or <code>"owner_only"</code> in <code>config.toml</code></td></tr>
+<tr><td>Bot doesn’t reply to self-chat</td><td><code>allowed_phones</code> doesn’t include the paired number</td><td>The paired number’s self-chat is always allowed, regardless of <code>allowed_phones</code>. Check that <code>response_policy</code> isn’t too restrictive</td></tr>
+</tbody>
+</table>
+</div>
 <h3 id="discord-1"><a class="header" href="#discord-1">Discord</a></h3>
 <p><strong>Bot not receiving messages:</strong></p>
 <ol>
@@ -1408,6 +1521,25 @@ opencrabs chat --onboard
 <pre><code class="language-bash">opencrabs chat --onboard
 </code></pre>
 <p>Or type <code>/onboard:channels</code> in the TUI.</p>
+<hr>
+<h2 id="agent-hallucinating-tool-calls"><a class="header" href="#agent-hallucinating-tool-calls">Agent Hallucinating Tool Calls</a></h2>
+<p>If the agent starts sending tool call approvals that don’t render in the UI — meaning it believes it executed actions that never actually ran — the session context has become corrupted.</p>
+<p><strong>Fix:</strong> Start a new session.</p>
+<ol>
+<li>Press <code>/</code> and type <code>sessions</code> (or navigate to the Sessions panel)</li>
+<li>Press <strong>N</strong> to create a new session</li>
+<li>Continue your work in the fresh session</li>
+</ol>
+<p>This reliably resolves the issue. A fix is coming in a future release.</p>
+<hr>
+<h2 id="daemon-stays-down"><a class="header" href="#daemon-stays-down">Daemon Stays Down</a></h2>
+<p>If <code>opencrabs service status</code> says stopped:</p>
+<ol>
+<li><strong>Did you open the TUI?</strong> Opening <code>opencrabs</code> deliberately shuts the daemon down so the interactive session can own the channels. The daemon stays down until you <code>opencrabs service start</code> again.</li>
+<li><strong>Old builds</strong> may still have <code>Restart=on-failure</code> instead of <code>Restart=always</code>. Re-generate the unit with <code>opencrabs service install</code> (then <code>service start</code>) to pick up the always-restart policy.</li>
+<li><strong>Config, keys, commands, and tools hot-reload at runtime.</strong> Editing <code>config.toml</code> or <code>keys.toml</code> never needs a daemon restart. If a change isn’t taking effect, check the logs for a <code>ConfigWatcher: reloaded</code> line rather than restarting.</li>
+</ol>
+<p>For full daemon/service documentation, see <a href="getting-started/cli-commands#daemon-mode-vs-tui">CLI Commands: Daemon Mode vs TUI</a>.</p>
 <hr>
 <h2 id="local-stt-speech-to-text"><a class="header" href="#local-stt-speech-to-text">Local STT (Speech-to-Text)</a></h2>
 <p>Since v0.2.67, local STT uses <strong>rwhisper</strong> (candle, pure Rust) instead of whisper-rs/ggml. On macOS, it uses <strong>Metal GPU acceleration</strong> automatically.</p>
@@ -2206,7 +2338,31 @@ bot_owner = ["123456789"]             # owner IDs (gated commands, /cd hidden di
 </tbody>
 </table>
 </div>
-<h2 id="agent-tools-1"><a class="header" href="#agent-tools-1">Agent Tools</a></h2>
+<h2 id="per-group-access-control-per-chat-acl"><a class="header" href="#per-group-access-control-per-chat-acl">Per-group access control (per-chat ACL)</a></h2>
+<p>Telegram groups can have their own member list, so a user can be allowed in one group without gaining DM access:</p>
+<ul>
+<li><code>allowed_users</code> (channel level) — <strong>admins</strong>: may DM the bot and act in any chat.</li>
+<li><code>bot_owner</code> — the <strong>owner</strong>: always allowed everywhere.</li>
+<li><code>[channels.telegram.groups.&lt;chat_id&gt;].allowed_users</code> — allowed in that group only. These users are refused in DMs unless they are also an admin or the owner, which closes the “DM the bot privately to escape group oversight” bypass.</li>
+</ul>
+<p>DMs are gated to admins + owner. If neither <code>allowed_users</code> nor <code>bot_owner</code> is set, the bot is unconfigured and stays open (no hard lockout); set either one to lock it down.</p>
+<p>Each group can also override <code>respond_to</code> just for itself.</p>
+<pre><code class="language-toml">[channels.telegram]
+allowed_users = ["111"]                  # admins: DM + any chat
+respond_to = "mention"                   # global default
+
+[channels.telegram.groups.-1001234567890]
+allowed_users = ["222", "333"]           # allowed in this group only, never via DM
+respond_to = "all"                       # per-group override of the global respond_to
+</code></pre>
+<p><code>respond_to</code> accepts <code>all</code>, <code>mention</code>, <code>dm_only</code>, or <code>auto</code> (reply to all while there is at most one active sender, then switch to mention-only once a second unique sender appears).</p>
+<h2 id="voice-and-file-pickup-in-groups"><a class="header" href="#voice-and-file-pickup-in-groups">Voice and file pickup in groups</a></h2>
+<p>In mention-only groups (<code>respond_to = "mention"</code>), users can share files and voice messages even when the bot isn’t directly tagged in the same message:</p>
+<ol>
+<li><strong>Fire-and-forget file capture</strong> — The bot downloads ALL incoming voice, video, document, and audio files from group messages to <code>~/.opencrabs/tmp/</code>, regardless of whether the bot was mentioned. This happens silently in the background.</li>
+<li><strong>Tag-then-ask</strong> — A user sends a voice message, then tags the bot in a follow-up message (e.g. <code>@bot what did I just say?</code>). The bot scans the tmp directory for recent voice files from that chat (5-minute window), transcribes the most recent one, and prepends the transcript to the user’s message.</li>
+</ol>
+<p>This solves the core UX problem in mention-only groups: previously, tagging the bot in the same message as a voice note didn’t work because Telegram sends voice and text as separate messages.</p>
 <p>The agent can use <code>telegram_send</code> with 20+ actions. The <code>thread_id</code> field on <code>send</code> / <code>reply</code> / <code>send_photo</code> targets a specific forum topic in supergroups with topics enabled.</p>
 <div class="table-wrapper">
 <table>
@@ -2450,10 +2606,15 @@ session_idle_hours = 24.0              # idle timeout for non-owner sessions
 <tr><td><code>enabled</code></td><td><code>false</code></td><td>Enable the WhatsApp channel</td></tr>
 <tr><td><code>allowed_phones</code></td><td><code>[]</code> (accept all)</td><td>E.164 phone numbers. Empty = accept everyone (not recommended for business numbers)</td></tr>
 <tr><td><code>session_idle_hours</code></td><td><code>None</code> (no timeout)</td><td>Idle timeout for non-owner sessions. Owner sessions never expire</td></tr>
+<tr><td><code>response_policy</code></td><td><code>"auto"</code></td><td>Who the bot responds to. <code>auto</code>: reply to all while there is at most one active sender, then switch to mention-only once a second unique sender appears. <code>owner_only</code>: only the bot owner. <code>allowlist</code>: only allowed phones. <code>open</code>: everyone</td></tr>
+<tr><td><code>bot_owner</code></td><td><code>None</code> (auto-seeded from <code>allowed_phones[0]</code>)</td><td>Phone number of the bot owner in E.164 format. The owner gets access that other allowlisted users do not. Commands that expose personal data or the host system are owner-only</td></tr>
 </tbody>
 </table>
 </div>
-<h2 id="features-3"><a class="header" href="#features-3">Features</a></h2>
+<h2 id="how-it-works-1"><a class="header" href="#how-it-works-1">How it works</a></h2>
+<p><strong>One account per instance.</strong> Each OpenCrabs instance supports one WhatsApp account (one companion device). You run the bot AS whatever account you scan: your own number (talk via “Message Yourself”), or any other number you own, including a WhatsApp Business account.</p>
+<p><strong>The bot talks to itself.</strong> If you message the bot’s own paired number, the bot replies to you. This is by design. The paired account’s self-chat is always allowed, regardless of <code>response_policy</code> or <code>allowed_phones</code>.</p>
+<p><strong>Allowlist behavior.</strong> Anyone messaging the paired number who is on the <code>allowed_phones</code> list gets a reply. The <code>response_policy</code> controls who else can interact beyond the allowlist.</p>
 <ul>
 <li><strong>Personal and group chats</strong> — Works in DMs and group conversations</li>
 <li><strong>Image support</strong> — Send and receive images</li>
@@ -2474,6 +2635,42 @@ session_idle_hours = 24.0              # idle timeout for non-owner sessions
 <li>Sends text response first (searchable)</li>
 <li>Optionally generates TTS audio response</li>
 </ol>
+<h2 id="features-3"><a class="header" href="#features-3">Features</a></h2>
+<ul>
+<li><strong>Personal and group chats</strong> — Works in DMs and group conversations</li>
+<li><strong>Image support</strong> — Send and receive images</li>
+<li><strong>Voice messages</strong> — STT transcription + TTS response</li>
+<li><strong>Plain text UI</strong> — No buttons (WhatsApp limitation), uses text-based menus</li>
+<li><strong>Slash commands</strong> — All built-in and custom commands work</li>
+</ul>
+<h2 id="troubleshooting-1"><a class="header" href="#troubleshooting-1">Troubleshooting</a></h2>
+<h3 id="wrong-number-replying"><a class="header" href="#wrong-number-replying">Wrong number replying</a></h3>
+<p>Each OpenCrabs instance supports one WhatsApp account (one companion device). If you connected multiple numbers or the wrong number is replying, you need a full reset. The bot always uses the last number you connected.</p>
+<blockquote>
+<p><strong>Critical:</strong> Always reset the connection before connecting a new number. OpenCrabs only keeps the last paired number.</p>
+</blockquote>
+<p><strong>Full reset steps:</strong></p>
+<ol>
+<li><strong>Remove the OpenCrabs device from WhatsApp</strong> — open WhatsApp on your phone, go to <strong>Settings &gt; Linked Devices</strong>, find the <code>opencrabs</code> device, and <strong>remove it</strong>. This is mandatory.</li>
+<li><strong>Reset the connection in OpenCrabs</strong> — in the TUI or from a channel, go to <code>/onboard:channels</code> and press <strong>R</strong> to reset the WhatsApp connection. Wait for confirmation that the reset is complete.</li>
+<li><strong>Re-pair from scratch</strong> — after the reset is confirmed, go to WhatsApp &gt; <strong>Settings &gt; Linked Devices</strong> &gt; <strong>Link a Device</strong> and scan the new QR code shown by OpenCrabs.</li>
+</ol>
+<p>If the bot still shows the old number after resetting, make sure you completed step 1 (removing the device from WhatsApp) before step 2.</p>
+<h3 id="common-issues-2"><a class="header" href="#common-issues-2">Common issues</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Symptom</th><th>Cause</th><th>Fix</th></tr>
+</thead>
+<tbody>
+<tr><td>Old number still replying</td><td>Old device not removed from WhatsApp app</td><td>Remove <code>opencrabs</code> from WhatsApp &gt; Settings &gt; Linked Devices, then press <strong>R</strong> in <code>/onboard:channels</code></td></tr>
+<tr><td>QR code doesn’t appear</td><td>Agent is still connected (no restart triggered)</td><td>Press <strong>R</strong> in <code>/onboard:channels</code> to force a restart, then wait for the new QR</td></tr>
+<tr><td>Bot doesn’t reply to anyone</td><td><code>response_policy</code> is too restrictive</td><td>Set <code>response_policy = "allowlist"</code> and add phone numbers to <code>allowed_phones</code> in <code>config.toml</code></td></tr>
+<tr><td>Bot replies to everyone</td><td><code>response_policy</code> is <code>open</code></td><td>Set <code>response_policy = "allowlist"</code> or <code>"owner_only"</code> in <code>config.toml</code></td></tr>
+<tr><td>Bot doesn’t reply to self-chat</td><td><code>allowed_phones</code> doesn’t include the paired number</td><td>The paired number’s self-chat is always allowed, regardless of <code>allowed_phones</code>. If it’s not working, check that <code>response_policy</code> isn’t too restrictive</td></tr>
+</tbody>
+</table>
+</div>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="trello-2"><a class="header" href="#trello-2">Trello</a></h1>
 <p>OpenCrabs integrates with Trello for board and card management via the <code>trello_send</code> tool.</p>
@@ -3057,7 +3254,7 @@ value = "System is operational. All channels connected."
 </tbody>
 </table>
 </div>
-<h2 id="how-it-works-1"><a class="header" href="#how-it-works-1">How It Works</a></h2>
+<h2 id="how-it-works-2"><a class="header" href="#how-it-works-2">How It Works</a></h2>
 <p>Each pane runs an independent session. You can have one pane writing code with Claude while another reviews tests with Gemini. The status bar shows <code>[n/total]</code> to indicate which pane is focused.</p>
 <ul>
 <li><strong>Independent providers</strong> — Each pane can use a different AI provider and model</li>
@@ -3197,7 +3394,7 @@ coerce_empty_to = "--quiet"
 </tbody>
 </table>
 </div>
-<h2 id="how-it-works-2"><a class="header" href="#how-it-works-2">How It Works</a></h2>
+<h2 id="how-it-works-3"><a class="header" href="#how-it-works-3">How It Works</a></h2>
 <p>The browser is lazy-initialized as a singleton — it only launches when the agent first needs it. It runs in stealth mode with a persistent profile directory, so cookies and sessions survive across tool calls.</p>
 <p>On macOS, display auto-detection enables headed mode when a display is available, falling back to headless in CI or daemon environments.</p>
 <h2 id="example"><a class="header" href="#example">Example</a></h2>
@@ -4062,7 +4259,7 @@ providers = ["openrouter", "anthropic"]  # tried in order
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="self-improvement-rsi"><a class="header" href="#self-improvement-rsi">Self-Improvement (RSI)</a></h1>
 <p>OpenCrabs improves itself over time through <strong>Recursive Self-Improvement (RSI)</strong>. The agent analyzes its own performance, identifies patterns, and autonomously updates its own brain files.</p>
-<h2 id="how-it-works-3"><a class="header" href="#how-it-works-3">How It Works</a></h2>
+<h2 id="how-it-works-4"><a class="header" href="#how-it-works-4">How It Works</a></h2>
 <h3 id="1-feedback-collection"><a class="header" href="#1-feedback-collection">1. Feedback Collection</a></h3>
 <p>Every tool execution, user correction, and interaction is automatically logged to the feedback ledger. Categories include:</p>
 <ul>
@@ -4950,7 +5147,7 @@ Instructions for the agent when this skill runs...
 <h3 id="blocked-commands"><a class="header" href="#blocked-commands">Blocked Commands</a></h3>
 <p>RTK never rewrites these (too interactive, security-sensitive, or already RTK meta-commands):</p>
 <p><code>sudo</code>, <code>ssh</code>, <code>scp</code>, <code>sftp</code>, <code>rsync</code>, <code>vim</code>, <code>vi</code>, <code>nvim</code>, <code>nano</code>, <code>emacs</code>, <code>less</code>, <code>more</code>, <code>man</code>, <code>python</code>, <code>python3</code>, <code>node</code>, <code>mysql</code>, <code>redis-cli</code>, <code>psql</code></p>
-<h2 id="how-it-works-4"><a class="header" href="#how-it-works-4">How It Works</a></h2>
+<h2 id="how-it-works-5"><a class="header" href="#how-it-works-5">How It Works</a></h2>
 <h3 id="command-rewriting"><a class="header" href="#command-rewriting">Command Rewriting</a></h3>
 <p>When the agent runs <code>git status</code>, OpenCrabs automatically rewrites it to <code>rtk git status</code>. RTK then:</p>
 <ol>
@@ -5011,7 +5208,7 @@ which rtk
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="autonomous-goal-loop-goal"><a class="header" href="#autonomous-goal-loop-goal">Autonomous Goal Loop (/goal)</a></h1>
 <p>The <code>/goal</code> command lets you set a high-level goal and have OpenCrabs work toward it <strong>autonomously</strong> — executing actions, self-evaluating with an LLM judge, and continuing until the goal is satisfied or a turn budget runs out.</p>
-<h2 id="how-it-works-5"><a class="header" href="#how-it-works-5">How It Works</a></h2>
+<h2 id="how-it-works-6"><a class="header" href="#how-it-works-6">How It Works</a></h2>
 <ol>
 <li><strong>Set a goal</strong>: <code>/goal &lt;description of what you want&gt;</code></li>
 <li><strong>The agent loops</strong>: executes an action, then an LLM judge evaluates whether the goal is met</li>
@@ -5060,6 +5257,64 @@ which rtk
 </table>
 </div>
 <p><code>/goal</code> is best when you have a clear outcome and want the agent to figure out the steps itself.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="companion-tools-1"><a class="header" href="#companion-tools-1">Companion Tools</a></h1>
+<p>External tools that complement OpenCrabs.</p>
+<h2 id="whispercrabs--voice-to-text"><a class="header" href="#whispercrabs--voice-to-text">WhisperCrabs — Voice-to-Text</a></h2>
+<p><a href="https://github.com/adolfousier/whispercrabs">WhisperCrabs</a> is a floating voice-to-text tool. Click to record, click to stop, transcribes, copies to clipboard.</p>
+<ul>
+<li><strong>Local</strong> (whisper.cpp, on-device) or <strong>API</strong> transcription</li>
+<li>Fully controllable via D-Bus — start/stop recording, switch providers, view history</li>
+<li>Works as an OpenCrabs tool: use D-Bus to control WhisperCrabs from the agent</li>
+</ul>
+<h2 id="socialcrabs--social-media-automation-1"><a class="header" href="#socialcrabs--social-media-automation-1">SocialCrabs — Social Media Automation</a></h2>
+<p><a href="https://github.com/adolfousier/socialcrabs">SocialCrabs</a> automates social media via CLI + GraphQL with human-like behavior simulation. Twitter/X, Instagram, LinkedIn. No browser needed for read operations.</p>
+<h3 id="setup-5"><a class="header" href="#setup-5">Setup</a></h3>
+<pre><code class="language-bash">git clone https://github.com/adolfousier/socialcrabs.git
+cd socialcrabs &amp;&amp; npm install &amp;&amp; npm run build
+
+# Add cookies from browser DevTools to .env (auth_token + ct0 for Twitter)
+# See SocialCrabs README for per-platform credential setup
+
+node dist/cli.js session login x          # Authenticate Twitter/X
+node dist/cli.js session login ig         # Authenticate Instagram
+node dist/cli.js session login linkedin   # Authenticate LinkedIn
+node dist/cli.js session status           # Check all sessions
+</code></pre>
+<h3 id="usage-with-opencrabs"><a class="header" href="#usage-with-opencrabs">Usage with OpenCrabs</a></h3>
+<p>Just ask naturally. OpenCrabs calls SocialCrabs CLI commands via <code>bash</code> automatically:</p>
+<blockquote>
+<p>“Check my Twitter mentions” / “Search LinkedIn for AI founders” / “Post this to X”</p>
+</blockquote>
+<p>Read operations run automatically. Write operations (tweet, like, follow, comment, DM) always ask for your approval first.</p>
+<h3 id="twitterx-commands"><a class="header" href="#twitterx-commands">Twitter/X commands</a></h3>
+<pre><code class="language-bash">node dist/cli.js x whoami                     # Check logged-in account
+node dist/cli.js x mentions -n 5              # Your mentions
+node dist/cli.js x home -n 5                  # Your timeline
+node dist/cli.js x search "query" -n 10       # Search tweets
+node dist/cli.js x read &lt;tweet-url&gt;           # Read a specific tweet
+node dist/cli.js x tweet "Hello world"        # Post a tweet
+node dist/cli.js x reply &lt;tweet-url&gt; "text"   # Reply to tweet
+node dist/cli.js x like &lt;tweet-url&gt;           # Like a tweet
+node dist/cli.js x follow &lt;username&gt;          # Follow a user
+</code></pre>
+<h3 id="instagram-commands"><a class="header" href="#instagram-commands">Instagram commands</a></h3>
+<pre><code class="language-bash">node dist/cli.js ig like &lt;post-url&gt;
+node dist/cli.js ig comment &lt;post-url&gt; "text"
+node dist/cli.js ig dm &lt;username&gt; "message"
+node dist/cli.js ig follow &lt;username&gt;
+node dist/cli.js ig followers &lt;username&gt; -n 10
+node dist/cli.js ig posts &lt;username&gt; -n 3
+</code></pre>
+<h3 id="linkedin-commands"><a class="header" href="#linkedin-commands">LinkedIn commands</a></h3>
+<pre><code class="language-bash">node dist/cli.js linkedin like &lt;post-url&gt;
+node dist/cli.js linkedin comment &lt;post-url&gt; "text"
+node dist/cli.js linkedin connect &lt;profile-url&gt;
+node dist/cli.js linkedin search "query" -n 10
+node dist/cli.js linkedin engage --query="query"   # Full engagement session
+</code></pre>
+<h3 id="features-4"><a class="header" href="#features-4">Features</a></h3>
+<p>Human-like behavior (randomized delays, natural typing), session persistence across restarts, built-in rate limiting, anti-detection, research-first workflow (scrape targets first, distribute engagement over time).</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="building-from-source-1"><a class="header" href="#building-from-source-1">Building from Source</a></h1>
 <h2 id="prerequisites"><a class="header" href="#prerequisites">Prerequisites</a></h2>

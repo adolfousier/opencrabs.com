@@ -63,10 +63,10 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-41bbca80.js";
+            window.path_to_searchindex_js = "../searchindex-8f9b7cae.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-e7000d62.js"></script>
+        <script src="../toc-347fede7.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -287,11 +287,38 @@ opencrabs agent
 # Single-message mode
 opencrabs agent -m "What files changed today?"
 </code></pre>
-<h2 id="daemon-mode"><a class="header" href="#daemon-mode">Daemon Mode</a></h2>
-<p>Run OpenCrabs without the TUI — useful for servers where you only need channel bots. Supports a health endpoint for monitoring.</p>
-<pre><code class="language-bash">opencrabs daemon
-</code></pre>
-<p>The agent processes messages from all connected channels (Telegram, Discord, Slack, WhatsApp) but without the terminal UI. Channel bots auto-reconnect on network failures with 5-second backoff.</p>
+<h2 id="daemon-mode-vs-tui"><a class="header" href="#daemon-mode-vs-tui">Daemon Mode vs TUI</a></h2>
+<p>OpenCrabs runs in one of two modes. Pick the one that fits the machine. <strong>For any one profile, run only one at a time.</strong></p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Mode</th><th>How you start it</th><th>What it is</th><th>Use it on</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>TUI (interactive)</strong></td><td><code>opencrabs</code></td><td>The full terminal UI: chat panes, sessions, settings. Your channels run too and share your session.</td><td>A machine you sit at (laptop/desktop)</td></tr>
+<tr><td><strong>Daemon (headless)</strong></td><td><code>opencrabs daemon</code>, or install as a service: <code>opencrabs service install &amp;&amp; opencrabs service start</code></td><td>No UI. Channels only (Telegram, Discord, Slack, WhatsApp) + cron. Survives reboots, SSH disconnects, and crashes.</td><td>An always-on box or VPS</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="why-not-both-at-once"><a class="header" href="#why-not-both-at-once">Why not both at once?</a></h3>
+<p>A bot credential (e.g. a Telegram token) can only hold one live <code>getUpdates</code> poll. If a daemon and a TUI both own the same profile’s token they fight (HTTP 409) and the channel drops.</p>
+<h3 id="the-tui-always-wins"><a class="header" href="#the-tui-always-wins">The TUI always wins</a></h3>
+<p>When you open the TUI while a daemon for the <em>same profile</em> is running, the TUI shuts that daemon down first, takes over the channels, and shows a banner saying so. Your channels were already set up, so they just resume, no reconnecting. The daemon stays down until you start it again (<code>opencrabs service start</code>, or relaunch <code>opencrabs daemon</code>).</p>
+<p>On a box where the daemon usually runs, the everyday flow is: open <code>opencrabs</code> when you want to sit down with it; close the TUI and <code>opencrabs service start</code> when you want it headless again.</p>
+<h3 id="auto-start-on-boot"><a class="header" href="#auto-start-on-boot">Auto-start on boot</a></h3>
+<ul>
+<li><strong>Daemon</strong> — use the service installer (<code>opencrabs service install</code>); it wires up systemd (Linux) / launchd (macOS) to start on boot and restart on crash. This is the recommended always-on setup.</li>
+<li><strong>TUI</strong> — to have the terminal UI open automatically on login, use a terminal/desktop autostart, not the service installer:
+<ul>
+<li><strong>Linux desktop:</strong> drop a <code>.desktop</code> file in <code>~/.config/autostart/</code> with <code>Exec=x-terminal-emulator -e opencrabs</code>.</li>
+<li><strong>macOS:</strong> System Settings &gt; General &gt; Login Items &gt; add a <code>.command</code> script that runs <code>opencrabs</code>.</li>
+<li><strong>VPS over SSH:</strong> run inside <code>tmux</code>/<code>screen</code> and reattach. On a headless VPS you usually want the daemon, not the TUI.</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><strong>Strongly recommended for everyday users.</strong> If you plan to use OpenCrabs daily, ask it to set itself up as a system service. Just say something like <em>“set yourself up to start with my computer”</em> or <em>“remove the auto-start service”</em>. The agent handles the launchd (macOS) or systemd (Linux) setup and removal for you automatically.</p>
+</blockquote>
 <h3 id="health-endpoint"><a class="header" href="#health-endpoint">Health Endpoint</a></h3>
 <p>Add to <code>config.toml</code> to expose a health check:</p>
 <pre><code class="language-toml">[daemon]
@@ -307,6 +334,31 @@ opencrabs service restart
 opencrabs service status
 opencrabs service uninstall
 </code></pre>
+<h3 id="profile-aware-services"><a class="header" href="#profile-aware-services">Profile-aware services</a></h3>
+<p>Each profile gets its own independent service:</p>
+<pre><code class="language-bash"># Install a specific profile as a service
+opencrabs -p hermes service install
+opencrabs -p hermes service start
+
+# Each profile gets its own service name
+# macOS: com.opencrabs.daemon.hermes
+# Linux: opencrabs-hermes.service
+
+# Manage independently
+opencrabs -p hermes service status
+opencrabs -p hermes service stop
+opencrabs -p hermes service uninstall
+</code></pre>
+<p>Multiple profiles can run as simultaneous daemon services with full isolation.</p>
+<h3 id="opencrabs_profile-environment-variable"><a class="header" href="#opencrabs_profile-environment-variable">OPENCRABS_PROFILE environment variable</a></h3>
+<p>Set <code>OPENCRABS_PROFILE=hermes</code> to select a profile without the <code>-p</code> flag. Useful for systemd services, cron jobs, and daemon mode.</p>
+<h3 id="troubleshooting-daemon-stays-down"><a class="header" href="#troubleshooting-daemon-stays-down">Troubleshooting: daemon stays down</a></h3>
+<p>If <code>opencrabs service status</code> says stopped:</p>
+<ol>
+<li><strong>Did you open the TUI?</strong> Opening <code>opencrabs</code> deliberately shuts the daemon down so the interactive session can own the channels. The daemon stays down until you <code>opencrabs service start</code> again.</li>
+<li><strong>Old builds</strong> may still have <code>Restart=on-failure</code> instead of <code>Restart=always</code>. Re-generate the unit with <code>opencrabs service install</code> (then <code>service start</code>) to pick up the always-restart policy.</li>
+<li><strong>Config, keys, commands, and tools hot-reload at runtime.</strong> Editing <code>config.toml</code> or <code>keys.toml</code> never needs a daemon restart. If a change isn’t taking effect, check the logs for a <code>ConfigWatcher: reloaded</code> line rather than restarting.</li>
+</ol>
 <h2 id="cron-management"><a class="header" href="#cron-management">Cron Management</a></h2>
 <pre><code class="language-bash"># List all cron jobs
 opencrabs cron list
