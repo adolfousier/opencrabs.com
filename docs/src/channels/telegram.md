@@ -89,7 +89,38 @@ bot_owner = ["123456789"]             # owner IDs (gated commands, /cd hidden di
 | `silence_group_start` | `true` | Silently ignore /start from non-allowed users in group chats. Users who need their ID can DM the bot |
 | `bot_owner` | `[]` (first allowed_user) | Bot owner user IDs. Owners can access gated commands (/profiles, hidden files in /cd), manage profiles. Defaults to first entry in `allowed_users` |
 
-## Agent Tools
+## Per-group access control (per-chat ACL)
+
+Telegram groups can have their own member list, so a user can be allowed in one group without gaining DM access:
+
+- `allowed_users` (channel level) — **admins**: may DM the bot and act in any chat.
+- `bot_owner` — the **owner**: always allowed everywhere.
+- `[channels.telegram.groups.<chat_id>].allowed_users` — allowed in that group only. These users are refused in DMs unless they are also an admin or the owner, which closes the "DM the bot privately to escape group oversight" bypass.
+
+DMs are gated to admins + owner. If neither `allowed_users` nor `bot_owner` is set, the bot is unconfigured and stays open (no hard lockout); set either one to lock it down.
+
+Each group can also override `respond_to` just for itself.
+
+```toml
+[channels.telegram]
+allowed_users = ["111"]                  # admins: DM + any chat
+respond_to = "mention"                   # global default
+
+[channels.telegram.groups.-1001234567890]
+allowed_users = ["222", "333"]           # allowed in this group only, never via DM
+respond_to = "all"                       # per-group override of the global respond_to
+```
+
+`respond_to` accepts `all`, `mention`, `dm_only`, or `auto` (reply to all while there is at most one active sender, then switch to mention-only once a second unique sender appears).
+
+## Voice and file pickup in groups
+
+In mention-only groups (`respond_to = "mention"`), users can share files and voice messages even when the bot isn't directly tagged in the same message:
+
+1. **Fire-and-forget file capture** — The bot downloads ALL incoming voice, video, document, and audio files from group messages to `~/.opencrabs/tmp/`, regardless of whether the bot was mentioned. This happens silently in the background.
+2. **Tag-then-ask** — A user sends a voice message, then tags the bot in a follow-up message (e.g. `@bot what did I just say?`). The bot scans the tmp directory for recent voice files from that chat (5-minute window), transcribes the most recent one, and prepends the transcript to the user's message.
+
+This solves the core UX problem in mention-only groups: previously, tagging the bot in the same message as a voice note didn't work because Telegram sends voice and text as separate messages.
 
 The agent can use `telegram_send` with 20+ actions. The `thread_id` field on `send` / `reply` / `send_photo` targets a specific forum topic in supergroups with topics enabled.
 
