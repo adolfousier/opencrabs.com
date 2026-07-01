@@ -336,6 +336,10 @@ health_port = 8080
 |-------|---------|-------------|
 | `health_port` | `None` (no health server) | HTTP port for `GET /health` endpoint. Useful for systemd watchdog, uptime monitors, and external health probes |
 
+OpenCrabs runs in two modes: **TUI** (interactive terminal UI with chat) and **Daemon** (headless background service for channels + cron). For any one profile, run only one at a time. The TUI always wins: opening it while a daemon runs shuts the daemon down and takes over the channels.
+
+For full service lifecycle management (TUI vs Daemon comparison, `opencrabs service install/start/stop`, profile-aware services, `OPENCRABS_PROFILE` env var, troubleshooting), see the [CLI Commands](../getting-started/cli-commands#daemon-mode-vs-tui) reference.
+
 ## Image Generation and Vision
 
 ```toml
@@ -354,3 +358,24 @@ model = "gemini-3.1-flash-image-preview"
 | `image.generation` | `model` | `"gemini-3.1-flash-image-preview"` | Model for image generation |
 | `image.vision` | `enabled` | `false` | Enable vision analysis via the `analyze_image` tool |
 | `image.vision` | `model` | `"gemini-3.1-flash-image-preview"` | Model for image/vision analysis |
+
+Vision analysis automatically scans all enabled providers (Google, OpenRouter, OpenAI-compatible, Anthropic) before returning an error. No configuration needed.
+
+## Voice Provider Fallback
+
+STT and TTS providers support automatic failover via `fallback_chain`. When the primary returns a 5xx, fails a liveness probe (Voicebox), or is otherwise unreachable, the dispatcher walks the chain in order and tries each entry that has the credentials/config it needs.
+
+```toml
+[providers.stt]
+fallback_chain = ["groq", "openai_compatible", "local"]
+
+[providers.tts]
+fallback_chain = ["openai_compatible", "openai", "local"]
+```
+
+| Chain | Valid labels |
+|-------|-------------|
+| **STT** | `voicebox`, `openai_compatible`, `groq`, `local` (aliases: `whisper`, `local_whisper`) |
+| **TTS** | `voicebox`, `openai_compatible`, `openai`, `local` (aliases: `piper`, `local_piper`). `groq` is STT-only, the TTS chain rejects it |
+
+Empty or omitted chain means "use the default priority order with the primary removed."
