@@ -1,6 +1,6 @@
 # Companion Tools
 
-External tools that complement OpenCrabs.
+OpenCrabs works with companion tools that extend its capabilities.
 
 ## WhisperCrabs — Voice-to-Text
 
@@ -10,9 +10,25 @@ External tools that complement OpenCrabs.
 - Fully controllable via D-Bus — start/stop recording, switch providers, view history
 - Works as an OpenCrabs tool: use D-Bus to control WhisperCrabs from the agent
 
+### Installation
+
+```bash
+git clone https://github.com/adolfousier/whispercrabs.git
+cd whispercrabs
+cargo build --release
+```
+
+### Usage with OpenCrabs
+
+Just ask naturally. OpenCrabs controls WhisperCrabs via D-Bus:
+
+> "Start recording" / "Stop and transcribe" / "Switch to Groq Whisper"
+
+---
+
 ## SocialCrabs — Social Media Automation
 
-[SocialCrabs](https://github.com/adolfousier/socialcrabs) automates social media via CLI + GraphQL with human-like behavior simulation. Twitter/X, Instagram, LinkedIn. No browser needed for read operations.
+[SocialCrabs](https://github.com/adolfousier/socialcrabs) automates social media via **CLI + GraphQL** with human-like behavior simulation. Twitter/X, Instagram, LinkedIn. No browser needed for read operations.
 
 ### Setup
 
@@ -54,24 +70,20 @@ node dist/cli.js x follow <username>          # Follow a user
 ### Instagram commands
 
 ```bash
-node dist/cli.js ig like <post-url>
-node dist/cli.js ig comment <post-url> "text"
-node dist/cli.js ig dm <username> "message"
-node dist/cli.js ig follow <username>
-node dist/cli.js ig followers <username> -n 10
-node dist/cli.js ig posts <username> -n 3
+node dist/cli.js ig feed -n 5                 # Your feed
+node dist/cli.js ig search "query" -n 10      # Search posts
+node dist/cli.js ig read <post-url>           # Read a specific post
+node dist/cli.js ig like <post-url>           # Like a post
+node dist/cli.js ig comment <post-url> "text" # Comment on post
+node dist/cli.js ig follow <username>         # Follow a user
 ```
 
 ### LinkedIn commands
 
 ```bash
-node dist/cli.js linkedin like <post-url>
-node dist/cli.js linkedin comment <post-url> "text"
-node dist/cli.js linkedin connect <profile-url>
-node dist/cli.js linkedin search "query" -n 10
-node dist/cli.js linkedin engage --query="query"   # Full engagement session
+node dist/cli.js linkedin feed -n 5           # Your feed
+node dist/cli.js linkedin search "query" -n 10 # Search posts
+node dist/cli.js linkedin read <post-url>     # Read a specific post
+node dist/cli.js linkedin like <post-url>     # Like a post
+node dist/cli.js linkedin comment <post-url> "text" # Comment on post
 ```
-
-### Features
-
-Human-like behavior (randomized delays, natural typing), session persistence across restarts, built-in rate limiting, anti-detection, research-first workflow (scrape targets first, distribute engagement over time).
