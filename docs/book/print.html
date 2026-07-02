@@ -64,7 +64,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-191320ee.js";
+            window.path_to_searchindex_js = "searchindex-77b16826.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-347fede7.js"></script>
@@ -1481,7 +1481,7 @@ opencrabs chat --onboard
 </blockquote>
 <p><strong>Full reset steps:</strong></p>
 <ol>
-<li><strong>Remove the OpenCrabs device(s) from WhatsApp</strong> — open WhatsApp on your phone, go to <strong>Settings &gt; Linked Devices</strong>, find the <code>opencrabs</code> device, and <strong>remove it</strong>. This is mandatory. If you paired more than once or an older stale <code>opencrabs</code> device is still listed, remove <strong>all</strong> of them — leaving a stale device behind can keep the old number replying. When in doubt, remove every linked device and re-pair fresh.</li>
+<li><strong>Remove ALL linked devices from WhatsApp.</strong> Open WhatsApp on your phone, go to <strong>Settings &gt; Linked Devices</strong>, and remove every device in the list. Don’t bother hunting for the <code>opencrabs</code> one. A stale device left over from an earlier pairing is the usual reason the old number keeps replying, so the reliable fix is to clear them all and start fresh.</li>
 <li><strong>Reset the connection in OpenCrabs</strong> — in the TUI or from a channel, go to <code>/onboard:channels</code> and press <strong>R</strong> to reset the WhatsApp connection. Wait for confirmation that the reset is complete.</li>
 <li><strong>Re-pair from scratch</strong> — after the reset is confirmed, go to WhatsApp &gt; <strong>Settings &gt; Linked Devices</strong> &gt; <strong>Link a Device</strong> and scan the new QR code shown by OpenCrabs.</li>
 </ol>
@@ -1493,7 +1493,7 @@ opencrabs chat --onboard
 <tr><th>Symptom</th><th>Cause</th><th>Fix</th></tr>
 </thead>
 <tbody>
-<tr><td>Old number still replying</td><td>Stale device(s) not removed from WhatsApp app</td><td>Remove <strong>all</strong> <code>opencrabs</code> devices from WhatsApp &gt; Settings &gt; Linked Devices (not just the newest one), then press <strong>R</strong> in <code>/onboard:channels</code></td></tr>
+<tr><td>Old number still replying</td><td>A stale linked device is still paired</td><td>Remove <strong>ALL</strong> linked devices from WhatsApp &gt; Settings &gt; Linked Devices, then press <strong>R</strong> in <code>/onboard:channels</code> and re-pair</td></tr>
 <tr><td>QR code doesn’t appear</td><td>Agent is still connected (no restart triggered)</td><td>Press <strong>R</strong> in <code>/onboard:channels</code> to force a restart, then wait for the new QR</td></tr>
 <tr><td>Bot doesn’t reply to anyone</td><td><code>response_policy</code> is too restrictive</td><td>Set <code>response_policy = "allowlist"</code> and add phone numbers to <code>allowed_phones</code> in <code>config.toml</code></td></tr>
 <tr><td>Bot replies to everyone</td><td><code>response_policy</code> is <code>open</code></td><td>Set <code>response_policy = "allowlist"</code> or <code>"owner_only"</code> in <code>config.toml</code></td></tr>
@@ -2668,7 +2668,7 @@ session_idle_hours = 24.0              # idle timeout for non-owner sessions
 </blockquote>
 <p><strong>Full reset steps:</strong></p>
 <ol>
-<li><strong>Remove the OpenCrabs device(s) from WhatsApp</strong> — open WhatsApp on your phone, go to <strong>Settings &gt; Linked Devices</strong>, find the <code>opencrabs</code> device, and <strong>remove it</strong>. This is mandatory. If you paired more than once or an older stale <code>opencrabs</code> device is still listed, remove <strong>all</strong> of them — leaving a stale device behind can keep the old number replying. When in doubt, remove every linked device and re-pair fresh.</li>
+<li><strong>Remove ALL linked devices from WhatsApp.</strong> Open WhatsApp on your phone, go to <strong>Settings &gt; Linked Devices</strong>, and remove every device in the list. Don’t bother hunting for the <code>opencrabs</code> one. A stale device left over from an earlier pairing is the usual reason the old number keeps replying, so the reliable fix is to clear them all and start fresh.</li>
 <li><strong>Reset the connection in OpenCrabs</strong> — in the TUI or from a channel, go to <code>/onboard:channels</code> and press <strong>R</strong> to reset the WhatsApp connection. Wait for confirmation that the reset is complete.</li>
 <li><strong>Re-pair from scratch</strong> — after the reset is confirmed, go to WhatsApp &gt; <strong>Settings &gt; Linked Devices</strong> &gt; <strong>Link a Device</strong> and scan the new QR code shown by OpenCrabs.</li>
 </ol>
@@ -2680,7 +2680,7 @@ session_idle_hours = 24.0              # idle timeout for non-owner sessions
 <tr><th>Symptom</th><th>Cause</th><th>Fix</th></tr>
 </thead>
 <tbody>
-<tr><td>Old number still replying</td><td>Stale device(s) not removed from WhatsApp app</td><td>Remove <strong>all</strong> <code>opencrabs</code> devices from WhatsApp &gt; Settings &gt; Linked Devices (not just the newest one), then press <strong>R</strong> in <code>/onboard:channels</code></td></tr>
+<tr><td>Old number still replying</td><td>A stale linked device is still paired</td><td>Remove <strong>ALL</strong> linked devices from WhatsApp &gt; Settings &gt; Linked Devices, then press <strong>R</strong> in <code>/onboard:channels</code> and re-pair</td></tr>
 <tr><td>QR code doesn’t appear</td><td>Agent is still connected (no restart triggered)</td><td>Press <strong>R</strong> in <code>/onboard:channels</code> to force a restart, then wait for the new QR</td></tr>
 <tr><td>Bot doesn’t reply to anyone</td><td><code>response_policy</code> is too restrictive</td><td>Set <code>response_policy = "allowlist"</code> and add phone numbers to <code>allowed_phones</code> in <code>config.toml</code></td></tr>
 <tr><td>Bot replies to everyone</td><td><code>response_policy</code> is <code>open</code></td><td>Set <code>response_policy = "allowlist"</code> or <code>"owner_only"</code> in <code>config.toml</code></td></tr>

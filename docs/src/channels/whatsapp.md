@@ -96,7 +96,7 @@ Each OpenCrabs instance supports one WhatsApp account (one companion device). If
 
 **Full reset steps:**
 
-1. **Remove the OpenCrabs device(s) from WhatsApp** — open WhatsApp on your phone, go to **Settings > Linked Devices**, find the `opencrabs` device, and **remove it**. This is mandatory. If you paired more than once or an older stale `opencrabs` device is still listed, remove **all** of them — leaving a stale device behind can keep the old number replying. When in doubt, remove every linked device and re-pair fresh.
+1. **Remove ALL linked devices from WhatsApp.** Open WhatsApp on your phone, go to **Settings > Linked Devices**, and remove every device in the list. Don't bother hunting for the `opencrabs` one. A stale device left over from an earlier pairing is the usual reason the old number keeps replying, so the reliable fix is to clear them all and start fresh.
 2. **Reset the connection in OpenCrabs** — in the TUI or from a channel, go to `/onboard:channels` and press **R** to reset the WhatsApp connection. Wait for confirmation that the reset is complete.
 3. **Re-pair from scratch** — after the reset is confirmed, go to WhatsApp > **Settings > Linked Devices** > **Link a Device** and scan the new QR code shown by OpenCrabs.
 
@@ -106,7 +106,7 @@ If the bot still shows the old number after resetting, make sure you completed s
 
 | Symptom | Cause | Fix |
 |---------|-------|-----|
-| Old number still replying | Stale device(s) not removed from WhatsApp app | Remove **all** `opencrabs` devices from WhatsApp > Settings > Linked Devices (not just the newest one), then press **R** in `/onboard:channels` |
+| Old number still replying | A stale linked device is still paired | Remove **ALL** linked devices from WhatsApp > Settings > Linked Devices, then press **R** in `/onboard:channels` and re-pair |
 | QR code doesn't appear | Agent is still connected (no restart triggered) | Press **R** in `/onboard:channels` to force a restart, then wait for the new QR |
 | Bot doesn't reply to anyone | `response_policy` is too restrictive | Set `response_policy = "allowlist"` and add phone numbers to `allowed_phones` in `config.toml` |
 | Bot replies to everyone | `response_policy` is `open` | Set `response_policy = "allowlist"` or `"owner_only"` in `config.toml` |
