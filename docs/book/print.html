@@ -64,7 +64,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-77b16826.js";
+            window.path_to_searchindex_js = "searchindex-37b155fa.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-347fede7.js"></script>
@@ -1225,6 +1225,33 @@ opencrabs agent -m "What files changed today?"
 <blockquote>
 <p><strong>Strongly recommended for everyday users.</strong> If you plan to use OpenCrabs daily, ask it to set itself up as a system service. Just say something like <em>“set yourself up to start with my computer”</em> or <em>“remove the auto-start service”</em>. The agent handles the launchd (macOS) or systemd (Linux) setup and removal for you automatically.</p>
 </blockquote>
+<h3 id="keep-the-tui-running-on-a-vps-tmux"><a class="header" href="#keep-the-tui-running-on-a-vps-tmux">Keep the TUI running on a VPS (tmux)</a></h3>
+<p>If you want the full interactive TUI always available on a remote server (not the headless daemon), <code>tmux</code> is the way. Your session survives SSH disconnects, laptop sleep, and flaky connections.</p>
+<p><strong>1. Install tmux</strong></p>
+<pre><code class="language-bash"># Debian / Ubuntu
+sudo apt install tmux
+
+# RHEL / CentOS / Fedora
+sudo yum install tmux
+</code></pre>
+<p><strong>2. Find where opencrabs is installed</strong></p>
+<pre><code class="language-bash">which opencrabs
+
+# If that returns nothing, search the whole filesystem
+find / -name "opencrabs" -type f 2&gt;/dev/null
+</code></pre>
+<p><strong>3. Start a named tmux session</strong></p>
+<pre><code class="language-bash">tmux new -s opencrabs
+</code></pre>
+<p><strong>4. Launch opencrabs inside it</strong></p>
+<pre><code class="language-bash">opencrabs
+</code></pre>
+<p><strong>5. Detach (leaves opencrabs running)</strong></p>
+<p>Press <code>Ctrl+B</code>, then <code>D</code>. You can now close SSH and opencrabs keeps running.</p>
+<p><strong>6. Reattach later</strong></p>
+<pre><code class="language-bash">tmux attach -t opencrabs
+</code></pre>
+<p>That’s it. Come back from any machine, reattach, and pick up where you left off. If you only need channels (Telegram, Discord, Slack, WhatsApp) running headless without the TUI, the daemon is a better fit: <code>opencrabs service install &amp;&amp; opencrabs service start</code>.</p>
 <h3 id="health-endpoint"><a class="header" href="#health-endpoint">Health Endpoint</a></h3>
 <p>Add to <code>config.toml</code> to expose a health check:</p>
 <pre><code class="language-toml">[daemon]

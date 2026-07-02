@@ -112,6 +112,53 @@ On a box where the daemon usually runs, the everyday flow is: open `opencrabs` w
 
 > **Strongly recommended for everyday users.** If you plan to use OpenCrabs daily, ask it to set itself up as a system service. Just say something like *"set yourself up to start with my computer"* or *"remove the auto-start service"*. The agent handles the launchd (macOS) or systemd (Linux) setup and removal for you automatically.
 
+### Keep the TUI running on a VPS (tmux)
+
+If you want the full interactive TUI always available on a remote server (not the headless daemon), `tmux` is the way. Your session survives SSH disconnects, laptop sleep, and flaky connections.
+
+**1. Install tmux**
+
+```bash
+# Debian / Ubuntu
+sudo apt install tmux
+
+# RHEL / CentOS / Fedora
+sudo yum install tmux
+```
+
+**2. Find where opencrabs is installed**
+
+```bash
+which opencrabs
+
+# If that returns nothing, search the whole filesystem
+find / -name "opencrabs" -type f 2>/dev/null
+```
+
+**3. Start a named tmux session**
+
+```bash
+tmux new -s opencrabs
+```
+
+**4. Launch opencrabs inside it**
+
+```bash
+opencrabs
+```
+
+**5. Detach (leaves opencrabs running)**
+
+Press `Ctrl+B`, then `D`. You can now close SSH and opencrabs keeps running.
+
+**6. Reattach later**
+
+```bash
+tmux attach -t opencrabs
+```
+
+That's it. Come back from any machine, reattach, and pick up where you left off. If you only need channels (Telegram, Discord, Slack, WhatsApp) running headless without the TUI, the daemon is a better fit: `opencrabs service install && opencrabs service start`.
+
 ### Health Endpoint
 
 Add to `config.toml` to expose a health check:
