@@ -2,9 +2,15 @@
 
 **OpenCrabs** is a self-hosted, provider-agnostic AI orchestration agent that runs as a single Rust binary. It automates your terminal, browser, channels (Telegram/Discord/Slack/WhatsApp/Trello), and codebase, all while respecting your privacy and keeping you in control.
 
-**4,350+ tests** across providers, tools, channels, TUI, self-healing, and browser automation.
+**4,398+ tests** across providers, tools, channels, TUI, self-healing, and browser automation.
 
 ## What Makes OpenCrabs Different
+
+### Zero Telemetry, Not Even Opt-In
+- **OpenCrabs does not phone home. Ever.** No analytics, no tracking, no usage statistics, no remote logging, no crash reports
+- Your conversations, tools, memory, configuration, and API keys never leave your machine
+- The only outbound traffic is what you explicitly initiate: LLM API calls, web searches, GitHub commands, browser automation
+- Not a privacy-policy checkbox: there is no telemetry code to disable, no opt-out flag, no analytics service to block. There is simply nothing to send
 
 ### Provider-Agnostic by Design
 - **15 built-in providers + Custom OpenAI Compatible**: Anthropic Claude, OpenAI, Gemini, Xiaomi MiMo, OpenRouter, Qwen (DashScope), MiniMax, Ollama, z.ai GLM, GitHub Copilot, Codex, Codex CLI, OpenCode, OpenCode CLI
@@ -27,6 +33,8 @@
 - **Draft message streaming** — live "typing..." updates as tokens generate in DMs
 - **Collapsible blocks** — `<details>/<summary>` sections for long outputs
 - **Forum topic session isolation** — each topic in Telegram supergroups gets its own session
+- **Telegram reactions** — the bot reads inbound emoji reactions and can reply with a reaction instead of a message when that fits
+- **Session inheritance** — `/new` inherits the working directory from your most recent session
 - **`/goal` across all channels** — set autonomous goals from Telegram, Discord, Slack, WhatsApp
 - **Voice support** — local Whisper STT + Piper TTS, fully offline
 - **Cross-channel crash recovery** — pending requests route back to originating channel on restart
