@@ -64,7 +64,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-280a3387.js";
+            window.path_to_searchindex_js = "searchindex-4446f08e.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-347fede7.js"></script>
@@ -2392,14 +2392,6 @@ respond_to = "all"                       # per-group override of the global resp
 </table>
 </div>
 <h2 id="reactions-v0358"><a class="header" href="#reactions-v0358">Reactions (v0.3.58)</a></h2>
-<p>The bot understands Telegram emoji reactions in both directions:</p>
-<ul>
-<li><strong>Inbound</strong> — when a user reacts to one of the bot’s messages with an emoji, the bot picks up that reaction (it looks up the original bot message by its platform message ID) and can act on it as feedback.</li>
-<li><strong>Reaction-only replies</strong> — when a short acknowledgement says it all (a thumbs-up, a 👀, a 😂), the bot can respond with just a reaction instead of a full text message, keeping the chat uncluttered.</li>
-<li><strong>Emoji validation</strong> — only real emoji count as reaction directives; code spans and stray characters are ignored, and react directives are stripped from intermediate status messages so they never leak into the visible reply.</li>
-</ul>
-<p>Use the <code>set_reaction</code> action on <code>telegram_send</code> to add a reaction to a specific message from the agent.</p>
-<h2 id="reactions-v0358-1"><a class="header" href="#reactions-v0358-1">Reactions (v0.3.58)</a></h2>
 <p>The bot understands Telegram emoji reactions in both directions:</p>
 <ul>
 <li><strong>Inbound</strong> — when a user reacts to one of the bot’s messages with an emoji, the bot picks up that reaction (it looks up the original bot message by its platform message ID) and can act on it as feedback.</li>
