@@ -63,7 +63,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-8f9b7cae.js";
+            window.path_to_searchindex_js = "../searchindex-4446f08e.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-347fede7.js"></script>
@@ -328,8 +328,8 @@ respond_to = "all"                       # per-group override of the global resp
 <tbody>
 <tr><td><code>send</code></td><td>Send text message (with optional <code>thread_id</code> for forum topics)</td></tr>
 <tr><td><code>reply</code></td><td>Reply to a message</td></tr>
-<tr><td><code>send_photo</code></td><td>Send image file</td></tr>
-<tr><td><code>send_document</code></td><td>Send document</td></tr>
+<tr><td><code>send_photo</code></td><td>Send image file (supports <code>caption</code> and <code>reply_parameters</code> since v0.3.58)</td></tr>
+<tr><td><code>send_document</code></td><td>Send document (supports <code>caption</code> and <code>reply_parameters</code> since v0.3.58)</td></tr>
 <tr><td><code>send_voice</code></td><td>Send voice message</td></tr>
 <tr><td><code>list_topics</code></td><td>Returns <code>(thread_id, topic_name)</code> pairs the bot has observed — translate <code>#announcements</code> into a numeric <code>thread_id</code></td></tr>
 <tr><td><code>pin</code> / <code>unpin</code></td><td>Pin or unpin a message</td></tr>
@@ -338,6 +338,14 @@ respond_to = "all"                       # per-group override of the global resp
 </tbody>
 </table>
 </div>
+<h2 id="reactions-v0358"><a class="header" href="#reactions-v0358">Reactions (v0.3.58)</a></h2>
+<p>The bot understands Telegram emoji reactions in both directions:</p>
+<ul>
+<li><strong>Inbound</strong> — when a user reacts to one of the bot’s messages with an emoji, the bot picks up that reaction (it looks up the original bot message by its platform message ID) and can act on it as feedback.</li>
+<li><strong>Reaction-only replies</strong> — when a short acknowledgement says it all (a thumbs-up, a 👀, a 😂), the bot can respond with just a reaction instead of a full text message, keeping the chat uncluttered.</li>
+<li><strong>Emoji validation</strong> — only real emoji count as reaction directives; code spans and stray characters are ignored, and react directives are stripped from intermediate status messages so they never leak into the visible reply.</li>
+</ul>
+<p>Use the <code>set_reaction</code> action on <code>telegram_send</code> to add a reaction to a specific message from the agent.</p>
 <h2 id="group-chat-behavior"><a class="header" href="#group-chat-behavior">Group Chat Behavior</a></h2>
 <p>In groups, the agent:</p>
 <ul>

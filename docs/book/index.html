@@ -63,7 +63,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-8f9b7cae.js";
+            window.path_to_searchindex_js = "searchindex-4446f08e.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-347fede7.js"></script>
@@ -207,8 +207,15 @@
                     <main>
                         <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
 <p><strong>OpenCrabs</strong> is a self-hosted, provider-agnostic AI orchestration agent that runs as a single Rust binary. It automates your terminal, browser, channels (Telegram/Discord/Slack/WhatsApp/Trello), and codebase, all while respecting your privacy and keeping you in control.</p>
-<p><strong>4,350+ tests</strong> across providers, tools, channels, TUI, self-healing, and browser automation.</p>
+<p><strong>4,398+ tests</strong> across providers, tools, channels, TUI, self-healing, and browser automation.</p>
 <h2 id="what-makes-opencrabs-different"><a class="header" href="#what-makes-opencrabs-different">What Makes OpenCrabs Different</a></h2>
+<h3 id="zero-telemetry-not-even-opt-in"><a class="header" href="#zero-telemetry-not-even-opt-in">Zero Telemetry, Not Even Opt-In</a></h3>
+<ul>
+<li><strong>OpenCrabs does not phone home. Ever.</strong> No analytics, no tracking, no usage statistics, no remote logging, no crash reports</li>
+<li>Your conversations, tools, memory, configuration, and API keys never leave your machine</li>
+<li>The only outbound traffic is what you explicitly initiate: LLM API calls, web searches, GitHub commands, browser automation</li>
+<li>Not a privacy-policy checkbox: there is no telemetry code to disable, no opt-out flag, no analytics service to block. There is simply nothing to send</li>
+</ul>
 <h3 id="provider-agnostic-by-design"><a class="header" href="#provider-agnostic-by-design">Provider-Agnostic by Design</a></h3>
 <ul>
 <li><strong>15 built-in providers + Custom OpenAI Compatible</strong>: Anthropic Claude, OpenAI, Gemini, Xiaomi MiMo, OpenRouter, Qwen (DashScope), MiniMax, Ollama, z.ai GLM, GitHub Copilot, Codex, Codex CLI, OpenCode, OpenCode CLI</li>
@@ -233,6 +240,8 @@
 <li><strong>Draft message streaming</strong> — live “typing…” updates as tokens generate in DMs</li>
 <li><strong>Collapsible blocks</strong> — <code>&lt;details&gt;/&lt;summary&gt;</code> sections for long outputs</li>
 <li><strong>Forum topic session isolation</strong> — each topic in Telegram supergroups gets its own session</li>
+<li><strong>Telegram reactions</strong> — the bot reads inbound emoji reactions and can reply with a reaction instead of a message when that fits</li>
+<li><strong>Session inheritance</strong> — <code>/new</code> inherits the working directory from your most recent session</li>
 <li><strong><code>/goal</code> across all channels</strong> — set autonomous goals from Telegram, Discord, Slack, WhatsApp</li>
 <li><strong>Voice support</strong> — local Whisper STT + Piper TTS, fully offline</li>
 <li><strong>Cross-channel crash recovery</strong> — pending requests route back to originating channel on restart</li>

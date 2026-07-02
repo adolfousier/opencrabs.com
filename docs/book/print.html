@@ -64,7 +64,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-8f9b7cae.js";
+            window.path_to_searchindex_js = "searchindex-4446f08e.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-347fede7.js"></script>
@@ -208,8 +208,15 @@
                     <main>
                         <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
 <p><strong>OpenCrabs</strong> is a self-hosted, provider-agnostic AI orchestration agent that runs as a single Rust binary. It automates your terminal, browser, channels (Telegram/Discord/Slack/WhatsApp/Trello), and codebase, all while respecting your privacy and keeping you in control.</p>
-<p><strong>4,350+ tests</strong> across providers, tools, channels, TUI, self-healing, and browser automation.</p>
+<p><strong>4,398+ tests</strong> across providers, tools, channels, TUI, self-healing, and browser automation.</p>
 <h2 id="what-makes-opencrabs-different"><a class="header" href="#what-makes-opencrabs-different">What Makes OpenCrabs Different</a></h2>
+<h3 id="zero-telemetry-not-even-opt-in"><a class="header" href="#zero-telemetry-not-even-opt-in">Zero Telemetry, Not Even Opt-In</a></h3>
+<ul>
+<li><strong>OpenCrabs does not phone home. Ever.</strong> No analytics, no tracking, no usage statistics, no remote logging, no crash reports</li>
+<li>Your conversations, tools, memory, configuration, and API keys never leave your machine</li>
+<li>The only outbound traffic is what you explicitly initiate: LLM API calls, web searches, GitHub commands, browser automation</li>
+<li>Not a privacy-policy checkbox: there is no telemetry code to disable, no opt-out flag, no analytics service to block. There is simply nothing to send</li>
+</ul>
 <h3 id="provider-agnostic-by-design"><a class="header" href="#provider-agnostic-by-design">Provider-Agnostic by Design</a></h3>
 <ul>
 <li><strong>15 built-in providers + Custom OpenAI Compatible</strong>: Anthropic Claude, OpenAI, Gemini, Xiaomi MiMo, OpenRouter, Qwen (DashScope), MiniMax, Ollama, z.ai GLM, GitHub Copilot, Codex, Codex CLI, OpenCode, OpenCode CLI</li>
@@ -234,6 +241,8 @@
 <li><strong>Draft message streaming</strong> — live “typing…” updates as tokens generate in DMs</li>
 <li><strong>Collapsible blocks</strong> — <code>&lt;details&gt;/&lt;summary&gt;</code> sections for long outputs</li>
 <li><strong>Forum topic session isolation</strong> — each topic in Telegram supergroups gets its own session</li>
+<li><strong>Telegram reactions</strong> — the bot reads inbound emoji reactions and can reply with a reaction instead of a message when that fits</li>
+<li><strong>Session inheritance</strong> — <code>/new</code> inherits the working directory from your most recent session</li>
 <li><strong><code>/goal</code> across all channels</strong> — set autonomous goals from Telegram, Discord, Slack, WhatsApp</li>
 <li><strong>Voice support</strong> — local Whisper STT + Piper TTS, fully offline</li>
 <li><strong>Cross-channel crash recovery</strong> — pending requests route back to originating channel on restart</li>
@@ -2372,8 +2381,8 @@ respond_to = "all"                       # per-group override of the global resp
 <tbody>
 <tr><td><code>send</code></td><td>Send text message (with optional <code>thread_id</code> for forum topics)</td></tr>
 <tr><td><code>reply</code></td><td>Reply to a message</td></tr>
-<tr><td><code>send_photo</code></td><td>Send image file</td></tr>
-<tr><td><code>send_document</code></td><td>Send document</td></tr>
+<tr><td><code>send_photo</code></td><td>Send image file (supports <code>caption</code> and <code>reply_parameters</code> since v0.3.58)</td></tr>
+<tr><td><code>send_document</code></td><td>Send document (supports <code>caption</code> and <code>reply_parameters</code> since v0.3.58)</td></tr>
 <tr><td><code>send_voice</code></td><td>Send voice message</td></tr>
 <tr><td><code>list_topics</code></td><td>Returns <code>(thread_id, topic_name)</code> pairs the bot has observed — translate <code>#announcements</code> into a numeric <code>thread_id</code></td></tr>
 <tr><td><code>pin</code> / <code>unpin</code></td><td>Pin or unpin a message</td></tr>
@@ -2382,6 +2391,14 @@ respond_to = "all"                       # per-group override of the global resp
 </tbody>
 </table>
 </div>
+<h2 id="reactions-v0358"><a class="header" href="#reactions-v0358">Reactions (v0.3.58)</a></h2>
+<p>The bot understands Telegram emoji reactions in both directions:</p>
+<ul>
+<li><strong>Inbound</strong> — when a user reacts to one of the bot’s messages with an emoji, the bot picks up that reaction (it looks up the original bot message by its platform message ID) and can act on it as feedback.</li>
+<li><strong>Reaction-only replies</strong> — when a short acknowledgement says it all (a thumbs-up, a 👀, a 😂), the bot can respond with just a reaction instead of a full text message, keeping the chat uncluttered.</li>
+<li><strong>Emoji validation</strong> — only real emoji count as reaction directives; code spans and stray characters are ignored, and react directives are stripped from intermediate status messages so they never leak into the visible reply.</li>
+</ul>
+<p>Use the <code>set_reaction</code> action on <code>telegram_send</code> to add a reaction to a specific message from the agent.</p>
 <h2 id="group-chat-behavior"><a class="header" href="#group-chat-behavior">Group Chat Behavior</a></h2>
 <p>In groups, the agent:</p>
 <ul>
@@ -5259,7 +5276,7 @@ which rtk
 <p><code>/goal</code> is best when you have a clear outcome and want the agent to figure out the steps itself.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="companion-tools-1"><a class="header" href="#companion-tools-1">Companion Tools</a></h1>
-<p>External tools that complement OpenCrabs.</p>
+<p>OpenCrabs works with companion tools that extend its capabilities.</p>
 <h2 id="whispercrabs--voice-to-text"><a class="header" href="#whispercrabs--voice-to-text">WhisperCrabs — Voice-to-Text</a></h2>
 <p><a href="https://github.com/adolfousier/whispercrabs">WhisperCrabs</a> is a floating voice-to-text tool. Click to record, click to stop, transcribes, copies to clipboard.</p>
 <ul>
@@ -5267,8 +5284,19 @@ which rtk
 <li>Fully controllable via D-Bus — start/stop recording, switch providers, view history</li>
 <li>Works as an OpenCrabs tool: use D-Bus to control WhisperCrabs from the agent</li>
 </ul>
+<h3 id="installation-2"><a class="header" href="#installation-2">Installation</a></h3>
+<pre><code class="language-bash">git clone https://github.com/adolfousier/whispercrabs.git
+cd whispercrabs
+cargo build --release
+</code></pre>
+<h3 id="usage-with-opencrabs"><a class="header" href="#usage-with-opencrabs">Usage with OpenCrabs</a></h3>
+<p>Just ask naturally. OpenCrabs controls WhisperCrabs via D-Bus:</p>
+<blockquote>
+<p>“Start recording” / “Stop and transcribe” / “Switch to Groq Whisper”</p>
+</blockquote>
+<hr>
 <h2 id="socialcrabs--social-media-automation-1"><a class="header" href="#socialcrabs--social-media-automation-1">SocialCrabs — Social Media Automation</a></h2>
-<p><a href="https://github.com/adolfousier/socialcrabs">SocialCrabs</a> automates social media via CLI + GraphQL with human-like behavior simulation. Twitter/X, Instagram, LinkedIn. No browser needed for read operations.</p>
+<p><a href="https://github.com/adolfousier/socialcrabs">SocialCrabs</a> automates social media via <strong>CLI + GraphQL</strong> with human-like behavior simulation. Twitter/X, Instagram, LinkedIn. No browser needed for read operations.</p>
 <h3 id="setup-5"><a class="header" href="#setup-5">Setup</a></h3>
 <pre><code class="language-bash">git clone https://github.com/adolfousier/socialcrabs.git
 cd socialcrabs &amp;&amp; npm install &amp;&amp; npm run build
@@ -5281,7 +5309,7 @@ node dist/cli.js session login ig         # Authenticate Instagram
 node dist/cli.js session login linkedin   # Authenticate LinkedIn
 node dist/cli.js session status           # Check all sessions
 </code></pre>
-<h3 id="usage-with-opencrabs"><a class="header" href="#usage-with-opencrabs">Usage with OpenCrabs</a></h3>
+<h3 id="usage-with-opencrabs-1"><a class="header" href="#usage-with-opencrabs-1">Usage with OpenCrabs</a></h3>
 <p>Just ask naturally. OpenCrabs calls SocialCrabs CLI commands via <code>bash</code> automatically:</p>
 <blockquote>
 <p>“Check my Twitter mentions” / “Search LinkedIn for AI founders” / “Post this to X”</p>
@@ -5299,22 +5327,20 @@ node dist/cli.js x like &lt;tweet-url&gt;           # Like a tweet
 node dist/cli.js x follow &lt;username&gt;          # Follow a user
 </code></pre>
 <h3 id="instagram-commands"><a class="header" href="#instagram-commands">Instagram commands</a></h3>
-<pre><code class="language-bash">node dist/cli.js ig like &lt;post-url&gt;
-node dist/cli.js ig comment &lt;post-url&gt; "text"
-node dist/cli.js ig dm &lt;username&gt; "message"
-node dist/cli.js ig follow &lt;username&gt;
-node dist/cli.js ig followers &lt;username&gt; -n 10
-node dist/cli.js ig posts &lt;username&gt; -n 3
+<pre><code class="language-bash">node dist/cli.js ig feed -n 5                 # Your feed
+node dist/cli.js ig search "query" -n 10      # Search posts
+node dist/cli.js ig read &lt;post-url&gt;           # Read a specific post
+node dist/cli.js ig like &lt;post-url&gt;           # Like a post
+node dist/cli.js ig comment &lt;post-url&gt; "text" # Comment on post
+node dist/cli.js ig follow &lt;username&gt;         # Follow a user
 </code></pre>
 <h3 id="linkedin-commands"><a class="header" href="#linkedin-commands">LinkedIn commands</a></h3>
-<pre><code class="language-bash">node dist/cli.js linkedin like &lt;post-url&gt;
-node dist/cli.js linkedin comment &lt;post-url&gt; "text"
-node dist/cli.js linkedin connect &lt;profile-url&gt;
-node dist/cli.js linkedin search "query" -n 10
-node dist/cli.js linkedin engage --query="query"   # Full engagement session
+<pre><code class="language-bash">node dist/cli.js linkedin feed -n 5           # Your feed
+node dist/cli.js linkedin search "query" -n 10 # Search posts
+node dist/cli.js linkedin read &lt;post-url&gt;     # Read a specific post
+node dist/cli.js linkedin like &lt;post-url&gt;     # Like a post
+node dist/cli.js linkedin comment &lt;post-url&gt; "text" # Comment on post
 </code></pre>
-<h3 id="features-4"><a class="header" href="#features-4">Features</a></h3>
-<p>Human-like behavior (randomized delays, natural typing), session persistence across restarts, built-in rate limiting, anti-detection, research-first workflow (scrape targets first, distribute engagement over time).</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="building-from-source-1"><a class="header" href="#building-from-source-1">Building from Source</a></h1>
 <h2 id="prerequisites"><a class="header" href="#prerequisites">Prerequisites</a></h2>
