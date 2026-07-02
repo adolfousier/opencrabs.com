@@ -128,13 +128,23 @@ The agent can use `telegram_send` with 20+ actions. The `thread_id` field on `se
 |--------|-------------|
 | `send` | Send text message (with optional `thread_id` for forum topics) |
 | `reply` | Reply to a message |
-| `send_photo` | Send image file |
-| `send_document` | Send document |
+| `send_photo` | Send image file (supports `caption` and `reply_parameters` since v0.3.58) |
+| `send_document` | Send document (supports `caption` and `reply_parameters` since v0.3.58) |
 | `send_voice` | Send voice message |
 | `list_topics` | Returns `(thread_id, topic_name)` pairs the bot has observed — translate `#announcements` into a numeric `thread_id` |
 | `pin` / `unpin` | Pin or unpin a message |
 | `set_reaction` | Add an emoji reaction |
 | And more... | |
+
+## Reactions (v0.3.58)
+
+The bot understands Telegram emoji reactions in both directions:
+
+- **Inbound** — when a user reacts to one of the bot's messages with an emoji, the bot picks up that reaction (it looks up the original bot message by its platform message ID) and can act on it as feedback.
+- **Reaction-only replies** — when a short acknowledgement says it all (a thumbs-up, a 👀, a 😂), the bot can respond with just a reaction instead of a full text message, keeping the chat uncluttered.
+- **Emoji validation** — only real emoji count as reaction directives; code spans and stray characters are ignored, and react directives are stripped from intermediate status messages so they never leak into the visible reply.
+
+Use the `set_reaction` action on `telegram_send` to add a reaction to a specific message from the agent.
 
 ## Group Chat Behavior
 
