@@ -2,7 +2,7 @@
 
 **OpenCrabs** is a self-hosted, provider-agnostic AI orchestration agent that runs as a single Rust binary. It automates your terminal, browser, channels (Telegram/Discord/Slack/WhatsApp/Trello), and codebase, all while respecting your privacy and keeping you in control.
 
-**4,398+ tests** across providers, tools, channels, TUI, self-healing, and browser automation.
+**4,453+ tests** across providers, tools, channels, TUI, self-healing, and browser automation.
 
 ## What Makes OpenCrabs Different
 
@@ -79,6 +79,23 @@
 - **Headless or headed** mode with element-specific screenshots
 - **Cookie/session persistence** across browser sessions
 - **Per-session tab isolation** — no cross-session DOM stomping
+
+### Project Directive Discovery (v0.3.59)
+
+OpenCrabs auto-discovers rule files that other AI coding tools drop in a repo. Point the agent at any repository (via `/cd`, a channel workspace, or launching inside one) and it scans for conventions shipped by Claude Code, Cursor, Windsurf, Cline, Gemini CLI, GitHub Copilot, OpenCode, and the cross-tool `AGENTS.md` standard. No config, no import step.
+
+| Source | Files |
+|--------|-------|
+| Cross-tool standard | `AGENTS.md` |
+| Claude Code | `CLAUDE.md`, `CLAUDE.local.md`, `.claude/CLAUDE.md`, `.claude/rules/**/*.md` |
+| Cursor | `.cursorrules`, `.cursor/rules/**/*.mdc` |
+| Windsurf | `.windsurfrules` |
+| Cline | `.clinerules` (file or `.clinerules/**/*.{md,txt}`) |
+| Gemini CLI | `GEMINI.md` |
+| GitHub Copilot | `.github/copilot-instructions.md` |
+| OpenCode | `.opencode/AGENTS.md` |
+
+The index rebuilds when you `/cd` into a new directory, so directive files are always current.
 
 ## Quick Start
 
