@@ -146,6 +146,18 @@ The bot understands Telegram emoji reactions in both directions:
 
 Use the `set_reaction` action on `telegram_send` to add a reaction to a specific message from the agent.
 
+## /cowork — Workspace Creation (v0.3.59)
+
+`/cowork` creates a team workspace directly from Telegram. Run it in your DM with the bot:
+
+1. Send `/cowork` in your DM with the bot
+2. The bot replies with an invite link and QR code for a new group
+3. Scan the QR code or tap the link to create the group
+4. Add your friends or teammates to the group
+5. Members auto-register to the **group's allow list** (`[channels.telegram.groups.<chat_id>].allowed_users`), not the global one. Both new joiners (via invite link) and existing members (on their first message) get registered. Cowork members can talk in the group but cannot DM the bot privately unless also on the global `allowed_users`. The owner gets a confirmation for each registration.
+
+`/cowork` works from any surface. In Telegram DMs, the native flow activates directly. From the TUI, Discord, Slack, or WhatsApp, the agent calls the `cowork_connect` tool which mints a session, registers it with the bot, and returns the `t.me` deep link plus a scannable QR code PNG.
+
 ## Group Chat Behavior
 
 In groups, the agent:
