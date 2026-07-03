@@ -516,6 +516,11 @@ fn Features() -> impl IntoView {
             "Projects",
             "Organize work into projects with dedicated sessions. Assign sessions with a single keypress. Per-project colours and badges for visual organization. Per-project brain overlay layers project-specific files on top of profile brain. Project file shares: symlink local copies, copy ephemeral ones into project files. Project-scoped file artifacts archived under projects/<name>/files/. Shared images from Telegram archived automatically. Full CRUD UI with SQLite-backed persistence.",
         ),
+        (
+            "📋",
+            "Project Directive Discovery",
+            "Auto-discovers rule files from other AI coding tools in any repo. CLAUDE.md, GEMINI.md, .cursorrules, .windsurfrules, .clinerules, .github/copilot-instructions.md, and more. No config, no import step: if the files are there, the agent knows. Index rebuilds on /cd so directives are always current.",
+        ),
     ];
 
     view! {
