@@ -64,7 +64,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-37b155fa.js";
+            window.path_to_searchindex_js = "searchindex-e7621c10.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-347fede7.js"></script>
@@ -208,7 +208,7 @@
                     <main>
                         <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
 <p><strong>OpenCrabs</strong> is a self-hosted, provider-agnostic AI orchestration agent that runs as a single Rust binary. It automates your terminal, browser, channels (Telegram/Discord/Slack/WhatsApp/Trello), and codebase, all while respecting your privacy and keeping you in control.</p>
-<p><strong>4,398+ tests</strong> across providers, tools, channels, TUI, self-healing, and browser automation.</p>
+<p><strong>4,453+ tests</strong> across providers, tools, channels, TUI, self-healing, and browser automation.</p>
 <h2 id="what-makes-opencrabs-different"><a class="header" href="#what-makes-opencrabs-different">What Makes OpenCrabs Different</a></h2>
 <h3 id="zero-telemetry-not-even-opt-in"><a class="header" href="#zero-telemetry-not-even-opt-in">Zero Telemetry, Not Even Opt-In</a></h3>
 <ul>
@@ -292,6 +292,26 @@
 <li><strong>Cookie/session persistence</strong> across browser sessions</li>
 <li><strong>Per-session tab isolation</strong> — no cross-session DOM stomping</li>
 </ul>
+<h3 id="project-directive-discovery-v0359"><a class="header" href="#project-directive-discovery-v0359">Project Directive Discovery (v0.3.59)</a></h3>
+<p>OpenCrabs auto-discovers rule files that other AI coding tools drop in a repo. Point the agent at any repository (via <code>/cd</code>, a channel workspace, or launching inside one) and it scans for conventions shipped by Claude Code, Cursor, Windsurf, Cline, Gemini CLI, GitHub Copilot, OpenCode, and the cross-tool <code>AGENTS.md</code> standard. No config, no import step.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Source</th><th>Files</th></tr>
+</thead>
+<tbody>
+<tr><td>Cross-tool standard</td><td><code>AGENTS.md</code></td></tr>
+<tr><td>Claude Code</td><td><code>CLAUDE.md</code>, <code>CLAUDE.local.md</code>, <code>.claude/CLAUDE.md</code>, <code>.claude/rules/**/*.md</code></td></tr>
+<tr><td>Cursor</td><td><code>.cursorrules</code>, <code>.cursor/rules/**/*.mdc</code></td></tr>
+<tr><td>Windsurf</td><td><code>.windsurfrules</code></td></tr>
+<tr><td>Cline</td><td><code>.clinerules</code> (file or <code>.clinerules/**/*.{md,txt}</code>)</td></tr>
+<tr><td>Gemini CLI</td><td><code>GEMINI.md</code></td></tr>
+<tr><td>GitHub Copilot</td><td><code>.github/copilot-instructions.md</code></td></tr>
+<tr><td>OpenCode</td><td><code>.opencode/AGENTS.md</code></td></tr>
+</tbody>
+</table>
+</div>
+<p>The index rebuilds when you <code>/cd</code> into a new directory, so directive files are always current.</p>
 <h2 id="quick-start"><a class="header" href="#quick-start">Quick Start</a></h2>
 <pre><code class="language-bash"># Install (Linux/macOS)
 ARCH=$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/')
@@ -2426,6 +2446,16 @@ respond_to = "all"                       # per-group override of the global resp
 <li><strong>Emoji validation</strong> — only real emoji count as reaction directives; code spans and stray characters are ignored, and react directives are stripped from intermediate status messages so they never leak into the visible reply.</li>
 </ul>
 <p>Use the <code>set_reaction</code> action on <code>telegram_send</code> to add a reaction to a specific message from the agent.</p>
+<h2 id="cowork--workspace-creation-v0359"><a class="header" href="#cowork--workspace-creation-v0359">/cowork — Workspace Creation (v0.3.59)</a></h2>
+<p><code>/cowork</code> creates a team workspace directly from Telegram. Run it in your DM with the bot:</p>
+<ol>
+<li>Send <code>/cowork</code> in your DM with the bot</li>
+<li>The bot replies with an invite link and QR code for a new group</li>
+<li>Scan the QR code or tap the link to create the group</li>
+<li>Add your friends or teammates to the group</li>
+<li>Members auto-register to the <strong>group’s allow list</strong> (<code>[channels.telegram.groups.&lt;chat_id&gt;].allowed_users</code>), not the global one. Both new joiners (via invite link) and existing members (on their first message) get registered. Cowork members can talk in the group but cannot DM the bot privately unless also on the global <code>allowed_users</code>. The owner gets a confirmation for each registration.</li>
+</ol>
+<p><code>/cowork</code> works from any surface. In Telegram DMs, the native flow activates directly. From the TUI, Discord, Slack, or WhatsApp, the agent calls the <code>cowork_connect</code> tool which mints a session, registers it with the bot, and returns the <code>t.me</code> deep link plus a scannable QR code PNG.</p>
 <h2 id="group-chat-behavior"><a class="header" href="#group-chat-behavior">Group Chat Behavior</a></h2>
 <p>In groups, the agent:</p>
 <ul>

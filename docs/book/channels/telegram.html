@@ -63,7 +63,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-37b155fa.js";
+            window.path_to_searchindex_js = "../searchindex-e7621c10.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-347fede7.js"></script>
@@ -346,6 +346,16 @@ respond_to = "all"                       # per-group override of the global resp
 <li><strong>Emoji validation</strong> — only real emoji count as reaction directives; code spans and stray characters are ignored, and react directives are stripped from intermediate status messages so they never leak into the visible reply.</li>
 </ul>
 <p>Use the <code>set_reaction</code> action on <code>telegram_send</code> to add a reaction to a specific message from the agent.</p>
+<h2 id="cowork--workspace-creation-v0359"><a class="header" href="#cowork--workspace-creation-v0359">/cowork — Workspace Creation (v0.3.59)</a></h2>
+<p><code>/cowork</code> creates a team workspace directly from Telegram. Run it in your DM with the bot:</p>
+<ol>
+<li>Send <code>/cowork</code> in your DM with the bot</li>
+<li>The bot replies with an invite link and QR code for a new group</li>
+<li>Scan the QR code or tap the link to create the group</li>
+<li>Add your friends or teammates to the group</li>
+<li>Members auto-register to the <strong>group’s allow list</strong> (<code>[channels.telegram.groups.&lt;chat_id&gt;].allowed_users</code>), not the global one. Both new joiners (via invite link) and existing members (on their first message) get registered. Cowork members can talk in the group but cannot DM the bot privately unless also on the global <code>allowed_users</code>. The owner gets a confirmation for each registration.</li>
+</ol>
+<p><code>/cowork</code> works from any surface. In Telegram DMs, the native flow activates directly. From the TUI, Discord, Slack, or WhatsApp, the agent calls the <code>cowork_connect</code> tool which mints a session, registers it with the bot, and returns the <code>t.me</code> deep link plus a scannable QR code PNG.</p>
 <h2 id="group-chat-behavior"><a class="header" href="#group-chat-behavior">Group Chat Behavior</a></h2>
 <p>In groups, the agent:</p>
 <ul>
