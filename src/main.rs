@@ -658,6 +658,16 @@ fn Testimonials() -> impl IntoView {
             "Roman Gall · Telegram DM",
             "",
         ),
+        (
+            "I've been building an APP myself with CRABS from ideas and it has been such a great MILESTONE in learning stuff. SHOUT OUT TO @AdolfoUsier for keep improving this thing and it's just the beginning 🔥🔥🔥",
+            "kaduzeras · @kadu_cec",
+            "https://x.com/kadu_cec/status/2043335714654367895",
+        ),
+        (
+            "Most of the process involved brainstorming with OpenCrabs: I'd throw out an idea, Crabs would find valid data, we'd do the research and reach a conclusion, and then he'd handle the actual building.",
+            "Adi · Telegram DM",
+            "",
+        ),
     ];
 
     view! {
