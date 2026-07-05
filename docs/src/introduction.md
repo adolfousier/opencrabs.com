@@ -34,6 +34,8 @@
 - **Collapsible blocks** — `<details>/<summary>` sections for long outputs
 - **Forum topic session isolation** — each topic in Telegram supergroups gets its own session
 - **Telegram reactions** — the bot reads inbound emoji reactions and can reply with a reaction instead of a message when that fits
+- **Frame reactions (v0.3.61)** — inbound reactions read by sentiment, agent addresses user by first name
+- **Mid-turn reactions (v0.3.61)** — a reaction during a running turn injects into the current loop instead of firing a second turn
 - **Session inheritance** — `/new` inherits the working directory from your most recent session
 - **`/goal` across all channels** — set autonomous goals from Telegram, Discord, Slack, WhatsApp
 - **Voice support** — local Whisper STT + Piper TTS, fully offline
@@ -51,16 +53,20 @@
 - **Context budget management** — 65% soft / 90% hard compaction thresholds with LLM fallback
 - **Stuck stream detection** — 2048-byte rolling window catches repeating patterns
 - **Gaslighting defense** — strips tool-refusal preambles mid-turn
+- **Deliver build outcomes (v0.3.61)** — rebuild/evolve results reach whoever asked, across channels and TUI
 
 ### Terminal UI
 - **Native markdown rendering** — emphasis, lists, links, and task items render directly in the terminal
 - **Real-time tok/s throughput meter** — live tokens-per-second during streaming
+- **Group tool calls (v0.3.61)** — consecutive tool calls collapse into one expandable block, keeping the TUI clean during multi-step operations
+- **Fold intermediate text (v0.3.61)** — intermediate processing text folds into the same in-place log as tool calls, so only the final answer stays visible
 - **Session search** — search filter + viewport scroll across all sessions
 - **Split panes** — tmux-style parallel sessions with layout persistence
 - **Clipboard image paste** — paste images from browser or any app directly into TUI
 - **Plan pinning** — active plan pinned at end of prompt each turn
 - **Agent-driven onboarding** — personalized first-time setup with guided flow
 - **`/goal` autonomous loop** — set a goal and the agent loops until an LLM judge says it's done, with pause/resume/status controls
+- **Self-goaling (v0.3.61)** — agent can set and drive its own multi-turn goals via `goal_manage` tool without user invoking `/goal`
 
 ### Developer Experience
 - **50+ built-in tools** — file ops, bash, web search, code execution, browser automation, image gen, voice, PDF rendering
