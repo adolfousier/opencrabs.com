@@ -45,6 +45,10 @@ If the budget runs out before the goal is satisfied, the agent reports what it a
 - **Check status**: use `/goal status` to monitor progress on long-running goals
 - **Pause when needed**: `/goal pause` if you need the agent for something else
 
+## Self-Goaling (v0.3.61)
+
+The agent can also set and drive its own multi-turn goals autonomously via the `goal_manage` tool. This lets the agent break down a complex request into self-directed goal loops without the user needing to invoke `/goal` manually. The agent evaluates its own progress and adjusts course, the same way a user-set `/goal` loop works.
+
 ## Availability
 
 `/goal` works across **all channels**: TUI, Telegram, Discord, Slack, and WhatsApp. Set autonomous goals from wherever you talk to your agent.
