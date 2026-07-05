@@ -25,7 +25,14 @@ OpenCrabs ships with 50+ tools available to the agent out of the box, plus suppo
 | Tool | Parameters | Description |
 |------|-----------|-------------|
 | `web_search` | `query` | Search the web (Brave Search) |
+| `web_scrape` | `url` | Native URL-to-markdown scraping with SSRF protection, sitemap crawling, JS-shell detection (v0.3.60) |
 | `http_request` | `method`, `url`, `headers`, `body` | Make HTTP requests |
+
+## Document Parsing
+
+| Tool | Parameters | Description |
+|------|-----------|-------------|
+| `parse_document` | `path` | Extract text from PDF, DOCX, XLSX, XLS, CSV, HTML, TXT, MD, JSON, XML (v0.3.61 added spreadsheet support) |
 
 ## Session & Memory
 
