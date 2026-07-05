@@ -141,6 +141,8 @@ The agent can use `telegram_send` with 20+ actions. The `thread_id` field on `se
 The bot understands Telegram emoji reactions in both directions:
 
 - **Inbound** — when a user reacts to one of the bot's messages with an emoji, the bot picks up that reaction (it looks up the original bot message by its platform message ID) and can act on it as feedback.
+- **Frame reactions (v0.3.61)** — inbound reactions are read by sentiment and the bot addresses the user by first name in its response.
+- **Mid-turn reactions (v0.3.61)** — if a user reacts during a running turn, the reaction injects into the current loop instead of spawning a second turn.
 - **Reaction-only replies** — when a short acknowledgement says it all (a thumbs-up, a 👀, a 😂), the bot can respond with just a reaction instead of a full text message, keeping the chat uncluttered.
 - **Emoji validation** — only real emoji count as reaction directives; code spans and stray characters are ignored, and react directives are stripped from intermediate status messages so they never leak into the visible reply.
 
