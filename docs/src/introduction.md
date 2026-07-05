@@ -2,7 +2,7 @@
 
 **OpenCrabs** is a self-hosted, provider-agnostic AI orchestration agent that runs as a single Rust binary. It automates your terminal, browser, channels (Telegram/Discord/Slack/WhatsApp/Trello), and codebase, all while respecting your privacy and keeping you in control.
 
-**4,453+ tests** across providers, tools, channels, TUI, self-healing, and browser automation.
+**4,563+ tests** across providers, tools, channels, TUI, self-healing, and browser automation.
 
 ## What Makes OpenCrabs Different
 
@@ -64,6 +64,7 @@
 
 ### Developer Experience
 - **50+ built-in tools** — file ops, bash, web search, code execution, browser automation, image gen, voice, PDF rendering
+- **web_scrape** — native URL-to-markdown scraping with SSRF protection, sitemap crawling, JS-shell detection, and profile-aware export
 - **Proactive tool discovery** — agent finds tools before saying "I can't"
 - **Skills system** — workflow templates with fuzzy-finding, auto-registered as slash commands
 - **Dynamic tools** — runtime-defined via TOML (HTTP + shell executors)
