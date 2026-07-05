@@ -63,10 +63,10 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-e7621c10.js";
+            window.path_to_searchindex_js = "../searchindex-28db2579.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-347fede7.js"></script>
+        <script src="../toc-8265123e.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -240,6 +240,8 @@
 <li><strong>Check status</strong>: use <code>/goal status</code> to monitor progress on long-running goals</li>
 <li><strong>Pause when needed</strong>: <code>/goal pause</code> if you need the agent for something else</li>
 </ul>
+<h2 id="self-goaling-v0361"><a class="header" href="#self-goaling-v0361">Self-Goaling (v0.3.61)</a></h2>
+<p>The agent can also set and drive its own multi-turn goals autonomously via the <code>goal_manage</code> tool. This lets the agent break down a complex request into self-directed goal loops without the user needing to invoke <code>/goal</code> manually. The agent evaluates its own progress and adjusts course, the same way a user-set <code>/goal</code> loop works.</p>
 <h2 id="availability"><a class="header" href="#availability">Availability</a></h2>
 <p><code>/goal</code> works across <strong>all channels</strong>: TUI, Telegram, Discord, Slack, and WhatsApp. Set autonomous goals from wherever you talk to your agent.</p>
 <h2 id="when-to-use-goal-vs-btw-vs-plans"><a class="header" href="#when-to-use-goal-vs-btw-vs-plans">When to Use /goal vs /btw vs Plans</a></h2>

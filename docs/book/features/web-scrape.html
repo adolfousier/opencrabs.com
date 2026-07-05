@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Mission Control - OpenCrabs</title>
+        <title>Web Scraping - OpenCrabs</title>
 
 
         <!-- Custom HTML head -->
@@ -205,102 +205,58 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="mission-control"><a class="header" href="#mission-control">Mission Control</a></h1>
-<p>Mission Control is a full-screen TUI dashboard that brings RSI activity, inbox proposals, and scheduled jobs into one place. Open it with <code>/mission-control</code>.</p>
-<h2 id="the-three-panels"><a class="header" href="#the-three-panels">The Three Panels</a></h2>
-<p>The screen is divided into three panels: a large <strong>Inbox</strong> on the left, and <strong>Activity</strong> + <strong>Schedule</strong> stacked on the right.</p>
-<h3 id="inbox"><a class="header" href="#inbox">Inbox</a></h3>
-<p>Pending RSI proposals displayed as cards. Each card shows:</p>
-<ul>
-<li><strong>Tool proposals</strong> (orange <code>tool</code> badge) — new dynamic tools RSI thinks you need, with the shell command template</li>
-<li><strong>Command proposals</strong> (teal <code>command</code> badge) — new slash commands RSI drafted based on usage patterns</li>
-<li><strong>Skill proposals</strong> — new <code>SKILL.md</code> files RSI drafted when it detects a repeated multi-step workflow that isn’t covered by an existing skill</li>
-</ul>
-<p>Each card shows the proposal name, type badge, description or command template, and how long ago it was proposed.</p>
-<p>Apply or reject proposals inline:</p>
-<ul>
-<li><code>a</code> — apply the selected proposal (installs tool/command to config, or creates skill directory)</li>
-<li><code>r</code> — reject the selected proposal (archives with optional reason)</li>
-</ul>
-<p>Applied and rejected entries are archived daily to <code>~/.opencrabs/rsi/applied/</code> and <code>~/.opencrabs/rsi/rejected/</code> so the trail is auditable.</p>
-<p>A banner on session start shows the count of pending inbox items.</p>
-<h3 id="activity"><a class="header" href="#activity">Activity</a></h3>
-<p>A chronological feed of the last 100 RSI improvements. Shows what the autonomous engine did, when, and why:</p>
-<ul>
-<li>Brain file modifications (SOUL.md, MEMORY.md, TOOLS.md, etc.)</li>
-<li>Template syncs from upstream</li>
-<li>Hard rule additions</li>
-<li>Feedback analysis summaries</li>
-<li>Violation count updates</li>
-</ul>
-<p>Each entry shows the time ago, a summary of the change, and the target file.</p>
-<h3 id="schedule"><a class="header" href="#schedule">Schedule</a></h3>
-<p>Your cron job queue with paused/active state. Each job shows:</p>
-<ul>
-<li>Job name</li>
-<li>Cron expression</li>
-<li>Next run time (when active)</li>
-<li><code>paused</code> label (when paused)</li>
-</ul>
-<p>See <a href="./cron-jobs.html">Cron Jobs</a> for full cron documentation.</p>
-<h3 id="cron-blob-recovery-v0320"><a class="header" href="#cron-blob-recovery-v0320">Cron BLOB Recovery (v0.3.20)</a></h3>
-<p>Cron jobs with legacy <code>BLOB</code>-typed prompt rows in the database are now tolerated instead of causing silent failures. The schedule panel resumes showing jobs normally.</p>
-<h3 id="compaction-typing-without-banner-v0322"><a class="header" href="#compaction-typing-without-banner-v0322">Compaction Typing Without Banner (v0.3.22)</a></h3>
-<p>The visible compaction banner text has been removed. The schedule panel now uses typing-only indicators during compaction windows (10-60s), keeping the experience clean.</p>
-<h3 id="context-counter-evolution-v0326v0328"><a class="header" href="#context-counter-evolution-v0326v0328">Context Counter Evolution (v0.3.26→v0.3.28)</a></h3>
-<ul>
-<li><strong>v0.3.26</strong> — introduced per-provider tokenizer calibration. Uncalibrated providers showed <code>0/max</code> until first message calibrated the ratio</li>
-<li><strong>v0.3.28</strong> — calibration system removed entirely. Context counter now uses provider-reported <code>input_tokens</code> verbatim, showing real-time usage without calibration overhead</li>
-</ul>
-<h2 id="keyboard-navigation"><a class="header" href="#keyboard-navigation">Keyboard Navigation</a></h2>
+                        <h1 id="web-scraping"><a class="header" href="#web-scraping">Web Scraping</a></h1>
+<p>OpenCrabs includes a native URL-to-markdown scraping tool (<code>web_scrape</code>) that converts any web page into clean markdown. Zero AI cost, zero API tokens for the extraction itself. The agent uses <code>tool_search</code> to activate it on demand, keeping it out of the always-loaded core tool set.</p>
+<h2 id="how-it-works"><a class="header" href="#how-it-works">How It Works</a></h2>
+<p><code>web_scrape</code> follows a five-step pipeline:</p>
+<ol>
+<li><strong>Validate</strong> — SSRF guard rejects private IPs, localhost, loopback, link-local addresses, cloud metadata endpoints (169.254.169.254), and non-http(s) schemes</li>
+<li><strong>Fetch</strong> — <code>reqwest</code> with browser User-Agent and timeout. <code>is_js_shell</code> heuristic detects JS-heavy pages (React/Vue/Angular/Svelte shells, <code>&lt;div id="app"&gt;</code>, no <code>&lt;article&gt;</code>). Escalates to browser manager when available</li>
+<li><strong>Extract</strong> — CSS selector cascade (article, main, .content, etc.) isolates primary content from HTML, falling back to body with junk selectors (header, nav, sidebar, ads) removed</li>
+<li><strong>Clean</strong> — Language-agnostic HTML cleaner strips scripts, styles, inline handlers, HTML comments. Decodes entities, collapses blank lines</li>
+<li><strong>Convert</strong> — <code>htmd</code> converts cleaned HTML to markdown. <code>absolutize_urls</code> resolves relative src/href against page base URL. Images preserved as <code>![alt](url)</code> tags for selective agent vision</li>
+</ol>
+<h2 id="single-url-mode"><a class="header" href="#single-url-mode">Single URL Mode</a></h2>
+<p>Scrape a single URL and return the markdown content directly:</p>
+<pre><code>web_scrape https://example.com/page
+</code></pre>
+<p>The agent receives the markdown in its context, ready for analysis, summarisation, or extraction.</p>
+<h2 id="sitemap-mode"><a class="header" href="#sitemap-mode">Sitemap Mode</a></h2>
+<p>Discover and crawl an entire site via its sitemap:</p>
+<pre><code>web_scrape https://example.com --sitemap
+</code></pre>
+<p>This discovers <code>/sitemap.xml</code>, <code>/sitemap_index.xml</code>, and common variations. Recursively crawls sitemap indexes (iterative worklist, 1000-URL cap, 3 levels deep). Returns the URL list for the agent to pick from.</p>
+<p>Each page’s markdown is exported to a directory. The output path resolves to the project files directory if the session is assigned to a project, or the profile-scoped OpenCrabs home otherwise. Files never land outside managed workspace.</p>
+<h2 id="ssrf-protection"><a class="header" href="#ssrf-protection">SSRF Protection</a></h2>
+<p>The SSRF guard uses <code>url::Host</code> enum classification to properly handle:</p>
 <div class="table-wrapper">
 <table>
 <thead>
-<tr><th>Key</th><th>Action</th></tr>
+<tr><th>Blocked</th><th>Reason</th></tr>
 </thead>
 <tbody>
-<tr><td><code>Tab</code> / <code>Shift+Tab</code></td><td>Cycle focus between panels (Inbox → Activity → Schedule)</td></tr>
-<tr><td><code>↑</code> / <code>↓</code></td><td>Move selection within a panel</td></tr>
-<tr><td><code>Enter</code></td><td>Open detail popup for selected item</td></tr>
-<tr><td><code>a</code></td><td>Apply selected inbox proposal</td></tr>
-<tr><td><code>r</code></td><td>Reject selected inbox proposal</td></tr>
-<tr><td><code>Esc</code></td><td>Close popup or exit Mission Control</td></tr>
+<tr><td>Private IPs (10.x, 172.16-31.x, 192.168.x)</td><td>Internal network</td></tr>
+<tr><td>Localhost (127.0.0.1, ::1)</td><td>Local services</td></tr>
+<tr><td>Link-local (169.254.x.x)</td><td>Cloud metadata, DHCP</td></tr>
+<tr><td>Non-http(s) schemes</td><td>file://, ftp://, gopher://</td></tr>
 </tbody>
 </table>
 </div>
-<h2 id="architecture"><a class="header" href="#architecture">Architecture</a></h2>
-<p>Mission Control is split into three module trees:</p>
-<div class="table-wrapper">
-<table>
-<thead>
-<tr><th>Layer</th><th>Path</th><th>Purpose</th></tr>
-</thead>
-<tbody>
-<tr><td>Data services</td><td><code>brain/mission_control/</code></td><td>Fetches inbox proposals, activity log, schedule items</td></tr>
-<tr><td>Panel renderers</td><td><code>tui/render/mission_control/</code></td><td>Draws each panel (inbox, activity, schedule, detail popup)</td></tr>
-<tr><td>App state + input</td><td><code>tui/app/mission_control/</code></td><td>Focus management, keystroke handling, actions</td></tr>
-</tbody>
-</table>
-</div>
-<p>Layout and keystroke contracts are unit-testable without spinning up a full <code>App</code> instance.</p>
-<h2 id="related"><a class="header" href="#related">Related</a></h2>
-<ul>
-<li><a href="./self-improvement.html">Self-Improvement (RSI)</a> — the engine that generates proposals</li>
-<li><a href="./skills.html">Skills System</a> — skills proposed by RSI land in the inbox</li>
-<li><a href="./dynamic-tools.html">Dynamic Tools</a> — what RSI tool proposals install into</li>
-<li><a href="../brain/commands.html">Custom Commands</a> — what RSI command proposals install into</li>
-<li><a href="./cron-jobs.html">Cron Jobs</a> — the schedule panel</li>
-</ul>
+<p>This runs before any network request, so malicious URLs never reach the fetcher.</p>
+<h2 id="js-shell-detection"><a class="header" href="#js-shell-detection">JS-Shell Detection</a></h2>
+<p>When a page returns mostly empty HTML with JS framework markers (React root, Vue app, Angular bootstrap, Svelte kit), <code>web_scrape</code> detects it as a JS shell and escalates to the browser manager if available. This avoids returning empty markdown for single-page applications that require JavaScript rendering.</p>
+<h2 id="image-handling"><a class="header" href="#image-handling">Image Handling</a></h2>
+<p>Images are preserved as <code>![alt](url)</code> markdown tags rather than being stripped. This lets the agent decide which images are worth visioning (via <code>analyze_image</code>) and which can be ignored, rather than losing all visual context.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../features/self-improvement.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../features/companion-tools.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="../features/profiles.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../development/building.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -310,11 +266,11 @@
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../features/self-improvement.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../features/companion-tools.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="../features/profiles.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../development/building.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>

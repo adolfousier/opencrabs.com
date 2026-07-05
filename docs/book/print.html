@@ -64,10 +64,10 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-e7621c10.js";
+            window.path_to_searchindex_js = "searchindex-28db2579.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-347fede7.js"></script>
+        <script src="toc-8265123e.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -208,7 +208,7 @@
                     <main>
                         <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
 <p><strong>OpenCrabs</strong> is a self-hosted, provider-agnostic AI orchestration agent that runs as a single Rust binary. It automates your terminal, browser, channels (Telegram/Discord/Slack/WhatsApp/Trello), and codebase, all while respecting your privacy and keeping you in control.</p>
-<p><strong>4,453+ tests</strong> across providers, tools, channels, TUI, self-healing, and browser automation.</p>
+<p><strong>4,563+ tests</strong> across providers, tools, channels, TUI, self-healing, and browser automation.</p>
 <h2 id="what-makes-opencrabs-different"><a class="header" href="#what-makes-opencrabs-different">What Makes OpenCrabs Different</a></h2>
 <h3 id="zero-telemetry-not-even-opt-in"><a class="header" href="#zero-telemetry-not-even-opt-in">Zero Telemetry, Not Even Opt-In</a></h3>
 <ul>
@@ -242,6 +242,8 @@
 <li><strong>Collapsible blocks</strong> — <code>&lt;details&gt;/&lt;summary&gt;</code> sections for long outputs</li>
 <li><strong>Forum topic session isolation</strong> — each topic in Telegram supergroups gets its own session</li>
 <li><strong>Telegram reactions</strong> — the bot reads inbound emoji reactions and can reply with a reaction instead of a message when that fits</li>
+<li><strong>Frame reactions (v0.3.61)</strong> — inbound reactions read by sentiment, agent addresses user by first name</li>
+<li><strong>Mid-turn reactions (v0.3.61)</strong> — a reaction during a running turn injects into the current loop instead of firing a second turn</li>
 <li><strong>Session inheritance</strong> — <code>/new</code> inherits the working directory from your most recent session</li>
 <li><strong><code>/goal</code> across all channels</strong> — set autonomous goals from Telegram, Discord, Slack, WhatsApp</li>
 <li><strong>Voice support</strong> — local Whisper STT + Piper TTS, fully offline</li>
@@ -260,21 +262,26 @@
 <li><strong>Context budget management</strong> — 65% soft / 90% hard compaction thresholds with LLM fallback</li>
 <li><strong>Stuck stream detection</strong> — 2048-byte rolling window catches repeating patterns</li>
 <li><strong>Gaslighting defense</strong> — strips tool-refusal preambles mid-turn</li>
+<li><strong>Deliver build outcomes (v0.3.61)</strong> — rebuild/evolve results reach whoever asked, across channels and TUI</li>
 </ul>
 <h3 id="terminal-ui"><a class="header" href="#terminal-ui">Terminal UI</a></h3>
 <ul>
 <li><strong>Native markdown rendering</strong> — emphasis, lists, links, and task items render directly in the terminal</li>
 <li><strong>Real-time tok/s throughput meter</strong> — live tokens-per-second during streaming</li>
+<li><strong>Group tool calls (v0.3.61)</strong> — consecutive tool calls collapse into one expandable block, keeping the TUI clean during multi-step operations</li>
+<li><strong>Fold intermediate text (v0.3.61)</strong> — intermediate processing text folds into the same in-place log as tool calls, so only the final answer stays visible</li>
 <li><strong>Session search</strong> — search filter + viewport scroll across all sessions</li>
 <li><strong>Split panes</strong> — tmux-style parallel sessions with layout persistence</li>
 <li><strong>Clipboard image paste</strong> — paste images from browser or any app directly into TUI</li>
 <li><strong>Plan pinning</strong> — active plan pinned at end of prompt each turn</li>
 <li><strong>Agent-driven onboarding</strong> — personalized first-time setup with guided flow</li>
 <li><strong><code>/goal</code> autonomous loop</strong> — set a goal and the agent loops until an LLM judge says it’s done, with pause/resume/status controls</li>
+<li><strong>Self-goaling (v0.3.61)</strong> — agent can set and drive its own multi-turn goals via <code>goal_manage</code> tool without user invoking <code>/goal</code></li>
 </ul>
 <h3 id="developer-experience"><a class="header" href="#developer-experience">Developer Experience</a></h3>
 <ul>
 <li><strong>50+ built-in tools</strong> — file ops, bash, web search, code execution, browser automation, image gen, voice, PDF rendering</li>
+<li><strong>web_scrape</strong> — native URL-to-markdown scraping with SSRF protection, sitemap crawling, JS-shell detection, and profile-aware export</li>
 <li><strong>Proactive tool discovery</strong> — agent finds tools before saying “I can’t”</li>
 <li><strong>Skills system</strong> — workflow templates with fuzzy-finding, auto-registered as slash commands</li>
 <li><strong>Dynamic tools</strong> — runtime-defined via TOML (HTTP + shell executors)</li>
@@ -2442,6 +2449,8 @@ respond_to = "all"                       # per-group override of the global resp
 <p>The bot understands Telegram emoji reactions in both directions:</p>
 <ul>
 <li><strong>Inbound</strong> — when a user reacts to one of the bot’s messages with an emoji, the bot picks up that reaction (it looks up the original bot message by its platform message ID) and can act on it as feedback.</li>
+<li><strong>Frame reactions (v0.3.61)</strong> — inbound reactions are read by sentiment and the bot addresses the user by first name in its response.</li>
+<li><strong>Mid-turn reactions (v0.3.61)</strong> — if a user reacts during a running turn, the reaction injects into the current loop instead of spawning a second turn.</li>
 <li><strong>Reaction-only replies</strong> — when a short acknowledgement says it all (a thumbs-up, a 👀, a 😂), the bot can respond with just a reaction instead of a full text message, keeping the chat uncluttered.</li>
 <li><strong>Emoji validation</strong> — only real emoji count as reaction directives; code spans and stray characters are ignored, and react directives are stripped from intermediate status messages so they never leak into the visible reply.</li>
 </ul>
@@ -2891,7 +2900,19 @@ session_idle_hours = 24.0               # idle timeout for non-owner sessions
 </thead>
 <tbody>
 <tr><td><code>web_search</code></td><td><code>query</code></td><td>Search the web (Brave Search)</td></tr>
+<tr><td><code>web_scrape</code></td><td><code>url</code></td><td>Native URL-to-markdown scraping with SSRF protection, sitemap crawling, JS-shell detection (v0.3.60)</td></tr>
 <tr><td><code>http_request</code></td><td><code>method</code>, <code>url</code>, <code>headers</code>, <code>body</code></td><td>Make HTTP requests</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="document-parsing"><a class="header" href="#document-parsing">Document Parsing</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Tool</th><th>Parameters</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>parse_document</code></td><td><code>path</code></td><td>Extract text from PDF, DOCX, XLSX, XLS, CSV, HTML, TXT, MD, JSON, XML (v0.3.61 added spreadsheet support)</td></tr>
 </tbody>
 </table>
 </div>
@@ -5315,6 +5336,8 @@ which rtk
 <li><strong>Check status</strong>: use <code>/goal status</code> to monitor progress on long-running goals</li>
 <li><strong>Pause when needed</strong>: <code>/goal pause</code> if you need the agent for something else</li>
 </ul>
+<h2 id="self-goaling-v0361"><a class="header" href="#self-goaling-v0361">Self-Goaling (v0.3.61)</a></h2>
+<p>The agent can also set and drive its own multi-turn goals autonomously via the <code>goal_manage</code> tool. This lets the agent break down a complex request into self-directed goal loops without the user needing to invoke <code>/goal</code> manually. The agent evaluates its own progress and adjusts course, the same way a user-set <code>/goal</code> loop works.</p>
 <h2 id="availability"><a class="header" href="#availability">Availability</a></h2>
 <p><code>/goal</code> works across <strong>all channels</strong>: TUI, Telegram, Discord, Slack, and WhatsApp. Set autonomous goals from wherever you talk to your agent.</p>
 <h2 id="when-to-use-goal-vs-btw-vs-plans"><a class="header" href="#when-to-use-goal-vs-btw-vs-plans">When to Use /goal vs /btw vs Plans</a></h2>
@@ -5398,6 +5421,49 @@ node dist/cli.js linkedin read &lt;post-url&gt;     # Read a specific post
 node dist/cli.js linkedin like &lt;post-url&gt;     # Like a post
 node dist/cli.js linkedin comment &lt;post-url&gt; "text" # Comment on post
 </code></pre>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="web-scraping"><a class="header" href="#web-scraping">Web Scraping</a></h1>
+<p>OpenCrabs includes a native URL-to-markdown scraping tool (<code>web_scrape</code>) that converts any web page into clean markdown. Zero AI cost, zero API tokens for the extraction itself. The agent uses <code>tool_search</code> to activate it on demand, keeping it out of the always-loaded core tool set.</p>
+<h2 id="how-it-works-7"><a class="header" href="#how-it-works-7">How It Works</a></h2>
+<p><code>web_scrape</code> follows a five-step pipeline:</p>
+<ol>
+<li><strong>Validate</strong> — SSRF guard rejects private IPs, localhost, loopback, link-local addresses, cloud metadata endpoints (169.254.169.254), and non-http(s) schemes</li>
+<li><strong>Fetch</strong> — <code>reqwest</code> with browser User-Agent and timeout. <code>is_js_shell</code> heuristic detects JS-heavy pages (React/Vue/Angular/Svelte shells, <code>&lt;div id="app"&gt;</code>, no <code>&lt;article&gt;</code>). Escalates to browser manager when available</li>
+<li><strong>Extract</strong> — CSS selector cascade (article, main, .content, etc.) isolates primary content from HTML, falling back to body with junk selectors (header, nav, sidebar, ads) removed</li>
+<li><strong>Clean</strong> — Language-agnostic HTML cleaner strips scripts, styles, inline handlers, HTML comments. Decodes entities, collapses blank lines</li>
+<li><strong>Convert</strong> — <code>htmd</code> converts cleaned HTML to markdown. <code>absolutize_urls</code> resolves relative src/href against page base URL. Images preserved as <code>![alt](url)</code> tags for selective agent vision</li>
+</ol>
+<h2 id="single-url-mode"><a class="header" href="#single-url-mode">Single URL Mode</a></h2>
+<p>Scrape a single URL and return the markdown content directly:</p>
+<pre><code>web_scrape https://example.com/page
+</code></pre>
+<p>The agent receives the markdown in its context, ready for analysis, summarisation, or extraction.</p>
+<h2 id="sitemap-mode"><a class="header" href="#sitemap-mode">Sitemap Mode</a></h2>
+<p>Discover and crawl an entire site via its sitemap:</p>
+<pre><code>web_scrape https://example.com --sitemap
+</code></pre>
+<p>This discovers <code>/sitemap.xml</code>, <code>/sitemap_index.xml</code>, and common variations. Recursively crawls sitemap indexes (iterative worklist, 1000-URL cap, 3 levels deep). Returns the URL list for the agent to pick from.</p>
+<p>Each page’s markdown is exported to a directory. The output path resolves to the project files directory if the session is assigned to a project, or the profile-scoped OpenCrabs home otherwise. Files never land outside managed workspace.</p>
+<h2 id="ssrf-protection"><a class="header" href="#ssrf-protection">SSRF Protection</a></h2>
+<p>The SSRF guard uses <code>url::Host</code> enum classification to properly handle:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Blocked</th><th>Reason</th></tr>
+</thead>
+<tbody>
+<tr><td>Private IPs (10.x, 172.16-31.x, 192.168.x)</td><td>Internal network</td></tr>
+<tr><td>Localhost (127.0.0.1, ::1)</td><td>Local services</td></tr>
+<tr><td>Link-local (169.254.x.x)</td><td>Cloud metadata, DHCP</td></tr>
+<tr><td>Non-http(s) schemes</td><td>file://, ftp://, gopher://</td></tr>
+</tbody>
+</table>
+</div>
+<p>This runs before any network request, so malicious URLs never reach the fetcher.</p>
+<h2 id="js-shell-detection"><a class="header" href="#js-shell-detection">JS-Shell Detection</a></h2>
+<p>When a page returns mostly empty HTML with JS framework markers (React root, Vue app, Angular bootstrap, Svelte kit), <code>web_scrape</code> detects it as a JS shell and escalates to the browser manager if available. This avoids returning empty markdown for single-page applications that require JavaScript rendering.</p>
+<h2 id="image-handling"><a class="header" href="#image-handling">Image Handling</a></h2>
+<p>Images are preserved as <code>![alt](url)</code> markdown tags rather than being stripped. This lets the agent decide which images are worth visioning (via <code>analyze_image</code>) and which can be ignored, rather than losing all visual context.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="building-from-source-1"><a class="header" href="#building-from-source-1">Building from Source</a></h1>
 <h2 id="prerequisites"><a class="header" href="#prerequisites">Prerequisites</a></h2>

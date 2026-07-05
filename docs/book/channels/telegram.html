@@ -63,10 +63,10 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-e7621c10.js";
+            window.path_to_searchindex_js = "../searchindex-28db2579.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-347fede7.js"></script>
+        <script src="../toc-8265123e.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -342,6 +342,8 @@ respond_to = "all"                       # per-group override of the global resp
 <p>The bot understands Telegram emoji reactions in both directions:</p>
 <ul>
 <li><strong>Inbound</strong> — when a user reacts to one of the bot’s messages with an emoji, the bot picks up that reaction (it looks up the original bot message by its platform message ID) and can act on it as feedback.</li>
+<li><strong>Frame reactions (v0.3.61)</strong> — inbound reactions are read by sentiment and the bot addresses the user by first name in its response.</li>
+<li><strong>Mid-turn reactions (v0.3.61)</strong> — if a user reacts during a running turn, the reaction injects into the current loop instead of spawning a second turn.</li>
 <li><strong>Reaction-only replies</strong> — when a short acknowledgement says it all (a thumbs-up, a 👀, a 😂), the bot can respond with just a reaction instead of a full text message, keeping the chat uncluttered.</li>
 <li><strong>Emoji validation</strong> — only real emoji count as reaction directives; code spans and stray characters are ignored, and react directives are stripped from intermediate status messages so they never leak into the visible reply.</li>
 </ul>
