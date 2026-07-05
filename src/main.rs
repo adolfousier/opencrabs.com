@@ -449,7 +449,7 @@ fn Features() -> impl IntoView {
         (
             "💬",
             "Any Chat App",
-            "Talk to it on Telegram, Discord, Slack, WhatsApp, or Trello. Native rich message rendering with tables, lists, code blocks, math. Draft message streaming shows live \"typing...\" updates as tokens generate. Collapsible <details>/<summary> blocks for long outputs. Forum topic session isolation gives each topic its own context. Telegram reactions: reads inbound emoji reactions and replies with just a reaction when that fits. /cowork workspaces, /rename sessions, instant fast-cancel on /stop. /cd directory browser with auto project assignment. /new inherits the working directory from your most recent session. /profiles command for managing AI profiles. Owner impersonation detection in group chats. Session search across all channels. Works in DMs and group chats with persistent sessions. Or just use the TUI.",
+            "Talk to it on Telegram, Discord, Slack, WhatsApp, or Trello. Native rich message rendering with tables, lists, code blocks, math. Draft message streaming shows live \"typing...\" updates as tokens generate. Collapsible <details>/<summary> blocks for long outputs. Forum topic session isolation gives each topic its own context. Telegram reactions: reads inbound emoji by sentiment, addresses you by first name, and replies with just a reaction when that fits. Mid-turn reactions inject into the running loop instead of spawning a second turn. /cowork workspaces, /rename sessions, instant fast-cancel on /stop. /cd directory browser with auto project assignment. /new inherits the working directory from your most recent session. /profiles command for managing AI profiles. Owner impersonation detection in group chats. Session search across all channels. Works in DMs and group chats with persistent sessions. Or just use the TUI.",
         ),
         (
             "🧠",
@@ -459,17 +459,17 @@ fn Features() -> impl IntoView {
         (
             "⚡",
             "50+ Built-in Tools",
-            "File ops, bash, web search, code execution, image gen, browser automation, local voice STT & TTS, PDF rendering, sub-agent orchestration. Proactive tool discovery — agent searches for tools before claiming inability. JIT activation for extended tools on-demand. Auto-download RTK for 10x token savings on 100+ commands. Define custom tools at runtime. Race-free multi-image pickup from any channel. Tool registry shared across all entry points so startup tools are available everywhere. Malformed tools.toml surfaces parse errors instead of silently dropping every tool. last_good .bak snapshot auto-creates on every write with fallback recovery.",
+            "File ops, bash, web search, web_scrape (native URL-to-markdown with SSRF guard and sitemap crawling), code execution, image gen, browser automation, local voice STT & TTS, PDF rendering, spreadsheet parsing (XLSX/XLS/CSV), sub-agent orchestration. Proactive tool discovery — agent searches for tools before claiming inability. JIT activation for extended tools on-demand. Auto-download RTK for 10x token savings on 100+ commands. Define custom tools at runtime. Race-free multi-image pickup from any channel. Tool registry shared across all entry points so startup tools are available everywhere. Malformed tools.toml surfaces parse errors instead of silently dropping every tool. last_good .bak snapshot auto-creates on every write with fallback recovery.",
         ),
         (
             "🪟",
             "Split Panes",
-            "Tmux-style horizontal and vertical pane splitting. Run 10 sessions side by side, each with its own provider and context. All processing in parallel. Native markdown rendering: emphasis, lists, links, and task items render directly in the terminal.",
+            "Tmux-style horizontal and vertical pane splitting. Run 10 sessions side by side, each with its own provider and context. All processing in parallel. Native markdown rendering: emphasis, lists, links, and task items render directly in the terminal. Group tool calls: consecutive calls collapse into one expandable block. Intermediate processing text folds in-place so only the final answer stays visible.",
         ),
         (
             "🔄",
             "/goal — Autonomous Goal Loop",
-            "Set a goal with /goal <text> and the agent loops autonomously: executing, self-evaluating with an LLM judge, and continuing with a correction prompt until the goal is satisfied or the turn budget runs out. Supports /goal pause, /goal resume, /goal status, and /goal clear. Works across TUI, Telegram, Discord, Slack, and WhatsApp. Fully hands-off task execution.",
+            "Set a goal with /goal <text> and the agent loops autonomously: executing, self-evaluating with an LLM judge, and continuing with a correction prompt until the goal is satisfied or the turn budget runs out. Self-goaling: agent can set and drive its own multi-turn goals via goal_manage without you invoking /goal. Supports /goal pause, /goal resume, /goal status, and /goal clear. Works across TUI, Telegram, Discord, Slack, and WhatsApp. Fully hands-off task execution.",
         ),
         (
             "🎯",
