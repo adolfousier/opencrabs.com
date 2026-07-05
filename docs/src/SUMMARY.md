@@ -52,6 +52,7 @@
 - [RTK — Token Savings](./features/rtk.md)
 - [/goal — Autonomous Goal Loop](./features/goal.md)
 - [Companion Tools](./features/companion-tools.md)
+- [Web Scraping](./features/web-scrape.md)
 
 # Development
 
