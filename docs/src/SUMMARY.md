@@ -53,6 +53,7 @@
 - [/goal — Autonomous Goal Loop](./features/goal.md)
 - [Companion Tools](./features/companion-tools.md)
 - [Web Scraping](./features/web-scrape.md)
+- [Document Generation](./features/document-generation.md)
 
 # Development
 
