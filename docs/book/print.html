@@ -64,10 +64,10 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-28db2579.js";
+            window.path_to_searchindex_js = "searchindex-8e7a9e3a.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-8265123e.js"></script>
+        <script src="toc-29cc538f.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -208,7 +208,7 @@
                     <main>
                         <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
 <p><strong>OpenCrabs</strong> is a self-hosted, provider-agnostic AI orchestration agent that runs as a single Rust binary. It automates your terminal, browser, channels (Telegram/Discord/Slack/WhatsApp/Trello), and codebase, all while respecting your privacy and keeping you in control.</p>
-<p><strong>4,563+ tests</strong> across providers, tools, channels, TUI, self-healing, and browser automation.</p>
+<p><strong>4,680+ tests</strong> across providers, tools, channels, TUI, self-healing, and browser automation.</p>
 <h2 id="what-makes-opencrabs-different"><a class="header" href="#what-makes-opencrabs-different">What Makes OpenCrabs Different</a></h2>
 <h3 id="zero-telemetry-not-even-opt-in"><a class="header" href="#zero-telemetry-not-even-opt-in">Zero Telemetry, Not Even Opt-In</a></h3>
 <ul>
@@ -795,6 +795,8 @@ auto_update = true                  # auto-install releases on startup
 silent_compaction = false           # suppress post-compaction personality narration
 lazy_tools = true                   # JIT tool-schema loading (ships core + tool_search only)
 redact_sensitive_data = true        # redact API keys, tokens, passwords, IPs from output
+default_provider = "minimax"        # fallback provider when no provider is active (v0.3.62)
+default_model = "MiniMax-M2.7"      # fallback model when no model is active (v0.3.62)
 </code></pre>
 <div class="table-wrapper">
 <table>
@@ -812,6 +814,8 @@ redact_sensitive_data = true        # redact API keys, tokens, passwords, IPs fr
 <tr><td><code>silent_compaction</code></td><td><code>false</code></td><td>When true, suppresses the agent’s playful post-compaction narration. Useful for corporate/formal deployments</td></tr>
 <tr><td><code>lazy_tools</code></td><td><code>true</code></td><td>Ships only core tool schemas (~4k tokens) plus <code>tool_search</code> per request. The agent discovers and activates extended tools on demand via <code>tool_search</code>. Set <code>false</code> to load all ~95 schemas every request</td></tr>
 <tr><td><code>redact_sensitive_data</code></td><td><code>true</code></td><td>Redacts API keys, tokens, passwords, and IPs from tool outputs and display. Set <code>false</code> during sysadmin/devops work where seeing IPs/tokens/passwords is necessary</td></tr>
+<tr><td><code>default_provider</code></td><td><code>None</code> (uses active provider)</td><td>Fallback provider when no provider is active in the current session. Also used for cron jobs without an explicit provider (v0.3.62)</td></tr>
+<tr><td><code>default_model</code></td><td><code>None</code> (uses active model)</td><td>Fallback model when no model is active in the current session. Also used for cron jobs without an explicit model (v0.3.62)</td></tr>
 </tbody>
 </table>
 </div>
@@ -1102,6 +1106,7 @@ model = "gemini-3.1-flash-image-preview"
 [image.vision]
 enabled = true
 model = "gemini-3.1-flash-image-preview"
+provider = "openrouter"           # bypasses enabled gate for vision-only providers (v0.3.63)
 </code></pre>
 <div class="table-wrapper">
 <table>
@@ -1113,6 +1118,7 @@ model = "gemini-3.1-flash-image-preview"
 <tr><td><code>image.generation</code></td><td><code>model</code></td><td><code>"gemini-3.1-flash-image-preview"</code></td><td>Model for image generation</td></tr>
 <tr><td><code>image.vision</code></td><td><code>enabled</code></td><td><code>false</code></td><td>Enable vision analysis via the <code>analyze_image</code> tool</td></tr>
 <tr><td><code>image.vision</code></td><td><code>model</code></td><td><code>"gemini-3.1-flash-image-preview"</code></td><td>Model for image/vision analysis</td></tr>
+<tr><td><code>image.vision</code></td><td><code>provider</code></td><td><code>None</code> (auto-detect)</td><td>Dedicated provider for vision. Bypasses the enabled gate so you can use a vision-only provider without enabling it for general chat (v0.3.63)</td></tr>
 </tbody>
 </table>
 </div>
@@ -2465,6 +2471,16 @@ respond_to = "all"                       # per-group override of the global resp
 <li>Members auto-register to the <strong>group’s allow list</strong> (<code>[channels.telegram.groups.&lt;chat_id&gt;].allowed_users</code>), not the global one. Both new joiners (via invite link) and existing members (on their first message) get registered. Cowork members can talk in the group but cannot DM the bot privately unless also on the global <code>allowed_users</code>. The owner gets a confirmation for each registration.</li>
 </ol>
 <p><code>/cowork</code> works from any surface. In Telegram DMs, the native flow activates directly. From the TUI, Discord, Slack, or WhatsApp, the agent calls the <code>cowork_connect</code> tool which mints a session, registers it with the bot, and returns the <code>t.me</code> deep link plus a scannable QR code PNG.</p>
+<h2 id="flow-logs-v0363"><a class="header" href="#flow-logs-v0363">Flow Logs (v0.3.63)</a></h2>
+<p>Telegram’s rich API supports 32K-character processing-log blocks. When the agent runs multi-step operations (tool calls, research, code generation), it streams progress into a single flow-log message that grows as the turn progresses. For shorter messages, HTML formatting falls back to plain text.</p>
+<p>Flow logs show:</p>
+<ul>
+<li>Tool calls with parameters and results</li>
+<li>Intermediate reasoning steps</li>
+<li>File edits and git operations</li>
+<li>Build/test progress</li>
+</ul>
+<p>The flow-log message is edited in-place as each step completes, so the channel stays clean. Users see real-time progress without message spam.</p>
 <h2 id="group-chat-behavior"><a class="header" href="#group-chat-behavior">Group Chat Behavior</a></h2>
 <p>In groups, the agent:</p>
 <ul>
@@ -2546,12 +2562,28 @@ session_idle_hours = 24.0               # idle timeout for non-owner sessions
 <h2 id="features-1"><a class="header" href="#features-1">Features</a></h2>
 <ul>
 <li><strong>Server channels and DMs</strong> — Works in text channels and direct messages</li>
-<li><strong>Button interactions</strong> — Provider picker, model picker, session switcher use Discord buttons</li>
+<li><strong>Interactive components</strong> — Select menus, modal forms, button interactions with component TTL and role access</li>
+<li><strong>Media gallery</strong> — Batch generated files into one multi-attachment message</li>
+<li><strong>Grouped tool calls</strong> — Consecutive tool calls collapse into one expandable block with Expand/Collapse toggle</li>
+<li><strong>Reactions</strong> — Agent can add emoji reactions to messages. Emoji reactions from users trigger agent turns (parity with Slack/Telegram)</li>
+<li><strong>Forum threads</strong> — Support for Discord forum channels</li>
 <li><strong>Image support</strong> — Send and receive images</li>
 <li><strong>Embed suppression</strong> — Agent wraps multiple links in <code>&lt;&gt;</code> to suppress embeds</li>
 <li><strong>Slash commands</strong> — All built-in and custom commands work</li>
-<li><strong>Reactions</strong> — Agent can add emoji reactions to messages</li>
 </ul>
+<h3 id="interactive-components-v0363"><a class="header" href="#interactive-components-v0363">Interactive Components (v0.3.63)</a></h3>
+<p>Discord buttons, select menus, and modal forms power the provider picker, model picker, and session switcher. Components support:</p>
+<ul>
+<li><strong>Component TTL</strong> — Components expire after a configurable timeout</li>
+<li><strong>Role access</strong> — Restrict component interactions to specific Discord roles</li>
+<li><strong>Forum threads</strong> — Agent can create and manage forum threads</li>
+</ul>
+<h3 id="media-gallery-v0363"><a class="header" href="#media-gallery-v0363">Media Gallery (v0.3.63)</a></h3>
+<p>When the agent generates multiple files (PDFs, spreadsheets, images), Discord batches them into one multi-attachment message instead of sending separate messages for each file.</p>
+<h3 id="grouped-tool-calls-v0363"><a class="header" href="#grouped-tool-calls-v0363">Grouped Tool Calls (v0.3.63)</a></h3>
+<p>Consecutive tool calls collapse into a single expandable block in Discord. Users can toggle between expanded and collapsed views. This keeps the channel clean during multi-step operations.</p>
+<h3 id="reactions-v0363"><a class="header" href="#reactions-v0363">Reactions (v0.3.63)</a></h3>
+<p>The agent can add emoji reactions to messages. When a user reacts with an emoji, it triggers an agent turn (parity with Slack and Telegram). This enables quick, lightweight interactions without typing full messages.</p>
 <h2 id="formatting-notes"><a class="header" href="#formatting-notes">Formatting Notes</a></h2>
 <ul>
 <li>No markdown tables in Discord — use bullet lists instead</li>
@@ -2635,9 +2667,14 @@ session_idle_hours = 24.0               # idle timeout for non-owner sessions
 <li><strong>Action buttons</strong> — Provider picker, model picker, session switcher use Slack action buttons</li>
 <li><strong>Thread support</strong> — Responds in threads when appropriate</li>
 <li><strong>Slash commands</strong> — All built-in and custom commands work</li>
-<li><strong>Reactions</strong> — Agent can add emoji reactions</li>
+<li><strong>Reactions</strong> — Agent can add emoji reactions. Emoji reactions from users trigger agent turns (react-back)</li>
+<li><strong>Grouped tool calls</strong> — Consecutive tool calls collapse into one edited-in-place message with Expand/Collapse toggle</li>
 <li><strong>TTS voice replies</strong> — Voice responses sent as OGG/Opus files via <code>files.upload</code> with inline waveform UI</li>
 </ul>
+<h3 id="grouped-tool-calls-v0362"><a class="header" href="#grouped-tool-calls-v0362">Grouped Tool Calls (v0.3.62)</a></h3>
+<p>Consecutive tool calls collapse into a single message in Slack. The message is edited in-place as each tool executes. Users can toggle between expanded and collapsed views with an Expand/Collapse button. This keeps channels clean during multi-step operations.</p>
+<h3 id="reactions-v0362"><a class="header" href="#reactions-v0362">Reactions (v0.3.62)</a></h3>
+<p>The agent can add emoji reactions to messages. When a user reacts with an emoji, it triggers an agent turn (react-back). This enables quick, lightweight interactions without typing full messages. Parity with Telegram and Discord.</p>
 <h2 id="socket-mode"><a class="header" href="#socket-mode">Socket Mode</a></h2>
 <p>Slack uses Socket Mode (WebSocket) instead of HTTP webhooks — no public URL or ngrok needed. The connection is outbound from your machine.</p>
 <div style="break-before: page; page-break-before: always;"></div>
@@ -2913,6 +2950,17 @@ session_idle_hours = 24.0               # idle timeout for non-owner sessions
 </thead>
 <tbody>
 <tr><td><code>parse_document</code></td><td><code>path</code></td><td>Extract text from PDF, DOCX, XLSX, XLS, CSV, HTML, TXT, MD, JSON, XML (v0.3.61 added spreadsheet support)</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="document-generation"><a class="header" href="#document-generation">Document Generation</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Tool</th><th>Parameters</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>generate_document</code></td><td><code>format</code>, <code>content</code>, <code>style</code></td><td>Generate PDF, DOCX, XLSX, PPTX natively. Brand colors, logos, image blocks, live Excel formulas. Files delivered as channel attachments (v0.3.62)</td></tr>
 </tbody>
 </table>
 </div>
@@ -5156,6 +5204,9 @@ Instructions for the agent when this skill runs...
 </tbody>
 </table>
 </div>
+<h2 id="provider-and-model-breakdown-v0363"><a class="header" href="#provider-and-model-breakdown-v0363">Provider and Model Breakdown (v0.3.63)</a></h2>
+<p>The <code>/usage</code> command now shows per-provider and per-model cost breakdowns with period filters. This helps identify which providers or models are driving costs and optimize your usage accordingly.</p>
+<p>Use the time filters (T/W/M/A) to scope the breakdown to specific periods. The By Model panel already shows provider + model name, but the new breakdown provides aggregated views for quick cost analysis.</p>
 <h2 id="navigation-1"><a class="header" href="#navigation-1">Navigation</a></h2>
 <div class="table-wrapper">
 <table>
@@ -5464,6 +5515,46 @@ node dist/cli.js linkedin comment &lt;post-url&gt; "text" # Comment on post
 <p>When a page returns mostly empty HTML with JS framework markers (React root, Vue app, Angular bootstrap, Svelte kit), <code>web_scrape</code> detects it as a JS shell and escalates to the browser manager if available. This avoids returning empty markdown for single-page applications that require JavaScript rendering.</p>
 <h2 id="image-handling"><a class="header" href="#image-handling">Image Handling</a></h2>
 <p>Images are preserved as <code>![alt](url)</code> markdown tags rather than being stripped. This lets the agent decide which images are worth visioning (via <code>analyze_image</code>) and which can be ignored, rather than losing all visual context.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="document-generation-1"><a class="header" href="#document-generation-1">Document Generation</a></h1>
+<p>OpenCrabs writes real documents, not just text files. The built-in <code>generate_document</code> tool creates XLSX, DOCX, and PDF natively inside the binary (no Python, no LibreOffice, no font installs), and PPTX through <code>python-pptx</code> when the host has it. On channels the agent sends the finished file back as a downloadable attachment in the same turn.</p>
+<h2 id="supported-formats"><a class="header" href="#supported-formats">Supported Formats</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Format</th><th>Engine</th><th>Content</th><th>Styling</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>XLSX</strong></td><td>Native Rust (<code>rust_xlsxwriter</code>)</td><td>Multiple sheets, rows of typed cells; any cell starting with <code>=</code> becomes a <strong>live Excel formula</strong> that recalculates when the user edits the file</td><td>Colored header row, zebra striping, frozen header, autofilter dropdowns, colored sheet tabs, per-column number formats (<code>currency</code>, <code>percent</code>, <code>date</code>, <code>integer</code>, or raw Excel codes)</td></tr>
+<tr><td><strong>DOCX</strong></td><td>Native Rust (<code>docx-rs</code>)</td><td>Headings (real Word styles, navigation pane works), paragraphs, bullet/numbered lists (real numbering), tables, <strong>image blocks</strong> (inline PNG/JPEG with optional caption)</td><td>Accent-colored headings, page header/footer on every page, shaded table headers, zebra rows</td></tr>
+<tr><td><strong>PDF</strong></td><td>Native Rust (<code>printpdf</code> + bundled DejaVu Sans)</td><td>Same block model as DOCX; A4 flow with word wrap, page breaks, content-sized table columns with header separators and row rules; <strong>image blocks</strong> (inline PNG/JPEG with aspect-preserving sizing and optional caption); real Unicode text (accents, Cyrillic, arrows, checkmarks)</td><td>Brand accent + text colors, H1 underline bar, page header with <strong>logo image</strong> (local PNG/JPEG), footer with exact <code>Page N of M</code>, zebra tables</td></tr>
+<tr><td><strong>PPTX</strong></td><td>Host <code>python-pptx</code> (clear install hint when missing)</td><td>Slides with title, bullets, speaker notes</td><td><strong>Brand template</strong>: build slides into an existing <code>.pptx</code> so they inherit the company master (logos, fonts, backgrounds); accent-colored titles; per-slide layout choice</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="how-it-works-8"><a class="header" href="#how-it-works-8">How It Works</a></h2>
+<p>Everything is driven by one structured tool call, so it works with any provider including local models. All styling defaults off; bad colors or a missing logo degrade to the plain look instead of failing the document.</p>
+<p>The tool accepts:</p>
+<ul>
+<li><strong>Format</strong> (xlsx, docx, pdf, pptx)</li>
+<li><strong>Content blocks</strong> (headings, paragraphs, lists, tables, image blocks)</li>
+<li><strong>Style configuration</strong> (brand colors, logos, page furniture)</li>
+</ul>
+<h2 id="image-blocks"><a class="header" href="#image-blocks">Image Blocks</a></h2>
+<p>PDF and DOCX support embedding PNG and JPEG images inline with optional captions. Images are sized to fit the page while preserving aspect ratio.</p>
+<h2 id="brand-templates"><a class="header" href="#brand-templates">Brand Templates</a></h2>
+<p>For PPTX, you can point the tool at an existing <code>.pptx</code> file to inherit the company master (logos, fonts, backgrounds). Each slide gets a layout choice and accent-colored titles.</p>
+<h2 id="delivery"><a class="header" href="#delivery">Delivery</a></h2>
+<p>On Telegram, WhatsApp, Discord, and Slack, generated documents are sent as downloadable attachments in the same turn the tool was called. No separate “here’s your file” message needed.</p>
+<h2 id="examples-2"><a class="header" href="#examples-2">Examples</a></h2>
+<p>Ask the agent:</p>
+<ul>
+<li>“Create a PDF report with these sales figures”</li>
+<li>“Generate an Excel spreadsheet with formulas for monthly totals”</li>
+<li>“Make a Word document with this content and our company logo”</li>
+<li>“Build a PowerPoint presentation from these bullet points”</li>
+</ul>
+<p>The agent handles formatting, styling, and delivery automatically.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="building-from-source-1"><a class="header" href="#building-from-source-1">Building from Source</a></h1>
 <h2 id="prerequisites"><a class="header" href="#prerequisites">Prerequisites</a></h2>

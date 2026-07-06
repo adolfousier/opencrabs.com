@@ -63,10 +63,10 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-28db2579.js";
+            window.path_to_searchindex_js = "../searchindex-8e7a9e3a.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-8265123e.js"></script>
+        <script src="../toc-29cc538f.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -358,6 +358,16 @@ respond_to = "all"                       # per-group override of the global resp
 <li>Members auto-register to the <strong>group’s allow list</strong> (<code>[channels.telegram.groups.&lt;chat_id&gt;].allowed_users</code>), not the global one. Both new joiners (via invite link) and existing members (on their first message) get registered. Cowork members can talk in the group but cannot DM the bot privately unless also on the global <code>allowed_users</code>. The owner gets a confirmation for each registration.</li>
 </ol>
 <p><code>/cowork</code> works from any surface. In Telegram DMs, the native flow activates directly. From the TUI, Discord, Slack, or WhatsApp, the agent calls the <code>cowork_connect</code> tool which mints a session, registers it with the bot, and returns the <code>t.me</code> deep link plus a scannable QR code PNG.</p>
+<h2 id="flow-logs-v0363"><a class="header" href="#flow-logs-v0363">Flow Logs (v0.3.63)</a></h2>
+<p>Telegram’s rich API supports 32K-character processing-log blocks. When the agent runs multi-step operations (tool calls, research, code generation), it streams progress into a single flow-log message that grows as the turn progresses. For shorter messages, HTML formatting falls back to plain text.</p>
+<p>Flow logs show:</p>
+<ul>
+<li>Tool calls with parameters and results</li>
+<li>Intermediate reasoning steps</li>
+<li>File edits and git operations</li>
+<li>Build/test progress</li>
+</ul>
+<p>The flow-log message is edited in-place as each step completes, so the channel stays clean. Users see real-time progress without message spam.</p>
 <h2 id="group-chat-behavior"><a class="header" href="#group-chat-behavior">Group Chat Behavior</a></h2>
 <p>In groups, the agent:</p>
 <ul>

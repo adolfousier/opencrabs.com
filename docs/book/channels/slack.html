@@ -63,10 +63,10 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-28db2579.js";
+            window.path_to_searchindex_js = "../searchindex-8e7a9e3a.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-8265123e.js"></script>
+        <script src="../toc-29cc538f.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -282,9 +282,14 @@ session_idle_hours = 24.0               # idle timeout for non-owner sessions
 <li><strong>Action buttons</strong> — Provider picker, model picker, session switcher use Slack action buttons</li>
 <li><strong>Thread support</strong> — Responds in threads when appropriate</li>
 <li><strong>Slash commands</strong> — All built-in and custom commands work</li>
-<li><strong>Reactions</strong> — Agent can add emoji reactions</li>
+<li><strong>Reactions</strong> — Agent can add emoji reactions. Emoji reactions from users trigger agent turns (react-back)</li>
+<li><strong>Grouped tool calls</strong> — Consecutive tool calls collapse into one edited-in-place message with Expand/Collapse toggle</li>
 <li><strong>TTS voice replies</strong> — Voice responses sent as OGG/Opus files via <code>files.upload</code> with inline waveform UI</li>
 </ul>
+<h3 id="grouped-tool-calls-v0362"><a class="header" href="#grouped-tool-calls-v0362">Grouped Tool Calls (v0.3.62)</a></h3>
+<p>Consecutive tool calls collapse into a single message in Slack. The message is edited in-place as each tool executes. Users can toggle between expanded and collapsed views with an Expand/Collapse button. This keeps channels clean during multi-step operations.</p>
+<h3 id="reactions-v0362"><a class="header" href="#reactions-v0362">Reactions (v0.3.62)</a></h3>
+<p>The agent can add emoji reactions to messages. When a user reacts with an emoji, it triggers an agent turn (react-back). This enables quick, lightweight interactions without typing full messages. Parity with Telegram and Discord.</p>
 <h2 id="socket-mode"><a class="header" href="#socket-mode">Socket Mode</a></h2>
 <p>Slack uses Socket Mode (WebSocket) instead of HTTP webhooks — no public URL or ngrok needed. The connection is outbound from your machine.</p>
 

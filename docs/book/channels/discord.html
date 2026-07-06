@@ -63,10 +63,10 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-28db2579.js";
+            window.path_to_searchindex_js = "../searchindex-8e7a9e3a.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-8265123e.js"></script>
+        <script src="../toc-29cc538f.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -278,12 +278,28 @@ session_idle_hours = 24.0               # idle timeout for non-owner sessions
 <h2 id="features"><a class="header" href="#features">Features</a></h2>
 <ul>
 <li><strong>Server channels and DMs</strong> — Works in text channels and direct messages</li>
-<li><strong>Button interactions</strong> — Provider picker, model picker, session switcher use Discord buttons</li>
+<li><strong>Interactive components</strong> — Select menus, modal forms, button interactions with component TTL and role access</li>
+<li><strong>Media gallery</strong> — Batch generated files into one multi-attachment message</li>
+<li><strong>Grouped tool calls</strong> — Consecutive tool calls collapse into one expandable block with Expand/Collapse toggle</li>
+<li><strong>Reactions</strong> — Agent can add emoji reactions to messages. Emoji reactions from users trigger agent turns (parity with Slack/Telegram)</li>
+<li><strong>Forum threads</strong> — Support for Discord forum channels</li>
 <li><strong>Image support</strong> — Send and receive images</li>
 <li><strong>Embed suppression</strong> — Agent wraps multiple links in <code>&lt;&gt;</code> to suppress embeds</li>
 <li><strong>Slash commands</strong> — All built-in and custom commands work</li>
-<li><strong>Reactions</strong> — Agent can add emoji reactions to messages</li>
 </ul>
+<h3 id="interactive-components-v0363"><a class="header" href="#interactive-components-v0363">Interactive Components (v0.3.63)</a></h3>
+<p>Discord buttons, select menus, and modal forms power the provider picker, model picker, and session switcher. Components support:</p>
+<ul>
+<li><strong>Component TTL</strong> — Components expire after a configurable timeout</li>
+<li><strong>Role access</strong> — Restrict component interactions to specific Discord roles</li>
+<li><strong>Forum threads</strong> — Agent can create and manage forum threads</li>
+</ul>
+<h3 id="media-gallery-v0363"><a class="header" href="#media-gallery-v0363">Media Gallery (v0.3.63)</a></h3>
+<p>When the agent generates multiple files (PDFs, spreadsheets, images), Discord batches them into one multi-attachment message instead of sending separate messages for each file.</p>
+<h3 id="grouped-tool-calls-v0363"><a class="header" href="#grouped-tool-calls-v0363">Grouped Tool Calls (v0.3.63)</a></h3>
+<p>Consecutive tool calls collapse into a single expandable block in Discord. Users can toggle between expanded and collapsed views. This keeps the channel clean during multi-step operations.</p>
+<h3 id="reactions-v0363"><a class="header" href="#reactions-v0363">Reactions (v0.3.63)</a></h3>
+<p>The agent can add emoji reactions to messages. When a user reacts with an emoji, it triggers an agent turn (parity with Slack and Telegram). This enables quick, lightweight interactions without typing full messages.</p>
 <h2 id="formatting-notes"><a class="header" href="#formatting-notes">Formatting Notes</a></h2>
 <ul>
 <li>No markdown tables in Discord — use bullet lists instead</li>
