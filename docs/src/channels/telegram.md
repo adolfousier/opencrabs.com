@@ -160,6 +160,18 @@ Use the `set_reaction` action on `telegram_send` to add a reaction to a specific
 
 `/cowork` works from any surface. In Telegram DMs, the native flow activates directly. From the TUI, Discord, Slack, or WhatsApp, the agent calls the `cowork_connect` tool which mints a session, registers it with the bot, and returns the `t.me` deep link plus a scannable QR code PNG.
 
+## Flow Logs (v0.3.63)
+
+Telegram's rich API supports 32K-character processing-log blocks. When the agent runs multi-step operations (tool calls, research, code generation), it streams progress into a single flow-log message that grows as the turn progresses. For shorter messages, HTML formatting falls back to plain text.
+
+Flow logs show:
+- Tool calls with parameters and results
+- Intermediate reasoning steps
+- File edits and git operations
+- Build/test progress
+
+The flow-log message is edited in-place as each step completes, so the channel stays clean. Users see real-time progress without message spam.
+
 ## Group Chat Behavior
 
 In groups, the agent:
