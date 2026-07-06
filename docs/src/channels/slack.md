@@ -77,8 +77,17 @@ session_idle_hours = 24.0               # idle timeout for non-owner sessions
 - **Action buttons** — Provider picker, model picker, session switcher use Slack action buttons
 - **Thread support** — Responds in threads when appropriate
 - **Slash commands** — All built-in and custom commands work
-- **Reactions** — Agent can add emoji reactions
+- **Reactions** — Agent can add emoji reactions. Emoji reactions from users trigger agent turns (react-back)
+- **Grouped tool calls** — Consecutive tool calls collapse into one edited-in-place message with Expand/Collapse toggle
 - **TTS voice replies** — Voice responses sent as OGG/Opus files via `files.upload` with inline waveform UI
+
+### Grouped Tool Calls (v0.3.62)
+
+Consecutive tool calls collapse into a single message in Slack. The message is edited in-place as each tool executes. Users can toggle between expanded and collapsed views with an Expand/Collapse button. This keeps channels clean during multi-step operations.
+
+### Reactions (v0.3.62)
+
+The agent can add emoji reactions to messages. When a user reacts with an emoji, it triggers an agent turn (react-back). This enables quick, lightweight interactions without typing full messages. Parity with Telegram and Discord.
 
 ## Socket Mode
 
