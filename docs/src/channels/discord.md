@@ -72,11 +72,33 @@ session_idle_hours = 24.0               # idle timeout for non-owner sessions
 ## Features
 
 - **Server channels and DMs** — Works in text channels and direct messages
-- **Button interactions** — Provider picker, model picker, session switcher use Discord buttons
+- **Interactive components** — Select menus, modal forms, button interactions with component TTL and role access
+- **Media gallery** — Batch generated files into one multi-attachment message
+- **Grouped tool calls** — Consecutive tool calls collapse into one expandable block with Expand/Collapse toggle
+- **Reactions** — Agent can add emoji reactions to messages. Emoji reactions from users trigger agent turns (parity with Slack/Telegram)
+- **Forum threads** — Support for Discord forum channels
 - **Image support** — Send and receive images
 - **Embed suppression** — Agent wraps multiple links in `<>` to suppress embeds
 - **Slash commands** — All built-in and custom commands work
-- **Reactions** — Agent can add emoji reactions to messages
+
+### Interactive Components (v0.3.63)
+
+Discord buttons, select menus, and modal forms power the provider picker, model picker, and session switcher. Components support:
+- **Component TTL** — Components expire after a configurable timeout
+- **Role access** — Restrict component interactions to specific Discord roles
+- **Forum threads** — Agent can create and manage forum threads
+
+### Media Gallery (v0.3.63)
+
+When the agent generates multiple files (PDFs, spreadsheets, images), Discord batches them into one multi-attachment message instead of sending separate messages for each file.
+
+### Grouped Tool Calls (v0.3.63)
+
+Consecutive tool calls collapse into a single expandable block in Discord. Users can toggle between expanded and collapsed views. This keeps the channel clean during multi-step operations.
+
+### Reactions (v0.3.63)
+
+The agent can add emoji reactions to messages. When a user reacts with an emoji, it triggers an agent turn (parity with Slack and Telegram). This enables quick, lightweight interactions without typing full messages.
 
 ## Formatting Notes
 
