@@ -83,6 +83,12 @@ When cache data is unavailable (provider doesn't report it, or no cached tokens 
 | `A` | All time |
 | `Esc` | Close dashboard |
 
+## Provider and Model Breakdown (v0.3.63)
+
+The `/usage` command now shows per-provider and per-model cost breakdowns with period filters. This helps identify which providers or models are driving costs and optimize your usage accordingly.
+
+Use the time filters (T/W/M/A) to scope the breakdown to specific periods. The By Model panel already shows provider + model name, but the new breakdown provides aggregated views for quick cost analysis.
+
 ## Navigation
 
 | Key | Action |
