@@ -34,6 +34,12 @@ OpenCrabs ships with 50+ tools available to the agent out of the box, plus suppo
 |------|-----------|-------------|
 | `parse_document` | `path` | Extract text from PDF, DOCX, XLSX, XLS, CSV, HTML, TXT, MD, JSON, XML (v0.3.61 added spreadsheet support) |
 
+## Document Generation
+
+| Tool | Parameters | Description |
+|------|-----------|-------------|
+| `generate_document` | `format`, `content`, `style` | Generate PDF, DOCX, XLSX, PPTX natively. Brand colors, logos, image blocks, live Excel formulas. Files delivered as channel attachments (v0.3.62) |
+
 ## Session & Memory
 
 | Tool | Parameters | Description |
