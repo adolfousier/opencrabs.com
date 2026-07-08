@@ -63,7 +63,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-3402aa6a.js";
+            window.path_to_searchindex_js = "../searchindex-9274c203.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-29cc538f.js"></script>
@@ -265,6 +265,8 @@ opencrabs cron remove "Morning Report"
 <li><code>http://...</code> or <code>https://...</code> (webhook URL)</li>
 </ul>
 <p>Results are stored in the DB via the <code>cron_results</code> table regardless of delivery target, so you can query past execution results with <code>opencrabs cron results &lt;name&gt;</code>.</p>
+<h2 id="scheduler-lock-v0365"><a class="header" href="#scheduler-lock-v0365">Scheduler Lock (v0.3.65)</a></h2>
+<p>The cron scheduler uses a <strong>file lock</strong> to prevent duplicate job execution. Only one scheduler instance can run per profile at a time. If you accidentally start OpenCrabs twice, the second instance won’t fire duplicate cron jobs.</p>
 <h2 id="heartbeat-vs-cron"><a class="header" href="#heartbeat-vs-cron">Heartbeat vs Cron</a></h2>
 <p><strong>Use heartbeat (<code>HEARTBEAT.md</code>) when:</strong></p>
 <ul>
