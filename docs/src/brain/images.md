@@ -62,10 +62,12 @@ grep 'target=vision' ~/.opencrabs/logs/opencrabs.$(date -u +%Y-%m-%d)
 ```
 
 Common causes surfaced:
-- Missing `vision_model` on active provider
+- Missing `vision_model` on active provider (the only field actually required since v0.3.64)
 - Missing `api_key` for that provider
 - Missing Gemini `[image] api_key` in `keys.toml`
 - Key placed in `config.toml` where `#[serde(skip)]` drops it
+
+> **v0.3.64 change:** setting `vision_model` on your active provider is now sufficient to enable vision. The `enabled` flag under `[image.vision]` is no longer required. The vision roll-through tries each provider endpoint and falls back to Gemini last.
 
 ## Agent Tools
 
