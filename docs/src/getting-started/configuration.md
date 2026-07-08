@@ -120,7 +120,7 @@ allowed_users = ["123456789"]       # numeric Telegram user IDs
 allowed_channels = ["-100123456"]   # restrict to specific group/channel IDs (empty = all)
 respond_to = "mention"              # "all", "dm_only", "mention" (default)
 session_idle_hours = 24.0           # idle timeout for non-owner sessions
-rich_messages = false               # native Telegram rich messages (Bot API 10.1)
+rich_messages = true                # native Telegram rich messages (Bot API 10.1, default since v0.3.64)
 silence_group_start = true          # silently ignore /start from non-allowed users in groups
 bot_owner = ["123456789"]           # owner IDs (gated commands, /cd hidden dirs, /profiles)
 ```
@@ -361,7 +361,7 @@ provider = "openrouter"           # bypasses enabled gate for vision-only provid
 |---------|-------|---------|-------------|
 | `image.generation` | `enabled` | `false` | Enable image generation via the `generate_image` tool |
 | `image.generation` | `model` | `"gemini-3.1-flash-image-preview"` | Model for image generation |
-| `image.vision` | `enabled` | `false` | Enable vision analysis via the `analyze_image` tool |
+| `image.vision` | `enabled` | `false` | Enable vision analysis via the `analyze_image` tool. **Since v0.3.64:** setting `vision_model` alone is sufficient to enable vision. `enabled` is no longer required when `vision_model` is set |
 | `image.vision` | `model` | `"gemini-3.1-flash-image-preview"` | Model for image/vision analysis |
 | `image.vision` | `provider` | `None` (auto-detect) | Dedicated provider for vision. Bypasses the enabled gate so you can use a vision-only provider without enabling it for general chat (v0.3.63) |
 

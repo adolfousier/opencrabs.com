@@ -85,7 +85,7 @@ bot_owner = ["123456789"]             # owner IDs (gated commands, /cd hidden di
 | `allowed_channels` | `[]` (all channels) | Restrict bot to specific channel/group IDs. DMs always pass |
 | `respond_to` | `"mention"` | When to respond in groups: `"all"` = every message, `"dm_only"` = ignore groups, `"mention"` = only when @mentioned or replied-to |
 | `session_idle_hours` | `None` (no timeout) | Idle timeout in hours for non-owner sessions. Owner sessions never expire |
-| `rich_messages` | `false` | Send structured replies as native Telegram rich messages (tables, headings, lists, math). Requires current mobile/desktop Telegram clients. Telegram Web and older clients show a "not supported" placeholder |
+| `rich_messages` | `true` (since v0.3.64) | Send structured replies as native Telegram rich messages (tables, headings, lists, math). Requires current mobile/desktop Telegram clients. Telegram Web and older clients show a "not supported" placeholder. Toggle via the onboarding checkbox or config |
 | `silence_group_start` | `true` | Silently ignore /start from non-allowed users in group chats. Users who need their ID can DM the bot |
 | `bot_owner` | `[]` (first allowed_user) | Bot owner user IDs. Owners can access gated commands (/profiles, hidden files in /cd), manage profiles. Defaults to first entry in `allowed_users` |
 
