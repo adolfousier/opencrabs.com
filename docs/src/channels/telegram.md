@@ -172,6 +172,12 @@ Flow logs show:
 
 The flow-log message is edited in-place as each step completes, so the channel stays clean. Users see real-time progress without message spam.
 
+## Flow Logs (v0.3.63)
+
+Long-running operations show **flow logs**: expandable blocks that stream progress updates in real-time. The agent can post intermediate status ("Searching the web...", "Reading file...", "Compiling...") without cluttering the chat.
+
+Flow blocks **re-stick to the chat bottom** when buried (v0.3.65), so you always see the latest progress without scrolling.
+
 ## Group Chat Behavior
 
 In groups, the agent:

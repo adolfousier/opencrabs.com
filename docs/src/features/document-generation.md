@@ -24,6 +24,18 @@ The tool accepts:
 
 PDF and DOCX support embedding PNG and JPEG images inline with optional captions. Images are sized to fit the page while preserving aspect ratio.
 
+## Page Size and Orientation (v0.3.65)
+
+All three document formats support custom page sizes and orientations:
+
+| Format | Options |
+|--------|---------|
+| **PDF** | `landscape` mode, custom `page_width` and `page_height` (in points) |
+| **DOCX** | `orientation` (`portrait` or `landscape`), custom `page_width` and `page_height` (in twips) |
+| **PPTX** | `slide_width` and `slide_height` (in EMUs), aspect ratio control |
+
+Default sizes: PDF/DOCX use A4 portrait, PPTX uses 16:9 widescreen.
+
 ## Brand Templates
 
 For PPTX, you can point the tool at an existing `.pptx` file to inherit the company master (logos, fonts, backgrounds). Each slide gets a layout choice and accent-colored titles.

@@ -66,6 +66,10 @@ Supported targets in any combination:
 
 Results are stored in the DB via the `cron_results` table regardless of delivery target, so you can query past execution results with `opencrabs cron results <name>`.
 
+## Scheduler Lock (v0.3.65)
+
+The cron scheduler uses a **file lock** to prevent duplicate job execution. Only one scheduler instance can run per profile at a time. If you accidentally start OpenCrabs twice, the second instance won't fire duplicate cron jobs.
+
 ## Heartbeat vs Cron
 
 **Use heartbeat (`HEARTBEAT.md`) when:**

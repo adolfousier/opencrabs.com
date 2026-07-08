@@ -63,7 +63,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-800b46dc.js";
+            window.path_to_searchindex_js = "../searchindex-3402aa6a.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-29cc538f.js"></script>
@@ -368,6 +368,9 @@ respond_to = "all"                       # per-group override of the global resp
 <li>Build/test progress</li>
 </ul>
 <p>The flow-log message is edited in-place as each step completes, so the channel stays clean. Users see real-time progress without message spam.</p>
+<h2 id="flow-logs-v0363-1"><a class="header" href="#flow-logs-v0363-1">Flow Logs (v0.3.63)</a></h2>
+<p>Long-running operations show <strong>flow logs</strong>: expandable blocks that stream progress updates in real-time. The agent can post intermediate status (“Searching the web…”, “Reading file…”, “Compiling…”) without cluttering the chat.</p>
+<p>Flow blocks <strong>re-stick to the chat bottom</strong> when buried (v0.3.65), so you always see the latest progress without scrolling.</p>
 <h2 id="group-chat-behavior"><a class="header" href="#group-chat-behavior">Group Chat Behavior</a></h2>
 <p>In groups, the agent:</p>
 <ul>

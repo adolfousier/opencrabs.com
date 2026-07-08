@@ -89,6 +89,14 @@ Consecutive tool calls collapse into a single message in Slack. The message is e
 
 The agent can add emoji reactions to messages. When a user reacts with an emoji, it triggers an agent turn (react-back). This enables quick, lightweight interactions without typing full messages. Parity with Telegram and Discord.
 
+## Reactions (v0.3.62)
+
+Slack supports emoji reactions for lightweight acknowledgements:
+
+- **React-back**: When you react to a bot message, the bot acknowledges it (e.g., adds a 👍 to show it saw your reaction)
+- **Reaction turns**: Certain reactions can trigger agent actions (configurable)
+- **Grouped tool calls**: Multiple tool calls in one turn collapse into a single collapsible message, keeping the channel clean
+
 ## Socket Mode
 
 Slack uses Socket Mode (WebSocket) instead of HTTP webhooks — no public URL or ngrok needed. The connection is outbound from your machine.

@@ -64,7 +64,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-800b46dc.js";
+            window.path_to_searchindex_js = "searchindex-3402aa6a.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-29cc538f.js"></script>
@@ -208,7 +208,7 @@
                     <main>
                         <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
 <p><strong>OpenCrabs</strong> is a self-hosted, provider-agnostic AI orchestration agent that runs as a single Rust binary. It automates your terminal, browser, channels (Telegram/Discord/Slack/WhatsApp/Trello), and codebase, all while respecting your privacy and keeping you in control.</p>
-<p><strong>4,694+ tests</strong> across providers, tools, channels, TUI, self-healing, and browser automation.</p>
+<p><strong>4,716+ tests</strong> across providers, tools, channels, TUI, self-healing, and browser automation.</p>
 <h2 id="what-makes-opencrabs-different"><a class="header" href="#what-makes-opencrabs-different">What Makes OpenCrabs Different</a></h2>
 <h3 id="zero-telemetry-not-even-opt-in"><a class="header" href="#zero-telemetry-not-even-opt-in">Zero Telemetry, Not Even Opt-In</a></h3>
 <ul>
@@ -2484,6 +2484,9 @@ respond_to = "all"                       # per-group override of the global resp
 <li>Build/test progress</li>
 </ul>
 <p>The flow-log message is edited in-place as each step completes, so the channel stays clean. Users see real-time progress without message spam.</p>
+<h2 id="flow-logs-v0363-1"><a class="header" href="#flow-logs-v0363-1">Flow Logs (v0.3.63)</a></h2>
+<p>Long-running operations show <strong>flow logs</strong>: expandable blocks that stream progress updates in real-time. The agent can post intermediate status (“Searching the web…”, “Reading file…”, “Compiling…”) without cluttering the chat.</p>
+<p>Flow blocks <strong>re-stick to the chat bottom</strong> when buried (v0.3.65), so you always see the latest progress without scrolling.</p>
 <h2 id="group-chat-behavior"><a class="header" href="#group-chat-behavior">Group Chat Behavior</a></h2>
 <p>In groups, the agent:</p>
 <ul>
@@ -2678,6 +2681,13 @@ session_idle_hours = 24.0               # idle timeout for non-owner sessions
 <p>Consecutive tool calls collapse into a single message in Slack. The message is edited in-place as each tool executes. Users can toggle between expanded and collapsed views with an Expand/Collapse button. This keeps channels clean during multi-step operations.</p>
 <h3 id="reactions-v0362"><a class="header" href="#reactions-v0362">Reactions (v0.3.62)</a></h3>
 <p>The agent can add emoji reactions to messages. When a user reacts with an emoji, it triggers an agent turn (react-back). This enables quick, lightweight interactions without typing full messages. Parity with Telegram and Discord.</p>
+<h2 id="reactions-v0362-1"><a class="header" href="#reactions-v0362-1">Reactions (v0.3.62)</a></h2>
+<p>Slack supports emoji reactions for lightweight acknowledgements:</p>
+<ul>
+<li><strong>React-back</strong>: When you react to a bot message, the bot acknowledges it (e.g., adds a 👍 to show it saw your reaction)</li>
+<li><strong>Reaction turns</strong>: Certain reactions can trigger agent actions (configurable)</li>
+<li><strong>Grouped tool calls</strong>: Multiple tool calls in one turn collapse into a single collapsible message, keeping the channel clean</li>
+</ul>
 <h2 id="socket-mode"><a class="header" href="#socket-mode">Socket Mode</a></h2>
 <p>Slack uses Socket Mode (WebSocket) instead of HTTP webhooks — no public URL or ngrok needed. The connection is outbound from your machine.</p>
 <div style="break-before: page; page-break-before: always;"></div>
@@ -5545,6 +5555,21 @@ node dist/cli.js linkedin comment &lt;post-url&gt; "text" # Comment on post
 </ul>
 <h2 id="image-blocks"><a class="header" href="#image-blocks">Image Blocks</a></h2>
 <p>PDF and DOCX support embedding PNG and JPEG images inline with optional captions. Images are sized to fit the page while preserving aspect ratio.</p>
+<h2 id="page-size-and-orientation-v0365"><a class="header" href="#page-size-and-orientation-v0365">Page Size and Orientation (v0.3.65)</a></h2>
+<p>All three document formats support custom page sizes and orientations:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Format</th><th>Options</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>PDF</strong></td><td><code>landscape</code> mode, custom <code>page_width</code> and <code>page_height</code> (in points)</td></tr>
+<tr><td><strong>DOCX</strong></td><td><code>orientation</code> (<code>portrait</code> or <code>landscape</code>), custom <code>page_width</code> and <code>page_height</code> (in twips)</td></tr>
+<tr><td><strong>PPTX</strong></td><td><code>slide_width</code> and <code>slide_height</code> (in EMUs), aspect ratio control</td></tr>
+</tbody>
+</table>
+</div>
+<p>Default sizes: PDF/DOCX use A4 portrait, PPTX uses 16:9 widescreen.</p>
 <h2 id="brand-templates"><a class="header" href="#brand-templates">Brand Templates</a></h2>
 <p>For PPTX, you can point the tool at an existing <code>.pptx</code> file to inherit the company master (logos, fonts, backgrounds). Each slide gets a layout choice and accent-colored titles.</p>
 <h2 id="delivery"><a class="header" href="#delivery">Delivery</a></h2>
