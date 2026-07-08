@@ -63,7 +63,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-8e7a9e3a.js";
+            window.path_to_searchindex_js = "../searchindex-800b46dc.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-29cc538f.js"></script>
@@ -319,7 +319,7 @@ allowed_users = ["123456789"]       # numeric Telegram user IDs
 allowed_channels = ["-100123456"]   # restrict to specific group/channel IDs (empty = all)
 respond_to = "mention"              # "all", "dm_only", "mention" (default)
 session_idle_hours = 24.0           # idle timeout for non-owner sessions
-rich_messages = false               # native Telegram rich messages (Bot API 10.1)
+rich_messages = true                # native Telegram rich messages (Bot API 10.1, default since v0.3.64)
 silence_group_start = true          # silently ignore /start from non-allowed users in groups
 bot_owner = ["123456789"]           # owner IDs (gated commands, /cd hidden dirs, /profiles)
 </code></pre>
@@ -586,7 +586,7 @@ provider = "openrouter"           # bypasses enabled gate for vision-only provid
 <tbody>
 <tr><td><code>image.generation</code></td><td><code>enabled</code></td><td><code>false</code></td><td>Enable image generation via the <code>generate_image</code> tool</td></tr>
 <tr><td><code>image.generation</code></td><td><code>model</code></td><td><code>"gemini-3.1-flash-image-preview"</code></td><td>Model for image generation</td></tr>
-<tr><td><code>image.vision</code></td><td><code>enabled</code></td><td><code>false</code></td><td>Enable vision analysis via the <code>analyze_image</code> tool</td></tr>
+<tr><td><code>image.vision</code></td><td><code>enabled</code></td><td><code>false</code></td><td>Enable vision analysis via the <code>analyze_image</code> tool. <strong>Since v0.3.64:</strong> setting <code>vision_model</code> alone is sufficient to enable vision. <code>enabled</code> is no longer required when <code>vision_model</code> is set</td></tr>
 <tr><td><code>image.vision</code></td><td><code>model</code></td><td><code>"gemini-3.1-flash-image-preview"</code></td><td>Model for image/vision analysis</td></tr>
 <tr><td><code>image.vision</code></td><td><code>provider</code></td><td><code>None</code> (auto-detect)</td><td>Dedicated provider for vision. Bypasses the enabled gate so you can use a vision-only provider without enabling it for general chat (v0.3.63)</td></tr>
 </tbody>

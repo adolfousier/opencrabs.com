@@ -63,7 +63,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-8e7a9e3a.js";
+            window.path_to_searchindex_js = "../searchindex-800b46dc.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-29cc538f.js"></script>
@@ -251,11 +251,14 @@ model = "gemini-3.1-flash-image-preview"
 </code></pre>
 <p>Common causes surfaced:</p>
 <ul>
-<li>Missing <code>vision_model</code> on active provider</li>
+<li>Missing <code>vision_model</code> on active provider (the only field actually required since v0.3.64)</li>
 <li>Missing <code>api_key</code> for that provider</li>
 <li>Missing Gemini <code>[image] api_key</code> in <code>keys.toml</code></li>
 <li>Key placed in <code>config.toml</code> where <code>#[serde(skip)]</code> drops it</li>
 </ul>
+<blockquote>
+<p><strong>v0.3.64 change:</strong> setting <code>vision_model</code> on your active provider is now sufficient to enable vision. The <code>enabled</code> flag under <code>[image.vision]</code> is no longer required. The vision roll-through tries each provider endpoint and falls back to Gemini last.</p>
+</blockquote>
 <h2 id="agent-tools"><a class="header" href="#agent-tools">Agent Tools</a></h2>
 <p>When vision or image generation is enabled, these tools become available:</p>
 <div class="table-wrapper">

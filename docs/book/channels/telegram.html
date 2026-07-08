@@ -63,7 +63,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-8e7a9e3a.js";
+            window.path_to_searchindex_js = "../searchindex-800b46dc.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-29cc538f.js"></script>
@@ -288,7 +288,7 @@ bot_owner = ["123456789"]             # owner IDs (gated commands, /cd hidden di
 <tr><td><code>allowed_channels</code></td><td><code>[]</code> (all channels)</td><td>Restrict bot to specific channel/group IDs. DMs always pass</td></tr>
 <tr><td><code>respond_to</code></td><td><code>"mention"</code></td><td>When to respond in groups: <code>"all"</code> = every message, <code>"dm_only"</code> = ignore groups, <code>"mention"</code> = only when @mentioned or replied-to</td></tr>
 <tr><td><code>session_idle_hours</code></td><td><code>None</code> (no timeout)</td><td>Idle timeout in hours for non-owner sessions. Owner sessions never expire</td></tr>
-<tr><td><code>rich_messages</code></td><td><code>false</code></td><td>Send structured replies as native Telegram rich messages (tables, headings, lists, math). Requires current mobile/desktop Telegram clients. Telegram Web and older clients show a “not supported” placeholder</td></tr>
+<tr><td><code>rich_messages</code></td><td><code>true</code> (since v0.3.64)</td><td>Send structured replies as native Telegram rich messages (tables, headings, lists, math). Requires current mobile/desktop Telegram clients. Telegram Web and older clients show a “not supported” placeholder. Toggle via the onboarding checkbox or config</td></tr>
 <tr><td><code>silence_group_start</code></td><td><code>true</code></td><td>Silently ignore /start from non-allowed users in group chats. Users who need their ID can DM the bot</td></tr>
 <tr><td><code>bot_owner</code></td><td><code>[]</code> (first allowed_user)</td><td>Bot owner user IDs. Owners can access gated commands (/profiles, hidden files in /cd), manage profiles. Defaults to first entry in <code>allowed_users</code></td></tr>
 </tbody>
