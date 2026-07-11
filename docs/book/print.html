@@ -64,7 +64,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-9274c203.js";
+            window.path_to_searchindex_js = "searchindex-983c5a93.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-29cc538f.js"></script>
@@ -208,7 +208,7 @@
                     <main>
                         <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
 <p><strong>OpenCrabs</strong> is a self-hosted, provider-agnostic AI orchestration agent that runs as a single Rust binary. It automates your terminal, browser, channels (Telegram/Discord/Slack/WhatsApp/Trello), and codebase, all while respecting your privacy and keeping you in control.</p>
-<p><strong>4,716+ tests</strong> across providers, tools, channels, TUI, self-healing, and browser automation.</p>
+<p><strong>4,815+ tests</strong> across providers, tools, channels, TUI, self-healing, and browser automation.</p>
 <h2 id="what-makes-opencrabs-different"><a class="header" href="#what-makes-opencrabs-different">What Makes OpenCrabs Different</a></h2>
 <h3 id="zero-telemetry-not-even-opt-in"><a class="header" href="#zero-telemetry-not-even-opt-in">Zero Telemetry, Not Even Opt-In</a></h3>
 <ul>
@@ -1180,6 +1180,8 @@ fallback_chain = ["openai_compatible", "openai", "local"]
 <tr><td><code>/cost-estimate</code></td><td><strong>Cost estimate</strong> — Codebase cost-to-build estimate, AI-assisted ROI breakdown, and fair-market valuation. Asks for business context before producing the valuation range.</td></tr>
 <tr><td><code>/repo-audit</code></td><td><strong>Repo audit</strong> — Language-agnostic repository health checks. 5-phase pipeline: language detection → native tool execution → git metrics → AST analysis → scoring + recommendations. Covers Rust, JS/TS, Python, Go.</td></tr>
 <tr><td><code>/goal</code></td><td><strong>Autonomous goal loop</strong> — Set a goal with <code>/goal &lt;text&gt;</code> and the agent loops autonomously: executing, self-evaluating with an LLM judge, and continuing until the goal is satisfied or the turn budget (default 20) runs out. Supports <code>/goal pause</code>, <code>/goal resume</code>, <code>/goal status</code>, <code>/goal clear</code>.</td></tr>
+<tr><td><code>/models &lt;provider/model&gt;</code></td><td><strong>Direct model switch</strong> (v0.3.66) — Switch directly to a specific model on every channel. Use <code>/models anthropic/claude-sonnet-4-20250514</code> to switch immediately. The apply-to-scope selector lets you choose session-only or global scope.</td></tr>
+<tr><td><code>opencrabs session set-model</code></td><td><strong>Headless model switch</strong> (v0.3.66) — Switch models from the CLI without the TUI. Useful for scripts and automation.</td></tr>
 </tbody>
 </table>
 </div>
@@ -1191,6 +1193,8 @@ fallback_chain = ["openai_compatible", "openai", "local"]
 </thead>
 <tbody>
 <tr><td><code>[agent] auto_update</code></td><td><code>true</code></td><td>Auto-install new releases on startup and hot-restart. Set to <code>false</code> to keep the manual prompt dialog.</td></tr>
+<tr><td><code>[agent] force_default</code></td><td><code>false</code></td><td>(v0.3.66) When true, pushes the default provider/model pair to all sessions on config reload. Useful for enforcing a global model switch.</td></tr>
+<tr><td><code>[agent] config_drift_warnings</code></td><td><code>true</code></td><td>(v0.3.66) Show startup warnings when a config value silently drifts from the expected default. Helps catch unintended config changes.</td></tr>
 </tbody>
 </table>
 </div>
@@ -2428,6 +2432,12 @@ allowed_users = ["222", "333"]           # allowed in this group only, never via
 respond_to = "all"                       # per-group override of the global respond_to
 </code></pre>
 <p><code>respond_to</code> accepts <code>all</code>, <code>mention</code>, <code>dm_only</code>, or <code>auto</code> (reply to all while there is at most one active sender, then switch to mention-only once a second unique sender appears).</p>
+<h3 id="per-group-open-mode-v0366"><a class="header" href="#per-group-open-mode-v0366">Per-group open mode (v0.3.66)</a></h3>
+<p>Set <code>open = true</code> on a trusted group to serve all members without individual allowlisting:</p>
+<pre><code class="language-toml">[channels.telegram.groups.-1001234567890]
+open = true                              # all members can talk, no per-user registration needed
+</code></pre>
+<p>Use this for public/community groups where you want the bot available to everyone. Members still can’t DM the bot unless they’re in the global <code>allowed_users</code> or <code>bot_owner</code>.</p>
 <h2 id="voice-and-file-pickup-in-groups"><a class="header" href="#voice-and-file-pickup-in-groups">Voice and file pickup in groups</a></h2>
 <p>In mention-only groups (<code>respond_to = "mention"</code>), users can share files and voice messages even when the bot isn’t directly tagged in the same message:</p>
 <ol>
@@ -2482,10 +2492,11 @@ respond_to = "all"                       # per-group override of the global resp
 <li>Intermediate reasoning steps</li>
 <li>File edits and git operations</li>
 <li>Build/test progress</li>
+<li><strong>Wall-clock duration</strong> (v0.3.66) — finished/failed/timeout states carry the total turn time</li>
+<li><strong>Bash comments as flow status</strong> (v0.3.66) — line-start comments in a bash command surface as live flow status</li>
+<li><strong>Full status preview</strong> (v0.3.66) — the status preview uses the whole last human-readable line, no truncation</li>
 </ul>
 <p>The flow-log message is edited in-place as each step completes, so the channel stays clean. Users see real-time progress without message spam.</p>
-<h2 id="flow-logs-v0363-1"><a class="header" href="#flow-logs-v0363-1">Flow Logs (v0.3.63)</a></h2>
-<p>Long-running operations show <strong>flow logs</strong>: expandable blocks that stream progress updates in real-time. The agent can post intermediate status (“Searching the web…”, “Reading file…”, “Compiling…”) without cluttering the chat.</p>
 <p>Flow blocks <strong>re-stick to the chat bottom</strong> when buried (v0.3.65), so you always see the latest progress without scrolling.</p>
 <h2 id="group-chat-behavior"><a class="header" href="#group-chat-behavior">Group Chat Behavior</a></h2>
 <p>In groups, the agent:</p>
@@ -4640,6 +4651,12 @@ Agent notices pattern of 5+ corrections on output hygiene:
 <h2 id="v0335-additions"><a class="header" href="#v0335-additions">v0.3.35 Additions</a></h2>
 <ul>
 <li><strong><code>cycle_number</code> persistence</strong> — <code>cycle_number</code> now persists to <code>~/.opencrabs/rsi/cycle_number</code> across TUI restarts. Previously it reset to 0 on every process restart, meaning the brain dedup scan (which fires every 24 cycles) would never trigger if the TUI restarted more frequently than 24 hours. Now the cycle counter survives restarts and the daily dedup scan fires as intended.</li>
+</ul>
+<h2 id="v0366-additions"><a class="header" href="#v0366-additions">v0.3.66 Additions</a></h2>
+<ul>
+<li><strong>Skill candidates from tool sequences</strong> — RSI detects recurring tool sequences as skill candidates. When the agent repeatedly calls the same sequence of tools (e.g. <code>read_file</code> → <code>edit_file</code> → <code>bash</code> with specific patterns), RSI proposes a skill that encapsulates the workflow.</li>
+<li><strong>Slash commands from repeated asks</strong> — RSI proposes slash commands from repeated user requests. When users type the same multi-word prompt repeatedly, RSI suggests a <code>/command</code> that captures the pattern.</li>
+<li><strong>RSI staleness indicator</strong> — Mission Control shows a staleness indicator for RSI cycles, plus a provider-creation fallback when the primary provider is unavailable.</li>
 </ul>
 <h2 id="self-healing-vs-self-improvement"><a class="header" href="#self-healing-vs-self-improvement">Self-Healing vs Self-Improvement</a></h2>
 <div class="table-wrapper">

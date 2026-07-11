@@ -63,7 +63,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-9274c203.js";
+            window.path_to_searchindex_js = "../searchindex-983c5a93.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-29cc538f.js"></script>
@@ -312,6 +312,12 @@ allowed_users = ["222", "333"]           # allowed in this group only, never via
 respond_to = "all"                       # per-group override of the global respond_to
 </code></pre>
 <p><code>respond_to</code> accepts <code>all</code>, <code>mention</code>, <code>dm_only</code>, or <code>auto</code> (reply to all while there is at most one active sender, then switch to mention-only once a second unique sender appears).</p>
+<h3 id="per-group-open-mode-v0366"><a class="header" href="#per-group-open-mode-v0366">Per-group open mode (v0.3.66)</a></h3>
+<p>Set <code>open = true</code> on a trusted group to serve all members without individual allowlisting:</p>
+<pre><code class="language-toml">[channels.telegram.groups.-1001234567890]
+open = true                              # all members can talk, no per-user registration needed
+</code></pre>
+<p>Use this for public/community groups where you want the bot available to everyone. Members still can’t DM the bot unless they’re in the global <code>allowed_users</code> or <code>bot_owner</code>.</p>
 <h2 id="voice-and-file-pickup-in-groups"><a class="header" href="#voice-and-file-pickup-in-groups">Voice and file pickup in groups</a></h2>
 <p>In mention-only groups (<code>respond_to = "mention"</code>), users can share files and voice messages even when the bot isn’t directly tagged in the same message:</p>
 <ol>
@@ -366,10 +372,11 @@ respond_to = "all"                       # per-group override of the global resp
 <li>Intermediate reasoning steps</li>
 <li>File edits and git operations</li>
 <li>Build/test progress</li>
+<li><strong>Wall-clock duration</strong> (v0.3.66) — finished/failed/timeout states carry the total turn time</li>
+<li><strong>Bash comments as flow status</strong> (v0.3.66) — line-start comments in a bash command surface as live flow status</li>
+<li><strong>Full status preview</strong> (v0.3.66) — the status preview uses the whole last human-readable line, no truncation</li>
 </ul>
 <p>The flow-log message is edited in-place as each step completes, so the channel stays clean. Users see real-time progress without message spam.</p>
-<h2 id="flow-logs-v0363-1"><a class="header" href="#flow-logs-v0363-1">Flow Logs (v0.3.63)</a></h2>
-<p>Long-running operations show <strong>flow logs</strong>: expandable blocks that stream progress updates in real-time. The agent can post intermediate status (“Searching the web…”, “Reading file…”, “Compiling…”) without cluttering the chat.</p>
 <p>Flow blocks <strong>re-stick to the chat bottom</strong> when buried (v0.3.65), so you always see the latest progress without scrolling.</p>
 <h2 id="group-chat-behavior"><a class="header" href="#group-chat-behavior">Group Chat Behavior</a></h2>
 <p>In groups, the agent:</p>

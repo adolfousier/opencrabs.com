@@ -63,7 +63,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-9274c203.js";
+            window.path_to_searchindex_js = "../searchindex-983c5a93.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-29cc538f.js"></script>
@@ -241,6 +241,8 @@
 <tr><td><code>/cost-estimate</code></td><td><strong>Cost estimate</strong> — Codebase cost-to-build estimate, AI-assisted ROI breakdown, and fair-market valuation. Asks for business context before producing the valuation range.</td></tr>
 <tr><td><code>/repo-audit</code></td><td><strong>Repo audit</strong> — Language-agnostic repository health checks. 5-phase pipeline: language detection → native tool execution → git metrics → AST analysis → scoring + recommendations. Covers Rust, JS/TS, Python, Go.</td></tr>
 <tr><td><code>/goal</code></td><td><strong>Autonomous goal loop</strong> — Set a goal with <code>/goal &lt;text&gt;</code> and the agent loops autonomously: executing, self-evaluating with an LLM judge, and continuing until the goal is satisfied or the turn budget (default 20) runs out. Supports <code>/goal pause</code>, <code>/goal resume</code>, <code>/goal status</code>, <code>/goal clear</code>.</td></tr>
+<tr><td><code>/models &lt;provider/model&gt;</code></td><td><strong>Direct model switch</strong> (v0.3.66) — Switch directly to a specific model on every channel. Use <code>/models anthropic/claude-sonnet-4-20250514</code> to switch immediately. The apply-to-scope selector lets you choose session-only or global scope.</td></tr>
+<tr><td><code>opencrabs session set-model</code></td><td><strong>Headless model switch</strong> (v0.3.66) — Switch models from the CLI without the TUI. Useful for scripts and automation.</td></tr>
 </tbody>
 </table>
 </div>
@@ -252,6 +254,8 @@
 </thead>
 <tbody>
 <tr><td><code>[agent] auto_update</code></td><td><code>true</code></td><td>Auto-install new releases on startup and hot-restart. Set to <code>false</code> to keep the manual prompt dialog.</td></tr>
+<tr><td><code>[agent] force_default</code></td><td><code>false</code></td><td>(v0.3.66) When true, pushes the default provider/model pair to all sessions on config reload. Useful for enforcing a global model switch.</td></tr>
+<tr><td><code>[agent] config_drift_warnings</code></td><td><code>true</code></td><td>(v0.3.66) Show startup warnings when a config value silently drifts from the expected default. Helps catch unintended config changes.</td></tr>
 </tbody>
 </table>
 </div>

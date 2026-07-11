@@ -63,7 +63,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-9274c203.js";
+            window.path_to_searchindex_js = "../searchindex-983c5a93.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-29cc538f.js"></script>
@@ -430,6 +430,12 @@ Agent notices pattern of 5+ corrections on output hygiene:
 <h2 id="v0335-additions"><a class="header" href="#v0335-additions">v0.3.35 Additions</a></h2>
 <ul>
 <li><strong><code>cycle_number</code> persistence</strong> — <code>cycle_number</code> now persists to <code>~/.opencrabs/rsi/cycle_number</code> across TUI restarts. Previously it reset to 0 on every process restart, meaning the brain dedup scan (which fires every 24 cycles) would never trigger if the TUI restarted more frequently than 24 hours. Now the cycle counter survives restarts and the daily dedup scan fires as intended.</li>
+</ul>
+<h2 id="v0366-additions"><a class="header" href="#v0366-additions">v0.3.66 Additions</a></h2>
+<ul>
+<li><strong>Skill candidates from tool sequences</strong> — RSI detects recurring tool sequences as skill candidates. When the agent repeatedly calls the same sequence of tools (e.g. <code>read_file</code> → <code>edit_file</code> → <code>bash</code> with specific patterns), RSI proposes a skill that encapsulates the workflow.</li>
+<li><strong>Slash commands from repeated asks</strong> — RSI proposes slash commands from repeated user requests. When users type the same multi-word prompt repeatedly, RSI suggests a <code>/command</code> that captures the pattern.</li>
+<li><strong>RSI staleness indicator</strong> — Mission Control shows a staleness indicator for RSI cycles, plus a provider-creation fallback when the primary provider is unavailable.</li>
 </ul>
 <h2 id="self-healing-vs-self-improvement"><a class="header" href="#self-healing-vs-self-improvement">Self-Healing vs Self-Improvement</a></h2>
 <div class="table-wrapper">
