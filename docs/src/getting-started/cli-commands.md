@@ -36,12 +36,16 @@ opencrabs [COMMAND] [OPTIONS]
 | `/cost-estimate` | **Cost estimate** — Codebase cost-to-build estimate, AI-assisted ROI breakdown, and fair-market valuation. Asks for business context before producing the valuation range. |
 | `/repo-audit` | **Repo audit** — Language-agnostic repository health checks. 5-phase pipeline: language detection → native tool execution → git metrics → AST analysis → scoring + recommendations. Covers Rust, JS/TS, Python, Go. |
 | `/goal` | **Autonomous goal loop** — Set a goal with `/goal <text>` and the agent loops autonomously: executing, self-evaluating with an LLM judge, and continuing until the goal is satisfied or the turn budget (default 20) runs out. Supports `/goal pause`, `/goal resume`, `/goal status`, `/goal clear`. |
+| `/models <provider/model>` | **Direct model switch** (v0.3.66) — Switch directly to a specific model on every channel. Use `/models anthropic/claude-sonnet-4-20250514` to switch immediately. The apply-to-scope selector lets you choose session-only or global scope. |
+| `opencrabs session set-model` | **Headless model switch** (v0.3.66) — Switch models from the CLI without the TUI. Useful for scripts and automation. |
 
 ## Configuration Flags
 
 | Flag | Default | Description |
 |------|---------|-------------|
 | `[agent] auto_update` | `true` | Auto-install new releases on startup and hot-restart. Set to `false` to keep the manual prompt dialog. |
+| `[agent] force_default` | `false` | (v0.3.66) When true, pushes the default provider/model pair to all sessions on config reload. Useful for enforcing a global model switch. |
+| `[agent] config_drift_warnings` | `true` | (v0.3.66) Show startup warnings when a config value silently drifts from the expected default. Helps catch unintended config changes. |
 
 ## Keyboard Shortcuts (TUI)
 

@@ -113,6 +113,17 @@ respond_to = "all"                       # per-group override of the global resp
 
 `respond_to` accepts `all`, `mention`, `dm_only`, or `auto` (reply to all while there is at most one active sender, then switch to mention-only once a second unique sender appears).
 
+### Per-group open mode (v0.3.66)
+
+Set `open = true` on a trusted group to serve all members without individual allowlisting:
+
+```toml
+[channels.telegram.groups.-1001234567890]
+open = true                              # all members can talk, no per-user registration needed
+```
+
+Use this for public/community groups where you want the bot available to everyone. Members still can't DM the bot unless they're in the global `allowed_users` or `bot_owner`.
+
 ## Voice and file pickup in groups
 
 In mention-only groups (`respond_to = "mention"`), users can share files and voice messages even when the bot isn't directly tagged in the same message:
@@ -169,12 +180,11 @@ Flow logs show:
 - Intermediate reasoning steps
 - File edits and git operations
 - Build/test progress
+- **Wall-clock duration** (v0.3.66) — finished/failed/timeout states carry the total turn time
+- **Bash comments as flow status** (v0.3.66) — line-start comments in a bash command surface as live flow status
+- **Full status preview** (v0.3.66) — the status preview uses the whole last human-readable line, no truncation
 
 The flow-log message is edited in-place as each step completes, so the channel stays clean. Users see real-time progress without message spam.
-
-## Flow Logs (v0.3.63)
-
-Long-running operations show **flow logs**: expandable blocks that stream progress updates in real-time. The agent can post intermediate status ("Searching the web...", "Reading file...", "Compiling...") without cluttering the chat.
 
 Flow blocks **re-stick to the chat bottom** when buried (v0.3.65), so you always see the latest progress without scrolling.
 

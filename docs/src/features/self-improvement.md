@@ -231,6 +231,12 @@ RSI now bumps a violation counter on existing rules instead of deduping repeat v
 
 - **`cycle_number` persistence** — `cycle_number` now persists to `~/.opencrabs/rsi/cycle_number` across TUI restarts. Previously it reset to 0 on every process restart, meaning the brain dedup scan (which fires every 24 cycles) would never trigger if the TUI restarted more frequently than 24 hours. Now the cycle counter survives restarts and the daily dedup scan fires as intended.
 
+## v0.3.66 Additions
+
+- **Skill candidates from tool sequences** — RSI detects recurring tool sequences as skill candidates. When the agent repeatedly calls the same sequence of tools (e.g. `read_file` → `edit_file` → `bash` with specific patterns), RSI proposes a skill that encapsulates the workflow.
+- **Slash commands from repeated asks** — RSI proposes slash commands from repeated user requests. When users type the same multi-word prompt repeatedly, RSI suggests a `/command` that captures the pattern.
+- **RSI staleness indicator** — Mission Control shows a staleness indicator for RSI cycles, plus a provider-creation fallback when the primary provider is unavailable.
+
 ## Self-Healing vs Self-Improvement
 
 | Self-Healing | Self-Improvement |
