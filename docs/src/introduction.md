@@ -2,7 +2,7 @@
 
 **OpenCrabs** is a self-hosted, provider-agnostic AI orchestration agent that runs as a single Rust binary. It automates your terminal, browser, channels (Telegram/Discord/Slack/WhatsApp/Trello), and codebase, all while respecting your privacy and keeping you in control.
 
-**4,815+ tests** across providers, tools, channels, TUI, self-healing, and browser automation.
+**5,017+ tests** across providers, tools, channels, TUI, self-healing, and browser automation.
 
 ## What Makes OpenCrabs Different
 
@@ -13,12 +13,13 @@
 - Not a privacy-policy checkbox: there is no telemetry code to disable, no opt-out flag, no analytics service to block. There is simply nothing to send
 
 ### Provider-Agnostic by Design
-- **15 built-in providers + Custom OpenAI Compatible**: Anthropic Claude, OpenAI, Gemini, Xiaomi MiMo, OpenRouter, Qwen (DashScope), MiniMax, Ollama, z.ai GLM, GitHub Copilot, Codex, Codex CLI, OpenCode, OpenCode CLI
-- **Native CLI integration** — use Claude Code CLI, OpenCode CLI, and Codex CLI as providers without API keys
+- **16 built-in providers + Custom OpenAI Compatible**: Anthropic Claude, OpenAI, Gemini, Xiaomi MiMo, OpenRouter, Qwen (DashScope), MiniMax, Ollama, z.ai GLM, GitHub Copilot, Codex, Codex CLI, OpenCode, OpenCode CLI, **Moonshot AI (Kimi)**, Command Code CLI
+- **Native CLI integration** — use Claude Code CLI, OpenCode CLI, Codex CLI, and Command Code CLI as providers without API keys
 - **Sticky fallback chain** — auto-failover on rate limits or errors, health-aware persistence survives restarts
 - **Prompt caching** across Anthropic, OpenRouter, Gemini, Qwen DashScope reduces costs up to 95%
 - **Context window override** — cap or expand context for any model via config
 - **Xiaomi MiMo** — 30+ models including the MiMo reasoning series, keyed provider
+- **Moonshot AI (Kimi)** — API plan (api.moonshot.ai) and Coding plan (api.kimi.com) endpoints, reasoning-effort config, plan-tier context window
 
 ### Multi-Agent Orchestration
 - **Sessions are fully isolated agents** — each with its own brain, provider, model, working directory, and history
@@ -36,6 +37,7 @@
 - **Telegram reactions** — the bot reads inbound emoji reactions and can reply with a reaction instead of a message when that fits
 - **Frame reactions (v0.3.61)** — inbound reactions read by sentiment, agent addresses user by first name
 - **Mid-turn reactions (v0.3.61)** — a reaction during a running turn injects into the current loop instead of firing a second turn
+- **Follow-up suggestions (v0.3.69)** — tap-to-send optional follow-ups on Telegram, Discord, Slack, WhatsApp; fill-not-submit in TUI
 - **Session inheritance** — `/new` inherits the working directory from your most recent session
 - **`/goal` across all channels** — set autonomous goals from Telegram, Discord, Slack, WhatsApp
 - **Voice support** — local Whisper STT + Piper TTS, fully offline
@@ -48,6 +50,10 @@
 - **Phantom tool call detection** — catches when the model narrates changes without executing tools
 - **System brain rebuild** — brain files rebuilt from disk when changed, no restart needed
 - **Proactive tool discovery** — searches for available tools before claiming inability
+- **Multilanguage prompt analyzer (v0.3.67)** — shared PromptAnalyzer with soft-nudge on TUI and Telegram, 6 language packs (EN/ES/FR/ID/PT/RU)
+- **Plan mode (v0.3.67-v0.3.68)** — design/checklist tracks, persistent plan card, `/plan <query>` command, agent self-approval when user grants autonomy
+- **Click-to-expand (v0.3.69)** — left-click a tool-call or reasoning block to expand just that block, complementing Ctrl+O
+- **Skills review_gate (v0.3.70)** — frontmatter declaration for high-stakes skills that require user approval before side effects
 - **JIT tool activation** — extended tools activated on-demand, no pre-registration needed
 - **Config auto-repair** — auto-repair broken config.toml, never poison last-good config
 - **Context budget management** — 65% soft / 90% hard compaction thresholds with LLM fallback
