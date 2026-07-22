@@ -2,7 +2,7 @@
 
 **OpenCrabs** is a self-hosted, provider-agnostic AI orchestration agent that runs as a single Rust binary. It automates your terminal, browser, channels (Telegram/Discord/Slack/WhatsApp/Trello), and codebase, all while respecting your privacy and keeping you in control.
 
-**5,017+ tests** across providers, tools, channels, TUI, self-healing, and browser automation.
+**5,162+ tests** across providers, tools, channels, TUI, self-healing, and browser automation.
 
 ## What Makes OpenCrabs Different
 
@@ -38,6 +38,7 @@
 - **Frame reactions (v0.3.61)** — inbound reactions read by sentiment, agent addresses user by first name
 - **Mid-turn reactions (v0.3.61)** — a reaction during a running turn injects into the current loop instead of firing a second turn
 - **Follow-up suggestions (v0.3.69)** — tap-to-send optional follow-ups on Telegram, Discord, Slack, WhatsApp; fill-not-submit in TUI
+- **Telegram plan card re-stick (v0.3.71)** — re-stick plan card and fold prose into it when buried
 - **Session inheritance** — `/new` inherits the working directory from your most recent session
 - **`/goal` across all channels** — set autonomous goals from Telegram, Discord, Slack, WhatsApp
 - **Voice support** — local Whisper STT + Piper TTS, fully offline
@@ -48,6 +49,7 @@
 ### Self-Healing & Self-Improvement
 - **Recursive Self-Improvement (RSI)** — agent analyzes performance, identifies patterns, and rewrites brain files
 - **Phantom tool call detection** — catches when the model narrates changes without executing tools
+- **Self-heal phantom detection (v0.3.72)** — catch zero-tool turns that claim high-stakes side-effects (ship/push/tag/release)
 - **System brain rebuild** — brain files rebuilt from disk when changed, no restart needed
 - **Proactive tool discovery** — searches for available tools before claiming inability
 - **Multilanguage prompt analyzer (v0.3.67)** — shared PromptAnalyzer with soft-nudge on TUI and Telegram, 6 language packs (EN/ES/FR/ID/PT/RU)
@@ -77,6 +79,7 @@
 ### Developer Experience
 - **50+ built-in tools** — file ops, bash, web search, code execution, browser automation, image gen, voice, PDF rendering
 - **web_scrape** — native URL-to-markdown scraping with SSRF protection, sitemap crawling, JS-shell detection, and profile-aware export
+- **Built-in /github skill** — full gh CLI control for issues, PRs, code reviews, repo management
 - **Proactive tool discovery** — agent finds tools before saying "I can't"
 - **Skills system** — workflow templates with fuzzy-finding, auto-registered as slash commands
 - **Dynamic tools** — runtime-defined via TOML (HTTP + shell executors)
@@ -86,6 +89,13 @@
 - **RTK auto-download** — bundled 4MB proxy for 53.5% token savings on 100+ commands
 - **Confidential file protection** — SSH keys, .env, credentials protected by default
 - **AGENTS always-loaded** — hard rules and governance enforced every turn
+- **Config-driven debug_logs (v0.3.71)** — toggle debug logs with hot-reload, no restart needed
+- **Secret redaction scope (v0.3.71)** — scope redaction to global/group/DM with `/redact` command
+- **Secret redaction scope (v0.3.71)** — scope redaction to global/group/DM with `/redact` command
+- **Config-driven debug_logs (v0.3.71)** — toggle debug logs with hot-reload, no restart needed
+- **Tmux watchdog (v0.3.71)** — pane-only kill, 30s warning, auto-reattach
+- **Plan-gate three-state (v0.3.71)** — GateDecision with bash going to approval in post-init Editing
+- **MCP-style ToolHints (v0.3.71)** — risk model for tool classification, drives plan gate
 
 ### Browser Automation
 - **Full CDP support** — navigate, click, type, screenshot, JS eval, find elements

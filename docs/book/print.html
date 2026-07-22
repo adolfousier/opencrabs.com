@@ -64,7 +64,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-deba5fd9.js";
+            window.path_to_searchindex_js = "searchindex-de1a45a0.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-29cc538f.js"></script>
@@ -208,7 +208,7 @@
                     <main>
                         <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
 <p><strong>OpenCrabs</strong> is a self-hosted, provider-agnostic AI orchestration agent that runs as a single Rust binary. It automates your terminal, browser, channels (Telegram/Discord/Slack/WhatsApp/Trello), and codebase, all while respecting your privacy and keeping you in control.</p>
-<p><strong>5,017+ tests</strong> across providers, tools, channels, TUI, self-healing, and browser automation.</p>
+<p><strong>5,162+ tests</strong> across providers, tools, channels, TUI, self-healing, and browser automation.</p>
 <h2 id="what-makes-opencrabs-different"><a class="header" href="#what-makes-opencrabs-different">What Makes OpenCrabs Different</a></h2>
 <h3 id="zero-telemetry-not-even-opt-in"><a class="header" href="#zero-telemetry-not-even-opt-in">Zero Telemetry, Not Even Opt-In</a></h3>
 <ul>
@@ -246,6 +246,7 @@
 <li><strong>Frame reactions (v0.3.61)</strong> — inbound reactions read by sentiment, agent addresses user by first name</li>
 <li><strong>Mid-turn reactions (v0.3.61)</strong> — a reaction during a running turn injects into the current loop instead of firing a second turn</li>
 <li><strong>Follow-up suggestions (v0.3.69)</strong> — tap-to-send optional follow-ups on Telegram, Discord, Slack, WhatsApp; fill-not-submit in TUI</li>
+<li><strong>Telegram plan card re-stick (v0.3.71)</strong> — re-stick plan card and fold prose into it when buried</li>
 <li><strong>Session inheritance</strong> — <code>/new</code> inherits the working directory from your most recent session</li>
 <li><strong><code>/goal</code> across all channels</strong> — set autonomous goals from Telegram, Discord, Slack, WhatsApp</li>
 <li><strong>Voice support</strong> — local Whisper STT + Piper TTS, fully offline</li>
@@ -257,6 +258,7 @@
 <ul>
 <li><strong>Recursive Self-Improvement (RSI)</strong> — agent analyzes performance, identifies patterns, and rewrites brain files</li>
 <li><strong>Phantom tool call detection</strong> — catches when the model narrates changes without executing tools</li>
+<li><strong>Self-heal phantom detection (v0.3.72)</strong> — catch zero-tool turns that claim high-stakes side-effects (ship/push/tag/release)</li>
 <li><strong>System brain rebuild</strong> — brain files rebuilt from disk when changed, no restart needed</li>
 <li><strong>Proactive tool discovery</strong> — searches for available tools before claiming inability</li>
 <li><strong>Multilanguage prompt analyzer (v0.3.67)</strong> — shared PromptAnalyzer with soft-nudge on TUI and Telegram, 6 language packs (EN/ES/FR/ID/PT/RU)</li>
@@ -288,6 +290,7 @@
 <ul>
 <li><strong>50+ built-in tools</strong> — file ops, bash, web search, code execution, browser automation, image gen, voice, PDF rendering</li>
 <li><strong>web_scrape</strong> — native URL-to-markdown scraping with SSRF protection, sitemap crawling, JS-shell detection, and profile-aware export</li>
+<li><strong>Built-in /github skill</strong> — full gh CLI control for issues, PRs, code reviews, repo management</li>
 <li><strong>Proactive tool discovery</strong> — agent finds tools before saying “I can’t”</li>
 <li><strong>Skills system</strong> — workflow templates with fuzzy-finding, auto-registered as slash commands</li>
 <li><strong>Dynamic tools</strong> — runtime-defined via TOML (HTTP + shell executors)</li>
@@ -297,6 +300,13 @@
 <li><strong>RTK auto-download</strong> — bundled 4MB proxy for 53.5% token savings on 100+ commands</li>
 <li><strong>Confidential file protection</strong> — SSH keys, .env, credentials protected by default</li>
 <li><strong>AGENTS always-loaded</strong> — hard rules and governance enforced every turn</li>
+<li><strong>Config-driven debug_logs (v0.3.71)</strong> — toggle debug logs with hot-reload, no restart needed</li>
+<li><strong>Secret redaction scope (v0.3.71)</strong> — scope redaction to global/group/DM with <code>/redact</code> command</li>
+<li><strong>Secret redaction scope (v0.3.71)</strong> — scope redaction to global/group/DM with <code>/redact</code> command</li>
+<li><strong>Config-driven debug_logs (v0.3.71)</strong> — toggle debug logs with hot-reload, no restart needed</li>
+<li><strong>Tmux watchdog (v0.3.71)</strong> — pane-only kill, 30s warning, auto-reattach</li>
+<li><strong>Plan-gate three-state (v0.3.71)</strong> — GateDecision with bash going to approval in post-init Editing</li>
+<li><strong>MCP-style ToolHints (v0.3.71)</strong> — risk model for tool classification, drives plan gate</li>
 </ul>
 <h3 id="browser-automation"><a class="header" href="#browser-automation">Browser Automation</a></h3>
 <ul>
