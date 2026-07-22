@@ -63,7 +63,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-3da27de0.js";
+            window.path_to_searchindex_js = "../searchindex-18c1a552.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-29cc538f.js"></script>
@@ -473,6 +473,59 @@ enabled = true
 provider = "openrouter"
 </code></pre>
 <p>Or just ask your Crab: <em>“Set up fallback providers using openrouter and anthropic”</em> — it will configure <code>config.toml</code> for you at runtime.</p>
+<h2 id="provider-configuration-fields"><a class="header" href="#provider-configuration-fields">Provider Configuration Fields</a></h2>
+<p>Every provider section (<code>[providers.&lt;name&gt;]</code>) supports these fields:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Field</th><th>Type</th><th>Default</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>enabled</code></td><td>bool</td><td><code>true</code></td><td>Enable/disable the provider</td></tr>
+<tr><td><code>api_key</code></td><td>string</td><td><code>None</code></td><td>API key (loaded from <code>keys.toml</code> or env)</td></tr>
+<tr><td><code>base_url</code></td><td>string</td><td><code>None</code></td><td>API base URL override (for custom/local providers)</td></tr>
+<tr><td><code>default_model</code></td><td>string</td><td><code>None</code></td><td>Default model for this provider</td></tr>
+<tr><td><code>models</code></td><td>array</td><td><code>[]</code></td><td>Available models (updated at runtime via <code>/models</code>)</td></tr>
+<tr><td><code>force_default</code></td><td>bool</td><td><code>false</code></td><td>Push this provider’s default pair to all sessions on reload (see <a href="#force-default-provider">Force Default Provider</a>)</td></tr>
+<tr><td><code>vision_model</code></td><td>string</td><td><code>None</code></td><td>Vision-capable model override (swaps in when images are present)</td></tr>
+<tr><td><code>generation_model</code></td><td>string</td><td><code>None</code></td><td>Image generation model override (wins over global <code>image.generation.model</code>)</td></tr>
+<tr><td><code>context_window</code></td><td>u32</td><td><code>None</code></td><td>Context window size in tokens (for auto-compaction)</td></tr>
+<tr><td><code>endpoint_type</code></td><td>string</td><td><code>None</code></td><td>Endpoint type for providers with multiple API modes (e.g. z.ai: <code>"api"</code> or <code>"coding"</code>)</td></tr>
+<tr><td><code>plan</code></td><td>string</td><td><code>None</code></td><td>Subscription tier (Kimi Code: <code>"moderato"</code>, <code>"allegretto"</code>, <code>"allegro"</code>, <code>"vivace"</code>)</td></tr>
+<tr><td><code>reasoning_effort</code></td><td>string</td><td><code>None</code></td><td>Reasoning control (e.g. <code>"max"</code> for Kimi K3, <code>"on"</code>/<code>"off"</code> for K2.x)</td></tr>
+<tr><td><code>voice</code></td><td>string</td><td><code>None</code></td><td>TTS voice name (e.g. <code>"echo"</code>)</td></tr>
+<tr><td><code>model</code></td><td>string</td><td><code>None</code></td><td>TTS model override (e.g. <code>"gpt-4o-mini-tts"</code>)</td></tr>
+<tr><td><code>enable_thinking</code></td><td>bool</td><td><code>None</code></td><td>Thinking mode for reasoning-capable models (Qwen, local providers)</td></tr>
+</tbody>
+</table>
+</div>
+<p><strong>Example — full provider config:</strong></p>
+<pre><code class="language-toml"># config.toml
+[providers.minimax]
+enabled = true
+default_model = "MiniMax-M2.7"
+vision_model = "MiniMax-Text-01"
+generation_model = "MiniMax-Image-01"
+context_window = 200000
+force_default = true
+</code></pre>
+<h2 id="force-default-provider"><a class="header" href="#force-default-provider">Force Default Provider</a></h2>
+<p>When you set <code>force_default = true</code> on a provider section, a config reload pushes that provider’s default pair (provider + model) to <strong>every non-archived session</strong>, overriding their stored pairs. This enforces your chosen default across all active sessions instead of just new ones.</p>
+<pre><code class="language-toml"># config.toml
+[providers.minimax]
+enabled = true
+default_model = "MiniMax-M2.7"
+force_default = true  # Pushes MiniMax M2.7 to all sessions on reload
+</code></pre>
+<p><strong>How it works:</strong></p>
+<ul>
+<li>Only fires when the flagged section is the <strong>active default provider</strong> (set via <code>/models</code> or <code>default_provider</code> in <code>[agent]</code>)</li>
+<li>Archived sessions are never touched</li>
+<li>Sessions already on the target pair are skipped</li>
+<li>Without this flag: defaults apply to new sessions only, existing sessions keep their own provider/model</li>
+</ul>
+<p><strong>Use case:</strong> You want to roll out a new default model (e.g. MiniMax M2.7) across all active sessions immediately, not just new ones. Set <code>force_default = true</code> on the MiniMax section, reload config, and every session switches to M2.7.</p>
+<p><strong>Note:</strong> This only reinforces the default — it doesn’t override a different active provider. If a session is using Anthropic Claude and you set <code>force_default = true</code> on MiniMax, the Claude session stays on Claude (because MiniMax isn’t the active default).</p>
 <h2 id="vision-model"><a class="header" href="#vision-model">Vision Model</a></h2>
 <p>When your default chat model doesn’t support vision, set <code>vision_model</code> to a vision-capable model on the same provider. This registers a vision tool that the agent can call — it sends the image to the vision model, gets a description back, and the chat model uses that context to reply.</p>
 <pre><code class="language-toml"># config.toml
