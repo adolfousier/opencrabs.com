@@ -2,7 +2,7 @@
 
 **OpenCrabs** is a self-hosted, provider-agnostic AI orchestration agent that runs as a single Rust binary. It automates your terminal, browser, channels (Telegram/Discord/Slack/WhatsApp/Trello), and codebase, all while respecting your privacy and keeping you in control.
 
-**5,162+ tests** across providers, tools, channels, TUI, self-healing, and browser automation.
+**5,200+ tests** across providers, tools, channels, TUI, self-healing, and browser automation.
 
 ## What Makes OpenCrabs Different
 
@@ -39,6 +39,8 @@
 - **Mid-turn reactions (v0.3.61)** — a reaction during a running turn injects into the current loop instead of firing a second turn
 - **Follow-up suggestions (v0.3.69)** — tap-to-send optional follow-ups on Telegram, Discord, Slack, WhatsApp; fill-not-submit in TUI
 - **Telegram plan card re-stick (v0.3.71)** — re-stick plan card and fold prose into it when buried
+- **Full group history capture (v0.3.73)** — persist every group message to history, even from non-allowlisted senders and bots
+- **Correct group speaker (v0.3.73)** — stop addressing a group-history sender as the current speaker
 - **Session inheritance** — `/new` inherits the working directory from your most recent session
 - **`/goal` across all channels** — set autonomous goals from Telegram, Discord, Slack, WhatsApp
 - **Voice support** — local Whisper STT + Piper TTS, fully offline
@@ -66,6 +68,7 @@
 ### Terminal UI
 - **Native markdown rendering** — emphasis, lists, links, and task items render directly in the terminal
 - **Real-time tok/s throughput meter** — live tokens-per-second during streaming
+- **Version display (v0.3.73)** — show the running version on the TUI header and in channel /help + /usage
 - **Group tool calls (v0.3.61)** — consecutive tool calls collapse into one expandable block, keeping the TUI clean during multi-step operations
 - **Fold intermediate text (v0.3.61)** — intermediate processing text folds into the same in-place log as tool calls, so only the final answer stays visible
 - **Session search** — search filter + viewport scroll across all sessions
@@ -78,7 +81,9 @@
 
 ### Developer Experience
 - **50+ built-in tools** — file ops, bash, web search, code execution, browser automation, image gen, voice, PDF rendering
+- **Unified parallel web search (v0.3.73)** — web_search, exa_search, and brave_search fan out in parallel under a single web_search tool
 - **web_scrape** — native URL-to-markdown scraping with SSRF protection, sitemap crawling, JS-shell detection, and profile-aware export
+- **DDG captcha detection (v0.3.73)** — detect DuckDuckGo captcha via HTTP 202 + structural form check
 - **Built-in /github skill** — full gh CLI control for issues, PRs, code reviews, repo management
 - **Proactive tool discovery** — agent finds tools before saying "I can't"
 - **Skills system** — workflow templates with fuzzy-finding, auto-registered as slash commands
