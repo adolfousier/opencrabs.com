@@ -63,7 +63,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-4256833b.js";
+            window.path_to_searchindex_js = "../searchindex-bb64c67f.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-29cc538f.js"></script>
@@ -285,7 +285,7 @@ default_model = "MiniMax-M2.7"      # fallback model when no model is active (v0
 <tr><td><code>silent_compaction</code></td><td><code>false</code></td><td>When true, suppresses the agent’s playful post-compaction narration. Useful for corporate/formal deployments</td></tr>
 <tr><td><code>lazy_tools</code></td><td><code>true</code></td><td>Ships only core tool schemas (~4k tokens) plus <code>tool_search</code> per request. The agent discovers and activates extended tools on demand via <code>tool_search</code>. Set <code>false</code> to load all ~95 schemas every request</td></tr>
 <tr><td><code>redact_sensitive_data</code></td><td><code>true</code></td><td>Redacts API keys, tokens, passwords, and IPs from tool outputs and display. Set <code>false</code> during sysadmin/devops work where seeing IPs/tokens/passwords is necessary</td></tr>
-<tr><td><code>debug_logs</code></td><td><code>false</code></td><td>Enable debug file logging to <code>~/.opencrabs/logs/</code>. Hot-reloads on change (no restart). The <code>--debug</code> CLI flag always wins when set (OR logic). Set <code>DEBUG_LOGS_LOCATION</code> env var for custom log directory</td></tr>
+<tr><td><code>debug_logs</code></td><td><code>false</code></td><td>Enable debug file logging to <code>~/.opencrabs/logs/</code>. Hot-reloads on change (no restart). The <code>--debug</code> CLI flag always wins when set (OR logic)</td></tr>
 <tr><td><code>default_provider</code></td><td><code>None</code> (uses active provider)</td><td>Fallback provider when no provider is active in the current session. Also used for cron jobs without an explicit provider (v0.3.62)</td></tr>
 <tr><td><code>default_model</code></td><td><code>None</code> (uses active model)</td><td>Fallback model when no model is active in the current session. Also used for cron jobs without an explicit model (v0.3.62)</td></tr>
 </tbody>

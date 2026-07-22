@@ -87,7 +87,7 @@ default_model = "MiniMax-M2.7"      # fallback model when no model is active (v0
 | `silent_compaction` | `false` | When true, suppresses the agent's playful post-compaction narration. Useful for corporate/formal deployments |
 | `lazy_tools` | `true` | Ships only core tool schemas (~4k tokens) plus `tool_search` per request. The agent discovers and activates extended tools on demand via `tool_search`. Set `false` to load all ~95 schemas every request |
 | `redact_sensitive_data` | `true` | Redacts API keys, tokens, passwords, and IPs from tool outputs and display. Set `false` during sysadmin/devops work where seeing IPs/tokens/passwords is necessary |
-| `debug_logs` | `false` | Enable debug file logging to `~/.opencrabs/logs/`. Hot-reloads on change (no restart). The `--debug` CLI flag always wins when set (OR logic). Set `DEBUG_LOGS_LOCATION` env var for custom log directory |
+| `debug_logs` | `false` | Enable debug file logging to `~/.opencrabs/logs/`. Hot-reloads on change (no restart). The `--debug` CLI flag always wins when set (OR logic) |
 | `default_provider` | `None` (uses active provider) | Fallback provider when no provider is active in the current session. Also used for cron jobs without an explicit provider (v0.3.62) |
 | `default_model` | `None` (uses active model) | Fallback model when no model is active in the current session. Also used for cron jobs without an explicit model (v0.3.62) |
 
