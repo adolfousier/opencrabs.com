@@ -668,6 +668,11 @@ fn Testimonials() -> impl IntoView {
             "Adi · Telegram DM",
             "",
         ),
+        (
+            "The agent personality is the best thing about OpenCrabs. Hard to explain.",
+            "Declutter · @declutterKE",
+            "https://x.com/declutterKE/status/2079883087979159823",
+        ),
     ];
 
     view! {
