@@ -634,11 +634,6 @@ fn Testimonials() -> impl IntoView {
             "https://x.com/AlexBuildsCo/status/2031037889094562160",
         ),
         (
-            "Every day I tweak Crabs to help me do things faster. BTW Trello integration is amazing. My agent now has a board with tasks it manages on its own.",
-            "@opryshok",
-            "https://x.com/opryshok/status/2030282770912522288",
-        ),
-        (
             "After I was using OpenClaw and Hermes, OpenCrabs is the first agent I click with.",
             "@anschmieg",
             "https://github.com/adolfousier/opencrabs/pull/61#issuecomment-4201983933",
@@ -649,23 +644,8 @@ fn Testimonials() -> impl IntoView {
             "https://x.com/0xMaheshK/status/2062763007529320646",
         ),
         (
-            "I fired my assistant bc of OpenCrabs! The crab now monitors my Telegram group, OCRs invoices, puts them into the banking app, I approve manually, it downloads notification and puts it back to the Telegram group, and files transactions in my management accounting app.",
-            "@leshchenko1979",
-            "https://x.com/leshchenko1979/status/2068603163448353058",
-        ),
-        (
             "It's easy to become obsessed w/ crabs, I already feel it.",
             "Roman Gall · Telegram DM",
-            "",
-        ),
-        (
-            "I've been building an APP myself with CRABS from ideas and it has been such a great MILESTONE in learning stuff. SHOUT OUT TO @AdolfoUsier for keep improving this thing and it's just the beginning 🔥🔥🔥",
-            "kaduzeras · @kadu_cec",
-            "https://x.com/kadu_cec/status/2043335714654367895",
-        ),
-        (
-            "Most of the process involved brainstorming with OpenCrabs: I'd throw out an idea, Crabs would find valid data, we'd do the research and reach a conclusion, and then he'd handle the actual building.",
-            "Adi · Telegram DM",
             "",
         ),
         (
@@ -695,6 +675,12 @@ fn Testimonials() -> impl IntoView {
                             }}
                         </div>
                     }).collect::<Vec<_>>()}
+                </div>
+                <div class="stories-cta-wrap">
+                    <a class="stories-cta" href="https://docs.opencrabs.com/user-stories.html" target="_blank" rel="noopener">
+                        "See the user stories — real workflows, real receipts"
+                        <span class="arrow">" →"</span>
+                    </a>
                 </div>
             </div>
         </section>
