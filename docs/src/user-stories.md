@@ -75,8 +75,8 @@
       <span class="story-source"><i class="dot"></i>X · Twitter</span>
       <span class="story-cat">Real Estate</span>
     </div>
-    <h3 class="story-title">Fired the assistant. Twice.</h3>
-    <p class="story-excerpt">First the crab took over real estate lead follow-ups: scan Telegram, cross-reference chats, agree on follow-up vs close, send them. Five minutes. Then it took over the invoice loop: OCR, banking app, approval, management accounting.</p>
+    <h3 class="story-title">Fired the assistant</h3>
+    <p class="story-excerpt">Alexey fired his assistant and handed the whole job to the crab: scan Telegram for new real estate leads, cross-reference the chats, agree on follow-up vs close, and send them in five minutes. The same takeover covers the invoice loop: OCR, banking app, manual approval, management accounting.</p>
     <div class="story-foot">
       <span class="story-author">@leshchenko1979</span>
       <span class="story-more">breakdown <span class="chev">▸</span></span>
@@ -95,7 +95,7 @@
     <blockquote>
       <p>The crab bow: monitors a telegram group, OCRs an invoice, puts it into the banking app, I approve manually, it downloads the notification and puts it back to the telegram group, files the transaction in the management accounting app.</p>
     </blockquote>
-    <p>Two separate assistant workflows, both fully automated with a human approval gate exactly where it matters.</p>
+    <p>One assistant replaced, two workflows automated, each with a human approval gate exactly where it matters.</p>
     <a class="story-link" href="https://x.com/leshchenko1979/status/2068987432196780261" target="_blank" rel="noopener">Lead follow-ups on X ↗</a>
     <a class="story-link" href="https://x.com/leshchenko1979/status/2068603163448353058" target="_blank" rel="noopener">The crab bow on X ↗</a>
   </div>
