@@ -12,6 +12,25 @@ Real stories from the OpenCrabs community. What people are actually building, au
 
 Alexey built a full AI financial assistant for Russian SMBs on OpenCrabs. The agent handles the messy reality of small business finance: clients who can't articulate what they need, don't understand what AI can do for them, and drop off after a couple days. The agent guides them through all three scenarios autonomously.
 
+### What miidas does
+
+**MIIIDAS: accounting without an extra person.** Priced at ₽3,000/month, it replaces the accounting operator entirely:
+
+- **Replaces the operator:** P&L statements generated automatically, reconciliation handled, incoming data controlled and validated
+- **Assists the Chief Accountant:** prepares data for 1C:CounterV.S., searches for deviations, drafts contracts and reports
+- **Integrates with existing tools:** 1C, Excel, Google Sheets, Word, Google Docs
+
+### The stack
+
+Alexey runs the whole thing on a lean Docker setup:
+
+- **9 containers** (7 with clients, 4 active at any time)
+- **Grafana** for monitoring
+- **Telegram** as the deployment platform ("when you decide to deploy a school of crabs via Telegram, you'll have the infra ready")
+- **Template repo** for central skills/brains updates across all containers
+- **Container isolation** per client
+- **Resource footprint:** low enough to fit ~30 crabs on a 2GB VPS with swap
+
 ---
 
 ## Fired the Accounting Operator
@@ -20,7 +39,7 @@ Alexey built a full AI financial assistant for Russian SMBs on OpenCrabs. The ag
 >
 > **Alexey** · [#ai](https://x.com/search?q=%23ai) [#business](https://x.com/search?q=%23business) [#accounting](https://x.com/search?q=%23accounting)
 
-Same agent, different angle. The accounting operator was replaced entirely. The AI accountant processes transactions, generates reports, and handles bookkeeping without the overhead, and without taking feedback personally.
+Same agent, different angle. The accounting operator was replaced entirely. The AI accountant processes transactions, generates P&L statements, handles reconciliation, and drafts reports without the overhead, and without taking feedback personally. At ₽3,000/month it costs a fraction of a human operator.
 
 ---
 

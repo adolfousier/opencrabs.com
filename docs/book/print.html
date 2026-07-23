@@ -64,7 +64,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-cf27e2e3.js";
+            window.path_to_searchindex_js = "searchindex-55f6c217.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-37e8252d.js"></script>
@@ -5688,13 +5688,30 @@ node dist/cli.js linkedin comment &lt;post-url&gt; "text" # Comment on post
 <p><strong>Alexey</strong> · <a href="https://x.com/search?q=%23automation">#automation</a> <a href="https://x.com/search?q=%23smb">#smb</a></p>
 </blockquote>
 <p>Alexey built a full AI financial assistant for Russian SMBs on OpenCrabs. The agent handles the messy reality of small business finance: clients who can’t articulate what they need, don’t understand what AI can do for them, and drop off after a couple days. The agent guides them through all three scenarios autonomously.</p>
+<h3 id="what-miidas-does"><a class="header" href="#what-miidas-does">What miidas does</a></h3>
+<p><strong>MIIIDAS: accounting without an extra person.</strong> Priced at ₽3,000/month, it replaces the accounting operator entirely:</p>
+<ul>
+<li><strong>Replaces the operator:</strong> P&amp;L statements generated automatically, reconciliation handled, incoming data controlled and validated</li>
+<li><strong>Assists the Chief Accountant:</strong> prepares data for 1C:CounterV.S., searches for deviations, drafts contracts and reports</li>
+<li><strong>Integrates with existing tools:</strong> 1C, Excel, Google Sheets, Word, Google Docs</li>
+</ul>
+<h3 id="the-stack"><a class="header" href="#the-stack">The stack</a></h3>
+<p>Alexey runs the whole thing on a lean Docker setup:</p>
+<ul>
+<li><strong>9 containers</strong> (7 with clients, 4 active at any time)</li>
+<li><strong>Grafana</strong> for monitoring</li>
+<li><strong>Telegram</strong> as the deployment platform (“when you decide to deploy a school of crabs via Telegram, you’ll have the infra ready”)</li>
+<li><strong>Template repo</strong> for central skills/brains updates across all containers</li>
+<li><strong>Container isolation</strong> per client</li>
+<li><strong>Resource footprint:</strong> low enough to fit ~30 crabs on a 2GB VPS with swap</li>
+</ul>
 <hr>
 <h2 id="fired-the-accounting-operator"><a class="header" href="#fired-the-accounting-operator">Fired the Accounting Operator</a></h2>
 <blockquote>
 <p>I fired my accounting operator because I realized that an AI accountant would do his job faster, more transparently, and cheaper. And without any Gen Z hurt feelings over my feedback. See for yourself: <a href="http://miidas.ru">miidas.ru</a>.</p>
 <p><strong>Alexey</strong> · <a href="https://x.com/search?q=%23ai">#ai</a> <a href="https://x.com/search?q=%23business">#business</a> <a href="https://x.com/search?q=%23accounting">#accounting</a></p>
 </blockquote>
-<p>Same agent, different angle. The accounting operator was replaced entirely. The AI accountant processes transactions, generates reports, and handles bookkeeping without the overhead, and without taking feedback personally.</p>
+<p>Same agent, different angle. The accounting operator was replaced entirely. The AI accountant processes transactions, generates P&amp;L statements, handles reconciliation, and drafts reports without the overhead, and without taking feedback personally. At ₽3,000/month it costs a fraction of a human operator.</p>
 <hr>
 <h2 id="fired-the-assistant"><a class="header" href="#fired-the-assistant">Fired the Assistant</a></h2>
 <blockquote>
