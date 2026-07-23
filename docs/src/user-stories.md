@@ -10,6 +10,15 @@
   <span><b>6</b> linked sources</span>
 </div>
 
+<div class="stories-filters" role="toolbar" aria-label="Filter stories by category">
+  <button type="button" class="filter-pill active" data-filter="all">All <b>18</b></button>
+  <button type="button" class="filter-pill" data-filter="business-ops">Business Ops <b>5</b></button>
+  <button type="button" class="filter-pill" data-filter="product-building">Product Building <b>4</b></button>
+  <button type="button" class="filter-pill" data-filter="research-content">Research &amp; Content <b>3</b></button>
+  <button type="button" class="filter-pill" data-filter="devops-infra">DevOps &amp; Infra <b>3</b></button>
+  <button type="button" class="filter-pill" data-filter="meta-dogfooding">Meta &amp; Dogfooding <b>3</b></button>
+</div>
+
 <div class="stories-grid">
 
 <details class="story-card featured" style="--sc:#bae67e">
