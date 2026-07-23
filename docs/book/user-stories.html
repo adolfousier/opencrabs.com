@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Discord - OpenCrabs</title>
+        <title>User Stories - OpenCrabs</title>
 
 
         <!-- Custom HTML head -->
@@ -41,32 +41,32 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
 
-        <link rel="shortcut icon" href="../favicon-0496ab32.png">
-        <link rel="stylesheet" href="../css/variables-8adf115d.css">
-        <link rel="stylesheet" href="../css/general-2459343d.css">
-        <link rel="stylesheet" href="../css/chrome-ae938929.css">
-        <link rel="stylesheet" href="../css/print-9e4910d8.css" media="print">
+        <link rel="shortcut icon" href="favicon-0496ab32.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="../fonts/fonts-9644e21d.css">
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" id="mdbook-highlight-css" href="../highlight-493f70e1.css">
-        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="../tomorrow-night-4c0ae647.css">
-        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="../ayu-highlight-3fdfc3ac.css">
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
 
         <!-- Custom theme stylesheets -->
 
 
         <!-- Provide site root and default themes to javascript -->
         <script>
-            const path_to_root = "../";
+            const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-cf27e2e3.js";
+            window.path_to_searchindex_js = "searchindex-cf27e2e3.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-37e8252d.js"></script>
+        <script src="toc-37e8252d.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -133,7 +133,7 @@
             <!-- populated by js -->
             <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
             <noscript>
-                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
             </noscript>
             <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -168,7 +168,7 @@
                     <h1 class="menu-title">OpenCrabs</h1>
 
                     <div class="right-buttons">
-                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
                             <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
                         </a>
                         <a href="https://github.com/adolfousier/opencrabs" title="Git repository" aria-label="Git repository">
@@ -205,116 +205,69 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h1 id="discord"><a class="header" href="#discord">Discord</a></h1>
-<p>Connect OpenCrabs to Discord for server and DM interactions.</p>
-<h2 id="setup"><a class="header" href="#setup">Setup</a></h2>
-<h3 id="step-1-create-a-discord-bot"><a class="header" href="#step-1-create-a-discord-bot">Step 1: Create a Discord Bot</a></h3>
-<ol>
-<li>Go to <a href="https://discord.com/developers/applications">discord.com/developers/applications</a></li>
-<li>Create a new application</li>
-<li>Go to <strong>Bot</strong> section, create a bot</li>
-<li><strong>Enable MESSAGE CONTENT Intent</strong> (required — under Privileged Gateway Intents)</li>
-<li>Copy the bot token</li>
-<li>Under <strong>OAuth2 → URL Generator</strong>, select <code>bot</code> scope with <code>Send Messages</code> and <code>Read Message History</code> permissions</li>
-<li>Use the generated URL to invite the bot to your server</li>
-</ol>
-<h3 id="step-2-configure-via-the-onboarding-wizard"><a class="header" href="#step-2-configure-via-the-onboarding-wizard">Step 2: Configure via the Onboarding Wizard</a></h3>
-<p>Run <code>/onboard:channels</code> (or <code>/onboard</code> and navigate to the Channels step):</p>
-<ol>
-<li>Use <code>↑</code>/<code>↓</code> to focus <strong>Discord</strong></li>
-<li>Press <code>Space</code> to toggle it on</li>
-<li>Press <code>Enter</code> to open the Discord setup screen</li>
-<li>Fill in the fields:
-<ul>
-<li><strong>Bot Token</strong> — paste the token from the Developer Portal</li>
-<li><strong>Channel ID</strong> — the Discord channel to send the welcome message to (right-click a channel with Developer Mode on → Copy Channel ID)</li>
-<li><strong>Allowed Users</strong> — comma-separated Discord user IDs (leave empty to allow everyone)</li>
-<li><strong>Respond To</strong> — <code>all</code>, <code>dm_only</code>, or <code>mention</code></li>
-</ul>
-</li>
-<li>Press <code>Enter</code> on <strong>Test Connection</strong> to verify</li>
-<li>Press <code>Enter</code> to save and return to the channel list</li>
-</ol>
+                        <h1 id="user-stories"><a class="header" href="#user-stories">User Stories</a></h1>
+<p>Real stories from the OpenCrabs community. What people are actually building, automating, and shipping with their agents.</p>
+<hr>
+<h2 id="ai-financier-for-small-businesses"><a class="header" href="#ai-financier-for-small-businesses">AI Financier for Small Businesses</a></h2>
 <blockquote>
-<p>Enable Developer Mode in Discord: Settings → Advanced → Developer Mode</p>
+<p>For 2 weeks, I’ve been implementing <a href="http://miidas.ru">miidas.ru</a> on @opencrabs, an AI financier for small businesses. Three scenarios: (1) the client can’t describe their process (2) doesn’t know the AI’s capabilities, what it’s suitable for and what it’s not (3) forgets about the bot after two days.</p>
+<p><strong>Alexey</strong> · <a href="https://x.com/search?q=%23automation">#automation</a> <a href="https://x.com/search?q=%23smb">#smb</a></p>
 </blockquote>
-<h3 id="manual-configuration-advanced"><a class="header" href="#manual-configuration-advanced">Manual Configuration (advanced)</a></h3>
-<pre><code class="language-toml"># keys.toml
-[channels.discord]
-token = "your-bot-token"
-
-# config.toml
-[channels.discord]
-enabled = true
-allowed_channels = ["123456789"]
-allowed_users = []
-respond_to = "all"
-</code></pre>
-<h2 id="configuration"><a class="header" href="#configuration">Configuration</a></h2>
-<p>All Discord options live under <code>[channels.discord]</code> in <code>~/.opencrabs/config.toml</code>:</p>
-<pre><code class="language-toml">[channels.discord]
-enabled = true
-token = "your-discord-bot-token"       # or store in keys.toml
-allowed_users = ["123456789012345678"]  # Discord user IDs
-allowed_channels = ["123456789012345678"]
-respond_to = "mention"                  # "all", "dm_only", "mention" (default)
-session_idle_hours = 24.0               # idle timeout for non-owner sessions
-</code></pre>
-<div class="table-wrapper">
-<table>
-<thead>
-<tr><th>Field</th><th>Default</th><th>Description</th></tr>
-</thead>
-<tbody>
-<tr><td><code>enabled</code></td><td><code>false</code></td><td>Enable the Discord bot channel</td></tr>
-<tr><td><code>token</code></td><td><code>None</code></td><td>Discord bot token from the Developer Portal</td></tr>
-<tr><td><code>allowed_users</code></td><td><code>[]</code> (accept all)</td><td>Discord user IDs. Accepts int or string arrays</td></tr>
-<tr><td><code>allowed_channels</code></td><td><code>[]</code> (all channels)</td><td>Restrict bot to specific channel IDs</td></tr>
-<tr><td><code>respond_to</code></td><td><code>"mention"</code></td><td>When to respond: <code>"all"</code>, <code>"dm_only"</code>, <code>"mention"</code></td></tr>
-<tr><td><code>session_idle_hours</code></td><td><code>None</code> (no timeout)</td><td>Idle timeout for non-owner sessions. Owner sessions never expire</td></tr>
-</tbody>
-</table>
-</div>
-<h2 id="features"><a class="header" href="#features">Features</a></h2>
+<p>Alexey built a full AI financial assistant for Russian SMBs on OpenCrabs. The agent handles the messy reality of small business finance: clients who can’t articulate what they need, don’t understand what AI can do for them, and drop off after a couple days. The agent guides them through all three scenarios autonomously.</p>
+<hr>
+<h2 id="fired-the-accounting-operator"><a class="header" href="#fired-the-accounting-operator">Fired the Accounting Operator</a></h2>
+<blockquote>
+<p>I fired my accounting operator because I realized that an AI accountant would do his job faster, more transparently, and cheaper. And without any Gen Z hurt feelings over my feedback. See for yourself: <a href="http://miidas.ru">miidas.ru</a>.</p>
+<p><strong>Alexey</strong> · <a href="https://x.com/search?q=%23ai">#ai</a> <a href="https://x.com/search?q=%23business">#business</a> <a href="https://x.com/search?q=%23accounting">#accounting</a></p>
+</blockquote>
+<p>Same agent, different angle. The accounting operator was replaced entirely. The AI accountant processes transactions, generates reports, and handles bookkeeping without the overhead, and without taking feedback personally.</p>
+<hr>
+<h2 id="fired-the-assistant"><a class="header" href="#fired-the-assistant">Fired the Assistant</a></h2>
+<blockquote>
+<p>I fired my assistant bc of @opencrabs. Today it:</p>
 <ul>
-<li><strong>Server channels and DMs</strong> — Works in text channels and direct messages</li>
-<li><strong>Interactive components</strong> — Select menus, modal forms, button interactions with component TTL and role access</li>
-<li><strong>Media gallery</strong> — Batch generated files into one multi-attachment message</li>
-<li><strong>Grouped tool calls</strong> — Consecutive tool calls collapse into one expandable block with Expand/Collapse toggle</li>
-<li><strong>Reactions</strong> — Agent can add emoji reactions to messages. Emoji reactions from users trigger agent turns (parity with Slack/Telegram)</li>
-<li><strong>Forum threads</strong> — Support for Discord forum channels</li>
-<li><strong>Image support</strong> — Send and receive images</li>
-<li><strong>Embed suppression</strong> — Agent wraps multiple links in <code>&lt;&gt;</code> to suppress embeds</li>
-<li><strong>Slash commands</strong> — All built-in and custom commands work</li>
+<li>scanned my Telegram for notifications about new leads for our latest #RealEstateInvestment offer</li>
+<li>scanned again to see my chats with those leads</li>
+<li>agreed with me follow up / close decisions</li>
+<li>sent follow ups</li>
 </ul>
-<h3 id="interactive-components-v0363"><a class="header" href="#interactive-components-v0363">Interactive Components (v0.3.63)</a></h3>
-<p>Discord buttons, select menus, and modal forms power the provider picker, model picker, and session switcher. Components support:</p>
+<p>5 mins. Boom.</p>
+<p><strong>Alexey</strong></p>
+</blockquote>
+<p>The agent scanned Telegram for real estate leads, cross-referenced existing conversations, checked in with Alexey on follow-up vs close decisions, then sent the follow-ups. The whole pipeline took 5 minutes.</p>
+<hr>
+<h2 id="no-frameworks-just-opencrabs"><a class="header" href="#no-frameworks-just-opencrabs">No Frameworks, Just OpenCrabs</a></h2>
+<blockquote>
+<p>We decided not to use any frameworks at all. Not sure if in the age when code is so cheap it is worth it to learn other frameworks (especially for easier tasks) instead of just building our own. Faster, more control, less risks. Used @opencrabs to build evals for @opencrabs.</p>
+<p><strong>Alexey</strong></p>
+</blockquote>
+<p>Alexey’s team ditched frameworks entirely. When code generation is this cheap, the overhead of learning and maintaining a framework isn’t worth it for most tasks. They even used OpenCrabs to build evaluation suites for OpenCrabs itself.</p>
+<hr>
+<h2 id="mobile-product-dev-on-telegram-247"><a class="header" href="#mobile-product-dev-on-telegram-247">Mobile Product Dev on Telegram, 24/7</a></h2>
+<blockquote>
+<p>Carlos Eduardo runs the entire mobile product UX development for <a href="https://app.heyiolo.com">app.heyiolo.com</a> through Telegram, 24/7. Deploying to Hetzner, CI on GitHub Actions, fully managed by crabs.</p>
+<p><strong>Carlos Eduardo</strong> · <a href="https://app.heyiolo.com">app.heyiolo.com</a></p>
+</blockquote>
+<p>Carlos ships a full mobile real estate product (“Trouvez votre bien en parlant avec l’IA”) with OpenCrabs as the dev team. The agent handles UX development, deploys to Hetzner servers, runs CI through GitHub Actions, and manages the whole pipeline from a Telegram chat. No laptop required.</p>
+<p>The product itself is an AI-powered property search: users describe their project in natural language, the assistant analyzes the market, understands their real criteria, and presents the most relevant properties in real time.</p>
+<hr>
+<h2 id="share-your-story"><a class="header" href="#share-your-story">Share Your Story</a></h2>
+<p>Using OpenCrabs for something interesting? We want to hear about it.</p>
 <ul>
-<li><strong>Component TTL</strong> — Components expire after a configurable timeout</li>
-<li><strong>Role access</strong> — Restrict component interactions to specific Discord roles</li>
-<li><strong>Forum threads</strong> — Agent can create and manage forum threads</li>
-</ul>
-<h3 id="media-gallery-v0363"><a class="header" href="#media-gallery-v0363">Media Gallery (v0.3.63)</a></h3>
-<p>When the agent generates multiple files (PDFs, spreadsheets, images), Discord batches them into one multi-attachment message instead of sending separate messages for each file.</p>
-<h3 id="grouped-tool-calls-v0363"><a class="header" href="#grouped-tool-calls-v0363">Grouped Tool Calls (v0.3.63)</a></h3>
-<p>Consecutive tool calls collapse into a single expandable block in Discord. Users can toggle between expanded and collapsed views. This keeps the channel clean during multi-step operations.</p>
-<h3 id="reactions-v0363"><a class="header" href="#reactions-v0363">Reactions (v0.3.63)</a></h3>
-<p>The agent can add emoji reactions to messages. When a user reacts with an emoji, it triggers an agent turn (parity with Slack and Telegram). This enables quick, lightweight interactions without typing full messages.</p>
-<h2 id="formatting-notes"><a class="header" href="#formatting-notes">Formatting Notes</a></h2>
-<ul>
-<li>No markdown tables in Discord — use bullet lists instead</li>
-<li>Wrap multiple links in <code>&lt;url&gt;</code> to suppress embeds</li>
+<li><strong>X/Twitter:</strong> Tag <a href="https://x.com/opencrabs">@opencrabs</a> or use #opencrabs</li>
+<li><strong>Telegram:</strong> DM <a href="https://t.me/usieradolfo">@usieradolfo</a></li>
+<li><strong>GitHub:</strong> <a href="https://github.com/adolfousier/opencrabs">github.com/adolfousier/opencrabs</a></li>
 </ul>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../channels/telegram.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="features/document-generation.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="../channels/slack.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="development/building.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -324,11 +277,11 @@ session_idle_hours = 24.0               # idle timeout for non-owner sessions
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../channels/telegram.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="features/document-generation.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="../channels/slack.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="development/building.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>
@@ -348,16 +301,16 @@ session_idle_hours = 24.0               # idle timeout for non-owner sessions
         </script>
 
 
-        <script src="../elasticlunr-ef4e11c1.min.js"></script>
-        <script src="../mark-09e88c2c.min.js"></script>
-        <script src="../searcher-c2a407aa.js"></script>
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
 
-        <script src="../clipboard-1626706a.min.js"></script>
-        <script src="../highlight-abc7f01d.js"></script>
-        <script src="../book-a0b12cfe.js"></script>
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
 
         <!-- Custom JS scripts -->
-        <script src="../theme/custom-14a60261.js"></script>
+        <script src="theme/custom-14a60261.js"></script>
 
 
 

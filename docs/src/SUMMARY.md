@@ -55,6 +55,10 @@
 - [Web Scraping](./features/web-scrape.md)
 - [Document Generation](./features/document-generation.md)
 
+# User Stories
+
+- [User Stories](./user-stories.md)
+
 # Development
 
 - [Building from Source](./development/building.md)
