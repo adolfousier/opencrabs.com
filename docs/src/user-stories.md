@@ -138,22 +138,24 @@
 <details class="story-card" style="--sc:#ffb454">
   <summary>
     <div class="story-meta">
-      <span class="story-source"><i class="dot"></i>Product</span>
+      <span class="story-source"><i class="dot"></i>X · Twitter</span>
       <span class="story-cat">Mobile</span>
     </div>
     <h3 class="story-title">Mobile product dev on Telegram, 24/7</h3>
-    <p class="story-excerpt">Carlos Eduardo runs the entire mobile product UX development for app.heyiolo.com through Telegram, around the clock. Deploys to Hetzner, CI on GitHub Actions, fully managed by crabs. No laptop required.</p>
+    <p class="story-excerpt">Carlos Eduardo is a product guy, not a full-time dev, and app.heyiolo.com is now live, built almost entirely with OpenCrabs. He runs the whole thing from a Telegram chat around the clock: describe a feature, the crab plans, writes, tests, and ships it. Deploys to Hetzner, CI on GitHub Actions.</p>
     <div class="story-foot">
-      <span class="story-author">Carlos Eduardo</span>
+      <span class="story-author">Carlos Eduardo · @kadu_cec</span>
       <span class="story-more">breakdown <span class="chev">▸</span></span>
     </div>
   </summary>
   <div class="story-body">
     <blockquote>
-      <p>Trouvez votre bien en parlant avec l'IA. Décrivez votre projet à notre assistant. Il analyse le marché, comprend vos vrais critères et vous présente les biens les plus pertinents en temps réel.</p>
+      <p>You describe your project in plain words: "a 2-bedroom near Lyon under €300k, balcony, good schools nearby." The AI analyzes the market, understands your REAL criteria, and shows you the most relevant properties in real time. A buyer's agent in your pocket, 24/7.</p>
     </blockquote>
-    <p>Carlos ships a full mobile real estate product with OpenCrabs as the dev team. The agent handles UX development, deploys to Hetzner servers, runs CI through GitHub Actions, and manages the whole pipeline from a Telegram chat.</p>
-    <p>The product itself is an AI-powered property search: users describe their project in natural language, the assistant analyzes the market, understands their real criteria, and presents the most relevant properties in real time.</p>
+    <p><strong>app.heyiolo.com is live.</strong> An AI assistant that helps you find your property just by talking to it: no endless filters, no 47 tabs open, no guessing what you actually want.</p>
+    <p>Carlos built almost all of it with OpenCrabs, with Adolfo on the technical side (infra, backend). His crab lives in a Telegram chat with him around the clock: he describes a feature, it plans, writes the code, tests, and ships it. UX, backend, the whole thing, from "what if we..." to "it's in production" the same afternoon.</p>
+    <p>The pipeline runs on autopilot: GitHub, CI with GitHub Actions, deployed to Hetzner. He pushes an idea on Telegram, the crab handles the rest, and it's live.</p>
+    <a class="story-link" href="https://x.com/kadu_cec/status/2080330764395143628" target="_blank" rel="noopener">View source on X ↗</a>
     <a class="story-link" href="https://app.heyiolo.com" target="_blank" rel="noopener">app.heyiolo.com ↗</a>
   </div>
 </details>
