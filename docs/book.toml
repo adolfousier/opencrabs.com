@@ -16,6 +16,7 @@ site-url = "https://docs.opencrabs.com/"
 no-section-label = false
 cname = "docs.opencrabs.com"
 additional-js = ["theme/custom.js"]
+additional-css = ["theme/cards.css"]
 
 [output.html.search]
 enable = true
