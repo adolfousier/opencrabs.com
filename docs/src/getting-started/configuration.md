@@ -56,6 +56,15 @@ MiniMax > OpenRouter > Anthropic > OpenAI > Gemini > Custom
 
 Each session remembers which provider and model it was using. Switch providers per-session via `/models`.
 
+## Config Safety (v0.3.74)
+
+A malformed line in `config.toml` or `keys.toml` corrupts the whole file and takes the agent down (no provider keys, no bot token, no way back in). v0.3.74 makes that class of failure nearly impossible:
+
+- **Config edits via config_manager only** — the agent edits `config.toml` / `keys.toml` only through the `config_manager` tool, never with raw file edits. The write path validates the result and refuses anything that would break parsing (#715).
+- **Guard config-breaking writes** — `edit_file` / `write_file` writes that would break `config.toml` / `keys.toml` are denied outright (#713).
+- **Re-validate before write** — config is re-validated immediately before `fs::write` in the `config_manager` write paths (#714).
+- **Validate keys before snapshot** — `keys.toml` is validated before it is saved as the last-good snapshot, so a bad snapshot can't poison recovery (#712).
+
 ## Agent Behavior
 
 ```toml

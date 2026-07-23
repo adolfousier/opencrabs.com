@@ -59,6 +59,23 @@ Inactive panes now update **live** in the background. Previously, non-focused pa
 
 **Ctrl+N** binds the focused pane and live-refreshes the footer title, so new sessions show up immediately in the status bar.
 
+## Reasoning Expand (v0.3.74)
+
+Reasoning blocks now cycle through **three states** instead of toggling open/closed. Click a reasoning block (or press `Ctrl+O`) to cycle: **collapsed → capped → full**. The capped middle state shows a bounded preview so a long chain-of-thought never floods the viewport (#727, #726).
+
+Two refinements make expanding predictable:
+
+- **Anchor block on expand** — the clicked block's header is pinned to its screen row, so expanding or collapsing grows the block in place instead of jumping the viewport (#728).
+- **Click vs drag on mouse-up** — click-vs-drag is decided on mouse-up, so a click-drag selects text (for copying) instead of toggling the expand state (#726).
+
+## Version in the UI (v0.3.74)
+
+The running OpenCrabs version now shows on the **TUI header** and in channel `/help` and `/usage` output (#696), so you always know which build a session is on.
+
+## Double-Escape Returns the Query (v0.3.74)
+
+Pressing `Esc` twice before any reply now **returns the query to the input box and removes it** from the conversation (#698), so a half-typed prompt you cancel doesn't linger as an empty turn.
+
 ## Limits
 
 There is no hard limit on pane count -- you can run as many as your terminal fits. Each pane is a full session with its own token tracking and working directory.

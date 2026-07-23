@@ -88,6 +88,12 @@ Each session remembers:
 - **Conversation history** — Full message history in SQLite
 - **Token count and cost** — Cumulative usage tracking
 
+**v0.3.74 hardened per-session isolation:**
+
+- **Per-session working directory** — the working directory is isolated per session so it can't leak across concurrent sessions (#703).
+- **Restore session provider** — a session's saved provider is restored before its turn, so it never accidentally runs on the global default (#704).
+- **Don't persist involuntary remap** — an involuntary provider/model remap is not persisted over a session's saved pair (#705).
+
 ## Session Management
 
 | Action | TUI | Channels |
@@ -103,6 +109,19 @@ Sessions can process in the background while you work in another session. The se
 - Spinner for actively processing sessions
 - `!` for sessions waiting for tool approval
 - Dot for sessions with unread messages
+
+## Background Tasks (v0.3.74)
+
+Long-running shell commands no longer block your session. When the agent runs a known-long command (`cargo test`, `cargo build`, `npx remotion render`, `gh run watch`, and similar), OpenCrabs **auto-promotes it to a background task** (#722): the command runs detached, the session is freed immediately, and the agent can keep working (or you can switch away) while it finishes.
+
+When the task completes, the result is injected back into the originating session and **resumes it automatically**. On the TUI the session picks up at the next tool-call boundary; on Telegram the resume is delivered to the same chat (#722). No polling loops, no re-running the command to "check" — the completion report arrives on its own.
+
+The agent is told via its preamble that long tasks run in the background and resume the session when done, so it wraps up or moves on instead of sitting in a wait loop (#722).
+
+**Two related session fixes landed in the same release:**
+
+- **No perpetual resume** — a completed session no longer resumes on every restart. Resume turns are not re-tracked as pending requests, so a finished background task stays finished across restarts (#729).
+- **No lingering cancelled query** — a query cancelled before the agent replied, plus its empty assistant placeholder, are dropped as a pair so they don't linger in context and duplicate on resend (#730).
 
 ## Split Panes
 

@@ -77,6 +77,24 @@ ZIP file attachments from users are extracted and processed inline:
 - PDFs get text extraction
 - Capped at **50 files / 10 MB** per ZIP entry
 
+## Group Onboarding & /cowork (v0.3.74)
+
+Getting a bot into a group and making it useful is now a single flow:
+
+- **/cowork opens the group** — `/cowork` sets the target group `open = true` and persists it (#718).
+- **/cowork admin deep link** — the `/cowork` deep link requests admin rights, so the bot joins already promoted (#709).
+- **Group onboarding greeting** — the bot greets the group with an onboarding nudge when it joins (#707, #708).
+- **Per-group /start registration** — `/start` in a group registers the member per-group instead of the stale `config.toml` lecture (#708).
+- **Register joining members** — any member who joins a bot group is auto-registered (#710).
+- **Secure by default** — member auto-registration is gated to `open = true` groups (#717).
+
+## Follow-Up Suggestions (v0.3.74)
+
+- **follow_up_question degrades gracefully** — returns the question as plain text on non-interactive surfaces (#716).
+- **Telegram follow-up taps** — `suggest_followups` renders last, fixing taps doing nothing (#723, #724).
+- **Accurate description** — the `suggest_followups` tool description is channel-accurate, so the model invokes it instead of writing plain-text suggestions (#706).
+- **Outbound media dedup** — an identical file+caption re-uploaded to the same chat within a short window is collapsed, so the agent can't send it twice (#721).
+
 ## Common Features
 
 All messaging channels support:

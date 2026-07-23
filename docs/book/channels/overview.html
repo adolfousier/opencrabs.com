@@ -64,7 +64,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-11be15a2.js";
+            window.path_to_searchindex_js = "../searchindex-bd630ce6.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-37e8252d.js"></script>
@@ -289,6 +289,23 @@
 <li>Images get vision markers for multimodal processing</li>
 <li>PDFs get text extraction</li>
 <li>Capped at <strong>50 files / 10 MB</strong> per ZIP entry</li>
+</ul>
+<h2 id="group-onboarding--cowork-v0374"><a class="header" href="#group-onboarding--cowork-v0374">Group Onboarding &amp; /cowork (v0.3.74)</a></h2>
+<p>Getting a bot into a group and making it useful is now a single flow:</p>
+<ul>
+<li><strong>/cowork opens the group</strong> — <code>/cowork</code> sets the target group <code>open = true</code> and persists it (#718).</li>
+<li><strong>/cowork admin deep link</strong> — the <code>/cowork</code> deep link requests admin rights, so the bot joins already promoted (#709).</li>
+<li><strong>Group onboarding greeting</strong> — the bot greets the group with an onboarding nudge when it joins (#707, #708).</li>
+<li><strong>Per-group /start registration</strong> — <code>/start</code> in a group registers the member per-group instead of the stale <code>config.toml</code> lecture (#708).</li>
+<li><strong>Register joining members</strong> — any member who joins a bot group is auto-registered (#710).</li>
+<li><strong>Secure by default</strong> — member auto-registration is gated to <code>open = true</code> groups (#717).</li>
+</ul>
+<h2 id="follow-up-suggestions-v0374"><a class="header" href="#follow-up-suggestions-v0374">Follow-Up Suggestions (v0.3.74)</a></h2>
+<ul>
+<li><strong>follow_up_question degrades gracefully</strong> — returns the question as plain text on non-interactive surfaces (#716).</li>
+<li><strong>Telegram follow-up taps</strong> — <code>suggest_followups</code> renders last, fixing taps doing nothing (#723, #724).</li>
+<li><strong>Accurate description</strong> — the <code>suggest_followups</code> tool description is channel-accurate, so the model invokes it instead of writing plain-text suggestions (#706).</li>
+<li><strong>Outbound media dedup</strong> — an identical file+caption re-uploaded to the same chat within a short window is collapsed, so the agent can’t send it twice (#721).</li>
 </ul>
 <h2 id="common-features"><a class="header" href="#common-features">Common Features</a></h2>
 <p>All messaging channels support:</p>

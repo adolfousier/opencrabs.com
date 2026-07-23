@@ -64,7 +64,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-11be15a2.js";
+            window.path_to_searchindex_js = "../searchindex-bd630ce6.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-37e8252d.js"></script>
@@ -256,6 +256,17 @@
 <p>Inactive panes now update <strong>live</strong> in the background. Previously, non-focused panes only refreshed when you switched focus to them. Now a background-session live-state cache routes <code>IntermediateText</code> and <code>QueuedUserMessage</code> events into per-session deltas, so you can watch tool calls and responses appearing in other panes in real time without switching focus.</p>
 <p><strong>Provider/model contamination prevention:</strong> When closing or switching panes, the old session’s provider is captured <em>before</em> the switch. This blocks cross-provider model leaks at 27 call sites throughout the codebase. The footer always shows the correct provider+model for the focused pane.</p>
 <p><strong>Ctrl+N</strong> binds the focused pane and live-refreshes the footer title, so new sessions show up immediately in the status bar.</p>
+<h2 id="reasoning-expand-v0374"><a class="header" href="#reasoning-expand-v0374">Reasoning Expand (v0.3.74)</a></h2>
+<p>Reasoning blocks now cycle through <strong>three states</strong> instead of toggling open/closed. Click a reasoning block (or press <code>Ctrl+O</code>) to cycle: <strong>collapsed → capped → full</strong>. The capped middle state shows a bounded preview so a long chain-of-thought never floods the viewport (#727, #726).</p>
+<p>Two refinements make expanding predictable:</p>
+<ul>
+<li><strong>Anchor block on expand</strong> — the clicked block’s header is pinned to its screen row, so expanding or collapsing grows the block in place instead of jumping the viewport (#728).</li>
+<li><strong>Click vs drag on mouse-up</strong> — click-vs-drag is decided on mouse-up, so a click-drag selects text (for copying) instead of toggling the expand state (#726).</li>
+</ul>
+<h2 id="version-in-the-ui-v0374"><a class="header" href="#version-in-the-ui-v0374">Version in the UI (v0.3.74)</a></h2>
+<p>The running OpenCrabs version now shows on the <strong>TUI header</strong> and in channel <code>/help</code> and <code>/usage</code> output (#696), so you always know which build a session is on.</p>
+<h2 id="double-escape-returns-the-query-v0374"><a class="header" href="#double-escape-returns-the-query-v0374">Double-Escape Returns the Query (v0.3.74)</a></h2>
+<p>Pressing <code>Esc</code> twice before any reply now <strong>returns the query to the input box and removes it</strong> from the conversation (#698), so a half-typed prompt you cancel doesn’t linger as an empty turn.</p>
 <h2 id="limits"><a class="header" href="#limits">Limits</a></h2>
 <p>There is no hard limit on pane count – you can run as many as your terminal fits. Each pane is a full session with its own token tracking and working directory.</p>
 

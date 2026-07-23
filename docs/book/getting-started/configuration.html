@@ -64,7 +64,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-11be15a2.js";
+            window.path_to_searchindex_js = "../searchindex-bd630ce6.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-37e8252d.js"></script>
@@ -254,6 +254,14 @@ api_key = "sk-ant-..."
 <p>When multiple providers are enabled, the first one found in this order is used for new sessions:</p>
 <p>MiniMax &gt; OpenRouter &gt; Anthropic &gt; OpenAI &gt; Gemini &gt; Custom</p>
 <p>Each session remembers which provider and model it was using. Switch providers per-session via <code>/models</code>.</p>
+<h2 id="config-safety-v0374"><a class="header" href="#config-safety-v0374">Config Safety (v0.3.74)</a></h2>
+<p>A malformed line in <code>config.toml</code> or <code>keys.toml</code> corrupts the whole file and takes the agent down (no provider keys, no bot token, no way back in). v0.3.74 makes that class of failure nearly impossible:</p>
+<ul>
+<li><strong>Config edits via config_manager only</strong> — the agent edits <code>config.toml</code> / <code>keys.toml</code> only through the <code>config_manager</code> tool, never with raw file edits. The write path validates the result and refuses anything that would break parsing (#715).</li>
+<li><strong>Guard config-breaking writes</strong> — <code>edit_file</code> / <code>write_file</code> writes that would break <code>config.toml</code> / <code>keys.toml</code> are denied outright (#713).</li>
+<li><strong>Re-validate before write</strong> — config is re-validated immediately before <code>fs::write</code> in the <code>config_manager</code> write paths (#714).</li>
+<li><strong>Validate keys before snapshot</strong> — <code>keys.toml</code> is validated before it is saved as the last-good snapshot, so a bad snapshot can’t poison recovery (#712).</li>
+</ul>
 <h2 id="agent-behavior"><a class="header" href="#agent-behavior">Agent Behavior</a></h2>
 <pre><code class="language-toml">[agent]
 working_directory = "/path/to/default/dir"
