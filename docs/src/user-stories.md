@@ -4,12 +4,6 @@
 
 <p class="stories-lede">These are <strong>use cases</strong>, not reviews. Real workflows people run on OpenCrabs, tagged by what they automate, and linked back to the original post wherever we have it. Click any card for the full breakdown and the source. For what people say about the tool itself, see the reviews on the landing page.</p>
 
-<div class="stories-stats">
-  <span><b>18</b> use cases</span>
-  <span><b>6</b> builders</span>
-  <span><b>6</b> linked sources</span>
-</div>
-
 <div class="stories-filters" role="toolbar" aria-label="Filter stories by category">
   <button type="button" class="filter-pill active" data-filter="all">All <b>18</b></button>
   <button type="button" class="filter-pill" data-filter="business-ops">Business Ops <b>5</b></button>

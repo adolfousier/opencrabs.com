@@ -18,29 +18,6 @@
   color: var(--fg);
 }
 
-.stories-stats {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.6rem 1.6rem;
-  margin: 1.4rem 0 0.4rem;
-  padding: 0.9rem 1.1rem;
-  border: 1px solid var(--table-border-color, rgba(255, 255, 255, 0.1));
-  border-left: 3px solid var(--links, #0096cf);
-  border-radius: 8px;
-  background: var(--theme-popup-bg, rgba(255, 255, 255, 0.03));
-  font-family: var(--mono);
-  font-size: 0.8rem;
-  letter-spacing: 0.04em;
-}
-.stories-stats b {
-  color: var(--links, #0096cf);
-  font-weight: 700;
-}
-.stories-stats span {
-  color: var(--fg);
-  opacity: 0.85;
-}
-
 /* ---- filter pills (Hermes-style) --------------------------------- */
 .stories-filters {
   display: flex;
@@ -88,6 +65,7 @@
   grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
   gap: 1.3rem;
   margin-top: 2rem;
+  align-items: start;
 }
 
 /* each card is a native <details> — click to expand the breakdown */
@@ -136,7 +114,6 @@
   display: flex;
   flex-direction: column;
   gap: 0.7rem;
-  height: 100%;
 }
 .story-card summary::-webkit-details-marker { display: none; }
 .story-card summary::marker { content: ""; }
