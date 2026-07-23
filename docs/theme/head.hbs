@@ -1,4 +1,50 @@
-<!-- Open Graph -->
+{{#if (eq title "User Stories - OpenCrabs")}}
+<!-- ============ User Stories: per-page SEO ============ -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://docs.opencrabs.com/user-stories.html" />
+<meta property="og:title" content="OpenCrabs User Stories: real teams building with one AI agent" />
+<meta property="og:description" content="18 real use cases from 6 builders: firing the accounting operator, real-estate lead follow-ups, a World Cup desk in one PDF, payroll from a spreadsheet, multi-agent motion graphics, and one crab running a whole company across six environments." />
+<meta property="og:image" content="https://opencrabs.com/public/og-user-stories.png" />
+<meta property="og:image:width" content="3816" />
+<meta property="og:image:height" content="2160" />
+<meta property="og:site_name" content="OpenCrabs" />
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content="@OpenCrabsAI" />
+<meta name="twitter:title" content="OpenCrabs User Stories: real teams building with one AI agent" />
+<meta name="twitter:description" content="18 real use cases from 6 builders, from firing the accounting operator to one crab running a whole company across six environments." />
+<meta name="twitter:image" content="https://opencrabs.com/public/og-user-stories.png" />
+
+<!-- SEO -->
+<meta name="robots" content="index, follow" />
+<meta name="keywords" content="OpenCrabs user stories, AI agent use cases, AI case studies, AI accounting, AI real estate, AI payroll, autonomous agent, multi-agent, A2A, OpenCrabs" />
+<link rel="canonical" href="https://docs.opencrabs.com/user-stories.html" />
+
+<!-- Structured data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "OpenCrabs User Stories",
+  "description": "Real use cases from teams building with OpenCrabs, the autonomous AI agent that lives in your terminal.",
+  "url": "https://docs.opencrabs.com/user-stories.html",
+  "inLanguage": "en",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "OpenCrabs Documentation",
+    "url": "https://docs.opencrabs.com/"
+  },
+  "about": [
+    { "@type": "Thing", "name": "AI agent use cases" },
+    { "@type": "Thing", "name": "Autonomous AI" },
+    { "@type": "Thing", "name": "AI accounting automation" },
+    { "@type": "Thing", "name": "Multi-agent collaboration" }
+  ]
+}
+</script>
+{{else}}
+<!-- ============ Default: site-wide SEO ============ -->
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://docs.opencrabs.com/" />
 <meta property="og:title" content="OpenCrabs Documentation" />
@@ -17,6 +63,9 @@
 <!-- SEO -->
 <meta name="robots" content="index, follow" />
 <meta name="keywords" content="OpenCrabs, AI agent, terminal, documentation, Rust, LLM, Telegram bot, Discord bot, Slack bot, WhatsApp bot" />
+<link rel="canonical" href="https://docs.opencrabs.com/" />
+{{/if}}
+
 <!-- Google Analytics GA4 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-1DDEZDYVWR"></script>
 <script>
@@ -25,5 +74,3 @@
   gtag('js', new Date());
   gtag('config', 'G-1DDEZDYVWR');
 </script>
-
-<link rel="canonical" href="https://docs.opencrabs.com/" />
