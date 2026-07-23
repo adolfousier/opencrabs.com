@@ -65,7 +65,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-5ab8ff0a.js";
+            window.path_to_searchindex_js = "searchindex-f9852620.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-37e8252d.js"></script>
@@ -5685,8 +5685,8 @@ node dist/cli.js linkedin comment &lt;post-url&gt; "text" # Comment on post
 <p class="stories-lede">These are <strong>use cases</strong>, not reviews. Real workflows people run on OpenCrabs, tagged by what they automate, and linked back to the original post wherever we have it. Click any card for the full breakdown and the source. For what people say about the tool itself, see the reviews on the landing page.</p>
 
 <div class="stories-stats">
-  <span><b>12</b> use cases</span>
-  <span><b>5</b> builders</span>
+  <span><b>18</b> use cases</span>
+  <span><b>6</b> builders</span>
   <span><b>6</b> linked sources</span>
 </div>
 
@@ -6260,6 +6260,295 @@ node dist/cli.js linkedin comment &lt;post-url&gt; "text" # Comment on post
 
     
 <p>The agent testing the agent. Adi's crab does the maintainer's homework before it files.</p>
+
+  </div>
+
+</details>
+<details class="story-card featured" style="--sc:#e84040">
+  <summary>
+    
+<div class="story-meta">
+      <span class="story-source"><i class="dot"></i>Telegram</span>
+      <span class="story-cat">The thesis</span>
+    </div>
+
+    
+<h3 class="story-title">One crab runs the whole company</h3>
+
+    
+<p class="story-excerpt">Adolfo runs three companies on a single OpenCrabs instance with one brain. It manages every server, debugs production live with the team, builds the product stack, runs the daily standups, and tracks the ops, all at once across dozens of isolated sessions.</p>
+
+    
+<div class="story-foot">
+      <span class="story-author">Adolfo Usier · Creator</span>
+      <span class="story-more">breakdown <span class="chev">▸</span></span>
+    </div>
+
+  </summary>
+  
+<div class="story-body">
+    
+<blockquote>
+      
+<p>Single instance, single brain. It manages the whole thing concurrently, in simultaneous dozens of isolated sessions, each its own case.</p>
+
+    </blockquote>
+
+    
+<p>One OpenCrabs install, one accumulated brain, and the whole operation running through it at the same time:</p>
+
+    
+<ul>
+      
+<li><strong>Every server:</strong> Truelens dev, staging, and production, plus Neura/OpenCrabs dev, staging, and prod</li>
+
+      
+<li><strong>Production debugging, live:</strong> in the Slack channel with the Truelens team, in real time</li>
+
+      
+<li><strong>The routine, handled:</strong> UI updates, database queries, the changes that don't need the CTO, so Adolfo takes only the complex calls</li>
+
+      
+<li><strong>Building the product:</strong> the whole Truelens backend and frontend stack, and the infra and backend DevOps with Carlos</li>
+
+      
+<li><strong>The daily rhythm:</strong> a 9am morning recap, the daily standup for each team, and an analytics digest of AI usage across the whole fleet</li>
+
+      
+<li><strong>The ops layer:</strong> GitHub PRs and issues, cron jobs tracking certificates, and everything else that keeps it running</li>
+
+    </ul>
+
+    
+<p>Not one assistant per job. One brain, many hands, all working at once.</p>
+
+  </div>
+
+</details>
+<details class="story-card" style="--sc:#d4bfff">
+  <summary>
+    
+<div class="story-meta">
+      <span class="story-source"><i class="dot"></i>Telegram</span>
+      <span class="story-cat">Dogfooding</span>
+    </div>
+
+    
+<h3 class="story-title">The crab that builds itself</h3>
+
+    
+<p class="story-excerpt">Every new feature and every fix in OpenCrabs is built by OpenCrabs. Adolfo's crab develops, tests, and ships the very product it runs on, then improves itself on a schedule.</p>
+
+    
+<div class="story-foot">
+      <span class="story-author">Adolfo Usier · Creator</span>
+      <span class="story-more">breakdown <span class="chev">▸</span></span>
+    </div>
+
+  </summary>
+  
+<div class="story-body">
+    
+<p>The ultimate dogfood: the agent is the engineer of its own platform.</p>
+
+    
+<ul>
+      
+<li><strong>Every feature and fix:</strong> designed, coded, tested, and committed by the crab, now at v0.3.73 and climbing</li>
+
+      
+<li><strong>Self-improvement on a schedule:</strong> daily and weekly self-improvement jobs, memory consolidation, and soul evolution run as cron</li>
+
+      
+<li><strong>It QA's itself:</strong> the same recursive loop that ships features also hunts its own bugs (see Adi's QA card)</li>
+
+    </ul>
+
+    
+<p>The product builds itself, and gets better every night whether Adolfo is awake or not.</p>
+
+  </div>
+
+</details>
+<details class="story-card" style="--sc:#7fd962">
+  <summary>
+    
+<div class="story-meta">
+      <span class="story-source"><i class="dot"></i>Telegram</span>
+      <span class="story-cat">Product building</span>
+    </div>
+
+    
+<h3 class="story-title">Full-stack: a whole product, backend to frontend</h3>
+
+    
+<p class="story-excerpt">The crab built the entire Truelens product, backend and frontend, and builds the infrastructure, backend, and DevOps for HeyIolo alongside Carlos. Full-stack delivery from a chat: schema, API, UI, deploy.</p>
+
+    
+<div class="story-foot">
+      <span class="story-author">Adolfo Usier · Creator</span>
+      <span class="story-more">breakdown <span class="chev">▸</span></span>
+    </div>
+
+  </summary>
+  
+<div class="story-body">
+    
+<ul>
+      
+<li><strong>The whole Truelens stack:</strong> the backend BSR compliance engine (structuring submissions, checking completeness, keeping the Golden Thread) and the frontend, built by the crab</li>
+
+      
+<li><strong>HeyIolo with Carlos:</strong> the infrastructure, backend, and DevOps, built as a pair</li>
+
+      
+<li><strong>A scripted deploy flow:</strong> build the images locally, push to the registry, update the tags on the target server, and let CI restart the containers. Never a manual push</li>
+
+      
+<li><strong>Division of labor:</strong> the CTO keeps the complex architecture calls; the crab ships the UI updates, DB queries, and features end to end</li>
+
+    </ul>
+
+    
+<p>A full-stack engineer in a chat window: schema, API, UI, and deploy, across two products.</p>
+
+  </div>
+
+</details>
+<details class="story-card" style="--sc:#f07178">
+  <summary>
+    
+<div class="story-meta">
+      <span class="story-source"><i class="dot"></i>Slack</span>
+      <span class="story-cat">Team · Prod</span>
+    </div>
+
+    
+<h3 class="story-title">On-call in production, with the team</h3>
+
+    
+<p class="story-excerpt">When something breaks on Truelens production, the crab debugs it live in the Slack channel alongside the team, in real time. It takes the routine fixes so the CTO keeps the hard calls.</p>
+
+    
+<div class="story-foot">
+      <span class="story-author">Adolfo Usier · Creator</span>
+      <span class="story-more">breakdown <span class="chev">▸</span></span>
+    </div>
+
+  </summary>
+  
+<div class="story-body">
+    
+<p>A production incident is a team channel, and the crab is one of the responders:</p>
+
+    
+<ul>
+      
+<li><strong>Real-time debugging:</strong> in the Truelens Slack with the team (Felipe, Jan, Ruhul), investigating as it happens</li>
+
+      
+<li><strong>The routine changes:</strong> UI tweaks, database queries, the fixes that don't need a CTO, the crab handles with the team directly</li>
+
+      
+<li><strong>Escalation by design:</strong> anything touching production branches or complex architecture waits for Adolfo's explicit sign-off</li>
+
+    </ul>
+
+    
+<p>The team gets an always-on engineer in the channel. Adolfo stays the CTO, not the on-call.</p>
+
+  </div>
+
+</details>
+<details class="story-card" style="--sc:#59c2ff">
+  <summary>
+    
+<div class="story-meta">
+      <span class="story-source"><i class="dot"></i>Telegram</span>
+      <span class="story-cat">DevOps · Infra</span>
+    </div>
+
+    
+<h3 class="story-title">Six environments, one autonomous ops layer</h3>
+
+    
+<p class="story-excerpt">Two products, six environments, one crab keeping them alive: Truelens and Neura/OpenCrabs across dev, staging, and production. It deploys, watches the certificates, pings uptime, self-heals the web server, and verifies the backups, so nothing falls over quietly.</p>
+
+    
+<div class="story-foot">
+      <span class="story-author">Adolfo Usier · Creator</span>
+      <span class="story-more">breakdown <span class="chev">▸</span></span>
+    </div>
+
+  </summary>
+  
+<div class="story-body">
+    
+<ul>
+      
+<li><strong>Six environments:</strong> Truelens dev/staging/prod and Neura/OpenCrabs dev/staging/prod, each on its own server</li>
+
+      
+<li><strong>Certificates watched:</strong> an hourly cert check tracks every SSL certificate and alerts before anything expires</li>
+
+      
+<li><strong>Uptime watchdogs:</strong> the sites get pinged every five minutes, and an nginx self-heal restarts the web server if it drops</li>
+
+      
+<li><strong>Disk and backups:</strong> monitors catch a filling disk or a failed backup before it becomes an outage</li>
+
+      
+<li><strong>Deploy and release tracking:</strong> every deploy and GitHub release kept tabs on automatically</li>
+
+    </ul>
+
+    
+<p>An ops layer that never sleeps: the crab watches the certs, the uptime, the disks, and the backups across all six environments, and fixes what it can before anyone notices.</p>
+
+  </div>
+
+</details>
+<details class="story-card" style="--sc:#f29718">
+  <summary>
+    
+<div class="story-meta">
+      <span class="story-source"><i class="dot"></i>Telegram</span>
+      <span class="story-cat">GitHub ops</span>
+    </div>
+
+    
+<h3 class="story-title">The repo manager</h3>
+
+    
+<p class="story-excerpt">The crab runs the GitHub workflow: triage incoming issues, draft responses, track every PR and release, and keep the backlog honest. Adolfo reviews; the crab does the legwork.</p>
+
+    
+<div class="story-foot">
+      <span class="story-author">Adolfo Usier · Creator</span>
+      <span class="story-more">breakdown <span class="chev">▸</span></span>
+    </div>
+
+  </summary>
+  
+<div class="story-body">
+    
+<ul>
+      
+<li><strong>Triage:</strong> new issues in the OpenCrabs repo triaged every 30 minutes</li>
+
+      
+<li><strong>Drafts:</strong> responses and follow-ups on issues drafted automatically</li>
+
+      
+<li><strong>Tracking:</strong> PRs and releases kept tabs on continuously</li>
+
+      
+<li><strong>The whole bug-fix loop:</strong> open an issue, fix it, comment with the commit, close it, all through the crab</li>
+
+    </ul>
+
+    
+<p>A tireless repo maintainer: triage, drafts, tracking, and release notes, with the human stepping in only for the calls that matter.</p>
 
   </div>
 
