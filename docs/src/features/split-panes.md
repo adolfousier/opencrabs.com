@@ -76,6 +76,20 @@ The running OpenCrabs version now shows on the **TUI header** and in channel `/h
 
 Pressing `Esc` twice before any reply now **returns the query to the input box and removes it** from the conversation (#698), so a half-typed prompt you cancel doesn't linger as an empty turn.
 
+## Per-Turn Headers (v0.3.75)
+
+Every turn now gets a **one-line header** summarising the work that turn did, and the turn's working-out folds up into it. OpenCrabs infers turn boundaries so each turn can be grouped, then folds the narration, intermediate text, and tool calls underneath the header.
+
+The view stays clean by default:
+
+- **Fold every turn by default** — turns fold as soon as they settle (and even while still running), so settled work collapses out of the way instead of scrolling off screen.
+- **Fold live** — intermediate text folds while the turn is still running, and stale narration the model kept thinking past is collapsed.
+- **Readable folded turn** — a folded turn stays readable and holds its place when toggled, and the tool-call summary stays at full visibility.
+- **Short live-thinking excerpt** — live thinking shows a short excerpt with room to finish a thought, not a scrolling wall.
+- **Labelled token counter** — the live token counter is labelled as a turn total and shows the ctx budget; ctx dropped from the spinner since it already shows under the input.
+
+Expanding a turn is smooth: the header is kept after expand, and expanding no longer scrolls the view up by its own size.
+
 ## Limits
 
 There is no hard limit on pane count -- you can run as many as your terminal fits. Each pane is a full session with its own token tracking and working directory.

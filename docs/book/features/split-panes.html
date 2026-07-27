@@ -65,7 +65,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-431469f4.js";
+            window.path_to_searchindex_js = "../searchindex-f050cf40.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-37e8252d.js"></script>
@@ -268,6 +268,17 @@
 <p>The running OpenCrabs version now shows on the <strong>TUI header</strong> and in channel <code>/help</code> and <code>/usage</code> output (#696), so you always know which build a session is on.</p>
 <h2 id="double-escape-returns-the-query-v0374"><a class="header" href="#double-escape-returns-the-query-v0374">Double-Escape Returns the Query (v0.3.74)</a></h2>
 <p>Pressing <code>Esc</code> twice before any reply now <strong>returns the query to the input box and removes it</strong> from the conversation (#698), so a half-typed prompt you cancel doesn’t linger as an empty turn.</p>
+<h2 id="per-turn-headers-v0375"><a class="header" href="#per-turn-headers-v0375">Per-Turn Headers (v0.3.75)</a></h2>
+<p>Every turn now gets a <strong>one-line header</strong> summarising the work that turn did, and the turn’s working-out folds up into it. OpenCrabs infers turn boundaries so each turn can be grouped, then folds the narration, intermediate text, and tool calls underneath the header.</p>
+<p>The view stays clean by default:</p>
+<ul>
+<li><strong>Fold every turn by default</strong> — turns fold as soon as they settle (and even while still running), so settled work collapses out of the way instead of scrolling off screen.</li>
+<li><strong>Fold live</strong> — intermediate text folds while the turn is still running, and stale narration the model kept thinking past is collapsed.</li>
+<li><strong>Readable folded turn</strong> — a folded turn stays readable and holds its place when toggled, and the tool-call summary stays at full visibility.</li>
+<li><strong>Short live-thinking excerpt</strong> — live thinking shows a short excerpt with room to finish a thought, not a scrolling wall.</li>
+<li><strong>Labelled token counter</strong> — the live token counter is labelled as a turn total and shows the ctx budget; ctx dropped from the spinner since it already shows under the input.</li>
+</ul>
+<p>Expanding a turn is smooth: the header is kept after expand, and expanding no longer scrolls the view up by its own size.</p>
 <h2 id="limits"><a class="header" href="#limits">Limits</a></h2>
 <p>There is no hard limit on pane count – you can run as many as your terminal fits. Each pane is a full session with its own token tracking and working directory.</p>
 

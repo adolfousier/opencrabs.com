@@ -66,7 +66,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-431469f4.js";
+            window.path_to_searchindex_js = "searchindex-f050cf40.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-37e8252d.js"></script>
@@ -2183,6 +2183,14 @@ vision_model = "gpt-5-nano"
 <p>This is separate from the <a href="#image-generation--vision">Gemini image tools</a> which provide dedicated <code>generate_image</code> and <code>analyze_image</code> tools.</p>
 <h2 id="per-session-providers"><a class="header" href="#per-session-providers">Per-Session Providers</a></h2>
 <p>Each session remembers its provider and model. Switch to Claude in one session, Gemini in another — switching sessions restores the provider automatically.</p>
+<h2 id="model-picker-v0375"><a class="header" href="#model-picker-v0375">Model Picker (v0.3.75)</a></h2>
+<p>The <code>/models</code> picker got a real overhaul:</p>
+<ul>
+<li><strong>Opus 5 surfaced</strong> — Opus 5 now shows up via a third parallel list plus state discovery.</li>
+<li><strong>Newest-first ordering</strong> — models are ordered newest-first instead of by merge order.</li>
+<li><strong>claude-cli model discovery</strong> — the claude-cli model list is discovered live from the CLI instead of being hardcoded, with every claude-cli row formatted consistently.</li>
+<li><strong>Reconciled against live inventory</strong> — the picker reconciles against the live model inventory so it never offers a model that isn’t actually available.</li>
+</ul>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="image-generation--vision"><a class="header" href="#image-generation--vision">Image Generation &amp; Vision</a></h1>
 <p>OpenCrabs supports <strong>image generation</strong> (text-to-image and img2img) and <strong>vision analysis</strong> (image-to-text). Vision works through two paths — pick whichever fits your provider setup.</p>
@@ -3515,6 +3523,14 @@ value = "System is operational. All channels connected."
 <li><strong>No perpetual resume</strong> — a completed session no longer resumes on every restart. Resume turns are not re-tracked as pending requests, so a finished background task stays finished across restarts (#729).</li>
 <li><strong>No lingering cancelled query</strong> — a query cancelled before the agent replied, plus its empty assistant placeholder, are dropped as a pair so they don’t linger in context and duplicate on resend (#730).</li>
 </ul>
+<h2 id="background-task-resume-everywhere-v0375"><a class="header" href="#background-task-resume-everywhere-v0375">Background-Task Resume Everywhere (v0.3.75)</a></h2>
+<p>v0.3.74 introduced background-task resume on the TUI and Telegram. v0.3.75 extends it to <strong>every channel</strong>: Discord, Slack, WhatsApp, and the interactive CLI agent now resume your session the moment a long task finishes, powered by a shared <code>bg_resume</code> helper so the behaviour is identical across surfaces.</p>
+<p>A few refinements make background tasks easier to live with:</p>
+<ul>
+<li><strong>Indicator on the input border</strong> — the background-task indicator moved onto the input border, and a detached command shows what it’s currently doing.</li>
+<li><strong>No scaffolding in chat</strong> — a background task’s system scaffolding no longer reaches the chat.</li>
+<li><strong>Restart-killed tasks reported</strong> — background tasks a restart killed are reported instead of leaving the session waiting forever.</li>
+</ul>
 <h2 id="split-panes"><a class="header" href="#split-panes">Split Panes</a></h2>
 <p>Run multiple sessions side by side with tmux-style pane splitting. Each pane is a fully isolated agent — see <a href="#split-panes-1">Split Panes</a> for details.</p>
 <h2 id="state-management"><a class="header" href="#state-management">State Management</a></h2>
@@ -3589,6 +3605,17 @@ value = "System is operational. All channels connected."
 <p>The running OpenCrabs version now shows on the <strong>TUI header</strong> and in channel <code>/help</code> and <code>/usage</code> output (#696), so you always know which build a session is on.</p>
 <h2 id="double-escape-returns-the-query-v0374"><a class="header" href="#double-escape-returns-the-query-v0374">Double-Escape Returns the Query (v0.3.74)</a></h2>
 <p>Pressing <code>Esc</code> twice before any reply now <strong>returns the query to the input box and removes it</strong> from the conversation (#698), so a half-typed prompt you cancel doesn’t linger as an empty turn.</p>
+<h2 id="per-turn-headers-v0375"><a class="header" href="#per-turn-headers-v0375">Per-Turn Headers (v0.3.75)</a></h2>
+<p>Every turn now gets a <strong>one-line header</strong> summarising the work that turn did, and the turn’s working-out folds up into it. OpenCrabs infers turn boundaries so each turn can be grouped, then folds the narration, intermediate text, and tool calls underneath the header.</p>
+<p>The view stays clean by default:</p>
+<ul>
+<li><strong>Fold every turn by default</strong> — turns fold as soon as they settle (and even while still running), so settled work collapses out of the way instead of scrolling off screen.</li>
+<li><strong>Fold live</strong> — intermediate text folds while the turn is still running, and stale narration the model kept thinking past is collapsed.</li>
+<li><strong>Readable folded turn</strong> — a folded turn stays readable and holds its place when toggled, and the tool-call summary stays at full visibility.</li>
+<li><strong>Short live-thinking excerpt</strong> — live thinking shows a short excerpt with room to finish a thought, not a scrolling wall.</li>
+<li><strong>Labelled token counter</strong> — the live token counter is labelled as a turn total and shows the ctx budget; ctx dropped from the spinner since it already shows under the input.</li>
+</ul>
+<p>Expanding a turn is smooth: the header is kept after expand, and expanding no longer scrolls the view up by its own size.</p>
 <h2 id="limits"><a class="header" href="#limits">Limits</a></h2>
 <p>There is no hard limit on pane count – you can run as many as your terminal fits. Each pane is a full session with its own token tracking and working directory.</p>
 <div style="break-before: page; page-break-before: always;"></div>
@@ -4552,6 +4579,15 @@ providers = ["openrouter", "anthropic"]  # tried in order
 <li><strong>Re-engaged on forward intent</strong> — phantom detector now re-engages self-heal when forward intent is detected after a successful tool call, preventing the agent from narrating what it’s about to do instead of just doing it.</li>
 <li><strong>Five-language cleanup</strong> — destructive verb intent phrases cleaned up across EN, ES, FR, PT, and RU. Prevents the agent from narrating destructive actions (“I’ll now delete the file”) when it should just execute the tool.</li>
 </ul>
+<h2 id="v0375-hardening"><a class="header" href="#v0375-hardening">v0.3.75 Hardening</a></h2>
+<ul>
+<li><strong>Bounded self-heal loop</strong> — the phantom self-heal loop is now bounded instead of re-nudging forever, and discarded phantom self-heal narration is stripped from the live buffer so it never reaches the chat.</li>
+<li><strong>Patient mid-stream retry</strong> — mid-stream retry is more patient: 5 attempts with exponential backoff instead of giving up early.</li>
+<li><strong>Flaky 404 retried</strong> — a flaky-provider 404 is retried instead of being treated as a permanent failure.</li>
+<li><strong>Multilingual hallucination detection</strong> — image-generation hallucination detection (a media claim with no marker and zero tool calls) now works across languages, and self-heal no longer delivers an image hallucination when it gives up.</li>
+<li><strong>Poisoned-session recovery</strong> — auto-recovers from a repetitive-tool-call poisoned session instead of looping on the same broken call.</li>
+<li><strong>Phantom verdict on recovery paths</strong> — the turn-end phantom verdict now catches narration delivered via recovery paths, and issue-tracker actions count as completion claims.</li>
+</ul>
 <h2 id="notifications"><a class="header" href="#notifications">Notifications</a></h2>
 <p>All self-healing events are delivered to:</p>
 <ul>
@@ -4791,6 +4827,13 @@ Agent notices pattern of 5+ corrections on output hygiene:
 <li><strong>Skill candidates from tool sequences</strong> — RSI detects recurring tool sequences as skill candidates. When the agent repeatedly calls the same sequence of tools (e.g. <code>read_file</code> → <code>edit_file</code> → <code>bash</code> with specific patterns), RSI proposes a skill that encapsulates the workflow.</li>
 <li><strong>Slash commands from repeated asks</strong> — RSI proposes slash commands from repeated user requests. When users type the same multi-word prompt repeatedly, RSI suggests a <code>/command</code> that captures the pattern.</li>
 <li><strong>RSI staleness indicator</strong> — Mission Control shows a staleness indicator for RSI cycles, plus a provider-creation fallback when the primary provider is unavailable.</li>
+</ul>
+<h2 id="v0375-additions"><a class="header" href="#v0375-additions">v0.3.75 Additions</a></h2>
+<ul>
+<li><strong>Brain dedup system</strong> — a new <code>/dedup</code> command runs an on-demand cross-file brain dedup scan, backed by a post-write scan that fires after brain writes and a weekly cron safety net that catches cross-file duplication. The scanner ignores fenced code and table rows so it only flags real prose duplication.</li>
+<li><strong>Inline-keyboard dedup approval</strong> — dedup proposals can be approved straight from a Telegram inline keyboard.</li>
+<li><strong>Brain-file hints on tool misses</strong> — when a tool call misses or errors (including approval-branch errors), the relevant brain notes surface automatically so the agent can self-correct (#767).</li>
+<li><strong>Wider TOOLS.md load trigger</strong> — routing, skill, and cron questions now proactively load TOOLS.md.</li>
 </ul>
 <h2 id="self-healing-vs-self-improvement"><a class="header" href="#self-healing-vs-self-improvement">Self-Healing vs Self-Improvement</a></h2>
 <div class="table-wrapper">

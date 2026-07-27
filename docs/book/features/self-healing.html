@@ -65,7 +65,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-431469f4.js";
+            window.path_to_searchindex_js = "../searchindex-f050cf40.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-37e8252d.js"></script>
@@ -547,6 +547,15 @@ providers = ["openrouter", "anthropic"]  # tried in order
 <ul>
 <li><strong>Re-engaged on forward intent</strong> — phantom detector now re-engages self-heal when forward intent is detected after a successful tool call, preventing the agent from narrating what it’s about to do instead of just doing it.</li>
 <li><strong>Five-language cleanup</strong> — destructive verb intent phrases cleaned up across EN, ES, FR, PT, and RU. Prevents the agent from narrating destructive actions (“I’ll now delete the file”) when it should just execute the tool.</li>
+</ul>
+<h2 id="v0375-hardening"><a class="header" href="#v0375-hardening">v0.3.75 Hardening</a></h2>
+<ul>
+<li><strong>Bounded self-heal loop</strong> — the phantom self-heal loop is now bounded instead of re-nudging forever, and discarded phantom self-heal narration is stripped from the live buffer so it never reaches the chat.</li>
+<li><strong>Patient mid-stream retry</strong> — mid-stream retry is more patient: 5 attempts with exponential backoff instead of giving up early.</li>
+<li><strong>Flaky 404 retried</strong> — a flaky-provider 404 is retried instead of being treated as a permanent failure.</li>
+<li><strong>Multilingual hallucination detection</strong> — image-generation hallucination detection (a media claim with no marker and zero tool calls) now works across languages, and self-heal no longer delivers an image hallucination when it gives up.</li>
+<li><strong>Poisoned-session recovery</strong> — auto-recovers from a repetitive-tool-call poisoned session instead of looping on the same broken call.</li>
+<li><strong>Phantom verdict on recovery paths</strong> — the turn-end phantom verdict now catches narration delivered via recovery paths, and issue-tracker actions count as completion claims.</li>
 </ul>
 <h2 id="notifications"><a class="header" href="#notifications">Notifications</a></h2>
 <p>All self-healing events are delivered to:</p>

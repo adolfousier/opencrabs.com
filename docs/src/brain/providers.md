@@ -449,3 +449,12 @@ This is separate from the [Gemini image tools](./images.md) which provide dedica
 ## Per-Session Providers
 
 Each session remembers its provider and model. Switch to Claude in one session, Gemini in another — switching sessions restores the provider automatically.
+
+## Model Picker (v0.3.75)
+
+The `/models` picker got a real overhaul:
+
+- **Opus 5 surfaced** — Opus 5 now shows up via a third parallel list plus state discovery.
+- **Newest-first ordering** — models are ordered newest-first instead of by merge order.
+- **claude-cli model discovery** — the claude-cli model list is discovered live from the CLI instead of being hardcoded, with every claude-cli row formatted consistently.
+- **Reconciled against live inventory** — the picker reconciles against the live model inventory so it never offers a model that isn't actually available.

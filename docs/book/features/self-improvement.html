@@ -65,7 +65,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-431469f4.js";
+            window.path_to_searchindex_js = "../searchindex-f050cf40.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-37e8252d.js"></script>
@@ -438,6 +438,13 @@ Agent notices pattern of 5+ corrections on output hygiene:
 <li><strong>Skill candidates from tool sequences</strong> — RSI detects recurring tool sequences as skill candidates. When the agent repeatedly calls the same sequence of tools (e.g. <code>read_file</code> → <code>edit_file</code> → <code>bash</code> with specific patterns), RSI proposes a skill that encapsulates the workflow.</li>
 <li><strong>Slash commands from repeated asks</strong> — RSI proposes slash commands from repeated user requests. When users type the same multi-word prompt repeatedly, RSI suggests a <code>/command</code> that captures the pattern.</li>
 <li><strong>RSI staleness indicator</strong> — Mission Control shows a staleness indicator for RSI cycles, plus a provider-creation fallback when the primary provider is unavailable.</li>
+</ul>
+<h2 id="v0375-additions"><a class="header" href="#v0375-additions">v0.3.75 Additions</a></h2>
+<ul>
+<li><strong>Brain dedup system</strong> — a new <code>/dedup</code> command runs an on-demand cross-file brain dedup scan, backed by a post-write scan that fires after brain writes and a weekly cron safety net that catches cross-file duplication. The scanner ignores fenced code and table rows so it only flags real prose duplication.</li>
+<li><strong>Inline-keyboard dedup approval</strong> — dedup proposals can be approved straight from a Telegram inline keyboard.</li>
+<li><strong>Brain-file hints on tool misses</strong> — when a tool call misses or errors (including approval-branch errors), the relevant brain notes surface automatically so the agent can self-correct (#767).</li>
+<li><strong>Wider TOOLS.md load trigger</strong> — routing, skill, and cron questions now proactively load TOOLS.md.</li>
 </ul>
 <h2 id="self-healing-vs-self-improvement"><a class="header" href="#self-healing-vs-self-improvement">Self-Healing vs Self-Improvement</a></h2>
 <div class="table-wrapper">

@@ -123,6 +123,16 @@ The agent is told via its preamble that long tasks run in the background and res
 - **No perpetual resume** — a completed session no longer resumes on every restart. Resume turns are not re-tracked as pending requests, so a finished background task stays finished across restarts (#729).
 - **No lingering cancelled query** — a query cancelled before the agent replied, plus its empty assistant placeholder, are dropped as a pair so they don't linger in context and duplicate on resend (#730).
 
+## Background-Task Resume Everywhere (v0.3.75)
+
+v0.3.74 introduced background-task resume on the TUI and Telegram. v0.3.75 extends it to **every channel**: Discord, Slack, WhatsApp, and the interactive CLI agent now resume your session the moment a long task finishes, powered by a shared `bg_resume` helper so the behaviour is identical across surfaces.
+
+A few refinements make background tasks easier to live with:
+
+- **Indicator on the input border** — the background-task indicator moved onto the input border, and a detached command shows what it's currently doing.
+- **No scaffolding in chat** — a background task's system scaffolding no longer reaches the chat.
+- **Restart-killed tasks reported** — background tasks a restart killed are reported instead of leaving the session waiting forever.
+
 ## Split Panes
 
 Run multiple sessions side by side with tmux-style pane splitting. Each pane is a fully isolated agent — see [Split Panes](./split-panes.md) for details.

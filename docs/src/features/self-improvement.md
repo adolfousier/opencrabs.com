@@ -237,6 +237,13 @@ RSI now bumps a violation counter on existing rules instead of deduping repeat v
 - **Slash commands from repeated asks** — RSI proposes slash commands from repeated user requests. When users type the same multi-word prompt repeatedly, RSI suggests a `/command` that captures the pattern.
 - **RSI staleness indicator** — Mission Control shows a staleness indicator for RSI cycles, plus a provider-creation fallback when the primary provider is unavailable.
 
+## v0.3.75 Additions
+
+- **Brain dedup system** — a new `/dedup` command runs an on-demand cross-file brain dedup scan, backed by a post-write scan that fires after brain writes and a weekly cron safety net that catches cross-file duplication. The scanner ignores fenced code and table rows so it only flags real prose duplication.
+- **Inline-keyboard dedup approval** — dedup proposals can be approved straight from a Telegram inline keyboard.
+- **Brain-file hints on tool misses** — when a tool call misses or errors (including approval-branch errors), the relevant brain notes surface automatically so the agent can self-correct (#767).
+- **Wider TOOLS.md load trigger** — routing, skill, and cron questions now proactively load TOOLS.md.
+
 ## Self-Healing vs Self-Improvement
 
 | Self-Healing | Self-Improvement |

@@ -65,7 +65,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-431469f4.js";
+            window.path_to_searchindex_js = "../searchindex-f050cf40.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-37e8252d.js"></script>
@@ -545,6 +545,14 @@ vision_model = "gpt-5-nano"
 <p>This is separate from the <a href="./images.html">Gemini image tools</a> which provide dedicated <code>generate_image</code> and <code>analyze_image</code> tools.</p>
 <h2 id="per-session-providers"><a class="header" href="#per-session-providers">Per-Session Providers</a></h2>
 <p>Each session remembers its provider and model. Switch to Claude in one session, Gemini in another — switching sessions restores the provider automatically.</p>
+<h2 id="model-picker-v0375"><a class="header" href="#model-picker-v0375">Model Picker (v0.3.75)</a></h2>
+<p>The <code>/models</code> picker got a real overhaul:</p>
+<ul>
+<li><strong>Opus 5 surfaced</strong> — Opus 5 now shows up via a third parallel list plus state discovery.</li>
+<li><strong>Newest-first ordering</strong> — models are ordered newest-first instead of by merge order.</li>
+<li><strong>claude-cli model discovery</strong> — the claude-cli model list is discovered live from the CLI instead of being hardcoded, with every claude-cli row formatted consistently.</li>
+<li><strong>Reconciled against live inventory</strong> — the picker reconciles against the live model inventory so it never offers a model that isn’t actually available.</li>
+</ul>
 
                     </main>
 

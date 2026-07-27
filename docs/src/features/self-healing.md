@@ -423,6 +423,15 @@ Fixed CodeQL #64 (HIGH): Gemini API key was leaked in URL query string (`?key=..
 - **Re-engaged on forward intent** — phantom detector now re-engages self-heal when forward intent is detected after a successful tool call, preventing the agent from narrating what it's about to do instead of just doing it.
 - **Five-language cleanup** — destructive verb intent phrases cleaned up across EN, ES, FR, PT, and RU. Prevents the agent from narrating destructive actions ("I'll now delete the file") when it should just execute the tool.
 
+## v0.3.75 Hardening
+
+- **Bounded self-heal loop** — the phantom self-heal loop is now bounded instead of re-nudging forever, and discarded phantom self-heal narration is stripped from the live buffer so it never reaches the chat.
+- **Patient mid-stream retry** — mid-stream retry is more patient: 5 attempts with exponential backoff instead of giving up early.
+- **Flaky 404 retried** — a flaky-provider 404 is retried instead of being treated as a permanent failure.
+- **Multilingual hallucination detection** — image-generation hallucination detection (a media claim with no marker and zero tool calls) now works across languages, and self-heal no longer delivers an image hallucination when it gives up.
+- **Poisoned-session recovery** — auto-recovers from a repetitive-tool-call poisoned session instead of looping on the same broken call.
+- **Phantom verdict on recovery paths** — the turn-end phantom verdict now catches narration delivered via recovery paths, and issue-tracker actions count as completion claims.
+
 ## Notifications
 
 All self-healing events are delivered to:
