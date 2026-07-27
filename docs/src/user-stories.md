@@ -374,7 +374,7 @@
   <div class="story-body">
     <p>The ultimate dogfood: the agent is the engineer of its own platform.</p>
     <ul>
-      <li><strong>Every feature and fix:</strong> designed, coded, tested, and committed by the crab, now at v0.3.73 and climbing</li>
+      <li><strong>Every feature and fix:</strong> designed, coded, tested, and committed by the crab, now at v0.3.75 and climbing</li>
       <li><strong>Self-improvement on a schedule:</strong> daily and weekly self-improvement jobs, memory consolidation, and soul evolution run as cron</li>
       <li><strong>It QA's itself:</strong> the same recursive loop that ships features also hunts its own bugs (see Adi's QA card)</li>
     </ul>

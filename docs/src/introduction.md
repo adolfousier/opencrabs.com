@@ -52,6 +52,9 @@
 - **Recursive Self-Improvement (RSI)** — agent analyzes performance, identifies patterns, and rewrites brain files
 - **Phantom tool call detection** — catches when the model narrates changes without executing tools
 - **Self-heal phantom detection (v0.3.72)** — catch zero-tool turns that claim high-stakes side-effects (ship/push/tag/release)
+- **Config edits via config_manager only (v0.3.74)** — the agent never raw-edits config.toml/keys.toml; every write is validated before it lands
+- **Brain dedup (v0.3.75)** — `/dedup` command plus post-write and weekly cross-file scans keep brain files from drifting into duplication, with Telegram inline-keyboard approval
+- **Brain-file hints on tool misses (v0.3.75)** — relevant brain notes surface automatically when a tool call misses or errors
 - **System brain rebuild** — brain files rebuilt from disk when changed, no restart needed
 - **Proactive tool discovery** — searches for available tools before claiming inability
 - **Multilanguage prompt analyzer (v0.3.67)** — shared PromptAnalyzer with soft-nudge on TUI and Telegram, 6 language packs (EN/ES/FR/ID/PT/RU)
@@ -69,6 +72,8 @@
 - **Native markdown rendering** — emphasis, lists, links, and task items render directly in the terminal
 - **Real-time tok/s throughput meter** — live tokens-per-second during streaming
 - **Version display (v0.3.73)** — show the running version on the TUI header and in channel /help + /usage
+- **3-state reasoning expand (v0.3.74)** — click or Ctrl+O cycles a reasoning block collapsed → capped → full, so it never floods the view
+- **Per-turn headers (v0.3.75)** — every turn gets a one-line summary header, its working-out folds into it, and turns fold by default so the view stays clean
 - **Group tool calls (v0.3.61)** — consecutive tool calls collapse into one expandable block, keeping the TUI clean during multi-step operations
 - **Fold intermediate text (v0.3.61)** — intermediate processing text folds into the same in-place log as tool calls, so only the final answer stays visible
 - **Session search** — search filter + viewport scroll across all sessions

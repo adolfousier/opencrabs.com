@@ -66,7 +66,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-a10a2c20.js";
+            window.path_to_searchindex_js = "searchindex-431469f4.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-37e8252d.js"></script>
@@ -263,6 +263,9 @@
 <li><strong>Recursive Self-Improvement (RSI)</strong> — agent analyzes performance, identifies patterns, and rewrites brain files</li>
 <li><strong>Phantom tool call detection</strong> — catches when the model narrates changes without executing tools</li>
 <li><strong>Self-heal phantom detection (v0.3.72)</strong> — catch zero-tool turns that claim high-stakes side-effects (ship/push/tag/release)</li>
+<li><strong>Config edits via config_manager only (v0.3.74)</strong> — the agent never raw-edits config.toml/keys.toml; every write is validated before it lands</li>
+<li><strong>Brain dedup (v0.3.75)</strong> — <code>/dedup</code> command plus post-write and weekly cross-file scans keep brain files from drifting into duplication, with Telegram inline-keyboard approval</li>
+<li><strong>Brain-file hints on tool misses (v0.3.75)</strong> — relevant brain notes surface automatically when a tool call misses or errors</li>
 <li><strong>System brain rebuild</strong> — brain files rebuilt from disk when changed, no restart needed</li>
 <li><strong>Proactive tool discovery</strong> — searches for available tools before claiming inability</li>
 <li><strong>Multilanguage prompt analyzer (v0.3.67)</strong> — shared PromptAnalyzer with soft-nudge on TUI and Telegram, 6 language packs (EN/ES/FR/ID/PT/RU)</li>
@@ -281,6 +284,8 @@
 <li><strong>Native markdown rendering</strong> — emphasis, lists, links, and task items render directly in the terminal</li>
 <li><strong>Real-time tok/s throughput meter</strong> — live tokens-per-second during streaming</li>
 <li><strong>Version display (v0.3.73)</strong> — show the running version on the TUI header and in channel /help + /usage</li>
+<li><strong>3-state reasoning expand (v0.3.74)</strong> — click or Ctrl+O cycles a reasoning block collapsed → capped → full, so it never floods the view</li>
+<li><strong>Per-turn headers (v0.3.75)</strong> — every turn gets a one-line summary header, its working-out folds into it, and turns fold by default so the view stays clean</li>
 <li><strong>Group tool calls (v0.3.61)</strong> — consecutive tool calls collapse into one expandable block, keeping the TUI clean during multi-step operations</li>
 <li><strong>Fold intermediate text (v0.3.61)</strong> — intermediate processing text folds into the same in-place log as tool calls, so only the final answer stays visible</li>
 <li><strong>Session search</strong> — search filter + viewport scroll across all sessions</li>
@@ -6413,7 +6418,7 @@ node dist/cli.js linkedin comment &lt;post-url&gt; "text" # Comment on post
     
 <ul>
       
-<li><strong>Every feature and fix:</strong> designed, coded, tested, and committed by the crab, now at v0.3.73 and climbing</li>
+<li><strong>Every feature and fix:</strong> designed, coded, tested, and committed by the crab, now at v0.3.75 and climbing</li>
 
       
 <li><strong>Self-improvement on a schedule:</strong> daily and weekly self-improvement jobs, memory consolidation, and soul evolution run as cron</li>
