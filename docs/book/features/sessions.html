@@ -65,7 +65,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-f050cf40.js";
+            window.path_to_searchindex_js = "../searchindex-508dce05.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-37e8252d.js"></script>
@@ -230,6 +230,12 @@
 <h3 id="pattern-3-production-logs-with-a-team-on-slack"><a class="header" href="#pattern-3-production-logs-with-a-team-on-slack">Pattern 3: Production Logs with a Team on Slack</a></h3>
 <p>Create a session named <code>mybrand-prod-logs-debug</code> and connect it to a Slack channel. Your team can ask questions about production, staging, or dev logs without you having to context-switch. The agent stays locked into log analysis mode with the right SSH aliases, the right log paths, and the right debugging tools. Meanwhile, your main TUI session is free for development work.</p>
 <p>The key insight: <strong>you never have to explain the full context again</strong>. Once a session is locked into a domain, every follow-up message inherits that context automatically.</p>
+<h2 id="session-context-integrity-v0378"><a class="header" href="#session-context-integrity-v0378">Session Context Integrity (v0.3.78)</a></h2>
+<p>Two fixes harden <code>session_context</code> (the tool agents use to store key-value state):</p>
+<ul>
+<li><strong>Atomic writes</strong> — context writes now use atomic file operations, eliminating trailing-character corruption that could occur when a write was interrupted mid-flush. Previously, a crashed write could leave a JSON file with a truncated trailing character, making the entire context unreadable.</li>
+<li><strong>Concurrency pinning</strong> — concurrent <code>session_context</code> calls from parallel tool executions no longer race on the same file. A concurrency pin serializes writes, and temp files are cleaned up after each operation.</li>
+</ul>
 <h2 id="creating-sessions"><a class="header" href="#creating-sessions">Creating Sessions</a></h2>
 <ul>
 <li><strong>TUI:</strong> Press <code>Ctrl+N</code> or type <code>/new</code></li>

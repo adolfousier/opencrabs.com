@@ -65,7 +65,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-f050cf40.js";
+            window.path_to_searchindex_js = "../searchindex-508dce05.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-37e8252d.js"></script>
@@ -300,6 +300,14 @@
 <h2 id="provider-and-model-breakdown-v0363"><a class="header" href="#provider-and-model-breakdown-v0363">Provider and Model Breakdown (v0.3.63)</a></h2>
 <p>The <code>/usage</code> command now shows per-provider and per-model cost breakdowns with period filters. This helps identify which providers or models are driving costs and optimize your usage accordingly.</p>
 <p>Use the time filters (T/W/M/A) to scope the breakdown to specific periods. The By Model panel already shows provider + model name, but the new breakdown provides aggregated views for quick cost analysis.</p>
+<h2 id="per-model-cache-breakdown-v0376"><a class="header" href="#per-model-cache-breakdown-v0376">Per-Model Cache Breakdown (v0.3.76)</a></h2>
+<p>The <code>/usage</code> command on Telegram now shows a <strong>per-model cache breakdown</strong>: for each model that supports prompt caching, you see cache creation tokens, cache read tokens, and the resulting hit rate. This makes it easy to spot which models benefit most from caching and whether your cache strategy is working.</p>
+<h2 id="pricing-updates-v0376"><a class="header" href="#pricing-updates-v0376">Pricing Updates (v0.3.76)</a></h2>
+<ul>
+<li><strong>Claude Opus 5</strong> pricing added to the cost calculator</li>
+<li><strong>qwen3.8-max-preview</strong> pricing added</li>
+<li><strong>Cost attribution fix</strong> — costs are now attributed to the provider that actually served the request, not the originally-requested provider (matters when fallback fires mid-turn)</li>
+</ul>
 <h2 id="navigation"><a class="header" href="#navigation">Navigation</a></h2>
 <div class="table-wrapper">
 <table>

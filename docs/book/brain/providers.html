@@ -65,7 +65,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-f050cf40.js";
+            window.path_to_searchindex_js = "../searchindex-508dce05.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-37e8252d.js"></script>
@@ -553,6 +553,24 @@ vision_model = "gpt-5-nano"
 <li><strong>claude-cli model discovery</strong> — the claude-cli model list is discovered live from the CLI instead of being hardcoded, with every claude-cli row formatted consistently.</li>
 <li><strong>Reconciled against live inventory</strong> — the picker reconciles against the live model inventory so it never offers a model that isn’t actually available.</li>
 </ul>
+<h2 id="natural-model-naming-v0376"><a class="header" href="#natural-model-naming-v0376">Natural Model Naming (v0.3.76)</a></h2>
+<p>The <code>/models</code> command now accepts <strong>colloquial model names</strong>. Instead of typing the exact model ID, you can say it the way people talk:</p>
+<pre><code>/models opus        → claude-opus-4-8
+/models sonnet      → claude-sonnet-4-20250514
+/models gpt5        → gpt-5
+/models qwen max    → qwen3.8-max-preview
+</code></pre>
+<p>The resolver normalizes spacing, case, and common abbreviations before matching against the provider’s model list. Exact matches still take priority.</p>
+<h2 id="planexecute-provider-routing-v0376"><a class="header" href="#planexecute-provider-routing-v0376">Plan/Execute Provider Routing (v0.3.76)</a></h2>
+<p>The <code>/plan</code> and <code>/execute</code> commands can now route onto <strong>their own dedicated provider and model</strong>, separate from the main chat provider:</p>
+<pre><code class="language-toml"># config.toml
+[agent]
+plan_provider = "anthropic"
+plan_model = "claude-opus-4-8"
+execute_provider = "openrouter"
+execute_model = "anthropic/claude-sonnet-4"
+</code></pre>
+<p>This lets you use a stronger model for planning (where reasoning quality matters most) and a faster/cheaper model for execution (where throughput matters). If unset, both fall back to the session’s active provider.</p>
 
                     </main>
 

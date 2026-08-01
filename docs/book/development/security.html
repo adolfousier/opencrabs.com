@@ -65,7 +65,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-f050cf40.js";
+            window.path_to_searchindex_js = "../searchindex-508dce05.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-37e8252d.js"></script>
@@ -260,6 +260,22 @@
 <li>Do not open a public issue for security vulnerabilities</li>
 <li>We will acknowledge receipt within 48 hours</li>
 </ul>
+<h2 id="safety-gates-v0378"><a class="header" href="#safety-gates-v0378">Safety Gates (v0.3.78)</a></h2>
+<p>OpenCrabs v0.3.78 introduced a layered safety-gate system:</p>
+<h3 id="toml-bash-blocklist"><a class="header" href="#toml-bash-blocklist">TOML Bash Blocklist</a></h3>
+<p>Shell commands are checked against a TOML-defined blocklist before execution. Dangerous patterns (recursive deletes on root, raw disk writes, fork bombs) are rejected with a clear error. The blocklist is user-extensible and hot-reloads on file change. See <a href="../getting-started/configuration.html#toml-bash-blocklist-v0378">Configuration</a> for details.</p>
+<h3 id="secret-redaction"><a class="header" href="#secret-redaction">Secret Redaction</a></h3>
+<p>Quoted secrets in agent output are now <strong>redacted before delivery</strong>. This covers:</p>
+<ul>
+<li>Bearer tokens</li>
+<li>API key patterns</li>
+<li>Colon-token shapes (key: value in YAML-like output)</li>
+<li>Query-param keys</li>
+<li>URL passwords</li>
+</ul>
+<p>Redaction fires on all delivery paths (TUI, Telegram, Discord, Slack, WhatsApp), so a secret accidentally echoed by the agent never reaches the chat.</p>
+<h3 id="brain-file-verification"><a class="header" href="#brain-file-verification">Brain File Verification</a></h3>
+<p>Post-write verification (via brain_verify.toml) ensures brain files maintain their structural integrity after RSI writes. Required anchors (H1 title, Owns header) are checked, and writes that break structure are flagged.</p>
 
                     </main>
 

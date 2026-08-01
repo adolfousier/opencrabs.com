@@ -65,7 +65,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-f050cf40.js";
+            window.path_to_searchindex_js = "../searchindex-508dce05.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-37e8252d.js"></script>
@@ -253,6 +253,29 @@ respond_to = "all"
 <li><strong>Forum topic routing</strong> (v0.3.31) — In supergroups with topics enabled, the bot tracks <code>thread_id</code> through the full pipeline. Use <code>list_topics</code> action to map topic names (e.g. <code>#announcements</code>) to numeric IDs, then pass <code>thread_id</code> to <code>send</code> / <code>reply</code> / <code>send_photo</code> to route into a specific topic</li>
 <li><strong>Context-aware pre-tool status</strong> (v0.3.31) — While a tool runs, the bot shows a live status message naming the tool, elapsed time, and either a reasoning excerpt or an anchored phrase from the user’s request</li>
 <li><strong>Inline ctx budget footer</strong> (v0.3.36) — context budget footer (<code>ctx: XK/YK Z% | N tok/s</code>) is now appended to the last response message instead of sent as a separate message. Keeps the chat clean.</li>
+</ul>
+<h2 id="v0376v0378-improvements"><a class="header" href="#v0376v0378-improvements">v0.3.76–v0.3.78 Improvements</a></h2>
+<h3 id="new-gating-v0376"><a class="header" href="#new-gating-v0376">/new Gating (v0.3.76)</a></h3>
+<p>The <code>/new</code> command is now <strong>gated to the bot owner</strong> in group chats. Non-owners cannot create new sessions or reset context. The command menu is also scoped: owners see the full menu, non-owners see only the commands available to them.</p>
+<h3 id="html-conversion-v0377"><a class="header" href="#html-conversion-v0377">HTML Conversion (v0.3.77)</a></h3>
+<p>All <code>telegram_send</code> actions now apply <strong>HTML-to-Telegram conversion</strong> consistently. Previously, only the main response path converted HTML entities; proactive sends, follow-ups, and media captions could arrive with raw <code>&lt;b&gt;</code> tags or unescaped ampersands.</p>
+<h3 id="rich-delivery-v0378"><a class="header" href="#rich-delivery-v0378">Rich Delivery (v0.3.78)</a></h3>
+<p>Telegram delivery is unified on <strong>markdown formatting</strong>. The legacy “blocks path” (which sent structured JSON blocks) has been removed in favor of a single rich-markdown renderer. This eliminates formatting inconsistencies between streaming responses and proactive sends.</p>
+<h3 id="callback-routing-v0378"><a class="header" href="#callback-routing-v0378">Callback Routing (v0.3.78)</a></h3>
+<p>Inline keyboard callbacks (plan approvals, follow-up taps, dedup approvals) now route to the <strong>originating session</strong> instead of the chat-bound session. Previously, tapping a button in a group chat could route the callback to the wrong session if multiple sessions shared the same chat.</p>
+<h3 id="background-streaming-v0378"><a class="header" href="#background-streaming-v0378">Background Streaming (v0.3.78)</a></h3>
+<p>Background task results now stream through <strong>one turn per session</strong> instead of spawning a new message per tick. This eliminates the message flood when a background task (build, test suite) produces incremental output.</p>
+<h3 id="follow-up-attribution-v0378"><a class="header" href="#follow-up-attribution-v0378">Follow-Up Attribution (v0.3.78)</a></h3>
+<p>When a user taps a follow-up suggestion button in a group chat, the agent now <strong>names the member</strong> who tapped it. Previously, follow-up taps were anonymous in group contexts.</p>
+<h3 id="other-fixes"><a class="header" href="#other-fixes">Other Fixes</a></h3>
+<ul>
+<li><code>/start</code> recognizes existing members of closed groups (v0.3.76)</li>
+<li>Plan-card serialisation prevents duplicate cards on concurrent refreshes (v0.3.76)</li>
+<li>Follow-up taps run a real tools turn instead of echoing text (v0.3.76)</li>
+<li>Flow block no longer posts a new message every tick (v0.3.77)</li>
+<li>Echoed plan titles dropped from responses (v0.3.77)</li>
+<li>Open-group registration gated on persisted open flag (v0.3.78)</li>
+<li>Cowork members recorded on first message (v0.3.78)</li>
 <li><strong>Rolling status edit-in-place</strong> (v0.3.36) — tool status messages (⚙️ running, ✅ done) are edited in-place instead of delete+recreate, preventing flicker and preserving scroll position.</li>
 <li><strong>Bot command hot-reload</strong> (v0.3.36) — bot commands refresh automatically when config or skills change, without restarting the bot.</li>
 <li><strong>Guard tok/s against burst-delivery</strong> (v0.3.36) — tok/s footer is guarded against burst-delivery artifacts so the number stays stable.</li>

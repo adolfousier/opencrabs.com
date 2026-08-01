@@ -65,7 +65,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-f050cf40.js";
+            window.path_to_searchindex_js = "../searchindex-508dce05.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-37e8252d.js"></script>
@@ -625,6 +625,21 @@ fallback_chain = ["openai_compatible", "openai", "local"]
 </table>
 </div>
 <p>Empty or omitted chain means “use the default priority order with the primary removed.”</p>
+<h2 id="toml-bash-blocklist-v0378"><a class="header" href="#toml-bash-blocklist-v0378">TOML Bash Blocklist (v0.3.78)</a></h2>
+<p>A new <strong>TOML-driven bash blocklist</strong> provides runtime-configurable safety gates for shell commands. The blocklist lives in a TOML file and defines patterns that the agent’s <code>bash</code> tool will refuse to execute:</p>
+<pre><code class="language-toml"># safety.toml (example)
+[bash_blocklist]
+patterns = ["rm -rf /", "dd if=", "mkfs", ":(){ :|:&amp; };:"]
+</code></pre>
+<ul>
+<li>Patterns are matched against the command string before execution</li>
+<li>The blocklist <strong>reloads on file change</strong> (no restart needed)</li>
+<li>Configurable per-profile, so different environments can have different safety gates</li>
+<li>Blocked commands return a clear error explaining which pattern matched</li>
+</ul>
+<p>This replaces hardcoded safety checks with a user-extensible system. You can add project-specific dangerous commands without code changes.</p>
+<h2 id="safety-toml-reload-v0378"><a class="header" href="#safety-toml-reload-v0378">Safety TOML Reload (v0.3.78)</a></h2>
+<p>All safety-related TOML files (bash blocklist, brain verification rules) now <strong>hot-reload on change</strong>. Edit the file and the new rules take effect immediately on the next tool call. No restart, no <code>/reload</code>, no config manager dance.</p>
 
                     </main>
 

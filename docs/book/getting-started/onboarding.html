@@ -65,7 +65,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-f050cf40.js";
+            window.path_to_searchindex_js = "../searchindex-508dce05.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-37e8252d.js"></script>
@@ -398,6 +398,8 @@
 <li><code>config_manager set_working_directory</code> tool</li>
 </ul>
 <p>The working directory is persisted per-session. Switching sessions restores the directory automatically.</p>
+<h2 id="model-filter-hint-v0378"><a class="header" href="#model-filter-hint-v0378">Model Filter Hint (v0.3.78)</a></h2>
+<p>The onboarding model picker now <strong>always renders a filter hint</strong> above the model list (“Type to filter…”). Previously, the hint only appeared after you started typing, so users did not know filtering was available. Additionally, an <strong>exactly-typed model ID</strong> now beats a substring match: if you type <code>claude-opus-4-8</code> exactly, it selects that model even if other models contain the same substring.</p>
 
                     </main>
 

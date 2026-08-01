@@ -65,7 +65,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-f050cf40.js";
+            window.path_to_searchindex_js = "../searchindex-508dce05.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-37e8252d.js"></script>
@@ -238,6 +238,12 @@
 <p>Tasks for periodic proactive checks. Keep empty to skip heartbeat API calls. Add tasks for the agent to rotate through (email checks, calendar, weather, etc.).</p>
 <h3 id="bootmd"><a class="header" href="#bootmd">BOOT.md</a></h3>
 <p>Startup procedures: check git log, verify build, greet human with context awareness.</p>
+<h2 id="query-based-loading-v0376"><a class="header" href="#query-based-loading-v0376">Query-Based Loading (v0.3.76)</a></h2>
+<p><code>load_brain_file</code> now accepts an optional <code>query</code> parameter that returns <strong>only the sections matching the query</strong> instead of the entire file. This saves significant context budget:</p>
+<pre><code>load_brain_file(name="TOOLS.md", query="telegram")
+→ Returns only the Telegram-related sections, not the full 2000-line file
+</code></pre>
+<p>Whole sections are returned (never cut mid-section), so a rule is never truncated. This is especially useful for large brain files like TOOLS.md and AGENTS.md where loading the full file wastes 10K+ tokens on irrelevant content.</p>
 <h2 id="customization"><a class="header" href="#customization">Customization</a></h2>
 <p>These files are <strong>yours</strong>. The agent reads them but you control the content. Templates are at <code>src/docs/reference/templates/</code> in the source repo — compare your local files against templates when updating to pick up new sections without losing custom content.</p>
 <blockquote>

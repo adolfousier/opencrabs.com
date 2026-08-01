@@ -65,7 +65,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-f050cf40.js";
+            window.path_to_searchindex_js = "../searchindex-508dce05.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-37e8252d.js"></script>
@@ -279,6 +279,19 @@
 <li><strong>Labelled token counter</strong> — the live token counter is labelled as a turn total and shows the ctx budget; ctx dropped from the spinner since it already shows under the input.</li>
 </ul>
 <p>Expanding a turn is smooth: the header is kept after expand, and expanding no longer scrolls the view up by its own size.</p>
+<h2 id="tui-improvements-v0376v0378"><a class="header" href="#tui-improvements-v0376v0378">TUI Improvements (v0.3.76–v0.3.78)</a></h2>
+<h3 id="steps-and-tools-display-v0376"><a class="header" href="#steps-and-tools-display-v0376">Steps AND Tools Display (v0.3.76)</a></h3>
+<p>The TUI now shows <strong>both steps and tool calls</strong> in the turn view. Previously it was either/or: if tool calls existed, steps were hidden. Now both render, with steps providing the narrative and tool calls showing the mechanical detail.</p>
+<h3 id="background-task-position-v0377"><a class="header" href="#background-task-position-v0377">Background Task Position (v0.3.77)</a></h3>
+<p>Background task feedback moved from the <strong>left border to the right border</strong> of the input box. This prevents it from colliding with the context budget footer on the left.</p>
+<h3 id="duplicate-submit-guard-v0376"><a class="header" href="#duplicate-submit-guard-v0376">Duplicate-Submit Guard (v0.3.76)</a></h3>
+<p>Pressing Enter twice quickly no longer submits the same message twice. The TUI drops a re-submitted message if the running turn is already answering it.</p>
+<h3 id="command-labelling-v0376"><a class="header" href="#command-labelling-v0376">Command Labelling (v0.3.76)</a></h3>
+<p>Commands in the TUI are now labelled by <strong>what they run</strong> (e.g. “cargo test”) instead of the working directory. Makes the activity feed readable at a glance.</p>
+<h3 id="deliverable-report-visibility-v0378"><a class="header" href="#deliverable-report-visibility-v0378">Deliverable Report Visibility (v0.3.78)</a></h3>
+<p>When a turn produces a deliverable report (audit, comparison, analysis), the report <strong>stays visible</strong> even when the turn folds. Previously, folding a turn would hide the report along with the working-out.</p>
+<h3 id="background-running-indicator-v0378"><a class="header" href="#background-running-indicator-v0378">Background Running Indicator (v0.3.78)</a></h3>
+<p>The “running” indicator is now <strong>cleared before delivering</strong> the final response. Previously, the indicator could linger for a moment after the response appeared, creating a visual glitch.</p>
 <h2 id="limits"><a class="header" href="#limits">Limits</a></h2>
 <p>There is no hard limit on pane count – you can run as many as your terminal fits. Each pane is a full session with its own token tracking and working directory.</p>
 

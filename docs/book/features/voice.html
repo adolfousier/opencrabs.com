@@ -65,7 +65,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-f050cf40.js";
+            window.path_to_searchindex_js = "../searchindex-508dce05.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-37e8252d.js"></script>
@@ -340,6 +340,14 @@ api_key = "your-openai-key"
 [providers.tts.openai_compatible]
 api_key = "your-api-key"
 </code></pre>
+<h2 id="openai-tts-onboarding-v0378"><a class="header" href="#openai-tts-onboarding-v0378">OpenAI TTS Onboarding (v0.3.78)</a></h2>
+<p>The onboarding wizard (<code>/onboard:voice</code>) now includes a dedicated <strong>OpenAI TTS voice selector</strong> and API key field. When you select OpenAI as your TTS provider during onboarding:</p>
+<ol>
+<li>A voice picker appears with all available OpenAI voices (alloy, echo, fable, onyx, nova, shimmer)</li>
+<li>An API key field is shown if no key is configured yet</li>
+<li>Selection is saved to <code>config.toml</code> (<code>tts_voice</code>) and <code>keys.toml</code> (API key) automatically</li>
+</ol>
+<p>This removes the need to manually edit config files for the most common TTS setup path.</p>
 <h2 id="how-voice-messages-work"><a class="header" href="#how-voice-messages-work">How Voice Messages Work</a></h2>
 <p>When a voice message arrives on Telegram, WhatsApp, Discord, or Slack:</p>
 <ol>

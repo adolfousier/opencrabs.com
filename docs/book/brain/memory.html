@@ -65,7 +65,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-f050cf40.js";
+            window.path_to_searchindex_js = "../searchindex-508dce05.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-37e8252d.js"></script>
@@ -259,6 +259,8 @@
 <li>You say “remember this”</li>
 <li>Errors take &gt;5 minutes to debug</li>
 </ul>
+<h2 id="proactive-memory-surfacing-v0376"><a class="header" href="#proactive-memory-surfacing-v0376">Proactive Memory Surfacing (v0.3.76)</a></h2>
+<p>The agent now <strong>surfaces relevant memory without being asked</strong>. When a conversation topic matches something stored in MEMORY.md or daily notes, the relevant context is loaded and injected automatically. Previously, memory was only recalled when the agent explicitly called <code>memory_search</code> or <code>load_brain_file</code>. Now the system proactively checks for relevant context on each turn, so the agent brings up past decisions, server details, or preferences that apply to the current conversation without you having to say “check your memory.”</p>
 <h2 id="brain-files"><a class="header" href="#brain-files">Brain Files</a></h2>
 <p>See <a href="./brain-files.html">Brain Files</a> for the full list of files the agent reads on startup.</p>
 

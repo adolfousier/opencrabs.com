@@ -66,7 +66,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-f050cf40.js";
+            window.path_to_searchindex_js = "searchindex-508dce05.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-37e8252d.js"></script>
@@ -266,6 +266,15 @@
 <li><strong>Config edits via config_manager only (v0.3.74)</strong> — the agent never raw-edits config.toml/keys.toml; every write is validated before it lands</li>
 <li><strong>Brain dedup (v0.3.75)</strong> — <code>/dedup</code> command plus post-write and weekly cross-file scans keep brain files from drifting into duplication, with Telegram inline-keyboard approval</li>
 <li><strong>Brain-file hints on tool misses (v0.3.75)</strong> — relevant brain notes surface automatically when a tool call misses or errors</li>
+<li><strong>Proactive memory surfacing (v0.3.76)</strong> — relevant memory surfaces without being asked when conversation context matches stored knowledge</li>
+<li><strong>Natural model naming (v0.3.76)</strong> — <code>/models opus</code> works; colloquial names resolve to exact model IDs</li>
+<li><strong>Plan/execute provider routing (v0.3.76)</strong> — route planning and execution onto separate providers/models</li>
+<li><strong>Thinking-loop timeout (v0.3.78)</strong> — catches infinite reasoning loops, fires phantom enforcement with sticky fallback</li>
+<li><strong>Epistemic engine (v0.3.78)</strong> — belief tracking with confidence levels, OODA/BDI cognitive mesh, Orient gate before plan execution</li>
+<li><strong>Ralph verification gate (v0.3.78)</strong> — criteria-aware task verification with iteration cap; tasks must meet stated acceptance criteria</li>
+<li><strong>TOML safety gates (v0.3.78)</strong> — runtime-configurable bash blocklist with hot-reload, quoted-secret redaction, brain file verification</li>
+<li><strong>Mission Control analytics (v0.3.78)</strong> — D/W/M filter, 3-across card grid, phantom/model/streaming tabs, dedicated events DB</li>
+<li><strong>OpenAI TTS onboarding (v0.3.78)</strong> — voice selector and API key field in the onboarding wizard</li>
 <li><strong>System brain rebuild</strong> — brain files rebuilt from disk when changed, no restart needed</li>
 <li><strong>Proactive tool discovery</strong> — searches for available tools before claiming inability</li>
 <li><strong>Multilanguage prompt analyzer (v0.3.67)</strong> — shared PromptAnalyzer with soft-nudge on TUI and Telegram, 6 language packs (EN/ES/FR/ID/PT/RU)</li>
@@ -762,6 +771,8 @@ Register-ScheduledTask -TaskName "OpenCrabs" -Action $action -Trigger $trigger -
 <li><code>config_manager set_working_directory</code> tool</li>
 </ul>
 <p>The working directory is persisted per-session. Switching sessions restores the directory automatically.</p>
+<h2 id="model-filter-hint-v0378"><a class="header" href="#model-filter-hint-v0378">Model Filter Hint (v0.3.78)</a></h2>
+<p>The onboarding model picker now <strong>always renders a filter hint</strong> above the model list (“Type to filter…”). Previously, the hint only appeared after you started typing, so users did not know filtering was available. Additionally, an <strong>exactly-typed model ID</strong> now beats a substring match: if you type <code>claude-opus-4-8</code> exactly, it selects that model even if other models contain the same substring.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="configuration"><a class="header" href="#configuration">Configuration</a></h1>
 <p>OpenCrabs uses two config files stored at <code>~/.opencrabs/</code>:</p>
@@ -1181,6 +1192,21 @@ fallback_chain = ["openai_compatible", "openai", "local"]
 </table>
 </div>
 <p>Empty or omitted chain means “use the default priority order with the primary removed.”</p>
+<h2 id="toml-bash-blocklist-v0378"><a class="header" href="#toml-bash-blocklist-v0378">TOML Bash Blocklist (v0.3.78)</a></h2>
+<p>A new <strong>TOML-driven bash blocklist</strong> provides runtime-configurable safety gates for shell commands. The blocklist lives in a TOML file and defines patterns that the agent’s <code>bash</code> tool will refuse to execute:</p>
+<pre><code class="language-toml"># safety.toml (example)
+[bash_blocklist]
+patterns = ["rm -rf /", "dd if=", "mkfs", ":(){ :|:&amp; };:"]
+</code></pre>
+<ul>
+<li>Patterns are matched against the command string before execution</li>
+<li>The blocklist <strong>reloads on file change</strong> (no restart needed)</li>
+<li>Configurable per-profile, so different environments can have different safety gates</li>
+<li>Blocked commands return a clear error explaining which pattern matched</li>
+</ul>
+<p>This replaces hardcoded safety checks with a user-extensible system. You can add project-specific dangerous commands without code changes.</p>
+<h2 id="safety-toml-reload-v0378"><a class="header" href="#safety-toml-reload-v0378">Safety TOML Reload (v0.3.78)</a></h2>
+<p>All safety-related TOML files (bash blocklist, brain verification rules) now <strong>hot-reload on change</strong>. Edit the file and the new rules take effect immediately on the next tool call. No restart, no <code>/reload</code>, no config manager dance.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="cli-commands"><a class="header" href="#cli-commands">CLI Commands</a></h1>
 <p>OpenCrabs has a full CLI with 20+ subcommands for managing every aspect of the agent.</p>
@@ -2191,6 +2217,24 @@ vision_model = "gpt-5-nano"
 <li><strong>claude-cli model discovery</strong> — the claude-cli model list is discovered live from the CLI instead of being hardcoded, with every claude-cli row formatted consistently.</li>
 <li><strong>Reconciled against live inventory</strong> — the picker reconciles against the live model inventory so it never offers a model that isn’t actually available.</li>
 </ul>
+<h2 id="natural-model-naming-v0376"><a class="header" href="#natural-model-naming-v0376">Natural Model Naming (v0.3.76)</a></h2>
+<p>The <code>/models</code> command now accepts <strong>colloquial model names</strong>. Instead of typing the exact model ID, you can say it the way people talk:</p>
+<pre><code>/models opus        → claude-opus-4-8
+/models sonnet      → claude-sonnet-4-20250514
+/models gpt5        → gpt-5
+/models qwen max    → qwen3.8-max-preview
+</code></pre>
+<p>The resolver normalizes spacing, case, and common abbreviations before matching against the provider’s model list. Exact matches still take priority.</p>
+<h2 id="planexecute-provider-routing-v0376"><a class="header" href="#planexecute-provider-routing-v0376">Plan/Execute Provider Routing (v0.3.76)</a></h2>
+<p>The <code>/plan</code> and <code>/execute</code> commands can now route onto <strong>their own dedicated provider and model</strong>, separate from the main chat provider:</p>
+<pre><code class="language-toml"># config.toml
+[agent]
+plan_provider = "anthropic"
+plan_model = "claude-opus-4-8"
+execute_provider = "openrouter"
+execute_model = "anthropic/claude-sonnet-4"
+</code></pre>
+<p>This lets you use a stronger model for planning (where reasoning quality matters most) and a faster/cheaper model for execution (where throughput matters). If unset, both fall back to the session’s active provider.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="image-generation--vision"><a class="header" href="#image-generation--vision">Image Generation &amp; Vision</a></h1>
 <p>OpenCrabs supports <strong>image generation</strong> (text-to-image and img2img) and <strong>vision analysis</strong> (image-to-text). Vision works through two paths — pick whichever fits your provider setup.</p>
@@ -2440,6 +2484,10 @@ Agent: generate_image(prompt="dark background with thin white border", image="/t
 </div>
 <h2 id="channel-voice-parity"><a class="header" href="#channel-voice-parity">Channel Voice Parity</a></h2>
 <p>All four messaging channels (Telegram, Discord, WhatsApp, Slack) now share a single code path via <code>crate::channels::voice::{transcribe, synthesize}</code>. Bot replies are recorded in the <code>channel_messages</code> table for conversation context — previously only user messages were stored.</p>
+<h2 id="typing-indicator-persistence-v0376"><a class="header" href="#typing-indicator-persistence-v0376">Typing Indicator Persistence (v0.3.76)</a></h2>
+<p>Typing indicators now <strong>survive background tasks</strong>. Previously, when the agent spawned a background task (long build, test suite), the typing indicator would drop because the foreground turn ended. Now the indicator stays alive until the final response is delivered, regardless of how many background tasks run in between.</p>
+<h2 id="smart-chunk-boundaries-v0378"><a class="header" href="#smart-chunk-boundaries-v0378">Smart Chunk Boundaries (v0.3.78)</a></h2>
+<p>When a response exceeds platform message limits and must be split into chunks, the splitter now <strong>prefers boundaries that leave no markup open</strong>. Previously, a chunk could end mid-bold (<code>**text</code>) or mid-code-fence, causing rendering glitches on the receiving platform. The splitter now scans for the nearest safe break point where all markdown delimiters are balanced.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="telegram-2"><a class="header" href="#telegram-2">Telegram</a></h1>
 <p>Connect OpenCrabs to Telegram for DMs and group chats.</p>
@@ -2487,6 +2535,29 @@ respond_to = "all"
 <li><strong>Forum topic routing</strong> (v0.3.31) — In supergroups with topics enabled, the bot tracks <code>thread_id</code> through the full pipeline. Use <code>list_topics</code> action to map topic names (e.g. <code>#announcements</code>) to numeric IDs, then pass <code>thread_id</code> to <code>send</code> / <code>reply</code> / <code>send_photo</code> to route into a specific topic</li>
 <li><strong>Context-aware pre-tool status</strong> (v0.3.31) — While a tool runs, the bot shows a live status message naming the tool, elapsed time, and either a reasoning excerpt or an anchored phrase from the user’s request</li>
 <li><strong>Inline ctx budget footer</strong> (v0.3.36) — context budget footer (<code>ctx: XK/YK Z% | N tok/s</code>) is now appended to the last response message instead of sent as a separate message. Keeps the chat clean.</li>
+</ul>
+<h2 id="v0376v0378-improvements"><a class="header" href="#v0376v0378-improvements">v0.3.76–v0.3.78 Improvements</a></h2>
+<h3 id="new-gating-v0376"><a class="header" href="#new-gating-v0376">/new Gating (v0.3.76)</a></h3>
+<p>The <code>/new</code> command is now <strong>gated to the bot owner</strong> in group chats. Non-owners cannot create new sessions or reset context. The command menu is also scoped: owners see the full menu, non-owners see only the commands available to them.</p>
+<h3 id="html-conversion-v0377"><a class="header" href="#html-conversion-v0377">HTML Conversion (v0.3.77)</a></h3>
+<p>All <code>telegram_send</code> actions now apply <strong>HTML-to-Telegram conversion</strong> consistently. Previously, only the main response path converted HTML entities; proactive sends, follow-ups, and media captions could arrive with raw <code>&lt;b&gt;</code> tags or unescaped ampersands.</p>
+<h3 id="rich-delivery-v0378"><a class="header" href="#rich-delivery-v0378">Rich Delivery (v0.3.78)</a></h3>
+<p>Telegram delivery is unified on <strong>markdown formatting</strong>. The legacy “blocks path” (which sent structured JSON blocks) has been removed in favor of a single rich-markdown renderer. This eliminates formatting inconsistencies between streaming responses and proactive sends.</p>
+<h3 id="callback-routing-v0378"><a class="header" href="#callback-routing-v0378">Callback Routing (v0.3.78)</a></h3>
+<p>Inline keyboard callbacks (plan approvals, follow-up taps, dedup approvals) now route to the <strong>originating session</strong> instead of the chat-bound session. Previously, tapping a button in a group chat could route the callback to the wrong session if multiple sessions shared the same chat.</p>
+<h3 id="background-streaming-v0378"><a class="header" href="#background-streaming-v0378">Background Streaming (v0.3.78)</a></h3>
+<p>Background task results now stream through <strong>one turn per session</strong> instead of spawning a new message per tick. This eliminates the message flood when a background task (build, test suite) produces incremental output.</p>
+<h3 id="follow-up-attribution-v0378"><a class="header" href="#follow-up-attribution-v0378">Follow-Up Attribution (v0.3.78)</a></h3>
+<p>When a user taps a follow-up suggestion button in a group chat, the agent now <strong>names the member</strong> who tapped it. Previously, follow-up taps were anonymous in group contexts.</p>
+<h3 id="other-fixes"><a class="header" href="#other-fixes">Other Fixes</a></h3>
+<ul>
+<li><code>/start</code> recognizes existing members of closed groups (v0.3.76)</li>
+<li>Plan-card serialisation prevents duplicate cards on concurrent refreshes (v0.3.76)</li>
+<li>Follow-up taps run a real tools turn instead of echoing text (v0.3.76)</li>
+<li>Flow block no longer posts a new message every tick (v0.3.77)</li>
+<li>Echoed plan titles dropped from responses (v0.3.77)</li>
+<li>Open-group registration gated on persisted open flag (v0.3.78)</li>
+<li>Cowork members recorded on first message (v0.3.78)</li>
 <li><strong>Rolling status edit-in-place</strong> (v0.3.36) — tool status messages (⚙️ running, ✅ done) are edited in-place instead of delete+recreate, preventing flicker and preserving scroll position.</li>
 <li><strong>Bot command hot-reload</strong> (v0.3.36) — bot commands refresh automatically when config or skills change, without restarting the bot.</li>
 <li><strong>Guard tok/s against burst-delivery</strong> (v0.3.36) — tok/s footer is guarded against burst-delivery artifacts so the number stays stable.</li>
@@ -2722,6 +2793,8 @@ session_idle_hours = 24.0               # idle timeout for non-owner sessions
 <li>No markdown tables in Discord — use bullet lists instead</li>
 <li>Wrap multiple links in <code>&lt;url&gt;</code> to suppress embeds</li>
 </ul>
+<h2 id="sustained-typing-indicator-v0376"><a class="header" href="#sustained-typing-indicator-v0376">Sustained Typing Indicator (v0.3.76)</a></h2>
+<p>Discord now shows a <strong>sustained typing indicator</strong> while the agent processes a request. Previously, Discord had no typing indicator at all (Telegram and Slack did). The indicator stays alive through background tasks and long tool executions, so users see “OpenCrabs is typing…” for the entire processing duration, not just the first few seconds.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="slack-2"><a class="header" href="#slack-2">Slack</a></h1>
 <p>Connect OpenCrabs to Slack workspaces.</p>
@@ -3374,6 +3447,8 @@ value = "System is operational. All channels connected."
 <li>You say “remember this”</li>
 <li>Errors take &gt;5 minutes to debug</li>
 </ul>
+<h2 id="proactive-memory-surfacing-v0376"><a class="header" href="#proactive-memory-surfacing-v0376">Proactive Memory Surfacing (v0.3.76)</a></h2>
+<p>The agent now <strong>surfaces relevant memory without being asked</strong>. When a conversation topic matches something stored in MEMORY.md or daily notes, the relevant context is loaded and injected automatically. Previously, memory was only recalled when the agent explicitly called <code>memory_search</code> or <code>load_brain_file</code>. Now the system proactively checks for relevant context on each turn, so the agent brings up past decisions, server details, or preferences that apply to the current conversation without you having to say “check your memory.”</p>
 <h2 id="brain-files-1"><a class="header" href="#brain-files-1">Brain Files</a></h2>
 <p>See <a href="#brain-files-2">Brain Files</a> for the full list of files the agent reads on startup.</p>
 <div style="break-before: page; page-break-before: always;"></div>
@@ -3408,6 +3483,12 @@ value = "System is operational. All channels connected."
 <p>Tasks for periodic proactive checks. Keep empty to skip heartbeat API calls. Add tasks for the agent to rotate through (email checks, calendar, weather, etc.).</p>
 <h3 id="bootmd"><a class="header" href="#bootmd">BOOT.md</a></h3>
 <p>Startup procedures: check git log, verify build, greet human with context awareness.</p>
+<h2 id="query-based-loading-v0376"><a class="header" href="#query-based-loading-v0376">Query-Based Loading (v0.3.76)</a></h2>
+<p><code>load_brain_file</code> now accepts an optional <code>query</code> parameter that returns <strong>only the sections matching the query</strong> instead of the entire file. This saves significant context budget:</p>
+<pre><code>load_brain_file(name="TOOLS.md", query="telegram")
+→ Returns only the Telegram-related sections, not the full 2000-line file
+</code></pre>
+<p>Whole sections are returned (never cut mid-section), so a rule is never truncated. This is especially useful for large brain files like TOOLS.md and AGENTS.md where loading the full file wastes 10K+ tokens on irrelevant content.</p>
 <h2 id="customization"><a class="header" href="#customization">Customization</a></h2>
 <p>These files are <strong>yours</strong>. The agent reads them but you control the content. Templates are at <code>src/docs/reference/templates/</code> in the source repo — compare your local files against templates when updating to pick up new sections without losing custom content.</p>
 <blockquote>
@@ -3438,6 +3519,12 @@ value = "System is operational. All channels connected."
 <h3 id="pattern-3-production-logs-with-a-team-on-slack"><a class="header" href="#pattern-3-production-logs-with-a-team-on-slack">Pattern 3: Production Logs with a Team on Slack</a></h3>
 <p>Create a session named <code>mybrand-prod-logs-debug</code> and connect it to a Slack channel. Your team can ask questions about production, staging, or dev logs without you having to context-switch. The agent stays locked into log analysis mode with the right SSH aliases, the right log paths, and the right debugging tools. Meanwhile, your main TUI session is free for development work.</p>
 <p>The key insight: <strong>you never have to explain the full context again</strong>. Once a session is locked into a domain, every follow-up message inherits that context automatically.</p>
+<h2 id="session-context-integrity-v0378"><a class="header" href="#session-context-integrity-v0378">Session Context Integrity (v0.3.78)</a></h2>
+<p>Two fixes harden <code>session_context</code> (the tool agents use to store key-value state):</p>
+<ul>
+<li><strong>Atomic writes</strong> — context writes now use atomic file operations, eliminating trailing-character corruption that could occur when a write was interrupted mid-flush. Previously, a crashed write could leave a JSON file with a truncated trailing character, making the entire context unreadable.</li>
+<li><strong>Concurrency pinning</strong> — concurrent <code>session_context</code> calls from parallel tool executions no longer race on the same file. A concurrency pin serializes writes, and temp files are cleaned up after each operation.</li>
+</ul>
 <h2 id="creating-sessions"><a class="header" href="#creating-sessions">Creating Sessions</a></h2>
 <ul>
 <li><strong>TUI:</strong> Press <code>Ctrl+N</code> or type <code>/new</code></li>
@@ -3616,6 +3703,19 @@ value = "System is operational. All channels connected."
 <li><strong>Labelled token counter</strong> — the live token counter is labelled as a turn total and shows the ctx budget; ctx dropped from the spinner since it already shows under the input.</li>
 </ul>
 <p>Expanding a turn is smooth: the header is kept after expand, and expanding no longer scrolls the view up by its own size.</p>
+<h2 id="tui-improvements-v0376v0378"><a class="header" href="#tui-improvements-v0376v0378">TUI Improvements (v0.3.76–v0.3.78)</a></h2>
+<h3 id="steps-and-tools-display-v0376"><a class="header" href="#steps-and-tools-display-v0376">Steps AND Tools Display (v0.3.76)</a></h3>
+<p>The TUI now shows <strong>both steps and tool calls</strong> in the turn view. Previously it was either/or: if tool calls existed, steps were hidden. Now both render, with steps providing the narrative and tool calls showing the mechanical detail.</p>
+<h3 id="background-task-position-v0377"><a class="header" href="#background-task-position-v0377">Background Task Position (v0.3.77)</a></h3>
+<p>Background task feedback moved from the <strong>left border to the right border</strong> of the input box. This prevents it from colliding with the context budget footer on the left.</p>
+<h3 id="duplicate-submit-guard-v0376"><a class="header" href="#duplicate-submit-guard-v0376">Duplicate-Submit Guard (v0.3.76)</a></h3>
+<p>Pressing Enter twice quickly no longer submits the same message twice. The TUI drops a re-submitted message if the running turn is already answering it.</p>
+<h3 id="command-labelling-v0376"><a class="header" href="#command-labelling-v0376">Command Labelling (v0.3.76)</a></h3>
+<p>Commands in the TUI are now labelled by <strong>what they run</strong> (e.g. “cargo test”) instead of the working directory. Makes the activity feed readable at a glance.</p>
+<h3 id="deliverable-report-visibility-v0378"><a class="header" href="#deliverable-report-visibility-v0378">Deliverable Report Visibility (v0.3.78)</a></h3>
+<p>When a turn produces a deliverable report (audit, comparison, analysis), the report <strong>stays visible</strong> even when the turn folds. Previously, folding a turn would hide the report along with the working-out.</p>
+<h3 id="background-running-indicator-v0378"><a class="header" href="#background-running-indicator-v0378">Background Running Indicator (v0.3.78)</a></h3>
+<p>The “running” indicator is now <strong>cleared before delivering</strong> the final response. Previously, the indicator could linger for a moment after the response appeared, creating a visual glitch.</p>
 <h2 id="limits"><a class="header" href="#limits">Limits</a></h2>
 <p>There is no hard limit on pane count – you can run as many as your terminal fits. Each pane is a full session with its own token tracking and working directory.</p>
 <div style="break-before: page; page-break-before: always;"></div>
@@ -3869,6 +3969,34 @@ opencrabs cron remove "Morning Report"
 </code></pre>
 <p>This inserts the new task as task #4, and all existing tasks from #4 onward are <strong>renumbered automatically</strong>. Dependencies between tasks are preserved through the renumber.</p>
 <p>This is useful when a later task introduces a bug caught by an earlier test. Instead of re-opening the completed test task, insert a fresh re-test task right after the fix.</p>
+<h2 id="finished-checklist-persistence-v0376"><a class="header" href="#finished-checklist-persistence-v0376">Finished Checklist Persistence (v0.3.76)</a></h2>
+<p>When a plan completes all tasks, the finished checklist now <strong>stays on screen</strong> instead of disappearing. You can review the final state (all tasks marked ✓) without having to ask “what was the plan?” again. The completed card renders its final state with the full task list and progress bar at 100%.</p>
+<h2 id="epistemic-orient-gate-v0378"><a class="header" href="#epistemic-orient-gate-v0378">Epistemic Orient Gate (v0.3.78)</a></h2>
+<p>Plan execution is now gated behind an <strong>epistemic Orient phase</strong> before any task starts. The agent must:</p>
+<ol>
+<li><strong>Observe</strong> — gather ground truth (read files, check state)</li>
+<li><strong>Orient</strong> — map observations against current beliefs and goals</li>
+<li><strong>Decide</strong> — form intention, confirm alignment and safety</li>
+<li><strong>Act</strong> — execute through mechanical gates</li>
+</ol>
+<p>This prevents the agent from charging into a plan task with stale assumptions. The Orient gate checks whether the agent’s beliefs about the codebase/state still hold before writing anything.</p>
+<h2 id="criteria-aware-verification-v0378"><a class="header" href="#criteria-aware-verification-v0378">Criteria-Aware Verification (v0.3.78)</a></h2>
+<p>The Ralph loop (OpenCrabs’ iterative task execution engine) now verifies task completion against <strong>declared acceptance criteria</strong> instead of just “did the command exit 0?”. Each task’s criteria are checked mechanically:</p>
+<ul>
+<li>If a task declares <code>acceptance_criteria</code>, the verification gate checks each one</li>
+<li>Criteria that require specific output (e.g. “clippy passes with zero warnings”) are verified against actual tool output</li>
+<li>Tasks without explicit criteria fall back to the standard exit-code check</li>
+</ul>
+<p>This means a task marked “complete” actually met its stated goals, not just “something ran.”</p>
+<h2 id="ralph-verification-gate--iteration-cap-v0378"><a class="header" href="#ralph-verification-gate--iteration-cap-v0378">Ralph Verification Gate + Iteration Cap (v0.3.78)</a></h2>
+<p>The Ralph loop gained a <strong>mechanical verification gate</strong> with an iteration cap:</p>
+<ul>
+<li>After each task execution, the gate checks whether the outcome matches the intention</li>
+<li>If verification fails, the task retries (up to the iteration cap)</li>
+<li>The cap prevents infinite loops on tasks that can never satisfy their criteria</li>
+<li>State lives in files, not context — each iteration reads fresh state from disk</li>
+</ul>
+<p>Combined with the epistemic Orient gate, this makes plan execution significantly more reliable: the agent orients before acting, and verifies after acting, with bounded retries.</p>
 <h2 id="importing-pre-defined-plans-v0335"><a class="header" href="#importing-pre-defined-plans-v0335">Importing Pre-Defined Plans (v0.3.35)</a></h2>
 <p>Plans can be loaded from JSON files for repeatable workflows:</p>
 <pre><code>plan(operation: "import", file_path: "~/plans/rust-refactor.json")
@@ -4579,6 +4707,32 @@ providers = ["openrouter", "anthropic"]  # tried in order
 <li><strong>Re-engaged on forward intent</strong> — phantom detector now re-engages self-heal when forward intent is detected after a successful tool call, preventing the agent from narrating what it’s about to do instead of just doing it.</li>
 <li><strong>Five-language cleanup</strong> — destructive verb intent phrases cleaned up across EN, ES, FR, PT, and RU. Prevents the agent from narrating destructive actions (“I’ll now delete the file”) when it should just execute the tool.</li>
 </ul>
+<h2 id="thinking-loop-timeout-v0378"><a class="header" href="#thinking-loop-timeout-v0378">Thinking-Loop Timeout (v0.3.78)</a></h2>
+<p>A new <strong>thinking-loop timeout</strong> catches the agent stuck in an infinite reasoning loop (producing thought tokens but never emitting a tool call or response). When the timeout fires:</p>
+<ol>
+<li>The stuck stream is terminated</li>
+<li>Phantom enforcement retry fires (nudges the agent to produce real output)</li>
+<li>If still stuck after retries, sticky fallback provider kicks in</li>
+</ol>
+<p>This eliminates the “agent appears to be thinking forever but never does anything” failure mode.</p>
+<h2 id="expanded-phantom-detection-v0376v0378"><a class="header" href="#expanded-phantom-detection-v0376v0378">Expanded Phantom Detection (v0.3.76–v0.3.78)</a></h2>
+<p>The phantom detector gained significant coverage across three releases:</p>
+<h3 id="v0376-additions"><a class="header" href="#v0376-additions">v0.3.76 Additions</a></h3>
+<ul>
+<li><strong>File-delivery claims</strong> — catches “I’ve sent the file” / “document delivered” when no file-sending tool ran</li>
+<li><strong>Null-effect tool calls</strong> — tools that execute but produce no observable effect no longer grant phantom immunity</li>
+<li><strong>Command verification</strong> — quoted commands are checked against what the turn actually ran</li>
+<li><strong>Evidence checking</strong> — quoted evidence (output, logs) is verified against actual tool returns</li>
+<li><strong>Investigation claims</strong> — “I investigated” / “I looked into” counts as a completion claim requiring evidence</li>
+<li><strong>Both-ends check</strong> — examines both the lead-in AND the wrap-up of a turn, not just the opening</li>
+<li><strong>Self-update claims</strong> — “I updated my memory” / “I noted this” counts as a completion claim</li>
+</ul>
+<h3 id="v0378-additions"><a class="header" href="#v0378-additions">v0.3.78 Additions</a></h3>
+<ul>
+<li><strong>Shipped-and-tracked claims</strong> — “shipped and tracked in issue #N” without actual gh/git calls</li>
+<li><strong>Colloquial delivery claims</strong> — “that’s out the door”, “it’s in your inbox”, casual completion language</li>
+<li><strong>Media-delivery claims</strong> — “I’ve attached the image” / “video sent” without media tools running</li>
+</ul>
 <h2 id="v0375-hardening"><a class="header" href="#v0375-hardening">v0.3.75 Hardening</a></h2>
 <ul>
 <li><strong>Bounded self-heal loop</strong> — the phantom self-heal loop is now bounded instead of re-nudging forever, and discarded phantom self-heal narration is stripped from the live buffer so it never reaches the chat.</li>
@@ -4835,6 +4989,19 @@ Agent notices pattern of 5+ corrections on output hygiene:
 <li><strong>Brain-file hints on tool misses</strong> — when a tool call misses or errors (including approval-branch errors), the relevant brain notes surface automatically so the agent can self-correct (#767).</li>
 <li><strong>Wider TOOLS.md load trigger</strong> — routing, skill, and cron questions now proactively load TOOLS.md.</li>
 </ul>
+<h2 id="v0376-additions-1"><a class="header" href="#v0376-additions-1">v0.3.76 Additions</a></h2>
+<ul>
+<li><strong>RSI /evolve proposal</strong> — when a new OpenCrabs release is available, RSI surfaces it as an <code>/evolve</code> proposal in the Mission Control inbox instead of silently ignoring it. The proposal cites the version delta and links to the release notes.</li>
+<li><strong>Config-example tracking</strong> — RSI tracks config examples so pricing fixes and new provider entries reach users through template sync.</li>
+</ul>
+<h2 id="v0378-additions-1"><a class="header" href="#v0378-additions-1">v0.3.78 Additions</a></h2>
+<ul>
+<li><strong>TOML brain verification</strong> — a new <code>brain_verify.toml</code> defines post-write verification rules. After any brain file write, the system re-reads the file and checks required anchors (H1 title, <code>**Owns:**</code> header) are still present. If verification fails, the write is flagged.</li>
+<li><strong>brain_verify Orient gate</strong> — <code>self_improve</code> now routes through the epistemic Orient gate before applying changes. The agent must orient (verify current state) before writing, preventing RSI from applying fixes based on stale beliefs about brain file content.</li>
+<li><strong>RSI digest totals</strong> — the RSI digest now surfaces raw failure totals alongside surfaced opportunities, giving better visibility into what’s actually failing vs what RSI chose to act on.</li>
+<li><strong>Rule size cap</strong> — brain file rules are now capped in size. A narrow consolidation path allows merging related rules, preventing unbounded growth from repeated RSI appends.</li>
+<li><strong>Contradiction scope fix</strong> — brain_verify contradiction matching is now scoped per-entry instead of whole-file, eliminating false positives where unrelated entries triggered contradiction warnings.</li>
+</ul>
 <h2 id="self-healing-vs-self-improvement"><a class="header" href="#self-healing-vs-self-improvement">Self-Healing vs Self-Improvement</a></h2>
 <div class="table-wrapper">
 <table>
@@ -4928,6 +5095,45 @@ Agent notices pattern of 5+ corrections on output hygiene:
 </table>
 </div>
 <p>Layout and keystroke contracts are unit-testable without spinning up a full <code>App</code> instance.</p>
+<h2 id="analytics-panel-v0378"><a class="header" href="#analytics-panel-v0378">Analytics Panel (v0.3.78)</a></h2>
+<p>Mission Control gained a full <strong>Analytics</strong> view with its own database layer, event emitters, and responsive UI.</p>
+<h3 id="what-it-tracks"><a class="header" href="#what-it-tracks">What It Tracks</a></h3>
+<p>Every agent interaction emits analytics events to a dedicated SQLite table:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Event Category</th><th>Examples</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Phantom detection</strong></td><td>Detect/resolve events, false-positive rate</td></tr>
+<tr><td><strong>Streaming</strong></td><td>Recovery count, tool_use per stream</td></tr>
+<tr><td><strong>Brain verification</strong></td><td>Orient gate pass/reject, contradiction hits</td></tr>
+<tr><td><strong>Model usage</strong></td><td>Active model per turn, provider switches</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="the-analytics-ui"><a class="header" href="#the-analytics-ui">The Analytics UI</a></h3>
+<p>Open the analytics panel from Mission Control. It has:</p>
+<ul>
+<li><strong>Global time filter</strong> — Day / Week / Month / All toggle at the top. All cards and tabs respect the selected window.</li>
+<li><strong>Responsive 3-across card grid</strong> — summary cards (total events, phantom rate, streaming recoveries, brain verify hits) laid out in a 3-column grid that adapts to terminal width.</li>
+<li><strong>Model status icons</strong> — each model row shows a health icon (green/yellow/red) based on recent success rate.</li>
+<li><strong>Tabbed detail panels</strong> — Phantom / Model / D-W-M tabs with independent scroll. Each tab shows a ranked breakdown relevant to its category.</li>
+</ul>
+<h3 id="architecture-1-1"><a class="header" href="#architecture-1-1">Architecture</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Layer</th><th>Purpose</th></tr>
+</thead>
+<tbody>
+<tr><td><code>analytics_events</code> DB table</td><td>Append-only event store with category, model, timestamp</td></tr>
+<tr><td>Event emitters</td><td>Wired across tool_loop, streaming, brain_verify, and provider paths</td></tr>
+<tr><td>Query + report layer</td><td>Aggregation queries (counts, rates, top-N) with time-window filtering</td></tr>
+<tr><td>TUI renderer</td><td>Card grid + tabbed scroll panels in Mission Control</td></tr>
+</tbody>
+</table>
+</div>
 <h2 id="related"><a class="header" href="#related">Related</a></h2>
 <ul>
 <li><a href="#self-improvement-rsi">Self-Improvement (RSI)</a> — the engine that generates proposals</li>
@@ -5178,6 +5384,14 @@ api_key = "your-openai-key"
 [providers.tts.openai_compatible]
 api_key = "your-api-key"
 </code></pre>
+<h2 id="openai-tts-onboarding-v0378"><a class="header" href="#openai-tts-onboarding-v0378">OpenAI TTS Onboarding (v0.3.78)</a></h2>
+<p>The onboarding wizard (<code>/onboard:voice</code>) now includes a dedicated <strong>OpenAI TTS voice selector</strong> and API key field. When you select OpenAI as your TTS provider during onboarding:</p>
+<ol>
+<li>A voice picker appears with all available OpenAI voices (alloy, echo, fable, onyx, nova, shimmer)</li>
+<li>An API key field is shown if no key is configured yet</li>
+<li>Selection is saved to <code>config.toml</code> (<code>tts_voice</code>) and <code>keys.toml</code> (API key) automatically</li>
+</ol>
+<p>This removes the need to manually edit config files for the most common TTS setup path.</p>
 <h2 id="how-voice-messages-work"><a class="header" href="#how-voice-messages-work">How Voice Messages Work</a></h2>
 <p>When a voice message arrives on Telegram, WhatsApp, Discord, or Slack:</p>
 <ol>
@@ -5322,6 +5536,8 @@ Instructions for the agent when this skill runs...
 <h2 id="rsi-proposed-skills"><a class="header" href="#rsi-proposed-skills">RSI-Proposed Skills</a></h2>
 <p>The RSI engine can propose new skills based on usage patterns it observes in the feedback ledger. For example, if the agent repeatedly performs a multi-step workflow that isn’t covered by an existing skill, RSI will draft a skill and file it in the <a href="#mission-control">Mission Control</a> inbox for your review.</p>
 <p>This is part of the <a href="#rsi-proposals">RSI Proposals system</a> — RSI identifies gaps in the agent’s capabilities and drafts solutions, but installation always requires your approval.</p>
+<h2 id="slash-command-resolution-v0378"><a class="header" href="#slash-command-resolution-v0378">Slash Command Resolution (v0.3.78)</a></h2>
+<p>The <code>slash_command</code> tool now correctly resolves <strong>skills</strong> and the <code>/onboard:&lt;topic&gt;</code> form. Previously, calling a skill via <code>slash_command</code> could fail if the skill name didn’t exactly match the internal registry key. The resolver now checks skills, built-in commands, and user commands in priority order, and the <code>/onboard:voice</code> / <code>/onboard:provider</code> / <code>/onboard:channels</code> sub-topic forms route correctly.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="usage-dashboard"><a class="header" href="#usage-dashboard">Usage Dashboard</a></h1>
 <p>The Usage Dashboard shows your token usage, costs, models, tools, and project breakdown. Open it with <code>/usage</code>.</p>
@@ -5416,6 +5632,14 @@ Instructions for the agent when this skill runs...
 <h2 id="provider-and-model-breakdown-v0363"><a class="header" href="#provider-and-model-breakdown-v0363">Provider and Model Breakdown (v0.3.63)</a></h2>
 <p>The <code>/usage</code> command now shows per-provider and per-model cost breakdowns with period filters. This helps identify which providers or models are driving costs and optimize your usage accordingly.</p>
 <p>Use the time filters (T/W/M/A) to scope the breakdown to specific periods. The By Model panel already shows provider + model name, but the new breakdown provides aggregated views for quick cost analysis.</p>
+<h2 id="per-model-cache-breakdown-v0376"><a class="header" href="#per-model-cache-breakdown-v0376">Per-Model Cache Breakdown (v0.3.76)</a></h2>
+<p>The <code>/usage</code> command on Telegram now shows a <strong>per-model cache breakdown</strong>: for each model that supports prompt caching, you see cache creation tokens, cache read tokens, and the resulting hit rate. This makes it easy to spot which models benefit most from caching and whether your cache strategy is working.</p>
+<h2 id="pricing-updates-v0376"><a class="header" href="#pricing-updates-v0376">Pricing Updates (v0.3.76)</a></h2>
+<ul>
+<li><strong>Claude Opus 5</strong> pricing added to the cost calculator</li>
+<li><strong>qwen3.8-max-preview</strong> pricing added</li>
+<li><strong>Cost attribution fix</strong> — costs are now attributed to the provider that actually served the request, not the originally-requested provider (matters when fallback fires mid-turn)</li>
+</ul>
 <h2 id="navigation-1"><a class="header" href="#navigation-1">Navigation</a></h2>
 <div class="table-wrapper">
 <table>
@@ -6461,7 +6685,7 @@ node dist/cli.js linkedin comment &lt;post-url&gt; "text" # Comment on post
     
 <ul>
       
-<li><strong>Every feature and fix:</strong> designed, coded, tested, and committed by the crab, now at v0.3.75 and climbing</li>
+<li><strong>Every feature and fix:</strong> designed, coded, tested, and committed by the crab, now at v0.3.78 and climbing</li>
 
       
 <li><strong>Self-improvement on a schedule:</strong> daily and weekly self-improvement jobs, memory consolidation, and soul evolution run as cron</li>
@@ -7468,6 +7692,22 @@ cargo test --all-features
 <li>Do not open a public issue for security vulnerabilities</li>
 <li>We will acknowledge receipt within 48 hours</li>
 </ul>
+<h2 id="safety-gates-v0378"><a class="header" href="#safety-gates-v0378">Safety Gates (v0.3.78)</a></h2>
+<p>OpenCrabs v0.3.78 introduced a layered safety-gate system:</p>
+<h3 id="toml-bash-blocklist"><a class="header" href="#toml-bash-blocklist">TOML Bash Blocklist</a></h3>
+<p>Shell commands are checked against a TOML-defined blocklist before execution. Dangerous patterns (recursive deletes on root, raw disk writes, fork bombs) are rejected with a clear error. The blocklist is user-extensible and hot-reloads on file change. See <a href="#toml-bash-blocklist-v0378">Configuration</a> for details.</p>
+<h3 id="secret-redaction"><a class="header" href="#secret-redaction">Secret Redaction</a></h3>
+<p>Quoted secrets in agent output are now <strong>redacted before delivery</strong>. This covers:</p>
+<ul>
+<li>Bearer tokens</li>
+<li>API key patterns</li>
+<li>Colon-token shapes (key: value in YAML-like output)</li>
+<li>Query-param keys</li>
+<li>URL passwords</li>
+</ul>
+<p>Redaction fires on all delivery paths (TUI, Telegram, Discord, Slack, WhatsApp), so a secret accidentally echoed by the agent never reaches the chat.</p>
+<h3 id="brain-file-verification"><a class="header" href="#brain-file-verification">Brain File Verification</a></h3>
+<p>Post-write verification (via brain_verify.toml) ensures brain files maintain their structural integrity after RSI writes. Required anchors (H1 title, Owns header) are checked, and writes that break structure are flagged.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="changelog"><a class="header" href="#changelog">Changelog</a></h1>
 <div id="changelog-content">Loading changelog from GitHub...</div>

@@ -65,7 +65,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-f050cf40.js";
+            window.path_to_searchindex_js = "../searchindex-508dce05.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-37e8252d.js"></script>
@@ -445,6 +445,19 @@ Agent notices pattern of 5+ corrections on output hygiene:
 <li><strong>Inline-keyboard dedup approval</strong> — dedup proposals can be approved straight from a Telegram inline keyboard.</li>
 <li><strong>Brain-file hints on tool misses</strong> — when a tool call misses or errors (including approval-branch errors), the relevant brain notes surface automatically so the agent can self-correct (#767).</li>
 <li><strong>Wider TOOLS.md load trigger</strong> — routing, skill, and cron questions now proactively load TOOLS.md.</li>
+</ul>
+<h2 id="v0376-additions"><a class="header" href="#v0376-additions">v0.3.76 Additions</a></h2>
+<ul>
+<li><strong>RSI /evolve proposal</strong> — when a new OpenCrabs release is available, RSI surfaces it as an <code>/evolve</code> proposal in the Mission Control inbox instead of silently ignoring it. The proposal cites the version delta and links to the release notes.</li>
+<li><strong>Config-example tracking</strong> — RSI tracks config examples so pricing fixes and new provider entries reach users through template sync.</li>
+</ul>
+<h2 id="v0378-additions"><a class="header" href="#v0378-additions">v0.3.78 Additions</a></h2>
+<ul>
+<li><strong>TOML brain verification</strong> — a new <code>brain_verify.toml</code> defines post-write verification rules. After any brain file write, the system re-reads the file and checks required anchors (H1 title, <code>**Owns:**</code> header) are still present. If verification fails, the write is flagged.</li>
+<li><strong>brain_verify Orient gate</strong> — <code>self_improve</code> now routes through the epistemic Orient gate before applying changes. The agent must orient (verify current state) before writing, preventing RSI from applying fixes based on stale beliefs about brain file content.</li>
+<li><strong>RSI digest totals</strong> — the RSI digest now surfaces raw failure totals alongside surfaced opportunities, giving better visibility into what’s actually failing vs what RSI chose to act on.</li>
+<li><strong>Rule size cap</strong> — brain file rules are now capped in size. A narrow consolidation path allows merging related rules, preventing unbounded growth from repeated RSI appends.</li>
+<li><strong>Contradiction scope fix</strong> — brain_verify contradiction matching is now scoped per-entry instead of whole-file, eliminating false positives where unrelated entries triggered contradiction warnings.</li>
 </ul>
 <h2 id="self-healing-vs-self-improvement"><a class="header" href="#self-healing-vs-self-improvement">Self-Healing vs Self-Improvement</a></h2>
 <div class="table-wrapper">

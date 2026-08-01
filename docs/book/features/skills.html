@@ -65,7 +65,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-f050cf40.js";
+            window.path_to_searchindex_js = "../searchindex-508dce05.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-37e8252d.js"></script>
@@ -321,6 +321,8 @@ Instructions for the agent when this skill runs...
 <h2 id="rsi-proposed-skills"><a class="header" href="#rsi-proposed-skills">RSI-Proposed Skills</a></h2>
 <p>The RSI engine can propose new skills based on usage patterns it observes in the feedback ledger. For example, if the agent repeatedly performs a multi-step workflow that isn’t covered by an existing skill, RSI will draft a skill and file it in the <a href="./mission-control.html">Mission Control</a> inbox for your review.</p>
 <p>This is part of the <a href="./self-improvement.html#rsi-proposals">RSI Proposals system</a> — RSI identifies gaps in the agent’s capabilities and drafts solutions, but installation always requires your approval.</p>
+<h2 id="slash-command-resolution-v0378"><a class="header" href="#slash-command-resolution-v0378">Slash Command Resolution (v0.3.78)</a></h2>
+<p>The <code>slash_command</code> tool now correctly resolves <strong>skills</strong> and the <code>/onboard:&lt;topic&gt;</code> form. Previously, calling a skill via <code>slash_command</code> could fail if the skill name didn’t exactly match the internal registry key. The resolver now checks skills, built-in commands, and user commands in priority order, and the <code>/onboard:voice</code> / <code>/onboard:provider</code> / <code>/onboard:channels</code> sub-topic forms route correctly.</p>
 
                     </main>
 

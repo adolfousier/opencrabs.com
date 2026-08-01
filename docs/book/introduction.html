@@ -65,7 +65,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-f050cf40.js";
+            window.path_to_searchindex_js = "searchindex-508dce05.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-37e8252d.js"></script>
@@ -265,6 +265,15 @@
 <li><strong>Config edits via config_manager only (v0.3.74)</strong> — the agent never raw-edits config.toml/keys.toml; every write is validated before it lands</li>
 <li><strong>Brain dedup (v0.3.75)</strong> — <code>/dedup</code> command plus post-write and weekly cross-file scans keep brain files from drifting into duplication, with Telegram inline-keyboard approval</li>
 <li><strong>Brain-file hints on tool misses (v0.3.75)</strong> — relevant brain notes surface automatically when a tool call misses or errors</li>
+<li><strong>Proactive memory surfacing (v0.3.76)</strong> — relevant memory surfaces without being asked when conversation context matches stored knowledge</li>
+<li><strong>Natural model naming (v0.3.76)</strong> — <code>/models opus</code> works; colloquial names resolve to exact model IDs</li>
+<li><strong>Plan/execute provider routing (v0.3.76)</strong> — route planning and execution onto separate providers/models</li>
+<li><strong>Thinking-loop timeout (v0.3.78)</strong> — catches infinite reasoning loops, fires phantom enforcement with sticky fallback</li>
+<li><strong>Epistemic engine (v0.3.78)</strong> — belief tracking with confidence levels, OODA/BDI cognitive mesh, Orient gate before plan execution</li>
+<li><strong>Ralph verification gate (v0.3.78)</strong> — criteria-aware task verification with iteration cap; tasks must meet stated acceptance criteria</li>
+<li><strong>TOML safety gates (v0.3.78)</strong> — runtime-configurable bash blocklist with hot-reload, quoted-secret redaction, brain file verification</li>
+<li><strong>Mission Control analytics (v0.3.78)</strong> — D/W/M filter, 3-across card grid, phantom/model/streaming tabs, dedicated events DB</li>
+<li><strong>OpenAI TTS onboarding (v0.3.78)</strong> — voice selector and API key field in the onboarding wizard</li>
 <li><strong>System brain rebuild</strong> — brain files rebuilt from disk when changed, no restart needed</li>
 <li><strong>Proactive tool discovery</strong> — searches for available tools before claiming inability</li>
 <li><strong>Multilanguage prompt analyzer (v0.3.67)</strong> — shared PromptAnalyzer with soft-nudge on TUI and Telegram, 6 language packs (EN/ES/FR/ID/PT/RU)</li>

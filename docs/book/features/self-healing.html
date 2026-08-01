@@ -65,7 +65,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-f050cf40.js";
+            window.path_to_searchindex_js = "../searchindex-508dce05.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-37e8252d.js"></script>
@@ -547,6 +547,32 @@ providers = ["openrouter", "anthropic"]  # tried in order
 <ul>
 <li><strong>Re-engaged on forward intent</strong> — phantom detector now re-engages self-heal when forward intent is detected after a successful tool call, preventing the agent from narrating what it’s about to do instead of just doing it.</li>
 <li><strong>Five-language cleanup</strong> — destructive verb intent phrases cleaned up across EN, ES, FR, PT, and RU. Prevents the agent from narrating destructive actions (“I’ll now delete the file”) when it should just execute the tool.</li>
+</ul>
+<h2 id="thinking-loop-timeout-v0378"><a class="header" href="#thinking-loop-timeout-v0378">Thinking-Loop Timeout (v0.3.78)</a></h2>
+<p>A new <strong>thinking-loop timeout</strong> catches the agent stuck in an infinite reasoning loop (producing thought tokens but never emitting a tool call or response). When the timeout fires:</p>
+<ol>
+<li>The stuck stream is terminated</li>
+<li>Phantom enforcement retry fires (nudges the agent to produce real output)</li>
+<li>If still stuck after retries, sticky fallback provider kicks in</li>
+</ol>
+<p>This eliminates the “agent appears to be thinking forever but never does anything” failure mode.</p>
+<h2 id="expanded-phantom-detection-v0376v0378"><a class="header" href="#expanded-phantom-detection-v0376v0378">Expanded Phantom Detection (v0.3.76–v0.3.78)</a></h2>
+<p>The phantom detector gained significant coverage across three releases:</p>
+<h3 id="v0376-additions"><a class="header" href="#v0376-additions">v0.3.76 Additions</a></h3>
+<ul>
+<li><strong>File-delivery claims</strong> — catches “I’ve sent the file” / “document delivered” when no file-sending tool ran</li>
+<li><strong>Null-effect tool calls</strong> — tools that execute but produce no observable effect no longer grant phantom immunity</li>
+<li><strong>Command verification</strong> — quoted commands are checked against what the turn actually ran</li>
+<li><strong>Evidence checking</strong> — quoted evidence (output, logs) is verified against actual tool returns</li>
+<li><strong>Investigation claims</strong> — “I investigated” / “I looked into” counts as a completion claim requiring evidence</li>
+<li><strong>Both-ends check</strong> — examines both the lead-in AND the wrap-up of a turn, not just the opening</li>
+<li><strong>Self-update claims</strong> — “I updated my memory” / “I noted this” counts as a completion claim</li>
+</ul>
+<h3 id="v0378-additions"><a class="header" href="#v0378-additions">v0.3.78 Additions</a></h3>
+<ul>
+<li><strong>Shipped-and-tracked claims</strong> — “shipped and tracked in issue #N” without actual gh/git calls</li>
+<li><strong>Colloquial delivery claims</strong> — “that’s out the door”, “it’s in your inbox”, casual completion language</li>
+<li><strong>Media-delivery claims</strong> — “I’ve attached the image” / “video sent” without media tools running</li>
 </ul>
 <h2 id="v0375-hardening"><a class="header" href="#v0375-hardening">v0.3.75 Hardening</a></h2>
 <ul>

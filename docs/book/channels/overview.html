@@ -65,7 +65,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-f050cf40.js";
+            window.path_to_searchindex_js = "../searchindex-508dce05.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-37e8252d.js"></script>
@@ -350,6 +350,10 @@
 </div>
 <h2 id="channel-voice-parity"><a class="header" href="#channel-voice-parity">Channel Voice Parity</a></h2>
 <p>All four messaging channels (Telegram, Discord, WhatsApp, Slack) now share a single code path via <code>crate::channels::voice::{transcribe, synthesize}</code>. Bot replies are recorded in the <code>channel_messages</code> table for conversation context — previously only user messages were stored.</p>
+<h2 id="typing-indicator-persistence-v0376"><a class="header" href="#typing-indicator-persistence-v0376">Typing Indicator Persistence (v0.3.76)</a></h2>
+<p>Typing indicators now <strong>survive background tasks</strong>. Previously, when the agent spawned a background task (long build, test suite), the typing indicator would drop because the foreground turn ended. Now the indicator stays alive until the final response is delivered, regardless of how many background tasks run in between.</p>
+<h2 id="smart-chunk-boundaries-v0378"><a class="header" href="#smart-chunk-boundaries-v0378">Smart Chunk Boundaries (v0.3.78)</a></h2>
+<p>When a response exceeds platform message limits and must be split into chunks, the splitter now <strong>prefers boundaries that leave no markup open</strong>. Previously, a chunk could end mid-bold (<code>**text</code>) or mid-code-fence, causing rendering glitches on the receiving platform. The splitter now scans for the nearest safe break point where all markdown delimiters are balanced.</p>
 
                     </main>
 
