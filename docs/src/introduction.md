@@ -55,6 +55,15 @@
 - **Config edits via config_manager only (v0.3.74)** — the agent never raw-edits config.toml/keys.toml; every write is validated before it lands
 - **Brain dedup (v0.3.75)** — `/dedup` command plus post-write and weekly cross-file scans keep brain files from drifting into duplication, with Telegram inline-keyboard approval
 - **Brain-file hints on tool misses (v0.3.75)** — relevant brain notes surface automatically when a tool call misses or errors
+- **Proactive memory surfacing (v0.3.76)** — relevant memory surfaces without being asked when conversation context matches stored knowledge
+- **Natural model naming (v0.3.76)** — `/models opus` works; colloquial names resolve to exact model IDs
+- **Plan/execute provider routing (v0.3.76)** — route planning and execution onto separate providers/models
+- **Thinking-loop timeout (v0.3.78)** — catches infinite reasoning loops, fires phantom enforcement with sticky fallback
+- **Epistemic engine (v0.3.78)** — belief tracking with confidence levels, OODA/BDI cognitive mesh, Orient gate before plan execution
+- **Ralph verification gate (v0.3.78)** — criteria-aware task verification with iteration cap; tasks must meet stated acceptance criteria
+- **TOML safety gates (v0.3.78)** — runtime-configurable bash blocklist with hot-reload, quoted-secret redaction, brain file verification
+- **Mission Control analytics (v0.3.78)** — D/W/M filter, 3-across card grid, phantom/model/streaming tabs, dedicated events DB
+- **OpenAI TTS onboarding (v0.3.78)** — voice selector and API key field in the onboarding wizard
 - **System brain rebuild** — brain files rebuilt from disk when changed, no restart needed
 - **Proactive tool discovery** — searches for available tools before claiming inability
 - **Multilanguage prompt analyzer (v0.3.67)** — shared PromptAnalyzer with soft-nudge on TUI and Telegram, 6 language packs (EN/ES/FR/ID/PT/RU)
