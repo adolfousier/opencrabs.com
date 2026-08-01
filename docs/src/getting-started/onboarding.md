@@ -173,3 +173,8 @@ The agent operates within a working directory for file operations. Change it wit
 - `config_manager set_working_directory` tool
 
 The working directory is persisted per-session. Switching sessions restores the directory automatically.
+
+## Model Filter Hint (v0.3.78)
+
+The onboarding model picker now **always renders a filter hint** above the model list ("Type to filter..."). Previously, the hint only appeared after you started typing, so users did not know filtering was available. Additionally, an **exactly-typed model ID** now beats a substring match: if you type `claude-opus-4-8` exactly, it selects that model even if other models contain the same substring.
+

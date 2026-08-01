@@ -63,6 +63,10 @@ The agent saves to memory when:
 - You say "remember this"
 - Errors take >5 minutes to debug
 
+## Proactive Memory Surfacing (v0.3.76)
+
+The agent now **surfaces relevant memory without being asked**. When a conversation topic matches something stored in MEMORY.md or daily notes, the relevant context is loaded and injected automatically. Previously, memory was only recalled when the agent explicitly called `memory_search` or `load_brain_file`. Now the system proactively checks for relevant context on each turn, so the agent brings up past decisions, server details, or preferences that apply to the current conversation without you having to say "check your memory."
+
 ## Brain Files
 
 See [Brain Files](./brain-files.md) for the full list of files the agent reads on startup.

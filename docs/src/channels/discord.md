@@ -104,3 +104,7 @@ The agent can add emoji reactions to messages. When a user reacts with an emoji,
 
 - No markdown tables in Discord — use bullet lists instead
 - Wrap multiple links in `<url>` to suppress embeds
+
+## Sustained Typing Indicator (v0.3.76)
+
+Discord now shows a **sustained typing indicator** while the agent processes a request. Previously, Discord had no typing indicator at all (Telegram and Slack did). The indicator stays alive through background tasks and long tool executions, so users see "OpenCrabs is typing..." for the entire processing duration, not just the first few seconds.

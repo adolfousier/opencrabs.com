@@ -458,3 +458,31 @@ The `/models` picker got a real overhaul:
 - **Newest-first ordering** — models are ordered newest-first instead of by merge order.
 - **claude-cli model discovery** — the claude-cli model list is discovered live from the CLI instead of being hardcoded, with every claude-cli row formatted consistently.
 - **Reconciled against live inventory** — the picker reconciles against the live model inventory so it never offers a model that isn't actually available.
+
+## Natural Model Naming (v0.3.76)
+
+The `/models` command now accepts **colloquial model names**. Instead of typing the exact model ID, you can say it the way people talk:
+
+```
+/models opus        → claude-opus-4-8
+/models sonnet      → claude-sonnet-4-20250514
+/models gpt5        → gpt-5
+/models qwen max    → qwen3.8-max-preview
+```
+
+The resolver normalizes spacing, case, and common abbreviations before matching against the provider's model list. Exact matches still take priority.
+
+## Plan/Execute Provider Routing (v0.3.76)
+
+The `/plan` and `/execute` commands can now route onto **their own dedicated provider and model**, separate from the main chat provider:
+
+```toml
+# config.toml
+[agent]
+plan_provider = "anthropic"
+plan_model = "claude-opus-4-8"
+execute_provider = "openrouter"
+execute_model = "anthropic/claude-sonnet-4"
+```
+
+This lets you use a stronger model for planning (where reasoning quality matters most) and a faster/cheaper model for execution (where throughput matters). If unset, both fall back to the session's active provider.

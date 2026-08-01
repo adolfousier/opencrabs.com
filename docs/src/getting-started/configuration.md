@@ -396,3 +396,24 @@ fallback_chain = ["openai_compatible", "openai", "local"]
 | **TTS** | `voicebox`, `openai_compatible`, `openai`, `local` (aliases: `piper`, `local_piper`). `groq` is STT-only, the TTS chain rejects it |
 
 Empty or omitted chain means "use the default priority order with the primary removed."
+
+## TOML Bash Blocklist (v0.3.78)
+
+A new **TOML-driven bash blocklist** provides runtime-configurable safety gates for shell commands. The blocklist lives in a TOML file and defines patterns that the agent's `bash` tool will refuse to execute:
+
+```toml
+# safety.toml (example)
+[bash_blocklist]
+patterns = ["rm -rf /", "dd if=", "mkfs", ":(){ :|:& };:"]
+```
+
+- Patterns are matched against the command string before execution
+- The blocklist **reloads on file change** (no restart needed)
+- Configurable per-profile, so different environments can have different safety gates
+- Blocked commands return a clear error explaining which pattern matched
+
+This replaces hardcoded safety checks with a user-extensible system. You can add project-specific dangerous commands without code changes.
+
+## Safety TOML Reload (v0.3.78)
+
+All safety-related TOML files (bash blocklist, brain verification rules) now **hot-reload on change**. Edit the file and the new rules take effect immediately on the next tool call. No restart, no `/reload`, no config manager dance.

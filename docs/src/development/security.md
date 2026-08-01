@@ -57,3 +57,23 @@ If you discover a security vulnerability, please report it responsibly:
 - Email: adolfo@meetneura.ai
 - Do not open a public issue for security vulnerabilities
 - We will acknowledge receipt within 48 hours
+
+## Safety Gates (v0.3.78)
+
+OpenCrabs v0.3.78 introduced a layered safety-gate system:
+
+### TOML Bash Blocklist
+Shell commands are checked against a TOML-defined blocklist before execution. Dangerous patterns (recursive deletes on root, raw disk writes, fork bombs) are rejected with a clear error. The blocklist is user-extensible and hot-reloads on file change. See [Configuration](../getting-started/configuration.md#toml-bash-blocklist-v0378) for details.
+
+### Secret Redaction
+Quoted secrets in agent output are now **redacted before delivery**. This covers:
+- Bearer tokens
+- API key patterns
+- Colon-token shapes (key: value in YAML-like output)
+- Query-param keys
+- URL passwords
+
+Redaction fires on all delivery paths (TUI, Telegram, Discord, Slack, WhatsApp), so a secret accidentally echoed by the agent never reaches the chat.
+
+### Brain File Verification
+Post-write verification (via brain_verify.toml) ensures brain files maintain their structural integrity after RSI writes. Required anchors (H1 title, Owns header) are checked, and writes that break structure are flagged.

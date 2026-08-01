@@ -40,6 +40,17 @@ Tasks for periodic proactive checks. Keep empty to skip heartbeat API calls. Add
 ### BOOT.md
 Startup procedures: check git log, verify build, greet human with context awareness.
 
+## Query-Based Loading (v0.3.76)
+
+`load_brain_file` now accepts an optional `query` parameter that returns **only the sections matching the query** instead of the entire file. This saves significant context budget:
+
+```
+load_brain_file(name="TOOLS.md", query="telegram")
+→ Returns only the Telegram-related sections, not the full 2000-line file
+```
+
+Whole sections are returned (never cut mid-section), so a rule is never truncated. This is especially useful for large brain files like TOOLS.md and AGENTS.md where loading the full file wastes 10K+ tokens on irrelevant content.
+
 ## Customization
 
 These files are **yours**. The agent reads them but you control the content. Templates are at `src/docs/reference/templates/` in the source repo — compare your local files against templates when updating to pick up new sections without losing custom content.

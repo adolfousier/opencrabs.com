@@ -131,3 +131,11 @@ The agent can send messages and take actions proactively:
 ## Channel Voice Parity
 
 All four messaging channels (Telegram, Discord, WhatsApp, Slack) now share a single code path via `crate::channels::voice::{transcribe, synthesize}`. Bot replies are recorded in the `channel_messages` table for conversation context — previously only user messages were stored.
+
+## Typing Indicator Persistence (v0.3.76)
+
+Typing indicators now **survive background tasks**. Previously, when the agent spawned a background task (long build, test suite), the typing indicator would drop because the foreground turn ended. Now the indicator stays alive until the final response is delivered, regardless of how many background tasks run in between.
+
+## Smart Chunk Boundaries (v0.3.78)
+
+When a response exceeds platform message limits and must be split into chunks, the splitter now **prefers boundaries that leave no markup open**. Previously, a chunk could end mid-bold (`**text`) or mid-code-fence, causing rendering glitches on the receiving platform. The splitter now scans for the nearest safe break point where all markdown delimiters are balanced.

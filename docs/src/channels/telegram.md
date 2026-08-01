@@ -48,6 +48,35 @@ respond_to = "all"
 - **Forum topic routing** (v0.3.31) — In supergroups with topics enabled, the bot tracks `thread_id` through the full pipeline. Use `list_topics` action to map topic names (e.g. `#announcements`) to numeric IDs, then pass `thread_id` to `send` / `reply` / `send_photo` to route into a specific topic
 - **Context-aware pre-tool status** (v0.3.31) — While a tool runs, the bot shows a live status message naming the tool, elapsed time, and either a reasoning excerpt or an anchored phrase from the user's request
 - **Inline ctx budget footer** (v0.3.36) — context budget footer (`ctx: XK/YK Z% | N tok/s`) is now appended to the last response message instead of sent as a separate message. Keeps the chat clean.
+
+## v0.3.76–v0.3.78 Improvements
+
+### /new Gating (v0.3.76)
+The `/new` command is now **gated to the bot owner** in group chats. Non-owners cannot create new sessions or reset context. The command menu is also scoped: owners see the full menu, non-owners see only the commands available to them.
+
+### HTML Conversion (v0.3.77)
+All `telegram_send` actions now apply **HTML-to-Telegram conversion** consistently. Previously, only the main response path converted HTML entities; proactive sends, follow-ups, and media captions could arrive with raw `<b>` tags or unescaped ampersands.
+
+### Rich Delivery (v0.3.78)
+Telegram delivery is unified on **markdown formatting**. The legacy "blocks path" (which sent structured JSON blocks) has been removed in favor of a single rich-markdown renderer. This eliminates formatting inconsistencies between streaming responses and proactive sends.
+
+### Callback Routing (v0.3.78)
+Inline keyboard callbacks (plan approvals, follow-up taps, dedup approvals) now route to the **originating session** instead of the chat-bound session. Previously, tapping a button in a group chat could route the callback to the wrong session if multiple sessions shared the same chat.
+
+### Background Streaming (v0.3.78)
+Background task results now stream through **one turn per session** instead of spawning a new message per tick. This eliminates the message flood when a background task (build, test suite) produces incremental output.
+
+### Follow-Up Attribution (v0.3.78)
+When a user taps a follow-up suggestion button in a group chat, the agent now **names the member** who tapped it. Previously, follow-up taps were anonymous in group contexts.
+
+### Other Fixes
+- `/start` recognizes existing members of closed groups (v0.3.76)
+- Plan-card serialisation prevents duplicate cards on concurrent refreshes (v0.3.76)
+- Follow-up taps run a real tools turn instead of echoing text (v0.3.76)
+- Flow block no longer posts a new message every tick (v0.3.77)
+- Echoed plan titles dropped from responses (v0.3.77)
+- Open-group registration gated on persisted open flag (v0.3.78)
+- Cowork members recorded on first message (v0.3.78)
 - **Rolling status edit-in-place** (v0.3.36) — tool status messages (⚙️ running, ✅ done) are edited in-place instead of delete+recreate, preventing flicker and preserving scroll position.
 - **Bot command hot-reload** (v0.3.36) — bot commands refresh automatically when config or skills change, without restarting the bot.
 - **Guard tok/s against burst-delivery** (v0.3.36) — tok/s footer is guarded against burst-delivery artifacts so the number stays stable.
