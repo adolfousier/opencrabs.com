@@ -128,3 +128,7 @@ Write a skill once, use it everywhere.
 The RSI engine can propose new skills based on usage patterns it observes in the feedback ledger. For example, if the agent repeatedly performs a multi-step workflow that isn't covered by an existing skill, RSI will draft a skill and file it in the [Mission Control](./mission-control.md) inbox for your review.
 
 This is part of the [RSI Proposals system](./self-improvement.md#rsi-proposals) — RSI identifies gaps in the agent's capabilities and drafts solutions, but installation always requires your approval.
+
+## Slash Command Resolution (v0.3.78)
+
+The `slash_command` tool now correctly resolves **skills** and the `/onboard:<topic>` form. Previously, calling a skill via `slash_command` could fail if the skill name didn't exactly match the internal registry key. The resolver now checks skills, built-in commands, and user commands in priority order, and the `/onboard:voice` / `/onboard:provider` / `/onboard:channels` sub-topic forms route correctly.

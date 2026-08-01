@@ -136,6 +136,16 @@ api_key = "your-openai-key"
 api_key = "your-api-key"
 ```
 
+## OpenAI TTS Onboarding (v0.3.78)
+
+The onboarding wizard (`/onboard:voice`) now includes a dedicated **OpenAI TTS voice selector** and API key field. When you select OpenAI as your TTS provider during onboarding:
+
+1. A voice picker appears with all available OpenAI voices (alloy, echo, fable, onyx, nova, shimmer)
+2. An API key field is shown if no key is configured yet
+3. Selection is saved to `config.toml` (`tts_voice`) and `keys.toml` (API key) automatically
+
+This removes the need to manually edit config files for the most common TTS setup path.
+
 ## How Voice Messages Work
 
 When a voice message arrives on Telegram, WhatsApp, Discord, or Slack:

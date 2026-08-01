@@ -73,6 +73,42 @@ This inserts the new task as task #4, and all existing tasks from #4 onward are 
 
 This is useful when a later task introduces a bug caught by an earlier test. Instead of re-opening the completed test task, insert a fresh re-test task right after the fix.
 
+## Finished Checklist Persistence (v0.3.76)
+
+When a plan completes all tasks, the finished checklist now **stays on screen** instead of disappearing. You can review the final state (all tasks marked ✓) without having to ask "what was the plan?" again. The completed card renders its final state with the full task list and progress bar at 100%.
+
+## Epistemic Orient Gate (v0.3.78)
+
+Plan execution is now gated behind an **epistemic Orient phase** before any task starts. The agent must:
+
+1. **Observe** — gather ground truth (read files, check state)
+2. **Orient** — map observations against current beliefs and goals
+3. **Decide** — form intention, confirm alignment and safety
+4. **Act** — execute through mechanical gates
+
+This prevents the agent from charging into a plan task with stale assumptions. The Orient gate checks whether the agent's beliefs about the codebase/state still hold before writing anything.
+
+## Criteria-Aware Verification (v0.3.78)
+
+The Ralph loop (OpenCrabs' iterative task execution engine) now verifies task completion against **declared acceptance criteria** instead of just "did the command exit 0?". Each task's criteria are checked mechanically:
+
+- If a task declares `acceptance_criteria`, the verification gate checks each one
+- Criteria that require specific output (e.g. "clippy passes with zero warnings") are verified against actual tool output
+- Tasks without explicit criteria fall back to the standard exit-code check
+
+This means a task marked "complete" actually met its stated goals, not just "something ran."
+
+## Ralph Verification Gate + Iteration Cap (v0.3.78)
+
+The Ralph loop gained a **mechanical verification gate** with an iteration cap:
+
+- After each task execution, the gate checks whether the outcome matches the intention
+- If verification fails, the task retries (up to the iteration cap)
+- The cap prevents infinite loops on tasks that can never satisfy their criteria
+- State lives in files, not context — each iteration reads fresh state from disk
+
+Combined with the epistemic Orient gate, this makes plan execution significantly more reliable: the agent orients before acting, and verifies after acting, with bounded retries.
+
 ## Importing Pre-Defined Plans (v0.3.35)
 
 Plans can be loaded from JSON files for repeatable workflows:

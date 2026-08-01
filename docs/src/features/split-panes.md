@@ -90,6 +90,26 @@ The view stays clean by default:
 
 Expanding a turn is smooth: the header is kept after expand, and expanding no longer scrolls the view up by its own size.
 
+## TUI Improvements (v0.3.76–v0.3.78)
+
+### Steps AND Tools Display (v0.3.76)
+The TUI now shows **both steps and tool calls** in the turn view. Previously it was either/or: if tool calls existed, steps were hidden. Now both render, with steps providing the narrative and tool calls showing the mechanical detail.
+
+### Background Task Position (v0.3.77)
+Background task feedback moved from the **left border to the right border** of the input box. This prevents it from colliding with the context budget footer on the left.
+
+### Duplicate-Submit Guard (v0.3.76)
+Pressing Enter twice quickly no longer submits the same message twice. The TUI drops a re-submitted message if the running turn is already answering it.
+
+### Command Labelling (v0.3.76)
+Commands in the TUI are now labelled by **what they run** (e.g. "cargo test") instead of the working directory. Makes the activity feed readable at a glance.
+
+### Deliverable Report Visibility (v0.3.78)
+When a turn produces a deliverable report (audit, comparison, analysis), the report **stays visible** even when the turn folds. Previously, folding a turn would hide the report along with the working-out.
+
+### Background Running Indicator (v0.3.78)
+The "running" indicator is now **cleared before delivering** the final response. Previously, the indicator could linger for a moment after the response appeared, creating a visual glitch.
+
 ## Limits
 
 There is no hard limit on pane count -- you can run as many as your terminal fits. Each pane is a full session with its own token tracking and working directory.

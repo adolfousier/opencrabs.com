@@ -423,6 +423,34 @@ Fixed CodeQL #64 (HIGH): Gemini API key was leaked in URL query string (`?key=..
 - **Re-engaged on forward intent** — phantom detector now re-engages self-heal when forward intent is detected after a successful tool call, preventing the agent from narrating what it's about to do instead of just doing it.
 - **Five-language cleanup** — destructive verb intent phrases cleaned up across EN, ES, FR, PT, and RU. Prevents the agent from narrating destructive actions ("I'll now delete the file") when it should just execute the tool.
 
+## Thinking-Loop Timeout (v0.3.78)
+
+A new **thinking-loop timeout** catches the agent stuck in an infinite reasoning loop (producing thought tokens but never emitting a tool call or response). When the timeout fires:
+
+1. The stuck stream is terminated
+2. Phantom enforcement retry fires (nudges the agent to produce real output)
+3. If still stuck after retries, sticky fallback provider kicks in
+
+This eliminates the "agent appears to be thinking forever but never does anything" failure mode.
+
+## Expanded Phantom Detection (v0.3.76–v0.3.78)
+
+The phantom detector gained significant coverage across three releases:
+
+### v0.3.76 Additions
+- **File-delivery claims** — catches "I've sent the file" / "document delivered" when no file-sending tool ran
+- **Null-effect tool calls** — tools that execute but produce no observable effect no longer grant phantom immunity
+- **Command verification** — quoted commands are checked against what the turn actually ran
+- **Evidence checking** — quoted evidence (output, logs) is verified against actual tool returns
+- **Investigation claims** — "I investigated" / "I looked into" counts as a completion claim requiring evidence
+- **Both-ends check** — examines both the lead-in AND the wrap-up of a turn, not just the opening
+- **Self-update claims** — "I updated my memory" / "I noted this" counts as a completion claim
+
+### v0.3.78 Additions
+- **Shipped-and-tracked claims** — "shipped and tracked in issue #N" without actual gh/git calls
+- **Colloquial delivery claims** — "that's out the door", "it's in your inbox", casual completion language
+- **Media-delivery claims** — "I've attached the image" / "video sent" without media tools running
+
 ## v0.3.75 Hardening
 
 - **Bounded self-heal loop** — the phantom self-heal loop is now bounded instead of re-nudging forever, and discarded phantom self-heal narration is stripped from the live buffer so it never reaches the chat.

@@ -244,6 +244,19 @@ RSI now bumps a violation counter on existing rules instead of deduping repeat v
 - **Brain-file hints on tool misses** — when a tool call misses or errors (including approval-branch errors), the relevant brain notes surface automatically so the agent can self-correct (#767).
 - **Wider TOOLS.md load trigger** — routing, skill, and cron questions now proactively load TOOLS.md.
 
+## v0.3.76 Additions
+
+- **RSI /evolve proposal** — when a new OpenCrabs release is available, RSI surfaces it as an `/evolve` proposal in the Mission Control inbox instead of silently ignoring it. The proposal cites the version delta and links to the release notes.
+- **Config-example tracking** — RSI tracks config examples so pricing fixes and new provider entries reach users through template sync.
+
+## v0.3.78 Additions
+
+- **TOML brain verification** — a new `brain_verify.toml` defines post-write verification rules. After any brain file write, the system re-reads the file and checks required anchors (H1 title, `**Owns:**` header) are still present. If verification fails, the write is flagged.
+- **brain_verify Orient gate** — `self_improve` now routes through the epistemic Orient gate before applying changes. The agent must orient (verify current state) before writing, preventing RSI from applying fixes based on stale beliefs about brain file content.
+- **RSI digest totals** — the RSI digest now surfaces raw failure totals alongside surfaced opportunities, giving better visibility into what's actually failing vs what RSI chose to act on.
+- **Rule size cap** — brain file rules are now capped in size. A narrow consolidation path allows merging related rules, preventing unbounded growth from repeated RSI appends.
+- **Contradiction scope fix** — brain_verify contradiction matching is now scoped per-entry instead of whole-file, eliminating false positives where unrelated entries triggered contradiction warnings.
+
 ## Self-Healing vs Self-Improvement
 
 | Self-Healing | Self-Improvement |

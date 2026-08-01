@@ -80,6 +80,39 @@ Mission Control is split into three module trees:
 
 Layout and keystroke contracts are unit-testable without spinning up a full `App` instance.
 
+## Analytics Panel (v0.3.78)
+
+Mission Control gained a full **Analytics** view with its own database layer, event emitters, and responsive UI.
+
+### What It Tracks
+
+Every agent interaction emits analytics events to a dedicated SQLite table:
+
+| Event Category | Examples |
+|----------------|----------|
+| **Phantom detection** | Detect/resolve events, false-positive rate |
+| **Streaming** | Recovery count, tool_use per stream |
+| **Brain verification** | Orient gate pass/reject, contradiction hits |
+| **Model usage** | Active model per turn, provider switches |
+
+### The Analytics UI
+
+Open the analytics panel from Mission Control. It has:
+
+- **Global time filter** — Day / Week / Month / All toggle at the top. All cards and tabs respect the selected window.
+- **Responsive 3-across card grid** — summary cards (total events, phantom rate, streaming recoveries, brain verify hits) laid out in a 3-column grid that adapts to terminal width.
+- **Model status icons** — each model row shows a health icon (green/yellow/red) based on recent success rate.
+- **Tabbed detail panels** — Phantom / Model / D-W-M tabs with independent scroll. Each tab shows a ranked breakdown relevant to its category.
+
+### Architecture
+
+| Layer | Purpose |
+|-------|---------|
+| `analytics_events` DB table | Append-only event store with category, model, timestamp |
+| Event emitters | Wired across tool_loop, streaming, brain_verify, and provider paths |
+| Query + report layer | Aggregation queries (counts, rates, top-N) with time-window filtering |
+| TUI renderer | Card grid + tabbed scroll panels in Mission Control |
+
 ## Related
 
 - [Self-Improvement (RSI)](./self-improvement.md) — the engine that generates proposals

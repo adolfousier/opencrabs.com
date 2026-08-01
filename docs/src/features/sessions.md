@@ -36,6 +36,13 @@ Create a session named `mybrand-prod-logs-debug` and connect it to a Slack chann
 
 The key insight: **you never have to explain the full context again**. Once a session is locked into a domain, every follow-up message inherits that context automatically.
 
+## Session Context Integrity (v0.3.78)
+
+Two fixes harden `session_context` (the tool agents use to store key-value state):
+
+- **Atomic writes** — context writes now use atomic file operations, eliminating trailing-character corruption that could occur when a write was interrupted mid-flush. Previously, a crashed write could leave a JSON file with a truncated trailing character, making the entire context unreadable.
+- **Concurrency pinning** — concurrent `session_context` calls from parallel tool executions no longer race on the same file. A concurrency pin serializes writes, and temp files are cleaned up after each operation.
+
 ## Creating Sessions
 
 - **TUI:** Press `Ctrl+N` or type `/new`

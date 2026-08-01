@@ -89,6 +89,16 @@ The `/usage` command now shows per-provider and per-model cost breakdowns with p
 
 Use the time filters (T/W/M/A) to scope the breakdown to specific periods. The By Model panel already shows provider + model name, but the new breakdown provides aggregated views for quick cost analysis.
 
+## Per-Model Cache Breakdown (v0.3.76)
+
+The `/usage` command on Telegram now shows a **per-model cache breakdown**: for each model that supports prompt caching, you see cache creation tokens, cache read tokens, and the resulting hit rate. This makes it easy to spot which models benefit most from caching and whether your cache strategy is working.
+
+## Pricing Updates (v0.3.76)
+
+- **Claude Opus 5** pricing added to the cost calculator
+- **qwen3.8-max-preview** pricing added
+- **Cost attribution fix** — costs are now attributed to the provider that actually served the request, not the originally-requested provider (matters when fallback fires mid-turn)
+
 ## Navigation
 
 | Key | Action |
