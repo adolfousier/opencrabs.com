@@ -11,8 +11,10 @@ Connect OpenCrabs to Slack workspaces.
 3. Enable **Socket Mode** under Settings
 4. Generate an **App-Level Token** (Settings → Basic Information → App-Level Tokens) with `connections:write` scope
 5. Under **OAuth & Permissions**, add bot scopes: `chat:write`, `channels:history`, `groups:history`, `im:history`, `reactions:write`
-6. Install the app to your workspace
-7. Copy the **Bot Token** (`xoxb-...`) and **App-Level Token** (`xapp-...`)
+6. Install the app to your workspace (**Install App** → **Install to Workspace**)
+7. Copy both tokens — they live in **different places** in the Slack dashboard:
+   - **Bot Token** (`xoxb-...`) — under **Install App**, in the *OAuth Tokens for Your Workspace* section. It only appears **after** you install the app to the workspace.
+   - **App-Level Token** (`xapp-...`) — under **Basic Information** → **App-Level Tokens**. If you already generated it in step 4, Slack only lists the token **name** here; **click the name** to expand it and reveal the actual `xapp-...` value to copy.
 
 ### Step 2: Configure via the Onboarding Wizard
 
