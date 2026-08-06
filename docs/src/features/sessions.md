@@ -87,6 +87,14 @@ The sessions screen shows:
 - Context window usage (current session)
 - Status indicators (processing spinner, pending approval, unread)
 
+## Sub-Agent Sessions Stay Out of Your Way (v0.3.79)
+
+Every spawned sub-agent creates a session titled `subagent: {label}`, and a busy turn can create several. They are an implementation detail of one tool call, so since v0.3.79:
+
+- Sub-agent sessions are **hidden from session lists** the moment they exist — your session screen only ever shows your sessions.
+- They are **automatically purged** once past `agent.subagent_session_ttl_days` (default **7**; set `0` to keep them forever).
+- Your own sessions are never touched — the cleanup sweep matches the `subagent:` title prefix only.
+
 ## Per-Session State
 
 Each session remembers:
