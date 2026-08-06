@@ -1,8 +1,18 @@
 # Installation
 
-Three ways to get OpenCrabs running.
+Four ways to get OpenCrabs running.
 
-## Option 1: Download Binary (quick install, recommended)
+## Option 1: Homebrew (recommended on macOS and Linux)
+
+```bash
+brew install opencrabs
+```
+
+OpenCrabs is in [homebrew-core](https://github.com/Homebrew/homebrew-core/blob/HEAD/Formula/o/opencrabs.rb), so the standard formula installs the prebuilt binary for macOS and Linux on both architectures — no Rust toolchain required. Every release publishes a `SHA256SUMS` file and the formula is regenerated automatically from it, so the hashes always match the shipped artifacts.
+
+Run `opencrabs` after install — the onboarding wizard handles everything on first run.
+
+## Option 2: Download Binary (all platforms)
 
 Grab a pre-built binary from [GitHub Releases](https://github.com/adolfousier/opencrabs/releases).
 
@@ -44,6 +54,8 @@ Expand-Archive opencrabs.zip -Force
 
 The onboarding wizard handles everything on first run.
 
+> **Verify your download (optional):** every release publishes a `SHA256SUMS` file alongside the tarballs.
+
 > **Terminal permissions required.** OpenCrabs reads/writes brain files, config, and project files. Your terminal app needs filesystem access or the OS will block operations.
 >
 > | OS | What to do |
@@ -54,7 +66,7 @@ The onboarding wizard handles everything on first run.
 
 > `/rebuild` works even with pre-built binaries — it auto-clones the source to `~/.opencrabs/source/` on first use, then builds and hot-restarts.
 
-## Option 2: Build from Source
+## Option 3: Build from Source
 
 Required for `/rebuild`, adding custom tools, or modifying the agent.
 
@@ -94,7 +106,7 @@ cargo build --release
 
 > OpenCrabs uses `keys.toml` instead of `.env` for API keys. The onboarding wizard will help you set it up, or edit `~/.opencrabs/keys.toml` directly.
 
-## Option 3: Docker
+## Option 4: Docker
 
 Run OpenCrabs in an isolated container. Build takes ~15min (Rust release + LTO).
 
@@ -187,6 +199,7 @@ Register-ScheduledTask -TaskName "OpenCrabs" -Action $action -Trigger $trigger -
 
 ## Updating
 
+- **Homebrew users:** `brew upgrade opencrabs`
 - **Binary users:** Type `/evolve` in the TUI to download the latest release
 - **Source users:** `git pull && cargo build --release`, or type `/rebuild` in the TUI
 - **Docker users:** `docker compose pull && docker compose up -d`
