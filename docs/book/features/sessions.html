@@ -65,7 +65,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-6037411d.js";
+            window.path_to_searchindex_js = "../searchindex-35d927d9.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-37e8252d.js"></script>
@@ -276,6 +276,13 @@
 <li>Token usage</li>
 <li>Context window usage (current session)</li>
 <li>Status indicators (processing spinner, pending approval, unread)</li>
+</ul>
+<h2 id="sub-agent-sessions-stay-out-of-your-way-v0379"><a class="header" href="#sub-agent-sessions-stay-out-of-your-way-v0379">Sub-Agent Sessions Stay Out of Your Way (v0.3.79)</a></h2>
+<p>Every spawned sub-agent creates a session titled <code>subagent: {label}</code>, and a busy turn can create several. They are an implementation detail of one tool call, so since v0.3.79:</p>
+<ul>
+<li>Sub-agent sessions are <strong>hidden from session lists</strong> the moment they exist — your session screen only ever shows your sessions.</li>
+<li>They are <strong>automatically purged</strong> once past <code>agent.subagent_session_ttl_days</code> (default <strong>7</strong>; set <code>0</code> to keep them forever).</li>
+<li>Your own sessions are never touched — the cleanup sweep matches the <code>subagent:</code> title prefix only.</li>
 </ul>
 <h2 id="per-session-state"><a class="header" href="#per-session-state">Per-Session State</a></h2>
 <p>Each session remembers:</p>

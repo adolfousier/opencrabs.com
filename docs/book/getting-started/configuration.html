@@ -65,7 +65,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-6037411d.js";
+            window.path_to_searchindex_js = "../searchindex-35d927d9.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-37e8252d.js"></script>
@@ -262,6 +262,13 @@ api_key = "sk-ant-..."
 <li><strong>Guard config-breaking writes</strong> — <code>edit_file</code> / <code>write_file</code> writes that would break <code>config.toml</code> / <code>keys.toml</code> are denied outright (#713).</li>
 <li><strong>Re-validate before write</strong> — config is re-validated immediately before <code>fs::write</code> in the <code>config_manager</code> write paths (#714).</li>
 <li><strong>Validate keys before snapshot</strong> — <code>keys.toml</code> is validated before it is saved as the last-good snapshot, so a bad snapshot can’t poison recovery (#712).</li>
+</ul>
+<p><strong>v0.3.79 hardened this further:</strong></p>
+<ul>
+<li><strong>Every config write is atomic</strong> (#911) — a crash or a concurrent reader mid-write can never observe a half-written <code>config.toml</code> or <code>keys.toml</code>.</li>
+<li><strong>Config loads no longer race on shared state</strong> — concurrent reloads can’t interleave and leave a torn config in memory.</li>
+<li><strong>Reload failures are specific</strong> — a failed reload says <em>what</em> failed, and a write race is named as the transient condition it is instead of a scary generic error.</li>
+<li><strong>Never select a provider you didn’t configure</strong> — fallback and model routing can no longer land on a provider section that doesn’t exist in your config.</li>
 </ul>
 <h2 id="agent-behavior"><a class="header" href="#agent-behavior">Agent Behavior</a></h2>
 <pre><code class="language-toml">[agent]

@@ -66,7 +66,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-6037411d.js";
+            window.path_to_searchindex_js = "searchindex-35d927d9.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-37e8252d.js"></script>
@@ -275,6 +275,10 @@
 <li><strong>TOML safety gates (v0.3.78)</strong> — runtime-configurable bash blocklist with hot-reload, quoted-secret redaction, brain file verification</li>
 <li><strong>Mission Control analytics (v0.3.78)</strong> — D/W/M filter, 3-across card grid, phantom/model/streaming tabs, dedicated events DB</li>
 <li><strong>OpenAI TTS onboarding (v0.3.78)</strong> — voice selector and API key field in the onboarding wizard</li>
+<li><strong>Homebrew install (v0.3.79)</strong> — <code>brew install opencrabs</code> from homebrew-core: prebuilt binary, both architectures, no Rust toolchain</li>
+<li><strong><code>/restart</code> and <code>/exit</code> (v0.3.79)</strong> — restart or shut down from any channel or the TUI; owner-only on channels, announce before acting</li>
+<li><strong>Quota circuit breaker (v0.3.79)</strong> — quota-exhausted providers get a TTL breaker and are skipped in fallback walks; chain exhaustion reported explicitly</li>
+<li><strong>Plan state across sessions (v0.3.79)</strong> — plans survive session boundaries; isolated plan-task execution defaults on, Ralph verifies in the session’s own directory</li>
 <li><strong>System brain rebuild</strong> — brain files rebuilt from disk when changed, no restart needed</li>
 <li><strong>Proactive tool discovery</strong> — searches for available tools before claiming inability</li>
 <li><strong>Multilanguage prompt analyzer (v0.3.67)</strong> — shared PromptAnalyzer with soft-nudge on TUI and Telegram, 6 language packs (EN/ES/FR/ID/PT/RU)</li>
@@ -422,8 +426,13 @@ cargo install opencrabs --locked
 </ul>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="installation"><a class="header" href="#installation">Installation</a></h1>
-<p>Three ways to get OpenCrabs running.</p>
-<h2 id="option-1-download-binary-quick-install-recommended"><a class="header" href="#option-1-download-binary-quick-install-recommended">Option 1: Download Binary (quick install, recommended)</a></h2>
+<p>Four ways to get OpenCrabs running.</p>
+<h2 id="option-1-homebrew-recommended-on-macos-and-linux"><a class="header" href="#option-1-homebrew-recommended-on-macos-and-linux">Option 1: Homebrew (recommended on macOS and Linux)</a></h2>
+<pre><code class="language-bash">brew install opencrabs
+</code></pre>
+<p>OpenCrabs is in <a href="https://github.com/Homebrew/homebrew-core/blob/HEAD/Formula/o/opencrabs.rb">homebrew-core</a>, so the standard formula installs the prebuilt binary for macOS and Linux on both architectures — no Rust toolchain required. Every release publishes a <code>SHA256SUMS</code> file and the formula is regenerated automatically from it, so the hashes always match the shipped artifacts.</p>
+<p>Run <code>opencrabs</code> after install — the onboarding wizard handles everything on first run.</p>
+<h2 id="option-2-download-binary-all-platforms"><a class="header" href="#option-2-download-binary-all-platforms">Option 2: Download Binary (all platforms)</a></h2>
 <p>Grab a pre-built binary from <a href="https://github.com/adolfousier/opencrabs/releases">GitHub Releases</a>.</p>
 <h3 id="linux-amd64"><a class="header" href="#linux-amd64">Linux (amd64)</a></h3>
 <pre><code class="language-bash">sudo apt install -y jq libgomp1
@@ -451,6 +460,9 @@ Expand-Archive opencrabs.zip -Force
 </code></pre>
 <p>The onboarding wizard handles everything on first run.</p>
 <blockquote>
+<p><strong>Verify your download (optional):</strong> every release publishes a <code>SHA256SUMS</code> file alongside the tarballs.</p>
+</blockquote>
+<blockquote>
 <p><strong>Terminal permissions required.</strong> OpenCrabs reads/writes brain files, config, and project files. Your terminal app needs filesystem access or the OS will block operations.</p>
 <div class="table-wrapper">
 <table>
@@ -468,7 +480,7 @@ Expand-Archive opencrabs.zip -Force
 <blockquote>
 <p><code>/rebuild</code> works even with pre-built binaries — it auto-clones the source to <code>~/.opencrabs/source/</code> on first use, then builds and hot-restarts.</p>
 </blockquote>
-<h2 id="option-2-build-from-source"><a class="header" href="#option-2-build-from-source">Option 2: Build from Source</a></h2>
+<h2 id="option-3-build-from-source"><a class="header" href="#option-3-build-from-source">Option 3: Build from Source</a></h2>
 <p>Required for <code>/rebuild</code>, adding custom tools, or modifying the agent.</p>
 <h3 id="quick-setup-recommended"><a class="header" href="#quick-setup-recommended">Quick setup (recommended)</a></h3>
 <p>The setup script auto-detects your platform (macOS, Debian/Ubuntu, Fedora/RHEL, Arch) and installs all build dependencies + Rust:</p>
@@ -500,7 +512,7 @@ cargo build --release
 <blockquote>
 <p>OpenCrabs uses <code>keys.toml</code> instead of <code>.env</code> for API keys. The onboarding wizard will help you set it up, or edit <code>~/.opencrabs/keys.toml</code> directly.</p>
 </blockquote>
-<h2 id="option-3-docker"><a class="header" href="#option-3-docker">Option 3: Docker</a></h2>
+<h2 id="option-4-docker"><a class="header" href="#option-4-docker">Option 4: Docker</a></h2>
 <p>Run OpenCrabs in an isolated container. Build takes ~15min (Rust release + LTO).</p>
 <pre><code class="language-bash">git clone https://github.com/adolfousier/opencrabs.git
 cd opencrabs
@@ -575,6 +587,7 @@ Register-ScheduledTask -TaskName "OpenCrabs" -Action $action -Trigger $trigger -
 </code></pre>
 <h2 id="updating"><a class="header" href="#updating">Updating</a></h2>
 <ul>
+<li><strong>Homebrew users:</strong> <code>brew upgrade opencrabs</code></li>
 <li><strong>Binary users:</strong> Type <code>/evolve</code> in the TUI to download the latest release</li>
 <li><strong>Source users:</strong> <code>git pull &amp;&amp; cargo build --release</code>, or type <code>/rebuild</code> in the TUI</li>
 <li><strong>Docker users:</strong> <code>docker compose pull &amp;&amp; docker compose up -d</code></li>
@@ -829,6 +842,13 @@ api_key = "sk-ant-..."
 <li><strong>Guard config-breaking writes</strong> — <code>edit_file</code> / <code>write_file</code> writes that would break <code>config.toml</code> / <code>keys.toml</code> are denied outright (#713).</li>
 <li><strong>Re-validate before write</strong> — config is re-validated immediately before <code>fs::write</code> in the <code>config_manager</code> write paths (#714).</li>
 <li><strong>Validate keys before snapshot</strong> — <code>keys.toml</code> is validated before it is saved as the last-good snapshot, so a bad snapshot can’t poison recovery (#712).</li>
+</ul>
+<p><strong>v0.3.79 hardened this further:</strong></p>
+<ul>
+<li><strong>Every config write is atomic</strong> (#911) — a crash or a concurrent reader mid-write can never observe a half-written <code>config.toml</code> or <code>keys.toml</code>.</li>
+<li><strong>Config loads no longer race on shared state</strong> — concurrent reloads can’t interleave and leave a torn config in memory.</li>
+<li><strong>Reload failures are specific</strong> — a failed reload says <em>what</em> failed, and a write race is named as the transient condition it is instead of a scary generic error.</li>
+<li><strong>Never select a provider you didn’t configure</strong> — fallback and model routing can no longer land on a provider section that doesn’t exist in your config.</li>
 </ul>
 <h2 id="agent-behavior"><a class="header" href="#agent-behavior">Agent Behavior</a></h2>
 <pre><code class="language-toml">[agent]
@@ -1237,6 +1257,8 @@ patterns = ["rm -rf /", "dd if=", "mkfs", ":(){ :|:&amp; };:"]
 <tr><td><code>version</code></td><td>Show version info</td></tr>
 <tr><td><code>!command</code></td><td><strong>Bang operator</strong> — Run any shell command instantly without an LLM round-trip. Output shown as system message. e.g. <code>!git status</code>, <code>!ls -la</code></td></tr>
 <tr><td><code>/evolve</code></td><td><strong>Auto-update</strong> — Downloads latest release and hot-restarts. Runs automatically on startup when <code>[agent] auto_update = true</code></td></tr>
+<tr><td><code>/restart</code></td><td><strong>Restart</strong> (v0.3.79) — Relaunches the same binary with the same arguments, so nothing about how it was started has to be known or repeated. Unfinished turns resume automatically on startup. In the TUI it resumes the current session. Owner-only on channels; announces before acting.</td></tr>
+<tr><td><code>/exit</code></td><td><strong>Shutdown</strong> (v0.3.79) — Shuts OpenCrabs down. Starting it again needs access to the machine it runs on, so this is <strong>the one command with no way back from chat</strong>. Owner-only on channels; announces before acting.</td></tr>
 <tr><td><code>/btw</code></td><td><strong>Parallel agent</strong> — Spawns an isolated sub-agent for a side task while the main conversation continues. e.g. <code>/btw research the latest Rust async patterns</code></td></tr>
 <tr><td><code>/mission-control</code></td><td><strong>Mission Control</strong> — Full-screen dashboard showing RSI inbox (pending proposals), activity log (improvements applied), and cron schedule. Navigate with vim keys, apply/reject proposals with <code>a</code>/<code>r</code>.</td></tr>
 <tr><td><code>/skills</code></td><td><strong>Skills picker</strong> — Browse and launch workflow templates with fuzzy-finding. Every loaded skill auto-registers as a slash command.</td></tr>
@@ -1276,7 +1298,8 @@ patterns = ["rm -rf /", "dd if=", "mkfs", ":(){ :|:&amp; };:"]
 <h2 id="startup-update-prompt"><a class="header" href="#startup-update-prompt">Startup Update Prompt</a></h2>
 <p>When a new version is available, a centered dialog appears on the splash screen asking you to accept (Enter) or skip (Esc). Accepting triggers <code>/evolve</code> automatically. After update, the binary restarts and the splash shows the new version.</p>
 <h2 id="channel-commands"><a class="header" href="#channel-commands">Channel Commands</a></h2>
-<p><code>/doctor</code>, <code>/help</code>, <code>/usage</code>, <code>/evolve</code>, and system commands work directly on Telegram, Discord, Slack, and WhatsApp without going through the LLM. They execute instantly and return results in the channel.</p>
+<p><code>/doctor</code>, <code>/help</code>, <code>/usage</code>, <code>/evolve</code>, <code>/restart</code>, <code>/exit</code>, and system commands work directly on Telegram, Discord, Slack, and WhatsApp without going through the LLM. They execute instantly and return results in the channel.</p>
+<p><code>/restart</code> and <code>/exit</code> announce themselves before acting, because once the process is gone nothing is left to report a failure. Both are owner-only, like every other command that changes the running process. <code>/exit</code> is the one command with no way back from chat — recovering needs access to the machine OpenCrabs runs on.</p>
 <p>All channel command logic is centralized in <code>src/channels/commands.rs</code> (847 lines) – a shared handler that eliminates duplicated command logic across 5 channel implementations. Each channel delegates to <code>try_execute_text_command()</code> for consistent behavior.</p>
 <p><code>/evolve</code> on channels now runs directly (downloads + installs the binary) without requiring an LLM round-trip. Previously it was routed through the agent.</p>
 <h2 id="chat-mode"><a class="header" href="#chat-mode">Chat Mode</a></h2>
@@ -2139,6 +2162,15 @@ enabled = true
 provider = "openrouter"
 </code></pre>
 <p>Or just ask your Crab: <em>“Set up fallback providers using openrouter and anthropic”</em> — it will configure <code>config.toml</code> for you at runtime.</p>
+<h3 id="quota-circuit-breaker-v0379"><a class="header" href="#quota-circuit-breaker-v0379">Quota Circuit Breaker (v0.3.79)</a></h3>
+<p>Fallback chains now know the difference between a provider that is momentarily busy and one that is genuinely out of quota.</p>
+<ul>
+<li><strong>Hard quota exhaustion</strong> (your account has run out of credits/allowance for the period) trips a TTL circuit breaker on that provider. While the breaker is open the provider is <strong>skipped in fallback walks</strong> instead of being retried pointlessly, so failover lands on a provider that can actually serve the request.</li>
+<li><strong>Transient throttles</strong> (short rate limits, 429s that clear in seconds) are classified separately and retried as before — they never trip the breaker.</li>
+<li>When <strong>every provider in the chain is exhausted</strong>, the failure is reported explicitly as chain exhaustion rather than surfacing as a confusing error from the last provider tried.</li>
+<li><strong>Retry notices</strong> now name the provider and model being retried, and state whether the cause was a quota exhaustion or a transient throttle.</li>
+</ul>
+<p>No configuration needed — it is always on whenever a fallback chain is configured.</p>
 <h2 id="provider-configuration-fields"><a class="header" href="#provider-configuration-fields">Provider Configuration Fields</a></h2>
 <p>Every provider section (<code>[providers.&lt;name&gt;]</code>) supports these fields:</p>
 <div class="table-wrapper">
@@ -3571,6 +3603,13 @@ value = "System is operational. All channels connected."
 <li>Context window usage (current session)</li>
 <li>Status indicators (processing spinner, pending approval, unread)</li>
 </ul>
+<h2 id="sub-agent-sessions-stay-out-of-your-way-v0379"><a class="header" href="#sub-agent-sessions-stay-out-of-your-way-v0379">Sub-Agent Sessions Stay Out of Your Way (v0.3.79)</a></h2>
+<p>Every spawned sub-agent creates a session titled <code>subagent: {label}</code>, and a busy turn can create several. They are an implementation detail of one tool call, so since v0.3.79:</p>
+<ul>
+<li>Sub-agent sessions are <strong>hidden from session lists</strong> the moment they exist — your session screen only ever shows your sessions.</li>
+<li>They are <strong>automatically purged</strong> once past <code>agent.subagent_session_ttl_days</code> (default <strong>7</strong>; set <code>0</code> to keep them forever).</li>
+<li>Your own sessions are never touched — the cleanup sweep matches the <code>subagent:</code> title prefix only.</li>
+</ul>
 <h2 id="per-session-state"><a class="header" href="#per-session-state">Per-Session State</a></h2>
 <p>Each session remembers:</p>
 <ul>
@@ -4002,6 +4041,16 @@ opencrabs cron remove "Morning Report"
 <li>State lives in files, not context — each iteration reads fresh state from disk</li>
 </ul>
 <p>Combined with the epistemic Orient gate, this makes plan execution significantly more reliable: the agent orients before acting, and verifies after acting, with bounded retries.</p>
+<h2 id="plan-state-across-sessions-v0379"><a class="header" href="#plan-state-across-sessions-v0379">Plan State Across Sessions (v0.3.79)</a></h2>
+<p>Plans are no longer tied to the lifetime of a single session. Plan state threads across session boundaries, so a plan survives session swaps, restarts, and context compaction. Spawned child sessions resolve their parent’s plan file automatically, which is what makes the next feature possible.</p>
+<h3 id="isolated-plan-task-execution"><a class="header" href="#isolated-plan-task-execution">Isolated Plan-Task Execution</a></h3>
+<p>Each plan task can now run in a <strong>freshly spawned isolated worker session</strong>: the worker gets only the task brief and the plan file, not the parent conversation’s context. The brief is self-contained and the worker reports its verdict back via disk, so nothing leaks between the parent session and the task, and a long-running task can’t burn the parent’s context window.</p>
+<ul>
+<li><code>agent.plan_isolated_execution</code> is the master switch, and it <strong>defaults ON</strong> since v0.3.79 — Ralph loops run fresh-context by construction, so isolation is the only sane default for autonomous execution.</li>
+<li>An explicit <code>isolated: true/false</code> on a <code>start</code> call still wins over the default.</li>
+<li>Ralph verification now runs in the <strong>session’s own working directory</strong>, not the directory OpenCrabs was launched from — a plan in one repo is verified against that repo’s build results, not another repo’s (#921).</li>
+<li>The plan gate’s <code>RequireApproval</code> decision respects <code>auto_approve</code>, so autonomous sessions are not stalled by an approval prompt they were configured to skip (#934).</li>
+</ul>
 <h2 id="importing-pre-defined-plans-v0335"><a class="header" href="#importing-pre-defined-plans-v0335">Importing Pre-Defined Plans (v0.3.35)</a></h2>
 <p>Plans can be loaded from JSON files for repeatable workflows:</p>
 <pre><code>plan(operation: "import", file_path: "~/plans/rust-refactor.json")
@@ -6690,7 +6739,7 @@ node dist/cli.js linkedin comment &lt;post-url&gt; "text" # Comment on post
     
 <ul>
       
-<li><strong>Every feature and fix:</strong> designed, coded, tested, and committed by the crab, now at v0.3.78 and climbing</li>
+<li><strong>Every feature and fix:</strong> designed, coded, tested, and committed by the crab, now at v0.3.79 and climbing</li>
 
       
 <li><strong>Self-improvement on a schedule:</strong> daily and weekly self-improvement jobs, memory consolidation, and soul evolution run as cron</li>

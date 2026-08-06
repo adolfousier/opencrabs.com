@@ -65,7 +65,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-6037411d.js";
+            window.path_to_searchindex_js = "../searchindex-35d927d9.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-37e8252d.js"></script>
@@ -236,6 +236,8 @@
 <tr><td><code>version</code></td><td>Show version info</td></tr>
 <tr><td><code>!command</code></td><td><strong>Bang operator</strong> — Run any shell command instantly without an LLM round-trip. Output shown as system message. e.g. <code>!git status</code>, <code>!ls -la</code></td></tr>
 <tr><td><code>/evolve</code></td><td><strong>Auto-update</strong> — Downloads latest release and hot-restarts. Runs automatically on startup when <code>[agent] auto_update = true</code></td></tr>
+<tr><td><code>/restart</code></td><td><strong>Restart</strong> (v0.3.79) — Relaunches the same binary with the same arguments, so nothing about how it was started has to be known or repeated. Unfinished turns resume automatically on startup. In the TUI it resumes the current session. Owner-only on channels; announces before acting.</td></tr>
+<tr><td><code>/exit</code></td><td><strong>Shutdown</strong> (v0.3.79) — Shuts OpenCrabs down. Starting it again needs access to the machine it runs on, so this is <strong>the one command with no way back from chat</strong>. Owner-only on channels; announces before acting.</td></tr>
 <tr><td><code>/btw</code></td><td><strong>Parallel agent</strong> — Spawns an isolated sub-agent for a side task while the main conversation continues. e.g. <code>/btw research the latest Rust async patterns</code></td></tr>
 <tr><td><code>/mission-control</code></td><td><strong>Mission Control</strong> — Full-screen dashboard showing RSI inbox (pending proposals), activity log (improvements applied), and cron schedule. Navigate with vim keys, apply/reject proposals with <code>a</code>/<code>r</code>.</td></tr>
 <tr><td><code>/skills</code></td><td><strong>Skills picker</strong> — Browse and launch workflow templates with fuzzy-finding. Every loaded skill auto-registers as a slash command.</td></tr>
@@ -275,7 +277,8 @@
 <h2 id="startup-update-prompt"><a class="header" href="#startup-update-prompt">Startup Update Prompt</a></h2>
 <p>When a new version is available, a centered dialog appears on the splash screen asking you to accept (Enter) or skip (Esc). Accepting triggers <code>/evolve</code> automatically. After update, the binary restarts and the splash shows the new version.</p>
 <h2 id="channel-commands"><a class="header" href="#channel-commands">Channel Commands</a></h2>
-<p><code>/doctor</code>, <code>/help</code>, <code>/usage</code>, <code>/evolve</code>, and system commands work directly on Telegram, Discord, Slack, and WhatsApp without going through the LLM. They execute instantly and return results in the channel.</p>
+<p><code>/doctor</code>, <code>/help</code>, <code>/usage</code>, <code>/evolve</code>, <code>/restart</code>, <code>/exit</code>, and system commands work directly on Telegram, Discord, Slack, and WhatsApp without going through the LLM. They execute instantly and return results in the channel.</p>
+<p><code>/restart</code> and <code>/exit</code> announce themselves before acting, because once the process is gone nothing is left to report a failure. Both are owner-only, like every other command that changes the running process. <code>/exit</code> is the one command with no way back from chat — recovering needs access to the machine OpenCrabs runs on.</p>
 <p>All channel command logic is centralized in <code>src/channels/commands.rs</code> (847 lines) – a shared handler that eliminates duplicated command logic across 5 channel implementations. Each channel delegates to <code>try_execute_text_command()</code> for consistent behavior.</p>
 <p><code>/evolve</code> on channels now runs directly (downloads + installs the binary) without requiring an LLM round-trip. Previously it was routed through the agent.</p>
 <h2 id="chat-mode"><a class="header" href="#chat-mode">Chat Mode</a></h2>

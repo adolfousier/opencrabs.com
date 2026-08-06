@@ -65,7 +65,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-6037411d.js";
+            window.path_to_searchindex_js = "../searchindex-35d927d9.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-37e8252d.js"></script>
@@ -208,8 +208,13 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="installation"><a class="header" href="#installation">Installation</a></h1>
-<p>Three ways to get OpenCrabs running.</p>
-<h2 id="option-1-download-binary-quick-install-recommended"><a class="header" href="#option-1-download-binary-quick-install-recommended">Option 1: Download Binary (quick install, recommended)</a></h2>
+<p>Four ways to get OpenCrabs running.</p>
+<h2 id="option-1-homebrew-recommended-on-macos-and-linux"><a class="header" href="#option-1-homebrew-recommended-on-macos-and-linux">Option 1: Homebrew (recommended on macOS and Linux)</a></h2>
+<pre><code class="language-bash">brew install opencrabs
+</code></pre>
+<p>OpenCrabs is in <a href="https://github.com/Homebrew/homebrew-core/blob/HEAD/Formula/o/opencrabs.rb">homebrew-core</a>, so the standard formula installs the prebuilt binary for macOS and Linux on both architectures — no Rust toolchain required. Every release publishes a <code>SHA256SUMS</code> file and the formula is regenerated automatically from it, so the hashes always match the shipped artifacts.</p>
+<p>Run <code>opencrabs</code> after install — the onboarding wizard handles everything on first run.</p>
+<h2 id="option-2-download-binary-all-platforms"><a class="header" href="#option-2-download-binary-all-platforms">Option 2: Download Binary (all platforms)</a></h2>
 <p>Grab a pre-built binary from <a href="https://github.com/adolfousier/opencrabs/releases">GitHub Releases</a>.</p>
 <h3 id="linux-amd64"><a class="header" href="#linux-amd64">Linux (amd64)</a></h3>
 <pre><code class="language-bash">sudo apt install -y jq libgomp1
@@ -237,6 +242,9 @@ Expand-Archive opencrabs.zip -Force
 </code></pre>
 <p>The onboarding wizard handles everything on first run.</p>
 <blockquote>
+<p><strong>Verify your download (optional):</strong> every release publishes a <code>SHA256SUMS</code> file alongside the tarballs.</p>
+</blockquote>
+<blockquote>
 <p><strong>Terminal permissions required.</strong> OpenCrabs reads/writes brain files, config, and project files. Your terminal app needs filesystem access or the OS will block operations.</p>
 <div class="table-wrapper">
 <table>
@@ -254,7 +262,7 @@ Expand-Archive opencrabs.zip -Force
 <blockquote>
 <p><code>/rebuild</code> works even with pre-built binaries — it auto-clones the source to <code>~/.opencrabs/source/</code> on first use, then builds and hot-restarts.</p>
 </blockquote>
-<h2 id="option-2-build-from-source"><a class="header" href="#option-2-build-from-source">Option 2: Build from Source</a></h2>
+<h2 id="option-3-build-from-source"><a class="header" href="#option-3-build-from-source">Option 3: Build from Source</a></h2>
 <p>Required for <code>/rebuild</code>, adding custom tools, or modifying the agent.</p>
 <h3 id="quick-setup-recommended"><a class="header" href="#quick-setup-recommended">Quick setup (recommended)</a></h3>
 <p>The setup script auto-detects your platform (macOS, Debian/Ubuntu, Fedora/RHEL, Arch) and installs all build dependencies + Rust:</p>
@@ -286,7 +294,7 @@ cargo build --release
 <blockquote>
 <p>OpenCrabs uses <code>keys.toml</code> instead of <code>.env</code> for API keys. The onboarding wizard will help you set it up, or edit <code>~/.opencrabs/keys.toml</code> directly.</p>
 </blockquote>
-<h2 id="option-3-docker"><a class="header" href="#option-3-docker">Option 3: Docker</a></h2>
+<h2 id="option-4-docker"><a class="header" href="#option-4-docker">Option 4: Docker</a></h2>
 <p>Run OpenCrabs in an isolated container. Build takes ~15min (Rust release + LTO).</p>
 <pre><code class="language-bash">git clone https://github.com/adolfousier/opencrabs.git
 cd opencrabs
@@ -361,6 +369,7 @@ Register-ScheduledTask -TaskName "OpenCrabs" -Action $action -Trigger $trigger -
 </code></pre>
 <h2 id="updating"><a class="header" href="#updating">Updating</a></h2>
 <ul>
+<li><strong>Homebrew users:</strong> <code>brew upgrade opencrabs</code></li>
 <li><strong>Binary users:</strong> Type <code>/evolve</code> in the TUI to download the latest release</li>
 <li><strong>Source users:</strong> <code>git pull &amp;&amp; cargo build --release</code>, or type <code>/rebuild</code> in the TUI</li>
 <li><strong>Docker users:</strong> <code>docker compose pull &amp;&amp; docker compose up -d</code></li>

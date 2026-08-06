@@ -65,7 +65,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-6037411d.js";
+            window.path_to_searchindex_js = "../searchindex-35d927d9.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-37e8252d.js"></script>
@@ -475,6 +475,15 @@ enabled = true
 provider = "openrouter"
 </code></pre>
 <p>Or just ask your Crab: <em>“Set up fallback providers using openrouter and anthropic”</em> — it will configure <code>config.toml</code> for you at runtime.</p>
+<h3 id="quota-circuit-breaker-v0379"><a class="header" href="#quota-circuit-breaker-v0379">Quota Circuit Breaker (v0.3.79)</a></h3>
+<p>Fallback chains now know the difference between a provider that is momentarily busy and one that is genuinely out of quota.</p>
+<ul>
+<li><strong>Hard quota exhaustion</strong> (your account has run out of credits/allowance for the period) trips a TTL circuit breaker on that provider. While the breaker is open the provider is <strong>skipped in fallback walks</strong> instead of being retried pointlessly, so failover lands on a provider that can actually serve the request.</li>
+<li><strong>Transient throttles</strong> (short rate limits, 429s that clear in seconds) are classified separately and retried as before — they never trip the breaker.</li>
+<li>When <strong>every provider in the chain is exhausted</strong>, the failure is reported explicitly as chain exhaustion rather than surfacing as a confusing error from the last provider tried.</li>
+<li><strong>Retry notices</strong> now name the provider and model being retried, and state whether the cause was a quota exhaustion or a transient throttle.</li>
+</ul>
+<p>No configuration needed — it is always on whenever a fallback chain is configured.</p>
 <h2 id="provider-configuration-fields"><a class="header" href="#provider-configuration-fields">Provider Configuration Fields</a></h2>
 <p>Every provider section (<code>[providers.&lt;name&gt;]</code>) supports these fields:</p>
 <div class="table-wrapper">

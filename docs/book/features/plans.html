@@ -65,7 +65,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-6037411d.js";
+            window.path_to_searchindex_js = "../searchindex-35d927d9.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-37e8252d.js"></script>
@@ -291,6 +291,16 @@
 <li>State lives in files, not context — each iteration reads fresh state from disk</li>
 </ul>
 <p>Combined with the epistemic Orient gate, this makes plan execution significantly more reliable: the agent orients before acting, and verifies after acting, with bounded retries.</p>
+<h2 id="plan-state-across-sessions-v0379"><a class="header" href="#plan-state-across-sessions-v0379">Plan State Across Sessions (v0.3.79)</a></h2>
+<p>Plans are no longer tied to the lifetime of a single session. Plan state threads across session boundaries, so a plan survives session swaps, restarts, and context compaction. Spawned child sessions resolve their parent’s plan file automatically, which is what makes the next feature possible.</p>
+<h3 id="isolated-plan-task-execution"><a class="header" href="#isolated-plan-task-execution">Isolated Plan-Task Execution</a></h3>
+<p>Each plan task can now run in a <strong>freshly spawned isolated worker session</strong>: the worker gets only the task brief and the plan file, not the parent conversation’s context. The brief is self-contained and the worker reports its verdict back via disk, so nothing leaks between the parent session and the task, and a long-running task can’t burn the parent’s context window.</p>
+<ul>
+<li><code>agent.plan_isolated_execution</code> is the master switch, and it <strong>defaults ON</strong> since v0.3.79 — Ralph loops run fresh-context by construction, so isolation is the only sane default for autonomous execution.</li>
+<li>An explicit <code>isolated: true/false</code> on a <code>start</code> call still wins over the default.</li>
+<li>Ralph verification now runs in the <strong>session’s own working directory</strong>, not the directory OpenCrabs was launched from — a plan in one repo is verified against that repo’s build results, not another repo’s (#921).</li>
+<li>The plan gate’s <code>RequireApproval</code> decision respects <code>auto_approve</code>, so autonomous sessions are not stalled by an approval prompt they were configured to skip (#934).</li>
+</ul>
 <h2 id="importing-pre-defined-plans-v0335"><a class="header" href="#importing-pre-defined-plans-v0335">Importing Pre-Defined Plans (v0.3.35)</a></h2>
 <p>Plans can be loaded from JSON files for repeatable workflows:</p>
 <pre><code>plan(operation: "import", file_path: "~/plans/rust-refactor.json")
