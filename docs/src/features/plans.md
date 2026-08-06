@@ -109,6 +109,19 @@ The Ralph loop gained a **mechanical verification gate** with an iteration cap:
 
 Combined with the epistemic Orient gate, this makes plan execution significantly more reliable: the agent orients before acting, and verifies after acting, with bounded retries.
 
+## Plan State Across Sessions (v0.3.79)
+
+Plans are no longer tied to the lifetime of a single session. Plan state threads across session boundaries, so a plan survives session swaps, restarts, and context compaction. Spawned child sessions resolve their parent's plan file automatically, which is what makes the next feature possible.
+
+### Isolated Plan-Task Execution
+
+Each plan task can now run in a **freshly spawned isolated worker session**: the worker gets only the task brief and the plan file, not the parent conversation's context. The brief is self-contained and the worker reports its verdict back via disk, so nothing leaks between the parent session and the task, and a long-running task can't burn the parent's context window.
+
+- `agent.plan_isolated_execution` is the master switch, and it **defaults ON** since v0.3.79 — Ralph loops run fresh-context by construction, so isolation is the only sane default for autonomous execution.
+- An explicit `isolated: true/false` on a `start` call still wins over the default.
+- Ralph verification now runs in the **session's own working directory**, not the directory OpenCrabs was launched from — a plan in one repo is verified against that repo's build results, not another repo's (#921).
+- The plan gate's `RequireApproval` decision respects `auto_approve`, so autonomous sessions are not stalled by an approval prompt they were configured to skip (#934).
+
 ## Importing Pre-Defined Plans (v0.3.35)
 
 Plans can be loaded from JSON files for repeatable workflows:
