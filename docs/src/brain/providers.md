@@ -366,6 +366,17 @@ provider = "openrouter"
 
 Or just ask your Crab: *"Set up fallback providers using openrouter and anthropic"* — it will configure `config.toml` for you at runtime.
 
+### Quota Circuit Breaker (v0.3.79)
+
+Fallback chains now know the difference between a provider that is momentarily busy and one that is genuinely out of quota.
+
+- **Hard quota exhaustion** (your account has run out of credits/allowance for the period) trips a TTL circuit breaker on that provider. While the breaker is open the provider is **skipped in fallback walks** instead of being retried pointlessly, so failover lands on a provider that can actually serve the request.
+- **Transient throttles** (short rate limits, 429s that clear in seconds) are classified separately and retried as before — they never trip the breaker.
+- When **every provider in the chain is exhausted**, the failure is reported explicitly as chain exhaustion rather than surfacing as a confusing error from the last provider tried.
+- **Retry notices** now name the provider and model being retried, and state whether the cause was a quota exhaustion or a transient throttle.
+
+No configuration needed — it is always on whenever a fallback chain is configured.
+
 ## Provider Configuration Fields
 
 Every provider section (`[providers.<name>]`) supports these fields:
