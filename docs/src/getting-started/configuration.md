@@ -65,6 +65,13 @@ A malformed line in `config.toml` or `keys.toml` corrupts the whole file and tak
 - **Re-validate before write** — config is re-validated immediately before `fs::write` in the `config_manager` write paths (#714).
 - **Validate keys before snapshot** — `keys.toml` is validated before it is saved as the last-good snapshot, so a bad snapshot can't poison recovery (#712).
 
+**v0.3.79 hardened this further:**
+
+- **Every config write is atomic** (#911) — a crash or a concurrent reader mid-write can never observe a half-written `config.toml` or `keys.toml`.
+- **Config loads no longer race on shared state** — concurrent reloads can't interleave and leave a torn config in memory.
+- **Reload failures are specific** — a failed reload says *what* failed, and a write race is named as the transient condition it is instead of a scary generic error.
+- **Never select a provider you didn't configure** — fallback and model routing can no longer land on a provider section that doesn't exist in your config.
+
 ## Agent Behavior
 
 ```toml
