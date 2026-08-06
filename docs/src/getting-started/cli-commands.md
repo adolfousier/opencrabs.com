@@ -29,6 +29,8 @@ opencrabs [COMMAND] [OPTIONS]
 | `version` | Show version info |
 | `!command` | **Bang operator** — Run any shell command instantly without an LLM round-trip. Output shown as system message. e.g. `!git status`, `!ls -la` |
 | `/evolve` | **Auto-update** — Downloads latest release and hot-restarts. Runs automatically on startup when `[agent] auto_update = true` |
+| `/restart` | **Restart** (v0.3.79) — Relaunches the same binary with the same arguments, so nothing about how it was started has to be known or repeated. Unfinished turns resume automatically on startup. In the TUI it resumes the current session. Owner-only on channels; announces before acting. |
+| `/exit` | **Shutdown** (v0.3.79) — Shuts OpenCrabs down. Starting it again needs access to the machine it runs on, so this is **the one command with no way back from chat**. Owner-only on channels; announces before acting. |
 | `/btw` | **Parallel agent** — Spawns an isolated sub-agent for a side task while the main conversation continues. e.g. `/btw research the latest Rust async patterns` |
 | `/mission-control` | **Mission Control** — Full-screen dashboard showing RSI inbox (pending proposals), activity log (improvements applied), and cron schedule. Navigate with vim keys, apply/reject proposals with `a`/`r`. |
 | `/skills` | **Skills picker** — Browse and launch workflow templates with fuzzy-finding. Every loaded skill auto-registers as a slash command. |
@@ -59,7 +61,9 @@ When a new version is available, a centered dialog appears on the splash screen 
 
 ## Channel Commands
 
-`/doctor`, `/help`, `/usage`, `/evolve`, and system commands work directly on Telegram, Discord, Slack, and WhatsApp without going through the LLM. They execute instantly and return results in the channel.
+`/doctor`, `/help`, `/usage`, `/evolve`, `/restart`, `/exit`, and system commands work directly on Telegram, Discord, Slack, and WhatsApp without going through the LLM. They execute instantly and return results in the channel.
+
+`/restart` and `/exit` announce themselves before acting, because once the process is gone nothing is left to report a failure. Both are owner-only, like every other command that changes the running process. `/exit` is the one command with no way back from chat — recovering needs access to the machine OpenCrabs runs on.
 
 All channel command logic is centralized in `src/channels/commands.rs` (847 lines) -- a shared handler that eliminates duplicated command logic across 5 channel implementations. Each channel delegates to `try_execute_text_command()` for consistent behavior.
 
