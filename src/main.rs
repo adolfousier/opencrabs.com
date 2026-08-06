@@ -17,6 +17,8 @@ fn copy_terminal_code() {
                 0
             } else if text == "Cargo" {
                 1
+            } else if text == "Homebrew" {
+                3
             } else {
                 2
             }
@@ -57,6 +59,10 @@ fn copy_terminal_code() {
             "curl -fsSL https://raw.githubusercontent.com/adolfousier/opencrabs/main/src/scripts/setup.sh | bash".into(),
             "git clone https://github.com/adolfousier/opencrabs.git && cd opencrabs".into(),
             "cargo build --release && ./target/release/opencrabs".into(),
+        ],
+        (3, _) => vec![
+            "brew install opencrabs".into(),
+            "opencrabs".into(),
         ],
         _ => vec![],
     };
@@ -333,6 +339,10 @@ fn QuickStart(tag: Signal<String>) -> impl IntoView {
                                 class:active=move || active_tab.get() == 2
                                 on:click=move |_| set_active_tab.set(2)
                             >"Source"</button>
+                            <button
+                                class:active=move || active_tab.get() == 3
+                                on:click=move |_| set_active_tab.set(3)
+                            >"Homebrew"</button>
                         </div>
                         <span class="terminal-platform">"macOS / Linux / Windows"</span>
                         <button class="terminal-copy-btn" on:click=move |_| copy_terminal_code()>
@@ -425,6 +435,19 @@ fn QuickStart(tag: Signal<String>) -> impl IntoView {
                             <span class="terminal-cmd">"cargo build --release && ./target/release/opencrabs"</span>
                         </div>
                     </div>
+                    <div class="terminal-body" style:display=move || if active_tab.get() == 3 { "block" } else { "none" }>
+                        <div>
+                            <span class="terminal-comment">"# Prebuilt binary from homebrew-core, macOS + Linux, both architectures"</span>
+                        </div>
+                        <div>
+                            <span class="terminal-prompt">"$ "</span>
+                            <span class="terminal-cmd">"brew install opencrabs"</span>
+                        </div>
+                        <div>
+                            <span class="terminal-prompt">"$ "</span>
+                            <span class="terminal-cmd">"opencrabs"</span>
+                        </div>
+                    </div>
                 </div>
                 <p class="terminal-note">
                     "Works on macOS, Linux & Windows. After install, type "
@@ -449,7 +472,7 @@ fn Features() -> impl IntoView {
         (
             "💬",
             "Any Chat App",
-            "Talk to it on Telegram, Discord, Slack, WhatsApp, or Trello. Native rich message rendering with tables, lists, code blocks, math. Draft message streaming shows live \"typing...\" updates as tokens generate. Collapsible <details>/<summary> blocks for long outputs. Forum topic session isolation gives each topic its own context. Discord feature parity: interactive components (select menus, modal forms), media gallery (batch files into one message), grouped tool calls with Expand/Collapse, emoji reactions trigger agent turns. Telegram reactions: reads inbound emoji by sentiment, addresses you by first name, and replies with just a reaction when that fits. Mid-turn reactions inject into the running loop instead of spawning a second turn. Follow-up suggestions (v0.3.69): tap-to-send optional follow-ups on Telegram, Discord, Slack, WhatsApp; fill-not-submit in TUI. Slack Block Kit delivery for rich completion formatting with section blocks, context blocks, and dividers. Slack grouped tool calls collapse into one edited-in-place message. Telegram plan card re-stick (v0.3.71): re-stick plan card and fold prose into it when buried. Full group history capture (v0.3.73): persist every group message to history, even from non-allowlisted senders and bots. Correct group speaker (v0.3.73): stop addressing a group-history sender as the current speaker. /cowork workspaces, /rename sessions, instant fast-cancel on /stop. /cd directory browser with auto project assignment. /new inherits the working directory from your most recent session. /profiles command for managing AI profiles. Owner impersonation detection in group chats. Session search across all channels. Per-group open mode: set open = true on a trusted group to serve all members without individual allowlisting. /cowork opens the group (v0.3.74): /cowork sets the target group open=true and persists it, and its admin deep link has the bot join already promoted. Group onboarding (v0.3.74): the bot greets a new group with an onboarding nudge and registers members per-group via /start. follow_up_question degrades gracefully (v0.3.74): questions fall back to plain text on non-interactive surfaces. Works in DMs and group chats with persistent sessions. Or just use the TUI.",
+            "Talk to it on Telegram, Discord, Slack, WhatsApp, or Trello. Native rich message rendering with tables, lists, code blocks, math. Draft message streaming shows live \"typing...\" updates as tokens generate. Collapsible <details>/<summary> blocks for long outputs. Forum topic session isolation gives each topic its own context. Discord feature parity: interactive components (select menus, modal forms), media gallery (batch files into one message), grouped tool calls with Expand/Collapse, emoji reactions trigger agent turns. Telegram reactions: reads inbound emoji by sentiment, addresses you by first name, and replies with just a reaction when that fits. Mid-turn reactions inject into the running loop instead of spawning a second turn. Follow-up suggestions (v0.3.69): tap-to-send optional follow-ups on Telegram, Discord, Slack, WhatsApp; fill-not-submit in TUI. Slack Block Kit delivery for rich completion formatting with section blocks, context blocks, and dividers. Slack grouped tool calls collapse into one edited-in-place message. Telegram plan card re-stick (v0.3.71): re-stick plan card and fold prose into it when buried. Full group history capture (v0.3.73): persist every group message to history, even from non-allowlisted senders and bots. Correct group speaker (v0.3.73): stop addressing a group-history sender as the current speaker. /cowork workspaces, /rename sessions, instant fast-cancel on /stop. /cd directory browser with auto project assignment. /new inherits the working directory from your most recent session. /profiles command for managing AI profiles. Owner impersonation detection in group chats. Session search across all channels. Per-group open mode: set open = true on a trusted group to serve all members without individual allowlisting. /cowork opens the group (v0.3.74): /cowork sets the target group open=true and persists it, and its admin deep link has the bot join already promoted. Group onboarding (v0.3.74): the bot greets a new group with an onboarding nudge and registers members per-group via /start. follow_up_question degrades gracefully (v0.3.74): questions fall back to plain text on non-interactive surfaces. Works in DMs and group chats with persistent sessions. Or just use the TUI. /restart and /exit (v0.3.79): /restart relaunches the same binary with the same arguments and resumes unfinished turns on startup, and /exit shuts OpenCrabs down. Owner-only on channels, and both announce before acting.",
         ),
         (
             "🧠",
@@ -479,7 +502,7 @@ fn Features() -> impl IntoView {
         (
             "🤖",
             "Multi-Agent & Teams",
-            "Typed sub-agents (General, Explore, Plan, Code, Research) with filtered tool registries. Team orchestration spawns N agents in parallel and broadcasts to all. 20+ CLI subcommands including /mission-control dashboard, /skills picker, /btw parallel agent, /security-audit, /cost-estimate, and /repo-audit. Cross-harness skill system with auto-registered slash commands. Promoted most-used commands to top of /help. All slash commands render through rich AST pipeline with table formatting. Standardized bot menu on underscore form. Daemon mode with health endpoints. Direct model switching everywhere: /models <provider/model> switches directly on every channel with apply-to-scope selector (session or global). Headless model switching via opencrabs session set-model. force_default on reload pushes the default provider/model pair to all sessions. Config drift warnings on startup. Plan mode (v0.3.67-v0.3.68): design/checklist tracks, persistent plan card, /plan <query> command, agent self-approval when user grants autonomy. Skills review_gate (v0.3.70): frontmatter declaration for high-stakes skills that require user approval before side effects. Plan-gate three-state (v0.3.71): GateDecision with bash going to approval in post-init Editing. MCP-style ToolHints (v0.3.71): risk model for tool classification, drives plan gate. Model picker (v0.3.75): Opus 5 surfaced via parallel discovery, newest-first ordering, and claude-cli models discovered live from the CLI instead of a hardcoded list.",
+            "Typed sub-agents (General, Explore, Plan, Code, Research) with filtered tool registries. Team orchestration spawns N agents in parallel and broadcasts to all. 20+ CLI subcommands including /mission-control dashboard, /skills picker, /btw parallel agent, /security-audit, /cost-estimate, and /repo-audit. Cross-harness skill system with auto-registered slash commands. Promoted most-used commands to top of /help. All slash commands render through rich AST pipeline with table formatting. Standardized bot menu on underscore form. Daemon mode with health endpoints. Direct model switching everywhere: /models <provider/model> switches directly on every channel with apply-to-scope selector (session or global). Headless model switching via opencrabs session set-model. force_default on reload pushes the default provider/model pair to all sessions. Config drift warnings on startup. Plan mode (v0.3.67-v0.3.68): design/checklist tracks, persistent plan card, /plan <query> command, agent self-approval when user grants autonomy. Skills review_gate (v0.3.70): frontmatter declaration for high-stakes skills that require user approval before side effects. Plan-gate three-state (v0.3.71): GateDecision with bash going to approval in post-init Editing. MCP-style ToolHints (v0.3.71): risk model for tool classification, drives plan gate. Model picker (v0.3.75): Opus 5 surfaced via parallel discovery, newest-first ordering, and claude-cli models discovered live from the CLI instead of a hardcoded list. Plan state across sessions (v0.3.79): plan state threads across session boundaries so plans survive restarts, and spawned child sessions resolve the parent's plan. Isolated plan-task execution (v0.3.79): checklist tasks run in a fresh isolated worker session with only the task brief, isolation defaults ON, Ralph verification runs in the session's own directory, and the plan gate's RequireApproval respects auto_approve.",
         ),
         (
             "🌐",
@@ -499,7 +522,7 @@ fn Features() -> impl IntoView {
         (
             "🛡️",
             "Self-Healing",
-            "Auto-recovers corrupted config with auto-repair that never poisons last-good. Tracks per-provider health with auto-failover, 65% context budget management with async LLM compaction. Vision fallback chain: scans all enabled providers (Google, OpenRouter, OpenAI-compatible, Anthropic) before returning an error. Cross-channel crash recovery. Stuck stream detection, reasoning repetition loop detection, thinking/reasoning tag stripping from output so reasoning models never leak internal thoughts. 10-min CLI idle timeout, DB integrity checks. Append-only brain files with upstream template sync. System brain auto-rebuilds when brain files change. Expanded phantom detection, RSI escalation for repeat violations, partial JSON repair, TCP keepalive on all HTTP clients. Browser resilience: network idle wait, CDP health checks, lock release before await. Config edits route through config_manager only (v0.3.74): the agent never raw-edits config.toml/keys.toml, and every write is validated before it lands so a malformed line can't take it down. Self-heal hardening (v0.3.75): bounded phantom self-heal loops, patient mid-stream retry with exponential backoff, flaky-provider 404s retried instead of treated as permanent, multilingual image-hallucination detection, and auto-recovery from repetitive-tool-call poisoned sessions. Thinking-loop timeout (v0.3.78): catches infinite reasoning loops and fires phantom enforcement retry with sticky fallback. Expanded phantom detection (v0.3.76-v0.3.78): file-delivery claims, null-effect tool calls, command verification, evidence checking, shipped-and-tracked claims, colloquial delivery claims, and media-delivery claims all caught.",
+            "Auto-recovers corrupted config with auto-repair that never poisons last-good. Tracks per-provider health with auto-failover, 65% context budget management with async LLM compaction. Vision fallback chain: scans all enabled providers (Google, OpenRouter, OpenAI-compatible, Anthropic) before returning an error. Cross-channel crash recovery. Stuck stream detection, reasoning repetition loop detection, thinking/reasoning tag stripping from output so reasoning models never leak internal thoughts. 10-min CLI idle timeout, DB integrity checks. Append-only brain files with upstream template sync. System brain auto-rebuilds when brain files change. Expanded phantom detection, RSI escalation for repeat violations, partial JSON repair, TCP keepalive on all HTTP clients. Browser resilience: network idle wait, CDP health checks, lock release before await. Config edits route through config_manager only (v0.3.74): the agent never raw-edits config.toml/keys.toml, and every write is validated before it lands so a malformed line can't take it down. Self-heal hardening (v0.3.75): bounded phantom self-heal loops, patient mid-stream retry with exponential backoff, flaky-provider 404s retried instead of treated as permanent, multilingual image-hallucination detection, and auto-recovery from repetitive-tool-call poisoned sessions. Thinking-loop timeout (v0.3.78): catches infinite reasoning loops and fires phantom enforcement retry with sticky fallback. Expanded phantom detection (v0.3.76-v0.3.78): file-delivery claims, null-effect tool calls, command verification, evidence checking, shipped-and-tracked claims, colloquial delivery claims, and media-delivery claims all caught. Quota circuit breaker (v0.3.79): providers that exhaust their quota get a TTL circuit breaker and are skipped in fallback walks, chain exhaustion is reported explicitly, and retry notices distinguish hard quota exhaustion from transient throttles and name the provider and model.",
         ),
         (
             "🔧",
