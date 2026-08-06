@@ -64,6 +64,10 @@
 - **TOML safety gates (v0.3.78)** — runtime-configurable bash blocklist with hot-reload, quoted-secret redaction, brain file verification
 - **Mission Control analytics (v0.3.78)** — D/W/M filter, 3-across card grid, phantom/model/streaming tabs, dedicated events DB
 - **OpenAI TTS onboarding (v0.3.78)** — voice selector and API key field in the onboarding wizard
+- **Homebrew install (v0.3.79)** — `brew install opencrabs` from homebrew-core: prebuilt binary, both architectures, no Rust toolchain
+- **`/restart` and `/exit` (v0.3.79)** — restart or shut down from any channel or the TUI; owner-only on channels, announce before acting
+- **Quota circuit breaker (v0.3.79)** — quota-exhausted providers get a TTL breaker and are skipped in fallback walks; chain exhaustion reported explicitly
+- **Plan state across sessions (v0.3.79)** — plans survive session boundaries; isolated plan-task execution defaults on, Ralph verifies in the session's own directory
 - **System brain rebuild** — brain files rebuilt from disk when changed, no restart needed
 - **Proactive tool discovery** — searches for available tools before claiming inability
 - **Multilanguage prompt analyzer (v0.3.67)** — shared PromptAnalyzer with soft-nudge on TUI and Telegram, 6 language packs (EN/ES/FR/ID/PT/RU)
