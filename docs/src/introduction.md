@@ -213,3 +213,11 @@ Auto-update enabled by default. Disable with `[agent] auto_update = false` in `~
 - [Tools](brain/tools.md) — Explore 50+ built-in capabilities
 - [Self-Healing](features/self-healing.md) — Resilience features
 - [Multi-Agent](features/multi-agent.md) — Orchestrate sub-agents and teams
+
+## Community & Support
+
+- [Telegram community](https://t.me/opencrabs) — join the OpenCrabs group for questions, tips, and release chatter
+- [Sponsor on GitHub](https://github.com/sponsors/adolfousier) — back the project and keep the crabs fed
+- [Buy Me a Coffee](https://buymeacoffee.com/opencrabs) — one-time support if OpenCrabs saved you an afternoon
+
+Found a bug or want a feature? Open an issue on [GitHub](https://github.com/adolfousier/opencrabs/issues).
