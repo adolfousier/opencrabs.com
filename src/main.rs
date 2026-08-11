@@ -794,6 +794,9 @@ fn Footer(stars: Signal<u32>) -> impl IntoView {
                     <a href="https://docs.opencrabs.com" target="_blank">"Docs"</a>
                     <a href="https://github.com/adolfousier/opencrabs">"GitHub"</a>
                     <a href="https://github.com/adolfousier/opencrabs/blob/main/CHANGELOG.md">"Changelog"</a>
+                    <a href="https://t.me/opencrabs" target="_blank">"Community"</a>
+                    <a href="https://github.com/sponsors/adolfousier" target="_blank">"Sponsor"</a>
+                    <a href="https://buymeacoffee.com/opencrabs" target="_blank">"Buy Me a Coffee"</a>
                     <a href="https://github.com/adolfousier/opencrabs/blob/main/LICENSE">"MIT License"</a>
                 </div>
                 <p class="footer-tagline">
