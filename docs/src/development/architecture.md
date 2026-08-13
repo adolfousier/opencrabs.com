@@ -77,7 +77,7 @@ src/
 | `teloxide` | Telegram Bot API |
 | `serenity` | Discord gateway |
 | `slack-morphism` | Slack API |
-| `qmd` + `llama-cpp-2` | Memory search (FTS5 + embeddings) |
+| In-tree memory store (`src/memory/`) | Memory search (SQLite FTS5 + vector embeddings) |
 | `rwhisper` (candle) | Local STT — pure Rust, Metal GPU on macOS |
 | `piper` (Python venv) | Local TTS with OGG/Opus encoding |
 | `syntect` | Syntax highlighting in TUI |
