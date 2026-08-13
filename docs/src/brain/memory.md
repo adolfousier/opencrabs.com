@@ -33,6 +33,29 @@ Full-text search across all past sessions stored in SQLite. The agent can query:
 
 The agent uses `session_search` for fast memory lookups (~500 tokens) instead of reading full memory files (~15K tokens). This is the primary recall mechanism.
 
+### Scoped Search (v0.3.80)
+
+`memory_search` takes a `scope` that picks which corpus to search (#1020):
+
+| Scope | Corpus | Use it for |
+|-------|--------|------------|
+| `memory` (default) | Daily logs | History: what happened, when, what was decided |
+| `brain` | Brain files (SOUL, USER, AGENTS, TOOLS, CODE, SECURITY, MEMORY, BOOT, HEARTBEAT) | Rules and policy: does a rule about this ALREADY exist, and which file owns it |
+| `all` | Both | "Have I ever written about this anywhere" |
+
+Picking the wrong scope is the usual reason a search comes back with nothing useful. Daily logs outnumber brain files and reuse the same words for unrelated things, so searching `memory` for a rule usually fails: history outranks policy and you get confident irrelevant hits. Search `brain` before appending any rule: a hit tells you WHICH file owns it, and then `load_brain_file` with a `query` reads the whole section.
+
+### Chunked Retrieval and Index-on-Write (v0.3.80)
+
+Memory retrieval was rebuilt around chunking (#998-1002, #1018):
+
+- **Documents are chunked before embedding**, so chunks past the first are searchable. Previously a long document effectively hid everything after its opening.
+- **Lexical hits are narrowed to the matching chunk**, so keyword results point at the relevant slice instead of the whole document.
+- **The index updates on write**: memory is searchable immediately, not from a boot-time snapshot. Brain files are indexed into the brain collection on write too.
+- **The store resolves per profile**, so profiles never share or cache each other's memory index.
+- **The chunker is multi-byte safe**: no more panics on UTF-8 boundaries.
+- **MEMORY.md recall is ranked with BM25** instead of shared-word counts (#996), and recall folds Latin diacritics so accented queries match.
+
 ### Embedding Modes
 
 OpenCrabs supports three embedding configurations:
