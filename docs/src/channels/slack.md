@@ -99,6 +99,15 @@ Slack supports emoji reactions for lightweight acknowledgements:
 - **Reaction turns**: Certain reactions can trigger agent actions (configurable)
 - **Grouped tool calls**: Multiple tool calls in one turn collapse into a single collapsible message, keeping the channel clean
 
+## Native Rendering (v0.3.80)
+
+Slack messages render in Slack's own shape instead of raw markdown (#1016):
+
+- **Tables** are converted to Slack-native layout instead of arriving as pipe characters
+- **Headings** are rendered as Slack formatting rather than `#` hashes
+
+Step-group narration is folded on the character stream rather than on paragraphs, and the final message no longer repeats the step-group narration it already sent (#1010).
+
 ## Socket Mode
 
 Slack uses Socket Mode (WebSocket) instead of HTTP webhooks — no public URL or ngrok needed. The connection is outbound from your machine.

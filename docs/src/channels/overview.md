@@ -139,3 +139,7 @@ Typing indicators now **survive background tasks**. Previously, when the agent s
 ## Smart Chunk Boundaries (v0.3.78)
 
 When a response exceeds platform message limits and must be split into chunks, the splitter now **prefers boundaries that leave no markup open**. Previously, a chunk could end mid-bold (`**text`) or mid-code-fence, causing rendering glitches on the receiving platform. The splitter now scans for the nearest safe break point where all markdown delimiters are balanced.
+
+## Owner-Gated Channel Commands (v0.3.80)
+
+User-defined slash commands and skills are **owner-gated on the channel catch-all arm** (#975). In a group chat, only the bot owner can trigger custom commands and skills; other members' messages fall through to normal conversation. This closes a gap where any group member could run owner-defined automation through the catch-all routing path.
