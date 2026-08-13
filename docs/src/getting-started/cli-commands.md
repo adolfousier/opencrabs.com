@@ -65,6 +65,8 @@ When a new version is available, a centered dialog appears on the splash screen 
 
 `/restart` and `/exit` announce themselves before acting, because once the process is gone nothing is left to report a failure. Both are owner-only, like every other command that changes the running process. `/exit` is the one command with no way back from chat — recovering needs access to the machine OpenCrabs runs on.
 
+Since v0.3.80, a **spoken stop is honoured too** — telling the bot to stop in natural language works on channels and in the TUI, not just the bare word "stop".
+
 All channel command logic is centralized in `src/channels/commands.rs` (847 lines) -- a shared handler that eliminates duplicated command logic across 5 channel implementations. Each channel delegates to `try_execute_text_command()` for consistent behavior.
 
 `/evolve` on channels now runs directly (downloads + installs the binary) without requiring an LLM round-trip. Previously it was routed through the agent.

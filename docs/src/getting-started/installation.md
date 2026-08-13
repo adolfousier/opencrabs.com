@@ -199,7 +199,7 @@ Register-ScheduledTask -TaskName "OpenCrabs" -Action $action -Trigger $trigger -
 
 ## Updating
 
-- **Homebrew users:** `brew upgrade opencrabs`
+- **Homebrew users:** `brew upgrade opencrabs` (if you type `/evolve` on a Homebrew install, it delegates to Homebrew — the binary stays managed by brew, and the old tap is retired in favour of homebrew-core autobumps)
 - **Binary users:** Type `/evolve` in the TUI to download the latest release
 - **Source users:** `git pull && cargo build --release`, or type `/rebuild` in the TUI
 - **Docker users:** `docker compose pull && docker compose up -d`

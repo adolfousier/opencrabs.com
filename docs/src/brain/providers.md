@@ -377,6 +377,13 @@ Fallback chains now know the difference between a provider that is momentarily b
 
 No configuration needed — it is always on whenever a fallback chain is configured.
 
+### Fallback Improvements (v0.3.80)
+
+- **Proactive setup suggestion** (#1008): when no fallback chain is configured, OpenCrabs makes a one-shot suggestion to set one up — ask once, answered once, never nags again.
+- **HTTP 400 failover guidance** (#1006, #1007): a 400-series failure now carries guidance on what to check, and a chain-exhaustion ledger records why each provider in the chain was ruled out.
+- **Fallback provenance in streaming logs** (#969): each streamed call logs which provider actually served it, so retries and failovers are visible per call.
+- **Codex CLI failures route into retry and fallback** (#1004, #1005) instead of surfacing as terminal errors.
+
 ## Provider Configuration Fields
 
 Every provider section (`[providers.<name>]`) supports these fields:

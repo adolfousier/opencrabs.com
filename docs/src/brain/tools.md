@@ -32,7 +32,7 @@ OpenCrabs ships with 50+ tools available to the agent out of the box, plus suppo
 
 | Tool | Parameters | Description |
 |------|-----------|-------------|
-| `parse_document` | `path` | Extract text from PDF, DOCX, XLSX, XLS, CSV, HTML, TXT, MD, JSON, XML (v0.3.61 added spreadsheet support) |
+| `parse_document` | `path` | Extract text from PDF, DOCX, XLSX, XLS, XLSM, XLSB, ODS, DOC, CSV, HTML, TXT, MD, JSON, XML (v0.3.61 added spreadsheet support; v0.3.80 added xlsm/xlsb/ods via calamine, legacy .doc via rwml, and VBA macro source extraction from macro-enabled workbooks) |
 
 ## Document Generation
 
