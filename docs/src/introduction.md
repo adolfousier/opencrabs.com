@@ -68,6 +68,14 @@
 - **`/restart` and `/exit` (v0.3.79)** — restart or shut down from any channel or the TUI; owner-only on channels, announce before acting
 - **Quota circuit breaker (v0.3.79)** — quota-exhausted providers get a TTL breaker and are skipped in fallback walks; chain exhaustion reported explicitly
 - **Plan state across sessions (v0.3.79)** — plans survive session boundaries; isolated plan-task execution defaults on, Ralph verifies in the session's own directory
+- **memory_search scope (v0.3.80)** — search daily logs (`memory`), brain files (`brain`), or both (`all`); brain files are indexed on write
+- **Chunked memory retrieval (v0.3.80)** — documents chunked before embedding so later chunks are searchable; recall ranked with BM25
+- **Slack-native rendering (v0.3.80)** — tables and headings arrive in Slack's own shape instead of raw markdown
+- **Owner-gated channel commands (v0.3.80)** — custom commands and skills are owner-only on the channel catch-all arm in groups
+- **RSI convergence gates (v0.3.80)** — self-improvement pauses on convergence, backs off on zero-improvement streaks, hashes findings by stable identity
+- **Loop guards (v0.3.80)** — announcement and near-match repetition guards on all tools; loop-detector kills reach the fallback chain
+- **Browser inventory mode (v0.3.80)** — bare `browser_find` enumerates every clickable element on the page
+- **Brain-file template updates (v0.3.80)** — AGENTS.md, BOOT.md, and SOUL.md templates changed; seeding never overwrites existing files, so diff against `src/docs/reference/templates/` and merge by hand if you want the new defaults
 - **System brain rebuild** — brain files rebuilt from disk when changed, no restart needed
 - **Proactive tool discovery** — searches for available tools before claiming inability
 - **Multilanguage prompt analyzer (v0.3.67)** — shared PromptAnalyzer with soft-nudge on TUI and Telegram, 6 language packs (EN/ES/FR/ID/PT/RU)
