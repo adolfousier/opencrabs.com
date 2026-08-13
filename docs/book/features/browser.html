@@ -65,7 +65,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-8223106e.js";
+            window.path_to_searchindex_js = "../searchindex-c2444ae2.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-37e8252d.js"></script>
@@ -242,6 +242,9 @@
 <p>“Go to our staging site, log in with the test account, navigate to the dashboard, and take a screenshot”</p>
 </blockquote>
 <p>The agent will chain <code>navigate</code> → <code>type</code> (username) → <code>type</code> (password) → <code>click</code> (login button) → <code>navigate</code> (dashboard) → <code>screenshot</code> — all autonomously.</p>
+<h2 id="inventory-mode-v0380"><a class="header" href="#inventory-mode-v0380">Inventory Mode (v0.3.80)</a></h2>
+<p><code>browser_find</code> now works <strong>without a pattern</strong> (#1022). Call it bare and it enumerates every visible interactive element on the page — links, buttons, inputs, selects, textareas, role=button elements, onclick handlers, tabindex elements, labels, and disclosure widgets — each stamped with a selector and index you can click directly.</p>
+<p>This is the structural fix for the screenshot-as-discovery loop: instead of screenshotting repeatedly and guessing selectors, the agent gets the page’s clickable inventory in one call. When <code>browser_screenshot</code> reports an identical page, the hint now nudges toward inventory mode.</p>
 <h2 id="configuration"><a class="header" href="#configuration">Configuration</a></h2>
 <p>No configuration needed. The browser feature is enabled by default. To disable it at build time:</p>
 <pre><code class="language-bash">cargo build --release --no-default-features --features "telegram,discord,slack"

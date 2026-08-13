@@ -65,7 +65,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-8223106e.js";
+            window.path_to_searchindex_js = "../searchindex-c2444ae2.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-37e8252d.js"></script>
@@ -473,6 +473,16 @@ Agent notices pattern of 5+ corrections on output hygiene:
 </tbody>
 </table>
 </div>
+<h2 id="rsi-convergence-gates-v0380"><a class="header" href="#rsi-convergence-gates-v0380">RSI Convergence Gates (v0.3.80)</a></h2>
+<p>The self-improvement engine now knows when to hold back (#977):</p>
+<ul>
+<li><strong>Pauses on convergence self-reports</strong>: when a cycle reports its findings have converged, the RSI agent pauses instead of churning</li>
+<li><strong>Interval backs off on zero-improvement streaks</strong>: repeated cycles that improve nothing automatically lengthen the wait before the next cycle</li>
+<li><strong>Findings hashed by stable identity</strong>: the same finding keeps the same identity across cycles, so no description churn and no duplicate proposals</li>
+<li><strong>Gated on actionable feedback deltas</strong>: cycles only run when there is new actionable feedback to work with</li>
+<li><strong>Session history sealed each cycle</strong> with a compaction marker, so every cycle starts from a clean read</li>
+<li><strong>Cycle provider resolved from user config</strong>, not registry order</li>
+</ul>
 
                     </main>
 

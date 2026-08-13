@@ -65,7 +65,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-8223106e.js";
+            window.path_to_searchindex_js = "../searchindex-c2444ae2.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-37e8252d.js"></script>
@@ -583,6 +583,14 @@ providers = ["openrouter", "anthropic"]  # tried in order
 <li><strong>Poisoned-session recovery</strong> — auto-recovers from a repetitive-tool-call poisoned session instead of looping on the same broken call.</li>
 <li><strong>Phantom verdict on recovery paths</strong> — the turn-end phantom verdict now catches narration delivered via recovery paths, and issue-tracker actions count as completion claims.</li>
 </ul>
+<h2 id="loop-guards-v0380"><a class="header" href="#loop-guards-v0380">Loop Guards (v0.3.80)</a></h2>
+<p>Three guards stop the agent repeating itself (#957, #961):</p>
+<ul>
+<li><strong>Cross-turn announcement loop guard</strong>: detects when the agent keeps announcing the same action across turns without actually doing it</li>
+<li><strong>Near-match loop guard</strong>: catches reworded repetitions of the same tool call, generalized to ALL tools, not just bash</li>
+<li><strong>Mid-turn announcement checks</strong>: reworded announcement loops are caught inside the turn, not only between turns</li>
+</ul>
+<p>When the loop detector kills a stalled turn, that kill <strong>reaches the fallback chain</strong> (#1023): it is raised as a provider-attributable error so the turn can retry with another provider instead of surfacing as a hard failure, and it is no longer misreported as a provider fault. Spent thinking-loop budget is routed into the fallback chain the same way (#1021).</p>
 <h2 id="notifications"><a class="header" href="#notifications">Notifications</a></h2>
 <p>All self-healing events are delivered to:</p>
 <ul>

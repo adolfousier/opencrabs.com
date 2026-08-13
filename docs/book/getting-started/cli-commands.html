@@ -65,7 +65,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-8223106e.js";
+            window.path_to_searchindex_js = "../searchindex-c2444ae2.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-37e8252d.js"></script>
@@ -279,6 +279,7 @@
 <h2 id="channel-commands"><a class="header" href="#channel-commands">Channel Commands</a></h2>
 <p><code>/doctor</code>, <code>/help</code>, <code>/usage</code>, <code>/evolve</code>, <code>/restart</code>, <code>/exit</code>, and system commands work directly on Telegram, Discord, Slack, and WhatsApp without going through the LLM. They execute instantly and return results in the channel.</p>
 <p><code>/restart</code> and <code>/exit</code> announce themselves before acting, because once the process is gone nothing is left to report a failure. Both are owner-only, like every other command that changes the running process. <code>/exit</code> is the one command with no way back from chat — recovering needs access to the machine OpenCrabs runs on.</p>
+<p>Since v0.3.80, a <strong>spoken stop is honoured too</strong> — telling the bot to stop in natural language works on channels and in the TUI, not just the bare word “stop”.</p>
 <p>All channel command logic is centralized in <code>src/channels/commands.rs</code> (847 lines) – a shared handler that eliminates duplicated command logic across 5 channel implementations. Each channel delegates to <code>try_execute_text_command()</code> for consistent behavior.</p>
 <p><code>/evolve</code> on channels now runs directly (downloads + installs the binary) without requiring an LLM round-trip. Previously it was routed through the agent.</p>
 <h2 id="chat-mode"><a class="header" href="#chat-mode">Chat Mode</a></h2>

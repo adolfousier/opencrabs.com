@@ -65,7 +65,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-8223106e.js";
+            window.path_to_searchindex_js = "../searchindex-c2444ae2.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-37e8252d.js"></script>
@@ -354,6 +354,8 @@
 <p>Typing indicators now <strong>survive background tasks</strong>. Previously, when the agent spawned a background task (long build, test suite), the typing indicator would drop because the foreground turn ended. Now the indicator stays alive until the final response is delivered, regardless of how many background tasks run in between.</p>
 <h2 id="smart-chunk-boundaries-v0378"><a class="header" href="#smart-chunk-boundaries-v0378">Smart Chunk Boundaries (v0.3.78)</a></h2>
 <p>When a response exceeds platform message limits and must be split into chunks, the splitter now <strong>prefers boundaries that leave no markup open</strong>. Previously, a chunk could end mid-bold (<code>**text</code>) or mid-code-fence, causing rendering glitches on the receiving platform. The splitter now scans for the nearest safe break point where all markdown delimiters are balanced.</p>
+<h2 id="owner-gated-channel-commands-v0380"><a class="header" href="#owner-gated-channel-commands-v0380">Owner-Gated Channel Commands (v0.3.80)</a></h2>
+<p>User-defined slash commands and skills are <strong>owner-gated on the channel catch-all arm</strong> (#975). In a group chat, only the bot owner can trigger custom commands and skills; other members’ messages fall through to normal conversation. This closes a gap where any group member could run owner-defined automation through the catch-all routing path.</p>
 
                     </main>
 

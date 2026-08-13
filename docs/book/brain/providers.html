@@ -65,7 +65,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-8223106e.js";
+            window.path_to_searchindex_js = "../searchindex-c2444ae2.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-37e8252d.js"></script>
@@ -484,6 +484,13 @@ provider = "openrouter"
 <li><strong>Retry notices</strong> now name the provider and model being retried, and state whether the cause was a quota exhaustion or a transient throttle.</li>
 </ul>
 <p>No configuration needed — it is always on whenever a fallback chain is configured.</p>
+<h3 id="fallback-improvements-v0380"><a class="header" href="#fallback-improvements-v0380">Fallback Improvements (v0.3.80)</a></h3>
+<ul>
+<li><strong>Proactive setup suggestion</strong> (#1008): when no fallback chain is configured, OpenCrabs makes a one-shot suggestion to set one up — ask once, answered once, never nags again.</li>
+<li><strong>HTTP 400 failover guidance</strong> (#1006, #1007): a 400-series failure now carries guidance on what to check, and a chain-exhaustion ledger records why each provider in the chain was ruled out.</li>
+<li><strong>Fallback provenance in streaming logs</strong> (#969): each streamed call logs which provider actually served it, so retries and failovers are visible per call.</li>
+<li><strong>Codex CLI failures route into retry and fallback</strong> (#1004, #1005) instead of surfacing as terminal errors.</li>
+</ul>
 <h2 id="provider-configuration-fields"><a class="header" href="#provider-configuration-fields">Provider Configuration Fields</a></h2>
 <p>Every provider section (<code>[providers.&lt;name&gt;]</code>) supports these fields:</p>
 <div class="table-wrapper">

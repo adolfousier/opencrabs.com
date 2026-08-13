@@ -65,7 +65,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-8223106e.js";
+            window.path_to_searchindex_js = "../searchindex-c2444ae2.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-37e8252d.js"></script>
@@ -304,6 +304,13 @@ session_idle_hours = 24.0               # idle timeout for non-owner sessions
 <li><strong>Reaction turns</strong>: Certain reactions can trigger agent actions (configurable)</li>
 <li><strong>Grouped tool calls</strong>: Multiple tool calls in one turn collapse into a single collapsible message, keeping the channel clean</li>
 </ul>
+<h2 id="native-rendering-v0380"><a class="header" href="#native-rendering-v0380">Native Rendering (v0.3.80)</a></h2>
+<p>Slack messages render in Slack’s own shape instead of raw markdown (#1016):</p>
+<ul>
+<li><strong>Tables</strong> are converted to Slack-native layout instead of arriving as pipe characters</li>
+<li><strong>Headings</strong> are rendered as Slack formatting rather than <code>#</code> hashes</li>
+</ul>
+<p>Step-group narration is folded on the character stream rather than on paragraphs, and the final message no longer repeats the step-group narration it already sent (#1010).</p>
 <h2 id="socket-mode"><a class="header" href="#socket-mode">Socket Mode</a></h2>
 <p>Slack uses Socket Mode (WebSocket) instead of HTTP webhooks — no public URL or ngrok needed. The connection is outbound from your machine.</p>
 

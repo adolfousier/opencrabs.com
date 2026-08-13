@@ -65,7 +65,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-8223106e.js";
+            window.path_to_searchindex_js = "../searchindex-c2444ae2.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-37e8252d.js"></script>
@@ -232,6 +232,31 @@
 </ul>
 <h2 id="memory-search"><a class="header" href="#memory-search">Memory Search</a></h2>
 <p>The agent uses <code>session_search</code> for fast memory lookups (~500 tokens) instead of reading full memory files (~15K tokens). This is the primary recall mechanism.</p>
+<h3 id="scoped-search-v0380"><a class="header" href="#scoped-search-v0380">Scoped Search (v0.3.80)</a></h3>
+<p><code>memory_search</code> takes a <code>scope</code> that picks which corpus to search (#1020):</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Scope</th><th>Corpus</th><th>Use it for</th></tr>
+</thead>
+<tbody>
+<tr><td><code>memory</code> (default)</td><td>Daily logs</td><td>History: what happened, when, what was decided</td></tr>
+<tr><td><code>brain</code></td><td>Brain files (SOUL, USER, AGENTS, TOOLS, CODE, SECURITY, MEMORY, BOOT, HEARTBEAT)</td><td>Rules and policy: does a rule about this ALREADY exist, and which file owns it</td></tr>
+<tr><td><code>all</code></td><td>Both</td><td>“Have I ever written about this anywhere”</td></tr>
+</tbody>
+</table>
+</div>
+<p>Picking the wrong scope is the usual reason a search comes back with nothing useful. Daily logs outnumber brain files and reuse the same words for unrelated things, so searching <code>memory</code> for a rule usually fails: history outranks policy and you get confident irrelevant hits. Search <code>brain</code> before appending any rule: a hit tells you WHICH file owns it, and then <code>load_brain_file</code> with a <code>query</code> reads the whole section.</p>
+<h3 id="chunked-retrieval-and-index-on-write-v0380"><a class="header" href="#chunked-retrieval-and-index-on-write-v0380">Chunked Retrieval and Index-on-Write (v0.3.80)</a></h3>
+<p>Memory retrieval was rebuilt around chunking (#998-1002, #1018):</p>
+<ul>
+<li><strong>Documents are chunked before embedding</strong>, so chunks past the first are searchable. Previously a long document effectively hid everything after its opening.</li>
+<li><strong>Lexical hits are narrowed to the matching chunk</strong>, so keyword results point at the relevant slice instead of the whole document.</li>
+<li><strong>The index updates on write</strong>: memory is searchable immediately, not from a boot-time snapshot. Brain files are indexed into the brain collection on write too.</li>
+<li><strong>The store resolves per profile</strong>, so profiles never share or cache each other’s memory index.</li>
+<li><strong>The chunker is multi-byte safe</strong>: no more panics on UTF-8 boundaries.</li>
+<li><strong>MEMORY.md recall is ranked with BM25</strong> instead of shared-word counts (#996), and recall folds Latin diacritics so accented queries match.</li>
+</ul>
 <h3 id="embedding-modes"><a class="header" href="#embedding-modes">Embedding Modes</a></h3>
 <p>OpenCrabs supports three embedding configurations:</p>
 <ol>

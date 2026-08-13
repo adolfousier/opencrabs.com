@@ -65,7 +65,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-8223106e.js";
+            window.path_to_searchindex_js = "searchindex-c2444ae2.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-37e8252d.js"></script>
@@ -278,6 +278,14 @@
 <li><strong><code>/restart</code> and <code>/exit</code> (v0.3.79)</strong> — restart or shut down from any channel or the TUI; owner-only on channels, announce before acting</li>
 <li><strong>Quota circuit breaker (v0.3.79)</strong> — quota-exhausted providers get a TTL breaker and are skipped in fallback walks; chain exhaustion reported explicitly</li>
 <li><strong>Plan state across sessions (v0.3.79)</strong> — plans survive session boundaries; isolated plan-task execution defaults on, Ralph verifies in the session’s own directory</li>
+<li><strong>memory_search scope (v0.3.80)</strong> — search daily logs (<code>memory</code>), brain files (<code>brain</code>), or both (<code>all</code>); brain files are indexed on write</li>
+<li><strong>Chunked memory retrieval (v0.3.80)</strong> — documents chunked before embedding so later chunks are searchable; recall ranked with BM25</li>
+<li><strong>Slack-native rendering (v0.3.80)</strong> — tables and headings arrive in Slack’s own shape instead of raw markdown</li>
+<li><strong>Owner-gated channel commands (v0.3.80)</strong> — custom commands and skills are owner-only on the channel catch-all arm in groups</li>
+<li><strong>RSI convergence gates (v0.3.80)</strong> — self-improvement pauses on convergence, backs off on zero-improvement streaks, hashes findings by stable identity</li>
+<li><strong>Loop guards (v0.3.80)</strong> — announcement and near-match repetition guards on all tools; loop-detector kills reach the fallback chain</li>
+<li><strong>Browser inventory mode (v0.3.80)</strong> — bare <code>browser_find</code> enumerates every clickable element on the page</li>
+<li><strong>Brain-file template updates (v0.3.80)</strong> — AGENTS.md, BOOT.md, and SOUL.md templates changed; seeding never overwrites existing files, so diff against <code>src/docs/reference/templates/</code> and merge by hand if you want the new defaults</li>
 <li><strong>System brain rebuild</strong> — brain files rebuilt from disk when changed, no restart needed</li>
 <li><strong>Proactive tool discovery</strong> — searches for available tools before claiming inability</li>
 <li><strong>Multilanguage prompt analyzer (v0.3.67)</strong> — shared PromptAnalyzer with soft-nudge on TUI and Telegram, 6 language packs (EN/ES/FR/ID/PT/RU)</li>

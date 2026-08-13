@@ -66,7 +66,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-8223106e.js";
+            window.path_to_searchindex_js = "searchindex-c2444ae2.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-37e8252d.js"></script>
@@ -279,6 +279,14 @@
 <li><strong><code>/restart</code> and <code>/exit</code> (v0.3.79)</strong> — restart or shut down from any channel or the TUI; owner-only on channels, announce before acting</li>
 <li><strong>Quota circuit breaker (v0.3.79)</strong> — quota-exhausted providers get a TTL breaker and are skipped in fallback walks; chain exhaustion reported explicitly</li>
 <li><strong>Plan state across sessions (v0.3.79)</strong> — plans survive session boundaries; isolated plan-task execution defaults on, Ralph verifies in the session’s own directory</li>
+<li><strong>memory_search scope (v0.3.80)</strong> — search daily logs (<code>memory</code>), brain files (<code>brain</code>), or both (<code>all</code>); brain files are indexed on write</li>
+<li><strong>Chunked memory retrieval (v0.3.80)</strong> — documents chunked before embedding so later chunks are searchable; recall ranked with BM25</li>
+<li><strong>Slack-native rendering (v0.3.80)</strong> — tables and headings arrive in Slack’s own shape instead of raw markdown</li>
+<li><strong>Owner-gated channel commands (v0.3.80)</strong> — custom commands and skills are owner-only on the channel catch-all arm in groups</li>
+<li><strong>RSI convergence gates (v0.3.80)</strong> — self-improvement pauses on convergence, backs off on zero-improvement streaks, hashes findings by stable identity</li>
+<li><strong>Loop guards (v0.3.80)</strong> — announcement and near-match repetition guards on all tools; loop-detector kills reach the fallback chain</li>
+<li><strong>Browser inventory mode (v0.3.80)</strong> — bare <code>browser_find</code> enumerates every clickable element on the page</li>
+<li><strong>Brain-file template updates (v0.3.80)</strong> — AGENTS.md, BOOT.md, and SOUL.md templates changed; seeding never overwrites existing files, so diff against <code>src/docs/reference/templates/</code> and merge by hand if you want the new defaults</li>
 <li><strong>System brain rebuild</strong> — brain files rebuilt from disk when changed, no restart needed</li>
 <li><strong>Proactive tool discovery</strong> — searches for available tools before claiming inability</li>
 <li><strong>Multilanguage prompt analyzer (v0.3.67)</strong> — shared PromptAnalyzer with soft-nudge on TUI and Telegram, 6 language packs (EN/ES/FR/ID/PT/RU)</li>
@@ -594,7 +602,7 @@ Register-ScheduledTask -TaskName "OpenCrabs" -Action $action -Trigger $trigger -
 </code></pre>
 <h2 id="updating"><a class="header" href="#updating">Updating</a></h2>
 <ul>
-<li><strong>Homebrew users:</strong> <code>brew upgrade opencrabs</code></li>
+<li><strong>Homebrew users:</strong> <code>brew upgrade opencrabs</code> (if you type <code>/evolve</code> on a Homebrew install, it delegates to Homebrew — the binary stays managed by brew, and the old tap is retired in favour of homebrew-core autobumps)</li>
 <li><strong>Binary users:</strong> Type <code>/evolve</code> in the TUI to download the latest release</li>
 <li><strong>Source users:</strong> <code>git pull &amp;&amp; cargo build --release</code>, or type <code>/rebuild</code> in the TUI</li>
 <li><strong>Docker users:</strong> <code>docker compose pull &amp;&amp; docker compose up -d</code></li>
@@ -1307,6 +1315,7 @@ patterns = ["rm -rf /", "dd if=", "mkfs", ":(){ :|:&amp; };:"]
 <h2 id="channel-commands"><a class="header" href="#channel-commands">Channel Commands</a></h2>
 <p><code>/doctor</code>, <code>/help</code>, <code>/usage</code>, <code>/evolve</code>, <code>/restart</code>, <code>/exit</code>, and system commands work directly on Telegram, Discord, Slack, and WhatsApp without going through the LLM. They execute instantly and return results in the channel.</p>
 <p><code>/restart</code> and <code>/exit</code> announce themselves before acting, because once the process is gone nothing is left to report a failure. Both are owner-only, like every other command that changes the running process. <code>/exit</code> is the one command with no way back from chat — recovering needs access to the machine OpenCrabs runs on.</p>
+<p>Since v0.3.80, a <strong>spoken stop is honoured too</strong> — telling the bot to stop in natural language works on channels and in the TUI, not just the bare word “stop”.</p>
 <p>All channel command logic is centralized in <code>src/channels/commands.rs</code> (847 lines) – a shared handler that eliminates duplicated command logic across 5 channel implementations. Each channel delegates to <code>try_execute_text_command()</code> for consistent behavior.</p>
 <p><code>/evolve</code> on channels now runs directly (downloads + installs the binary) without requiring an LLM round-trip. Previously it was routed through the agent.</p>
 <h2 id="chat-mode"><a class="header" href="#chat-mode">Chat Mode</a></h2>
@@ -2178,6 +2187,13 @@ provider = "openrouter"
 <li><strong>Retry notices</strong> now name the provider and model being retried, and state whether the cause was a quota exhaustion or a transient throttle.</li>
 </ul>
 <p>No configuration needed — it is always on whenever a fallback chain is configured.</p>
+<h3 id="fallback-improvements-v0380"><a class="header" href="#fallback-improvements-v0380">Fallback Improvements (v0.3.80)</a></h3>
+<ul>
+<li><strong>Proactive setup suggestion</strong> (#1008): when no fallback chain is configured, OpenCrabs makes a one-shot suggestion to set one up — ask once, answered once, never nags again.</li>
+<li><strong>HTTP 400 failover guidance</strong> (#1006, #1007): a 400-series failure now carries guidance on what to check, and a chain-exhaustion ledger records why each provider in the chain was ruled out.</li>
+<li><strong>Fallback provenance in streaming logs</strong> (#969): each streamed call logs which provider actually served it, so retries and failovers are visible per call.</li>
+<li><strong>Codex CLI failures route into retry and fallback</strong> (#1004, #1005) instead of surfacing as terminal errors.</li>
+</ul>
 <h2 id="provider-configuration-fields"><a class="header" href="#provider-configuration-fields">Provider Configuration Fields</a></h2>
 <p>Every provider section (<code>[providers.&lt;name&gt;]</code>) supports these fields:</p>
 <div class="table-wrapper">
@@ -2527,6 +2543,8 @@ Agent: generate_image(prompt="dark background with thin white border", image="/t
 <p>Typing indicators now <strong>survive background tasks</strong>. Previously, when the agent spawned a background task (long build, test suite), the typing indicator would drop because the foreground turn ended. Now the indicator stays alive until the final response is delivered, regardless of how many background tasks run in between.</p>
 <h2 id="smart-chunk-boundaries-v0378"><a class="header" href="#smart-chunk-boundaries-v0378">Smart Chunk Boundaries (v0.3.78)</a></h2>
 <p>When a response exceeds platform message limits and must be split into chunks, the splitter now <strong>prefers boundaries that leave no markup open</strong>. Previously, a chunk could end mid-bold (<code>**text</code>) or mid-code-fence, causing rendering glitches on the receiving platform. The splitter now scans for the nearest safe break point where all markdown delimiters are balanced.</p>
+<h2 id="owner-gated-channel-commands-v0380"><a class="header" href="#owner-gated-channel-commands-v0380">Owner-Gated Channel Commands (v0.3.80)</a></h2>
+<p>User-defined slash commands and skills are <strong>owner-gated on the channel catch-all arm</strong> (#975). In a group chat, only the bot owner can trigger custom commands and skills; other members’ messages fall through to normal conversation. This closes a gap where any group member could run owner-defined automation through the catch-all routing path.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="telegram-2"><a class="header" href="#telegram-2">Telegram</a></h1>
 <p>Connect OpenCrabs to Telegram for DMs and group chats.</p>
@@ -2932,6 +2950,13 @@ session_idle_hours = 24.0               # idle timeout for non-owner sessions
 <li><strong>Reaction turns</strong>: Certain reactions can trigger agent actions (configurable)</li>
 <li><strong>Grouped tool calls</strong>: Multiple tool calls in one turn collapse into a single collapsible message, keeping the channel clean</li>
 </ul>
+<h2 id="native-rendering-v0380"><a class="header" href="#native-rendering-v0380">Native Rendering (v0.3.80)</a></h2>
+<p>Slack messages render in Slack’s own shape instead of raw markdown (#1016):</p>
+<ul>
+<li><strong>Tables</strong> are converted to Slack-native layout instead of arriving as pipe characters</li>
+<li><strong>Headings</strong> are rendered as Slack formatting rather than <code>#</code> hashes</li>
+</ul>
+<p>Step-group narration is folded on the character stream rather than on paragraphs, and the final message no longer repeats the step-group narration it already sent (#1010).</p>
 <h2 id="socket-mode"><a class="header" href="#socket-mode">Socket Mode</a></h2>
 <p>Slack uses Socket Mode (WebSocket) instead of HTTP webhooks — no public URL or ngrok needed. The connection is outbound from your machine.</p>
 <div style="break-before: page; page-break-before: always;"></div>
@@ -3206,7 +3231,7 @@ session_idle_hours = 24.0               # idle timeout for non-owner sessions
 <tr><th>Tool</th><th>Parameters</th><th>Description</th></tr>
 </thead>
 <tbody>
-<tr><td><code>parse_document</code></td><td><code>path</code></td><td>Extract text from PDF, DOCX, XLSX, XLS, CSV, HTML, TXT, MD, JSON, XML (v0.3.61 added spreadsheet support)</td></tr>
+<tr><td><code>parse_document</code></td><td><code>path</code></td><td>Extract text from PDF, DOCX, XLSX, XLS, XLSM, XLSB, ODS, DOC, CSV, HTML, TXT, MD, JSON, XML (v0.3.61 added spreadsheet support; v0.3.80 added xlsm/xlsb/ods via calamine, legacy .doc via rwml, and VBA macro source extraction from macro-enabled workbooks)</td></tr>
 </tbody>
 </table>
 </div>
@@ -3464,6 +3489,31 @@ value = "System is operational. All channels connected."
 </ul>
 <h2 id="memory-search"><a class="header" href="#memory-search">Memory Search</a></h2>
 <p>The agent uses <code>session_search</code> for fast memory lookups (~500 tokens) instead of reading full memory files (~15K tokens). This is the primary recall mechanism.</p>
+<h3 id="scoped-search-v0380"><a class="header" href="#scoped-search-v0380">Scoped Search (v0.3.80)</a></h3>
+<p><code>memory_search</code> takes a <code>scope</code> that picks which corpus to search (#1020):</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Scope</th><th>Corpus</th><th>Use it for</th></tr>
+</thead>
+<tbody>
+<tr><td><code>memory</code> (default)</td><td>Daily logs</td><td>History: what happened, when, what was decided</td></tr>
+<tr><td><code>brain</code></td><td>Brain files (SOUL, USER, AGENTS, TOOLS, CODE, SECURITY, MEMORY, BOOT, HEARTBEAT)</td><td>Rules and policy: does a rule about this ALREADY exist, and which file owns it</td></tr>
+<tr><td><code>all</code></td><td>Both</td><td>“Have I ever written about this anywhere”</td></tr>
+</tbody>
+</table>
+</div>
+<p>Picking the wrong scope is the usual reason a search comes back with nothing useful. Daily logs outnumber brain files and reuse the same words for unrelated things, so searching <code>memory</code> for a rule usually fails: history outranks policy and you get confident irrelevant hits. Search <code>brain</code> before appending any rule: a hit tells you WHICH file owns it, and then <code>load_brain_file</code> with a <code>query</code> reads the whole section.</p>
+<h3 id="chunked-retrieval-and-index-on-write-v0380"><a class="header" href="#chunked-retrieval-and-index-on-write-v0380">Chunked Retrieval and Index-on-Write (v0.3.80)</a></h3>
+<p>Memory retrieval was rebuilt around chunking (#998-1002, #1018):</p>
+<ul>
+<li><strong>Documents are chunked before embedding</strong>, so chunks past the first are searchable. Previously a long document effectively hid everything after its opening.</li>
+<li><strong>Lexical hits are narrowed to the matching chunk</strong>, so keyword results point at the relevant slice instead of the whole document.</li>
+<li><strong>The index updates on write</strong>: memory is searchable immediately, not from a boot-time snapshot. Brain files are indexed into the brain collection on write too.</li>
+<li><strong>The store resolves per profile</strong>, so profiles never share or cache each other’s memory index.</li>
+<li><strong>The chunker is multi-byte safe</strong>: no more panics on UTF-8 boundaries.</li>
+<li><strong>MEMORY.md recall is ranked with BM25</strong> instead of shared-word counts (#996), and recall folds Latin diacritics so accented queries match.</li>
+</ul>
 <h3 id="embedding-modes"><a class="header" href="#embedding-modes">Embedding Modes</a></h3>
 <p>OpenCrabs supports three embedding configurations:</p>
 <ol>
@@ -3882,6 +3932,9 @@ coerce_empty_to = "--quiet"
 <p>“Go to our staging site, log in with the test account, navigate to the dashboard, and take a screenshot”</p>
 </blockquote>
 <p>The agent will chain <code>navigate</code> → <code>type</code> (username) → <code>type</code> (password) → <code>click</code> (login button) → <code>navigate</code> (dashboard) → <code>screenshot</code> — all autonomously.</p>
+<h2 id="inventory-mode-v0380"><a class="header" href="#inventory-mode-v0380">Inventory Mode (v0.3.80)</a></h2>
+<p><code>browser_find</code> now works <strong>without a pattern</strong> (#1022). Call it bare and it enumerates every visible interactive element on the page — links, buttons, inputs, selects, textareas, role=button elements, onclick handlers, tabindex elements, labels, and disclosure widgets — each stamped with a selector and index you can click directly.</p>
+<p>This is the structural fix for the screenshot-as-discovery loop: instead of screenshotting repeatedly and guessing selectors, the agent gets the page’s clickable inventory in one call. When <code>browser_screenshot</code> reports an identical page, the hint now nudges toward inventory mode.</p>
 <h2 id="configuration-7"><a class="header" href="#configuration-7">Configuration</a></h2>
 <p>No configuration needed. The browser feature is enabled by default. To disable it at build time:</p>
 <pre><code class="language-bash">cargo build --release --no-default-features --features "telegram,discord,slack"
@@ -3912,6 +3965,7 @@ opencrabs cron remove "Morning Report"
 <p>The agent can also manage cron jobs via the <code>cron_manage</code> tool:</p>
 <pre><code>"Create a cron job that checks my emails every morning at 9am"
 </code></pre>
+<p>Since v0.3.80, <code>cron_manage</code> supports an <strong>update action</strong> that patches an existing job in place (#966) — change the schedule, prompt, model, or delivery target without deleting and recreating the job.</p>
 <h2 id="options"><a class="header" href="#options">Options</a></h2>
 <div class="table-wrapper">
 <table>
@@ -4803,6 +4857,14 @@ providers = ["openrouter", "anthropic"]  # tried in order
 <li><strong>Poisoned-session recovery</strong> — auto-recovers from a repetitive-tool-call poisoned session instead of looping on the same broken call.</li>
 <li><strong>Phantom verdict on recovery paths</strong> — the turn-end phantom verdict now catches narration delivered via recovery paths, and issue-tracker actions count as completion claims.</li>
 </ul>
+<h2 id="loop-guards-v0380"><a class="header" href="#loop-guards-v0380">Loop Guards (v0.3.80)</a></h2>
+<p>Three guards stop the agent repeating itself (#957, #961):</p>
+<ul>
+<li><strong>Cross-turn announcement loop guard</strong>: detects when the agent keeps announcing the same action across turns without actually doing it</li>
+<li><strong>Near-match loop guard</strong>: catches reworded repetitions of the same tool call, generalized to ALL tools, not just bash</li>
+<li><strong>Mid-turn announcement checks</strong>: reworded announcement loops are caught inside the turn, not only between turns</li>
+</ul>
+<p>When the loop detector kills a stalled turn, that kill <strong>reaches the fallback chain</strong> (#1023): it is raised as a provider-attributable error so the turn can retry with another provider instead of surfacing as a hard failure, and it is no longer misreported as a provider fault. Spent thinking-loop budget is routed into the fallback chain the same way (#1021).</p>
 <h2 id="notifications"><a class="header" href="#notifications">Notifications</a></h2>
 <p>All self-healing events are delivered to:</p>
 <ul>
@@ -5077,6 +5139,16 @@ Agent notices pattern of 5+ corrections on output hygiene:
 </tbody>
 </table>
 </div>
+<h2 id="rsi-convergence-gates-v0380"><a class="header" href="#rsi-convergence-gates-v0380">RSI Convergence Gates (v0.3.80)</a></h2>
+<p>The self-improvement engine now knows when to hold back (#977):</p>
+<ul>
+<li><strong>Pauses on convergence self-reports</strong>: when a cycle reports its findings have converged, the RSI agent pauses instead of churning</li>
+<li><strong>Interval backs off on zero-improvement streaks</strong>: repeated cycles that improve nothing automatically lengthen the wait before the next cycle</li>
+<li><strong>Findings hashed by stable identity</strong>: the same finding keeps the same identity across cycles, so no description churn and no duplicate proposals</li>
+<li><strong>Gated on actionable feedback deltas</strong>: cycles only run when there is new actionable feedback to work with</li>
+<li><strong>Session history sealed each cycle</strong> with a compaction marker, so every cycle starts from a clean read</li>
+<li><strong>Cycle provider resolved from user config</strong>, not registry order</li>
+</ul>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="mission-control"><a class="header" href="#mission-control">Mission Control</a></h1>
 <p>Mission Control is a full-screen TUI dashboard that brings RSI activity, inbox proposals, and scheduled jobs into one place. Open it with <code>/mission-control</code>.</p>
@@ -6746,7 +6818,7 @@ node dist/cli.js linkedin comment &lt;post-url&gt; "text" # Comment on post
     
 <ul>
       
-<li><strong>Every feature and fix:</strong> designed, coded, tested, and committed by the crab, now at v0.3.79 and climbing</li>
+<li><strong>Every feature and fix:</strong> designed, coded, tested, and committed by the crab, now at v0.3.80 and climbing</li>
 
       
 <li><strong>Self-improvement on a schedule:</strong> daily and weekly self-improvement jobs, memory consolidation, and soul evolution run as cron</li>
@@ -7111,7 +7183,7 @@ panic = "abort"
 <tr><td><code>teloxide</code></td><td>Telegram Bot API</td></tr>
 <tr><td><code>serenity</code></td><td>Discord gateway</td></tr>
 <tr><td><code>slack-morphism</code></td><td>Slack API</td></tr>
-<tr><td><code>qmd</code> + <code>llama-cpp-2</code></td><td>Memory search (FTS5 + embeddings)</td></tr>
+<tr><td>In-tree memory store (<code>src/memory/</code>)</td><td>Memory search (SQLite FTS5 + vector embeddings)</td></tr>
 <tr><td><code>rwhisper</code> (candle)</td><td>Local STT — pure Rust, Metal GPU on macOS</td></tr>
 <tr><td><code>piper</code> (Python venv)</td><td>Local TTS with OGG/Opus encoding</td></tr>
 <tr><td><code>syntect</code></td><td>Syntax highlighting in TUI</td></tr>
