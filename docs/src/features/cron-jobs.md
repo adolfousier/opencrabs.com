@@ -32,6 +32,8 @@ The agent can also manage cron jobs via the `cron_manage` tool:
 "Create a cron job that checks my emails every morning at 9am"
 ```
 
+Since v0.3.80, `cron_manage` supports an **update action** that patches an existing job in place (#966) — change the schedule, prompt, model, or delivery target without deleting and recreating the job.
+
 ## Options
 
 | Flag | Description |

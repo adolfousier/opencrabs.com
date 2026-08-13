@@ -265,3 +265,14 @@ RSI now bumps a violation counter on existing rules instead of deduping repeat v
 | Automatic, no analysis needed | Requires feedback analysis first |
 | Protects the system from crashing | Makes the agent better over time |
 | Immediate | Accumulates across sessions |
+
+## RSI Convergence Gates (v0.3.80)
+
+The self-improvement engine now knows when to hold back (#977):
+
+- **Pauses on convergence self-reports**: when a cycle reports its findings have converged, the RSI agent pauses instead of churning
+- **Interval backs off on zero-improvement streaks**: repeated cycles that improve nothing automatically lengthen the wait before the next cycle
+- **Findings hashed by stable identity**: the same finding keeps the same identity across cycles, so no description churn and no duplicate proposals
+- **Gated on actionable feedback deltas**: cycles only run when there is new actionable feedback to work with
+- **Session history sealed each cycle** with a compaction marker, so every cycle starts from a clean read
+- **Cycle provider resolved from user config**, not registry order

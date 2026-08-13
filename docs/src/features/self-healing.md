@@ -460,6 +460,16 @@ The phantom detector gained significant coverage across three releases:
 - **Poisoned-session recovery** — auto-recovers from a repetitive-tool-call poisoned session instead of looping on the same broken call.
 - **Phantom verdict on recovery paths** — the turn-end phantom verdict now catches narration delivered via recovery paths, and issue-tracker actions count as completion claims.
 
+## Loop Guards (v0.3.80)
+
+Three guards stop the agent repeating itself (#957, #961):
+
+- **Cross-turn announcement loop guard**: detects when the agent keeps announcing the same action across turns without actually doing it
+- **Near-match loop guard**: catches reworded repetitions of the same tool call, generalized to ALL tools, not just bash
+- **Mid-turn announcement checks**: reworded announcement loops are caught inside the turn, not only between turns
+
+When the loop detector kills a stalled turn, that kill **reaches the fallback chain** (#1023): it is raised as a provider-attributable error so the turn can retry with another provider instead of surfacing as a hard failure, and it is no longer misreported as a provider fault. Spent thinking-loop budget is routed into the fallback chain the same way (#1021).
+
 ## Notifications
 
 All self-healing events are delivered to:

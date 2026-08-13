@@ -36,6 +36,12 @@ Ask the agent:
 
 The agent will chain `navigate` → `type` (username) → `type` (password) → `click` (login button) → `navigate` (dashboard) → `screenshot` — all autonomously.
 
+## Inventory Mode (v0.3.80)
+
+`browser_find` now works **without a pattern** (#1022). Call it bare and it enumerates every visible interactive element on the page — links, buttons, inputs, selects, textareas, role=button elements, onclick handlers, tabindex elements, labels, and disclosure widgets — each stamped with a selector and index you can click directly.
+
+This is the structural fix for the screenshot-as-discovery loop: instead of screenshotting repeatedly and guessing selectors, the agent gets the page's clickable inventory in one call. When `browser_screenshot` reports an identical page, the hint now nudges toward inventory mode.
+
 ## Configuration
 
 No configuration needed. The browser feature is enabled by default. To disable it at build time:
