@@ -276,3 +276,12 @@ The self-improvement engine now knows when to hold back (#977):
 - **Gated on actionable feedback deltas**: cycles only run when there is new actionable feedback to work with
 - **Session history sealed each cycle** with a compaction marker, so every cycle starts from a clean read
 - **Cycle provider resolved from user config**, not registry order
+
+## RSI Engine Gate (v0.3.81)
+
+The autonomous RSI engine is gated behind `rsi_enabled` (#1063). In the TUI nothing changes, but **headless daemons default RSI off** — an unattended service no longer rewrites its own brain files by default. Opt in explicitly:
+
+```toml
+[agent]
+rsi_enabled = true
+```
