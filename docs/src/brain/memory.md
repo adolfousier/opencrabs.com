@@ -56,6 +56,28 @@ Memory retrieval was rebuilt around chunking (#998-1002, #1018):
 - **The chunker is multi-byte safe**: no more panics on UTF-8 boundaries.
 - **MEMORY.md recall is ranked with BM25** instead of shared-word counts (#996), and recall folds Latin diacritics so accented queries match.
 
+### In-tree Memory Store (v0.3.81)
+
+The qmd binary dependency is gone (#1032). OpenCrabs now owns its memory store in-tree (`src/memory/`): SQLite FTS5 for lexical search plus vector embeddings in one store, resolved per profile. One fewer external binary to install or break, and the store schema ships with the binary.
+
+### External Index Paths (v0.3.81)
+
+Memory search can read indexes that live outside the profile directory (#1051, #1055):
+
+```toml
+[memory]
+# A bare string or { path, pattern } per entry
+external_paths = ["~/srv/rs/opencrabs", { path = "/var/log/app", pattern = "*.md" }]
+```
+
+- **Glob excludes** apply to external indexing, global across all entries.
+- **Shared sessions are default-deny**: `external_allowed_in_shared = false` keeps external content out of group/shared sessions, so external indexes inherit memory_search's exposure rules.
+- A **freshness sweep** runs on a configurable interval to pick up changed files.
+
+### Embedding Hardening (v0.3.81)
+
+Embedding API calls now carry **timeouts**, a **vector gate** (malformed or empty vectors never reach the store), and **non-blocking writes** (embedding failures never stall the turn) (#1062). `/doctor` reports **embedding health**, and a sweep finds **unembedded documents** and backfills them (#1069, #1067).
+
 ### Embedding Modes
 
 OpenCrabs supports three embedding configurations:
