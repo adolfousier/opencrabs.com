@@ -106,6 +106,10 @@ If you prefer editing files directly, configure providers in `config.toml` and `
 
 ---
 
+### Key Handling (v0.3.81)
+
+`keys.toml` no longer drops provider API keys at runtime (#1066): four providers could silently lose their keys during config reloads. The stored-key marker has **one owner**, and keys already poisoned by the old marker are **self-healed** on load. If a provider worked yesterday and 401s today, re-check `keys.toml` — the fix also repairs the file in place.
+
 ## Anthropic Claude
 
 **Models:** `claude-opus-4-6`, `claude-sonnet-4-5`, `claude-haiku-4-5`, and legacy models — fetched live from the API.
@@ -200,6 +204,15 @@ default_model = "glm-4-plus"
 ```
 
 Get your API key at [open.bigmodel.cn](https://open.bigmodel.cn).
+
+## Qwen (DashScope)
+
+Qwen models via DashScope. As of v0.3.81:
+
+- **Reasoning carries across turns** (#1033): `preserve_thinking` is sent so multi-turn conversations keep their reasoning context
+- **Thinking knobs are family-gated** (#1034): each model family gets only the knob it actually reads (`enable_thinking`, effort tiers), instead of a shared guess
+- **Tiered families default to the recommended effort tier** (#1034)
+- **Hosted Qwen reachable everywhere** (#1040): works outside Alibaba networks and with vendor-prefixed model ids
 
 ## Claude CLI
 
