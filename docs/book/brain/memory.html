@@ -65,7 +65,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-934b9bc8.js";
+            window.path_to_searchindex_js = "../searchindex-dd64c7a7.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-37e8252d.js"></script>
@@ -257,6 +257,21 @@
 <li><strong>The chunker is multi-byte safe</strong>: no more panics on UTF-8 boundaries.</li>
 <li><strong>MEMORY.md recall is ranked with BM25</strong> instead of shared-word counts (#996), and recall folds Latin diacritics so accented queries match.</li>
 </ul>
+<h3 id="in-tree-memory-store-v0381"><a class="header" href="#in-tree-memory-store-v0381">In-tree Memory Store (v0.3.81)</a></h3>
+<p>The qmd binary dependency is gone (#1032). OpenCrabs now owns its memory store in-tree (<code>src/memory/</code>): SQLite FTS5 for lexical search plus vector embeddings in one store, resolved per profile. One fewer external binary to install or break, and the store schema ships with the binary.</p>
+<h3 id="external-index-paths-v0381"><a class="header" href="#external-index-paths-v0381">External Index Paths (v0.3.81)</a></h3>
+<p>Memory search can read indexes that live outside the profile directory (#1051, #1055):</p>
+<pre><code class="language-toml">[memory]
+# A bare string or { path, pattern } per entry
+external_paths = ["~/srv/rs/opencrabs", { path = "/var/log/app", pattern = "*.md" }]
+</code></pre>
+<ul>
+<li><strong>Glob excludes</strong> apply to external indexing, global across all entries.</li>
+<li><strong>Shared sessions are default-deny</strong>: <code>external_allowed_in_shared = false</code> keeps external content out of group/shared sessions, so external indexes inherit memory_search’s exposure rules.</li>
+<li>A <strong>freshness sweep</strong> runs on a configurable interval to pick up changed files.</li>
+</ul>
+<h3 id="embedding-hardening-v0381"><a class="header" href="#embedding-hardening-v0381">Embedding Hardening (v0.3.81)</a></h3>
+<p>Embedding API calls now carry <strong>timeouts</strong>, a <strong>vector gate</strong> (malformed or empty vectors never reach the store), and <strong>non-blocking writes</strong> (embedding failures never stall the turn) (#1062). <code>/doctor</code> reports <strong>embedding health</strong>, and a sweep finds <strong>unembedded documents</strong> and backfills them (#1069, #1067).</p>
 <h3 id="embedding-modes"><a class="header" href="#embedding-modes">Embedding Modes</a></h3>
 <p>OpenCrabs supports three embedding configurations:</p>
 <ol>

@@ -65,7 +65,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-934b9bc8.js";
+            window.path_to_searchindex_js = "../searchindex-dd64c7a7.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-37e8252d.js"></script>
@@ -483,6 +483,11 @@ Agent notices pattern of 5+ corrections on output hygiene:
 <li><strong>Session history sealed each cycle</strong> with a compaction marker, so every cycle starts from a clean read</li>
 <li><strong>Cycle provider resolved from user config</strong>, not registry order</li>
 </ul>
+<h2 id="rsi-engine-gate-v0381"><a class="header" href="#rsi-engine-gate-v0381">RSI Engine Gate (v0.3.81)</a></h2>
+<p>The autonomous RSI engine is gated behind <code>rsi_enabled</code> (#1063). In the TUI nothing changes, but <strong>headless daemons default RSI off</strong> — an unattended service no longer rewrites its own brain files by default. Opt in explicitly:</p>
+<pre><code class="language-toml">[agent]
+rsi_enabled = true
+</code></pre>
 
                     </main>
 

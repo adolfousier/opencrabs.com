@@ -65,7 +65,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-934b9bc8.js";
+            window.path_to_searchindex_js = "../searchindex-dd64c7a7.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-37e8252d.js"></script>
@@ -287,6 +287,21 @@ respond_to = "all"
 <li><strong>Owner vs non-owner</strong> — Owner uses the shared TUI session, non-owners get per-user sessions</li>
 <li><strong>Onboarding overhaul</strong> (v0.3.30) — Auto-detects owner user ID from <code>getUpdates</code>, persists partial config on cancel, only Enter on the last step commits (Tab no longer silently rewrites ~30 config keys)</li>
 <li><strong>Teloxide upgrade + join detection</strong> (v0.3.35) — Upgraded from teloxide 0.13 to 0.17. New members joining a group are now detected before the allowlist check, so the bot can greet or moderate join events. Marathon-bucket rolling status rotates through project-author quip pool for more varied status messages.</li>
+</ul>
+<h2 id="v0381-improvements"><a class="header" href="#v0381-improvements">v0.3.81 Improvements</a></h2>
+<h3 id="mermaid-diagrams-as-images-1044"><a class="header" href="#mermaid-diagrams-as-images-1044">Mermaid Diagrams as Images (#1044)</a></h3>
+<p>Mermaid code fences in rich messages render as <strong>images</strong> via the markdown+media route, while <strong>tables stay native</strong> Telegram formatting instead of being rasterized into the image.</p>
+<h3 id="delivery-and-rate-limit-hardening"><a class="header" href="#delivery-and-rate-limit-hardening">Delivery and Rate-Limit Hardening</a></h3>
+<ul>
+<li><strong>Rich blocks decode as a typed AST</strong> (#1058) instead of ad-hoc string surgery, so structured messages can’t arrive mangled</li>
+<li><strong>Inline rate-limit waits capped at 30s</strong> (#1064): a Telegram 429 never parks a turn indefinitely</li>
+<li><strong>Flow footer + section cap</strong> (#1052, #1053, #1054, #1056): flow logs get a footer and bounded sections instead of unbounded message growth</li>
+</ul>
+<h3 id="group-safety"><a class="header" href="#group-safety">Group Safety</a></h3>
+<ul>
+<li><strong>Only the owner may add the bot to a group</strong> (#1042)</li>
+<li><strong>Bot-add detection</strong> (#1041): being added by a member is told apart from another bot arriving</li>
+<li><strong>Unauthorised chats are never recorded</strong> (#1043): chats that were never approved leave no session residue</li>
 </ul>
 <h2 id="configuration"><a class="header" href="#configuration">Configuration</a></h2>
 <p>All Telegram options live under <code>[channels.telegram]</code> in <code>~/.opencrabs/config.toml</code>:</p>

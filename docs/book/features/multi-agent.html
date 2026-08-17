@@ -65,7 +65,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-934b9bc8.js";
+            window.path_to_searchindex_js = "../searchindex-dd64c7a7.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-37e8252d.js"></script>
@@ -411,6 +411,8 @@ resume_agent(agent_id: "impl-id", prompt: "Add tests for the edge cases we discu
 <li><code>TeamManager</code>, <code>TeamDelete</code>, <code>TeamBroadcast</code></li>
 <li>Registry exclusion (ALWAYS_EXCLUDED enforcement)</li>
 </ul>
+<h2 id="sub-agent-result-reporting-v0381"><a class="header" href="#sub-agent-result-reporting-v0381">Sub-Agent Result Reporting (v0.3.81)</a></h2>
+<p>A finished agent <strong>reports its result back to the spawning session</strong> (#1036): the parent sees the outcome in-turn instead of polling or reading status files. Orphaned sub-agent status files from crashed runs are <strong>reconciled at startup</strong> (#1038), so the registry never shows ghosts of agents that no longer exist.</p>
 
                     </main>
 

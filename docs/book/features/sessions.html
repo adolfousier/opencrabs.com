@@ -65,7 +65,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-934b9bc8.js";
+            window.path_to_searchindex_js = "../searchindex-dd64c7a7.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-37e8252d.js"></script>
@@ -348,6 +348,8 @@
 </ul>
 <h2 id="channel-sessions"><a class="header" href="#channel-sessions">Channel Sessions</a></h2>
 <p>All channels (Telegram, Discord, Slack, WhatsApp, Trello) persist sessions in SQLite by channel/group title. Sessions survive process restarts — no more lost context after daemon restart. Each channel group gets its own isolated session, while owner DMs share the TUI session. Cross-channel stable session suffixes (<code>[chat:&lt;id&gt;]</code>) ensure reliable session resolution across Discord, Slack, and WhatsApp (v0.3.29).</p>
+<h2 id="session-routed-recovery-reports-v0381"><a class="header" href="#session-routed-recovery-reports-v0381">Session-Routed Recovery Reports (v0.3.81)</a></h2>
+<p>Crash-recovery reports <strong>route by session</strong> (#1037): a resumed turn reports back to the session that owned it, not to whichever session happened to boot the recovery. Multi-session setups no longer cross-deliver recovery noise.</p>
 
                     </main>
 

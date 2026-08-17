@@ -66,7 +66,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-934b9bc8.js";
+            window.path_to_searchindex_js = "searchindex-dd64c7a7.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-37e8252d.js"></script>
@@ -210,7 +210,7 @@
                     <main>
                         <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
 <p><strong>OpenCrabs</strong> is a self-hosted, provider-agnostic AI orchestration agent that runs as a single Rust binary. It automates your terminal, browser, channels (Telegram/Discord/Slack/WhatsApp/Trello), and codebase, all while respecting your privacy and keeping you in control.</p>
-<p><strong>6,300+ tests</strong> across providers, tools, channels, TUI, self-healing, and browser automation.</p>
+<p><strong>6,688 tests</strong> across providers, tools, channels, TUI, self-healing, and browser automation.</p>
 <h2 id="what-makes-opencrabs-different"><a class="header" href="#what-makes-opencrabs-different">What Makes OpenCrabs Different</a></h2>
 <h3 id="zero-telemetry-not-even-opt-in"><a class="header" href="#zero-telemetry-not-even-opt-in">Zero Telemetry, Not Even Opt-In</a></h3>
 <ul>
@@ -279,6 +279,13 @@
 <li><strong><code>/restart</code> and <code>/exit</code> (v0.3.79)</strong> — restart or shut down from any channel or the TUI; owner-only on channels, announce before acting</li>
 <li><strong>Quota circuit breaker (v0.3.79)</strong> — quota-exhausted providers get a TTL breaker and are skipped in fallback walks; chain exhaustion reported explicitly</li>
 <li><strong>Plan state across sessions (v0.3.79)</strong> — plans survive session boundaries; isolated plan-task execution defaults on, Ralph verifies in the session’s own directory</li>
+<li><strong>In-tree memory store (v0.3.81)</strong> — the qmd dependency is dropped; SQLite FTS5 + vector search owned in-tree</li>
+<li><strong>External index paths (v0.3.81)</strong> — memory search reads indexes outside the profile directory, default-deny in shared sessions</li>
+<li><strong>Mermaid as images on Telegram (v0.3.81)</strong> — diagrams render as images while tables stay native formatting</li>
+<li><strong>Qwen reasoning across turns (v0.3.81)</strong> — preserve_thinking, family-gated thinking knobs, recommended effort tier by default, hosted Qwen reachable everywhere</li>
+<li><strong>keys.toml key-loss fix (v0.3.81)</strong> — provider API keys no longer dropped at runtime; poisoned keys self-heal</li>
+<li><strong>Early loop detection (v0.3.81)</strong> — repeating tool rounds caught before the provider rejects the turn</li>
+<li><strong>RSI engine gate (v0.3.81)</strong> — autonomous RSI off by default for headless daemons, opt in with <code>rsi_enabled</code></li>
 <li><strong>memory_search scope (v0.3.80)</strong> — search daily logs (<code>memory</code>), brain files (<code>brain</code>), or both (<code>all</code>); brain files are indexed on write</li>
 <li><strong>Chunked memory retrieval (v0.3.80)</strong> — documents chunked before embedding so later chunks are searchable; recall ranked with BM25</li>
 <li><strong>Slack-native rendering (v0.3.80)</strong> — tables and headings arrive in Slack’s own shape instead of raw markdown</li>
@@ -2013,6 +2020,8 @@ cargo build --release
 <h2 id="manual-configuration-advanced"><a class="header" href="#manual-configuration-advanced">Manual Configuration (advanced)</a></h2>
 <p>If you prefer editing files directly, configure providers in <code>config.toml</code> and <code>keys.toml</code>.</p>
 <hr>
+<h3 id="key-handling-v0381"><a class="header" href="#key-handling-v0381">Key Handling (v0.3.81)</a></h3>
+<p><code>keys.toml</code> no longer drops provider API keys at runtime (#1066): four providers could silently lose their keys during config reloads. The stored-key marker has <strong>one owner</strong>, and keys already poisoned by the old marker are <strong>self-healed</strong> on load. If a provider worked yesterday and 401s today, re-check <code>keys.toml</code> — the fix also repairs the file in place.</p>
 <h2 id="anthropic-claude"><a class="header" href="#anthropic-claude">Anthropic Claude</a></h2>
 <p><strong>Models:</strong> <code>claude-opus-4-6</code>, <code>claude-sonnet-4-5</code>, <code>claude-haiku-4-5</code>, and legacy models — fetched live from the API.</p>
 <pre><code class="language-toml"># keys.toml
@@ -2073,6 +2082,14 @@ enabled = true
 default_model = "glm-4-plus"
 </code></pre>
 <p>Get your API key at <a href="https://open.bigmodel.cn">open.bigmodel.cn</a>.</p>
+<h2 id="qwen-dashscope"><a class="header" href="#qwen-dashscope">Qwen (DashScope)</a></h2>
+<p>Qwen models via DashScope. As of v0.3.81:</p>
+<ul>
+<li><strong>Reasoning carries across turns</strong> (#1033): <code>preserve_thinking</code> is sent so multi-turn conversations keep their reasoning context</li>
+<li><strong>Thinking knobs are family-gated</strong> (#1034): each model family gets only the knob it actually reads (<code>enable_thinking</code>, effort tiers), instead of a shared guess</li>
+<li><strong>Tiered families default to the recommended effort tier</strong> (#1034)</li>
+<li><strong>Hosted Qwen reachable everywhere</strong> (#1040): works outside Alibaba networks and with vendor-prefixed model ids</li>
+</ul>
 <h2 id="claude-cli"><a class="header" href="#claude-cli">Claude CLI</a></h2>
 <p>Use your existing Claude Code subscription through the local <code>claude</code> binary — no separate API key needed. Supports streaming and extended thinking.</p>
 <pre><code class="language-toml"># config.toml
@@ -2626,6 +2643,21 @@ respond_to = "all"
 <li><strong>Owner vs non-owner</strong> — Owner uses the shared TUI session, non-owners get per-user sessions</li>
 <li><strong>Onboarding overhaul</strong> (v0.3.30) — Auto-detects owner user ID from <code>getUpdates</code>, persists partial config on cancel, only Enter on the last step commits (Tab no longer silently rewrites ~30 config keys)</li>
 <li><strong>Teloxide upgrade + join detection</strong> (v0.3.35) — Upgraded from teloxide 0.13 to 0.17. New members joining a group are now detected before the allowlist check, so the bot can greet or moderate join events. Marathon-bucket rolling status rotates through project-author quip pool for more varied status messages.</li>
+</ul>
+<h2 id="v0381-improvements"><a class="header" href="#v0381-improvements">v0.3.81 Improvements</a></h2>
+<h3 id="mermaid-diagrams-as-images-1044"><a class="header" href="#mermaid-diagrams-as-images-1044">Mermaid Diagrams as Images (#1044)</a></h3>
+<p>Mermaid code fences in rich messages render as <strong>images</strong> via the markdown+media route, while <strong>tables stay native</strong> Telegram formatting instead of being rasterized into the image.</p>
+<h3 id="delivery-and-rate-limit-hardening"><a class="header" href="#delivery-and-rate-limit-hardening">Delivery and Rate-Limit Hardening</a></h3>
+<ul>
+<li><strong>Rich blocks decode as a typed AST</strong> (#1058) instead of ad-hoc string surgery, so structured messages can’t arrive mangled</li>
+<li><strong>Inline rate-limit waits capped at 30s</strong> (#1064): a Telegram 429 never parks a turn indefinitely</li>
+<li><strong>Flow footer + section cap</strong> (#1052, #1053, #1054, #1056): flow logs get a footer and bounded sections instead of unbounded message growth</li>
+</ul>
+<h3 id="group-safety"><a class="header" href="#group-safety">Group Safety</a></h3>
+<ul>
+<li><strong>Only the owner may add the bot to a group</strong> (#1042)</li>
+<li><strong>Bot-add detection</strong> (#1041): being added by a member is told apart from another bot arriving</li>
+<li><strong>Unauthorised chats are never recorded</strong> (#1043): chats that were never approved leave no session residue</li>
 </ul>
 <h2 id="configuration-1"><a class="header" href="#configuration-1">Configuration</a></h2>
 <p>All Telegram options live under <code>[channels.telegram]</code> in <code>~/.opencrabs/config.toml</code>:</p>
@@ -3514,6 +3546,21 @@ value = "System is operational. All channels connected."
 <li><strong>The chunker is multi-byte safe</strong>: no more panics on UTF-8 boundaries.</li>
 <li><strong>MEMORY.md recall is ranked with BM25</strong> instead of shared-word counts (#996), and recall folds Latin diacritics so accented queries match.</li>
 </ul>
+<h3 id="in-tree-memory-store-v0381"><a class="header" href="#in-tree-memory-store-v0381">In-tree Memory Store (v0.3.81)</a></h3>
+<p>The qmd binary dependency is gone (#1032). OpenCrabs now owns its memory store in-tree (<code>src/memory/</code>): SQLite FTS5 for lexical search plus vector embeddings in one store, resolved per profile. One fewer external binary to install or break, and the store schema ships with the binary.</p>
+<h3 id="external-index-paths-v0381"><a class="header" href="#external-index-paths-v0381">External Index Paths (v0.3.81)</a></h3>
+<p>Memory search can read indexes that live outside the profile directory (#1051, #1055):</p>
+<pre><code class="language-toml">[memory]
+# A bare string or { path, pattern } per entry
+external_paths = ["~/srv/rs/opencrabs", { path = "/var/log/app", pattern = "*.md" }]
+</code></pre>
+<ul>
+<li><strong>Glob excludes</strong> apply to external indexing, global across all entries.</li>
+<li><strong>Shared sessions are default-deny</strong>: <code>external_allowed_in_shared = false</code> keeps external content out of group/shared sessions, so external indexes inherit memory_search’s exposure rules.</li>
+<li>A <strong>freshness sweep</strong> runs on a configurable interval to pick up changed files.</li>
+</ul>
+<h3 id="embedding-hardening-v0381"><a class="header" href="#embedding-hardening-v0381">Embedding Hardening (v0.3.81)</a></h3>
+<p>Embedding API calls now carry <strong>timeouts</strong>, a <strong>vector gate</strong> (malformed or empty vectors never reach the store), and <strong>non-blocking writes</strong> (embedding failures never stall the turn) (#1062). <code>/doctor</code> reports <strong>embedding health</strong>, and a sweep finds <strong>unembedded documents</strong> and backfills them (#1069, #1067).</p>
 <h3 id="embedding-modes"><a class="header" href="#embedding-modes">Embedding Modes</a></h3>
 <p>OpenCrabs supports three embedding configurations:</p>
 <ol>
@@ -3731,6 +3778,8 @@ value = "System is operational. All channels connected."
 </ul>
 <h2 id="channel-sessions"><a class="header" href="#channel-sessions">Channel Sessions</a></h2>
 <p>All channels (Telegram, Discord, Slack, WhatsApp, Trello) persist sessions in SQLite by channel/group title. Sessions survive process restarts — no more lost context after daemon restart. Each channel group gets its own isolated session, while owner DMs share the TUI session. Cross-channel stable session suffixes (<code>[chat:&lt;id&gt;]</code>) ensure reliable session resolution across Discord, Slack, and WhatsApp (v0.3.29).</p>
+<h2 id="session-routed-recovery-reports-v0381"><a class="header" href="#session-routed-recovery-reports-v0381">Session-Routed Recovery Reports (v0.3.81)</a></h2>
+<p>Crash-recovery reports <strong>route by session</strong> (#1037): a resumed turn reports back to the session that owned it, not to whichever session happened to boot the recovery. Multi-session setups no longer cross-deliver recovery noise.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="split-panes-1"><a class="header" href="#split-panes-1">Split Panes</a></h1>
 <p>OpenCrabs supports tmux-style pane splitting in the TUI. Run multiple sessions side by side, each with its own provider, model, and context — all processing in parallel.</p>
@@ -4324,6 +4373,8 @@ resume_agent(agent_id: "impl-id", prompt: "Add tests for the edge cases we discu
 <li><code>TeamManager</code>, <code>TeamDelete</code>, <code>TeamBroadcast</code></li>
 <li>Registry exclusion (ALWAYS_EXCLUDED enforcement)</li>
 </ul>
+<h2 id="sub-agent-result-reporting-v0381"><a class="header" href="#sub-agent-result-reporting-v0381">Sub-Agent Result Reporting (v0.3.81)</a></h2>
+<p>A finished agent <strong>reports its result back to the spawning session</strong> (#1036): the parent sees the outcome in-turn instead of polling or reading status files. Orphaned sub-agent status files from crashed runs are <strong>reconciled at startup</strong> (#1038), so the registry never shows ghosts of agents that no longer exist.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="agent-to-agent-a2a-protocol"><a class="header" href="#agent-to-agent-a2a-protocol">Agent-to-Agent (A2A) Protocol</a></h1>
 <p>OpenCrabs includes a built-in A2A gateway implementing the <a href="https://google.github.io/A2A/">A2A Protocol RC v1.0</a> for peer-to-peer agent communication.</p>
@@ -4872,6 +4923,15 @@ providers = ["openrouter", "anthropic"]  # tried in order
 <li>Telegram, Discord, Slack, WhatsApp (if connected)</li>
 </ul>
 <p>Nothing happens silently. If the crab fixes itself, it tells you what it fixed.</p>
+<h2 id="early-loop-detection-v0381"><a class="header" href="#early-loop-detection-v0381">Early Loop Detection (v0.3.81)</a></h2>
+<p>The loop detector now notices a <strong>repeating tool round before the provider rejects the turn</strong>. Instead of burning the context window on identical rounds and surfacing a provider error, the detector catches the pattern early and routes it through the existing loop-kill path (which reaches the fallback chain since v0.3.80).</p>
+<h2 id="fact-based-detectors-fire-the-heal-v0381"><a class="header" href="#fact-based-detectors-fire-the-heal-v0381">Fact-Based Detectors Fire the Heal (v0.3.81)</a></h2>
+<p>Phantom-detection refinements (#1073, #1074):</p>
+<ul>
+<li><strong>Fact-based detectors self-heal</strong>: detectors that verify against ground truth (files, command output) now fire the self-heal path directly, not just gate the claim</li>
+<li><strong>Wider command allowlist</strong>: inspection-style claims are checkable, so “I ran X” verification covers more real phrasings</li>
+<li><strong>Dotted commands survive the sentence split</strong>: <code>some.command --flag</code> is no longer torn in half when the claim is parsed</li>
+</ul>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="self-improvement-rsi"><a class="header" href="#self-improvement-rsi">Self-Improvement (RSI)</a></h1>
 <p>OpenCrabs improves itself over time through <strong>Recursive Self-Improvement (RSI)</strong>. The agent analyzes its own performance, identifies patterns, and autonomously updates its own brain files.</p>
@@ -5149,6 +5209,11 @@ Agent notices pattern of 5+ corrections on output hygiene:
 <li><strong>Session history sealed each cycle</strong> with a compaction marker, so every cycle starts from a clean read</li>
 <li><strong>Cycle provider resolved from user config</strong>, not registry order</li>
 </ul>
+<h2 id="rsi-engine-gate-v0381"><a class="header" href="#rsi-engine-gate-v0381">RSI Engine Gate (v0.3.81)</a></h2>
+<p>The autonomous RSI engine is gated behind <code>rsi_enabled</code> (#1063). In the TUI nothing changes, but <strong>headless daemons default RSI off</strong> — an unattended service no longer rewrites its own brain files by default. Opt in explicitly:</p>
+<pre><code class="language-toml">[agent]
+rsi_enabled = true
+</code></pre>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="mission-control"><a class="header" href="#mission-control">Mission Control</a></h1>
 <p>Mission Control is a full-screen TUI dashboard that brings RSI activity, inbox proposals, and scheduled jobs into one place. Open it with <code>/mission-control</code>.</p>
@@ -5554,6 +5619,8 @@ api_key = "your-api-key"
 <pre><code class="language-bash">cargo build --release --no-default-features --features telegram,whatsapp,discord,slack,trello
 </code></pre>
 <p>Feature flags: <code>local-stt</code> (whisper.cpp), <code>local-tts</code> (Piper).</p>
+<h2 id="voice-dialog-key-handling-v0381"><a class="header" href="#voice-dialog-key-handling-v0381">Voice Dialog Key Handling (v0.3.81)</a></h2>
+<p>The voice settings dialog no longer <strong>hides stored API keys</strong> behind placeholder text or <strong>overwrites them</strong> when you save unrelated changes (#1039). What is in <code>keys.toml</code> stays there unless you explicitly replace it.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="skills-system"><a class="header" href="#skills-system">Skills System</a></h1>
 <p>Skills are reusable workflow templates that extend OpenCrabs with specialized capabilities. They work across Claude Code, Anthropic managed agents, and OpenClaw using a shared <code>SKILL.md</code> format.</p>

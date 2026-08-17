@@ -65,7 +65,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-934b9bc8.js";
+            window.path_to_searchindex_js = "../searchindex-dd64c7a7.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-37e8252d.js"></script>
@@ -377,6 +377,8 @@ api_key = "your-api-key"
 <pre><code class="language-bash">cargo build --release --no-default-features --features telegram,whatsapp,discord,slack,trello
 </code></pre>
 <p>Feature flags: <code>local-stt</code> (whisper.cpp), <code>local-tts</code> (Piper).</p>
+<h2 id="voice-dialog-key-handling-v0381"><a class="header" href="#voice-dialog-key-handling-v0381">Voice Dialog Key Handling (v0.3.81)</a></h2>
+<p>The voice settings dialog no longer <strong>hides stored API keys</strong> behind placeholder text or <strong>overwrites them</strong> when you save unrelated changes (#1039). What is in <code>keys.toml</code> stays there unless you explicitly replace it.</p>
 
                     </main>
 

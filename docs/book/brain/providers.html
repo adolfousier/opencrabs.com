@@ -65,7 +65,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-934b9bc8.js";
+            window.path_to_searchindex_js = "../searchindex-dd64c7a7.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-37e8252d.js"></script>
@@ -310,6 +310,8 @@
 <h2 id="manual-configuration-advanced"><a class="header" href="#manual-configuration-advanced">Manual Configuration (advanced)</a></h2>
 <p>If you prefer editing files directly, configure providers in <code>config.toml</code> and <code>keys.toml</code>.</p>
 <hr>
+<h3 id="key-handling-v0381"><a class="header" href="#key-handling-v0381">Key Handling (v0.3.81)</a></h3>
+<p><code>keys.toml</code> no longer drops provider API keys at runtime (#1066): four providers could silently lose their keys during config reloads. The stored-key marker has <strong>one owner</strong>, and keys already poisoned by the old marker are <strong>self-healed</strong> on load. If a provider worked yesterday and 401s today, re-check <code>keys.toml</code> — the fix also repairs the file in place.</p>
 <h2 id="anthropic-claude"><a class="header" href="#anthropic-claude">Anthropic Claude</a></h2>
 <p><strong>Models:</strong> <code>claude-opus-4-6</code>, <code>claude-sonnet-4-5</code>, <code>claude-haiku-4-5</code>, and legacy models — fetched live from the API.</p>
 <pre><code class="language-toml"># keys.toml
@@ -370,6 +372,14 @@ enabled = true
 default_model = "glm-4-plus"
 </code></pre>
 <p>Get your API key at <a href="https://open.bigmodel.cn">open.bigmodel.cn</a>.</p>
+<h2 id="qwen-dashscope"><a class="header" href="#qwen-dashscope">Qwen (DashScope)</a></h2>
+<p>Qwen models via DashScope. As of v0.3.81:</p>
+<ul>
+<li><strong>Reasoning carries across turns</strong> (#1033): <code>preserve_thinking</code> is sent so multi-turn conversations keep their reasoning context</li>
+<li><strong>Thinking knobs are family-gated</strong> (#1034): each model family gets only the knob it actually reads (<code>enable_thinking</code>, effort tiers), instead of a shared guess</li>
+<li><strong>Tiered families default to the recommended effort tier</strong> (#1034)</li>
+<li><strong>Hosted Qwen reachable everywhere</strong> (#1040): works outside Alibaba networks and with vendor-prefixed model ids</li>
+</ul>
 <h2 id="claude-cli"><a class="header" href="#claude-cli">Claude CLI</a></h2>
 <p>Use your existing Claude Code subscription through the local <code>claude</code> binary — no separate API key needed. Supports streaming and extended thinking.</p>
 <pre><code class="language-toml"># config.toml
