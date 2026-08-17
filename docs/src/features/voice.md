@@ -177,3 +177,7 @@ cargo build --release --no-default-features --features telegram,whatsapp,discord
 ```
 
 Feature flags: `local-stt` (whisper.cpp), `local-tts` (Piper).
+
+## Voice Dialog Key Handling (v0.3.81)
+
+The voice settings dialog no longer **hides stored API keys** behind placeholder text or **overwrites them** when you save unrelated changes (#1039). What is in `keys.toml` stays there unless you explicitly replace it.
