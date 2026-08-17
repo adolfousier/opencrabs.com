@@ -259,3 +259,7 @@ team_create("refactor-team", [
 - `AgentType` tool filtering
 - `TeamManager`, `TeamDelete`, `TeamBroadcast`
 - Registry exclusion (ALWAYS_EXCLUDED enforcement)
+
+## Sub-Agent Result Reporting (v0.3.81)
+
+A finished agent **reports its result back to the spawning session** (#1036): the parent sees the outcome in-turn instead of polling or reading status files. Orphaned sub-agent status files from crashed runs are **reconciled at startup** (#1038), so the registry never shows ghosts of agents that no longer exist.

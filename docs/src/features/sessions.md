@@ -164,3 +164,7 @@ v0.2.92 improved session state tracking:
 ## Channel Sessions
 
 All channels (Telegram, Discord, Slack, WhatsApp, Trello) persist sessions in SQLite by channel/group title. Sessions survive process restarts — no more lost context after daemon restart. Each channel group gets its own isolated session, while owner DMs share the TUI session. Cross-channel stable session suffixes (`[chat:<id>]`) ensure reliable session resolution across Discord, Slack, and WhatsApp (v0.3.29).
+
+## Session-Routed Recovery Reports (v0.3.81)
+
+Crash-recovery reports **route by session** (#1037): a resumed turn reports back to the session that owned it, not to whichever session happened to boot the recovery. Multi-session setups no longer cross-deliver recovery noise.
