@@ -89,6 +89,21 @@ When a user taps a follow-up suggestion button in a group chat, the agent now **
 - **Onboarding overhaul** (v0.3.30) — Auto-detects owner user ID from `getUpdates`, persists partial config on cancel, only Enter on the last step commits (Tab no longer silently rewrites ~30 config keys)
 - **Teloxide upgrade + join detection** (v0.3.35) — Upgraded from teloxide 0.13 to 0.17. New members joining a group are now detected before the allowlist check, so the bot can greet or moderate join events. Marathon-bucket rolling status rotates through project-author quip pool for more varied status messages.
 
+## v0.3.81 Improvements
+
+### Mermaid Diagrams as Images (#1044)
+Mermaid code fences in rich messages render as **images** via the markdown+media route, while **tables stay native** Telegram formatting instead of being rasterized into the image.
+
+### Delivery and Rate-Limit Hardening
+- **Rich blocks decode as a typed AST** (#1058) instead of ad-hoc string surgery, so structured messages can't arrive mangled
+- **Inline rate-limit waits capped at 30s** (#1064): a Telegram 429 never parks a turn indefinitely
+- **Flow footer + section cap** (#1052, #1053, #1054, #1056): flow logs get a footer and bounded sections instead of unbounded message growth
+
+### Group Safety
+- **Only the owner may add the bot to a group** (#1042)
+- **Bot-add detection** (#1041): being added by a member is told apart from another bot arriving
+- **Unauthorised chats are never recorded** (#1043): chats that were never approved leave no session residue
+
 ## Configuration
 
 All Telegram options live under `[channels.telegram]` in `~/.opencrabs/config.toml`:
