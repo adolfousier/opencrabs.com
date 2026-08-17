@@ -2,7 +2,7 @@
 
 **OpenCrabs** is a self-hosted, provider-agnostic AI orchestration agent that runs as a single Rust binary. It automates your terminal, browser, channels (Telegram/Discord/Slack/WhatsApp/Trello), and codebase, all while respecting your privacy and keeping you in control.
 
-**6,300+ tests** across providers, tools, channels, TUI, self-healing, and browser automation.
+**6,688 tests** across providers, tools, channels, TUI, self-healing, and browser automation.
 
 ## What Makes OpenCrabs Different
 
@@ -68,6 +68,13 @@
 - **`/restart` and `/exit` (v0.3.79)** — restart or shut down from any channel or the TUI; owner-only on channels, announce before acting
 - **Quota circuit breaker (v0.3.79)** — quota-exhausted providers get a TTL breaker and are skipped in fallback walks; chain exhaustion reported explicitly
 - **Plan state across sessions (v0.3.79)** — plans survive session boundaries; isolated plan-task execution defaults on, Ralph verifies in the session's own directory
+- **In-tree memory store (v0.3.81)** — the qmd dependency is dropped; SQLite FTS5 + vector search owned in-tree
+- **External index paths (v0.3.81)** — memory search reads indexes outside the profile directory, default-deny in shared sessions
+- **Mermaid as images on Telegram (v0.3.81)** — diagrams render as images while tables stay native formatting
+- **Qwen reasoning across turns (v0.3.81)** — preserve_thinking, family-gated thinking knobs, recommended effort tier by default, hosted Qwen reachable everywhere
+- **keys.toml key-loss fix (v0.3.81)** — provider API keys no longer dropped at runtime; poisoned keys self-heal
+- **Early loop detection (v0.3.81)** — repeating tool rounds caught before the provider rejects the turn
+- **RSI engine gate (v0.3.81)** — autonomous RSI off by default for headless daemons, opt in with `rsi_enabled`
 - **memory_search scope (v0.3.80)** — search daily logs (`memory`), brain files (`brain`), or both (`all`); brain files are indexed on write
 - **Chunked memory retrieval (v0.3.80)** — documents chunked before embedding so later chunks are searchable; recall ranked with BM25
 - **Slack-native rendering (v0.3.80)** — tables and headings arrive in Slack's own shape instead of raw markdown
