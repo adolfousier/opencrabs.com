@@ -477,3 +477,15 @@ All self-healing events are delivered to:
 - Telegram, Discord, Slack, WhatsApp (if connected)
 
 Nothing happens silently. If the crab fixes itself, it tells you what it fixed.
+
+## Early Loop Detection (v0.3.81)
+
+The loop detector now notices a **repeating tool round before the provider rejects the turn**. Instead of burning the context window on identical rounds and surfacing a provider error, the detector catches the pattern early and routes it through the existing loop-kill path (which reaches the fallback chain since v0.3.80).
+
+## Fact-Based Detectors Fire the Heal (v0.3.81)
+
+Phantom-detection refinements (#1073, #1074):
+
+- **Fact-based detectors self-heal**: detectors that verify against ground truth (files, command output) now fire the self-heal path directly, not just gate the claim
+- **Wider command allowlist**: inspection-style claims are checkable, so "I ran X" verification covers more real phrasings
+- **Dotted commands survive the sentence split**: `some.command --flag` is no longer torn in half when the claim is parsed
