@@ -4,6 +4,8 @@ OpenCrabs includes a built-in A2A gateway implementing the [A2A Protocol RC v1.0
 
 ## Enabling
 
+> **Legacy `[gateway]` name (v0.3.82):** this section was once spelled `[gateway]`. Both spellings now fold into one setting, and the legacy name is **rewritten to `[a2a]` on disk** so it survives a reload round trip instead of reappearing (#1116). Nothing to do by hand; an existing `[gateway]` block migrates itself on the next load.
+
 ```toml
 # config.toml
 [a2a]
