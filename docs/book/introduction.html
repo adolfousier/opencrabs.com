@@ -65,7 +65,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-61264667.js";
+            window.path_to_searchindex_js = "searchindex-9f6ceb81.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-37e8252d.js"></script>
@@ -283,7 +283,7 @@
 <li><strong>User-owned brain files protected (v0.3.82)</strong> — SOUL.md, USER.md and MEMORY.md are never merged into from upstream, and directives route to AGENTS.md, which is always loaded</li>
 <li><strong>Config section unification (v0.3.82)</strong> — the legacy <code>[gateway]</code> spelling is migrated on disk to <code>[a2a]</code>, so one name survives a reload round trip</li>
 <li><strong>Chunk-hash caching (v0.3.82)</strong> — memory skips re-embedding chunks whose content has not changed</li>
-<li><strong>Pre-release binaries (v0.3.82)</strong> — every push to main produces installable artifacts</li>
+<li><strong>Pre-release binaries (v0.3.82)</strong> — five platform targets plus SHA256SUMS, published as a rolling pre-release so contributors can test unreleased code without waiting for a tag. Run on demand, not on every push</li>
 <li><strong>Rate-limit bail (v0.3.82)</strong> — a long Telegram rate-limit window returns immediately instead of parking the send inline</li>
 <li><strong>In-tree memory store (v0.3.81)</strong> — the qmd dependency is dropped; SQLite FTS5 + vector search owned in-tree</li>
 <li><strong>External index paths (v0.3.81)</strong> — memory search reads indexes outside the profile directory, default-deny in shared sessions</li>
