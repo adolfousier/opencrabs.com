@@ -2,7 +2,7 @@
 
 **OpenCrabs** is a self-hosted, provider-agnostic AI orchestration agent that runs as a single Rust binary. It automates your terminal, browser, channels (Telegram/Discord/Slack/WhatsApp/Trello), and codebase, all while respecting your privacy and keeping you in control.
 
-**6,688 tests** across providers, tools, channels, TUI, self-healing, and browser automation.
+**6,781 tests** across providers, tools, channels, TUI, self-healing, and browser automation.
 
 ## What Makes OpenCrabs Different
 
@@ -68,6 +68,13 @@
 - **`/restart` and `/exit` (v0.3.79)** — restart or shut down from any channel or the TUI; owner-only on channels, announce before acting
 - **Quota circuit breaker (v0.3.79)** — quota-exhausted providers get a TTL breaker and are skipped in fallback walks; chain exhaustion reported explicitly
 - **Plan state across sessions (v0.3.79)** — plans survive session boundaries; isolated plan-task execution defaults on, Ralph verifies in the session's own directory
+- **session_id log correlation (v0.3.82)** — every turn opens a tracing span carrying its session id, and cron jobs and the RSI engine get their own, so one grep reconstructs a whole turn out of a shared daily log
+- **Logger reliability (v0.3.82)** — the logger stops dropping events and stops writing to the TUI's terminal; a stalled write can no longer silence every other thread's logging
+- **User-owned brain files protected (v0.3.82)** — SOUL.md, USER.md and MEMORY.md are never merged into from upstream, and directives route to AGENTS.md, which is always loaded
+- **Config section unification (v0.3.82)** — the legacy `[gateway]` spelling is migrated on disk to `[a2a]`, so one name survives a reload round trip
+- **Chunk-hash caching (v0.3.82)** — memory skips re-embedding chunks whose content has not changed
+- **Pre-release binaries (v0.3.82)** — every push to main produces installable artifacts
+- **Rate-limit bail (v0.3.82)** — a long Telegram rate-limit window returns immediately instead of parking the send inline
 - **In-tree memory store (v0.3.81)** — the qmd dependency is dropped; SQLite FTS5 + vector search owned in-tree
 - **External index paths (v0.3.81)** — memory search reads indexes outside the profile directory, default-deny in shared sessions
 - **Mermaid as images on Telegram (v0.3.81)** — diagrams render as images while tables stay native formatting
