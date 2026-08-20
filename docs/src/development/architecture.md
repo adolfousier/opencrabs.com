@@ -112,3 +112,26 @@ Migrations run automatically on startup from `src/migrations/`.
 - Sessions are isolated — each has its own conversation state
 - Tool execution uses `tokio::task::block_in_place` for sync operations
 - A2A gateway runs as a separate axum server task
+
+## Logging and Forensics (v0.3.82)
+
+One daily rolling log file per profile, written synchronously on the calling thread.
+
+### Session correlation (#1078)
+
+Every agent turn opens a `tracing` span carrying its `session_id`, so each log line emitted inside that turn is stamped with it. Cron jobs open a `job` span (name + id) and the RSI engine opens its own. Spawned tasks inherit the span, so work that moves onto another task still reports the turn it belongs to.
+
+This makes a single turn greppable out of a file where every session, cron job and RSI cycle is interleaved:
+
+```bash
+grep '<session-id>' ~/.opencrabs/logs/opencrabs.YYYY-MM-DD
+```
+
+Before this, filtering was guesswork: thread ids get reused and outlive a turn, and timestamps only narrow the window.
+
+### Writer reliability (#1115, #1077)
+
+The file writer is deliberately synchronous rather than using a background worker, because the worker swallows IO errors and drops events under load. Two failure modes were fixed in v0.3.82:
+
+- **Events were dropped, and log output could reach the TUI's terminal** (#1115), corrupting the display.
+- **A stalled write silenced everything** (#1077). The writer held a mutex for the duration of a write, so if one write blocked (a hung filesystem, disk pressure), every other thread trying to log blocked behind it. One parked write could take the whole process's logging down while the agent kept running. The writer now uses `try_lock`: under contention the event is dropped rather than blocking the caller, so one stalled write can never silence another thread.
