@@ -104,6 +104,19 @@ Mermaid code fences in rich messages render as **images** via the markdown+media
 - **Bot-add detection** (#1041): being added by a member is told apart from another bot arriving
 - **Unauthorised chats are never recorded** (#1043): chats that were never approved leave no session residue
 
+## v0.3.82 Improvements
+
+### Long Rate-Limit Windows Bail Immediately (#1110)
+A Telegram 429 that asks for a long wait no longer sleeps inline. The send returns immediately and the work is rescheduled, instead of the turn parking on a multi-minute (or multi-hour) window. This closes the failure mode where one throttled send held a turn open long enough to look like a hang.
+
+### Delivery Correctness
+- **Rich sends stop building a double-slash URL** (#1117): a trailing slash on the API base no longer produces `//bot<token>`
+- **Rich API calls honour `set_api_url`** (#1088): the rich path used a hardcoded `api.telegram.org`, so it bypassed a redirected Bot. It now routes through the caller's API URL like every other method, which also makes the path testable without a real network call
+- **All six send arms route through thread resolution**: forum-topic targeting is applied consistently instead of on some arms only
+
+### Observability
+- **Send-correlation telemetry** (#1085): the three send chokepoints, every `telegram_send` arm, and the final streaming edit-in-place are all logged, so a message that never arrived can be traced to the arm that dropped it
+
 ## Configuration
 
 All Telegram options live under `[channels.telegram]` in `~/.opencrabs/config.toml`:
