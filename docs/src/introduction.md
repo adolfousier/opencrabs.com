@@ -73,7 +73,7 @@
 - **User-owned brain files protected (v0.3.82)** — SOUL.md, USER.md and MEMORY.md are never merged into from upstream, and directives route to AGENTS.md, which is always loaded
 - **Config section unification (v0.3.82)** — the legacy `[gateway]` spelling is migrated on disk to `[a2a]`, so one name survives a reload round trip
 - **Chunk-hash caching (v0.3.82)** — memory skips re-embedding chunks whose content has not changed
-- **Pre-release binaries (v0.3.82)** — every push to main produces installable artifacts
+- **Pre-release binaries (v0.3.82)** — five platform targets plus SHA256SUMS, published as a rolling pre-release so contributors can test unreleased code without waiting for a tag. Run on demand, not on every push
 - **Rate-limit bail (v0.3.82)** — a long Telegram rate-limit window returns immediately instead of parking the send inline
 - **In-tree memory store (v0.3.81)** — the qmd dependency is dropped; SQLite FTS5 + vector search owned in-tree
 - **External index paths (v0.3.81)** — memory search reads indexes outside the profile directory, default-deny in shared sessions
