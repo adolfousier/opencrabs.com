@@ -33,6 +33,10 @@ Full-text search across all past sessions stored in SQLite. The agent can query:
 
 The agent uses `session_search` for fast memory lookups (~500 tokens) instead of reading full memory files (~15K tokens). This is the primary recall mechanism.
 
+### Chunk-Hash Caching (v0.3.82)
+
+Embedding is skipped for chunks whose content has not changed (#1107). Each chunk carries a hash; on write, only chunks whose hash differs from the stored one are re-embedded. Editing one line of a large brain file no longer re-embeds the whole document.
+
 ### Scoped Search (v0.3.80)
 
 `memory_search` takes a `scope` that picks which corpus to search (#1020):

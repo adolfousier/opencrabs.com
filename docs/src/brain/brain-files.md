@@ -58,3 +58,11 @@ These files are **yours**. The agent reads them but you control the content. Tem
 > **New installs (v0.2.72+):** CODE.md and SECURITY.md are automatically seeded on first run. Existing users can ask their crab: *"Check my brain templates and update them if any are missing or outdated."*
 >
 > **Upgrading:** Brain files are never overwritten by `/evolve` or `/rebuild`. After updating, ask your crab to compare templates against local files and patch in new sections.
+
+### User-owned files are never synced (v0.3.82)
+
+`SOUL.md`, `USER.md` and `MEMORY.md` are **excluded from upstream template sync** (#1119). They hold your agent's personality, your identity, and what it has learned about you, so upstream has no authority over them. Before this, every startup appended upstream sections into them, which grew one user's SOUL.md from under 2 KB to nearly 5 KB, re-appending after each manual prune.
+
+Seeding is unaffected: all three are still created on first run. Only the merge is forbidden. The remaining brain files (AGENTS, TOOLS, CODE, SECURITY, BOOT, HEARTBEAT) continue to sync normally.
+
+Related (#1121): rules belong in `AGENTS.md`, not `MEMORY.md`. MEMORY.md is on-demand, reached only through `memory_search`, so a rule written there does not bind on a cold session and does not survive compaction. Facts go in MEMORY.md; anything that must always hold goes in AGENTS.md, which is always loaded.
