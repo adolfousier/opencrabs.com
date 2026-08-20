@@ -65,7 +65,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-dd64c7a7.js";
+            window.path_to_searchindex_js = "../searchindex-61264667.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-37e8252d.js"></script>
@@ -250,6 +250,10 @@
 <p><strong>New installs (v0.2.72+):</strong> CODE.md and SECURITY.md are automatically seeded on first run. Existing users can ask their crab: <em>“Check my brain templates and update them if any are missing or outdated.”</em></p>
 <p><strong>Upgrading:</strong> Brain files are never overwritten by <code>/evolve</code> or <code>/rebuild</code>. After updating, ask your crab to compare templates against local files and patch in new sections.</p>
 </blockquote>
+<h3 id="user-owned-files-are-never-synced-v0382"><a class="header" href="#user-owned-files-are-never-synced-v0382">User-owned files are never synced (v0.3.82)</a></h3>
+<p><code>SOUL.md</code>, <code>USER.md</code> and <code>MEMORY.md</code> are <strong>excluded from upstream template sync</strong> (#1119). They hold your agent’s personality, your identity, and what it has learned about you, so upstream has no authority over them. Before this, every startup appended upstream sections into them, which grew one user’s SOUL.md from under 2 KB to nearly 5 KB, re-appending after each manual prune.</p>
+<p>Seeding is unaffected: all three are still created on first run. Only the merge is forbidden. The remaining brain files (AGENTS, TOOLS, CODE, SECURITY, BOOT, HEARTBEAT) continue to sync normally.</p>
+<p>Related (#1121): rules belong in <code>AGENTS.md</code>, not <code>MEMORY.md</code>. MEMORY.md is on-demand, reached only through <code>memory_search</code>, so a rule written there does not bind on a cold session and does not survive compaction. Facts go in MEMORY.md; anything that must always hold goes in AGENTS.md, which is always loaded.</p>
 
                     </main>
 

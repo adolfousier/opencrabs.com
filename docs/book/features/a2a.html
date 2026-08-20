@@ -65,7 +65,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-dd64c7a7.js";
+            window.path_to_searchindex_js = "../searchindex-61264667.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-37e8252d.js"></script>
@@ -210,6 +210,9 @@
                         <h1 id="agent-to-agent-a2a-protocol"><a class="header" href="#agent-to-agent-a2a-protocol">Agent-to-Agent (A2A) Protocol</a></h1>
 <p>OpenCrabs includes a built-in A2A gateway implementing the <a href="https://google.github.io/A2A/">A2A Protocol RC v1.0</a> for peer-to-peer agent communication.</p>
 <h2 id="enabling"><a class="header" href="#enabling">Enabling</a></h2>
+<blockquote>
+<p><strong>Legacy <code>[gateway]</code> name (v0.3.82):</strong> this section was once spelled <code>[gateway]</code>. Both spellings now fold into one setting, and the legacy name is <strong>rewritten to <code>[a2a]</code> on disk</strong> so it survives a reload round trip instead of reappearing (#1116). Nothing to do by hand; an existing <code>[gateway]</code> block migrates itself on the next load.</p>
+</blockquote>
 <pre><code class="language-toml"># config.toml
 [a2a]
 enabled = true

@@ -66,7 +66,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-dd64c7a7.js";
+            window.path_to_searchindex_js = "searchindex-61264667.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-37e8252d.js"></script>
@@ -210,7 +210,7 @@
                     <main>
                         <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
 <p><strong>OpenCrabs</strong> is a self-hosted, provider-agnostic AI orchestration agent that runs as a single Rust binary. It automates your terminal, browser, channels (Telegram/Discord/Slack/WhatsApp/Trello), and codebase, all while respecting your privacy and keeping you in control.</p>
-<p><strong>6,688 tests</strong> across providers, tools, channels, TUI, self-healing, and browser automation.</p>
+<p><strong>6,781 tests</strong> across providers, tools, channels, TUI, self-healing, and browser automation.</p>
 <h2 id="what-makes-opencrabs-different"><a class="header" href="#what-makes-opencrabs-different">What Makes OpenCrabs Different</a></h2>
 <h3 id="zero-telemetry-not-even-opt-in"><a class="header" href="#zero-telemetry-not-even-opt-in">Zero Telemetry, Not Even Opt-In</a></h3>
 <ul>
@@ -279,6 +279,13 @@
 <li><strong><code>/restart</code> and <code>/exit</code> (v0.3.79)</strong> — restart or shut down from any channel or the TUI; owner-only on channels, announce before acting</li>
 <li><strong>Quota circuit breaker (v0.3.79)</strong> — quota-exhausted providers get a TTL breaker and are skipped in fallback walks; chain exhaustion reported explicitly</li>
 <li><strong>Plan state across sessions (v0.3.79)</strong> — plans survive session boundaries; isolated plan-task execution defaults on, Ralph verifies in the session’s own directory</li>
+<li><strong>session_id log correlation (v0.3.82)</strong> — every turn opens a tracing span carrying its session id, and cron jobs and the RSI engine get their own, so one grep reconstructs a whole turn out of a shared daily log</li>
+<li><strong>Logger reliability (v0.3.82)</strong> — the logger stops dropping events and stops writing to the TUI’s terminal; a stalled write can no longer silence every other thread’s logging</li>
+<li><strong>User-owned brain files protected (v0.3.82)</strong> — SOUL.md, USER.md and MEMORY.md are never merged into from upstream, and directives route to AGENTS.md, which is always loaded</li>
+<li><strong>Config section unification (v0.3.82)</strong> — the legacy <code>[gateway]</code> spelling is migrated on disk to <code>[a2a]</code>, so one name survives a reload round trip</li>
+<li><strong>Chunk-hash caching (v0.3.82)</strong> — memory skips re-embedding chunks whose content has not changed</li>
+<li><strong>Pre-release binaries (v0.3.82)</strong> — every push to main produces installable artifacts</li>
+<li><strong>Rate-limit bail (v0.3.82)</strong> — a long Telegram rate-limit window returns immediately instead of parking the send inline</li>
 <li><strong>In-tree memory store (v0.3.81)</strong> — the qmd dependency is dropped; SQLite FTS5 + vector search owned in-tree</li>
 <li><strong>External index paths (v0.3.81)</strong> — memory search reads indexes outside the profile directory, default-deny in shared sessions</li>
 <li><strong>Mermaid as images on Telegram (v0.3.81)</strong> — diagrams render as images while tables stay native formatting</li>
@@ -2659,6 +2666,19 @@ respond_to = "all"
 <li><strong>Bot-add detection</strong> (#1041): being added by a member is told apart from another bot arriving</li>
 <li><strong>Unauthorised chats are never recorded</strong> (#1043): chats that were never approved leave no session residue</li>
 </ul>
+<h2 id="v0382-improvements"><a class="header" href="#v0382-improvements">v0.3.82 Improvements</a></h2>
+<h3 id="long-rate-limit-windows-bail-immediately-1110"><a class="header" href="#long-rate-limit-windows-bail-immediately-1110">Long Rate-Limit Windows Bail Immediately (#1110)</a></h3>
+<p>A Telegram 429 that asks for a long wait no longer sleeps inline. The send returns immediately and the work is rescheduled, instead of the turn parking on a multi-minute (or multi-hour) window. This closes the failure mode where one throttled send held a turn open long enough to look like a hang.</p>
+<h3 id="delivery-correctness"><a class="header" href="#delivery-correctness">Delivery Correctness</a></h3>
+<ul>
+<li><strong>Rich sends stop building a double-slash URL</strong> (#1117): a trailing slash on the API base no longer produces <code>//bot&lt;token&gt;</code></li>
+<li><strong>Rich API calls honour <code>set_api_url</code></strong> (#1088): the rich path used a hardcoded <code>api.telegram.org</code>, so it bypassed a redirected Bot. It now routes through the caller’s API URL like every other method, which also makes the path testable without a real network call</li>
+<li><strong>All six send arms route through thread resolution</strong>: forum-topic targeting is applied consistently instead of on some arms only</li>
+</ul>
+<h3 id="observability"><a class="header" href="#observability">Observability</a></h3>
+<ul>
+<li><strong>Send-correlation telemetry</strong> (#1085): the three send chokepoints, every <code>telegram_send</code> arm, and the final streaming edit-in-place are all logged, so a message that never arrived can be traced to the arm that dropped it</li>
+</ul>
 <h2 id="configuration-1"><a class="header" href="#configuration-1">Configuration</a></h2>
 <p>All Telegram options live under <code>[channels.telegram]</code> in <code>~/.opencrabs/config.toml</code>:</p>
 <pre><code class="language-toml">[channels.telegram]
@@ -3521,6 +3541,8 @@ value = "System is operational. All channels connected."
 </ul>
 <h2 id="memory-search"><a class="header" href="#memory-search">Memory Search</a></h2>
 <p>The agent uses <code>session_search</code> for fast memory lookups (~500 tokens) instead of reading full memory files (~15K tokens). This is the primary recall mechanism.</p>
+<h3 id="chunk-hash-caching-v0382"><a class="header" href="#chunk-hash-caching-v0382">Chunk-Hash Caching (v0.3.82)</a></h3>
+<p>Embedding is skipped for chunks whose content has not changed (#1107). Each chunk carries a hash; on write, only chunks whose hash differs from the stored one are re-embedded. Editing one line of a large brain file no longer re-embeds the whole document.</p>
 <h3 id="scoped-search-v0380"><a class="header" href="#scoped-search-v0380">Scoped Search (v0.3.80)</a></h3>
 <p><code>memory_search</code> takes a <code>scope</code> that picks which corpus to search (#1020):</p>
 <div class="table-wrapper">
@@ -3636,6 +3658,10 @@ external_paths = ["~/srv/rs/opencrabs", { path = "/var/log/app", pattern = "*.md
 <p><strong>New installs (v0.2.72+):</strong> CODE.md and SECURITY.md are automatically seeded on first run. Existing users can ask their crab: <em>“Check my brain templates and update them if any are missing or outdated.”</em></p>
 <p><strong>Upgrading:</strong> Brain files are never overwritten by <code>/evolve</code> or <code>/rebuild</code>. After updating, ask your crab to compare templates against local files and patch in new sections.</p>
 </blockquote>
+<h3 id="user-owned-files-are-never-synced-v0382"><a class="header" href="#user-owned-files-are-never-synced-v0382">User-owned files are never synced (v0.3.82)</a></h3>
+<p><code>SOUL.md</code>, <code>USER.md</code> and <code>MEMORY.md</code> are <strong>excluded from upstream template sync</strong> (#1119). They hold your agent’s personality, your identity, and what it has learned about you, so upstream has no authority over them. Before this, every startup appended upstream sections into them, which grew one user’s SOUL.md from under 2 KB to nearly 5 KB, re-appending after each manual prune.</p>
+<p>Seeding is unaffected: all three are still created on first run. Only the merge is forbidden. The remaining brain files (AGENTS, TOOLS, CODE, SECURITY, BOOT, HEARTBEAT) continue to sync normally.</p>
+<p>Related (#1121): rules belong in <code>AGENTS.md</code>, not <code>MEMORY.md</code>. MEMORY.md is on-demand, reached only through <code>memory_search</code>, so a rule written there does not bind on a cold session and does not survive compaction. Facts go in MEMORY.md; anything that must always hold goes in AGENTS.md, which is always loaded.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="sessions"><a class="header" href="#sessions">Sessions</a></h1>
 <h2 id="sessions-as-isolated-agents"><a class="header" href="#sessions-as-isolated-agents">Sessions as Isolated Agents</a></h2>
@@ -4379,6 +4405,9 @@ resume_agent(agent_id: "impl-id", prompt: "Add tests for the edge cases we discu
 <h1 id="agent-to-agent-a2a-protocol"><a class="header" href="#agent-to-agent-a2a-protocol">Agent-to-Agent (A2A) Protocol</a></h1>
 <p>OpenCrabs includes a built-in A2A gateway implementing the <a href="https://google.github.io/A2A/">A2A Protocol RC v1.0</a> for peer-to-peer agent communication.</p>
 <h2 id="enabling"><a class="header" href="#enabling">Enabling</a></h2>
+<blockquote>
+<p><strong>Legacy <code>[gateway]</code> name (v0.3.82):</strong> this section was once spelled <code>[gateway]</code>. Both spellings now fold into one setting, and the legacy name is <strong>rewritten to <code>[a2a]</code> on disk</strong> so it survives a reload round trip instead of reappearing (#1116). Nothing to do by hand; an existing <code>[gateway]</code> block migrates itself on the next load.</p>
+</blockquote>
 <pre><code class="language-toml"># config.toml
 [a2a]
 enabled = true
@@ -7286,6 +7315,20 @@ panic = "abort"
 <li>Tool execution uses <code>tokio::task::block_in_place</code> for sync operations</li>
 <li>A2A gateway runs as a separate axum server task</li>
 </ul>
+<h2 id="logging-and-forensics-v0382"><a class="header" href="#logging-and-forensics-v0382">Logging and Forensics (v0.3.82)</a></h2>
+<p>One daily rolling log file per profile, written synchronously on the calling thread.</p>
+<h3 id="session-correlation-1078"><a class="header" href="#session-correlation-1078">Session correlation (#1078)</a></h3>
+<p>Every agent turn opens a <code>tracing</code> span carrying its <code>session_id</code>, so each log line emitted inside that turn is stamped with it. Cron jobs open a <code>job</code> span (name + id) and the RSI engine opens its own. Spawned tasks inherit the span, so work that moves onto another task still reports the turn it belongs to.</p>
+<p>This makes a single turn greppable out of a file where every session, cron job and RSI cycle is interleaved:</p>
+<pre><code class="language-bash">grep '&lt;session-id&gt;' ~/.opencrabs/logs/opencrabs.YYYY-MM-DD
+</code></pre>
+<p>Before this, filtering was guesswork: thread ids get reused and outlive a turn, and timestamps only narrow the window.</p>
+<h3 id="writer-reliability-1115-1077"><a class="header" href="#writer-reliability-1115-1077">Writer reliability (#1115, #1077)</a></h3>
+<p>The file writer is deliberately synchronous rather than using a background worker, because the worker swallows IO errors and drops events under load. Two failure modes were fixed in v0.3.82:</p>
+<ul>
+<li><strong>Events were dropped, and log output could reach the TUI’s terminal</strong> (#1115), corrupting the display.</li>
+<li><strong>A stalled write silenced everything</strong> (#1077). The writer held a mutex for the duration of a write, so if one write blocked (a hung filesystem, disk pressure), every other thread trying to log blocked behind it. One parked write could take the whole process’s logging down while the agent kept running. The writer now uses <code>try_lock</code>: under contention the event is dropped rather than blocking the caller, so one stalled write can never silence another thread.</li>
+</ul>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="testing-guide"><a class="header" href="#testing-guide">Testing Guide</a></h1>
 <p>Comprehensive test coverage for OpenCrabs. All tests run with:</p>
@@ -7674,7 +7717,7 @@ panic = "abort"
 <tr><td>Tests — Usage Cache</td><td style="text-align: right">15</td><td><code>src/tests/usage_cache_test.rs</code></td></tr>
 <tr><td>Tests — Config Auto-Repair</td><td style="text-align: right">7</td><td><code>src/tests/config_repair_test.rs</code> — closes unterminated arrays/inline tables in a broken <code>config.toml</code>, gated on the result re-parsing; leaves valid/nested/string cases and unfixable errors alone</td></tr>
 <tr><td>Tests — Config Last-Good Recovery</td><td style="text-align: right">3</td><td><code>src/tests/config_last_good_recovery_test.rs</code> — a broken config never poisons the last-good snapshot; fixable configs auto-repair in place; unfixable ones recover from last-good (preserves auto-always so yolo mode survives a typo)</td></tr>
-<tr><td><strong>Total</strong></td><td style="text-align: right"><strong>4,248</strong></td><td>Authoritative count from <code>cargo test --all-features</code> (lib test binary): 4,248 run by default + 24 <code>#[ignore]</code>d. The per-category rows above are a maintained snapshot. Re-run <code>cargo test</code> for the live number.</td></tr>
+<tr><td><strong>Total</strong></td><td style="text-align: right"><strong>6,781</strong></td><td>Authoritative count from <code>cargo test --all-features</code> (lib test binary): 6,781 run by default + 32 <code>#[ignore]</code>d. The per-category rows above are a maintained snapshot. Re-run <code>cargo test</code> for the live number.</td></tr>
 </tbody>
 </table>
 </div>

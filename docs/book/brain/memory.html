@@ -65,7 +65,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-dd64c7a7.js";
+            window.path_to_searchindex_js = "../searchindex-61264667.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-37e8252d.js"></script>
@@ -232,6 +232,8 @@
 </ul>
 <h2 id="memory-search"><a class="header" href="#memory-search">Memory Search</a></h2>
 <p>The agent uses <code>session_search</code> for fast memory lookups (~500 tokens) instead of reading full memory files (~15K tokens). This is the primary recall mechanism.</p>
+<h3 id="chunk-hash-caching-v0382"><a class="header" href="#chunk-hash-caching-v0382">Chunk-Hash Caching (v0.3.82)</a></h3>
+<p>Embedding is skipped for chunks whose content has not changed (#1107). Each chunk carries a hash; on write, only chunks whose hash differs from the stored one are re-embedded. Editing one line of a large brain file no longer re-embeds the whole document.</p>
 <h3 id="scoped-search-v0380"><a class="header" href="#scoped-search-v0380">Scoped Search (v0.3.80)</a></h3>
 <p><code>memory_search</code> takes a <code>scope</code> that picks which corpus to search (#1020):</p>
 <div class="table-wrapper">

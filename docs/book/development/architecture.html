@@ -65,7 +65,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-dd64c7a7.js";
+            window.path_to_searchindex_js = "../searchindex-61264667.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-37e8252d.js"></script>
@@ -317,6 +317,20 @@
 <li>Sessions are isolated — each has its own conversation state</li>
 <li>Tool execution uses <code>tokio::task::block_in_place</code> for sync operations</li>
 <li>A2A gateway runs as a separate axum server task</li>
+</ul>
+<h2 id="logging-and-forensics-v0382"><a class="header" href="#logging-and-forensics-v0382">Logging and Forensics (v0.3.82)</a></h2>
+<p>One daily rolling log file per profile, written synchronously on the calling thread.</p>
+<h3 id="session-correlation-1078"><a class="header" href="#session-correlation-1078">Session correlation (#1078)</a></h3>
+<p>Every agent turn opens a <code>tracing</code> span carrying its <code>session_id</code>, so each log line emitted inside that turn is stamped with it. Cron jobs open a <code>job</code> span (name + id) and the RSI engine opens its own. Spawned tasks inherit the span, so work that moves onto another task still reports the turn it belongs to.</p>
+<p>This makes a single turn greppable out of a file where every session, cron job and RSI cycle is interleaved:</p>
+<pre><code class="language-bash">grep '&lt;session-id&gt;' ~/.opencrabs/logs/opencrabs.YYYY-MM-DD
+</code></pre>
+<p>Before this, filtering was guesswork: thread ids get reused and outlive a turn, and timestamps only narrow the window.</p>
+<h3 id="writer-reliability-1115-1077"><a class="header" href="#writer-reliability-1115-1077">Writer reliability (#1115, #1077)</a></h3>
+<p>The file writer is deliberately synchronous rather than using a background worker, because the worker swallows IO errors and drops events under load. Two failure modes were fixed in v0.3.82:</p>
+<ul>
+<li><strong>Events were dropped, and log output could reach the TUI’s terminal</strong> (#1115), corrupting the display.</li>
+<li><strong>A stalled write silenced everything</strong> (#1077). The writer held a mutex for the duration of a write, so if one write blocked (a hung filesystem, disk pressure), every other thread trying to log blocked behind it. One parked write could take the whole process’s logging down while the agent kept running. The writer now uses <code>try_lock</code>: under contention the event is dropped rather than blocking the caller, so one stalled write can never silence another thread.</li>
 </ul>
 
                     </main>
