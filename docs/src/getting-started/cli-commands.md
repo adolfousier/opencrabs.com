@@ -23,7 +23,7 @@ opencrabs [COMMAND] [OPTIONS]
 | `logs` | Log management (status, view, clean, open) |
 | `service` | System service management (install/start/stop/restart/status/uninstall) |
 | `status` | Show agent status |
-| `doctor` | Run connection health check |
+| `doctor` | Run connection health check; `--fix` repairs stuck cron rows, stale markers and permissions (v0.3.83) |
 | `onboard` | Run the setup wizard |
 | `completions` | Generate shell completions (bash/zsh/fish/powershell) |
 | `version` | Show version info |
