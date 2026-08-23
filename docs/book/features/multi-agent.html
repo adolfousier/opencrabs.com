@@ -65,7 +65,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-9f6ceb81.js";
+            window.path_to_searchindex_js = "../searchindex-f6d4ecb0.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-37e8252d.js"></script>
@@ -413,6 +413,8 @@ resume_agent(agent_id: "impl-id", prompt: "Add tests for the edge cases we discu
 </ul>
 <h2 id="sub-agent-result-reporting-v0381"><a class="header" href="#sub-agent-result-reporting-v0381">Sub-Agent Result Reporting (v0.3.81)</a></h2>
 <p>A finished agent <strong>reports its result back to the spawning session</strong> (#1036): the parent sees the outcome in-turn instead of polling or reading status files. Orphaned sub-agent status files from crashed runs are <strong>reconciled at startup</strong> (#1038), so the registry never shows ghosts of agents that no longer exist.</p>
+<h2 id="sub-agent-worktree-isolation-v0383"><a class="header" href="#sub-agent-worktree-isolation-v0383">Sub-Agent Worktree Isolation (v0.3.83)</a></h2>
+<p>Each spawned agent gets <strong>its own worktree and branch</strong> instead of sharing the parent’s working tree: a fan-out of several agents on one repository can no longer clobber each other’s checkouts or builds. The parent’s tree stays untouched while children work in isolation, and results come back through the normal git flow.</p>
 
                     </main>
 

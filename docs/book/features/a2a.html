@@ -65,7 +65,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-9f6ceb81.js";
+            window.path_to_searchindex_js = "../searchindex-f6d4ecb0.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-37e8252d.js"></script>
@@ -356,6 +356,8 @@ curl -X POST http://127.0.0.1:18790/a2a/v1 \
 # Health check
 curl http://127.0.0.1:18790/a2a/health | jq .
 </code></pre>
+<h2 id="session-resume-and-profile-addressing-v0383"><a class="header" href="#session-resume-and-profile-addressing-v0383">Session Resume and Profile Addressing (v0.3.83)</a></h2>
+<p>A2A sessions <strong>resume by context id</strong> (#1159): a reconnecting client restores the session bound to its context instead of starting cold. The gateway is <strong>profile-addressed</strong> (#1161), so a multi-profile host serves the right profile’s sessions, and the <code>profile_list</code> tool is registered for remote peers (#1160, #1161).</p>
 <h2 id="bee-colony-debate"><a class="header" href="#bee-colony-debate">Bee Colony Debate</a></h2>
 <p>Multi-agent structured debate via confidence-weighted voting (based on <a href="https://arxiv.org/abs/2309.13007">ReConcile, ACL 2024</a>). Multiple “bee” agents argue across configurable rounds, enriched with knowledge context, then converge on a consensus answer.</p>
 <h2 id="security"><a class="header" href="#security">Security</a></h2>

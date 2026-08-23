@@ -65,7 +65,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-9f6ceb81.js";
+            window.path_to_searchindex_js = "../searchindex-f6d4ecb0.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-37e8252d.js"></script>
@@ -594,7 +594,7 @@
 <tr><td>Tests — Usage Cache</td><td style="text-align: right">15</td><td><code>src/tests/usage_cache_test.rs</code></td></tr>
 <tr><td>Tests — Config Auto-Repair</td><td style="text-align: right">7</td><td><code>src/tests/config_repair_test.rs</code> — closes unterminated arrays/inline tables in a broken <code>config.toml</code>, gated on the result re-parsing; leaves valid/nested/string cases and unfixable errors alone</td></tr>
 <tr><td>Tests — Config Last-Good Recovery</td><td style="text-align: right">3</td><td><code>src/tests/config_last_good_recovery_test.rs</code> — a broken config never poisons the last-good snapshot; fixable configs auto-repair in place; unfixable ones recover from last-good (preserves auto-always so yolo mode survives a typo)</td></tr>
-<tr><td><strong>Total</strong></td><td style="text-align: right"><strong>6,781</strong></td><td>Authoritative count from <code>cargo test --all-features</code> (lib test binary): 6,781 run by default + 32 <code>#[ignore]</code>d. The per-category rows above are a maintained snapshot. Re-run <code>cargo test</code> for the live number.</td></tr>
+<tr><td><strong>Total</strong></td><td style="text-align: right"><strong>6,997</strong></td><td>Authoritative count from <code>cargo test --all-features</code> (lib test binary): 6,965 run by default + 32 <code>#[ignore]</code>d. The per-category rows above are a maintained snapshot. Re-run <code>cargo test</code> for the live number.</td></tr>
 </tbody>
 </table>
 </div>
