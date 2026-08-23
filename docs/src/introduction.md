@@ -2,7 +2,7 @@
 
 **OpenCrabs** is a self-hosted, provider-agnostic AI orchestration agent that runs as a single Rust binary. It automates your terminal, browser, channels (Telegram/Discord/Slack/WhatsApp/Trello), and codebase, all while respecting your privacy and keeping you in control.
 
-**6,781 tests** across providers, tools, channels, TUI, self-healing, and browser automation.
+**6,997 tests** across providers, tools, channels, TUI, self-healing, and browser automation.
 
 ## What Makes OpenCrabs Different
 
@@ -68,6 +68,14 @@
 - **`/restart` and `/exit` (v0.3.79)** — restart or shut down from any channel or the TUI; owner-only on channels, announce before acting
 - **Quota circuit breaker (v0.3.79)** — quota-exhausted providers get a TTL breaker and are skipped in fallback walks; chain exhaustion reported explicitly
 - **Plan state across sessions (v0.3.79)** — plans survive session boundaries; isolated plan-task execution defaults on, Ralph verifies in the session's own directory
+- **doctor --fix repair mode (v0.3.83)** — stuck cron rows, stale markers and broken permissions are repaired on the spot instead of only reported
+- **Per-path write locks (v0.3.83)** — concurrent writes to the same file serialize; the last writer no longer silently wins
+- **Sub-agent worktree isolation (v0.3.83)** — each child agent gets its own worktree and branch, so a fan-out cannot clobber the shared tree
+- **Type-aware acceptance criteria (v0.3.83)** — plan criteria are enforced against the toolchain the project actually uses (#1133)
+- **Project-aware plan verification (v0.3.83)** — plans verify with the project's own commands, not always cargo, and find the project from the session's folder
+- **/stop cancels immediately (v0.3.83)** — interrupts during provider handshake and retry backoffs (#1148)
+- **A2A session resume (v0.3.83)** — sessions resume by context id, the gateway is profile-addressed (#1159, #1161)
+- **DeepSeek thinking knobs (v0.3.83)** — DeepSeek gets the thinking parameters it actually reads, plus tool-call-only turn handling
 - **session_id log correlation (v0.3.82)** — every turn opens a tracing span carrying its session id, and cron jobs and the RSI engine get their own, so one grep reconstructs a whole turn out of a shared daily log
 - **Logger reliability (v0.3.82)** — the logger stops dropping events and stops writing to the TUI's terminal; a stalled write can no longer silence every other thread's logging
 - **User-owned brain files protected (v0.3.82)** — SOUL.md, USER.md and MEMORY.md are never merged into from upstream, and directives route to AGENTS.md, which is always loaded
