@@ -146,6 +146,10 @@ curl -X POST http://127.0.0.1:18790/a2a/v1 \
 curl http://127.0.0.1:18790/a2a/health | jq .
 ```
 
+## Session Resume and Profile Addressing (v0.3.83)
+
+A2A sessions **resume by context id** (#1159): a reconnecting client restores the session bound to its context instead of starting cold. The gateway is **profile-addressed** (#1161), so a multi-profile host serves the right profile's sessions, and the `profile_list` tool is registered for remote peers (#1160, #1161).
+
 ## Bee Colony Debate
 
 Multi-agent structured debate via confidence-weighted voting (based on [ReConcile, ACL 2024](https://arxiv.org/abs/2309.13007)). Multiple "bee" agents argue across configurable rounds, enriched with knowledge context, then converge on a consensus answer.

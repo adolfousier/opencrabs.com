@@ -263,3 +263,7 @@ team_create("refactor-team", [
 ## Sub-Agent Result Reporting (v0.3.81)
 
 A finished agent **reports its result back to the spawning session** (#1036): the parent sees the outcome in-turn instead of polling or reading status files. Orphaned sub-agent status files from crashed runs are **reconciled at startup** (#1038), so the registry never shows ghosts of agents that no longer exist.
+
+## Sub-Agent Worktree Isolation (v0.3.83)
+
+Each spawned agent gets **its own worktree and branch** instead of sharing the parent's working tree: a fan-out of several agents on one repository can no longer clobber each other's checkouts or builds. The parent's tree stays untouched while children work in isolation, and results come back through the normal git flow.

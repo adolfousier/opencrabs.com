@@ -122,6 +122,10 @@ Each plan task can now run in a **freshly spawned isolated worker session**: the
 - Ralph verification now runs in the **session's own working directory**, not the directory OpenCrabs was launched from — a plan in one repo is verified against that repo's build results, not another repo's (#921).
 - The plan gate's `RequireApproval` decision respects `auto_approve`, so autonomous sessions are not stalled by an approval prompt they were configured to skip (#934).
 
+## Type-Aware Verification (v0.3.83)
+
+Acceptance criteria are **checked against the plan's toolchain** (#1133): a Rust task must satisfy cargo-shaped criteria, a Flutter task flutter-shaped ones, and a task whose criteria cannot be verified is marked instead of waved through. Plans also **verify with the project's own toolchain** rather than always cargo, and locate the project from the folder the session is working in. Checklist plans no longer write a design scaffold `.md` (#1145).
+
 ## Importing Pre-Defined Plans (v0.3.35)
 
 Plans can be loaded from JSON files for repeatable workflows:
