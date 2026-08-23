@@ -386,7 +386,7 @@ cargo test --all-features
 | Tests — Usage Cache | 15 | `src/tests/usage_cache_test.rs` |
 | Tests — Config Auto-Repair | 7 | `src/tests/config_repair_test.rs` — closes unterminated arrays/inline tables in a broken `config.toml`, gated on the result re-parsing; leaves valid/nested/string cases and unfixable errors alone |
 | Tests — Config Last-Good Recovery | 3 | `src/tests/config_last_good_recovery_test.rs` — a broken config never poisons the last-good snapshot; fixable configs auto-repair in place; unfixable ones recover from last-good (preserves auto-always so yolo mode survives a typo) |
-| **Total** | **6,781** | Authoritative count from `cargo test --all-features` (lib test binary): 6,781 run by default + 32 `#[ignore]`d. The per-category rows above are a maintained snapshot. Re-run `cargo test` for the live number. |
+| **Total** | **6,997** | Authoritative count from `cargo test --all-features` (lib test binary): 6,965 run by default + 32 `#[ignore]`d. The per-category rows above are a maintained snapshot. Re-run `cargo test` for the live number. |
 
 ---
 
