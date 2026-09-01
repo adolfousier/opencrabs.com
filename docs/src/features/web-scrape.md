@@ -34,6 +34,8 @@ This discovers `/sitemap.xml`, `/sitemap_index.xml`, and common variations. Recu
 
 Each page's markdown is exported to a directory. The output path resolves to the project files directory if the session is assigned to a project, or the profile-scoped OpenCrabs home otherwise. Files never land outside managed workspace.
 
+**Pair it with memory:** point `[memory] extra_paths` at the export directory and every scraped page becomes searchable via `memory_search scope="external"` — a zero-cost knowledge base your agent quotes verbatim. Full walkthrough in [Memory System → Build a knowledge base](../brain/memory.md#build-a-knowledge-base-from-any-docs-site). Note the hard cap: 100 pages per sitemap scrape.
+
 ## SSRF Protection
 
 The SSRF guard uses `url::Host` enum classification to properly handle:

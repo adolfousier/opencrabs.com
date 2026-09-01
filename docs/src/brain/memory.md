@@ -70,13 +70,38 @@ Memory search can read indexes that live outside the profile directory (#1051, #
 
 ```toml
 [memory]
-# A bare string or { path, pattern } per entry
-external_paths = ["~/srv/rs/opencrabs", { path = "/var/log/app", pattern = "*.md" }]
+# Each entry is a bare path string or a { path, pattern } table.
+# Relative paths resolve against the OpenCrabs home (not the session cwd),
+# so the index stays stable across /cd and profile switches.
+extra_paths = [
+  "~/knowledge/product-docs",
+  { path = "~/knowledge/website-mirror", pattern = "docs/**/*.md" },
+]
 ```
 
-- **Glob excludes** apply to external indexing, global across all entries.
-- **Shared sessions are default-deny**: `external_allowed_in_shared = false` keeps external content out of group/shared sessions, so external indexes inherit memory_search's exposure rules.
-- A **freshness sweep** runs on a configurable interval to pick up changed files.
+| Field | Default | Description |
+|-------|---------|-------------|
+| `extra_paths` | `[]` | Paths indexed into the `external` collection. Bare strings or `{ path, pattern }` tables |
+| `exclude` | VCS/build/secret globs | Glob excludes applied to external indexing, global across all entries (`.git`, `node_modules`, `.env*`, `*.pem`, `.ssh/**`, `*credential*`, ...) |
+| `external_allowed_in_shared` | `false` | Shared/group sessions are **default-deny**: external content stays out of `memory_search` results unless you opt in |
+| `sweep_interval_secs` | `300` | Seconds between freshness sweeps that pick up added/removed files. Modified files are also caught lazily at search time |
+
+Indexed files are searchable within one sweep interval (~5 min) — no restart needed. Results come back as ranked excerpts with file paths via `memory_search scope="external"`; the agent can then read the full file for verbatim quotes.
+
+**Gotchas:** UTF-8 text only (binary files are skipped with a warning); HTML files index as raw markup, so mirror sites to `.md` first; nested roots and symlinks are skipped by design; test external scope from an owner session — group sessions return nothing unless you set `external_allowed_in_shared = true`.
+
+#### Build a knowledge base from any docs site
+
+`web_scrape` sitemap mode pairs with `extra_paths` into a complete, zero-cost pipeline — scrape a site to markdown, index it, then ask questions answered verbatim from those docs (see [Web Scraping](./web-scrape.md)):
+
+```toml
+[memory]
+extra_paths = ["scrapes/docs.example.com"]
+```
+
+1. `web_scrape url="https://docs.example.com" mode=sitemap export=true` — every sitemap page saved as clean markdown under `scrapes/`, local extraction, no AI/API cost (hard cap: 100 pages per scrape)
+2. Point `extra_paths` at the scrapes directory (relative paths resolve against the OpenCrabs home)
+3. Ask anything — answers are grounded in and quoted from the indexed docs
 
 ### Embedding Hardening (v0.3.81)
 

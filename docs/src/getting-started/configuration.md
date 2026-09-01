@@ -291,8 +291,14 @@ model = "text-embedding-3-small"
 | `embedding.model` | `None` | Embedding model name (e.g. `text-embedding-3-small`, `nomic-embed-text`) |
 | `embedding.api_key` | `None` | API key for the embedding endpoint. Also loaded from `keys.toml` under `[providers.memory_embedding]` |
 | `embedding.dimensions` | `None` (auto-detected) | Embedding vector dimensions. Auto-detected from the first API response if unset. Local GGUF model always produces 768-dim vectors |
+| `extra_paths` | `[]` | External paths indexed into the `external` collection. Bare path strings or `{ path, pattern }` tables; relative paths resolve against the OpenCrabs home |
+| `exclude` | VCS/build/secret globs | Glob excludes for external indexing, global across all entries |
+| `external_allowed_in_shared` | `false` | Allow `scope="external"` results in shared/group sessions. Default-deny: external content stays owner-session-only unless opted in |
+| `sweep_interval_secs` | `300` | Seconds between external-path freshness sweeps; modified files are also caught lazily at search time |
 
 When `[memory.embedding]` is not set, embeddings are generated locally via the embeddinggemma-300M GGUF model (~300MB download, ~2.9GB RAM). Setting `[memory.embedding]` with an API endpoint eliminates the local model overhead.
+
+To index your own docs — or an entire scraped docs site — into memory search, see [Memory System → External Index Paths](../brain/memory.md#external-index-paths-v0381) for the full knowledge-base workflow.
 
 ## Brain Files
 
