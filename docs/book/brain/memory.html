@@ -44,8 +44,8 @@
         <link rel="icon" href="../favicon-3643b9e5.svg">
         <link rel="shortcut icon" href="../favicon-0496ab32.png">
         <link rel="stylesheet" href="../css/variables-8adf115d.css">
-        <link rel="stylesheet" href="../css/general-2459343d.css">
-        <link rel="stylesheet" href="../css/chrome-ae938929.css">
+        <link rel="stylesheet" href="../css/general-e96d0476.css">
+        <link rel="stylesheet" href="../css/chrome-d279d366.css">
         <link rel="stylesheet" href="../css/print-9e4910d8.css" media="print">
 
         <!-- Fonts -->
@@ -65,10 +65,10 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-f6d4ecb0.js";
+            window.path_to_searchindex_js = "../searchindex-3686cb1f.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-37e8252d.js"></script>
+        <script src="../toc-55df8b59.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -264,14 +264,39 @@
 <h3 id="external-index-paths-v0381"><a class="header" href="#external-index-paths-v0381">External Index Paths (v0.3.81)</a></h3>
 <p>Memory search can read indexes that live outside the profile directory (#1051, #1055):</p>
 <pre><code class="language-toml">[memory]
-# A bare string or { path, pattern } per entry
-external_paths = ["~/srv/rs/opencrabs", { path = "/var/log/app", pattern = "*.md" }]
+# Each entry is a bare path string or a { path, pattern } table.
+# Relative paths resolve against the OpenCrabs home (not the session cwd),
+# so the index stays stable across /cd and profile switches.
+extra_paths = [
+  "~/knowledge/product-docs",
+  { path = "~/knowledge/website-mirror", pattern = "docs/**/*.md" },
+]
 </code></pre>
-<ul>
-<li><strong>Glob excludes</strong> apply to external indexing, global across all entries.</li>
-<li><strong>Shared sessions are default-deny</strong>: <code>external_allowed_in_shared = false</code> keeps external content out of group/shared sessions, so external indexes inherit memory_search’s exposure rules.</li>
-<li>A <strong>freshness sweep</strong> runs on a configurable interval to pick up changed files.</li>
-</ul>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Field</th><th>Default</th><th>Description</th></tr>
+</thead>
+<tbody>
+<tr><td><code>extra_paths</code></td><td><code>[]</code></td><td>Paths indexed into the <code>external</code> collection. Bare strings or <code>{ path, pattern }</code> tables</td></tr>
+<tr><td><code>exclude</code></td><td>VCS/build/secret globs</td><td>Glob excludes applied to external indexing, global across all entries (<code>.git</code>, <code>node_modules</code>, <code>.env*</code>, <code>*.pem</code>, <code>.ssh/**</code>, <code>*credential*</code>, …)</td></tr>
+<tr><td><code>external_allowed_in_shared</code></td><td><code>false</code></td><td>Shared/group sessions are <strong>default-deny</strong>: external content stays out of <code>memory_search</code> results unless you opt in</td></tr>
+<tr><td><code>sweep_interval_secs</code></td><td><code>300</code></td><td>Seconds between freshness sweeps that pick up added/removed files. Modified files are also caught lazily at search time</td></tr>
+</tbody>
+</table>
+</div>
+<p>Indexed files are searchable within one sweep interval (~5 min) — no restart needed. Results come back as ranked excerpts with file paths via <code>memory_search scope="external"</code>; the agent can then read the full file for verbatim quotes.</p>
+<p><strong>Gotchas:</strong> UTF-8 text only (binary files are skipped with a warning); HTML files index as raw markup, so mirror sites to <code>.md</code> first; nested roots and symlinks are skipped by design; test external scope from an owner session — group sessions return nothing unless you set <code>external_allowed_in_shared = true</code>.</p>
+<h4 id="build-a-knowledge-base-from-any-docs-site"><a class="header" href="#build-a-knowledge-base-from-any-docs-site">Build a knowledge base from any docs site</a></h4>
+<p><code>web_scrape</code> sitemap mode pairs with <code>extra_paths</code> into a complete, zero-cost pipeline — scrape a site to markdown, index it, then ask questions answered verbatim from those docs (see <a href="./web-scrape.html">Web Scraping</a>):</p>
+<pre><code class="language-toml">[memory]
+extra_paths = ["scrapes/docs.example.com"]
+</code></pre>
+<ol>
+<li><code>web_scrape url="https://docs.example.com" mode=sitemap export=true</code> — every sitemap page saved as clean markdown under <code>scrapes/</code>, local extraction, no AI/API cost (hard cap: 100 pages per scrape)</li>
+<li>Point <code>extra_paths</code> at the scrapes directory (relative paths resolve against the OpenCrabs home)</li>
+<li>Ask anything — answers are grounded in and quoted from the indexed docs</li>
+</ol>
 <h3 id="embedding-hardening-v0381"><a class="header" href="#embedding-hardening-v0381">Embedding Hardening (v0.3.81)</a></h3>
 <p>Embedding API calls now carry <strong>timeouts</strong>, a <strong>vector gate</strong> (malformed or empty vectors never reach the store), and <strong>non-blocking writes</strong> (embedding failures never stall the turn) (#1062). <code>/doctor</code> reports <strong>embedding health</strong>, and a sweep finds <strong>unembedded documents</strong> and backfills them (#1069, #1067).</p>
 <h3 id="embedding-modes"><a class="header" href="#embedding-modes">Embedding Modes</a></h3>
@@ -350,11 +375,11 @@ external_paths = ["~/srv/rs/opencrabs", { path = "/var/log/app", pattern = "*.md
 
         <script src="../elasticlunr-ef4e11c1.min.js"></script>
         <script src="../mark-09e88c2c.min.js"></script>
-        <script src="../searcher-c2a407aa.js"></script>
+        <script src="../searcher-09f2665d.js"></script>
 
         <script src="../clipboard-1626706a.min.js"></script>
         <script src="../highlight-abc7f01d.js"></script>
-        <script src="../book-a0b12cfe.js"></script>
+        <script src="../book-609e4cb8.js"></script>
 
         <!-- Custom JS scripts -->
         <script src="../theme/custom-4a111f7b.js"></script>
