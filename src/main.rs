@@ -1,3 +1,7 @@
+// leptos_i18n 0.6.2: load_locales!/provide_i18n_context are deprecated in favor of
+// build.rs codegen that is not published as a usable crate; these are the only
+// file-based paths. Allowed until upstream ships the codegen crate.
+#![allow(deprecated)]
 use gloo_net::http::Request;
 use leptos::prelude::*;
 use leptos::wasm_bindgen::JsCast;
