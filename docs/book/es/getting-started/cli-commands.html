@@ -1,0 +1,502 @@
+<!DOCTYPE HTML>
+<html lang="es" class="ayu sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>CLI Commands - OpenCrabs</title>
+
+
+        <!-- Custom HTML head -->
+        <!-- ============ Default: site-wide SEO ============ -->
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://docs.opencrabs.com/" />
+        <meta property="og:title" content="OpenCrabs Documentation" />
+        <meta property="og:description" content="Documentation for OpenCrabs — the autonomous AI agent that lives in your terminal. Setup guides, provider config, channel integrations, and API reference." />
+            <meta property="og:image" content="https://docs.opencrabs.com/img/og-docs.png" />
+            <meta property="og:image:width" content="1200" />
+            <meta property="og:image:height" content="642" />
+        <meta property="og:site_name" content="OpenCrabs" />
+        
+        <!-- Twitter Card -->
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="OpenCrabs Documentation" />
+        <meta name="twitter:description" content="Documentation for OpenCrabs — the autonomous AI agent that lives in your terminal." />
+            <meta name="twitter:image" content="https://docs.opencrabs.com/img/og-docs.png" />
+        
+        <!-- SEO -->
+        <meta name="robots" content="index, follow" />
+        <meta name="keywords" content="OpenCrabs, AI agent, terminal, documentation, Rust, LLM, Telegram bot, Discord bot, Slack bot, WhatsApp bot" />
+        <link rel="canonical" href="https://docs.opencrabs.com/" />
+
+        <!-- Google Analytics GA4 -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-1DDEZDYVWR"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-1DDEZDYVWR');
+        </script>
+
+        <meta name="description" content="Documentation for OpenCrabs — the autonomous AI agent that lives in your terminal.">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon-3643b9e5.svg">
+        <link rel="shortcut icon" href="../favicon-0496ab32.png">
+        <link rel="stylesheet" href="../css/variables-8adf115d.css">
+        <link rel="stylesheet" href="../css/general-e96d0476.css">
+        <link rel="stylesheet" href="../css/chrome-d279d366.css">
+        <link rel="stylesheet" href="../css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="../highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="../tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="../ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../theme/cards-77c040ab.css">
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "../";
+            const default_light_theme = "ayu";
+            const default_dark_theme = "ayu";
+            window.path_to_searchindex_js = "../searchindex-06ce00c0.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc-55df8b59.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">OpenCrabs</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/adolfousier/opencrabs" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="cli-commands"><a class="header" href="#cli-commands">CLI Commands</a></h1>
+<p>OpenCrabs tiene una CLI completa con más de 20 subcomandos para gestionar todos los aspectos del agente.</p>
+<h2 id="uso"><a class="header" href="#uso">Uso</a></h2>
+<pre><code class="language-bash">opencrabs [COMMAND] [OPTIONS]
+</code></pre>
+<h2 id="comandos"><a class="header" href="#comandos">Comandos</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Comando</th><th>Descripción</th></tr>
+</thead>
+<tbody>
+<tr><td><code>chat</code> (default)</td><td>Lanza la interfaz de chat TUI</td></tr>
+<tr><td><code>daemon</code></td><td>Ejecuta en segundo plano (solo canales, sin TUI)</td></tr>
+<tr><td><code>agent</code></td><td>Chat interactivo multi-turno o modo de mensaje único</td></tr>
+<tr><td><code>cron</code></td><td>Gestiona tareas programadas (add/list/remove/enable/disable/test)</td></tr>
+<tr><td><code>channel</code></td><td>Gestión de canales (list, doctor)</td></tr>
+<tr><td><code>memory</code></td><td>Gestión de memoria (list, get, stats)</td></tr>
+<tr><td><code>session</code></td><td>Gestión de sesiones (list, get)</td></tr>
+<tr><td><code>db</code></td><td>Gestión de la base de datos (init, stats, clear)</td></tr>
+<tr><td><code>logs</code></td><td>Gestión de logs (status, view, clean, open)</td></tr>
+<tr><td><code>service</code></td><td>Gestión del servicio del sistema (install/start/stop/restart/status/uninstall)</td></tr>
+<tr><td><code>status</code></td><td>Muestra el estado del agente</td></tr>
+<tr><td><code>doctor</code></td><td>Ejecuta el chequeo de salud de conexiones; <code>--fix</code> repara filas de cron atascadas, marcadores obsoletos y permisos (v0.3.83)</td></tr>
+<tr><td><code>onboard</code></td><td>Ejecuta el asistente de configuración</td></tr>
+<tr><td><code>completions</code></td><td>Genera autocompletado de shell (bash/zsh/fish/powershell)</td></tr>
+<tr><td><code>version</code></td><td>Muestra información de la versión</td></tr>
+<tr><td><code>!command</code></td><td><strong>Operador bang</strong> — Ejecuta cualquier comando de shell al instante sin un round-trip al LLM. La salida se muestra como mensaje de sistema. P. ej. <code>!git status</code>, <code>!ls -la</code></td></tr>
+<tr><td><code>/evolve</code></td><td><strong>Auto-actualización</strong> — Descarga el último release y reinicia en caliente. Se ejecuta automáticamente al arrancar cuando <code>[agent] auto_update = true</code></td></tr>
+<tr><td><code>/restart</code></td><td><strong>Reinicio</strong> (v0.3.79) — Relanza el mismo binario con los mismos argumentos, así que no hay que conocer ni repetir cómo se inició. Los turnos sin terminar se reanudan automáticamente al arrancar. En la TUI reanuda la sesión actual. Solo el owner en canales; anuncia antes de actuar.</td></tr>
+<tr><td><code>/exit</code></td><td><strong>Apagado</strong> (v0.3.79) — Apaga OpenCrabs. Arrancarlo de nuevo requiere acceso a la máquina donde corre, así que este es <strong>el único comando sin retorno desde el chat</strong>. Solo el owner en canales; anuncia antes de actuar.</td></tr>
+<tr><td><code>/btw</code></td><td><strong>Agente paralelo</strong> — Lanza un sub-agente aislado para una tarea lateral mientras la conversación principal continúa. P. ej. <code>/btw research the latest Rust async patterns</code></td></tr>
+<tr><td><code>/mission-control</code></td><td><strong>Mission Control</strong> — Panel a pantalla completa con la bandeja RSI (propuestas pendientes), log de actividad (mejoras aplicadas) y programación de cron. Navega con teclas vim, aplica/rechaza propuestas con <code>a</code>/<code>r</code>.</td></tr>
+<tr><td><code>/skills</code></td><td><strong>Selector de skills</strong> — Explora y lanza plantillas de workflow con búsqueda difusa. Cada skill cargada se auto-registra como comando slash.</td></tr>
+<tr><td><code>/security-audit</code></td><td><strong>Auditoría de seguridad</strong> — Auditoría de seguridad y CVEs completa e independiente del lenguaje. Detecta el tipo de proyecto, ejecuta el scanner adecuado, revisa el diff reciente en busca de patrones de inyección/auth/criptografía, puntúa de 0 a 100.</td></tr>
+<tr><td><code>/cost-estimate</code></td><td><strong>Estimación de costes</strong> — Estimación del coste de construir el código base, desglose de ROI asistido por IA y valoración de mercado. Pide contexto de negocio antes de producir el rango de valoración.</td></tr>
+<tr><td><code>/repo-audit</code></td><td><strong>Auditoría de repo</strong> — Chequeos de salud del repositorio independientes del lenguaje. Pipeline de 5 fases: detección de lenguaje → ejecución de herramientas nativas → métricas git → análisis AST → puntuación + recomendaciones. Cubre Rust, JS/TS, Python y Go.</td></tr>
+<tr><td><code>/goal</code></td><td><strong>Bucle de objetivo autónomo</strong> — Define un objetivo con <code>/goal &lt;texto&gt;</code> y el agente itera de forma autónoma: ejecuta, se autoevalúa con un juez LLM y continúa hasta satisfacer el objetivo o agotar el presupuesto de turnos (20 por defecto). Soporta <code>/goal pause</code>, <code>/goal resume</code>, <code>/goal status</code>, <code>/goal clear</code>.</td></tr>
+<tr><td><code>/models &lt;provider/model&gt;</code></td><td><strong>Cambio directo de modelo</strong> (v0.3.66) — Cambia directamente a un modelo específico en cada canal. Usa <code>/models anthropic/claude-sonnet-4-20250514</code> para cambiar al instante. El selector de ámbito te permite elegir solo-sesión o global.</td></tr>
+<tr><td><code>opencrabs session set-model</code></td><td><strong>Cambio de modelo headless</strong> (v0.3.66) — Cambia de modelo desde la CLI sin la TUI. Útil para scripts y automatización.</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="flags-de-configuración"><a class="header" href="#flags-de-configuración">Flags de Configuración</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Flag</th><th>Por defecto</th><th>Descripción</th></tr>
+</thead>
+<tbody>
+<tr><td><code>[agent] auto_update</code></td><td><code>true</code></td><td>Auto-instala nuevos releases al arrancar y reinicia en caliente. Pon <code>false</code> para mantener el diálogo manual.</td></tr>
+<tr><td><code>[agent] force_default</code></td><td><code>false</code></td><td>(v0.3.66) Cuando es true, empuja el par proveedor/modelo por defecto a todas las sesiones al recargar la config. Útil para forzar un cambio de modelo global.</td></tr>
+<tr><td><code>[agent] config_drift_warnings</code></td><td><code>true</code></td><td>(v0.3.66) Muestra avisos al arrancar cuando un valor de config se desvía en silencio del valor esperado. Ayuda a detectar cambios de config no deseados.</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="atajos-de-teclado-tui"><a class="header" href="#atajos-de-teclado-tui">Atajos de Teclado (TUI)</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Atajo</th><th>Acción</th></tr>
+</thead>
+<tbody>
+<tr><td><code>F12</code></td><td>Activa/desactiva la captura de ratón para la selección de texto nativa de la terminal</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="aviso-de-actualización-al-arrancar"><a class="header" href="#aviso-de-actualización-al-arrancar">Aviso de Actualización al Arrancar</a></h2>
+<p>Cuando hay una versión nueva disponible, aparece un diálogo centrado en la pantalla de splash pidiendo aceptar (Enter) o saltar (Esc). Aceptar dispara <code>/evolve</code> automáticamente. Tras la actualización, el binario se reinicia y el splash muestra la nueva versión.</p>
+<h2 id="comandos-de-canal"><a class="header" href="#comandos-de-canal">Comandos de Canal</a></h2>
+<p><code>/doctor</code>, <code>/help</code>, <code>/usage</code>, <code>/evolve</code>, <code>/restart</code>, <code>/exit</code> y los comandos de sistema funcionan directamente en Telegram, Discord, Slack y WhatsApp sin pasar por el LLM. Se ejecutan al instante y devuelven resultados en el canal.</p>
+<p><code>/restart</code> y <code>/exit</code> se anuncian antes de actuar, porque una vez que el proceso desaparece no queda nada que reporte un fallo. Ambos son solo-owner, como cualquier otro comando que cambia el proceso en ejecución. <code>/exit</code> es el único comando sin retorno desde el chat — recuperar requiere acceso a la máquina donde corre OpenCrabs.</p>
+<p>Desde v0.3.80, un <strong>stop hablado también se respeta</strong> — decirle al bot que pare en lenguaje natural funciona en los canales y en la TUI, no solo la palabra suelta “stop”.</p>
+<p>Toda la lógica de comandos de canal está centralizada en <code>src/channels/commands.rs</code> (847 líneas) — un handler compartido que elimina la lógica duplicada entre 5 implementaciones de canal. Cada canal delega en <code>try_execute_text_command()</code> para un comportamiento consistente.</p>
+<p><code>/evolve</code> en los canales ahora se ejecuta directamente (descarga + instala el binario) sin requerir un round-trip al LLM. Antes se enrutaba a través del agente.</p>
+<h2 id="modo-chat"><a class="header" href="#modo-chat">Modo Chat</a></h2>
+<pre><code class="language-bash"># Default — launch TUI
+opencrabs
+
+# Same as above
+opencrabs chat
+</code></pre>
+<h2 id="modo-agente"><a class="header" href="#modo-agente">Modo Agente</a></h2>
+<p>Modo no interactivo para scripting y automatización:</p>
+<pre><code class="language-bash"># Interactive multi-turn chat
+opencrabs agent
+
+# Single-message mode
+opencrabs agent -m "What files changed today?"
+</code></pre>
+<h2 id="modo-daemon-vs-tui"><a class="header" href="#modo-daemon-vs-tui">Modo Daemon vs TUI</a></h2>
+<p>OpenCrabs corre en uno de dos modos. Elige el que encaje con la máquina. <strong>Para un mismo perfil, ejecuta solo uno a la vez.</strong></p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Modo</th><th>Cómo lo arrancas</th><th>Qué es</th><th>Úsalo en</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>TUI (interactiva)</strong></td><td><code>opencrabs</code></td><td>La interfaz de terminal completa: paneles de chat, sesiones, ajustes. Tus canales también corren y comparten tu sesión.</td><td>Una máquina donde te sientas (portátil/escritorio)</td></tr>
+<tr><td><strong>Daemon (headless)</strong></td><td><code>opencrabs daemon</code>, or install as a service: <code>opencrabs service install &amp;&amp; opencrabs service start</code></td><td>Sin UI. Solo canales (Telegram, Discord, Slack, WhatsApp) + cron. Sobrevive a reinicios, desconexiones SSH y fallos.</td><td>Una máquina siempre encendida o un VPS</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="por-qué-no-ambos-a-la-vez"><a class="header" href="#por-qué-no-ambos-a-la-vez">¿Por qué no ambos a la vez?</a></h3>
+<p>Una credencial de bot (p. ej. un token de Telegram) solo puede mantener un poll <code>getUpdates</code> vivo. Si un daemon y una TUI poseen el token del mismo perfil, se pelean (HTTP 409) y el canal se cae.</p>
+<h3 id="la-tui-siempre-gana"><a class="header" href="#la-tui-siempre-gana">La TUI siempre gana</a></h3>
+<p>Cuando abres la TUI mientras corre un daemon del <em>mismo perfil</em>, la TUI apaga ese daemon primero, toma los canales y muestra un banner avisando de ello. Tus canales ya estaban configurados, así que simplemente se reanudan, sin reconectar. El daemon permanece apagado hasta que lo arranques de nuevo (<code>opencrabs service start</code>, o relanza <code>opencrabs daemon</code>).</p>
+<p>En una máquina donde el daemon suele correr, el flujo diario es: abre <code>opencrabs</code> cuando quieras sentarte con él; cierra la TUI y <code>opencrabs service start</code> cuando lo quieras headless de nuevo.</p>
+<h3 id="autoarranque-al-encender"><a class="header" href="#autoarranque-al-encender">Autoarranque al encender</a></h3>
+<ul>
+<li><strong>Daemon</strong> — usa el instalador de servicio (<code>opencrabs service install</code>); conecta systemd (Linux) / launchd (macOS) para arrancar al encender y reiniciar ante fallos. Esta es la configuración always-on recomendada.</li>
+<li><strong>TUI</strong> — para que la interfaz de terminal se abra automáticamente al iniciar sesión, usa un autoarranque de terminal/escritorio, no el instalador de servicio:
+<ul>
+<li><strong>Escritorio Linux:</strong> deja un archivo <code>.desktop</code> en <code>~/.config/autostart/</code> con <code>Exec=x-terminal-emulator -e opencrabs</code>.</li>
+<li><strong>macOS:</strong> Ajustes del Sistema &gt; General &gt; Elementos de Inicio &gt; añade un script <code>.command</code> que ejecute <code>opencrabs</code>.</li>
+<li><strong>VPS por SSH:</strong> ejecuta dentro de <code>tmux</code>/<code>screen</code> y reengánchate. En un VPS headless normalmente quieres el daemon, no la TUI.</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><strong>Muy recomendado para usuarios diarios.</strong> Si planeas usar OpenCrabs a diario, pídele que se configure como servicio del sistema. Solo di algo como <em>“configúrate para arrancar con mi ordenador”</em> o <em>“quita el servicio de autoarranque”</em>. El agente gestiona la configuración y eliminación de launchd (macOS) o systemd (Linux) automáticamente.</p>
+</blockquote>
+<h3 id="mantén-la-tui-corriendo-en-un-vps-tmux"><a class="header" href="#mantén-la-tui-corriendo-en-un-vps-tmux">Mantén la TUI corriendo en un VPS (tmux)</a></h3>
+<p>Si quieres la TUI interactiva completa siempre disponible en un servidor remoto (no el daemon headless), <code>tmux</code> es el camino. Tu sesión sobrevive a desconexiones SSH, suspensión del portátil y conexiones inestables.</p>
+<p><strong>1. Instala tmux</strong></p>
+<pre><code class="language-bash"># Debian / Ubuntu
+sudo apt install tmux
+
+# RHEL / CentOS / Fedora
+sudo yum install tmux
+</code></pre>
+<p><strong>2. Localiza dónde está instalado opencrabs</strong></p>
+<pre><code class="language-bash">which opencrabs
+
+# If that returns nothing, search the whole filesystem
+find / -name "opencrabs" -type f 2&gt;/dev/null
+</code></pre>
+<p><strong>3. Arranca una sesión tmux con nombre</strong></p>
+<pre><code class="language-bash">tmux new -s opencrabs
+</code></pre>
+<p><strong>4. Lanza opencrabs dentro</strong></p>
+<pre><code class="language-bash">opencrabs
+</code></pre>
+<p><strong>5. Desconéctate (opencrabs sigue corriendo)</strong></p>
+<p>Pulsa <code>Ctrl+B</code> y luego <code>D</code>. Ya puedes cerrar SSH y opencrabs sigue corriendo.</p>
+<p><strong>6. Reengánchate después</strong></p>
+<pre><code class="language-bash">tmux attach -t opencrabs
+</code></pre>
+<p>Eso es todo. Vuelve desde cualquier máquina, reengánchate y continúa donde lo dejaste. Si solo necesitas canales (Telegram, Discord, Slack, WhatsApp) corriendo headless sin la TUI, el daemon encaja mejor: <code>opencrabs service install &amp;&amp; opencrabs service start</code>.</p>
+<h3 id="endpoint-de-salud"><a class="header" href="#endpoint-de-salud">Endpoint de Salud</a></h3>
+<p>Añade a <code>config.toml</code> para exponer un chequeo de salud:</p>
+<pre><code class="language-toml">[daemon]
+health_port = 8080
+</code></pre>
+<p>Entonces <code>GET http://localhost:8080/health</code> devuelve 200 OK con estado en JSON. Útil para watchdog de systemd, monitores de uptime o balanceadores.</p>
+<h2 id="gestión-del-servicio"><a class="header" href="#gestión-del-servicio">Gestión del Servicio</a></h2>
+<p>Instala OpenCrabs como servicio del sistema (launchd en macOS, systemd en Linux):</p>
+<pre><code class="language-bash">opencrabs service install
+opencrabs service start
+opencrabs service stop
+opencrabs service restart
+opencrabs service status
+opencrabs service uninstall
+</code></pre>
+<h3 id="servicios-conscientes-de-perfil"><a class="header" href="#servicios-conscientes-de-perfil">Servicios conscientes de perfil</a></h3>
+<p>Cada perfil recibe su propio servicio independiente:</p>
+<pre><code class="language-bash"># Install a specific profile as a service
+opencrabs -p hermes service install
+opencrabs -p hermes service start
+
+# Each profile gets its own service name
+# macOS: com.opencrabs.daemon.hermes
+# Linux: opencrabs-hermes.service
+
+# Manage independently
+opencrabs -p hermes service status
+opencrabs -p hermes service stop
+opencrabs -p hermes service uninstall
+</code></pre>
+<p>Varios perfiles pueden correr como servicios daemon simultáneos con aislamiento total.</p>
+<h3 id="variable-de-entorno-opencrabs_profile"><a class="header" href="#variable-de-entorno-opencrabs_profile">Variable de entorno OPENCRABS_PROFILE</a></h3>
+<p>Define <code>OPENCRABS_PROFILE=hermes</code> para seleccionar un perfil sin el flag <code>-p</code>. Útil para servicios systemd, cron jobs y modo daemon.</p>
+<h3 id="solución-de-problemas-el-daemon-no-arranca"><a class="header" href="#solución-de-problemas-el-daemon-no-arranca">Solución de problemas: el daemon no arranca</a></h3>
+<p>Si <code>opencrabs service status</code> dice stopped:</p>
+<ol>
+<li><strong>¿Abriste la TUI?</strong> Abrir <code>opencrabs</code> apaga deliberadamente el daemon para que la sesión interactiva posea los canales. El daemon permanece apagado hasta que hagas <code>opencrabs service start</code> de nuevo.</li>
+<li><strong>Las builds antiguas</strong> pueden tener aún <code>Restart=on-failure</code> en vez de <code>Restart=always</code>. Regenera la unidad con <code>opencrabs service install</code> (luego <code>service start</code>) para adoptar la política de reinicio siempre.</li>
+<li><strong>La config, las claves, los comandos y las herramientas se recargan en caliente en tiempo de ejecución.</strong> Editar <code>config.toml</code> o <code>keys.toml</code> nunca necesita reiniciar el daemon. Si un cambio no surte efecto, busca en los logs una línea <code>ConfigWatcher: reloaded</code> en vez de reiniciar.</li>
+</ol>
+<h2 id="gestión-de-cron"><a class="header" href="#gestión-de-cron">Gestión de Cron</a></h2>
+<pre><code class="language-bash"># List all cron jobs
+opencrabs cron list
+
+# Add a new cron job
+opencrabs cron add \
+  --name "Daily Report" \
+  --cron "0 9 * * *" \
+  --tz "America/New_York" \
+  --prompt "Check emails and summarize" \
+  --provider anthropic \
+  --model claude-sonnet-4-20250514 \
+  --thinking off \
+  --deliver-to telegram:123456
+
+# Remove a cron job (accepts name or ID)
+opencrabs cron remove "Daily Report"
+
+# Enable/disable (accepts name or ID)
+opencrabs cron enable "Daily Report"
+opencrabs cron disable "Daily Report"
+</code></pre>
+<h2 id="atajos-de-teclado-de-la-tui"><a class="header" href="#atajos-de-teclado-de-la-tui">Atajos de Teclado de la TUI</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Tecla</th><th>Acción</th></tr>
+</thead>
+<tbody>
+<tr><td><code>Enter</code></td><td>Enviar mensaje</td></tr>
+<tr><td><code>Esc</code></td><td>Cancelar / cerrar</td></tr>
+<tr><td><code>Ctrl+N</code></td><td>Nueva sesión</td></tr>
+<tr><td><code>Ctrl+L</code></td><td>Pantalla de sesiones</td></tr>
+<tr><td><code>Ctrl+K</code></td><td>Limpiar la sesión actual</td></tr>
+<tr><td><code>Ctrl+O</code></td><td>Alternar el plegado del grupo de herramientas</td></tr>
+<tr><td><code>|</code></td><td>Dividir panel horizontalmente</td></tr>
+<tr><td><code>_</code></td><td>Dividir panel verticalmente</td></tr>
+<tr><td><code>Ctrl+X</code></td><td>Cerrar el panel enfocado</td></tr>
+<tr><td><code>Tab</code></td><td>Rotar el foco del panel / Aceptar autocompletado</td></tr>
+<tr><td><code>Up/Down</code></td><td>Navegar sugerencias / sesiones</td></tr>
+<tr><td><code>/</code></td><td>Iniciar comando slash (p. ej. <code>/help</code>, <code>/models</code>)</td></tr>
+<tr><td><code>:</code></td><td>Abrir el selector de emoji</td></tr>
+</tbody>
+</table>
+</div>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../getting-started/configuration.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="../getting-started/troubleshooting.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../getting-started/configuration.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="../getting-started/troubleshooting.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr-ef4e11c1.min.js"></script>
+        <script src="../mark-09e88c2c.min.js"></script>
+        <script src="../searcher-09f2665d.js"></script>
+
+        <script src="../clipboard-1626706a.min.js"></script>
+        <script src="../highlight-abc7f01d.js"></script>
+        <script src="../book-609e4cb8.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../theme/custom-4a111f7b.js"></script>
+
+
+
+    </div>
+    </body>
+</html>
