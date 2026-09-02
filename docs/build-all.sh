@@ -8,7 +8,7 @@
 set -euo pipefail
 cd "$(dirname "$0")"
 
-LOCALES=(pt-PT fr ru id)
+LOCALES=(pt-PT es fr ru id)
 
 echo "==> Building English book"
 mdbook build -d book
