@@ -22,3 +22,9 @@ additional-css = ["theme/cards.css"]
 enable = true
 limit-results = 20
 boost-hierarchy = 2
+
+
+
+
+[preprocessor.gettext]
+translations-dir = "po"

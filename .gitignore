@@ -5,3 +5,6 @@ commands.md
 opencrabs.com
 .env
 
+docs/po/tr_*.json
+docs/po/*_ids_*.json
+docs/po/tier1_msgids.json
