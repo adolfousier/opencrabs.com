@@ -66,7 +66,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-3686cb1f.js";
+            window.path_to_searchindex_js = "searchindex-de7297d3.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-55df8b59.js"></script>
@@ -6283,9 +6283,9 @@ node dist/cli.js linkedin comment &lt;post-url&gt; "text" # Comment on post
 <p class="stories-lede">These are <strong>use cases</strong>, not reviews. Real workflows people run on OpenCrabs, tagged by what they automate, and linked back to the original post wherever we have it. Click any card for the full breakdown and the source. For what people say about the tool itself, see the reviews on the landing page.</p>
 
 <div class="stories-filters" role="toolbar" aria-label="Filter stories by category">
-  <button type="button" class="filter-pill active" data-filter="all">All <b>18</b></button>
+  <button type="button" class="filter-pill active" data-filter="all">All <b>19</b></button>
   <button type="button" class="filter-pill" data-filter="business-ops">Business Ops <b>5</b></button>
-  <button type="button" class="filter-pill" data-filter="product-building">Product Building <b>4</b></button>
+  <button type="button" class="filter-pill" data-filter="product-building">Product Building <b>5</b></button>
   <button type="button" class="filter-pill" data-filter="research-content">Research &amp; Content <b>3</b></button>
   <button type="button" class="filter-pill" data-filter="devops-infra">DevOps &amp; Infra <b>3</b></button>
   <button type="button" class="filter-pill" data-filter="meta-dogfooding">Meta &amp; Dogfooding <b>3</b></button>
@@ -7155,6 +7155,59 @@ node dist/cli.js linkedin comment &lt;post-url&gt; "text" # Comment on post
     
 <p>A tireless repo maintainer: triage, drafts, tracking, and release notes, with the human stepping in only for the calls that matter.</p>
 
+  </div>
+
+</details>
+<details class="story-card" style="--sc:#e6a15c">
+  <summary>
+    
+<div class="story-meta">
+      <span class="story-source"><i class="dot"></i>Product</span>
+      <span class="story-cat">App Building</span>
+    </div>
+
+    
+<h3 class="story-title">The 12-hour Airbnb product</h3>
+
+    
+<p class="story-excerpt">estimertravaux.com turns renovation photos into itemized French-market estimates in seconds. OpenCrabs is the brain doing it all: vision analysis, SKU selection, pricing, planning — the whole SKU-to-budget pipeline, orchestrated as an autonomous agent.</p>
+
+    
+<div class="story-foot">
+      <span class="story-author">Gaspare Russo · estimertravaux.com</span>
+      <span class="story-more">breakdown <span class="chev">▸</span></span>
+    </div>
+
+  </summary>
+  
+<div class="story-body">
+    
+<p><strong>EstimersTravaux</strong> is Gaspare Russo's estimation app for the French renovation market: clients photograph their rooms, pick rooms and trades, and get a detailed per-room estimate based on real 2026 French market pricing in seconds.</p>
+
+    
+<ul>
+      
+<li><strong>OpenCrabs as the brain:</strong> the Dart bridge invokes the OpenCrabs CLI (v0.3.83) as an autonomous agent (<code>opencrabs run --auto-approve</code>) and delegates the entire estimation to it</li>
+
+      
+<li><strong>SKU orchestration:</strong> the agent reads the photos, selects product ranges coherent with the property's usage and style from a per-trade brand catalogue (Tollens, Legrand DX3, Uponor, Porcelanosa, Grohe, IKEA...), estimates quantities, and emits per-room line items with min/max ranges</li>
+
+      
+<li><strong>Real market smarts:</strong> regional multipliers (Côte d'Azur ×1.18, Paris ×1.25), adaptive TVA by building age, conditional purchase orientation — rental units get Leroy Merlin ranges, high-end gets Point.P premium and Villeroy &amp; Boch</li>
+
+      
+<li><strong>Strict output contract:</strong> the agent returns pure JSON (rooms + line items + planning); the bridge extracts it via bracket-matching and persists everything in PostgreSQL</li>
+
+      
+<li><strong>Zero hardcoded fallback:</strong> if the AI fails, the user gets an explicit error and a retry — no fake numbers</li>
+
+    </ul>
+
+    
+<p><strong>The origin:</strong> built in <strong>12 hours in a Lisbon Airbnb</strong> by Gaspare Russo with Carlos Eduardo (heyiolo.com) and Adolfo Usier, OpenCrabs' creator. During the build, OpenCrabs also translated the team's French↔English conversation live on a dedicated Telegram group — and worked beautifully.</p>
+
+    <a class="story-link" href="https://estimertravaux.com" target="_blank" rel="noopener">estimertravaux.com ↗</a>
+    <a class="story-link" href="https://github.com/adolfousier/estimerstravaux" target="_blank" rel="noopener">View the repo on GitHub ↗</a>
   </div>
 
 </details>
