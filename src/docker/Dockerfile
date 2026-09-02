@@ -4,16 +4,15 @@ RUN rustup target add wasm32-unknown-unknown
 
 # Use pre-built binaries to avoid dependency hell
 RUN curl -fsSL https://github.com/trunk-rs/trunk/releases/download/v0.21.7/trunk-x86_64-unknown-linux-gnu.tar.gz | tar -xz -C /usr/local/bin
-RUN curl -fsSL https://github.com/rust-lang/mdBook/releases/download/v0.4.44/mdbook-v0.4.44-x86_64-unknown-linux-gnu.tar.gz | tar -xz -C /usr/local/bin
 
 WORKDIR /app
 COPY Cargo.toml Cargo.lock ./
+COPY locales/ locales/
 COPY src/ src/
 COPY index.html style.css Trunk.toml ./
 COPY docs/ docs/
 
 RUN trunk build --release
-RUN cd docs && mdbook build
 
 FROM nginx:alpine
 COPY --from=builder /app/dist /usr/share/nginx/html
