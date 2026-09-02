@@ -4,27 +4,26 @@ use leptos::wasm_bindgen::JsCast;
 use serde::Deserialize;
 use web_sys::{HtmlElement, window};
 
+leptos_i18n::load_locales!();
+
+use crate::i18n::{use_i18n, Locale};
+use leptos_i18n::{t, t_string};
+
 fn copy_terminal_code() {
-    let active_tab = document()
-        .query_selector(".terminal-tabs button.active")
+    // Index-based detection: tab labels are localized, so never match on text.
+    let tab_idx: u8 = document()
+        .query_selector_all(".terminal-tabs button")
         .ok()
-        .flatten()
-        .and_then(|el| el.dyn_into::<HtmlElement>().ok());
-    let tab_idx = match active_tab {
-        Some(el) => {
-            let text = el.inner_text();
-            if text == "Binary" {
-                0
-            } else if text == "Cargo" {
-                1
-            } else if text == "Homebrew" {
-                3
-            } else {
-                2
-            }
-        }
-        None => 0,
-    };
+        .and_then(|nodes| {
+            (0..nodes.length()).find(|&i| {
+                nodes
+                    .item(i)
+                    .and_then(|n| n.dyn_into::<web_sys::Element>().ok())
+                    .map(|el| el.class_list().contains("active"))
+                    .unwrap_or(false)
+            })
+        })
+        .unwrap_or(0) as u8;
 
     let os = detect_os();
     let _tag = document()
@@ -41,13 +40,13 @@ fn copy_terminal_code() {
             "Expand-Archive opencrabs.zip -DestinationPath . && .\\opencrabs.exe".into(),
         ],
         (0, "macos") => vec![
-            format!("TAG=$(curl -s https://api.github.com/repos/adolfousier/opencrabs/releases/latest | jq -r .tag_name)"),
-            format!("curl -fsSL https://github.com/adolfousier/opencrabs/releases/download/$TAG/opencrabs-$TAG-macos-arm64.tar.gz | tar xz"),
+            "TAG=$(curl -s https://api.github.com/repos/adolfousier/opencrabs/releases/latest | jq -r .tag_name)".into(),
+            "curl -fsSL https://github.com/adolfousier/opencrabs/releases/download/$TAG/opencrabs-$TAG-macos-arm64.tar.gz | tar xz".into(),
             "./opencrabs".into(),
         ],
         (0, _) => vec![
             "sudo apt install libgomp1".into(),
-            format!("TAG=$(curl -s https://api.github.com/repos/adolfousier/opencrabs/releases/latest | jq -r .tag_name)"),
+            "TAG=$(curl -s https://api.github.com/repos/adolfousier/opencrabs/releases/latest | jq -r .tag_name)".into(),
             "curl -fsSL https://github.com/adolfousier/opencrabs/releases/download/$TAG/opencrabs-$TAG-linux-amd64.tar.gz | tar xz".into(),
             "./opencrabs".into(),
         ],
@@ -105,14 +104,6 @@ fn build_download_url_full(tag: &str, os: &str) -> String {
     )
 }
 
-fn download_label(os: &str) -> &'static str {
-    match os {
-        "macos" => "Download for macOS",
-        "windows" => "Download for Windows",
-        _ => "Download for Linux",
-    }
-}
-
 #[derive(Deserialize, Clone, Debug)]
 struct GitHubRepo {
     stargazers_count: u32,
@@ -136,6 +127,16 @@ fn main() {
 
 #[component]
 fn App() -> impl IntoView {
+    crate::i18n::provide_i18n_context();
+    // Restore persisted language (set after provide; runs once at mount).
+    if let Some(i18n) = leptos::prelude::use_context::<leptos_i18n::I18nContext<Locale>>()
+        && let Some(storage) = window().and_then(|w| w.local_storage().ok().flatten())
+        && let Ok(Some(saved)) = storage.get_item("oc-lang")
+        && let Ok(loc) = saved.parse::<Locale>()
+    {
+        i18n.set_locale(loc);
+    }
+
     let stars = LocalResource::new(fetch_star_count);
     let stars_signal = Signal::derive(move || stars.get().flatten().unwrap_or(0));
 
@@ -161,10 +162,46 @@ fn App() -> impl IntoView {
     }
 }
 
+// ── Language switcher ───────────────────────────────────────────────────────
+
+#[component]
+fn LangSwitcher() -> impl IntoView {
+    let i18n = use_i18n();
+    let langs: Vec<(Locale, &'static str)> = vec![
+        (Locale::en, "EN"),
+        (Locale::pt_PT, "PT"),
+        (Locale::fr, "FR"),
+        (Locale::ru, "RU"),
+        (Locale::id, "ID"),
+    ];
+
+    view! {
+        <div class="lang-switcher">
+            {langs.into_iter().map(|(loc, label)| {
+                let is_active = move || i18n.get_locale() == loc;
+                view! {
+                    <button
+                        class:active=is_active
+                        on:click=move |_| {
+                            i18n.set_locale(loc);
+                            if let Some(storage) = window()
+                                .and_then(|w| w.local_storage().ok().flatten())
+                            {
+                                let _ = storage.set_item("oc-lang", &format!("{loc}"));
+                            }
+                        }
+                    >{label}</button>
+                }
+            }).collect::<Vec<_>>()}
+        </div>
+    }
+}
+
 // ── Navigation ──────────────────────────────────────────────────────────────
 
 #[component]
 fn Nav(stars: Signal<u32>, tag: Signal<String>) -> impl IntoView {
+    let i18n = use_i18n();
     let star_label = move || {
         let count = stars.get();
         if count > 0 {
@@ -182,9 +219,9 @@ fn Nav(stars: Signal<u32>, tag: Signal<String>) -> impl IntoView {
                     "OpenCrabs"
                 </a>
                 <ul class="nav-links">
-                    <li><a href="https://docs.opencrabs.com" target="_blank">"Docs"</a></li>
-                    <li><a href="#features">"Features"</a></li>
-                    <li><a href="#integrations">"Integrations"</a></li>
+                    <li><a href="https://docs.opencrabs.com" target="_blank">{move || t!(i18n, nav_docs)}</a></li>
+                    <li><a href="#features">{move || t!(i18n, nav_features)}</a></li>
+                    <li><a href="#integrations">{move || t!(i18n, sec_integrations)}</a></li>
                     <li>
                         {move || {
                             let t = tag.get();
@@ -194,15 +231,16 @@ fn Nav(stars: Signal<u32>, tag: Signal<String>) -> impl IntoView {
                             } else {
                                 build_download_url_full(&t, os)
                             };
-                            view! { <a href=url class="nav-download">"Download"</a> }
+                            view! { <a href=url class="nav-download">{move || t!(i18n, nav_download)}</a> }
                         }}
                     </li>
                     <li>
                         <a href="https://github.com/adolfousier/opencrabs" class="btn-github" target="_blank">
-                            "GitHub"
+                            {move || t!(i18n, nav_github)}
                             <span class="github-stars">{star_label}</span>
                         </a>
                     </li>
+                    <li><LangSwitcher /></li>
                 </ul>
             </div>
         </nav>
@@ -262,6 +300,7 @@ fn format_release_date(published_at: &str) -> String {
 
 #[component]
 fn Hero() -> impl IntoView {
+    let i18n = use_i18n();
     let release = LocalResource::new(fetch_latest_release);
 
     let badge_text = move || {
@@ -282,7 +321,7 @@ fn Hero() -> impl IntoView {
                     format!("{} — {} — {}", version, date, name)
                 }
             }
-            _ => "Loading latest release...".to_string(),
+            _ => t_string!(i18n, loading_release).to_string(),
         }
     };
 
@@ -291,12 +330,12 @@ fn Hero() -> impl IntoView {
             <div class="container">
                 <img class="hero-crab" src="public/opencrabs-logo.png" alt="OpenCrabs" />
                 <h1>"OpenCrabs"</h1>
-                <p class="hero-tagline">"THE ALL-IN-ONE AI AGENT LIVING IN YOUR TERMINAL."</p>
+                <p class="hero-tagline">{move || t!(i18n, hero_tagline)}</p>
                 <p class="hero-description">
-                    "Build apps, backends, landing pages. Manages files, searches the web, runs deep research, schedules tasks and events. Set a goal with /goal and watch it loop autonomously until done. Self-improving, self-healing, fully autonomous. Connects from Terminal UI, CLI or your favorite channels."
+                    {move || t!(i18n, hero_description)}
                 </p>
                 <a href="https://github.com/adolfousier/opencrabs/releases/latest" class="hero-badge">
-                    <span class="badge-new">"LATEST"</span>
+                    <span class="badge-new">{move || t!(i18n, badge_latest)}</span>
                     {badge_text}
                     <span class="arrow">" →"</span>
                 </a>
@@ -310,6 +349,7 @@ fn Hero() -> impl IntoView {
 
 #[component]
 fn QuickStart(tag: Signal<String>) -> impl IntoView {
+    let i18n = use_i18n();
     let (active_tab, set_active_tab) = signal(0u8);
 
     view! {
@@ -317,7 +357,7 @@ fn QuickStart(tag: Signal<String>) -> impl IntoView {
             <div class="container">
                 <h2 class="section-title">
                     <span class="chevron">"›"</span>
-                    "Quick Start"
+                    {move || t!(i18n, qs_title)}
                 </h2>
                 <div class="terminal">
                     <div class="terminal-header">
@@ -330,21 +370,21 @@ fn QuickStart(tag: Signal<String>) -> impl IntoView {
                             <button
                                 class:active=move || active_tab.get() == 0
                                 on:click=move |_| set_active_tab.set(0)
-                            >"Binary"</button>
+                            >{move || t!(i18n, tab_binary)}</button>
                             <button
                                 class:active=move || active_tab.get() == 1
                                 on:click=move |_| set_active_tab.set(1)
-                            >"Cargo"</button>
+                            >{move || t!(i18n, tab_cargo)}</button>
                             <button
                                 class:active=move || active_tab.get() == 2
                                 on:click=move |_| set_active_tab.set(2)
-                            >"Source"</button>
+                            >{move || t!(i18n, tab_source)}</button>
                             <button
                                 class:active=move || active_tab.get() == 3
                                 on:click=move |_| set_active_tab.set(3)
-                            >"Homebrew"</button>
+                            >{move || t!(i18n, tab_homebrew)}</button>
                         </div>
-                        <span class="terminal-platform">"macOS / Linux / Windows"</span>
+                        <span class="terminal-platform">{move || t!(i18n, qs_platform)}</span>
                         <button class="terminal-copy-btn" on:click=move |_| copy_terminal_code()>
                             "📋"
                         </button>
@@ -353,7 +393,11 @@ fn QuickStart(tag: Signal<String>) -> impl IntoView {
                         {move || {
                             let os = detect_os();
                             let t = tag.get();
-                            let label = download_label(os);
+                            let label = match os {
+                                "macos" => t_string!(i18n, dl_macos).to_string(),
+                                "windows" => t_string!(i18n, dl_windows).to_string(),
+                                _ => t_string!(i18n, dl_linux).to_string(),
+                            };
                             let url = if t.is_empty() {
                                 "https://github.com/adolfousier/opencrabs/releases/latest".to_string()
                             } else {
@@ -362,13 +406,13 @@ fn QuickStart(tag: Signal<String>) -> impl IntoView {
                             view! {
                                 <div class="download-row">
                                     <a href=url class="download-btn">{label}</a>
-                                    <a href="https://github.com/adolfousier/opencrabs/releases/latest" class="download-all">"All platforms →"</a>
+                                    <a href="https://github.com/adolfousier/opencrabs/releases/latest" class="download-all">{move || t!(i18n, all_platforms)}</a>
                                 </div>
-                                <div class="download-divider">"or via terminal"</div>
+                                <div class="download-divider">{move || t!(i18n, or_via_terminal)}</div>
                                 {if os == "windows" {
                                     view! {
                                         <div>
-                                            <span class="terminal-comment">"# PowerShell"</span>
+                                            <span class="terminal-comment">{move || t!(i18n, cmt_powershell)}</span>
                                         </div>
                                         <div>
                                             <span class="terminal-prompt">"PS> "</span>
@@ -404,7 +448,7 @@ fn QuickStart(tag: Signal<String>) -> impl IntoView {
                     </div>
                     <div class="terminal-body" style:display=move || if active_tab.get() == 1 { "block" } else { "none" }>
                         <div>
-                            <span class="terminal-comment">"# Install via cargo (stable Rust)"</span>
+                            <span class="terminal-comment">{move || t!(i18n, cmt_cargo)}</span>
                         </div>
                         <div>
                             <span class="terminal-prompt">"$ "</span>
@@ -417,14 +461,14 @@ fn QuickStart(tag: Signal<String>) -> impl IntoView {
                     </div>
                     <div class="terminal-body" style:display=move || if active_tab.get() == 2 { "block" } else { "none" }>
                         <div>
-                            <span class="terminal-comment">"# Install all deps + Rust stable (macOS, Debian, Fedora, Arch)"</span>
+                            <span class="terminal-comment">{move || t!(i18n, cmt_deps)}</span>
                         </div>
                         <div>
                             <span class="terminal-prompt">"$ "</span>
                             <span class="terminal-cmd">"curl -fsSL https://raw.githubusercontent.com/adolfousier/opencrabs/main/src/scripts/setup.sh | bash"</span>
                         </div>
                         <div>
-                            <span class="terminal-comment">"# Then clone and build"</span>
+                            <span class="terminal-comment">{move || t!(i18n, cmt_clone)}</span>
                         </div>
                         <div>
                             <span class="terminal-prompt">"$ "</span>
@@ -437,7 +481,7 @@ fn QuickStart(tag: Signal<String>) -> impl IntoView {
                     </div>
                     <div class="terminal-body" style:display=move || if active_tab.get() == 3 { "block" } else { "none" }>
                         <div>
-                            <span class="terminal-comment">"# Prebuilt binary from homebrew-core, macOS + Linux, both architectures"</span>
+                            <span class="terminal-comment">{move || t!(i18n, cmt_homebrew)}</span>
                         </div>
                         <div>
                             <span class="terminal-prompt">"$ "</span>
@@ -450,9 +494,9 @@ fn QuickStart(tag: Signal<String>) -> impl IntoView {
                     </div>
                 </div>
                 <p class="terminal-note">
-                    "Works on macOS, Linux & Windows. After install, type "
-                    <strong>"/evolve"</strong>
-                    " to auto-update."
+                    {move || t!(i18n, note_a)}
+                    <strong>{move || t!(i18n, note_evolve)}</strong>
+                    {move || t!(i18n, note_b)}
                 </p>
             </div>
         </section>
@@ -463,6 +507,7 @@ fn QuickStart(tag: Signal<String>) -> impl IntoView {
 
 #[component]
 fn Features() -> impl IntoView {
+    let i18n = use_i18n();
     let features = vec![
         (
             "🖥️",
@@ -551,7 +596,7 @@ fn Features() -> impl IntoView {
             <div class="container">
                 <h2 class="section-title">
                     <span class="chevron">"›"</span>
-                    "What It Does"
+                    {move || t!(i18n, sec_features)}
                 </h2>
                 <div class="features-grid">
                     {features.into_iter().map(|(icon, title, desc)| view! {
@@ -571,6 +616,7 @@ fn Features() -> impl IntoView {
 
 #[component]
 fn Integrations() -> impl IntoView {
+    let i18n = use_i18n();
     let channels = vec![
         "📱 Telegram",
         "💬 Discord",
@@ -611,7 +657,7 @@ fn Integrations() -> impl IntoView {
             <div class="container">
                 <h2 class="section-title">
                     <span class="chevron">"›"</span>
-                    "Works With Everything"
+                    {move || t!(i18n, sec_integrations)}
                 </h2>
                 <div class="integrations-row">
                     {channels.into_iter().map(|name| view! {
@@ -629,7 +675,7 @@ fn Integrations() -> impl IntoView {
                     }).collect::<Vec<_>>()}
                 </div>
                 <div class="integrations-links">
-                    <a href="https://docs.opencrabs.com/channels/overview.html" target="_blank">"View all integrations →"</a>
+                    <a href="https://docs.opencrabs.com/channels/overview.html" target="_blank">{move || t!(i18n, view_integrations)}</a>
                 </div>
             </div>
         </section>
@@ -640,6 +686,7 @@ fn Integrations() -> impl IntoView {
 
 #[component]
 fn Testimonials() -> impl IntoView {
+    let i18n = use_i18n();
     let quotes: Vec<(&str, &str, &str)> = vec![
         (
             "I've been an openclaw user since launch (still am), but opencrabs definitely feels polished, lightweight, and stable. It treats Telegram as a first-class channel: TG support means I am using my agent on every device I have.",
@@ -689,7 +736,7 @@ fn Testimonials() -> impl IntoView {
                 <div class="testimonials-header">
                     <h2 class="section-title" style="margin-bottom: 0">
                         <span class="chevron">"›"</span>
-                        "What People Say"
+                        {move || t!(i18n, sec_testimonials)}
                     </h2>
                 </div>
                 <div class="testimonials-grid">
@@ -706,7 +753,7 @@ fn Testimonials() -> impl IntoView {
                 </div>
                 <div class="stories-cta-wrap">
                     <a class="stories-cta" href="https://docs.opencrabs.com/user-stories.html" target="_blank" rel="noopener">
-                        "See the user stories — real workflows, real receipts"
+                        {move || t!(i18n, stories_cta)}
                         <span class="arrow">" →"</span>
                     </a>
                 </div>
@@ -719,33 +766,34 @@ fn Testimonials() -> impl IntoView {
 
 #[component]
 fn Community() -> impl IntoView {
+    let i18n = use_i18n();
     view! {
         <section id="community">
             <div class="container">
                 <h2 class="section-title">
                     <span class="chevron">"›"</span>
-                    "Join the Colony"
+                    {move || t!(i18n, sec_community)}
                 </h2>
                 <div class="community-grid">
                     <a href="https://github.com/adolfousier/opencrabs" class="community-card" target="_blank">
                         <span class="icon">"🐙"</span>
-                        <h3>"GitHub"</h3>
-                        <p>"View the source"</p>
+                        <h3>{move || t!(i18n, comm_github_t)}</h3>
+                        <p>{move || t!(i18n, comm_github_d)}</p>
                     </a>
                     <a href="https://github.com/adolfousier/opencrabs/issues" class="community-card" target="_blank">
                         <span class="icon">"🐛"</span>
-                        <h3>"Issues"</h3>
-                        <p>"Report bugs & request features"</p>
+                        <h3>{move || t!(i18n, comm_issues_t)}</h3>
+                        <p>{move || t!(i18n, comm_issues_d)}</p>
                     </a>
                     <a href="https://github.com/adolfousier/opencrabs/blob/main/CHANGELOG.md" class="community-card" target="_blank">
                         <span class="icon">"📋"</span>
-                        <h3>"Changelog"</h3>
-                        <p>"See what's new"</p>
+                        <h3>{move || t!(i18n, comm_changelog_t)}</h3>
+                        <p>{move || t!(i18n, comm_changelog_d)}</p>
                     </a>
                     <a href="https://docs.opencrabs.com" class="community-card" target="_blank">
                         <span class="icon">"📖"</span>
-                        <h3>"Documentation"</h3>
-                        <p>"Learn the ropes"</p>
+                        <h3>{move || t!(i18n, comm_docs_t)}</h3>
+                        <p>{move || t!(i18n, comm_docs_d)}</p>
                     </a>
                 </div>
             </div>
@@ -780,12 +828,13 @@ fn Community() -> impl IntoView {
 
 #[component]
 fn Footer(stars: Signal<u32>) -> impl IntoView {
+    let i18n = use_i18n();
     let star_cta = move || {
         let count = stars.get();
         if count > 0 {
-            format!("★ {} stars on GitHub — give us one more!", count)
+            t!(i18n, footer_stars, count = count).into_any()
         } else {
-            "★ Star us on GitHub!".to_string()
+            t!(i18n, footer_star_zero).into_any()
         }
     };
 
@@ -796,18 +845,18 @@ fn Footer(stars: Signal<u32>) -> impl IntoView {
                     {star_cta}
                 </a>
                 <div class="footer-links">
-                    <a href="https://docs.opencrabs.com" target="_blank">"Docs"</a>
-                    <a href="https://github.com/adolfousier/opencrabs">"GitHub"</a>
-                    <a href="https://github.com/adolfousier/opencrabs/blob/main/CHANGELOG.md">"Changelog"</a>
-                    <a href="https://t.me/opencrabs" target="_blank">"Community"</a>
-                    <a href="https://github.com/sponsors/adolfousier" target="_blank">"Sponsor"</a>
-                    <a href="https://buymeacoffee.com/opencrabs" target="_blank">"Buy Me a Coffee"</a>
-                    <a href="https://github.com/adolfousier/opencrabs/blob/main/LICENSE">"MIT License"</a>
+                    <a href="https://docs.opencrabs.com" target="_blank">{move || t!(i18n, footer_docs)}</a>
+                    <a href="https://github.com/adolfousier/opencrabs">{move || t!(i18n, footer_github)}</a>
+                    <a href="https://github.com/adolfousier/opencrabs/blob/main/CHANGELOG.md">{move || t!(i18n, footer_changelog)}</a>
+                    <a href="https://t.me/opencrabs" target="_blank">{move || t!(i18n, footer_community)}</a>
+                    <a href="https://github.com/sponsors/adolfousier" target="_blank">{move || t!(i18n, footer_sponsor)}</a>
+                    <a href="https://buymeacoffee.com/opencrabs" target="_blank">{move || t!(i18n, footer_coffee)}</a>
+                    <a href="https://github.com/adolfousier/opencrabs/blob/main/LICENSE">{move || t!(i18n, footer_license)}</a>
                 </div>
                 <p class="footer-tagline">
-                    "Built with 🦀 by "
+                    {move || t!(i18n, footer_built_by)}
                     <a href="https://github.com/adolfousier">"Adolfo Usier"</a>
-                    " & the OpenCrabs community."
+                    {move || t!(i18n, footer_and_community)}
                 </p>
             </div>
         </footer>

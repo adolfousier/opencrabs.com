@@ -791,3 +791,41 @@ footer {
     .hero h1 { font-size: 2rem; }
     .nav-links a:not(.btn-github) { display: none; }
 }
+
+/* ── Language switcher ─────────────────────────────────────────────────── */
+
+.lang-switcher {
+    display: inline-flex;
+    gap: 2px;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 6px;
+    padding: 2px;
+}
+
+.lang-switcher button {
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 0.7rem;
+    font-weight: 600;
+    font-family: inherit;
+    padding: 3px 6px;
+    border-radius: 4px;
+    cursor: pointer;
+    letter-spacing: 0.02em;
+}
+
+.lang-switcher button:hover {
+    color: #fff;
+}
+
+.lang-switcher button.active {
+    background: rgba(255, 108, 62, 0.22);
+    color: #ff6c3e;
+}
+
+@media (max-width: 480px) {
+    .lang-switcher { display: none; }
+}
