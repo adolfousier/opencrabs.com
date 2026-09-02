@@ -14,4 +14,4 @@ web-sys = { version = "0.3", features = ["Navigator", "Clipboard", "HtmlElement"
 
 [package.metadata.leptos-i18n]
 default = "en"
-locales = ["en", "pt-PT", "fr", "ru", "id"]
+locales = ["en", "pt-PT", "es", "fr", "ru", "id"]

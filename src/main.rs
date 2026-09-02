@@ -171,33 +171,43 @@ fn App() -> impl IntoView {
 #[component]
 fn LangSwitcher() -> impl IntoView {
     let i18n = use_i18n();
-    let langs: Vec<(Locale, &'static str)> = vec![
-        (Locale::en, "EN"),
-        (Locale::pt_PT, "PT"),
-        (Locale::fr, "FR"),
-        (Locale::ru, "RU"),
-        (Locale::id, "ID"),
+    let langs: Vec<(Locale, &'static str, &'static str)> = vec![
+        (Locale::en, "en", "English"),
+        (Locale::pt_PT, "pt-PT", "Português"),
+        (Locale::es, "es", "Español"),
+        (Locale::fr, "fr", "Français"),
+        (Locale::ru, "ru", "Русский"),
+        (Locale::id, "id", "Indonesia"),
     ];
 
+    let stored = window()
+        .and_then(|w| w.local_storage().ok().flatten())
+        .and_then(|s| s.get_item("oc-lang").ok().flatten());
+    let current = stored
+        .and_then(|code| code.parse::<Locale>().ok())
+        .unwrap_or_else(|| i18n.get_locale());
+
     view! {
-        <div class="lang-switcher">
-            {langs.into_iter().map(|(loc, label)| {
-                let is_active = move || i18n.get_locale() == loc;
-                view! {
-                    <button
-                        class:active=is_active
-                        on:click=move |_| {
-                            i18n.set_locale(loc);
-                            if let Some(storage) = window()
-                                .and_then(|w| w.local_storage().ok().flatten())
-                            {
-                                let _ = storage.set_item("oc-lang", &format!("{loc}"));
-                            }
-                        }
-                    >{label}</button>
+        <select
+            class="lang-switcher"
+            aria-label="Language"
+            on:change=move |ev| {
+                let code = event_target_value(&ev);
+                if let Ok(loc) = code.parse::<Locale>() {
+                    i18n.set_locale(loc);
+                    if let Some(storage) = window()
+                        .and_then(|w| w.local_storage().ok().flatten())
+                    {
+                        let _ = storage.set_item("oc-lang", &code);
+                    }
                 }
+            }
+        >
+            {langs.into_iter().map(|(loc, code, name)| {
+                let selected = loc == current;
+                view! { <option value=code selected=selected>{name}</option> }
             }).collect::<Vec<_>>()}
-        </div>
+        </select>
     }
 }
 

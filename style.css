@@ -790,42 +790,39 @@ footer {
 @media (max-width: 480px) {
     .hero h1 { font-size: 2rem; }
     .nav-links a:not(.btn-github) { display: none; }
+    .nav-links { gap: 14px; }
 }
 
 /* ── Language switcher ─────────────────────────────────────────────────── */
 
 .lang-switcher {
-    display: inline-flex;
-    gap: 2px;
-    align-items: center;
     background: rgba(255, 255, 255, 0.06);
     border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 6px;
-    padding: 2px;
-}
-
-.lang-switcher button {
-    background: transparent;
-    border: none;
-    color: rgba(255, 255, 255, 0.55);
-    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 0.72rem;
     font-weight: 600;
     font-family: inherit;
-    padding: 3px 6px;
-    border-radius: 4px;
+    padding: 4px 8px;
+    max-width: 96px;
     cursor: pointer;
     letter-spacing: 0.02em;
+    appearance: none;
+    -webkit-appearance: none;
+    flex-shrink: 0;
 }
 
-.lang-switcher button:hover {
+.lang-switcher:hover {
     color: #fff;
+    border-color: rgba(255, 255, 255, 0.25);
 }
 
-.lang-switcher button.active {
-    background: rgba(255, 108, 62, 0.22);
-    color: #ff6c3e;
+.lang-switcher:focus {
+    outline: none;
+    border-color: rgba(255, 108, 62, 0.6);
 }
 
-@media (max-width: 480px) {
-    .lang-switcher { display: none; }
+.lang-switcher option {
+    background: #16181d;
+    color: rgba(255, 255, 255, 0.85);
 }
