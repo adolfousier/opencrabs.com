@@ -1,0 +1,515 @@
+<!DOCTYPE HTML>
+<html lang="ru" class="ayu sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Introduction - OpenCrabs</title>
+
+
+        <!-- Custom HTML head -->
+        <!-- ============ Default: site-wide SEO ============ -->
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://docs.opencrabs.com/" />
+        <meta property="og:title" content="OpenCrabs Documentation" />
+        <meta property="og:description" content="Documentation for OpenCrabs — the autonomous AI agent that lives in your terminal. Setup guides, provider config, channel integrations, and API reference." />
+            <meta property="og:image" content="https://docs.opencrabs.com/img/og-docs.png" />
+            <meta property="og:image:width" content="1200" />
+            <meta property="og:image:height" content="642" />
+        <meta property="og:site_name" content="OpenCrabs" />
+        
+        <!-- Twitter Card -->
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="OpenCrabs Documentation" />
+        <meta name="twitter:description" content="Documentation for OpenCrabs — the autonomous AI agent that lives in your terminal." />
+            <meta name="twitter:image" content="https://docs.opencrabs.com/img/og-docs.png" />
+        
+        <!-- SEO -->
+        <meta name="robots" content="index, follow" />
+        <meta name="keywords" content="OpenCrabs, AI agent, terminal, documentation, Rust, LLM, Telegram bot, Discord bot, Slack bot, WhatsApp bot" />
+        <link rel="canonical" href="https://docs.opencrabs.com/" />
+
+        <!-- Google Analytics GA4 -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-1DDEZDYVWR"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-1DDEZDYVWR');
+        </script>
+
+        <meta name="description" content="Documentation for OpenCrabs — the autonomous AI agent that lives in your terminal.">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-3643b9e5.svg">
+        <link rel="shortcut icon" href="favicon-0496ab32.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-e96d0476.css">
+        <link rel="stylesheet" href="css/chrome-d279d366.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme/cards-77c040ab.css">
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "ayu";
+            const default_dark_theme = "ayu";
+            window.path_to_searchindex_js = "searchindex-6df5a3ee.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-55df8b59.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">OpenCrabs</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/adolfousier/opencrabs" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
+<p><strong>OpenCrabs</strong> — автономный агент оркестрации ИИ, не привязанный к провайдеру, работающий как единый бинарный файл на Rust. Он автоматизирует ваш терминал, браузер, channels (Telegram/Discord/Slack/WhatsApp/Trello) и кодовую базу, уважая вашу приватность и оставляя контроль у вас.</p>
+<p><strong>6 997 тестов</strong> охватывают провайдеров, инструменты, channels, TUI, самовосстановление и автоматизацию браузера.</p>
+<h2 id="что-отличает-opencrabs"><a class="header" href="#что-отличает-opencrabs">Что отличает OpenCrabs</a></h2>
+<h3 id="ноль-телеметрии--даже-опции-включения-нет"><a class="header" href="#ноль-телеметрии--даже-опции-включения-нет">Ноль телеметрии — даже опции включения нет</a></h3>
+<ul>
+<li><strong>OpenCrabs никогда не связывается с «домашним сервером». Никогда.</strong> Никакой аналитики, никакого трекинга, никакой статистики использования, никакого удалённого логирования, никаких отчётов о сбоях</li>
+<li>Ваши переписки, инструменты, память, конфигурация и API-ключи никогда не покидают вашу машину</li>
+<li>Единственный исходящий трафик — тот, который вы инициируете сами: вызовы LLM API, веб-поиск, команды GitHub, автоматизация браузера</li>
+<li>Это не галочка в политике приватности: нет кода телеметрии, который нужно отключать, нет флага отказа, нет аналитического сервиса, который нужно блокировать. Просто нечего отправлять</li>
+</ul>
+<h3 id="независимость-от-провайдера-заложена-в-дизайн"><a class="header" href="#независимость-от-провайдера-заложена-в-дизайн">Независимость от провайдера заложена в дизайн</a></h3>
+<ul>
+<li><strong>16 встроенных провайдеров + Custom OpenAI Compatible</strong>: Anthropic Claude, OpenAI, Gemini, Xiaomi MiMo, OpenRouter, Qwen (DashScope), MiniMax, Ollama, z.ai GLM, GitHub Copilot, Codex, Codex CLI, OpenCode, OpenCode CLI, <strong>Moonshot AI (Kimi)</strong>, Command Code CLI</li>
+<li><strong>Нативная интеграция CLI</strong> — используйте Claude Code CLI, OpenCode CLI, Codex CLI и Command Code CLI как провайдеров без API-кл��чей</li>
+<li><strong>Липкая цепочка fallback</strong> — автоматическое переключение при лимитах запросов или ошибках, данные о здоровье провайдеров переживают перезапуски</li>
+<li><strong>Кэширование промптов</strong> в Anthropic, OpenRouter, Gemini, Qwen DashScope снижает расходы до 95%</li>
+<li><strong>Переопределение окна контекста</strong> — ограничьте или расширьте контекст любой модели через конфигурацию</li>
+<li><strong>Xiaomi MiMo</strong> — более 30 моделей, включая рассуждающую серию MiMo, провайдер с API-ключом</li>
+<li><strong>Moonshot AI (Kimi)</strong> — эндпоинты API plan (api.moonshot.ai) и Coding plan (api.kimi.com), настройка reasoning-effort, окно контекста по тарифному плану</li>
+</ul>
+<h3 id="multi-agent-orchestration"><a class="header" href="#multi-agent-orchestration">Multi-Agent Orchestration</a></h3>
+<ul>
+<li><strong>Sessions — полностью изолированные агенты</strong> — у каждой свой brain, провайдер, модель, рабочая директория и история</li>
+<li><strong>Типизированные суб-агенты</strong>: <code>general</code>, <code>explore</code>, <code>plan</code>, <code>code</code>, <code>research</code> с настроенным доступом к инструментам</li>
+<li><strong>Оркестрация команд</strong>: <code>team_create</code>, <code>team_broadcast</code>, <code>team_delete</code> для согласованных рабочих процессов</li>
+<li><strong>Переопределение провайдера/модели на каждый вызов</strong> — миксуйте модели между командами (план на GLM, код на Deepseek, ревью на Kimi)</li>
+<li><strong>Протокол A2A</strong> — шлюз JSON-RPC 2.0 для связи агентов между собой</li>
+</ul>
+<h3 id="нативная-коммуникация-через-channels"><a class="header" href="#нативная-коммуникация-через-channels">Нативная коммуникация через channels</a></h3>
+<ul>
+<li><strong>Telegram, Discord, Slack, WhatsApp, Trello</strong> — полная интеграция ботов с личными сообщениями, группами и тредами</li>
+<li><strong>Rich-сообщения Telegram</strong> — нативные таблицы, заголовки, списки, формулы через настройку <code>rich_messages</code></li>
+<li><strong>Стриминг черновиков сообщений</strong> — живые обновления «печатает…» по мере генерации токенов в личных сообщениях</li>
+<li><strong>Сворачиваемые блоки</strong> — секции <code>&lt;details&gt;/&lt;summary&gt;</code> для длинных выводов</li>
+<li><strong>Изоляция session по темам форума</strong> — каждая тема в супер-группах Telegram получает собственную session</li>
+<li><strong>Реакции Telegram</strong> — бот читает входящие эмодзи-реакции и может ответить реакцией вместо сообщения, когда это уместно</li>
+<li><strong>Реакции на кадр (v0.3.61)</strong> — входящие реакции читаются по тональности, агент обращается к пользователю по имени</li>
+<li><strong>Реакции посреди хода (v0.3.61)</strong> — реакция во время выполняющегося хода внедряется в текущий цикл вместо запуска второго хода</li>
+<li><strong>Подсказки продолжения (v0.3.69)</strong> — необязательные follow-up-кнопки в Telegram, Discord, Slack, WhatsApp; в TUI — заполнение без отправки</li>
+<li><strong>Повторное закрепление карточки плана в Telegram (v0.3.71)</strong> — карточка плана заново закрепляется и вбирает текст, когда её засыпало сообщениями</li>
+<li><strong>Полный захват истории групп (v0.3.73)</strong> — в историю сохраняется каждое сообщение группы, даже от отправителей и ботов не из allowlist</li>
+<li><strong>Корректный собеседник в группах (v0.3.73)</strong> — отправитель из истории группы больше не принимается за текущего собеседника</li>
+<li><strong>Наследование session</strong> — <code>/new</code> наследует рабочую директорию вашей последней session</li>
+<li><strong><code>/goal</code> во всех channels</strong> — ставьте автономные цели из Telegram, Discord, Slack, WhatsApp</li>
+<li><strong>Голосовая поддержка</strong> — локальные Whisper STT + Piper TTS, полностью офлайн</li>
+<li><strong>Восстановление после сбоя между channels</strong> — ожидающие запросы возвращаются в исходный channel после перезапуска</li>
+<li><strong><code>/cowork</code></strong> — создавайте общие рабочие пространства из channels и TUI</li>
+<li><strong><code>/rename</code>, <code>/profiles</code>, <code>/cd</code></strong> — управляйте sessions, профилями и директориями из любого channel</li>
+</ul>
+<h3 id="самовосстановление-и-самоулучшение"><a class="header" href="#самовосстановление-и-самоулучшение">Самовосстановление и самоулучшение</a></h3>
+<ul>
+<li><strong>Рекурсивное самоулучшение (RSI)</strong> — агент анализирует свою работу, находит паттерны и переписывает brain files</li>
+<li><strong>Обнаружение фантомных вызовов инструментов</strong> — ловит моменты, когда модель описывает изменения, не выполняя инструменты</li>
+<li><strong>Самовосстановление от фантомов (v0.3.72)</strong> — ловит ходы без единого вызова инструментов, заявляющие критичные побочные эффекты (ship/push/tag/release)</li>
+<li><strong>Правки конфигурации только через config_manager (v0.3.74)</strong> — агент никогда не редактирует config.toml/keys.toml напрямую; каждая запись проверяется до применения</li>
+<li><strong>Дедупликация brain (v0.3.75)</strong> — команда <code>/dedup</code> плюс проверки после записи и еженедельные межфайловые сканы не дают brain files расползаться дубликатами, с подтверждением через inline-клавиатуру Telegram</li>
+<li><strong>Подсказки из brain files при промахах инструментов (v0.3.75)</strong> — релевантные заметки brain всплывают автоматически, когда вызов инструмента промахивается или падает</li>
+<li><strong>Проактивная память (v0.3.76)</strong> — релевантные воспоминания всплывают без запроса, когда контекст разговора совпадает со знаниями из памяти</li>
+<li><strong>Естественные имена моделей (v0.3.76)</strong> — <code>/models opus</code> работает; разговорные имена превращаются в точные ID моделей</li>
+<li><strong>Роутинг провайдеров для плана и исполнения (v0.3.76)</strong> — направляйте планирование и исполнение на разные провайдеры/модели</li>
+<li><strong>Таймаут цикла размышлений (v0.3.78)</strong> — ловит бесконечные циклы рассуждений, запускает фантомную защиту со sticky fallback</li>
+<li><strong>Эпистемический движок (v0.3.78)</strong> — отсле��ивание убеждений с уровнями уверенности, когнитивная сеть OODA/BDI, шлюз Orient перед исполнением плана</li>
+<li><strong>Шлюз проверки Ralph (v0.3.78)</strong> — верификация задач по критериям с лимитом итераций; задачи обязаны соответствовать заявленным критериям приёмки</li>
+<li><strong>Створы безопасности TOML (v0.3.78)</strong> — настраиваемый на лету blocklist для bash с hot-reload, маскирование секретов в кавычках, проверка brain files</li>
+<li><strong>Аналитика Mission Control (v0.3.78)</strong> — фильтр Д/Н/М, сетка карточек в три колонки, вкладки phantom/model/streaming, отдельная БД событий</li>
+<li><strong>Подключение OpenAI TTS (v0.3.78)</strong> — выбор голоса и поле API-ключа в мастере первоначальной настройки</li>
+<li><strong>Установка через Homebrew (v0.3.79)</strong> — <code>brew install opencrabs</code> из homebrew-core: готовый бинарник, обе архитектуры, без тулчейна Rust</li>
+<li><strong><code>/restart</code> и <code>/exit</code> (v0.3.79)</strong> — перезапуск или выключение из любого channel или из TUI; в channels только для owner, с объявлением перед действием</li>
+<li><strong>Предохранитель квот (v0.3.79)</strong> — провайдеры с исчерпанной квотой получают TTL-предохранитель и пропускаются при обходе fallback; исчерпание цепочки сообщается явно</li>
+<li><strong>Состояние планов между sessions (v0.3.79)</strong> — планы переживают границы session; изолированное исполнение задач плана включено по умолчанию, Ralph проверяет в директории самой session</li>
+<li><strong>Режим починки doctor –fix (v0.3.83)</strong> — застрявшие строки cron, устаревшие маркеры и сломанные права чинятся на месте, а не только отображаются в отчёте</li>
+<li><strong>Блокировки записи на каждый путь (v0.3.83)</strong> — одновременные записи в один файл выстраиваются в очередь; последний писатель больше молча не побеждает</li>
+<li><strong>Изоляция worktree суб-агентов (v0.3.83)</strong> — каждый дочерний агент получает свой worktree и ветку, так что веерный запуск не затирает общее дерево</li>
+<li><strong>Критерии приёмки с учётом типа проекта (v0.3.83)</strong> — критерии плана применяются к тулчейну, который проект реально использует (#1133)</li>
+<li><strong>Проверка планов с пониманием проекта (v0.3.83)</strong> — планы проверяются командами самого проекта, а не всегда cargo, и проект находится из папки session</li>
+<li><strong>/stop отменяет немедленно (v0.3.83)</strong> — прерывает даже во время рукопожатия с провайдером и пауз между повторами (#1148)</li>
+<li><strong>Возобновление session через A2A (v0.3.83)</strong> — sessions возобновляются по id контекста, шлюз адресуется по профилю (#1159, #1161)</li>
+<li><strong>Настройки размышлений DeepSeek (v0.3.83)</strong> — DeepSeek получает параметры thinking, которые он реально читает, плюс обработку ходов только с вызовами инструментов</li>
+<li><strong>Корреляция логов по session_id (v0.3.82)</strong> — каждый ход открывает span трассировки со своим session id, у задач cron и движка RSI свои span, так что один grep восстанавливает весь ход из общего дневного лога</li>
+<li><strong>Надёжность логгера (v0.3.82)</strong> — логгер перестаёт терять события и писать в терминал TUI; зависшая запись больше не глушит логирование остальных потоков</li>
+<li><strong>Защита пользовательских brain files (v0.3.82)</strong> — SOUL.md, USER.md и MEMORY.md никогда не пополняются из upstream, а директивы направляются в AGENTS.md, который загружается всегда</li>
+<li><strong>Унификация секций конфигурации (v0.3.82)</strong> — устаревшее написание <code>[gateway]</code> мигрирует на диске в <code>[a2a]</code>, так что одно имя переживает цикл перезагрузки</li>
+<li><strong>Кэширование по хэшу чанков (v0.3.82)</strong> — память пропускает повторное встраивание чанков, чьё содержимое не менялось</li>
+<li><strong>Пре-релизные бинарники (v0.3.82)</strong> — пять платформенных целей плюс SHA256SUMS, публикуются как катящийся пре-релиз, чтобы контрибьюторы тестировали невышедший код, не дожидаясь тега. Запуск по требованию, не на каждый push</li>
+<li><strong>Выход по rate-limit (v0.3.82)</strong> — при длинном окне ограничений Telegram возврат происходит немедленно, вместо того чтобы парковать отправку в очереди</li>
+<li><strong>Собственное хранилище памяти (v0.3.81)</strong> — зависимость qmd убрана; поиск на SQLite FTS5 + векторный живёт в самом коде</li>
+<li><strong>Внешние пути индексов (v0.3.81)</strong> — поиск по памяти читает индексы вне директории профиля; по умолчанию запрет в общих sessions</li>
+<li><strong>Mermaid картинками в Telegram (v0.3.81)</strong> — диаграммы рендерятся картинками, а таблицы остаются в нативном форматировании</li>
+<li><strong>Размышления Qwen между ходами (v0.3.81)</strong> — preserve_thinking, настройки thinking по семейству, рекомендуемый уровень усилий по умолчанию, хостуемый Qwen доступен отовсюду</li>
+<li><strong>Фикс потери ключей в keys.toml (v0.3.81)</strong> — API-ключи провайдеров больше не теряются во время работы; ��овреждённые ключи самолечатся</li>
+<li><strong>Раннее обнаружение циклов (v0.3.81)</strong> — повторяющиеся раунды инструментов ловятся до того, как провайдер отклонит ход</li>
+<li><strong>Ворота движка RSI (v0.3.81)</strong> — автономный RSI по умолчанию выключен для headless-демонов, включается через <code>rsi_enabled</code></li>
+<li><strong>Область поиска memory_search (v0.3.80)</strong> — ищите по дневным логам (<code>memory</code>), brain files (<code>brain</code>) или по обоим сразу (<code>all</code>); brain files индексируются при записи</li>
+<li><strong>Чанкованный поиск по памяти (v0.3.80)</strong> — документы нарезаются на чанки перед встраиванием, поэтому поздние чанки тоже находятся; релевантность ранжируется BM25</li>
+<li><strong>Нативный рендеринг Slack (v0.3.80)</strong> — таблицы и заголовки приходят в собственном формате Slack вместо сырого markdown</li>
+<li><strong>Команды channel только для owner (v0.3.80)</strong> — пользовательские команды и skills в группах доступны только owner на catch-all-ветке channel</li>
+<li><strong>Ворота сходимости RSI (v0.3.80)</strong> — самоулучшение ставится на паузу при сходимости, откатывается при сериях без улучшений, хэширует находки по стабильной идентичности</li>
+<li><strong>Защита от циклов (v0.3.80)</strong> — защита от повторных объявлений и почти одинаковых повторов на всех инструментах; срабатывания детектора циклов доходят до цепочки fallback</li>
+<li><strong>Режим инвентаризации браузера (v0.3.80)</strong> — голый <code>browser_find</code> перечисляет каждый кликабельный элемент на странице</li>
+<li><strong>Обновление шаблонов brain files (v0.3.80)</strong> — шаблоны AGENTS.md, BOOT.md и SOUL.md изменились; сидинг никогда не перезаписывает существующие файлы, поэтому сверьте с <code>src/docs/reference/templates/</code> и смёржите вручную, если хотите новые дефолты</li>
+<li><strong>Пересборка системного brain</strong> — brain files пересобираются с диска при изменении, перезапуск не нужен</li>
+<li><strong>Проактивный поиск инструментов</strong> — сначала ищет доступные инструменты, и только потом признаёт бессилие</li>
+<li><strong>Многоязычный анализатор промптов (v0.3.67)</strong> — общий PromptAnalyzer с мягкими подсказками в TUI и Telegram, 6 языковых пакетов (EN/ES/FR/ID/PT/RU)</li>
+<li><strong>Режим планов (v0.3.67-v0.3.68)</strong> — треки design/checklist, постоянная карточка плана, команда <code>/plan &lt;query&gt;</code>, самосогласование агентом при выданной пользователем автономии</li>
+<li><strong>Разворачивание кликом (v0.3.69)</strong> — левый клик по блоку вызова инструмента или размышлений разворачивает только его, в дополнение к Ctrl+O</li>
+<li><strong>review_gate для skills (v0.3.70)</strong> — объявление во frontmatter для рискованных skills, требующих одоб��ения пользователя перед побочными эффектами</li>
+<li><strong>JIT-активация инструментов</strong> — расширенные инструменты активируются по запросу, предварительная регистрация не нужна</li>
+<li><strong>Автопочинка конфигурации</strong> — сломанный config.toml чинится автоматически, последняя рабочая конфигурация никогда не портится</li>
+<li><strong>Управление бюджетом контекста</strong> — пороги компакции 65% мягкий / 90% жёсткий с fallback на LLM</li>
+<li><strong>Обнаружение зависшего стрима</strong> — скользящее окно в 2048 байт ловит повторяющиеся паттерны</li>
+<li><strong>Защита от газлайтинга</strong> — вырезает преамбулы с отказом от инструментов посреди хода</li>
+<li><strong>Доставка результатов сборки (v0.3.61)</strong> — результаты rebuild/evolve доходят до того, кто просил, во всех channels и TUI</li>
+</ul>
+<h3 id="терминальный-ui"><a class="header" href="#терминальный-ui">Терминальный UI</a></h3>
+<ul>
+<li><strong>Нативный рендеринг markdown</strong> — выделение, списки, ссылки и чекбоксы задач рендерятся прямо в терминале</li>
+<li><strong>Счётчик скорости в реальном времени</strong> — живые токены в секунду во время стриминга</li>
+<li><strong>Отображение версии (v0.3.73)</strong> — работающая версия показывается в шапке TUI и в /help + /usage в channels</li>
+<li><strong>Трёхпозиционное разворачивание размышлений (v0.3.74)</strong> — клик или Ctrl+O переключает блок размышлений свёрнут → ограничен → полностью, так что он никогда не заливает экран</li>
+<li><strong>Заголовки на каждый ход (v0.3.75)</strong> — каждый ход получает однострочный заголовок-сводку, его рассуждения сворачиваются в него, и ходы по умолчанию свёрнуты, поэтому обзор остаётся чистым</li>
+<li><strong>Группировка вызовов инструментов (v0.3.61)</strong> — последовательные вызовы инструментов сворачиваются в один разворачиваемый блок, сохраняя TUI чистым во время многошаговых операций</li>
+<li><strong>Сворачивание промежуточного текста (v0.3.61)</strong> — промежуточный текст обработки сворачивается в тот же журнал на месте, что и вызовы инструментов, поэтому виден только финальный ответ</li>
+<li><strong>Поиск по sessions</strong> — поисковый фильтр + прокрутка вьюпорта по всем sessions</li>
+<li><strong>Разделённые панели</strong> — параллельные sessions в стиле tmux с сохранением раскладки</li>
+<li><strong>Вставка картинок из буфера</strong> — вставляйте картинки из браузера или любого приложения прямо в TUI</li>
+<li><strong>Закрепление плана</strong> — активный план прикалывается в конец промпта на каждый ход</li>
+<li><strong>Онбординг под руководством агента</strong> — персонализированная первичная настройка с ведением по шагам</li>
+<li><strong>Автономный цикл <code>/goal</code></strong> — поставьте цель, и агент крутится, пока LLM-судья не скажет «готово», с управлением пауза/продолжить/статус</li>
+<li><strong>Самопостановка целей (v0.3.61)</strong> — агент может ставить и вести собственные многоходовые цели через инструмент <code>goal_manage</code>, без команды <code>/goal</code> от пользователя</li>
+</ul>
+<h3 id="опыт-разработчика"><a class="header" href="#опыт-разработчика">Опыт разработчика</a></h3>
+<ul>
+<li><strong>50+ встроенных инструментов</strong> — файловые операции, bash, веб-поиск, исполнение кода, автоматизация браузера, генерация картинок, голос, рендеринг PDF</li>
+<li><strong>Единый параллельный веб-поиск (v0.3.73)</strong> — web_search, exa_search и brave_search работают параллельно под одним инструментом web_search</li>
+<li><strong>web_scrape</strong> — нативное превращение URL в markdown с защитой от SSRF, обходом sitemap, обнаружением JS-заглушек и экспортом с учётом профиля</li>
+<li><strong>Обнаружение ��апчи DDG (v0.3.73)</strong> — капча DuckDuckGo детектируется по HTTP 202 + структурной проверке формы</li>
+<li><strong>Встроенный skill /github</strong> — полное управление gh CLI для issues, PR, код-ревью и управления репозиториями</li>
+<li><strong>Проактивный поиск инструментов</strong> — агент находит инструменты, прежде чем сказать «не могу»</li>
+<li><strong>Система skills</strong> — шаблоны рабочих процессов с нечётким поиском, автоматически регистрируются как slash-команды</li>
+<li><strong>Динамические инструменты</strong> — определяются на лету через TOML (исполнители HTTP + shell)</li>
+<li><strong>Система проектов</strong> — выделенные sessions с брейн-оверлеями на каждый проект, архивацией файлов и цветными значками</li>
+<li><strong>Hashline-редактирование</strong> — редактирование файлов с привязкой к хэшам строк, пакетными правками и обнаружением коллизий</li>
+<li><strong>Mission Control</strong> — полноэкранная панель с входящими RSI, журналом активности и расписанием cron</li>
+<li><strong>Автозагрузка RTK</strong> — встроенный прокси в 4 МБ для экономии 53,5% токенов на 100+ командах</li>
+<li><strong>Защита конфиденциальных файлов</strong> — SSH-ключи, .env, креды защищены по умолчанию</li>
+<li><strong>AGENTS загружается всегда</strong> — жёсткие правил�� и управление применяются на каждом ходу</li>
+<li><strong>debug_logs из конфигурации (v0.3.71)</strong> — переключение дебаг-логов с hot-reload, без перезапуска</li>
+<li><strong>Область маскирования секретов (v0.3.71)</strong> — маскирование в рамках глобально/группа/личка командой <code>/redact</code></li>
+<li><strong>Область маскирования секретов (v0.3.71)</strong> — маскирование в рамках глобально/группа/личка командой <code>/redact</code></li>
+<li><strong>debug_logs из конфигурации (v0.3.71)</strong> — переключение дебаг-логов с hot-reload, без перезапуска</li>
+<li><strong>Сторож Tmux (v0.3.71)</strong> — прибивает только панель, предупреждение за 30 с, автоматический повторный attach</li>
+<li><strong>Трёхпозиционный шлюз планов (v0.3.71)</strong> — GateDecision, bash уходит на одобрение в Editing после инициализации</li>
+<li><strong>ToolHints в стиле MCP (v0.3.71)</strong> — модель рисков для классификации инструментов, питает шлюз планов</li>
+</ul>
+<h3 id="browser-automation"><a class="header" href="#browser-automation">Browser Automation</a></h3>
+<ul>
+<li><strong>Полная поддержка CDP</strong> — навигация, клики, ввод, скриншоты, JS eval, поиск элементов</li>
+<li>Режим <strong>headless или headed</strong> со скриншотами отдельных элементов</li>
+<li><strong>Сохранение cookies/session</strong> между сессиями браузера</li>
+<li><strong>Изоляция вкладок на каждую session</strong> — никакого затаптывания DOM между sessions</li>
+</ul>
+<h3 id="обнаружение-директив-проекта-v0359"><a class="header" href="#обнаружение-директив-проекта-v0359">Обнаружение директив проекта (v0.3.59)</a></h3>
+<p>OpenCrabs автоматически находит файлы правил, которы�� другие ИИ-инструменты для кодинга оставляют в репозитории. Укажите агенту на любой репозиторий (через <code>/cd</code>, рабочее пространство channel или запуск внутри него) — и он просканирует конвенции от Claude Code, Cursor, Windsurf, Cline, Gemini CLI, GitHub Copilot, OpenCode и межинструментального стандарта <code>AGENTS.md</code>. Без конфигурации, без шага импорта.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Источник</th><th>Файлы</th></tr>
+</thead>
+<tbody>
+<tr><td>Межинструментальный стандарт</td><td><code>AGENTS.md</code></td></tr>
+<tr><td>Claude Code</td><td><code>CLAUDE.md</code>, <code>CLAUDE.local.md</code>, <code>.claude/CLAUDE.md</code>, <code>.claude/rules/**/*.md</code></td></tr>
+<tr><td>Cursor</td><td><code>.cursorrules</code>, <code>.cursor/rules/**/*.mdc</code></td></tr>
+<tr><td>Windsurf</td><td><code>.windsurfrules</code></td></tr>
+<tr><td>Cline</td><td><code>.clinerules</code> (file or <code>.clinerules/**/*.{md,txt}</code>)</td></tr>
+<tr><td>Gemini CLI</td><td><code>GEMINI.md</code></td></tr>
+<tr><td>GitHub Copilot</td><td><code>.github/copilot-instructions.md</code></td></tr>
+<tr><td>OpenCode</td><td><code>.opencode/AGENTS.md</code></td></tr>
+</tbody>
+</table>
+</div>
+<p>Индекс пересобирается, когда вы делаете <code>/cd</code> в новую директорию, поэтому файлы директив всегда актуальны.</p>
+<h2 id="быстрый-старт"><a class="header" href="#быстрый-старт">Быстрый старт</a></h2>
+<pre><code class="language-bash"># Install (Linux/macOS)
+ARCH=$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/')
+OS=$(uname -s | tr A-Z a-z)
+TAG=$(command -v jq &gt;/dev/null 2&gt;&amp;1 &amp;&amp; curl -s https://api.github.com/repos/adolfousier/opencrabs/releases/latest | jq -r .tag_name || curl -s https://api.github.com/repos/adolfousier/opencrabs/releases/latest | grep -o '"tag_name":"[^"]*"' | cut -d'"' -f4)
+curl -fsSL "https://github.com/adolfousier/opencrabs/releases/download/${TAG}/opencrabs-${TAG}-${OS}-${ARCH}.tar.gz" | tar xz
+./opencrabs
+
+# Or via Cargo (requires Rust 1.94+)
+cargo install opencrabs --locked
+</code></pre>
+<p>Автообновление включено по умолчанию. Отключите через <code>[agent] auto_update = false</code> в <code>~/.opencrabs/config.toml</code>.</p>
+<h2 id="architecture"><a class="header" href="#architecture">Architecture</a></h2>
+<pre><code>┌─────────────────────────────────────────┐
+│           OpenCrabs Binary              │
+│  (Single 34-36 MB Rust executable)      │
+├─────────────────────────────────────────┤
+│  ┌─────────────┐  ┌─────────────────┐  │
+│  │   TUI       │  │   CLI Daemon    │  │
+│  │  (crossterm)│  │  (systemd/launchd)││
+│  └─────────────┘  └─────────────────┘  │
+│                                         │
+│  ┌─────────────────────────────────┐   │
+│  │        Provider Registry         │   │
+│  │  15 built-in + Custom OpenAI    │   │
+│  │  Sticky fallback chain          │   │
+│  └─────────────────────────────────┘   │
+│                                         │
+│  ┌─────────────────────────────────┐   │
+│  │        Tool Layer                │   │
+│  │  50+ built-in tools             │   │
+│  │  Dynamic tools via TOML         │   │
+│  │  JIT activation                 │   │
+│  └─────────────────────────────────┘   │
+│                                         │
+│  ┌─────────────────────────────────┐   │
+│  │        Channel Adapters          │   │
+│  │  Telegram / Discord / Slack /    │   │
+│  │  WhatsApp / Trello / Voice      │   │
+│  └────────────────���────────────────┘   │
+│                                         │
+│  ┌─────────────────────────────────┐   │
+│  │        Self-Healing Layer       │   │
+│  │  Context budget / Stuck stream  │   │
+│  │  Phantom detection / RSI        │   │
+│  └─────────────────────────────────┘   │
+│                                         │
+│  ┌─────────────────────────────────┐   │
+│  │        Persistence              │   │
+│  │  SQLite + Brain files           │   │
+│  │  FTS5 + vector search           │   │
+│  └─────────────────────────────────┘   │
+└─────────────────────────────────────────┘
+</code></pre>
+<h2 id="следующие-шаги"><a class="header" href="#следующие-шаги">Следующие шаги</a></h2>
+<ul>
+<li><a href="getting-started/installation.html">Установка</a> — установка и настройка</li>
+<li><a href="getting-started/configuration.html">Конфигурация</a> — все параметры конфигурации</li>
+<li><a href="brain/providers-overview.html">Провайдеры</a> — подключите ваши LLM-бэкенды</li>
+<li><a href="channels/overview.html">Channels</a> — подключите Telegram, Discord и другие</li>
+<li><a href="brain/tools.html">Инструменты</a> — изучите 50+ встроенных возможностей</li>
+<li><a href="features/self-healing.html">Самовосстановление</a> — устойчивость к сбоям</li>
+<li><a href="features/multi-agent.html">Мультиагентность</a> — оркестрация суб-агентов и команд</li>
+</ul>
+<h2 id="сообщество-и-поддержка"><a class="header" href="#сообщество-и-поддержка">Сообщество и поддержка</a></h2>
+<ul>
+<li><a href="https://t.me/opencrabs">Сообщество в Telegram</a> — присоединяйтесь к группе OpenCrabs: вопросы, советы и новости релизов</li>
+<li><a href="https://github.com/sponsors/adolfousier">��понсировать на GitHub</a> — поддержите проект, чтобы крабы были сыты</li>
+<li><a href="https://buymeacoffee.com/opencrabs">Buy Me A Coffee</a> — разовая поддержка, если OpenCrabs сэкономил вам полдня</li>
+</ul>
+<p>Нашли баг или нужна фича? Заведите issue на <a href="https://github.com/adolfousier/opencrabs/issues">GitHub</a>.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+
+                            <a rel="next prefetch" href="getting-started/installation.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+
+                    <a rel="next prefetch" href="getting-started/installation.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-09f2665d.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-609e4cb8.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="theme/custom-4a111f7b.js"></script>
+
+
+
+    </div>
+    </body>
+</html>

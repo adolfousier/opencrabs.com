@@ -1,0 +1,499 @@
+<!DOCTYPE HTML>
+<html lang="id" class="ayu sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Telegram - OpenCrabs</title>
+
+
+        <!-- Custom HTML head -->
+        <!-- ============ Default: site-wide SEO ============ -->
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://docs.opencrabs.com/" />
+        <meta property="og:title" content="OpenCrabs Documentation" />
+        <meta property="og:description" content="Documentation for OpenCrabs — the autonomous AI agent that lives in your terminal. Setup guides, provider config, channel integrations, and API reference." />
+            <meta property="og:image" content="https://docs.opencrabs.com/img/og-docs.png" />
+            <meta property="og:image:width" content="1200" />
+            <meta property="og:image:height" content="642" />
+        <meta property="og:site_name" content="OpenCrabs" />
+        
+        <!-- Twitter Card -->
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="OpenCrabs Documentation" />
+        <meta name="twitter:description" content="Documentation for OpenCrabs — the autonomous AI agent that lives in your terminal." />
+            <meta name="twitter:image" content="https://docs.opencrabs.com/img/og-docs.png" />
+        
+        <!-- SEO -->
+        <meta name="robots" content="index, follow" />
+        <meta name="keywords" content="OpenCrabs, AI agent, terminal, documentation, Rust, LLM, Telegram bot, Discord bot, Slack bot, WhatsApp bot" />
+        <link rel="canonical" href="https://docs.opencrabs.com/" />
+
+        <!-- Google Analytics GA4 -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-1DDEZDYVWR"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-1DDEZDYVWR');
+        </script>
+
+        <meta name="description" content="Documentation for OpenCrabs — the autonomous AI agent that lives in your terminal.">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon-3643b9e5.svg">
+        <link rel="shortcut icon" href="../favicon-0496ab32.png">
+        <link rel="stylesheet" href="../css/variables-8adf115d.css">
+        <link rel="stylesheet" href="../css/general-e96d0476.css">
+        <link rel="stylesheet" href="../css/chrome-d279d366.css">
+        <link rel="stylesheet" href="../css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="../highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="../tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="../ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../theme/cards-77c040ab.css">
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "../";
+            const default_light_theme = "ayu";
+            const default_dark_theme = "ayu";
+            window.path_to_searchindex_js = "../searchindex-dcc6ed16.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc-55df8b59.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">OpenCrabs</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/adolfousier/opencrabs" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="telegram"><a class="header" href="#telegram">Telegram</a></h1>
+<p>Connect OpenCrabs to Telegram for DMs and group chats.</p>
+<h2 id="setup"><a class="header" href="#setup">Setup</a></h2>
+<h3 id="step-1-create-a-bot-with-botfather"><a class="header" href="#step-1-create-a-bot-with-botfather">Step 1: Create a Bot with BotFather</a></h3>
+<ol>
+<li>Message <a href="https://t.me/BotFather">@BotFather</a> on Telegram</li>
+<li>Send <code>/newbot</code> and follow the prompts</li>
+<li>Copy the bot token (format: <code>123456:ABC-DEF...</code>)</li>
+</ol>
+<h3 id="step-2-configure-via-the-onboarding-wizard"><a class="header" href="#step-2-configure-via-the-onboarding-wizard">Step 2: Configure via the Onboarding Wizard</a></h3>
+<p>Run <code>/onboard:channels</code> (or <code>/onboard</code> and navigate to the Channels step):</p>
+<ol>
+<li>Use <code>↑</code>/<code>↓</code> to focus <strong>Telegram</strong></li>
+<li>Press <code>Space</code> to toggle it on</li>
+<li>Press <code>Enter</code> to open the Telegram setup screen</li>
+<li>Fill in the fields:
+<ul>
+<li><strong>Bot Token</strong> — paste the token from BotFather</li>
+<li><strong>Owner User ID</strong> — your numeric Telegram chat ID</li>
+<li><strong>Respond To</strong> — <code>all</code>, <code>dm_only</code>, or <code>mention</code> (when to respond in groups)</li>
+</ul>
+</li>
+<li>Press <code>Enter</code> on <strong>Test Connection</strong> to verify the bot works</li>
+<li>Press <code>Enter</code> to save and return to the channel list</li>
+</ol>
+<blockquote>
+<p>Get your chat ID by messaging <a href="https://t.me/userinfobot">@userinfobot</a> on Telegram.</p>
+</blockquote>
+<h3 id="manual-configuration-advanced"><a class="header" href="#manual-configuration-advanced">Manual Configuration (advanced)</a></h3>
+<p>If you prefer editing files directly, the wizard writes to <code>~/.opencrabs/keys.toml</code> and <code>~/.opencrabs/config.toml</code>:</p>
+<pre><code class="language-toml"># keys.toml
+[channels.telegram]
+bot_token = "123456:ABC..."
+
+# config.toml
+[channels.telegram]
+enabled = true
+allowed_users = ["123456789"]
+respond_to = "all"
+</code></pre>
+<h2 id="features"><a class="header" href="#features">Features</a></h2>
+<ul>
+<li><strong>DMs and groups</strong> — Works in private chats and group conversations</li>
+<li><strong>Forum topic routing</strong> (v0.3.31) — In supergroups with topics enabled, the bot tracks <code>thread_id</code> through the full pipeline. Use <code>list_topics</code> action to map topic names (e.g. <code>#announcements</code>) to numeric IDs, then pass <code>thread_id</code> to <code>send</code> / <code>reply</code> / <code>send_photo</code> to route into a specific topic</li>
+<li><strong>Context-aware pre-tool status</strong> (v0.3.31) — While a tool runs, the bot shows a live status message naming the tool, elapsed time, and either a reasoning excerpt or an anchored phrase from the user’s request</li>
+<li><strong>Inline ctx budget footer</strong> (v0.3.36) — context budget footer (<code>ctx: XK/YK Z% | N tok/s</code>) is now appended to the last response message instead of sent as a separate message. Keeps the chat clean.</li>
+</ul>
+<h2 id="v0376v0378-improvements"><a class="header" href="#v0376v0378-improvements">v0.3.76–v0.3.78 Improvements</a></h2>
+<h3 id="new-gating-v0376"><a class="header" href="#new-gating-v0376">/new Gating (v0.3.76)</a></h3>
+<p>The <code>/new</code> command is now <strong>gated to the bot owner</strong> in group chats. Non-owners cannot create new sessions or reset context. The command menu is also scoped: owners see the full menu, non-owners see only the commands available to them.</p>
+<h3 id="html-conversion-v0377"><a class="header" href="#html-conversion-v0377">HTML Conversion (v0.3.77)</a></h3>
+<p>All <code>telegram_send</code> actions now apply <strong>HTML-to-Telegram conversion</strong> consistently. Previously, only the main response path converted HTML entities; proactive sends, follow-ups, and media captions could arrive with raw <code>&lt;b&gt;</code> tags or unescaped ampersands.</p>
+<h3 id="rich-delivery-v0378"><a class="header" href="#rich-delivery-v0378">Rich Delivery (v0.3.78)</a></h3>
+<p>Telegram delivery is unified on <strong>markdown formatting</strong>. The legacy “blocks path” (which sent structured JSON blocks) has been removed in favor of a single rich-markdown renderer. This eliminates formatting inconsistencies between streaming responses and proactive sends.</p>
+<h3 id="callback-routing-v0378"><a class="header" href="#callback-routing-v0378">Callback Routing (v0.3.78)</a></h3>
+<p>Inline keyboard callbacks (plan approvals, follow-up taps, dedup approvals) now route to the <strong>originating session</strong> instead of the chat-bound session. Previously, tapping a button in a group chat could route the callback to the wrong session if multiple sessions shared the same chat.</p>
+<h3 id="background-streaming-v0378"><a class="header" href="#background-streaming-v0378">Background Streaming (v0.3.78)</a></h3>
+<p>Background task results now stream through <strong>one turn per session</strong> instead of spawning a new message per tick. This eliminates the message flood when a background task (build, test suite) produces incremental output.</p>
+<h3 id="follow-up-attribution-v0378"><a class="header" href="#follow-up-attribution-v0378">Follow-Up Attribution (v0.3.78)</a></h3>
+<p>When a user taps a follow-up suggestion button in a group chat, the agent now <strong>names the member</strong> who tapped it. Previously, follow-up taps were anonymous in group contexts.</p>
+<h3 id="other-fixes"><a class="header" href="#other-fixes">Other Fixes</a></h3>
+<ul>
+<li><code>/start</code> recognizes existing members of closed groups (v0.3.76)</li>
+<li>Plan-card serialisation prevents duplicate cards on concurrent refreshes (v0.3.76)</li>
+<li>Follow-up taps run a real tools turn instead of echoing text (v0.3.76)</li>
+<li>Flow block no longer posts a new message every tick (v0.3.77)</li>
+<li>Echoed plan titles dropped from responses (v0.3.77)</li>
+<li>Open-group registration gated on persisted open flag (v0.3.78)</li>
+<li>Cowork members recorded on first message (v0.3.78)</li>
+<li><strong>Rolling status edit-in-place</strong> (v0.3.36) — tool status messages (⚙️ running, ✅ done) are edited in-place instead of delete+recreate, preventing flicker and preserving scroll position.</li>
+<li><strong>Bot command hot-reload</strong> (v0.3.36) — bot commands refresh automatically when config or skills change, without restarting the bot.</li>
+<li><strong>Guard tok/s against burst-delivery</strong> (v0.3.36) — tok/s footer is guarded against burst-delivery artifacts so the number stays stable.</li>
+<li><strong><code>follow_up_question</code> polish</strong> (v0.3.34) — Telegram keyboard is now single-column with a 40-character label cap (longer options rejected with a clear error). The rolling “Running follow_up_question (16s)” status is suppressed while the keyboard is pending so buttons don’t get visually buried. The LLM is instructed to call the tool silently without echoing the question text in surrounding prose</li>
+<li><strong>Inline buttons</strong> — Provider picker, model picker, session switcher use Telegram inline keyboards</li>
+<li><strong>Image support</strong> — Send images to the bot, receive generated images</li>
+<li><strong>Voice messages</strong> — STT transcription + TTS response</li>
+<li><strong>All slash commands</strong> — <code>/help</code>, <code>/models</code>, <code>/new</code>, <code>/sessions</code>, custom commands</li>
+<li><strong>Owner vs non-owner</strong> — Owner uses the shared TUI session, non-owners get per-user sessions</li>
+<li><strong>Onboarding overhaul</strong> (v0.3.30) — Auto-detects owner user ID from <code>getUpdates</code>, persists partial config on cancel, only Enter on the last step commits (Tab no longer silently rewrites ~30 config keys)</li>
+<li><strong>Teloxide upgrade + join detection</strong> (v0.3.35) — Upgraded from teloxide 0.13 to 0.17. New members joining a group are now detected before the allowlist check, so the bot can greet or moderate join events. Marathon-bucket rolling status rotates through project-author quip pool for more varied status messages.</li>
+</ul>
+<h2 id="v0381-improvements"><a class="header" href="#v0381-improvements">v0.3.81 Improvements</a></h2>
+<h3 id="mermaid-diagrams-as-images-1044"><a class="header" href="#mermaid-diagrams-as-images-1044">Mermaid Diagrams as Images (#1044)</a></h3>
+<p>Mermaid code fences in rich messages render as <strong>images</strong> via the markdown+media route, while <strong>tables stay native</strong> Telegram formatting instead of being rasterized into the image.</p>
+<h3 id="delivery-and-rate-limit-hardening"><a class="header" href="#delivery-and-rate-limit-hardening">Delivery and Rate-Limit Hardening</a></h3>
+<ul>
+<li><strong>Rich blocks decode as a typed AST</strong> (#1058) instead of ad-hoc string surgery, so structured messages can’t arrive mangled</li>
+<li><strong>Inline rate-limit waits capped at 30s</strong> (#1064): a Telegram 429 never parks a turn indefinitely</li>
+<li><strong>Flow footer + section cap</strong> (#1052, #1053, #1054, #1056): flow logs get a footer and bounded sections instead of unbounded message growth</li>
+</ul>
+<h3 id="group-safety"><a class="header" href="#group-safety">Group Safety</a></h3>
+<ul>
+<li><strong>Only the owner may add the bot to a group</strong> (#1042)</li>
+<li><strong>Bot-add detection</strong> (#1041): being added by a member is told apart from another bot arriving</li>
+<li><strong>Unauthorised chats are never recorded</strong> (#1043): chats that were never approved leave no session residue</li>
+</ul>
+<h2 id="v0382-improvements"><a class="header" href="#v0382-improvements">v0.3.82 Improvements</a></h2>
+<h3 id="long-rate-limit-windows-bail-immediately-1110"><a class="header" href="#long-rate-limit-windows-bail-immediately-1110">Long Rate-Limit Windows Bail Immediately (#1110)</a></h3>
+<p>A Telegram 429 that asks for a long wait no longer sleeps inline. The send returns immediately and the work is rescheduled, instead of the turn parking on a multi-minute (or multi-hour) window. This closes the failure mode where one throttled send held a turn open long enough to look like a hang.</p>
+<h3 id="delivery-correctness"><a class="header" href="#delivery-correctness">Delivery Correctness</a></h3>
+<ul>
+<li><strong>Rich sends stop building a double-slash URL</strong> (#1117): a trailing slash on the API base no longer produces <code>//bot&lt;token&gt;</code></li>
+<li><strong>Rich API calls honour <code>set_api_url</code></strong> (#1088): the rich path used a hardcoded <code>api.telegram.org</code>, so it bypassed a redirected Bot. It now routes through the caller’s API URL like every other method, which also makes the path testable without a real network call</li>
+<li><strong>All six send arms route through thread resolution</strong>: forum-topic targeting is applied consistently instead of on some arms only</li>
+</ul>
+<h3 id="observability"><a class="header" href="#observability">Observability</a></h3>
+<ul>
+<li><strong>Send-correlation telemetry</strong> (#1085): the three send chokepoints, every <code>telegram_send</code> arm, and the final streaming edit-in-place are all logged, so a message that never arrived can be traced to the arm that dropped it</li>
+</ul>
+<h2 id="configuration"><a class="header" href="#configuration">Configuration</a></h2>
+<p>All Telegram options live under <code>[channels.telegram]</code> in <code>~/.opencrabs/config.toml</code>:</p>
+<pre><code class="language-toml">[channels.telegram]
+enabled = true
+token = "123456:ABC-DEF..."          # or store in keys.toml
+allowed_users = ["123456789"]         # numeric Telegram user IDs
+allowed_channels = ["-100123456"]     # restrict to specific group/channel IDs (empty = all)
+respond_to = "mention"                # "all", "dm_only", "mention" (default)
+session_idle_hours = 24.0             # idle timeout for non-owner sessions
+rich_messages = false                 # native Telegram rich messages (Bot API 10.1)
+silence_group_start = true            # silently ignore /start from non-allowed users in groups
+bot_owner = ["123456789"]             # owner IDs (gated commands, /cd hidden dirs, /profiles)
+</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Field</th><th>Default</th><th>Deskripsi</th></tr>
+</thead>
+<tbody>
+<tr><td><code>enabled</code></td><td><code>false</code></td><td>Enable the Telegram bot channel</td></tr>
+<tr><td><code>token</code></td><td><code>None</code></td><td>Telegram Bot API token from @BotFather</td></tr>
+<tr><td><code>allowed_users</code></td><td><code>[]</code> (accept all)</td><td>Numeric Telegram user IDs. Accepts int or string arrays. Empty = open mode</td></tr>
+<tr><td><code>allowed_channels</code></td><td><code>[]</code> (all channels)</td><td>Restrict bot to specific channel/group IDs. DMs always pass</td></tr>
+<tr><td><code>respond_to</code></td><td><code>"mention"</code></td><td>When to respond in groups: <code>"all"</code> = every message, <code>"dm_only"</code> = ignore groups, <code>"mention"</code> = only when @mentioned or replied-to</td></tr>
+<tr><td><code>session_idle_hours</code></td><td><code>None</code> (no timeout)</td><td>Idle timeout in hours for non-owner sessions. Owner sessions never expire</td></tr>
+<tr><td><code>rich_messages</code></td><td><code>true</code> (since v0.3.64)</td><td>Send structured replies as native Telegram rich messages (tables, headings, lists, math). Requires current mobile/desktop Telegram clients. Telegram Web and older clients show a “not supported” placeholder. Toggle via the onboarding checkbox or config</td></tr>
+<tr><td><code>silence_group_start</code></td><td><code>true</code></td><td>Silently ignore /start from non-allowed users in group chats. Users who need their ID can DM the bot</td></tr>
+<tr><td><code>bot_owner</code></td><td><code>[]</code> (first allowed_user)</td><td>Bot owner user IDs. Owners can access gated commands (/profiles, hidden files in /cd), manage profiles. Defaults to first entry in <code>allowed_users</code></td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="per-group-access-control-per-chat-acl"><a class="header" href="#per-group-access-control-per-chat-acl">Per-group access control (per-chat ACL)</a></h2>
+<p>Telegram groups can have their own member list, so a user can be allowed in one group without gaining DM access:</p>
+<ul>
+<li><code>allowed_users</code> (channel level) — <strong>admins</strong>: may DM the bot and act in any chat.</li>
+<li><code>bot_owner</code> — the <strong>owner</strong>: always allowed everywhere.</li>
+<li><code>[channels.telegram.groups.&lt;chat_id&gt;].allowed_users</code> — allowed in that group only. These users are refused in DMs unless they are also an admin or the owner, which closes the “DM the bot privately to escape group oversight” bypass.</li>
+</ul>
+<p>DMs are gated to admins + owner. If neither <code>allowed_users</code> nor <code>bot_owner</code> is set, the bot is unconfigured and stays open (no hard lockout); set either one to lock it down.</p>
+<p>Each group can also override <code>respond_to</code> just for itself.</p>
+<pre><code class="language-toml">[channels.telegram]
+allowed_users = ["111"]                  # admins: DM + any chat
+respond_to = "mention"                   # global default
+
+[channels.telegram.groups.-1001234567890]
+allowed_users = ["222", "333"]           # allowed in this group only, never via DM
+respond_to = "all"                       # per-group override of the global respond_to
+</code></pre>
+<p><code>respond_to</code> accepts <code>all</code>, <code>mention</code>, <code>dm_only</code>, or <code>auto</code> (reply to all while there is at most one active sender, then switch to mention-only once a second unique sender appears).</p>
+<h3 id="per-group-open-mode-v0366"><a class="header" href="#per-group-open-mode-v0366">Per-group open mode (v0.3.66)</a></h3>
+<p>Set <code>open = true</code> on a trusted group to serve all members without individual allowlisting:</p>
+<pre><code class="language-toml">[channels.telegram.groups.-1001234567890]
+open = true                              # all members can talk, no per-user registration needed
+</code></pre>
+<p>Use this for public/community groups where you want the bot available to everyone. Members still can’t DM the bot unless they’re in the global <code>allowed_users</code> or <code>bot_owner</code>.</p>
+<h2 id="voice-and-file-pickup-in-groups"><a class="header" href="#voice-and-file-pickup-in-groups">Voice and file pickup in groups</a></h2>
+<p>In mention-only groups (<code>respond_to = "mention"</code>), users can share files and voice messages even when the bot isn’t directly tagged in the same message:</p>
+<ol>
+<li><strong>Fire-and-forget file capture</strong> — The bot downloads ALL incoming voice, video, document, and audio files from group messages to <code>~/.opencrabs/tmp/</code>, regardless of whether the bot was mentioned. This happens silently in the background.</li>
+<li><strong>Tag-then-ask</strong> — A user sends a voice message, then tags the bot in a follow-up message (e.g. <code>@bot what did I just say?</code>). The bot scans the tmp directory for recent voice files from that chat (5-minute window), transcribes the most recent one, and prepends the transcript to the user’s message.</li>
+</ol>
+<p>This solves the core UX problem in mention-only groups: previously, tagging the bot in the same message as a voice note didn’t work because Telegram sends voice and text as separate messages.</p>
+<p>The agent can use <code>telegram_send</code> with 20+ actions. The <code>thread_id</code> field on <code>send</code> / <code>reply</code> / <code>send_photo</code> targets a specific forum topic in supergroups with topics enabled.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Aksi</th><th>Deskripsi</th></tr>
+</thead>
+<tbody>
+<tr><td><code>send</code></td><td>Send text message (with optional <code>thread_id</code> for forum topics)</td></tr>
+<tr><td><code>reply</code></td><td>Reply to a message</td></tr>
+<tr><td><code>send_photo</code></td><td>Send image file (supports <code>caption</code> and <code>reply_parameters</code> since v0.3.58)</td></tr>
+<tr><td><code>send_document</code></td><td>Send document (supports <code>caption</code> and <code>reply_parameters</code> since v0.3.58)</td></tr>
+<tr><td><code>send_voice</code></td><td>Send voice message</td></tr>
+<tr><td><code>list_topics</code></td><td>Returns <code>(thread_id, topic_name)</code> pairs the bot has observed — translate <code>#announcements</code> into a numeric <code>thread_id</code></td></tr>
+<tr><td><code>pin</code> / <code>unpin</code></td><td>Pin or unpin a message</td></tr>
+<tr><td><code>set_reaction</code></td><td>Add an emoji reaction</td></tr>
+<tr><td>And more…</td><td></td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="reactions-v0358"><a class="header" href="#reactions-v0358">Reactions (v0.3.58)</a></h2>
+<p>The bot understands Telegram emoji reactions in both directions:</p>
+<ul>
+<li><strong>Inbound</strong> — when a user reacts to one of the bot’s messages with an emoji, the bot picks up that reaction (it looks up the original bot message by its platform message ID) and can act on it as feedback.</li>
+<li><strong>Frame reactions (v0.3.61)</strong> — inbound reactions are read by sentiment and the bot addresses the user by first name in its response.</li>
+<li><strong>Mid-turn reactions (v0.3.61)</strong> — if a user reacts during a running turn, the reaction injects into the current loop instead of spawning a second turn.</li>
+<li><strong>Reaction-only replies</strong> — when a short acknowledgement says it all (a thumbs-up, a 👀, a 😂), the bot can respond with just a reaction instead of a full text message, keeping the chat uncluttered.</li>
+<li><strong>Emoji validation</strong> — only real emoji count as reaction directives; code spans and stray characters are ignored, and react directives are stripped from intermediate status messages so they never leak into the visible reply.</li>
+</ul>
+<p>Use the <code>set_reaction</code> action on <code>telegram_send</code> to add a reaction to a specific message from the agent.</p>
+<h2 id="cowork--workspace-creation-v0359"><a class="header" href="#cowork--workspace-creation-v0359">/cowork — Workspace Creation (v0.3.59)</a></h2>
+<p><code>/cowork</code> creates a team workspace directly from Telegram. Run it in your DM with the bot:</p>
+<ol>
+<li>Send <code>/cowork</code> in your DM with the bot</li>
+<li>The bot replies with an invite link and QR code for a new group</li>
+<li>Scan the QR code or tap the link to create the group</li>
+<li>Add your friends or teammates to the group</li>
+<li>Members auto-register to the <strong>group’s allow list</strong> (<code>[channels.telegram.groups.&lt;chat_id&gt;].allowed_users</code>), not the global one. Both new joiners (via invite link) and existing members (on their first message) get registered. Cowork members can talk in the group but cannot DM the bot privately unless also on the global <code>allowed_users</code>. The owner gets a confirmation for each registration.</li>
+</ol>
+<p><code>/cowork</code> works from any surface. In Telegram DMs, the native flow activates directly. From the TUI, Discord, Slack, or WhatsApp, the agent calls the <code>cowork_connect</code> tool which mints a session, registers it with the bot, and returns the <code>t.me</code> deep link plus a scannable QR code PNG.</p>
+<h2 id="flow-logs-v0363"><a class="header" href="#flow-logs-v0363">Flow Logs (v0.3.63)</a></h2>
+<p>Telegram’s rich API supports 32K-character processing-log blocks. When the agent runs multi-step operations (tool calls, research, code generation), it streams progress into a single flow-log message that grows as the turn progresses. For shorter messages, HTML formatting falls back to plain text.</p>
+<p>Flow logs show:</p>
+<ul>
+<li>Tool calls with parameters and results</li>
+<li>Intermediate reasoning steps</li>
+<li>File edits and git operations</li>
+<li>Build/test progress</li>
+<li><strong>Wall-clock duration</strong> (v0.3.66) — finished/failed/timeout states carry the total turn time</li>
+<li><strong>Bash comments as flow status</strong> (v0.3.66) — line-start comments in a bash command surface as live flow status</li>
+<li><strong>Full status preview</strong> (v0.3.66) — the status preview uses the whole last human-readable line, no truncation</li>
+</ul>
+<p>The flow-log message is edited in-place as each step completes, so the channel stays clean. Users see real-time progress without message spam.</p>
+<p>Flow blocks <strong>re-stick to the chat bottom</strong> when buried (v0.3.65), so you always see the latest progress without scrolling.</p>
+<h2 id="group-chat-behavior"><a class="header" href="#group-chat-behavior">Group Chat Behavior</a></h2>
+<p>In groups, the agent:</p>
+<ul>
+<li>Responds when mentioned by name or replied to</li>
+<li>Stays quiet when the conversation doesn’t involve it</li>
+<li>Tracks context from group messages passively</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../channels/overview.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="../channels/discord.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../channels/overview.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="../channels/discord.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr-ef4e11c1.min.js"></script>
+        <script src="../mark-09e88c2c.min.js"></script>
+        <script src="../searcher-09f2665d.js"></script>
+
+        <script src="../clipboard-1626706a.min.js"></script>
+        <script src="../highlight-abc7f01d.js"></script>
+        <script src="../book-609e4cb8.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../theme/custom-4a111f7b.js"></script>
+
+
+
+    </div>
+    </body>
+</html>

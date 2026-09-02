@@ -1,0 +1,713 @@
+<!DOCTYPE HTML>
+<html lang="id" class="ayu sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Configuration - OpenCrabs</title>
+
+
+        <!-- Custom HTML head -->
+        <!-- ============ Default: site-wide SEO ============ -->
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://docs.opencrabs.com/" />
+        <meta property="og:title" content="OpenCrabs Documentation" />
+        <meta property="og:description" content="Documentation for OpenCrabs — the autonomous AI agent that lives in your terminal. Setup guides, provider config, channel integrations, and API reference." />
+            <meta property="og:image" content="https://docs.opencrabs.com/img/og-docs.png" />
+            <meta property="og:image:width" content="1200" />
+            <meta property="og:image:height" content="642" />
+        <meta property="og:site_name" content="OpenCrabs" />
+        
+        <!-- Twitter Card -->
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="OpenCrabs Documentation" />
+        <meta name="twitter:description" content="Documentation for OpenCrabs — the autonomous AI agent that lives in your terminal." />
+            <meta name="twitter:image" content="https://docs.opencrabs.com/img/og-docs.png" />
+        
+        <!-- SEO -->
+        <meta name="robots" content="index, follow" />
+        <meta name="keywords" content="OpenCrabs, AI agent, terminal, documentation, Rust, LLM, Telegram bot, Discord bot, Slack bot, WhatsApp bot" />
+        <link rel="canonical" href="https://docs.opencrabs.com/" />
+
+        <!-- Google Analytics GA4 -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-1DDEZDYVWR"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-1DDEZDYVWR');
+        </script>
+
+        <meta name="description" content="Documentation for OpenCrabs — the autonomous AI agent that lives in your terminal.">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon-3643b9e5.svg">
+        <link rel="shortcut icon" href="../favicon-0496ab32.png">
+        <link rel="stylesheet" href="../css/variables-8adf115d.css">
+        <link rel="stylesheet" href="../css/general-e96d0476.css">
+        <link rel="stylesheet" href="../css/chrome-d279d366.css">
+        <link rel="stylesheet" href="../css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="../highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="../tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="../ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../theme/cards-77c040ab.css">
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "../";
+            const default_light_theme = "ayu";
+            const default_dark_theme = "ayu";
+            window.path_to_searchindex_js = "../searchindex-dcc6ed16.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc-55df8b59.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('ayu')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">OpenCrabs</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/adolfousier/opencrabs" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="configuration"><a class="header" href="#configuration">Configuration</a></h1>
+<p>OpenCrabs uses two config files stored at <code>~/.opencrabs/</code>:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>File</th><th>Purpose</th></tr>
+</thead>
+<tbody>
+<tr><td><code>config.toml</code></td><td>Provider settings, features, channel connections</td></tr>
+<tr><td><code>keys.toml</code></td><td>API keys and secrets (never committed to git)</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="workspace-layout"><a class="header" href="#workspace-layout">Workspace Layout</a></h2>
+<pre><code>~/.opencrabs/
+├── config.toml          # Main configuration
+├── keys.toml            # API keys (gitignored)
+├── commands.toml        # Custom slash commands
+├── opencrabs.db         # SQLite database
+├── SOUL.md              # Agent personality
+├── USER.md              # Your profile
+├── MEMORY.md            # Long-term memory
+├── AGENTS.md            # Agent behavior docs
+├── TOOLS.md             # Tool reference
+├── SECURITY.md          # Security policies
+├── HEARTBEAT.md         # Periodic check tasks
+├── memory/              # Daily memory notes
+│   └── YYYY-MM-DD.md
+├── images/              # Generated images
+├── logs/                # Application logs
+└── skills/              # Custom skills/plugins
+</code></pre>
+<h2 id="provider-configuration"><a class="header" href="#provider-configuration">Provider Configuration</a></h2>
+<p>See <a href="../brain/providers.html">Provider Setup</a> for detailed provider configuration.</p>
+<p><strong>Quick example</strong> — add Anthropic:</p>
+<pre><code class="language-toml"># config.toml
+[providers.anthropic]
+enabled = true
+default_model = "claude-sonnet-4-20250514"
+</code></pre>
+<pre><code class="language-toml"># keys.toml
+[providers.anthropic]
+api_key = "sk-ant-..."
+</code></pre>
+<h2 id="provider-priority"><a class="header" href="#provider-priority">Provider Priority</a></h2>
+<p>When multiple providers are enabled, the first one found in this order is used for new sessions:</p>
+<p>MiniMax &gt; OpenRouter &gt; Anthropic &gt; OpenAI &gt; Gemini &gt; Custom</p>
+<p>Each session remembers which provider and model it was using. Switch providers per-session via <code>/models</code>.</p>
+<h2 id="config-safety-v0374"><a class="header" href="#config-safety-v0374">Config Safety (v0.3.74)</a></h2>
+<p>A malformed line in <code>config.toml</code> or <code>keys.toml</code> corrupts the whole file and takes the agent down (no provider keys, no bot token, no way back in). v0.3.74 makes that class of failure nearly impossible:</p>
+<ul>
+<li><strong>Config edits via config_manager only</strong> — the agent edits <code>config.toml</code> / <code>keys.toml</code> only through the <code>config_manager</code> tool, never with raw file edits. The write path validates the result and refuses anything that would break parsing (#715).</li>
+<li><strong>Guard config-breaking writes</strong> — <code>edit_file</code> / <code>write_file</code> writes that would break <code>config.toml</code> / <code>keys.toml</code> are denied outright (#713).</li>
+<li><strong>Re-validate before write</strong> — config is re-validated immediately before <code>fs::write</code> in the <code>config_manager</code> write paths (#714).</li>
+<li><strong>Validate keys before snapshot</strong> — <code>keys.toml</code> is validated before it is saved as the last-good snapshot, so a bad snapshot can’t poison recovery (#712).</li>
+</ul>
+<p><strong>v0.3.79 hardened this further:</strong></p>
+<ul>
+<li><strong>Every config write is atomic</strong> (#911) — a crash or a concurrent reader mid-write can never observe a half-written <code>config.toml</code> or <code>keys.toml</code>.</li>
+<li><strong>Config loads no longer race on shared state</strong> — concurrent reloads can’t interleave and leave a torn config in memory.</li>
+<li><strong>Reload failures are specific</strong> — a failed reload says <em>what</em> failed, and a write race is named as the transient condition it is instead of a scary generic error.</li>
+<li><strong>Never select a provider you didn’t configure</strong> — fallback and model routing can no longer land on a provider section that doesn’t exist in your config.</li>
+</ul>
+<h2 id="agent-behavior"><a class="header" href="#agent-behavior">Agent Behavior</a></h2>
+<pre><code class="language-toml">[agent]
+working_directory = "/path/to/default/dir"
+thinking = "on"                     # "on", "off", or "budget_XXk"
+approval_policy = "auto-always"     # "ask", "auto-session", "auto-always"
+max_concurrent = 4                  # max parallel tool calls
+context_limit = 200000              # context window cap (tokens)
+max_tokens = 65536                  # max output tokens per API call
+auto_update = true                  # auto-install releases on startup
+silent_compaction = false           # suppress post-compaction personality narration
+lazy_tools = true                   # JIT tool-schema loading (ships core + tool_search only)
+redact_sensitive_data = true        # redact API keys, tokens, passwords, IPs from output
+debug_logs = false                  # enable debug file logging (hot-reloads, no restart)
+default_provider = "minimax"        # fallback provider when no provider is active (v0.3.62)
+default_model = "MiniMax-M2.7"      # fallback model when no model is active (v0.3.62)
+</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Field</th><th>Default</th><th>Deskripsi</th></tr>
+</thead>
+<tbody>
+<tr><td><code>working_directory</code></td><td>home dir</td><td>Default working directory for the agent</td></tr>
+<tr><td><code>thinking</code></td><td><code>"on"</code></td><td>Extended thinking mode: <code>"on"</code>, <code>"off"</code>, or <code>"budget_XXk"</code></td></tr>
+<tr><td><code>approval_policy</code></td><td><code>"auto-always"</code></td><td><code>"ask"</code> = confirm every tool call, <code>"auto-session"</code> = auto-approve for session, <code>"auto-always"</code> = never ask</td></tr>
+<tr><td><code>max_concurrent</code></td><td><code>4</code></td><td>Max tool calls running in parallel</td></tr>
+<tr><td><code>context_limit</code></td><td><code>200000</code></td><td>Context window limit in tokens. When exceeded, oldest messages are dropped</td></tr>
+<tr><td><code>max_tokens</code></td><td><code>65536</code></td><td>Max output tokens per single API call</td></tr>
+<tr><td><code>auto_update</code></td><td><code>true</code></td><td>Automatically install new releases on startup (binary mode only)</td></tr>
+<tr><td><code>silent_compaction</code></td><td><code>false</code></td><td>When true, suppresses the agent’s playful post-compaction narration. Useful for corporate/formal deployments</td></tr>
+<tr><td><code>lazy_tools</code></td><td><code>true</code></td><td>Ships only core tool schemas (~4k tokens) plus <code>tool_search</code> per request. The agent discovers and activates extended tools on demand via <code>tool_search</code>. Set <code>false</code> to load all ~95 schemas every request</td></tr>
+<tr><td><code>redact_sensitive_data</code></td><td><code>true</code></td><td>Redacts API keys, tokens, passwords, and IPs from tool outputs and display. Set <code>false</code> during sysadmin/devops work where seeing IPs/tokens/passwords is necessary</td></tr>
+<tr><td><code>debug_logs</code></td><td><code>false</code></td><td>Enable debug file logging to <code>~/.opencrabs/logs/</code>. Hot-reloads on change (no restart). The <code>--debug</code> CLI flag always wins when set (OR logic)</td></tr>
+<tr><td><code>default_provider</code></td><td><code>None</code> (uses active provider)</td><td>Fallback provider when no provider is active in the current session. Also used for cron jobs without an explicit provider (v0.3.62)</td></tr>
+<tr><td><code>default_model</code></td><td><code>None</code> (uses active model)</td><td>Fallback model when no model is active in the current session. Also used for cron jobs without an explicit model (v0.3.62)</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="sub-agent-and-rsi-overrides"><a class="header" href="#sub-agent-and-rsi-overrides">Sub-agent and RSI Overrides</a></h3>
+<p>Route spawned sub-agents and RSI (self-improvement) cycles to separate providers so they never compete with your main chat for quota:</p>
+<pre><code class="language-toml">[agent]
+subagent_provider = "minimax"           # provider for spawned sub-agents
+subagent_model = "MiniMax-M2.7"         # model for spawned sub-agents
+self_improvement_provider = "minimax"   # provider for RSI self-improvement cycles
+self_improvement_model = "MiniMax-M2.7" # model for RSI cycles
+</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Field</th><th>Default</th><th>Deskripsi</th></tr>
+</thead>
+<tbody>
+<tr><td><code>subagent_provider</code></td><td><code>None</code> (uses session provider)</td><td>Provider for spawned sub-agents. Keeps sub-agents off your main provider</td></tr>
+<tr><td><code>subagent_model</code></td><td><code>None</code> (uses session model)</td><td>Model for spawned sub-agents</td></tr>
+<tr><td><code>self_improvement_provider</code></td><td><code>None</code> (uses session provider)</td><td>Provider for RSI self-improvement cycles. RSI runs on its own provider chain</td></tr>
+<tr><td><code>self_improvement_model</code></td><td><code>None</code> (uses session model)</td><td>Model for RSI cycles. Prefer cheap, fast models since results are deterministic</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="channel-configuration"><a class="header" href="#channel-configuration">Channel Configuration</a></h2>
+<h3 id="telegram"><a class="header" href="#telegram">Telegram</a></h3>
+<pre><code class="language-toml">[channels.telegram]
+enabled = true
+token = "123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11"
+allowed_users = ["123456789"]       # numeric Telegram user IDs
+allowed_channels = ["-100123456"]   # restrict to specific group/channel IDs (empty = all)
+respond_to = "mention"              # "all", "dm_only", "mention" (default)
+session_idle_hours = 24.0           # idle timeout for non-owner sessions
+rich_messages = true                # native Telegram rich messages (Bot API 10.1, default since v0.3.64)
+silence_group_start = true          # silently ignore /start from non-allowed users in groups
+bot_owner = ["123456789"]           # owner IDs (gated commands, /cd hidden dirs, /profiles)
+</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Field</th><th>Default</th><th>Deskripsi</th></tr>
+</thead>
+<tbody>
+<tr><td><code>enabled</code></td><td><code>false</code></td><td>Enable the Telegram bot channel</td></tr>
+<tr><td><code>token</code></td><td><code>None</code></td><td>Telegram Bot API token from @BotFather</td></tr>
+<tr><td><code>allowed_users</code></td><td><code>[]</code> (accept all)</td><td>Numeric Telegram user IDs. Accepts int or string arrays. Empty = open mode</td></tr>
+<tr><td><code>allowed_channels</code></td><td><code>[]</code> (all channels)</td><td>Restrict bot to specific channel/group IDs. DMs always pass</td></tr>
+<tr><td><code>respond_to</code></td><td><code>"mention"</code></td><td>When to respond in groups: <code>"all"</code> = every message, <code>"dm_only"</code> = ignore groups, <code>"mention"</code> = only when @mentioned or replied-to</td></tr>
+<tr><td><code>session_idle_hours</code></td><td><code>None</code> (no timeout)</td><td>Idle timeout in hours for non-owner sessions. Owner sessions never expire</td></tr>
+<tr><td><code>rich_messages</code></td><td><code>false</code></td><td>Send structured replies as native Telegram rich messages (tables, headings, lists, math). Only works on current mobile/desktop Telegram clients. Telegram Web and older clients show a “not supported” placeholder. Enable only when your audience is on modern clients</td></tr>
+<tr><td><code>silence_group_start</code></td><td><code>true</code></td><td>Silently ignore /start from non-allowed users in group chats. Users who need their ID can DM the bot</td></tr>
+<tr><td><code>bot_owner</code></td><td><code>[]</code> (first allowed_user)</td><td>Bot owner user IDs. Owners can access gated commands (/profiles, hidden files in /cd), manage profiles. When unset, defaults to first entry in <code>allowed_users</code></td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="discord"><a class="header" href="#discord">Discord</a></h3>
+<pre><code class="language-toml">[channels.discord]
+enabled = true
+token = "your-discord-bot-token"
+allowed_users = ["123456789012345678"]
+allowed_channels = ["123456789012345678"]
+respond_to = "mention"
+session_idle_hours = 24.0
+</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Field</th><th>Default</th><th>Deskripsi</th></tr>
+</thead>
+<tbody>
+<tr><td><code>enabled</code></td><td><code>false</code></td><td>Enable the Discord bot channel</td></tr>
+<tr><td><code>token</code></td><td><code>None</code></td><td>Discord bot token from the Developer Portal</td></tr>
+<tr><td><code>allowed_users</code></td><td><code>[]</code> (accept all)</td><td>Discord user IDs. Accepts int or string arrays</td></tr>
+<tr><td><code>allowed_channels</code></td><td><code>[]</code> (all channels)</td><td>Restrict bot to specific channel IDs</td></tr>
+<tr><td><code>respond_to</code></td><td><code>"mention"</code></td><td>When to respond: <code>"all"</code>, <code>"dm_only"</code>, <code>"mention"</code></td></tr>
+<tr><td><code>session_idle_hours</code></td><td><code>None</code></td><td>Idle timeout for non-owner sessions</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="slack"><a class="header" href="#slack">Slack</a></h3>
+<pre><code class="language-toml">[channels.slack]
+enabled = true
+token = "xoxb-your-bot-token"
+app_token = "xapp-your-app-token"      # Socket Mode token
+allowed_users = ["U12345678"]
+allowed_channels = ["C12345678"]
+respond_to = "mention"
+session_idle_hours = 24.0
+</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Field</th><th>Default</th><th>Deskripsi</th></tr>
+</thead>
+<tbody>
+<tr><td><code>enabled</code></td><td><code>false</code></td><td>Enable the Slack bot channel</td></tr>
+<tr><td><code>token</code></td><td><code>None</code></td><td>Bot token (<code>xoxb-...</code>)</td></tr>
+<tr><td><code>app_token</code></td><td><code>None</code></td><td>App-level token for Socket Mode (<code>xapp-...</code>)</td></tr>
+<tr><td><code>allowed_users</code></td><td><code>[]</code> (accept all)</td><td>Slack user IDs (<code>U12345678</code>)</td></tr>
+<tr><td><code>allowed_channels</code></td><td><code>[]</code> (all channels)</td><td>Restrict bot to specific channel IDs</td></tr>
+<tr><td><code>respond_to</code></td><td><code>"mention"</code></td><td>When to respond: <code>"all"</code>, <code>"dm_only"</code>, <code>"mention"</code></td></tr>
+<tr><td><code>session_idle_hours</code></td><td><code>None</code></td><td>Idle timeout for non-owner sessions</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="whatsapp"><a class="header" href="#whatsapp">WhatsApp</a></h3>
+<pre><code class="language-toml">[channels.whatsapp]
+enabled = true
+allowed_phones = ["+15551234567"]      # E.164 format
+session_idle_hours = 24.0
+</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Field</th><th>Default</th><th>Deskripsi</th></tr>
+</thead>
+<tbody>
+<tr><td><code>enabled</code></td><td><code>false</code></td><td>Enable the WhatsApp channel</td></tr>
+<tr><td><code>allowed_phones</code></td><td><code>[]</code> (accept all)</td><td>E.164 phone numbers. Empty = accept everyone (not recommended for business numbers)</td></tr>
+<tr><td><code>session_idle_hours</code></td><td><code>None</code></td><td>Idle timeout for non-owner sessions</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="trello"><a class="header" href="#trello">Trello</a></h3>
+<pre><code class="language-toml">[channels.trello]
+enabled = true
+token = "your-trello-api-token"
+app_token = "your-trello-api-key"
+allowed_users = ["memberId1"]
+board_ids = ["boardId1", "boardId2"]
+poll_interval_secs = 60
+session_idle_hours = 24.0
+</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Field</th><th>Default</th><th>Deskripsi</th></tr>
+</thead>
+<tbody>
+<tr><td><code>enabled</code></td><td><code>false</code></td><td>Enable the Trello channel</td></tr>
+<tr><td><code>token</code></td><td><code>None</code></td><td>Trello API token</td></tr>
+<tr><td><code>app_token</code></td><td><code>None</code></td><td>Trello API key (stored as <code>app_token</code> for keys.toml symmetry)</td></tr>
+<tr><td><code>allowed_users</code></td><td><code>[]</code> (accept all)</td><td>Trello member IDs</td></tr>
+<tr><td><code>board_ids</code></td><td><code>[]</code> (all boards)</td><td>Board IDs to monitor for @mentions. Also accepts <code>allowed_channels</code> as an alias</td></tr>
+<tr><td><code>poll_interval_secs</code></td><td><code>None</code> (tool-only)</td><td>Polling interval in seconds. Absent or 0 = no polling (tool-only mode)</td></tr>
+<tr><td><code>session_idle_hours</code></td><td><code>None</code></td><td>Idle timeout for non-owner sessions</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="other-channels-preview"><a class="header" href="#other-channels-preview">Other Channels (Preview)</a></h3>
+<p>Signal, Google Chat, and iMessage are available as preview placeholders:</p>
+<pre><code class="language-toml">[channels.signal]
+enabled = true
+allowed_phones = ["+15551234567"]
+
+[channels.google_chat]
+enabled = true
+token = "your-google-chat-token"
+allowed_users = ["user@example.com"]
+
+[channels.imessage]
+enabled = true
+allowed_phones = ["+15551234567"]
+</code></pre>
+<h2 id="cron-defaults"><a class="header" href="#cron-defaults">Cron Defaults</a></h2>
+<p>Route cron jobs to cheaper providers so they never compete with your interactive session:</p>
+<pre><code class="language-toml">[cron]
+default_provider = "minimax"
+default_model = "MiniMax-M2.7"
+</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Field</th><th>Default</th><th>Deskripsi</th></tr>
+</thead>
+<tbody>
+<tr><td><code>default_provider</code></td><td><code>None</code> (uses active provider)</td><td>Default provider for cron jobs without an explicit provider</td></tr>
+<tr><td><code>default_model</code></td><td><code>None</code> (uses active model)</td><td>Default model for cron jobs without an explicit model</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="memory-and-embeddings"><a class="header" href="#memory-and-embeddings">Memory and Embeddings</a></h2>
+<pre><code class="language-toml">[memory]
+vector_enabled = true
+
+[memory.embedding]
+url = "https://api.openai.com/v1"
+model = "text-embedding-3-small"
+# api_key loaded from keys.toml: [providers.memory_embedding] api_key = "sk-..."
+# dimensions = 1536  # auto-detected from first API response if unset
+</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Field</th><th>Default</th><th>Deskripsi</th></tr>
+</thead>
+<tbody>
+<tr><td><code>vector_enabled</code></td><td><code>true</code> (desktop), <code>false</code> (VPS)</td><td>Enable vector embeddings for semantic memory search. When disabled, only FTS5 keyword search is used. Auto-disabled on systems with &lt; 2GB RAM or detected cloud instances</td></tr>
+<tr><td><code>embedding.url</code></td><td><code>None</code></td><td>OpenAI-compatible API base URL. The <code>/embeddings</code> path is appended automatically</td></tr>
+<tr><td><code>embedding.model</code></td><td><code>None</code></td><td>Embedding model name (e.g. <code>text-embedding-3-small</code>, <code>nomic-embed-text</code>)</td></tr>
+<tr><td><code>embedding.api_key</code></td><td><code>None</code></td><td>API key for the embedding endpoint. Also loaded from <code>keys.toml</code> under <code>[providers.memory_embedding]</code></td></tr>
+<tr><td><code>embedding.dimensions</code></td><td><code>None</code> (auto-detected)</td><td>Embedding vector dimensions. Auto-detected from the first API response if unset. Local GGUF model always produces 768-dim vectors</td></tr>
+<tr><td><code>extra_paths</code></td><td><code>[]</code></td><td>External paths indexed into the <code>external</code> collection. Bare path strings or <code>{ path, pattern }</code> tables; relative paths resolve against the OpenCrabs home</td></tr>
+<tr><td><code>exclude</code></td><td>VCS/build/secret globs</td><td>Glob excludes for external indexing, global across all entries</td></tr>
+<tr><td><code>external_allowed_in_shared</code></td><td><code>false</code></td><td>Allow <code>scope="external"</code> results in shared/group sessions. Default-deny: external content stays owner-session-only unless opted in</td></tr>
+<tr><td><code>sweep_interval_secs</code></td><td><code>300</code></td><td>Seconds between external-path freshness sweeps; modified files are also caught lazily at search time</td></tr>
+</tbody>
+</table>
+</div>
+<p>When <code>[memory.embedding]</code> is not set, embeddings are generated locally via the embeddinggemma-300M GGUF model (~300MB download, ~2.9GB RAM). Setting <code>[memory.embedding]</code> with an API endpoint eliminates the local model overhead.</p>
+<p>To index your own docs — or an entire scraped docs site — into memory search, see <a href="../brain/memory.html#external-index-paths-v0381">Memory System → External Index Paths</a> for the full knowledge-base workflow.</p>
+<h2 id="brain-files"><a class="header" href="#brain-files">Brain Files</a></h2>
+<pre><code class="language-toml">[brain]
+strip_empty_sections = true
+default_cap = 500
+
+[brain.caps]
+SOUL.md = 300
+AGENTS.md = 800
+</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Field</th><th>Default</th><th>Deskripsi</th></tr>
+</thead>
+<tbody>
+<tr><td><code>strip_empty_sections</code></td><td><code>true</code></td><td>Strip empty header stubs (<code>## Header</code> with no body) from brain-file reads. Writes are never affected, only the loaded view is filtered</td></tr>
+<tr><td><code>default_cap</code></td><td><code>500</code></td><td>Per-file line cap for <code>sync_templates</code>. When a merged file exceeds its cap, the sync bails instead of writing</td></tr>
+<tr><td><code>caps</code></td><td><code>{}</code> (empty)</td><td>Per-file line caps overrides. Keys are filenames (case-sensitive: <code>TOOLS.md</code> and <code>tools.md</code> are distinct)</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="browser"><a class="header" href="#browser">Browser</a></h2>
+<pre><code class="language-toml">[browser]
+cdp_endpoint = "http://localhost:9222"
+</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Field</th><th>Default</th><th>Deskripsi</th></tr>
+</thead>
+<tbody>
+<tr><td><code>cdp_endpoint</code></td><td><code>None</code> (spawn new browser)</td><td>CDP endpoint for an existing Chromium instance. When set, connects via Chrome DevTools Protocol instead of spawning a new browser. Useful for sharing a single browser across multiple profiles to save memory (~250-300MB per instance)</td></tr>
+</tbody>
+</table>
+</div>
+<p>To start a standalone Chromium with CDP enabled:</p>
+<pre><code class="language-bash">chromium --remote-debugging-port=9222 --headless --no-sandbox
+</code></pre>
+<h2 id="a2a-agent-to-agent-gateway"><a class="header" href="#a2a-agent-to-agent-gateway">A2A (Agent-to-Agent) Gateway</a></h2>
+<pre><code class="language-toml">[a2a]
+enabled = false
+bind = "127.0.0.1"
+port = 18790
+allowed_origins = ["https://your-app.com"]
+# api_key = "your-secret-key"  # Bearer token for incoming requests
+</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Field</th><th>Default</th><th>Deskripsi</th></tr>
+</thead>
+<tbody>
+<tr><td><code>enabled</code></td><td><code>false</code></td><td>Enable the A2A JSON-RPC 2.0 gateway</td></tr>
+<tr><td><code>bind</code></td><td><code>"127.0.0.1"</code></td><td>Bind address</td></tr>
+<tr><td><code>port</code></td><td><code>18790</code></td><td>Gateway port</td></tr>
+<tr><td><code>allowed_origins</code></td><td><code>[]</code></td><td>CORS origins. Must be set explicitly, no cross-origin requests allowed by default</td></tr>
+<tr><td><code>api_key</code></td><td><code>None</code></td><td>Bearer token for authenticating incoming A2A requests. If unset, no authentication required</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="daemon-mode"><a class="header" href="#daemon-mode">Daemon Mode</a></h2>
+<pre><code class="language-toml">[daemon]
+health_port = 8080
+</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Field</th><th>Default</th><th>Deskripsi</th></tr>
+</thead>
+<tbody>
+<tr><td><code>health_port</code></td><td><code>None</code> (no health server)</td><td>HTTP port for <code>GET /health</code> endpoint. Useful for systemd watchdog, uptime monitors, and external health probes</td></tr>
+</tbody>
+</table>
+</div>
+<p>OpenCrabs runs in two modes: <strong>TUI</strong> (interactive terminal UI with chat) and <strong>Daemon</strong> (headless background service for channels + cron). For any one profile, run only one at a time. The TUI always wins: opening it while a daemon runs shuts the daemon down and takes over the channels.</p>
+<p>For full service lifecycle management (TUI vs Daemon comparison, <code>opencrabs service install/start/stop</code>, profile-aware services, <code>OPENCRABS_PROFILE</code> env var, troubleshooting), see the <a href="../getting-started/cli-commands#daemon-mode-vs-tui">CLI Commands</a> reference.</p>
+<h2 id="image-generation-and-vision"><a class="header" href="#image-generation-and-vision">Image Generation and Vision</a></h2>
+<pre><code class="language-toml">[image.generation]
+enabled = true
+model = "gemini-3.1-flash-image-preview"
+
+[image.vision]
+enabled = true
+model = "gemini-3.1-flash-image-preview"
+provider = "openrouter"           # bypasses enabled gate for vision-only providers (v0.3.63)
+</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Section</th><th>Field</th><th>Default</th><th>Deskripsi</th></tr>
+</thead>
+<tbody>
+<tr><td><code>image.generation</code></td><td><code>enabled</code></td><td><code>false</code></td><td>Enable image generation via the <code>generate_image</code> tool</td></tr>
+<tr><td><code>image.generation</code></td><td><code>model</code></td><td><code>"gemini-3.1-flash-image-preview"</code></td><td>Model for image generation</td></tr>
+<tr><td><code>image.vision</code></td><td><code>enabled</code></td><td><code>false</code></td><td>Enable vision analysis via the <code>analyze_image</code> tool. <strong>Since v0.3.64:</strong> setting <code>vision_model</code> alone is sufficient to enable vision. <code>enabled</code> is no longer required when <code>vision_model</code> is set</td></tr>
+<tr><td><code>image.vision</code></td><td><code>model</code></td><td><code>"gemini-3.1-flash-image-preview"</code></td><td>Model for image/vision analysis</td></tr>
+<tr><td><code>image.vision</code></td><td><code>provider</code></td><td><code>None</code> (auto-detect)</td><td>Dedicated provider for vision. Bypasses the enabled gate so you can use a vision-only provider without enabling it for general chat (v0.3.63)</td></tr>
+</tbody>
+</table>
+</div>
+<p>Vision analysis automatically scans all enabled providers (Google, OpenRouter, OpenAI-compatible, Anthropic) before returning an error. No configuration needed.</p>
+<h2 id="voice-provider-fallback"><a class="header" href="#voice-provider-fallback">Voice Provider Fallback</a></h2>
+<p>STT and TTS providers support automatic failover via <code>fallback_chain</code>. When the primary returns a 5xx, fails a liveness probe (Voicebox), or is otherwise unreachable, the dispatcher walks the chain in order and tries each entry that has the credentials/config it needs.</p>
+<pre><code class="language-toml">[providers.stt]
+fallback_chain = ["groq", "openai_compatible", "local"]
+
+[providers.tts]
+fallback_chain = ["openai_compatible", "openai", "local"]
+</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Chain</th><th>Valid labels</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>STT</strong></td><td><code>voicebox</code>, <code>openai_compatible</code>, <code>groq</code>, <code>local</code> (aliases: <code>whisper</code>, <code>local_whisper</code>)</td></tr>
+<tr><td><strong>TTS</strong></td><td><code>voicebox</code>, <code>openai_compatible</code>, <code>openai</code>, <code>local</code> (aliases: <code>piper</code>, <code>local_piper</code>). <code>groq</code> is STT-only, the TTS chain rejects it</td></tr>
+</tbody>
+</table>
+</div>
+<p>Empty or omitted chain means “use the default priority order with the primary removed.”</p>
+<h2 id="toml-bash-blocklist-v0378"><a class="header" href="#toml-bash-blocklist-v0378">TOML Bash Blocklist (v0.3.78)</a></h2>
+<p>A new <strong>TOML-driven bash blocklist</strong> provides runtime-configurable safety gates for shell commands. The blocklist lives in a TOML file and defines patterns that the agent’s <code>bash</code> tool will refuse to execute:</p>
+<pre><code class="language-toml"># safety.toml (example)
+[bash_blocklist]
+patterns = ["rm -rf /", "dd if=", "mkfs", ":(){ :|:&amp; };:"]
+</code></pre>
+<ul>
+<li>Patterns are matched against the command string before execution</li>
+<li>The blocklist <strong>reloads on file change</strong> (no restart needed)</li>
+<li>Configurable per-profile, so different environments can have different safety gates</li>
+<li>Blocked commands return a clear error explaining which pattern matched</li>
+</ul>
+<p>This replaces hardcoded safety checks with a user-extensible system. You can add project-specific dangerous commands without code changes.</p>
+<h2 id="safety-toml-reload-v0378"><a class="header" href="#safety-toml-reload-v0378">Safety TOML Reload (v0.3.78)</a></h2>
+<p>All safety-related TOML files (bash blocklist, brain verification rules) now <strong>hot-reload on change</strong>. Edit the file and the new rules take effect immediately on the next tool call. No restart, no <code>/reload</code>, no config manager dance.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../getting-started/onboarding.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="../getting-started/cli-commands.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../getting-started/onboarding.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="../getting-started/cli-commands.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr-ef4e11c1.min.js"></script>
+        <script src="../mark-09e88c2c.min.js"></script>
+        <script src="../searcher-09f2665d.js"></script>
+
+        <script src="../clipboard-1626706a.min.js"></script>
+        <script src="../highlight-abc7f01d.js"></script>
+        <script src="../book-609e4cb8.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../theme/custom-4a111f7b.js"></script>
+
+
+
+    </div>
+    </body>
+</html>
