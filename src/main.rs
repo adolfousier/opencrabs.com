@@ -642,6 +642,11 @@ fn Integrations() -> impl IntoView {
 fn Testimonials() -> impl IntoView {
     let quotes: Vec<(&str, &str, &str)> = vec![
         (
+            "I've been an openclaw user since launch (still am), but opencrabs definitely feels polished, lightweight, and stable. It treats Telegram as a first-class channel: TG support means I am using my agent on every device I have.",
+            "@arfonzo",
+            "https://x.com/arfonzo/status/2094934506796916828",
+        ),
+        (
             "Outperforms Hermes because it's in Rust and very tight use case wise. Reminds me of what I hoped OpenClaw would be.",
             "@5fakb48",
             "https://x.com/5fakb48/status/2069564004104561125",
