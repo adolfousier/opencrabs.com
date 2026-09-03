@@ -166,6 +166,29 @@ cp ~/.opencrabs/keys.toml ~/.opencrabs/keys.toml.backup
 cp ~/.opencrabs/commands.toml ~/.opencrabs/commands.toml.backup
 ```
 
+### RSI Has Never Run
+
+Mission Control shows `⚠ RSI has never run — N tool event(s) recorded and unprocessed` even though `rsi_enabled = true` is set.
+
+Most common cause: `self_improvement_provider` is misspelled. Its value is the **bare provider section name** — no `custom:` prefix, no model appended:
+
+```toml
+[providers.custom.glm-53-max]              # the name is "glm-53-max"
+
+[agent]
+self_improvement_provider = "glm-53-max"   # ✅ not "custom:glm-53-max"
+self_improvement_model = "..."             # the model goes in its own key
+```
+
+Checklist:
+
+1. The provider value matches the config section name exactly (`[providers.custom.moonshotai]` → `"moonshotai"`).
+2. No `custom:` / `custom.` / `custom/` prefix anywhere in a provider reference.
+3. The model is in its own key (`self_improvement_model`), never appended to the provider.
+4. Restart after fixing — Mission Control confirms cycles on the next run.
+
+> Fixed at source in [opencrabs#1314](https://github.com/adolfousier/opencrabs/issues/1314): current main normalises misspelled values with a warning. Released versions fail silently, which is exactly why the spelling matters.
+
 ---
 
 ## Channel Issues

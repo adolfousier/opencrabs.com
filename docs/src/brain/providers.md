@@ -338,6 +338,32 @@ base_url = "http://localhost:11434/v1"
 default_model = "mistral"
 ```
 
+### Naming Custom Providers
+
+The provider's name is the **last segment of its config section** — nothing else.
+
+```toml
+[providers.custom.moonshotai]   # the name is "moonshotai"
+```
+
+When you reference the provider anywhere — `self_improvement_provider`, `subagent_provider`, `plan_provider`, `execute_provider`, or the `/models` command — use that bare name:
+
+```toml
+[agent]
+self_improvement_provider = "moonshotai"        # ✅ bare section name
+self_improvement_model = "kimi-k2.5"            # the model has its own key
+```
+
+Never carry the `custom` path into the reference, and never append the model:
+
+```toml
+self_improvement_provider = "custom:moonshotai"    # ❌ RSI silently never runs
+self_improvement_provider = "custom.moonshotai"    # ❌ same
+self_improvement_provider = "moonshotai/kimi-k2.5" # ❌ provider-only — model goes in self_improvement_model
+```
+
+> **Real case:** a user with `[providers.custom.glm-53-max]` set `self_improvement_provider = "custom:glm-53-max"` and RSI silently never ran — Mission Control showed thousands of tool events recorded and unprocessed. Dropping the `custom:` prefix fixed it instantly ([opencrabs#1314](https://github.com/adolfousier/opencrabs/issues/1314)). Current main auto-corrects misspelled values with a warning; released versions fail silently, so spell it bare.
+
 ### Free Prototyping with NVIDIA API
 
 [Kimi K2.5](https://build.nvidia.com/moonshotai/kimi-k2.5) is available for free on the NVIDIA API Catalog — no billing required.

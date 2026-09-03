@@ -1,4 +1,3 @@
-
 msgid ""
 msgstr ""
 "Project-Id-Version: OpenCrabs\n"
@@ -6,10 +5,10 @@ msgstr ""
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
+"Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: en\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: src/SUMMARY.md:1
@@ -259,16 +258,18 @@ msgid ""
 "channels (Telegram/Discord/Slack/WhatsApp/Trello), and codebase, all while "
 "respecting your privacy and keeping you in control."
 msgstr ""
-"**OpenCrabs** — автономный агент оркестрации ИИ, не привязанный к провайдеру, работающий как единый бинарный файл на Rust. Он автоматизирует ваш терминал, браузер, channels (Telegram/Discord/Slack/WhatsApp/Trello) и кодовую базу, уважая вашу приватность и оставляя контроль у вас."
-
+"**OpenCrabs** — автономный агент оркестрации ИИ, не привязанный к "
+"провайдеру, работающий как единый бинарный файл на Rust. Он автоматизирует "
+"ваш терминал, браузер, channels (Telegram/Discord/Slack/WhatsApp/Trello) и "
+"кодовую базу, уважая вашу приватность и оставляя контроль у вас."
 
 #: src/introduction.md:5
 msgid ""
 "**6,997 tests** across providers, tools, channels, TUI, self-healing, and "
 "browser automation."
 msgstr ""
-"**6 997 тестов** охватывают провайдеров, инструменты, channels, TUI, самовосстановление и автоматизацию браузера."
-
+"**6 997 тестов** охватывают провайдеров, инструменты, channels, TUI, "
+"самовосстановление и автоматизацию браузера."
 
 #: src/introduction.md:7
 msgid "What Makes OpenCrabs Different"
@@ -283,32 +284,34 @@ msgid ""
 "**OpenCrabs does not phone home. Ever.** No analytics, no tracking, no usage "
 "statistics, no remote logging, no crash reports"
 msgstr ""
-"**OpenCrabs никогда не связывается с «домашним сервером». Никогда.** Никакой аналитики, никакого трекинга, никакой статистики использования, никакого удалённого логирования, никаких отчётов о сбоях"
-
+"**OpenCrabs никогда не связывается с «домашним сервером». Никогда.** Никакой "
+"аналитики, никакого трекинга, никакой статистики использования, никакого "
+"удалённого логирования, никаких отчётов о сбоях"
 
 #: src/introduction.md:11
 msgid ""
 "Your conversations, tools, memory, configuration, and API keys never leave "
 "your machine"
 msgstr ""
-"Ваши переписки, инструменты, память, конфигурация и API-ключи никогда не покидают вашу машину"
-
+"Ваши переписки, инструменты, память, конфигурация и API-ключи никогда не "
+"покидают вашу машину"
 
 #: src/introduction.md:12
 msgid ""
 "The only outbound traffic is what you explicitly initiate: LLM API calls, "
 "web searches, GitHub commands, browser automation"
 msgstr ""
-"Единственный исходящий трафик — тот, который вы инициируете сами: вызовы LLM API, веб-поиск, команды GitHub, автоматизация браузера"
-
+"Единственный исходящий трафик — тот, который вы инициируете сами: вызовы LLM "
+"API, веб-поиск, команды GitHub, автоматизация браузера"
 
 #: src/introduction.md:13
 msgid ""
-"Not a privacy-policy checkbox: there is no telemetry code to disable, no "
-"opt-out flag, no analytics service to block. There is simply nothing to send"
+"Not a privacy-policy checkbox: there is no telemetry code to disable, no opt-"
+"out flag, no analytics service to block. There is simply nothing to send"
 msgstr ""
-"Это не галочка в политике приватности: нет кода телеметрии, который нужно отключать, нет флага отказа, нет аналитического сервиса, который нужно блокировать. Просто нечего отправлять"
-
+"Это не галочка в политике приватности: нет кода телеметрии, который нужно "
+"отключать, нет флага отказа, нет аналитического сервиса, который нужно "
+"блокировать. Просто нечего отправлять"
 
 #: src/introduction.md:15
 msgid "Provider-Agnostic by Design"
@@ -321,90 +324,93 @@ msgid ""
 "z.ai GLM, GitHub Copilot, Codex, Codex CLI, OpenCode, OpenCode CLI, "
 "**Moonshot AI (Kimi)**, Command Code CLI"
 msgstr ""
-"**16 встроенных провайдеров + Custom OpenAI Compatible**: Anthropic Claude, OpenAI, Gemini, Xiaomi MiMo, OpenRouter, Qwen (DashScope), MiniMax, Ollama, z.ai GLM, GitHub Copilot, Codex, Codex CLI, OpenCode, OpenCode CLI, **Moonshot AI (Kimi)**, Command Code CLI"
-
+"**16 встроенных провайдеров + Custom OpenAI Compatible**: Anthropic Claude, "
+"OpenAI, Gemini, Xiaomi MiMo, OpenRouter, Qwen (DashScope), MiniMax, Ollama, "
+"z.ai GLM, GitHub Copilot, Codex, Codex CLI, OpenCode, OpenCode CLI, "
+"**Moonshot AI (Kimi)**, Command Code CLI"
 
 #: src/introduction.md:17
 msgid ""
 "**Native CLI integration** — use Claude Code CLI, OpenCode CLI, Codex CLI, "
 "and Command Code CLI as providers without API keys"
 msgstr ""
-"**Нативная интеграция CLI** — используйте Claude Code CLI, OpenCode CLI, Codex CLI и Command Code CLI как провайдеров без API-кл��чей"
-
+"**Нативная интеграция CLI** — используйте Claude Code CLI, OpenCode CLI, "
+"Codex CLI и Command Code CLI как провайдеров без API-кл��чей"
 
 #: src/introduction.md:18
 msgid ""
-"**Sticky fallback chain** — auto-failover on rate limits or errors, "
-"health-aware persistence survives restarts"
+"**Sticky fallback chain** — auto-failover on rate limits or errors, health-"
+"aware persistence survives restarts"
 msgstr ""
-"**Липкая цепочка fallback** — автоматическое переключение при лимитах запросов или ошибках, данные о здоровье провайдеров переживают перезапуски"
-
+"**Липкая цепочка fallback** — автоматическое переключение при лимитах "
+"запросов или ошибках, данные о здоровье провайдеров переживают перезапуски"
 
 #: src/introduction.md:19
 msgid ""
 "**Prompt caching** across Anthropic, OpenRouter, Gemini, Qwen DashScope "
 "reduces costs up to 95%"
 msgstr ""
-"**Кэширование промптов** в Anthropic, OpenRouter, Gemini, Qwen DashScope снижает расходы до 95%"
-
+"**Кэширование промптов** в Anthropic, OpenRouter, Gemini, Qwen DashScope "
+"снижает расходы до 95%"
 
 #: src/introduction.md:20
 msgid ""
 "**Context window override** — cap or expand context for any model via config"
 msgstr ""
-"**Переопределение окна контекста** — ограничьте или расширьте контекст любой модели через конфигурацию"
-
+"**Переопределение окна контекста** — ограничьте или расширьте контекст любой "
+"модели через конфигурацию"
 
 #: src/introduction.md:21
 msgid ""
 "**Xiaomi MiMo** — 30+ models including the MiMo reasoning series, keyed "
 "provider"
 msgstr ""
-"**Xiaomi MiMo** — более 30 моделей, включая рассуждающую серию MiMo, провайдер с API-ключом"
-
+"**Xiaomi MiMo** — более 30 моделей, включая рассуждающую серию MiMo, "
+"провайдер с API-ключом"
 
 #: src/introduction.md:22
 msgid ""
 "**Moonshot AI (Kimi)** — API plan (api.moonshot.ai) and Coding plan "
 "(api.kimi.com) endpoints, reasoning-effort config, plan-tier context window"
 msgstr ""
-"**Moonshot AI (Kimi)** — эндпоинты API plan (api.moonshot.ai) и Coding plan (api.kimi.com), настройка reasoning-effort, окно контекста по тарифному плану"
-
+"**Moonshot AI (Kimi)** — эндпоинты API plan (api.moonshot.ai) и Coding plan "
+"(api.kimi.com), настройка reasoning-effort, окно контекста по тарифному плану"
 
 #: src/introduction.md:25
 msgid ""
 "**Sessions are fully isolated agents** — each with its own brain, provider, "
 "model, working directory, and history"
 msgstr ""
-"**Sessions — полностью изолированные агенты** — у каждой свой brain, провайдер, модель, рабочая директория и история"
-
+"**Sessions — полностью изолированные агенты** — у каждой свой brain, "
+"провайдер, модель, рабочая директория и история"
 
 #: src/introduction.md:26
 msgid ""
 "**Typed sub-agents**: `general`, `explore`, `plan`, `code`, `research` with "
 "tailored tool access"
 msgstr ""
-"**Типизированные суб-агенты**: `general`, `explore`, `plan`, `code`, `research` с настроенным доступом к инструментам"
-
+"**Типизированные суб-агенты**: `general`, `explore`, `plan`, `code`, "
+"`research` с настроенным доступом к инструментам"
 
 #: src/introduction.md:27
 msgid ""
 "**Team orchestration**: `team_create`, `team_broadcast`, `team_delete` for "
 "coordinated workflows"
 msgstr ""
-"**Оркестрация команд**: `team_create`, `team_broadcast`, `team_delete` для согласованных рабочих процессов"
-
+"**Оркестрация команд**: `team_create`, `team_broadcast`, `team_delete` для "
+"согласованных рабочих процессов"
 
 #: src/introduction.md:28
 msgid ""
 "**Per-call provider/model overrides** — mix models across teams (plan with "
 "GLM, code with Deepseek, review with Kimi)"
 msgstr ""
-"**Переопределение провайдера/модели на каждый вызов** — миксуйте модели между командами (план на GLM, код на Deepseek, ревью на Kimi)"
-
+"**Переопределение провайдера/модели на каждый вызов** — миксуйте модели "
+"между командами (план на GLM, код на Deepseek, ревью на Kimi)"
 
 #: src/introduction.md:29
-msgid "**A2A protocol** — JSON-RPC 2.0 gateway for agent-to-agent communication"
+msgid ""
+"**A2A protocol** — JSON-RPC 2.0 gateway for agent-to-agent communication"
 msgstr "**Протокол A2A** — шлюз JSON-RPC 2.0 для связи агентов между собой"
 
 #: src/introduction.md:31
@@ -416,138 +422,136 @@ msgid ""
 "**Telegram, Discord, Slack, WhatsApp, Trello** — full bot integration with "
 "DMs, groups, and threads"
 msgstr ""
-"**Telegram, Discord, Slack, WhatsApp, Trello** — полная интеграция ботов с личными сообщениями, группами и тредами"
-
+"**Telegram, Discord, Slack, WhatsApp, Trello** — полная интеграция ботов с "
+"личными сообщениями, группами и тредами"
 
 #: src/introduction.md:33
 msgid ""
 "**Telegram rich messages** — native tables, headings, lists, math via "
 "`rich_messages` config"
 msgstr ""
-"**Rich-сообщения Telegram** — нативные таблицы, заголовки, списки, формулы через настройку `rich_messages`"
-
+"**Rich-сообщения Telegram** — нативные таблицы, заголовки, списки, формулы "
+"через настройку `rich_messages`"
 
 #: src/introduction.md:34
 msgid ""
 "**Draft message streaming** — live \"typing...\" updates as tokens generate "
 "in DMs"
 msgstr ""
-"**Стриминг черновиков сообщений** — живые обновления «печатает...» по мере генерации токенов в личных сообщениях"
-
+"**Стриминг черновиков сообщений** — живые обновления «печатает...» по мере "
+"генерации токенов в личных сообщениях"
 
 #: src/introduction.md:35
-msgid "**Collapsible blocks** — `<details>/<summary>` sections for long outputs"
+msgid ""
+"**Collapsible blocks** — `<details>/<summary>` sections for long outputs"
 msgstr ""
 "**Сворачиваемые блоки** — секции `<details>/<summary>` для длинных выводов"
-
 
 #: src/introduction.md:36
 msgid ""
 "**Forum topic session isolation** — each topic in Telegram supergroups gets "
 "its own session"
 msgstr ""
-"**Изоляция session по темам форума** — каждая тема в супер-группах Telegram получает собственную session"
-
+"**Изоляция session по темам форума** — каждая тема в супер-группах Telegram "
+"получает собственную session"
 
 #: src/introduction.md:37
 msgid ""
 "**Telegram reactions** — the bot reads inbound emoji reactions and can reply "
 "with a reaction instead of a message when that fits"
 msgstr ""
-"**Реакции Telegram** — бот читает входящие эмодзи-реакции и может ответить реакцией вместо сообщения, когда это уместно"
-
+"**Реакции Telegram** — бот читает входящие эмодзи-реакции и может ответить "
+"реакцией вместо сообщения, когда это уместно"
 
 #: src/introduction.md:38
 msgid ""
 "**Frame reactions (v0.3.61)** — inbound reactions read by sentiment, agent "
 "addresses user by first name"
 msgstr ""
-"**Реакции на кадр (v0.3.61)** — входящие реакции читаются по тональности, агент обращается к пользователю по имени"
-
+"**Реакции на кадр (v0.3.61)** — входящие реакции читаются по тональности, "
+"агент обращается к пользователю по имени"
 
 #: src/introduction.md:39
 msgid ""
 "**Mid-turn reactions (v0.3.61)** — a reaction during a running turn injects "
 "into the current loop instead of firing a second turn"
 msgstr ""
-"**Реакции посреди хода (v0.3.61)** — реакция во время выполняющегося хода внедряется в текущий цикл вместо запуска второго хода"
-
+"**Реакции посреди хода (v0.3.61)** — реакция во время выполняющегося хода "
+"внедряется в текущий цикл вместо запуска второго хода"
 
 #: src/introduction.md:40
 msgid ""
 "**Follow-up suggestions (v0.3.69)** — tap-to-send optional follow-ups on "
 "Telegram, Discord, Slack, WhatsApp; fill-not-submit in TUI"
 msgstr ""
-"**Подсказки продолжения (v0.3.69)** — необязательные follow-up-кнопки в Telegram, Discord, Slack, WhatsApp; в TUI — заполнение без отправки"
-
+"**Подсказки продолжения (v0.3.69)** — необязательные follow-up-кнопки в "
+"Telegram, Discord, Slack, WhatsApp; в TUI — заполнение без отправки"
 
 #: src/introduction.md:41
 msgid ""
 "**Telegram plan card re-stick (v0.3.71)** — re-stick plan card and fold "
 "prose into it when buried"
 msgstr ""
-"**Повторное закрепление карточки плана в Telegram (v0.3.71)** — карточка плана заново закрепляется и вбирает текст, когда её засыпало сообщениями"
-
+"**Повторное закрепление карточки плана в Telegram (v0.3.71)** — карточка "
+"плана заново закрепляется и вбирает текст, когда её засыпало сообщениями"
 
 #: src/introduction.md:42
 msgid ""
 "**Full group history capture (v0.3.73)** — persist every group message to "
 "history, even from non-allowlisted senders and bots"
 msgstr ""
-"**Полный захват истории групп (v0.3.73)** — в историю сохраняется каждое сообщение группы, даже от отправителей и ботов не из allowlist"
-
+"**Полный захват истории групп (v0.3.73)** — в историю сохраняется каждое "
+"сообщение группы, даже от отправителей и ботов не из allowlist"
 
 #: src/introduction.md:43
 msgid ""
 "**Correct group speaker (v0.3.73)** — stop addressing a group-history sender "
 "as the current speaker"
 msgstr ""
-"**Корректный собеседник в группах (v0.3.73)** — отправитель из истории группы больше не принимается за текущего собеседника"
-
+"**Корректный собеседник в группах (v0.3.73)** — отправитель из истории "
+"группы больше не принимается за текущего собеседника"
 
 #: src/introduction.md:44
 msgid ""
 "**Session inheritance** — `/new` inherits the working directory from your "
 "most recent session"
 msgstr ""
-"**Наследование session** — `/new` наследует рабочую директорию вашей последней session"
-
+"**Наследование session** — `/new` наследует рабочую директорию вашей "
+"последней session"
 
 #: src/introduction.md:45
 msgid ""
 "**`/goal` across all channels** — set autonomous goals from Telegram, "
 "Discord, Slack, WhatsApp"
 msgstr ""
-"**`/goal` во всех channels** — ставьте автономные цели из Telegram, Discord, Slack, WhatsApp"
-
+"**`/goal` во всех channels** — ставьте автономные цели из Telegram, Discord, "
+"Slack, WhatsApp"
 
 #: src/introduction.md:46
 msgid "**Voice support** — local Whisper STT + Piper TTS, fully offline"
 msgstr ""
 "**Голосовая поддержка** — локальные Whisper STT + Piper TTS, полностью офлайн"
 
-
 #: src/introduction.md:47
 msgid ""
 "**Cross-channel crash recovery** — pending requests route back to "
 "originating channel on restart"
 msgstr ""
-"**Восстановление после сбоя между channels** — ожидающие запросы возвращаются в исходный channel после перезапуска"
-
+"**Восстановление после сбоя между channels** — ожидающие запросы "
+"возвращаются в исходный channel после перезапуска"
 
 #: src/introduction.md:48
 msgid "**`/cowork`** — create shared workspaces from channels and TUI"
 msgstr ""
 "**`/cowork`** — создавайте общие рабочие пространства из channels и TUI"
 
-
 #: src/introduction.md:49
 msgid ""
 "**`/rename`, `/profiles`, `/cd`** — manage sessions, profiles, and "
 "directories from any channel"
 msgstr ""
-"**`/rename`, `/profiles`, `/cd`** — управляйте sessions, профилями и директориями из любого channel"
-
+"**`/rename`, `/profiles`, `/cd`** — управляйте sessions, профилями и "
+"директориями из любого channel"
 
 #: src/introduction.md:51
 msgid "Self-Healing & Self-Improvement"
@@ -558,32 +562,33 @@ msgid ""
 "**Recursive Self-Improvement (RSI)** — agent analyzes performance, "
 "identifies patterns, and rewrites brain files"
 msgstr ""
-"**Рекурсивное самоулучшение (RSI)** — агент анализирует свою работу, находит паттерны и переписывает brain files"
-
+"**Рекурсивное самоулучшение (RSI)** — агент анализирует свою работу, находит "
+"паттерны и переписывает brain files"
 
 #: src/introduction.md:53
 msgid ""
 "**Phantom tool call detection** — catches when the model narrates changes "
 "without executing tools"
 msgstr ""
-"**Обнаружение фантомных вызовов инструментов** — ловит моменты, когда модель описывает изменения, не выполняя инструменты"
-
+"**Обнаружение фантомных вызовов инструментов** — ловит моменты, когда модель "
+"описывает изменения, не выполняя инструменты"
 
 #: src/introduction.md:54
 msgid ""
 "**Self-heal phantom detection (v0.3.72)** — catch zero-tool turns that claim "
 "high-stakes side-effects (ship/push/tag/release)"
 msgstr ""
-"**Самовосстановление от фантомов (v0.3.72)** — ловит ходы без единого вызова инструментов, заявляющие критичные побочные эффекты (ship/push/tag/release)"
-
+"**Самовосстановление от фантомов (v0.3.72)** — ловит ходы без единого вызова "
+"инструментов, заявляющие критичные побочные эффекты (ship/push/tag/release)"
 
 #: src/introduction.md:55
 msgid ""
-"**Config edits via config_manager only (v0.3.74)** — the agent never "
-"raw-edits config.toml/keys.toml; every write is validated before it lands"
+"**Config edits via config_manager only (v0.3.74)** — the agent never raw-"
+"edits config.toml/keys.toml; every write is validated before it lands"
 msgstr ""
-"**Правки конфигурации только через config_manager (v0.3.74)** — агент никогда не редактирует config.toml/keys.toml напрямую; каждая запись проверяется до применения"
-
+"**Правки конфигурации только через config_manager (v0.3.74)** — агент "
+"никогда не редактирует config.toml/keys.toml напрямую; каждая запись "
+"проверяется до применения"
 
 #: src/introduction.md:56
 msgid ""
@@ -591,104 +596,107 @@ msgid ""
 "cross-file scans keep brain files from drifting into duplication, with "
 "Telegram inline-keyboard approval"
 msgstr ""
-"**Дедупликация brain (v0.3.75)** — команда `/dedup` плюс проверки после записи и еженедельные межфайловые сканы не дают brain files расползаться дубликатами, с подтверждением через inline-клавиатуру Telegram"
-
+"**Дедупликация brain (v0.3.75)** — команда `/dedup` плюс проверки после "
+"записи и еженедельные межфайловые сканы не дают brain files расползаться "
+"дубликатами, с подтверждением через inline-клавиатуру Telegram"
 
 #: src/introduction.md:57
 msgid ""
 "**Brain-file hints on tool misses (v0.3.75)** — relevant brain notes surface "
 "automatically when a tool call misses or errors"
 msgstr ""
-"**Подсказки из brain files при промахах инструментов (v0.3.75)** — релевантные заметки brain всплывают автоматически, когда вызов инструмента промахивается или падает"
-
+"**Подсказки из brain files при промахах инструментов (v0.3.75)** — "
+"релевантные заметки brain всплывают автоматически, когда вызов инструмента "
+"промахивается или падает"
 
 #: src/introduction.md:58
 msgid ""
 "**Proactive memory surfacing (v0.3.76)** — relevant memory surfaces without "
 "being asked when conversation context matches stored knowledge"
 msgstr ""
-"**Проактивная память (v0.3.76)** — релевантные воспоминания всплывают без запроса, когда контекст разговора совпадает со знаниями из памяти"
-
+"**Проактивная память (v0.3.76)** — релевантные воспоминания всплывают без "
+"запроса, когда контекст разговора совпадает со знаниями из памяти"
 
 #: src/introduction.md:59
 msgid ""
 "**Natural model naming (v0.3.76)** — `/models opus` works; colloquial names "
 "resolve to exact model IDs"
 msgstr ""
-"**Естественные имена моделей (v0.3.76)** — `/models opus` работает; разговорные имена превращаются в точные ID моделей"
-
+"**Естественные имена моделей (v0.3.76)** — `/models opus` работает; "
+"разговорные имена превращаются в точные ID моделей"
 
 #: src/introduction.md:60
 msgid ""
 "**Plan/execute provider routing (v0.3.76)** — route planning and execution "
 "onto separate providers/models"
 msgstr ""
-"**Роутинг провайдеров для плана и исполнения (v0.3.76)** — направляйте планирование и исполнение на разные провайдеры/модели"
-
+"**Роутинг провайдеров для плана и исполнения (v0.3.76)** — направляйте "
+"планирование и исполнение на разные провайдеры/модели"
 
 #: src/introduction.md:61
 msgid ""
 "**Thinking-loop timeout (v0.3.78)** — catches infinite reasoning loops, "
 "fires phantom enforcement with sticky fallback"
 msgstr ""
-"**Таймаут цикла размышлений (v0.3.78)** — ловит бесконечные циклы рассуждений, запускает фантомную защиту со sticky fallback"
-
+"**Таймаут цикла размышлений (v0.3.78)** — ловит бесконечные циклы "
+"рассуждений, запускает фантомную защиту со sticky fallback"
 
 #: src/introduction.md:62
 msgid ""
 "**Epistemic engine (v0.3.78)** — belief tracking with confidence levels, "
 "OODA/BDI cognitive mesh, Orient gate before plan execution"
 msgstr ""
-"**Эпистемический движок (v0.3.78)** — отсле��ивание убеждений с уровнями уверенности, когнитивная сеть OODA/BDI, шлюз Orient перед исполнением плана"
-
+"**Эпистемический движок (v0.3.78)** — отсле��ивание убеждений с уровнями "
+"уверенности, когнитивная сеть OODA/BDI, шлюз Orient перед исполнением плана"
 
 #: src/introduction.md:63
 msgid ""
 "**Ralph verification gate (v0.3.78)** — criteria-aware task verification "
 "with iteration cap; tasks must meet stated acceptance criteria"
 msgstr ""
-"**Шлюз проверки Ralph (v0.3.78)** — верификация задач по критериям с лимитом итераций; задачи обязаны соответствовать заявленным критериям приёмки"
-
+"**Шлюз проверки Ralph (v0.3.78)** — верификация задач по критериям с лимитом "
+"итераций; задачи обязаны соответствовать заявленным критериям приёмки"
 
 #: src/introduction.md:64
 msgid ""
 "**TOML safety gates (v0.3.78)** — runtime-configurable bash blocklist with "
 "hot-reload, quoted-secret redaction, brain file verification"
 msgstr ""
-"**Створы безопасности TOML (v0.3.78)** — настраиваемый на лету blocklist для bash с hot-reload, маскирование секретов в кавычках, проверка brain files"
-
+"**Створы безопасности TOML (v0.3.78)** — настраиваемый на лету blocklist для "
+"bash с hot-reload, маскирование секретов в кавычках, проверка brain files"
 
 #: src/introduction.md:65
 msgid ""
 "**Mission Control analytics (v0.3.78)** — D/W/M filter, 3-across card grid, "
 "phantom/model/streaming tabs, dedicated events DB"
 msgstr ""
-"**Аналитика Mission Control (v0.3.78)** — фильтр Д/Н/М, сетка карточек в три колонки, вкладки phantom/model/streaming, отдельная БД событий"
-
+"**Аналитика Mission Control (v0.3.78)** — фильтр Д/Н/М, сетка карточек в три "
+"колонки, вкладки phantom/model/streaming, отдельная БД событий"
 
 #: src/introduction.md:66
 msgid ""
 "**OpenAI TTS onboarding (v0.3.78)** — voice selector and API key field in "
 "the onboarding wizard"
 msgstr ""
-"**Подключение OpenAI TTS (v0.3.78)** — выбор голоса и поле API-ключа в мастере первоначальной настройки"
-
+"**Подключение OpenAI TTS (v0.3.78)** — выбор голоса и поле API-ключа в "
+"мастере первоначальной настройки"
 
 #: src/introduction.md:67
 msgid ""
-"**Homebrew install (v0.3.79)** — `brew install opencrabs` from "
-"homebrew-core: prebuilt binary, both architectures, no Rust toolchain"
+"**Homebrew install (v0.3.79)** — `brew install opencrabs` from homebrew-"
+"core: prebuilt binary, both architectures, no Rust toolchain"
 msgstr ""
-"**Установка через Homebrew (v0.3.79)** — `brew install opencrabs` из homebrew-core: готовый бинарник, обе архитектуры, без тулчейна Rust"
-
+"**Установка через Homebrew (v0.3.79)** — `brew install opencrabs` из "
+"homebrew-core: готовый бинарник, обе архитектуры, без тулчейна Rust"
 
 #: src/introduction.md:68
 msgid ""
 "**`/restart` and `/exit` (v0.3.79)** — restart or shut down from any channel "
 "or the TUI; owner-only on channels, announce before acting"
 msgstr ""
-"**`/restart` и `/exit` (v0.3.79)** — перезапуск или выключение из любого channel или из TUI; в channels только для owner, с объявлением перед действием"
-
+"**`/restart` и `/exit` (v0.3.79)** — перезапуск или выключение из любого "
+"channel или из TUI; в channels только для owner, с объявлением перед "
+"действием"
 
 #: src/introduction.md:69
 msgid ""
@@ -696,8 +704,9 @@ msgid ""
 "breaker and are skipped in fallback walks; chain exhaustion reported "
 "explicitly"
 msgstr ""
-"**Предохранитель квот (v0.3.79)** — провайдеры с исчерпанной квотой получают TTL-предохранитель и пропускаются при обходе fallback; исчерпание цепочки сообщается явно"
-
+"**Предохранитель квот (v0.3.79)** — провайдеры с исчерпанной квотой получают "
+"TTL-предохранитель и пропускаются при обходе fallback; исчерпание цепочки "
+"сообщается явно"
 
 #: src/introduction.md:70
 msgid ""
@@ -705,40 +714,42 @@ msgid ""
 "isolated plan-task execution defaults on, Ralph verifies in the session's "
 "own directory"
 msgstr ""
-"**Состояние планов между sessions (v0.3.79)** — планы переживают границы session; изолированное исполнение задач плана включено по умолчанию, Ralph проверяет в директории самой session"
-
+"**Состояние планов между sessions (v0.3.79)** — планы переживают границы "
+"session; изолированное исполнение задач плана включено по умолчанию, Ralph "
+"проверяет в директории самой session"
 
 #: src/introduction.md:71
 msgid ""
 "**doctor --fix repair mode (v0.3.83)** — stuck cron rows, stale markers and "
 "broken permissions are repaired on the spot instead of only reported"
 msgstr ""
-"**Режим починки doctor --fix (v0.3.83)** — застрявшие строки cron, устаревшие маркеры и сломанные права чинятся на месте, а не только отображаются в отчёте"
-
+"**Режим починки doctor --fix (v0.3.83)** — застрявшие строки cron, "
+"устаревшие маркеры и сломанные права чинятся на месте, а не только "
+"отображаются в отчёте"
 
 #: src/introduction.md:72
 msgid ""
 "**Per-path write locks (v0.3.83)** — concurrent writes to the same file "
 "serialize; the last writer no longer silently wins"
 msgstr ""
-"**Блокировки записи на каждый путь (v0.3.83)** — одновременные записи в один файл выстраиваются в очередь; последний писатель больше молча не побеждает"
-
+"**Блокировки записи на каждый путь (v0.3.83)** — одновременные записи в один "
+"файл выстраиваются в очередь; последний писатель больше молча не побеждает"
 
 #: src/introduction.md:73
 msgid ""
 "**Sub-agent worktree isolation (v0.3.83)** — each child agent gets its own "
 "worktree and branch, so a fan-out cannot clobber the shared tree"
 msgstr ""
-"**Изоляция worktree суб-агентов (v0.3.83)** — каждый дочерний агент получает свой worktree и ветку, так что веерный запуск не затирает общее дерево"
-
+"**Изоляция worktree суб-агентов (v0.3.83)** — каждый дочерний агент получает "
+"свой worktree и ветку, так что веерный запуск не затирает общее дерево"
 
 #: src/introduction.md:74
 msgid ""
 "**Type-aware acceptance criteria (v0.3.83)** — plan criteria are enforced "
 "against the toolchain the project actually uses (#1133)"
 msgstr ""
-"**Критерии приёмки с учётом типа проекта (v0.3.83)** — критерии плана применяются к тулчейну, который проект реально использует (#1133)"
-
+"**Критерии приёмки с учётом типа проекта (v0.3.83)** — критерии плана "
+"применяются к тулчейну, который проект реально использует (#1133)"
 
 #: src/introduction.md:75
 msgid ""
@@ -746,32 +757,34 @@ msgid ""
 "project's own commands, not always cargo, and find the project from the "
 "session's folder"
 msgstr ""
-"**Проверка планов с пониманием проекта (v0.3.83)** — планы проверяются командами самого проекта, а не всегда cargo, и проект находится из папки session"
-
+"**Проверка планов с пониманием проекта (v0.3.83)** — планы проверяются "
+"командами самого проекта, а не всегда cargo, и проект находится из папки "
+"session"
 
 #: src/introduction.md:76
 msgid ""
 "**/stop cancels immediately (v0.3.83)** — interrupts during provider "
 "handshake and retry backoffs (#1148)"
 msgstr ""
-"**/stop отменяет немедленно (v0.3.83)** — прерывает даже во время рукопожатия с провайдером и пауз между повторами (#1148)"
-
+"**/stop отменяет немедленно (v0.3.83)** — прерывает даже во время "
+"рукопожатия с провайдером и пауз между повторами (#1148)"
 
 #: src/introduction.md:77
 msgid ""
 "**A2A session resume (v0.3.83)** — sessions resume by context id, the "
 "gateway is profile-addressed (#1159, #1161)"
 msgstr ""
-"**Возобновление session через A2A (v0.3.83)** — sessions возобновляются по id контекста, шлюз адресуется по профилю (#1159, #1161)"
-
+"**Возобновление session через A2A (v0.3.83)** — sessions возобновляются по "
+"id контекста, шлюз адресуется по профилю (#1159, #1161)"
 
 #: src/introduction.md:78
 msgid ""
 "**DeepSeek thinking knobs (v0.3.83)** — DeepSeek gets the thinking "
 "parameters it actually reads, plus tool-call-only turn handling"
 msgstr ""
-"**Настройки размышлений DeepSeek (v0.3.83)** — DeepSeek получает параметры thinking, которые он реально читает, плюс обработку ходов только с вызовами инструментов"
-
+"**Настройки размышлений DeepSeek (v0.3.83)** — DeepSeek получает параметры "
+"thinking, которые он реально читает, плюс обработку ходов только с вызовами "
+"инструментов"
 
 #: src/introduction.md:79
 msgid ""
@@ -779,8 +792,9 @@ msgid ""
 "carrying its session id, and cron jobs and the RSI engine get their own, so "
 "one grep reconstructs a whole turn out of a shared daily log"
 msgstr ""
-"**Корреляция логов по session_id (v0.3.82)** — каждый ход открывает span трассировки со своим session id, у задач cron и движка RSI свои span, так что один grep восстанавливает весь ход из общего дневного лога"
-
+"**Корреляция логов по session_id (v0.3.82)** — каждый ход открывает span "
+"трассировки со своим session id, у задач cron и движка RSI свои span, так "
+"что один grep восстанавливает весь ход из общего дневного лога"
 
 #: src/introduction.md:80
 msgid ""
@@ -788,8 +802,9 @@ msgid ""
 "stops writing to the TUI's terminal; a stalled write can no longer silence "
 "every other thread's logging"
 msgstr ""
-"**Надёжность логгера (v0.3.82)** — логгер перестаёт терять события и писать в терминал TUI; зависшая запись больше не глушит логирование остальных потоков"
-
+"**Надёжность логгера (v0.3.82)** — логгер перестаёт терять события и писать "
+"в терминал TUI; зависшая запись больше не глушит логирование остальных "
+"потоков"
 
 #: src/introduction.md:81
 msgid ""
@@ -797,24 +812,26 @@ msgid ""
 "MEMORY.md are never merged into from upstream, and directives route to "
 "AGENTS.md, which is always loaded"
 msgstr ""
-"**Защита пользовательских brain files (v0.3.82)** — SOUL.md, USER.md и MEMORY.md никогда не пополняются из upstream, а директивы направляются в AGENTS.md, который загружается всегда"
-
+"**Защита пользовательских brain files (v0.3.82)** — SOUL.md, USER.md и "
+"MEMORY.md никогда не пополняются из upstream, а директивы направляются в "
+"AGENTS.md, который загружается всегда"
 
 #: src/introduction.md:82
 msgid ""
 "**Config section unification (v0.3.82)** — the legacy `[gateway]` spelling "
 "is migrated on disk to `[a2a]`, so one name survives a reload round trip"
 msgstr ""
-"**Унификация секций конфигурации (v0.3.82)** — устаревшее написание `[gateway]` мигрирует на диске в `[a2a]`, так что одно имя переживает цикл перезагрузки"
-
+"**Унификация секций конфигурации (v0.3.82)** — устаревшее написание "
+"`[gateway]` мигрирует на диске в `[a2a]`, так что одно имя переживает цикл "
+"перезагрузки"
 
 #: src/introduction.md:83
 msgid ""
 "**Chunk-hash caching (v0.3.82)** — memory skips re-embedding chunks whose "
 "content has not changed"
 msgstr ""
-"**Кэширование по хэшу чанков (v0.3.82)** — память пропускает повторное встраивание чанков, чьё содержимое не менялось"
-
+"**Кэширование по хэшу чанков (v0.3.82)** — память пропускает повторное "
+"встраивание чанков, чьё содержимое не менялось"
 
 #: src/introduction.md:84
 msgid ""
@@ -822,40 +839,42 @@ msgid ""
 "published as a rolling pre-release so contributors can test unreleased code "
 "without waiting for a tag. Run on demand, not on every push"
 msgstr ""
-"**Пре-релизные бинарники (v0.3.82)** — пять платформенных целей плюс SHA256SUMS, публикуются как катящийся пре-релиз, чтобы контрибьюторы тестировали невышедший код, не дожидаясь тега. Запуск по требованию, не на каждый push"
-
+"**Пре-релизные бинарники (v0.3.82)** — пять платформенных целей плюс "
+"SHA256SUMS, публикуются как катящийся пре-релиз, чтобы контрибьюторы "
+"тестировали невышедший код, не дожидаясь тега. Запуск по требованию, не на "
+"каждый push"
 
 #: src/introduction.md:85
 msgid ""
 "**Rate-limit bail (v0.3.82)** — a long Telegram rate-limit window returns "
 "immediately instead of parking the send inline"
 msgstr ""
-"**Выход по rate-limit (v0.3.82)** — при длинном окне ограничений Telegram возврат происходит немедленно, вместо того чтобы парковать отправку в очереди"
-
+"**Выход по rate-limit (v0.3.82)** — при длинном окне ограничений Telegram "
+"возврат происходит немедленно, вместо того чтобы парковать отправку в очереди"
 
 #: src/introduction.md:86
 msgid ""
 "**In-tree memory store (v0.3.81)** — the qmd dependency is dropped; SQLite "
 "FTS5 + vector search owned in-tree"
 msgstr ""
-"**Собственное хранилище памяти (v0.3.81)** — зависимость qmd убрана; поиск на SQLite FTS5 + векторный живёт в самом коде"
-
+"**Собственное хранилище памяти (v0.3.81)** — зависимость qmd убрана; поиск "
+"на SQLite FTS5 + векторный живёт в самом коде"
 
 #: src/introduction.md:87
 msgid ""
 "**External index paths (v0.3.81)** — memory search reads indexes outside the "
 "profile directory, default-deny in shared sessions"
 msgstr ""
-"**Внешние пути индексов (v0.3.81)** — поиск по памяти читает индексы вне директории профиля; по умолчанию запрет в общих sessions"
-
+"**Внешние пути индексов (v0.3.81)** — поиск по памяти читает индексы вне "
+"директории профиля; по умолчанию запрет в общих sessions"
 
 #: src/introduction.md:88
 msgid ""
 "**Mermaid as images on Telegram (v0.3.81)** — diagrams render as images "
 "while tables stay native formatting"
 msgstr ""
-"**Mermaid картинками в Telegram (v0.3.81)** — диаграммы рендерятся картинками, а таблицы остаются в нативном форматировании"
-
+"**Mermaid картинками в Telegram (v0.3.81)** — диаграммы рендерятся "
+"картинками, а таблицы остаются в нативном форматировании"
 
 #: src/introduction.md:89
 msgid ""
@@ -863,64 +882,67 @@ msgid ""
 "thinking knobs, recommended effort tier by default, hosted Qwen reachable "
 "everywhere"
 msgstr ""
-"**Размышления Qwen между ходами (v0.3.81)** — preserve_thinking, настройки thinking по семейству, рекомендуемый уровень усилий по умолчанию, хостуемый Qwen доступен отовсюду"
-
+"**Размышления Qwen между ходами (v0.3.81)** — preserve_thinking, настройки "
+"thinking по семейству, рекомендуемый уровень усилий по умолчанию, хостуемый "
+"Qwen доступен отовсюду"
 
 #: src/introduction.md:90
 msgid ""
 "**keys.toml key-loss fix (v0.3.81)** — provider API keys no longer dropped "
 "at runtime; poisoned keys self-heal"
 msgstr ""
-"**Фикс потери ключей в keys.toml (v0.3.81)** — API-ключи провайдеров больше не теряются во время работы; ��овреждённые ключи самолечатся"
-
+"**Фикс потери ключей в keys.toml (v0.3.81)** — API-ключи провайдеров больше "
+"не теряются во время работы; ��овреждённые ключи самолечатся"
 
 #: src/introduction.md:91
 msgid ""
 "**Early loop detection (v0.3.81)** — repeating tool rounds caught before the "
 "provider rejects the turn"
 msgstr ""
-"**Раннее обнаружение циклов (v0.3.81)** — повторяющиеся раунды инструментов ловятся до того, как провайдер отклонит ход"
-
+"**Раннее обнаружение циклов (v0.3.81)** — повторяющиеся раунды инструментов "
+"ловятся до того, как провайдер отклонит ход"
 
 #: src/introduction.md:92
 msgid ""
 "**RSI engine gate (v0.3.81)** — autonomous RSI off by default for headless "
 "daemons, opt in with `rsi_enabled`"
 msgstr ""
-"**Ворота движка RSI (v0.3.81)** — автономный RSI по умолчанию выключен для headless-демонов, включается через `rsi_enabled`"
-
+"**Ворота движка RSI (v0.3.81)** — автономный RSI по умолчанию выключен для "
+"headless-демонов, включается через `rsi_enabled`"
 
 #: src/introduction.md:93
 msgid ""
 "**memory_search scope (v0.3.80)** — search daily logs (`memory`), brain "
 "files (`brain`), or both (`all`); brain files are indexed on write"
 msgstr ""
-"**Область поиска memory_search (v0.3.80)** — ищите по дневным логам (`memory`), brain files (`brain`) или по обоим сразу (`all`); brain files индексируются при записи"
-
+"**Область поиска memory_search (v0.3.80)** — ищите по дневным логам "
+"(`memory`), brain files (`brain`) или по обоим сразу (`all`); brain files "
+"индексируются при записи"
 
 #: src/introduction.md:94
 msgid ""
 "**Chunked memory retrieval (v0.3.80)** — documents chunked before embedding "
 "so later chunks are searchable; recall ranked with BM25"
 msgstr ""
-"**Чанкованный поиск по памяти (v0.3.80)** — документы нарезаются на чанки перед встраиванием, поэтому поздние чанки тоже находятся; релевантность ранжируется BM25"
-
+"**Чанкованный поиск по памяти (v0.3.80)** — документы нарезаются на чанки "
+"перед встраиванием, поэтому поздние чанки тоже находятся; релевантность "
+"ранжируется BM25"
 
 #: src/introduction.md:95
 msgid ""
 "**Slack-native rendering (v0.3.80)** — tables and headings arrive in Slack's "
 "own shape instead of raw markdown"
 msgstr ""
-"**Нативный рендеринг Slack (v0.3.80)** — таблицы и заголовки приходят в собственном формате Slack вместо сырого markdown"
-
+"**Нативный рендеринг Slack (v0.3.80)** — таблицы и заголовки приходят в "
+"собственном формате Slack вместо сырого markdown"
 
 #: src/introduction.md:96
 msgid ""
 "**Owner-gated channel commands (v0.3.80)** — custom commands and skills are "
 "owner-only on the channel catch-all arm in groups"
 msgstr ""
-"**Команды channel только для owner (v0.3.80)** — пользовательские команды и skills в группах доступны только owner на catch-all-ветке channel"
-
+"**Команды channel только для owner (v0.3.80)** — пользовательские команды и "
+"skills в группах доступны только owner на catch-all-ветке channel"
 
 #: src/introduction.md:97
 msgid ""
@@ -928,24 +950,26 @@ msgid ""
 "convergence, backs off on zero-improvement streaks, hashes findings by "
 "stable identity"
 msgstr ""
-"**Ворота сходимости RSI (v0.3.80)** — самоулучшение ставится на паузу при сходимости, откатывается при сериях без улучшений, хэширует находки по стабильной идентичности"
-
+"**Ворота сходимости RSI (v0.3.80)** — самоулучшение ставится на паузу при "
+"сходимости, откатывается при сериях без улучшений, хэширует находки по "
+"стабильной идентичности"
 
 #: src/introduction.md:98
 msgid ""
 "**Loop guards (v0.3.80)** — announcement and near-match repetition guards on "
 "all tools; loop-detector kills reach the fallback chain"
 msgstr ""
-"**Защита от циклов (v0.3.80)** — защита от повторных объявлений и почти одинаковых повторов на всех инструментах; срабатывания детектора циклов доходят до цепочки fallback"
-
+"**Защита от циклов (v0.3.80)** — защита от повторных объявлений и почти "
+"одинаковых повторов на всех инструментах; срабатывания детектора циклов "
+"доходят до цепочки fallback"
 
 #: src/introduction.md:99
 msgid ""
 "**Browser inventory mode (v0.3.80)** — bare `browser_find` enumerates every "
 "clickable element on the page"
 msgstr ""
-"**Режим инвентаризации браузера (v0.3.80)** — голый `browser_find` перечисляет каждый кликабельный элемент на странице"
-
+"**Режим инвентаризации браузера (v0.3.80)** — голый `browser_find` "
+"перечисляет каждый кликабельный элемент на странице"
 
 #: src/introduction.md:100
 msgid ""
@@ -954,102 +978,106 @@ msgid ""
 "`src/docs/reference/templates/` and merge by hand if you want the new "
 "defaults"
 msgstr ""
-"**Обновление шаблонов brain files (v0.3.80)** — шаблоны AGENTS.md, BOOT.md и SOUL.md изменились; сидинг никогда не перезаписывает существующие файлы, поэтому сверьте с `src/docs/reference/templates/` и смёржите вручную, если хотите новые дефолты"
-
+"**Обновление шаблонов brain files (v0.3.80)** — шаблоны AGENTS.md, BOOT.md и "
+"SOUL.md изменились; сидинг никогда не перезаписывает существующие файлы, "
+"поэтому сверьте с `src/docs/reference/templates/` и смёржите вручную, если "
+"хотите новые дефолты"
 
 #: src/introduction.md:101
 msgid ""
 "**System brain rebuild** — brain files rebuilt from disk when changed, no "
 "restart needed"
 msgstr ""
-"**Пересборка системного brain** — brain files пересобираются с диска при изменении, перезапуск не нужен"
-
+"**Пересборка системного brain** — brain files пересобираются с диска при "
+"изменении, перезапуск не нужен"
 
 #: src/introduction.md:102
 msgid ""
 "**Proactive tool discovery** — searches for available tools before claiming "
 "inability"
 msgstr ""
-"**Проактивный поиск инструментов** — сначала ищет доступные инструменты, и только потом признаёт бессилие"
-
+"**Проактивный поиск инструментов** — сначала ищет доступные инструменты, и "
+"только потом признаёт бессилие"
 
 #: src/introduction.md:103
 msgid ""
 "**Multilanguage prompt analyzer (v0.3.67)** — shared PromptAnalyzer with "
 "soft-nudge on TUI and Telegram, 6 language packs (EN/ES/FR/ID/PT/RU)"
 msgstr ""
-"**Многоязычный анализатор промптов (v0.3.67)** — общий PromptAnalyzer с мягкими подсказками в TUI и Telegram, 6 языковых пакетов (EN/ES/FR/ID/PT/RU)"
-
+"**Многоязычный анализатор промптов (v0.3.67)** — общий PromptAnalyzer с "
+"мягкими подсказками в TUI и Telegram, 6 языковых пакетов (EN/ES/FR/ID/PT/RU)"
 
 #: src/introduction.md:104
 msgid ""
 "**Plan mode (v0.3.67-v0.3.68)** — design/checklist tracks, persistent plan "
 "card, `/plan <query>` command, agent self-approval when user grants autonomy"
 msgstr ""
-"**Режим планов (v0.3.67-v0.3.68)** — треки design/checklist, постоянная карточка плана, команда `/plan <query>`, самосогласование агентом при выданной пользователем автономии"
-
+"**Режим планов (v0.3.67-v0.3.68)** — треки design/checklist, постоянная "
+"карточка плана, команда `/plan <query>`, самосогласование агентом при "
+"выданной пользователем автономии"
 
 #: src/introduction.md:105
 msgid ""
 "**Click-to-expand (v0.3.69)** — left-click a tool-call or reasoning block to "
 "expand just that block, complementing Ctrl+O"
 msgstr ""
-"**Разворачивание кликом (v0.3.69)** — левый клик по блоку вызова инструмента или размышлений разворачивает только его, в дополнение к Ctrl+O"
-
+"**Разворачивание кликом (v0.3.69)** — левый клик по блоку вызова инструмента "
+"или размышлений разворачивает только его, в дополнение к Ctrl+O"
 
 #: src/introduction.md:106
 msgid ""
 "**Skills review_gate (v0.3.70)** — frontmatter declaration for high-stakes "
 "skills that require user approval before side effects"
 msgstr ""
-"**review_gate для skills (v0.3.70)** — объявление во frontmatter для рискованных skills, требующих одоб��ения пользователя перед побочными эффектами"
-
+"**review_gate для skills (v0.3.70)** — объявление во frontmatter для "
+"рискованных skills, требующих одоб��ения пользователя перед побочными "
+"эффектами"
 
 #: src/introduction.md:107
 msgid ""
-"**JIT tool activation** — extended tools activated on-demand, no "
-"pre-registration needed"
+"**JIT tool activation** — extended tools activated on-demand, no pre-"
+"registration needed"
 msgstr ""
-"**JIT-активация инструментов** — расширенные инструменты активируются по запросу, предварительная регистрация не нужна"
-
+"**JIT-активация инструментов** — расширенные инструменты активируются по "
+"запросу, предварительная регистрация не нужна"
 
 #: src/introduction.md:108
 msgid ""
-"**Config auto-repair** — auto-repair broken config.toml, never poison "
-"last-good config"
+"**Config auto-repair** — auto-repair broken config.toml, never poison last-"
+"good config"
 msgstr ""
-"**Автопочинка конфигурации** — сломанный config.toml чинится автоматически, последняя рабочая конфигурация никогда не портится"
-
+"**Автопочинка конфигурации** — сломанный config.toml чинится автоматически, "
+"последняя рабочая конфигурация никогда не портится"
 
 #: src/introduction.md:109
 msgid ""
 "**Context budget management** — 65% soft / 90% hard compaction thresholds "
 "with LLM fallback"
 msgstr ""
-"**Управление бюджетом контекста** — пороги компакции 65% мягкий / 90% жёсткий с fallback на LLM"
-
+"**Управление бюджетом контекста** — пороги компакции 65% мягкий / 90% "
+"жёсткий с fallback на LLM"
 
 #: src/introduction.md:110
 msgid ""
 "**Stuck stream detection** — 2048-byte rolling window catches repeating "
 "patterns"
 msgstr ""
-"**Обнаружение зависшего стрима** — скользящее окно в 2048 байт ловит повторяющиеся паттерны"
-
+"**Обнаружение зависшего стрима** — скользящее окно в 2048 байт ловит "
+"повторяющиеся паттерны"
 
 #: src/introduction.md:111
 msgid "**Gaslighting defense** — strips tool-refusal preambles mid-turn"
 msgstr ""
-"**Защита от газлайтинга** — вырезает преамбулы с отказом от инструментов посреди хода"
-
+"**Защита от газлайтинга** — вырезает преамбулы с отказом от инструментов "
+"посреди хода"
 
 #: src/introduction.md:112
 msgid ""
 "**Deliver build outcomes (v0.3.61)** — rebuild/evolve results reach whoever "
 "asked, across channels and TUI"
 msgstr ""
-"**Доставка результатов сборки (v0.3.61)** — результаты rebuild/evolve доходят до того, кто просил, во всех channels и TUI"
-
+"**Доставка результатов сборки (v0.3.61)** — результаты rebuild/evolve "
+"доходят до того, кто просил, во всех channels и TUI"
 
 #: src/introduction.md:114
 msgid "Terminal UI"
@@ -1060,32 +1088,33 @@ msgid ""
 "**Native markdown rendering** — emphasis, lists, links, and task items "
 "render directly in the terminal"
 msgstr ""
-"**Нативный рендеринг markdown** — выделение, списки, ссылки и чекбоксы задач рендерятся прямо в терминале"
-
+"**Нативный рендеринг markdown** — выделение, списки, ссылки и чекбоксы задач "
+"рендерятся прямо в терминале"
 
 #: src/introduction.md:116
 msgid ""
 "**Real-time tok/s throughput meter** — live tokens-per-second during "
 "streaming"
 msgstr ""
-"**Счётчик скорости в реальном времени** — живые токены в секунду во время стриминга"
-
+"**Счётчик скорости в реальном времени** — живые токены в секунду во время "
+"стриминга"
 
 #: src/introduction.md:117
 msgid ""
 "**Version display (v0.3.73)** — show the running version on the TUI header "
 "and in channel /help + /usage"
 msgstr ""
-"**Отображение версии (v0.3.73)** — работающая версия показывается в шапке TUI и в /help + /usage в channels"
-
+"**Отображение версии (v0.3.73)** — работающая версия показывается в шапке "
+"TUI и в /help + /usage в channels"
 
 #: src/introduction.md:118
 msgid ""
 "**3-state reasoning expand (v0.3.74)** — click or Ctrl+O cycles a reasoning "
 "block collapsed → capped → full, so it never floods the view"
 msgstr ""
-"**Трёхпозиционное разворачивание размышлений (v0.3.74)** — клик или Ctrl+O переключает блок размышлений свёрнут → ограничен → полностью, так что он никогда не заливает экран"
-
+"**Трёхпозиционное разворачивание размышлений (v0.3.74)** — клик или Ctrl+O "
+"переключает блок размышлений свёрнут → ограничен → полностью, так что он "
+"никогда не заливает экран"
 
 #: src/introduction.md:119
 msgid ""
@@ -1093,16 +1122,18 @@ msgid ""
 "its working-out folds into it, and turns fold by default so the view stays "
 "clean"
 msgstr ""
-"**Заголовки на каждый ход (v0.3.75)** — каждый ход получает однострочный заголовок-сводку, его рассуждения сворачиваются в него, и ходы по умолчанию свёрнуты, поэтому обзор остаётся чистым"
-
+"**Заголовки на каждый ход (v0.3.75)** — каждый ход получает однострочный "
+"заголовок-сводку, его рассуждения сворачиваются в него, и ходы по умолчанию "
+"свёрнуты, поэтому обзор остаётся чистым"
 
 #: src/introduction.md:120
 msgid ""
 "**Group tool calls (v0.3.61)** — consecutive tool calls collapse into one "
 "expandable block, keeping the TUI clean during multi-step operations"
 msgstr ""
-"**Группировка вызовов инструментов (v0.3.61)** — последовательные вызовы инструментов сворачиваются в один разворачиваемый блок, сохраняя TUI чистым во время многошаговых операций"
-
+"**Группировка вызовов инструментов (v0.3.61)** — последовательные вызовы "
+"инструментов сворачиваются в один разворачиваемый блок, сохраняя TUI чистым "
+"во время многошаговых операций"
 
 #: src/introduction.md:121
 msgid ""
@@ -1110,57 +1141,60 @@ msgid ""
 "into the same in-place log as tool calls, so only the final answer stays "
 "visible"
 msgstr ""
-"**Сворачивание промежуточного текста (v0.3.61)** — промежуточный текст обработки сворачивается в тот же журнал на месте, что и вызовы инструментов, поэтому виден только финальный ответ"
-
+"**Сворачивание промежуточного текста (v0.3.61)** — промежуточный текст "
+"обработки сворачивается в тот же журнал на месте, что и вызовы инструментов, "
+"поэтому виден только финальный ответ"
 
 #: src/introduction.md:122
-msgid "**Session search** — search filter + viewport scroll across all sessions"
+msgid ""
+"**Session search** — search filter + viewport scroll across all sessions"
 msgstr ""
-"**Поиск по sessions** — поисковый фильтр + прокрутка вьюпорта по всем sessions"
-
+"**Поиск по sessions** — поисковый фильтр + прокрутка вьюпорта по всем "
+"sessions"
 
 #: src/introduction.md:123
 msgid "**Split panes** — tmux-style parallel sessions with layout persistence"
 msgstr ""
-"**Разделённые панели** — параллельные sessions в стиле tmux с сохранением раскладки"
-
+"**Разделённые панели** — параллельные sessions в стиле tmux с сохранением "
+"раскладки"
 
 #: src/introduction.md:124
 msgid ""
 "**Clipboard image paste** — paste images from browser or any app directly "
 "into TUI"
 msgstr ""
-"**Вставка картинок из буфера** — вставляйте картинки из браузера или любого приложения прямо в TUI"
-
+"**Вставка картинок из буфера** — вставляйте картинки из браузера или любого "
+"приложения прямо в TUI"
 
 #: src/introduction.md:125
 msgid "**Plan pinning** — active plan pinned at end of prompt each turn"
 msgstr ""
-"**Закрепление плана** — активный план прикалывается в конец промпта на каждый ход"
-
+"**Закрепление плана** — активный план прикалывается в конец промпта на "
+"каждый ход"
 
 #: src/introduction.md:126
 msgid ""
 "**Agent-driven onboarding** — personalized first-time setup with guided flow"
 msgstr ""
-"**Онбординг под руководством агента** — персонализированная первичная настройка с ведением по шагам"
-
+"**Онбординг под руководством агента** — персонализированная первичная "
+"настройка с ведением по шагам"
 
 #: src/introduction.md:127
 msgid ""
 "**`/goal` autonomous loop** — set a goal and the agent loops until an LLM "
 "judge says it's done, with pause/resume/status controls"
 msgstr ""
-"**Автономный цикл `/goal`** — поставьте цель, и агент крутится, пока LLM-судья не скажет «готово», с управлением пауза/продолжить/статус"
-
+"**Автономный цикл `/goal`** — поставьте цель, и агент крутится, пока LLM-"
+"судья не скажет «готово», с управлением пауза/продолжить/статус"
 
 #: src/introduction.md:128
 msgid ""
 "**Self-goaling (v0.3.61)** — agent can set and drive its own multi-turn "
 "goals via `goal_manage` tool without user invoking `/goal`"
 msgstr ""
-"**Самопостановка целей (v0.3.61)** — агент может ставить и вести собственные многоходовые цели через инструмент `goal_manage`, без команды `/goal` от пользователя"
-
+"**Самопостановка целей (v0.3.61)** — агент может ставить и вести собственные "
+"многоходовые цели через инструмент `goal_manage`, без команды `/goal` от "
+"пользователя"
 
 #: src/introduction.md:130
 msgid "Developer Experience"
@@ -1171,153 +1205,156 @@ msgid ""
 "**50+ built-in tools** — file ops, bash, web search, code execution, browser "
 "automation, image gen, voice, PDF rendering"
 msgstr ""
-"**50+ встроенных инструментов** — файловые операции, bash, веб-поиск, исполнение кода, автоматизация браузера, генерация картинок, голос, рендеринг PDF"
-
+"**50+ встроенных инструментов** — файловые операции, bash, веб-поиск, "
+"исполнение кода, автоматизация браузера, генерация картинок, голос, "
+"рендеринг PDF"
 
 #: src/introduction.md:132
 msgid ""
 "**Unified parallel web search (v0.3.73)** — web_search, exa_search, and "
 "brave_search fan out in parallel under a single web_search tool"
 msgstr ""
-"**Единый параллельный веб-поиск (v0.3.73)** — web_search, exa_search и brave_search работают параллельно под одним инструментом web_search"
-
+"**Единый параллельный веб-поиск (v0.3.73)** — web_search, exa_search и "
+"brave_search работают параллельно под одним инструментом web_search"
 
 #: src/introduction.md:133
 msgid ""
 "**web_scrape** — native URL-to-markdown scraping with SSRF protection, "
 "sitemap crawling, JS-shell detection, and profile-aware export"
 msgstr ""
-"**web_scrape** — нативное превращение URL в markdown с защитой от SSRF, обходом sitemap, обнаружением JS-заглушек и экспортом с учётом профиля"
-
+"**web_scrape** — нативное превращение URL в markdown с защитой от SSRF, "
+"обходом sitemap, обнаружением JS-заглушек и экспортом с учётом профиля"
 
 #: src/introduction.md:134
 msgid ""
 "**DDG captcha detection (v0.3.73)** — detect DuckDuckGo captcha via HTTP 202 "
 "+ structural form check"
 msgstr ""
-"**Обнаружение ��апчи DDG (v0.3.73)** — капча DuckDuckGo детектируется по HTTP 202 + структурной проверке формы"
-
+"**Обнаружение ��апчи DDG (v0.3.73)** — капча DuckDuckGo детектируется по "
+"HTTP 202 + структурной проверке формы"
 
 #: src/introduction.md:135
 msgid ""
 "**Built-in /github skill** — full gh CLI control for issues, PRs, code "
 "reviews, repo management"
 msgstr ""
-"**Встроенный skill /github** — полное управление gh CLI для issues, PR, код-ревью и управления репозиториями"
-
+"**Встроенный skill /github** — полное управление gh CLI для issues, PR, код-"
+"ревью и управления репозиториями"
 
 #: src/introduction.md:136
 msgid ""
 "**Proactive tool discovery** — agent finds tools before saying \"I can't\""
 msgstr ""
-"**Проактивный поиск инструментов** — агент находит инструменты, прежде чем сказать «не могу»"
-
+"**Проактивный поиск инструментов** — агент находит инструменты, прежде чем "
+"сказать «не могу»"
 
 #: src/introduction.md:137
 msgid ""
 "**Skills system** — workflow templates with fuzzy-finding, auto-registered "
 "as slash commands"
 msgstr ""
-"**Система skills** — шаблоны рабочих процессов с нечётким поиском, автоматически регистрируются как slash-команды"
-
+"**Система skills** — шаблоны рабочих процессов с нечётким поиском, "
+"автоматически регистрируются как slash-команды"
 
 #: src/introduction.md:138
 msgid "**Dynamic tools** — runtime-defined via TOML (HTTP + shell executors)"
 msgstr ""
-"**Динамические инструменты** — определяются на лету через TOML (исполнители HTTP + shell)"
-
+"**Динамические инструменты** — определяются на лету через TOML (исполнители "
+"HTTP + shell)"
 
 #: src/introduction.md:139
 msgid ""
 "**Projects system** — dedicated sessions with per-project brain overlays, "
 "file archiving, and color badges"
 msgstr ""
-"**Система проектов** — выделенные sessions с брейн-оверлеями на каждый проект, архивацией файлов и цветными значками"
-
+"**Система проектов** — выделенные sessions с брейн-оверлеями на каждый "
+"проект, архивацией файлов и цветными значками"
 
 #: src/introduction.md:140
 msgid ""
 "**Hashline editing** — hash-anchored file editing with batch support and "
 "collision detection"
 msgstr ""
-"**Hashline-редактирование** — редактирование файлов с привязкой к хэшам строк, пакетными правками и обнаружением коллизий"
-
+"**Hashline-редактирование** — редактирование файлов с привязкой к хэшам "
+"строк, пакетными правками и обнаружением коллизий"
 
 #: src/introduction.md:141
 msgid ""
 "**Mission Control** — full-screen dashboard with RSI inbox, activity log, "
 "and cron schedule"
 msgstr ""
-"**Mission Control** — полноэкранная панель с входящими RSI, журналом активности и расписанием cron"
-
+"**Mission Control** — полноэкранная панель с входящими RSI, журналом "
+"активности и расписанием cron"
 
 #: src/introduction.md:142
 msgid ""
 "**RTK auto-download** — bundled 4MB proxy for 53.5% token savings on 100+ "
 "commands"
 msgstr ""
-"**Автозагрузка RTK** — встроенный прокси в 4 МБ для экономии 53,5% токенов на 100+ командах"
-
+"**Автозагрузка RTK** — встроенный прокси в 4 МБ для экономии 53,5% токенов "
+"на 100+ командах"
 
 #: src/introduction.md:143
 msgid ""
 "**Confidential file protection** — SSH keys, .env, credentials protected by "
 "default"
 msgstr ""
-"**Защита конфиденциальных файлов** — SSH-ключи, .env, креды защищены по умолчанию"
-
+"**Защита конфиденциальных файлов** — SSH-ключи, .env, креды защищены по "
+"умолчанию"
 
 #: src/introduction.md:144
-msgid "**AGENTS always-loaded** — hard rules and governance enforced every turn"
+msgid ""
+"**AGENTS always-loaded** — hard rules and governance enforced every turn"
 msgstr ""
-"**AGENTS загружается всегда** — жёсткие правил�� и управление применяются на каждом ходу"
-
+"**AGENTS загружается всегда** — жёсткие правил�� и управление применяются на "
+"каждом ходу"
 
 #: src/introduction.md:145 src/introduction.md:148
 msgid ""
 "**Config-driven debug_logs (v0.3.71)** — toggle debug logs with hot-reload, "
 "no restart needed"
 msgstr ""
-"**debug_logs из конфигурации (v0.3.71)** — переключение дебаг-логов с hot-reload, без перезапуска"
-
+"**debug_logs из конфигурации (v0.3.71)** — переключение дебаг-логов с hot-"
+"reload, без перезапуска"
 
 #: src/introduction.md:146 src/introduction.md:147
 msgid ""
 "**Secret redaction scope (v0.3.71)** — scope redaction to global/group/DM "
 "with `/redact` command"
 msgstr ""
-"**Область маскирования секретов (v0.3.71)** — маскирование в рамках глобально/группа/личка командой `/redact`"
-
+"**Область маскирования секретов (v0.3.71)** — маскирование в рамках "
+"глобально/группа/личка командой `/redact`"
 
 #: src/introduction.md:149
-msgid "**Tmux watchdog (v0.3.71)** — pane-only kill, 30s warning, auto-reattach"
+msgid ""
+"**Tmux watchdog (v0.3.71)** — pane-only kill, 30s warning, auto-reattach"
 msgstr ""
-"**Сторож Tmux (v0.3.71)** — прибивает только панель, предупреждение за 30 с, автоматический повторный attach"
-
+"**Сторож Tmux (v0.3.71)** — прибивает только панель, предупреждение за 30 с, "
+"автоматический повторный attach"
 
 #: src/introduction.md:150
 msgid ""
 "**Plan-gate three-state (v0.3.71)** — GateDecision with bash going to "
 "approval in post-init Editing"
 msgstr ""
-"**Трёхпозиционный шлюз планов (v0.3.71)** — GateDecision, bash уходит на одобрение в Editing после инициализации"
-
+"**Трёхпозиционный шлюз планов (v0.3.71)** — GateDecision, bash уходит на "
+"одобрение в Editing после инициализации"
 
 #: src/introduction.md:151
 msgid ""
 "**MCP-style ToolHints (v0.3.71)** — risk model for tool classification, "
 "drives plan gate"
 msgstr ""
-"**ToolHints в стиле MCP (v0.3.71)** — модель рисков для классификации инструментов, питает шлюз планов"
-
+"**ToolHints в стиле MCP (v0.3.71)** — модель рисков для классификации "
+"инструментов, питает шлюз планов"
 
 #: src/introduction.md:154
 msgid ""
 "**Full CDP support** — navigate, click, type, screenshot, JS eval, find "
 "elements"
 msgstr ""
-"**Полная поддержка CDP** — навигация, клики, ввод, скриншоты, JS eval, поиск элементов"
-
+"**Полная поддержка CDP** — навигация, клики, ввод, скриншоты, JS eval, поиск "
+"элементов"
 
 #: src/introduction.md:155
 msgid "**Headless or headed** mode with element-specific screenshots"
@@ -1330,8 +1367,8 @@ msgstr "**Сохранение cookies/session** между сессиями б�
 #: src/introduction.md:157
 msgid "**Per-session tab isolation** — no cross-session DOM stomping"
 msgstr ""
-"**Изоляция вкладок на каждую session** — никакого затаптывания DOM между sessions"
-
+"**Изоляция вкладок на каждую session** — никакого затаптывания DOM между "
+"sessions"
 
 #: src/introduction.md:159
 msgid "Project Directive Discovery (v0.3.59)"
@@ -1342,11 +1379,15 @@ msgid ""
 "OpenCrabs auto-discovers rule files that other AI coding tools drop in a "
 "repo. Point the agent at any repository (via `/cd`, a channel workspace, or "
 "launching inside one) and it scans for conventions shipped by Claude Code, "
-"Cursor, Windsurf, Cline, Gemini CLI, GitHub Copilot, OpenCode, and the "
-"cross-tool `AGENTS.md` standard. No config, no import step."
+"Cursor, Windsurf, Cline, Gemini CLI, GitHub Copilot, OpenCode, and the cross-"
+"tool `AGENTS.md` standard. No config, no import step."
 msgstr ""
-"OpenCrabs автоматически находит файлы правил, которы�� другие ИИ-инструменты для кодинга оставляют в репозитории. Укажите агенту на любой репозиторий (через `/cd`, рабочее пространство channel или запуск внутри него) — и он просканирует конвенции от Claude Code, Cursor, Windsurf, Cline, Gemini CLI, GitHub Copilot, OpenCode и межинструментального стандарта `AGENTS.md`. Без конфигурации, без шага импорта."
-
+"OpenCrabs автоматически находит файлы правил, которы�� другие ИИ-инструменты "
+"для кодинга оставляют в репозитории. Укажите агенту на любой репозиторий "
+"(через `/cd`, рабочее пространство channel или запуск внутри него) — и он "
+"просканирует конвенции от Claude Code, Cursor, Windsurf, Cline, Gemini CLI, "
+"GitHub Copilot, OpenCode и межинструментального стандарта `AGENTS.md`. Без "
+"конфигурации, без шага импорта."
 
 #: src/introduction.md:163 src/getting-started/onboarding.md:134
 msgid "Source"
@@ -1426,8 +1467,8 @@ msgid ""
 "The index rebuilds when you `/cd` into a new directory, so directive files "
 "are always current."
 msgstr ""
-"Индекс пересобирается, когда вы делаете `/cd` в новую директорию, поэтому файлы директив всегда актуальны."
-
+"Индекс пересобирается, когда вы делаете `/cd` в новую директорию, поэтому "
+"файлы директив всегда актуальны."
 
 #: src/introduction.md:176
 msgid "Quick Start"
@@ -1447,16 +1488,16 @@ msgstr ""
 
 #: src/introduction.md:182
 msgid ""
-"$(command -v jq >/dev/null 2>&1 && curl -s "
-"https://api.github.com/repos/adolfousier/opencrabs/releases/latest | jq -r "
-".tag_name || curl -s "
-"https://api.github.com/repos/adolfousier/opencrabs/releases/latest | grep -o "
+"$(command -v jq >/dev/null 2>&1 && curl -s https://api.github.com/repos/"
+"adolfousier/opencrabs/releases/latest | jq -r .tag_name || curl -s https://"
+"api.github.com/repos/adolfousier/opencrabs/releases/latest | grep -o "
 "'\"tag_name\":\"[^\"]*\"' | cut -d'\"' -f4)"
 msgstr ""
 
 #: src/introduction.md:183
 msgid ""
-"\"https://github.com/adolfousier/opencrabs/releases/download/${TAG}/opencrabs-${TAG}-${OS}-${ARCH}.tar.gz\""
+"\"https://github.com/adolfousier/opencrabs/releases/download/${TAG}/"
+"opencrabs-${TAG}-${OS}-${ARCH}.tar.gz\""
 msgstr ""
 
 #: src/introduction.md:185
@@ -1468,8 +1509,8 @@ msgid ""
 "Auto-update enabled by default. Disable with `[agent] auto_update = false` "
 "in `~/.opencrabs/config.toml`."
 msgstr ""
-"Автообновление включено по умолчанию. Отключите через `[agent] auto_update = false` в `~/.opencrabs/config.toml`."
-
+"Автообновление включено по умолчанию. Отключите через `[agent] auto_update = "
+"false` в `~/.opencrabs/config.toml`."
 
 #: src/introduction.md:237
 msgid "Next Steps"
@@ -1484,18 +1525,15 @@ msgid "[Configuration](getting-started/configuration.md) — All config options"
 msgstr ""
 "[Конфигурация](getting-started/configuration.md) — все параметры конфигурации"
 
-
 #: src/introduction.md:241
 msgid "[Providers](brain/providers-overview.md) — Connect your LLM backends"
 msgstr ""
 "[Провайдеры](brain/providers-overview.md) — подключите ваши LLM-бэкенды"
 
-
 #: src/introduction.md:242
 msgid "[Channels](channels/overview.md) — Connect Telegram, Discord, etc."
 msgstr ""
 "[Channels](channels/overview.md) — подключите Telegram, Discord и другие"
-
 
 #: src/introduction.md:243
 msgid "[Tools](brain/tools.md) — Explore 50+ built-in capabilities"
@@ -1506,10 +1544,11 @@ msgid "[Self-Healing](features/self-healing.md) — Resilience features"
 msgstr "[Самовосстановление](features/self-healing.md) — устойчивость к сбоям"
 
 #: src/introduction.md:245
-msgid "[Multi-Agent](features/multi-agent.md) — Orchestrate sub-agents and teams"
+msgid ""
+"[Multi-Agent](features/multi-agent.md) — Orchestrate sub-agents and teams"
 msgstr ""
-"[Мультиагентность](features/multi-agent.md) — оркестрация суб-агентов и команд"
-
+"[Мультиагентность](features/multi-agent.md) — оркестрация суб-агентов и "
+"команд"
 
 #: src/introduction.md:247
 msgid "Community & Support"
@@ -1520,32 +1559,32 @@ msgid ""
 "[Telegram community](https://t.me/opencrabs) — join the OpenCrabs group for "
 "questions, tips, and release chatter"
 msgstr ""
-"[Сообщество в Telegram](https://t.me/opencrabs) — присоединяйтесь к группе OpenCrabs: вопросы, советы и новости релизов"
-
+"[Сообщество в Telegram](https://t.me/opencrabs) — присоединяйтесь к группе "
+"OpenCrabs: вопросы, советы и новости релизов"
 
 #: src/introduction.md:250
 msgid ""
 "[Sponsor on GitHub](https://github.com/sponsors/adolfousier) — back the "
 "project and keep the crabs fed"
 msgstr ""
-"[��понсировать на GitHub](https://github.com/sponsors/adolfousier) — поддержите проект, чтобы крабы были сыты"
-
+"[��понсировать на GitHub](https://github.com/sponsors/adolfousier) — "
+"поддержите проект, чтобы крабы были сыты"
 
 #: src/introduction.md:251
 msgid ""
 "[Buy Me a Coffee](https://buymeacoffee.com/opencrabs) — one-time support if "
 "OpenCrabs saved you an afternoon"
 msgstr ""
-"[Buy Me A Coffee](https://buymeacoffee.com/opencrabs) — разовая поддержка, если OpenCrabs сэкономил вам полдня"
-
+"[Buy Me A Coffee](https://buymeacoffee.com/opencrabs) — разовая поддержка, "
+"если OpenCrabs сэкономил вам полдня"
 
 #: src/introduction.md:253
 msgid ""
-"Found a bug or want a feature? Open an issue on "
-"[GitHub](https://github.com/adolfousier/opencrabs/issues)."
+"Found a bug or want a feature? Open an issue on [GitHub](https://github.com/"
+"adolfousier/opencrabs/issues)."
 msgstr ""
-"Нашли баг или нужна фича? Заведите issue на [GitHub](https://github.com/adolfousier/opencrabs/issues)."
-
+"Нашли баг или нужна фича? Заведите issue на [GitHub](https://github.com/"
+"adolfousier/opencrabs/issues)."
 
 #: src/getting-started/installation.md:3
 msgid "Four ways to get OpenCrabs running."
@@ -1557,23 +1596,26 @@ msgstr "Способ 1: Homebrew (рекомендуется на macOS и Linux
 
 #: src/getting-started/installation.md:11
 msgid ""
-"OpenCrabs is in "
-"[homebrew-core](https://github.com/Homebrew/homebrew-core/blob/HEAD/Formula/o/opencrabs.rb), "
-"so the standard formula installs the prebuilt binary for macOS and Linux on "
-"both architectures — no Rust toolchain required. Every release publishes a "
-"`SHA256SUMS` file and the formula is regenerated automatically from it, so "
-"the hashes always match the shipped artifacts."
+"OpenCrabs is in [homebrew-core](https://github.com/Homebrew/homebrew-core/"
+"blob/HEAD/Formula/o/opencrabs.rb), so the standard formula installs the "
+"prebuilt binary for macOS and Linux on both architectures — no Rust "
+"toolchain required. Every release publishes a `SHA256SUMS` file and the "
+"formula is regenerated automatically from it, so the hashes always match the "
+"shipped artifacts."
 msgstr ""
-"OpenCrabs есть в [homebrew-core](https://github.com/Homebrew/homebrew-core/blob/HEAD/Formula/o/opencrabs.rb), поэтому стандартная формула ставит готовый бинарник для macOS и Linux на обеих архитектурах — тулчейн Rust не нужен. Каждый релиз публикует файл `SHA256SUMS`, и формула перегенерируется из него автоматически, так что хэши всегда совпадают с артефактами."
-
+"OpenCrabs есть в [homebrew-core](https://github.com/Homebrew/homebrew-core/"
+"blob/HEAD/Formula/o/opencrabs.rb), поэтому стандартная формула ставит "
+"готовый бинарник для macOS и Linux на обеих архитектурах — тулчейн Rust не "
+"нужен. Каждый релиз публикует файл `SHA256SUMS`, и формула перегенерируется "
+"из него автоматически, так что хэши всегда совпадают с артефактами."
 
 #: src/getting-started/installation.md:13
 msgid ""
 "Run `opencrabs` after install — the onboarding wizard handles everything on "
 "first run."
 msgstr ""
-"Запустите `opencrabs` после установки — мастер первоначальной настройки всё сделает при первом запуске."
-
+"Запустите `opencrabs` после установки — мастер первоначальной настройки всё "
+"сделает при первом запуске."
 
 #: src/getting-started/installation.md:15
 msgid "Option 2: Download Binary (all platforms)"
@@ -1581,11 +1623,11 @@ msgstr "Способ 2: скачать бинарник (все платформ
 
 #: src/getting-started/installation.md:17
 msgid ""
-"Grab a pre-built binary from [GitHub "
-"Releases](https://github.com/adolfousier/opencrabs/releases)."
+"Grab a pre-built binary from [GitHub Releases](https://github.com/"
+"adolfousier/opencrabs/releases)."
 msgstr ""
-"Возьмите готовый бинарник из [GitHub Releases](https://github.com/adolfousier/opencrabs/releases)."
-
+"Возьмите готовый бинарник из [GitHub Releases](https://github.com/"
+"adolfousier/opencrabs/releases)."
 
 #: src/getting-started/installation.md:19
 msgid "Linux (amd64)"
@@ -1601,7 +1643,8 @@ msgstr ""
 
 #: src/getting-started/installation.md:24
 msgid ""
-"\"https://github.com/adolfousier/opencrabs/releases/download/${TAG}/opencrabs-${TAG}-linux-amd64.tar.gz\""
+"\"https://github.com/adolfousier/opencrabs/releases/download/${TAG}/"
+"opencrabs-${TAG}-linux-amd64.tar.gz\""
 msgstr ""
 
 #: src/getting-started/installation.md:28
@@ -1610,7 +1653,8 @@ msgstr "Linux (arm64)"
 
 #: src/getting-started/installation.md:33
 msgid ""
-"\"https://github.com/adolfousier/opencrabs/releases/download/${TAG}/opencrabs-${TAG}-linux-arm64.tar.gz\""
+"\"https://github.com/adolfousier/opencrabs/releases/download/${TAG}/"
+"opencrabs-${TAG}-linux-arm64.tar.gz\""
 msgstr ""
 
 #: src/getting-started/installation.md:37
@@ -1619,7 +1663,8 @@ msgstr "macOS (arm64 / Apple Silicon)"
 
 #: src/getting-started/installation.md:41
 msgid ""
-"\"https://github.com/adolfousier/opencrabs/releases/download/${TAG}/opencrabs-${TAG}-macos-arm64.tar.gz\""
+"\"https://github.com/adolfousier/opencrabs/releases/download/${TAG}/"
+"opencrabs-${TAG}-macos-arm64.tar.gz\""
 msgstr ""
 
 #: src/getting-started/installation.md:45
@@ -1629,12 +1674,11 @@ msgstr "Windows"
 #: src/getting-started/installation.md:47
 msgid ""
 "```powershell\n"
-"$tag = (Invoke-RestMethod "
-"https://api.github.com/repos/adolfousier/opencrabs/releases/latest).tag_name\n"
+"$tag = (Invoke-RestMethod https://api.github.com/repos/adolfousier/opencrabs/"
+"releases/latest).tag_name\n"
 "$ProgressPreference = 'SilentlyContinue'\n"
-"Invoke-WebRequest "
-"\"https://github.com/adolfousier/opencrabs/releases/download/$tag/opencrabs-$tag-windows-amd64.zip\" "
-"-OutFile opencrabs.zip\n"
+"Invoke-WebRequest \"https://github.com/adolfousier/opencrabs/releases/"
+"download/$tag/opencrabs-$tag-windows-amd64.zip\" -OutFile opencrabs.zip\n"
 "Expand-Archive opencrabs.zip -Force\n"
 ".\\opencrabs.exe\n"
 "```"
@@ -1649,8 +1693,8 @@ msgid ""
 "**Verify your download (optional):** every release publishes a `SHA256SUMS` "
 "file alongside the tarballs."
 msgstr ""
-"**Проверьте загрузку (необязательно):** каждый релиз публикует файл `SHA256SUMS` рядом с tarball-ами."
-
+"**Проверьте загрузку (необязательно):** каждый релиз публикует файл "
+"`SHA256SUMS` рядом с tarball-ами."
 
 #: src/getting-started/installation.md:59
 msgid ""
@@ -1658,8 +1702,9 @@ msgid ""
 "config, and project files. Your terminal app needs filesystem access or the "
 "OS will block operations."
 msgstr ""
-"**Нужны права терминала.** OpenCrabs читает и пишет brain files, конфигурацию и файлы проектов. Терминалу нужен доступ к файловой системе, иначе ОС заблокирует операции."
-
+"**Нужны права терминала.** OpenCrabs читает и пишет brain files, "
+"конфигурацию и файлы проектов. Терминалу нужен доступ к файловой системе, "
+"иначе ОС заблокирует операции."
 
 #: src/getting-started/installation.md:61
 msgid "OS"
@@ -1676,12 +1721,14 @@ msgstr "**macOS**"
 #: src/getting-started/installation.md:63
 msgid ""
 "**System Settings → Privacy & Security → Full Disk Access** → toggle your "
-"terminal app ON (Alacritty, iTerm2, Terminal, etc.). If not listed, click "
-"\"+\" and add it from `/Applications/`. Without this, macOS repeatedly "
-"prompts \"would like to access data from other apps\"."
+"terminal app ON (Alacritty, iTerm2, Terminal, etc.). If not listed, click \"+"
+"\" and add it from `/Applications/`. Without this, macOS repeatedly prompts "
+"\"would like to access data from other apps\"."
 msgstr ""
-"**Системные настройки → Конфиденциальность и безопасность → Полный доступ к диску** → включите ваш терминал (Alacritty, iTerm2, Terminal и т.д.). Если его нет в списке, нажмите «+» и добавьте из `/Applications/`. Без этого macOS будет бесконечно спрашивать «хочет доступ к данным других приложений»."
-
+"**Системные настройки → Конфиденциальность и безопасность → Полный доступ к "
+"диску** → включите ваш терминал (Alacritty, iTerm2, Terminal и т.д.). Если "
+"его нет в списке, нажмите «+» и добавьте из `/Applications/`. Без этого "
+"macOS будет бесконечно спрашивать «хочет доступ к данным других приложений»."
 
 #: src/getting-started/installation.md:64
 msgid "**Windows**"
@@ -1690,12 +1737,14 @@ msgstr "**Windows**"
 #: src/getting-started/installation.md:64
 msgid ""
 "Run your terminal (Windows Terminal, PowerShell, cmd) **as Administrator** "
-"on first run, or grant the terminal **write access** to "
-"`%USERPROFILE%\\.opencrabs\\` and your project directories. Windows Defender "
-"may also prompt — click \"Allow\"."
+"on first run, or grant the terminal **write access** to `%USERPROFILE%"
+"\\.opencrabs\\` and your project directories. Windows Defender may also "
+"prompt — click \"Allow\"."
 msgstr ""
-"Запустите терминал (Windows Terminal, PowerShell, cmd) **от администратора** при первом запуске или дайте терминалу **право записи** в `%USERPROFILE%\\.opencrabs\\` и директории проектов. Windows Defender тоже может спросить — нажмите «Разрешить»."
-
+"Запустите терминал (Windows Terminal, PowerShell, cmd) **от администратора** "
+"при первом запуске или дайте терминалу **право записи** в `%USERPROFILE%"
+"\\.opencrabs\\` и директории проектов. Windows Defender тоже может спросить "
+"— нажмите «Разрешить»."
 
 #: src/getting-started/installation.md:65
 msgid "**Linux**"
@@ -1703,21 +1752,24 @@ msgstr "**Linux**"
 
 #: src/getting-started/installation.md:65
 msgid ""
-"Ensure your user owns `~/.opencrabs/` and project directories. On "
-"SELinux/AppArmor systems, the terminal process needs read/write access to "
-"those paths. Flatpak/Snap terminals may need `--filesystem=home` or "
-"equivalent permission."
+"Ensure your user owns `~/.opencrabs/` and project directories. On SELinux/"
+"AppArmor systems, the terminal process needs read/write access to those "
+"paths. Flatpak/Snap terminals may need `--filesystem=home` or equivalent "
+"permission."
 msgstr ""
-"Убедитесь, что ваш пользователь владеет `~/.opencrabs/` и директориями проектов. В системах с SELinux/AppArmor процессу терминала нужен доступ на чтение/запись к этим путям. Терминалам из Flatpak/Snap может понадобиться `--filesystem=home` или аналогичное разрешение."
-
+"Убедитесь, что ваш пользователь владеет `~/.opencrabs/` и директориями "
+"проектов. В системах с SELinux/AppArmor процессу терминала нужен доступ на "
+"чтение/запись к этим путям. Терминалам из Flatpak/Snap может понадобиться `--"
+"filesystem=home` или аналогичное разрешение."
 
 #: src/getting-started/installation.md:67
 msgid ""
 "`/rebuild` works even with pre-built binaries — it auto-clones the source to "
 "`~/.opencrabs/source/` on first use, then builds and hot-restarts."
 msgstr ""
-"`/rebuild` работает даже с готовыми бинарниками — при первом использовании он сам клонирует исходники в `~/.opencrabs/source/`, затем собирает и перезапускается на лету."
-
+"`/rebuild` работает даже с готовыми бинарниками — при первом использовании "
+"он сам клонирует исходники в `~/.opencrabs/source/`, затем собирает и "
+"перезапускается на лету."
 
 #: src/getting-started/installation.md:69
 msgid "Option 3: Build from Source"
@@ -1728,18 +1780,17 @@ msgid "Required for `/rebuild`, adding custom tools, or modifying the agent."
 msgstr ""
 "Нужно для `/rebuild`, добавления своих инструментов или модификации агента."
 
-
 #: src/getting-started/installation.md:73
 msgid "Quick setup (recommended)"
 msgstr "Быстрая установка (рекомендуется)"
 
 #: src/getting-started/installation.md:75
 msgid ""
-"The setup script auto-detects your platform (macOS, Debian/Ubuntu, "
-"Fedora/RHEL, Arch) and installs all build dependencies + Rust:"
+"The setup script auto-detects your platform (macOS, Debian/Ubuntu, Fedora/"
+"RHEL, Arch) and installs all build dependencies + Rust:"
 msgstr ""
-"Скрипт установки сам определяет вашу платформу (macOS, Debian/Ubuntu, Fedora/RHEL, Arch) и ставит все зависимости сборки + Rust:"
-
+"Скрипт установки сам определяет вашу платформу (macOS, Debian/Ubuntu, Fedora/"
+"RHEL, Arch) и ставит все зависимости сборки + Rust:"
 
 #: src/getting-started/installation.md:78
 msgid "# Install all dependencies\n"
@@ -1762,8 +1813,8 @@ msgid ""
 "**Rust stable** — [Install Rust](https://rustup.rs/). Stable toolchain works "
 "since v0.2.85"
 msgstr ""
-"**Rust stable** — [установите Rust](https://rustup.rs/). Стабильный тулчейн работает начиная с v0.2.85"
-
+"**Rust stable** — [установите Rust](https://rustup.rs/). Стабильный тулчейн "
+"работает начиная с v0.2.85"
 
 #: src/getting-started/installation.md:93
 msgid "**An API key** from at least one supported provider"
@@ -1798,8 +1849,9 @@ msgid ""
 "OpenCrabs uses `keys.toml` instead of `.env` for API keys. The onboarding "
 "wizard will help you set it up, or edit `~/.opencrabs/keys.toml` directly."
 msgstr ""
-"OpenCrabs использует `keys.toml` вместо `.env` для API-ключей. Мастер настройки поможет всё настроить, либо редактируйте `~/.opencrabs/keys.toml` напрямую."
-
+"OpenCrabs использует `keys.toml` вместо `.env` для API-ключей. Мастер "
+"настройки поможет всё настроить, либо редактируйте `~/.opencrabs/keys.toml` "
+"напрямую."
 
 #: src/getting-started/installation.md:109
 msgid "Option 4: Docker"
@@ -1810,8 +1862,8 @@ msgid ""
 "Run OpenCrabs in an isolated container. Build takes ~15min (Rust release + "
 "LTO)."
 msgstr ""
-"Запустите OpenCrabs в изолированном контейнере. Сборка занимает ~15 минут (Rust release + LTO)."
-
+"Запустите OpenCrabs в изолированном контейнере. Сборка занимает ~15 минут "
+"(Rust release + LTO)."
 
 #: src/getting-started/installation.md:119
 msgid ""
@@ -1819,8 +1871,9 @@ msgid ""
 "API keys in `keys.toml` are mounted into the container at runtime — never "
 "baked into the image."
 msgstr ""
-"Конфигурация, рабочее пространство и БД памяти живут в Docker-томе и переживают перезапуски. API-ключи из `keys.toml` монтируются в контейнер во время работы — никогда не запекаются в образ."
-
+"Конфигурация, рабочее пространство и БД памяти живут в Docker-томе и "
+"переживают перезапуски. API-ключи из `keys.toml` монтируются в контейнер во "
+"время работы — никогда не запекаются в образ."
 
 #: src/getting-started/installation.md:121
 msgid "Autostart on Boot"
@@ -1862,8 +1915,8 @@ msgid ""
 "Check status: `systemctl --user status opencrabs` | Logs: `journalctl --user "
 "-u opencrabs -f`"
 msgstr ""
-"Статус: `systemctl --user status opencrabs` | Логи: `journalctl --user -u opencrabs -f`"
-
+"Статус: `systemctl --user status opencrabs` | Логи: `journalctl --user -u "
+"opencrabs -f`"
 
 #: src/getting-started/installation.md:150
 msgid "macOS (launchd)"
@@ -1921,18 +1974,18 @@ msgstr "Триггер: **При входе в систему**"
 
 #: src/getting-started/installation.md:188
 msgid ""
-"Action: **Start a program** → "
-"`C:\\Users\\<you>\\.cargo\\bin\\opencrabs.exe`, Arguments: `daemon`"
+"Action: **Start a program** → `C:"
+"\\Users\\<you>\\.cargo\\bin\\opencrabs.exe`, Arguments: `daemon`"
 msgstr ""
-"Действие: **Запустить программу** → `C:\\Users\\<you>\\.cargo\\bin\\opencrabs.exe`, Аргументы: `daemon`"
-
+"Действие: **Запустить программу** → `C:"
+"\\Users\\<you>\\.cargo\\bin\\opencrabs.exe`, Аргументы: `daemon`"
 
 #: src/getting-started/installation.md:189
 msgid ""
 "In Properties > Settings, check **If the task fails, restart every 1 minute**"
 msgstr ""
-"В Свойства > Параметры отметьте **Если задача выполнена с ошибкой, перезапускать каждую 1 минуту**"
-
+"В Свойства > Параметры отметьте **Если задача выполнена с ошибкой, "
+"перезапускать каждую 1 минуту**"
 
 #: src/getting-started/installation.md:191
 msgid "Or via PowerShell:"
@@ -1961,23 +2014,25 @@ msgid ""
 "Homebrew install, it delegates to Homebrew — the binary stays managed by "
 "brew, and the old tap is retired in favour of homebrew-core autobumps)"
 msgstr ""
-"**Пользователи Homebrew:** `brew upgrade opencrabs` (если ввести `/evolve` в установке из Homebrew, он передаёт управление Homebrew — бинарником продолжает управлять brew, а старый tap удалён в пользу автобампов homebrew-core)"
-
+"**Пользователи Homebrew:** `brew upgrade opencrabs` (если ввести `/evolve` в "
+"установке из Homebrew, он передаёт управление Homebrew — бинарником "
+"продолжает управлять brew, а старый tap удалён в пользу автобампов homebrew-"
+"core)"
 
 #: src/getting-started/installation.md:203
 msgid ""
 "**Binary users:** Type `/evolve` in the TUI to download the latest release"
 msgstr ""
-"**Пользователи бинарников:** введите `/evolve` в TUI, чтобы скачать последний релиз"
-
+"**Пользователи бинарников:** введите `/evolve` в TUI, чтобы скачать "
+"последний релиз"
 
 #: src/getting-started/installation.md:204
 msgid ""
 "**Source users:** `git pull && cargo build --release`, or type `/rebuild` in "
 "the TUI"
 msgstr ""
-"**Пользователи исходников:** `git pull && cargo build --release` или введите `/rebuild` в TUI"
-
+"**Пользователи исходников:** `git pull && cargo build --release` или введите "
+"`/rebuild` в TUI"
 
 #: src/getting-started/installation.md:205
 msgid "**Docker users:** `docker compose pull && docker compose up -d`"
@@ -2578,7 +2633,8 @@ msgid "Search your filesystem for the other tool's config directories"
 msgstr ""
 
 #: src/getting-started/onboarding.md:119
-msgid "Read and parse all relevant files (memory, commands, skills, preferences)"
+msgid ""
+"Read and parse all relevant files (memory, commands, skills, preferences)"
 msgstr ""
 
 #: src/getting-started/onboarding.md:120
@@ -3018,8 +3074,8 @@ msgstr ""
 
 #: src/getting-started/configuration.md:70
 msgid ""
-"**Every config write is atomic** (#911) — a crash or a concurrent reader "
-"mid-write can never observe a half-written `config.toml` or `keys.toml`."
+"**Every config write is atomic** (#911) — a crash or a concurrent reader mid-"
+"write can never observe a half-written `config.toml` or `keys.toml`."
 msgstr ""
 
 #: src/getting-started/configuration.md:71
@@ -3052,8 +3108,8 @@ msgid ""
 "[agent]\n"
 "working_directory = \"/path/to/default/dir\"\n"
 "thinking = \"on\"                     # \"on\", \"off\", or \"budget_XXk\"\n"
-"approval_policy = \"auto-always\"     # \"ask\", \"auto-session\", "
-"\"auto-always\"\n"
+"approval_policy = \"auto-always\"     # \"ask\", \"auto-session\", \"auto-"
+"always\"\n"
 "max_concurrent = 4                  # max parallel tool calls\n"
 "context_limit = 200000              # context window cap (tokens)\n"
 "max_tokens = 65536                  # max output tokens per API call\n"
@@ -3064,8 +3120,8 @@ msgid ""
 "tool_search only)\n"
 "redact_sensitive_data = true        # redact API keys, tokens, passwords, "
 "IPs from output\n"
-"debug_logs = false                  # enable debug file logging "
-"(hot-reloads, no restart)\n"
+"debug_logs = false                  # enable debug file logging (hot-"
+"reloads, no restart)\n"
 "default_provider = \"minimax\"        # fallback provider when no provider "
 "is active (v0.3.62)\n"
 "default_model = \"MiniMax-M2.7\"      # fallback model when no model is "
@@ -3320,8 +3376,8 @@ msgid ""
 "[agent]\n"
 "subagent_provider = \"minimax\"           # provider for spawned sub-agents\n"
 "subagent_model = \"MiniMax-M2.7\"         # model for spawned sub-agents\n"
-"self_improvement_provider = \"minimax\"   # provider for RSI "
-"self-improvement cycles\n"
+"self_improvement_provider = \"minimax\"   # provider for RSI self-"
+"improvement cycles\n"
 "self_improvement_model = \"MiniMax-M2.7\" # model for RSI cycles\n"
 "```"
 msgstr ""
@@ -3336,7 +3392,8 @@ msgid "`None` (uses session provider)"
 msgstr ""
 
 #: src/getting-started/configuration.md:124
-msgid "Provider for spawned sub-agents. Keeps sub-agents off your main provider"
+msgid ""
+"Provider for spawned sub-agents. Keeps sub-agents off your main provider"
 msgstr ""
 
 #: src/getting-started/configuration.md:125
@@ -3389,8 +3446,8 @@ msgid ""
 "session_idle_hours = 24.0           # idle timeout for non-owner sessions\n"
 "rich_messages = true                # native Telegram rich messages (Bot API "
 "10.1, default since v0.3.64)\n"
-"silence_group_start = true          # silently ignore /start from "
-"non-allowed users in groups\n"
+"silence_group_start = true          # silently ignore /start from non-"
+"allowed users in groups\n"
 "bot_owner = [\"123456789\"]           # owner IDs (gated commands, /cd "
 "hidden dirs, /profiles)\n"
 "```"
@@ -3531,7 +3588,8 @@ msgid "`None` (no timeout)"
 msgstr ""
 
 #: src/getting-started/configuration.md:153 src/channels/telegram.md:144
-msgid "Idle timeout in hours for non-owner sessions. Owner sessions never expire"
+msgid ""
+"Idle timeout in hours for non-owner sessions. Owner sessions never expire"
 msgstr ""
 
 #: src/getting-started/configuration.md:154 src/channels/telegram.md:145
@@ -3737,7 +3795,8 @@ msgid "Other Channels (Preview)"
 msgstr ""
 
 #: src/getting-started/configuration.md:242
-msgid "Signal, Google Chat, and iMessage are available as preview placeholders:"
+msgid ""
+"Signal, Google Chat, and iMessage are available as preview placeholders:"
 msgstr ""
 
 #: src/getting-started/configuration.md:244
@@ -3834,7 +3893,8 @@ msgid "`embedding.model`"
 msgstr ""
 
 #: src/getting-started/configuration.md:291
-msgid "Embedding model name (e.g. `text-embedding-3-small`, `nomic-embed-text`)"
+msgid ""
+"Embedding model name (e.g. `text-embedding-3-small`, `nomic-embed-text`)"
 msgstr ""
 
 #: src/getting-started/configuration.md:292
@@ -3924,9 +3984,8 @@ msgstr ""
 #: src/getting-started/configuration.md:301
 msgid ""
 "To index your own docs — or an entire scraped docs site — into memory "
-"search, see [Memory System → External Index "
-"Paths](../brain/memory.md#external-index-paths-v0381) for the full "
-"knowledge-base workflow."
+"search, see [Memory System → External Index Paths](../brain/"
+"memory.md#external-index-paths-v0381) for the full knowledge-base workflow."
 msgstr ""
 
 #: src/getting-started/configuration.md:317
@@ -4094,8 +4153,8 @@ msgstr ""
 msgid ""
 "For full service lifecycle management (TUI vs Daemon comparison, `opencrabs "
 "service install/start/stop`, profile-aware services, `OPENCRABS_PROFILE` env "
-"var, troubleshooting), see the [CLI "
-"Commands](../getting-started/cli-commands#daemon-mode-vs-tui) reference."
+"var, troubleshooting), see the [CLI Commands](../getting-started/cli-"
+"commands#daemon-mode-vs-tui) reference."
 msgstr ""
 
 #: src/getting-started/configuration.md:371
@@ -4300,8 +4359,8 @@ msgid ""
 "OpenCrabs has a full CLI with 20+ subcommands for managing every aspect of "
 "the agent."
 msgstr ""
-"У OpenCrabs полноценный CLI с 20+ субкомандами для управления каждым аспектом агента."
-
+"У OpenCrabs полноценный CLI с 20+ субкомандами для управления каждым "
+"аспектом агента."
 
 #: src/getting-started/cli-commands.md:5 src/features/goal.md:14
 msgid "Usage"
@@ -4343,7 +4402,6 @@ msgstr ""
 msgid "Manage scheduled tasks (add/list/remove/enable/disable/test)"
 msgstr ""
 "Управление запланированными задачами (add/list/remove/enable/disable/test)"
-
 
 #: src/getting-started/cli-commands.md:19
 msgid "`channel`"
@@ -4394,7 +4452,6 @@ msgid "System service management (install/start/stop/restart/status/uninstall)"
 msgstr ""
 "Управление системным сервисом (install/start/stop/restart/status/uninstall)"
 
-
 #: src/getting-started/cli-commands.md:25
 msgid "`status`"
 msgstr ""
@@ -4412,8 +4469,8 @@ msgid ""
 "Run connection health check; `--fix` repairs stuck cron rows, stale markers "
 "and permissions (v0.3.83)"
 msgstr ""
-"Проверка здоровья подключений; `--fix` чинит застрявшие строки cron, устаревшие маркеры и права (v0.3.83)"
-
+"Проверка здоровья подключений; `--fix` чинит застрявшие строки cron, "
+"устаревшие маркеры и права (v0.3.83)"
 
 #: src/getting-started/cli-commands.md:27
 msgid "`onboard`"
@@ -4445,19 +4502,20 @@ msgstr ""
 
 #: src/getting-started/cli-commands.md:30
 msgid ""
-"**Bang operator** — Run any shell command instantly without an LLM "
-"round-trip. Output shown as system message. e.g. `!git status`, `!ls -la`"
+"**Bang operator** — Run any shell command instantly without an LLM round-"
+"trip. Output shown as system message. e.g. `!git status`, `!ls -la`"
 msgstr ""
-"**Bang-оператор** — мгновенно выполняет любую команду shell без обращения к LLM. Вывод показывается системным сообщением. Например: `!git status`, `!ls -la`"
-
+"**Bang-оператор** — мгновенно выполняет любую команду shell без обращения к "
+"LLM. Вывод показывается системным сообщением. Например: `!git status`, `!ls "
+"-la`"
 
 #: src/getting-started/cli-commands.md:31
 msgid ""
 "**Auto-update** — Downloads latest release and hot-restarts. Runs "
 "automatically on startup when `[agent] auto_update = true`"
 msgstr ""
-"**Автообновление** — скачивает последний релиз и перезапускается на лету. Запускается автоматически при старте, если `[agent] auto_update = true`"
-
+"**Автообновление** — скачивает последний релиз и перезапускается на лету. "
+"Запускается автоматически при старте, если `[agent] auto_update = true`"
 
 #: src/getting-started/cli-commands.md:32
 msgid "`/restart`"
@@ -4470,8 +4528,11 @@ msgid ""
 "turns resume automatically on startup. In the TUI it resumes the current "
 "session. Owner-only on channels; announces before acting."
 msgstr ""
-"**Перезапуск** (v0.3.79) — заново запускает тот же бинарник с теми же аргументами, так что знать или повторять способ запуска не нужно. Незавершённые ходы возобновляются автоматически при старте. В TUI возобновляется текущая session. В channels только для owner; с объявлением перед действием."
-
+"**Перезапуск** (v0.3.79) — заново запускает тот же бинарник с теми же "
+"аргументами, так что знать или повторять способ запуска не нужно. "
+"Незавершённые ходы возобновляются автоматически при старте. В TUI "
+"возобновляется текущая session. В channels только для owner; с объявлением "
+"перед действием."
 
 #: src/getting-started/cli-commands.md:33
 msgid "`/exit`"
@@ -4483,8 +4544,10 @@ msgid ""
 "access to the machine it runs on, so this is **the one command with no way "
 "back from chat**. Owner-only on channels; announces before acting."
 msgstr ""
-"**Выключение** (v0.3.79) — останавливает OpenCrabs. Чтобы запустить снова, нужен доступ к машине, где он работает, поэтому это **единственная команда, из которой нет пути назад через чат**. В channels только для owner; с объявлением перед действием."
-
+"**Выключение** (v0.3.79) — останавливает OpenCrabs. Чтобы запустить снова, "
+"нужен доступ к машине, где он работает, поэтому это **единственная команда, "
+"из которой нет пути назад через чат**. В channels только для owner; с "
+"объявлением перед действием."
 
 #: src/getting-started/cli-commands.md:34 src/features/goal.md:61
 msgid "`/btw`"
@@ -4496,8 +4559,9 @@ msgid ""
 "main conversation continues. e.g. `/btw research the latest Rust async "
 "patterns`"
 msgstr ""
-"**Параллельный агент** — запускает изолированного суб-агента для побочной задачи, пока основной разговор продолжается. Например: `/btw research the latest Rust async patterns`"
-
+"**Параллельный агент** — запускает изолированного суб-агента для побочной "
+"задачи, пока основной разговор продолжается. Например: `/btw research the "
+"latest Rust async patterns`"
 
 #: src/getting-started/cli-commands.md:35
 msgid "`/mission-control`"
@@ -4509,8 +4573,9 @@ msgid ""
 "proposals), activity log (improvements applied), and cron schedule. Navigate "
 "with vim keys, apply/reject proposals with `a`/`r`."
 msgstr ""
-"**Mission Control** — полноэкранная панель: входящие RSI (ожидающие предложения), журнал активности (применённые улучшения) и расписание cron. Навигация vim-клавишами, применение/отклонение предложений клавишами `a`/`r`."
-
+"**Mission Control** — полноэкранная панель: входящие RSI (ожидающие "
+"предложения), журнал активности (применённые улучшения) и расписание cron. "
+"Навигация vim-клавишами, применение/отклонение предложений клавишами `a`/`r`."
 
 #: src/getting-started/cli-commands.md:36
 msgid "`/skills`"
@@ -4521,8 +4586,9 @@ msgid ""
 "**Skills picker** — Browse and launch workflow templates with fuzzy-finding. "
 "Every loaded skill auto-registers as a slash command."
 msgstr ""
-"**Выбор skills** — просмотр и запуск шаблонов рабочих процессов с нечётким поиском. Каждый загруженный skill автоматически регистрируется как slash-команда."
-
+"**Выбор skills** — просмотр и запуск шаблонов рабочих процессов с нечётким "
+"поиском. Каждый загруженный skill автоматически регистрируется как slash-"
+"команда."
 
 #: src/getting-started/cli-commands.md:37
 msgid "`/security-audit`"
@@ -4534,8 +4600,10 @@ msgid ""
 "Detects project type, runs the right scanner, reviews recent diff for "
 "injection/auth/crypto patterns, scores 0-100."
 msgstr ""
-"**Аудит безопасности** — всеобъемлющий аудита безопасности и CVE вне зависимости от языка. Определяет тип проекта, запускает нужный сканер, просматривает свежий диф на паттерны инъекций/авторизации/криптографии, ставит оценку 0-100."
-
+"**Аудит безопасности** — всеобъемлющий аудита безопасности и CVE вне "
+"зависимости от языка. Определяет тип проекта, запускает нужный сканер, "
+"просматривает свежий диф на паттерны инъекций/авторизации/криптографии, "
+"ставит оценку 0-100."
 
 #: src/getting-started/cli-commands.md:38
 msgid "`/cost-estimate`"
@@ -4547,8 +4615,9 @@ msgid ""
 "breakdown, and fair-market valuation. Asks for business context before "
 "producing the valuation range."
 msgstr ""
-"**Оценка стоимости** — оценка стоимости разработки кодовой базы, разбивка ROI с учётом ИИ и справедливая рыночная оценка. Спрашивает бизнес-контекст, прежде чем дать диапазон оценки."
-
+"**Оценка стоимости** — оценка стоимости разработки кодовой базы, разбивка "
+"ROI с учётом ИИ и справедливая рыночная оценка. Спрашивает бизнес-контекст, "
+"прежде чем дать диапазон оценки."
 
 #: src/getting-started/cli-commands.md:39
 msgid "`/repo-audit`"
@@ -4560,8 +4629,10 @@ msgid ""
 "pipeline: language detection → native tool execution → git metrics → AST "
 "analysis → scoring + recommendations. Covers Rust, JS/TS, Python, Go."
 msgstr ""
-"**Аудит репозитория** — проверки здоровья репозитория вне зависимости от языка. Конвейер из 5 фаз: определение языка → запуск нативных инструментов → метрики git → AST-анализ → оценка + рекомендации. Покрывает Rust, JS/TS, Python, Go."
-
+"**Аудит репозитория** — проверки здоровья репозитория вне зависимости от "
+"языка. Конвейер из 5 фаз: определение языка → запуск нативных инструментов → "
+"метрики git → AST-анализ → оценка + рекомендации. Покрывает Rust, JS/TS, "
+"Python, Go."
 
 #: src/getting-started/cli-commands.md:40 src/features/goal.md:60
 msgid "`/goal`"
@@ -4574,8 +4645,10 @@ msgid ""
 "continuing until the goal is satisfied or the turn budget (default 20) runs "
 "out. Supports `/goal pause`, `/goal resume`, `/goal status`, `/goal clear`."
 msgstr ""
-"**Автономный цикл цели** — поставьте цель через `/goal <текст>`, и агент крутится автономно: исполняет, сам оценивает себя LLM-судьёй и продолжает, пока цель не достигнута или не исчерпан бюджет ходов (по умолчанию 20). Поддерживает `/goal pause`, `/goal resume`, `/goal status`, `/goal clear`."
-
+"**Автономный цикл цели** — поставьте цель через `/goal <текст>`, и агент "
+"крутится автономно: исполняет, сам оценивает себя LLM-судьёй и продолжает, "
+"пока цель не достигнута или не исчерпан бюджет ходов (по умолчанию 20). "
+"Поддерживает `/goal pause`, `/goal resume`, `/goal status`, `/goal clear`."
 
 #: src/getting-started/cli-commands.md:41
 msgid "`/models <provider/model>`"
@@ -4588,8 +4661,10 @@ msgid ""
 "immediately. The apply-to-scope selector lets you choose session-only or "
 "global scope."
 msgstr ""
-"**Прямое переключение модели** (v0.3.66) — переключайтесь сразу на конкретную модель в любом channel. Введите `/models anthropic/claude-sonnet-4-20250514` для мгновенного переключения. Селектор области применения позволяет выбрать только текущую session или глобально."
-
+"**Прямое переключение модели** (v0.3.66) — переключайтесь сразу на "
+"конкретную модель в любом channel. Введите `/models anthropic/claude-"
+"sonnet-4-20250514` для мгновенного переключения. Селектор области применения "
+"позволяет выбрать только текущую session или глобально."
 
 #: src/getting-started/cli-commands.md:42
 msgid "`opencrabs session set-model`"
@@ -4600,8 +4675,8 @@ msgid ""
 "**Headless model switch** (v0.3.66) — Switch models from the CLI without the "
 "TUI. Useful for scripts and automation."
 msgstr ""
-"**Переключение модели без интерфейса** (v0.3.66) — переключайте модели из CLI без TUI. Полезно для скриптов и автоматизации."
-
+"**Переключение модели без интерфейса** (v0.3.66) — переключайте модели из "
+"CLI без TUI. Полезно для скриптов и автоматизации."
 
 #: src/getting-started/cli-commands.md:44
 msgid "Configuration Flags"
@@ -4621,8 +4696,8 @@ msgid ""
 "Auto-install new releases on startup and hot-restart. Set to `false` to keep "
 "the manual prompt dialog."
 msgstr ""
-"Автоустановка новых релизов при старте с перезапуском на лету. Поставьте `false`, чтобы оставить ручной диалог с вопросом."
-
+"Автоустановка новых релизов при старте с перезапуском на лету. Поставьте "
+"`false`, чтобы оставить ручной диалог с вопросом."
 
 #: src/getting-started/cli-commands.md:49
 msgid "`[agent] force_default`"
@@ -4633,8 +4708,9 @@ msgid ""
 "(v0.3.66) When true, pushes the default provider/model pair to all sessions "
 "on config reload. Useful for enforcing a global model switch."
 msgstr ""
-"(v0.3.66) Если true, проталкивает пару провайдер/модель по умолчанию во все sessions при перезагрузке конфигурации. ��олезно для принудительного глобального переключения модели."
-
+"(v0.3.66) Если true, проталкивает пару провайдер/модель по умолчанию во все "
+"sessions при перезагрузке конфигурации. ��олезно для принудительного "
+"глобального переключения модели."
 
 #: src/getting-started/cli-commands.md:50
 msgid "`[agent] config_drift_warnings`"
@@ -4645,8 +4721,9 @@ msgid ""
 "(v0.3.66) Show startup warnings when a config value silently drifts from the "
 "expected default. Helps catch unintended config changes."
 msgstr ""
-"(v0.3.66) Предупреждения при старте, когда значение конфигурации молча расходится с ожидаемым дефолтом. Помогает ловить непреднамеренные изменения конфигурации."
-
+"(v0.3.66) Предупреждения при старте, когда значение конфигурации молча "
+"расходится с ожидаемым дефолтом. Помогает ловить непреднамеренные изменения "
+"конфигурации."
 
 #: src/getting-started/cli-commands.md:52
 msgid "Keyboard Shortcuts (TUI)"
@@ -4665,7 +4742,6 @@ msgid "Toggle mouse capture on/off for native terminal text selection"
 msgstr ""
 "Включить/выключить захват мыши для нативного выделения текста в терминале"
 
-
 #: src/getting-started/cli-commands.md:58
 msgid "Startup Update Prompt"
 msgstr "Предложение обновления при старте"
@@ -4673,12 +4749,14 @@ msgstr "Предложение обновления при старте"
 #: src/getting-started/cli-commands.md:60
 msgid ""
 "When a new version is available, a centered dialog appears on the splash "
-"screen asking you to accept (Enter) or skip (Esc). Accepting triggers "
-"`/evolve` automatically. After update, the binary restarts and the splash "
+"screen asking you to accept (Enter) or skip (Esc). Accepting triggers `/"
+"evolve` automatically. After update, the binary restarts and the splash "
 "shows the new version."
 msgstr ""
-"Когда доступна новая версия, по центру экрана заставки появляется диалог с предложением принять (Enter) или пропустить (Esc). Принятие автоматически запускает `/evolve`. После обновления бинарник перезапускается, и заставка показывает новую версию."
-
+"Когда доступна новая версия, по центру экрана заставки появляется диалог с "
+"предложением принять (Enter) или пропустить (Esc). Принятие автоматически "
+"запускает `/evolve`. После обновления бинарник перезапускается, и заставка "
+"показывает новую версию."
 
 #: src/getting-started/cli-commands.md:62
 msgid "Channel Commands"
@@ -4691,8 +4769,9 @@ msgid ""
 "going through the LLM. They execute instantly and return results in the "
 "channel."
 msgstr ""
-"`/doctor`, `/help`, `/usage`, `/evolve`, `/restart`, `/exit` и системные команды работают напрямую в Telegram, Discord, Slack и WhatsApp, минуя LLM. Они исполняются мгновенно и возвращают результат в channel."
-
+"`/doctor`, `/help`, `/usage`, `/evolve`, `/restart`, `/exit` и системные "
+"команды работают напрямую в Telegram, Discord, Slack и WhatsApp, минуя LLM. "
+"Они исполняются мгновенно и возвращают результат в channel."
 
 #: src/getting-started/cli-commands.md:66
 msgid ""
@@ -4702,8 +4781,11 @@ msgid ""
 "one command with no way back from chat — recovering needs access to the "
 "machine OpenCrabs runs on."
 msgstr ""
-"`/restart` и `/exit` объявляют о себе перед действием: когда процесс уже убит, докладывать об ошибке некому. Обе команды только для owner, как и любая другая, меняющая работающий процесс. `/exit` — единственная команда, из которой нет пути назад через чат: для восстановления нужен доступ к машине, где работает OpenCrabs."
-
+"`/restart` и `/exit` объявляют о себе перед действием: когда процесс уже "
+"убит, докладывать об ошибке некому. Обе команды только для owner, как и "
+"любая другая, меняющая работающий процесс. `/exit` — единственная команда, "
+"из которой нет пути назад через чат: для восстановления нужен доступ к "
+"машине, где работает OpenCrabs."
 
 #: src/getting-started/cli-commands.md:68
 msgid ""
@@ -4711,8 +4793,9 @@ msgid ""
 "in natural language works on channels and in the TUI, not just the bare word "
 "\"stop\"."
 msgstr ""
-"С v0.3.80 **остановка своими словами тоже работает** — просьба остановиться естественным языком действует в channels и в TUI, а не только голое слово «stop»."
-
+"С v0.3.80 **остановка своими словами тоже работает** — просьба остановиться "
+"естественным языком действует в channels и в TUI, а не только голое слово "
+"«stop»."
 
 #: src/getting-started/cli-commands.md:70
 msgid ""
@@ -4721,8 +4804,10 @@ msgid ""
 "channel implementations. Each channel delegates to "
 "`try_execute_text_command()` for consistent behavior."
 msgstr ""
-"Вся логика команд channels централизована в `src/channels/commands.rs` (847 строк) — общий обработчик, убирающий дублирование логики команд между 5 реализациями channels. Каждый channel делегирует к `try_execute_text_command()` для единообразного поведения."
-
+"Вся логика команд channels централизована в `src/channels/commands.rs` (847 "
+"строк) — общий обработчик, убирающий дублирование логики команд между 5 "
+"реализациями channels. Каждый channel делегирует к "
+"`try_execute_text_command()` для единообразного поведения."
 
 #: src/getting-started/cli-commands.md:72
 msgid ""
@@ -4730,8 +4815,8 @@ msgid ""
 "without requiring an LLM round-trip. Previously it was routed through the "
 "agent."
 msgstr ""
-"`/evolve` в channels теперь выполняется напрямую (скачивает и устанавливает бинарник), без обращения к LLM. Раньше шло через агента."
-
+"`/evolve` в channels теперь выполняется напрямую (скачивает и устанавливает "
+"бинарник), без обращения к LLM. Раньше шло через агента."
 
 #: src/getting-started/cli-commands.md:74
 msgid "Chat Mode"
@@ -4774,8 +4859,8 @@ msgid ""
 "OpenCrabs runs in one of two modes. Pick the one that fits the machine. "
 "**For any one profile, run only one at a time.**"
 msgstr ""
-"OpenCrabs работает в одном из двух режимов. Выберите подходящий машине. **Для одного профиля запускайте только что-то одно.**"
-
+"OpenCrabs работает в одном из двух режимов. Выберите подходящий машине. "
+"**Для одного профиля запускайте только что-то одно.**"
 
 #: src/getting-started/cli-commands.md:100
 msgid "How you start it"
@@ -4802,8 +4887,8 @@ msgid ""
 "The full terminal UI: chat panes, sessions, settings. Your channels run too "
 "and share your session."
 msgstr ""
-"Полный терминальный интерфейс: панели чата, sessions, настройки. Ваши channels тоже работают и делят вашу session."
-
+"Полный терминальный интерфейс: панели чата, sessions, настройки. Ваши "
+"channels тоже работают и делят вашу session."
 
 #: src/getting-started/cli-commands.md:102
 msgid "A machine you sit at (laptop/desktop)"
@@ -4824,8 +4909,8 @@ msgid ""
 "No UI. Channels only (Telegram, Discord, Slack, WhatsApp) + cron. Survives "
 "reboots, SSH disconnects, and crashes."
 msgstr ""
-"Без интерфейса. Только channels (Telegram, Discord, Slack, WhatsApp) + cron. Переживает перезагрузки, обрывы SSH и падения."
-
+"Без интерфейса. Только channels (Telegram, Discord, Slack, WhatsApp) + cron. "
+"Переживает перезагрузки, обрывы SSH и падения."
 
 #: src/getting-started/cli-commands.md:103
 msgid "An always-on box or VPS"
@@ -4841,8 +4926,9 @@ msgid ""
 "poll. If a daemon and a TUI both own the same profile's token they fight "
 "(HTTP 409) and the channel drops."
 msgstr ""
-"Кред бота (например, токен Telegram) может держать только один живой опрос `getUpdates`. Если демон и TUI одновременно владеют токеном одного профиля, он�� дерутся (HTTP 409), и channel отваливается."
-
+"Кред бота (например, токен Telegram) может держать только один живой опрос "
+"`getUpdates`. Если демон и TUI одновременно владеют токеном одного профиля, "
+"он�� дерутся (HTTP 409), и channel отваливается."
 
 #: src/getting-started/cli-commands.md:109
 msgid "The TUI always wins"
@@ -4856,8 +4942,11 @@ msgid ""
 "reconnecting. The daemon stays down until you start it again (`opencrabs "
 "service start`, or relaunch `opencrabs daemon`)."
 msgstr ""
-"Когда вы открываете TUI, пока для _того же профиля_ работает демон, TUI сначала выключает демона, забирает channels и показывает об этом баннер. Ваши channels уже настроены, поэтому они просто возобновляются без переподключения. Демон остаётся выключенным, пока вы не запустите его снова (`opencrabs service start` или повторный `opencrabs daemon`)."
-
+"Когда вы открываете TUI, пока для _того же профиля_ работает демон, TUI "
+"сначала выключает демона, забирает channels и показывает об этом баннер. "
+"Ваши channels уже настроены, поэтому они просто возобновляются без "
+"переподключения. Демон остаётся выключенным, пока вы не запустите его снова "
+"(`opencrabs service start` или повторный `opencrabs daemon`)."
 
 #: src/getting-started/cli-commands.md:113
 msgid ""
@@ -4865,8 +4954,9 @@ msgid ""
 "`opencrabs` when you want to sit down with it; close the TUI and `opencrabs "
 "service start` when you want it headless again."
 msgstr ""
-"На машине, где обычно работает демон, повседневный поток такой: открывайте `opencrabs`, когда хотите поработать с агентом; закрывайте TUI и делайте `opencrabs service start`, когда снова нужен headless-режим."
-
+"На машине, где обычно работает демон, повседневный поток такой: открывайте "
+"`opencrabs`, когда хотите поработать с агентом; закрывайте TUI и делайте "
+"`opencrabs service start`, когда снова нужен headless-режим."
 
 #: src/getting-started/cli-commands.md:115
 msgid "Auto-start on boot"
@@ -4878,40 +4968,41 @@ msgid ""
 "wires up systemd (Linux) / launchd (macOS) to start on boot and restart on "
 "crash. This is the recommended always-on setup."
 msgstr ""
-"**Демон** — используйте установщик сервиса (`opencrabs service install`); он настраивает systemd (Linux) / launchd (macOS) на старт при загрузке и перезапуск при падении. Это рекомендуемая схема для постоянной работы."
-
+"**Демон** — используйте установщик сервиса (`opencrabs service install`); он "
+"настраивает systemd (Linux) / launchd (macOS) на старт при загрузке и "
+"перезапуск при падении. Это рекомендуемая схема для постоянной работы."
 
 #: src/getting-started/cli-commands.md:118
 msgid ""
 "**TUI** — to have the terminal UI open automatically on login, use a "
 "terminal/desktop autostart, not the service installer:"
 msgstr ""
-"**TUI** — чтобы терминальный интерфейс открывался автоматически при входе, используйте автозапуск терминала/десктопа, а не установщик сервиса:"
-
+"**TUI** — чтобы терминальный интерфейс открывался автоматически при входе, "
+"используйте автозапуск терминала/десктопа, а не установщик сервиса:"
 
 #: src/getting-started/cli-commands.md:119
 msgid ""
 "**Linux desktop:** drop a `.desktop` file in `~/.config/autostart/` with "
 "`Exec=x-terminal-emulator -e opencrabs`."
 msgstr ""
-"**Linux-десктоп:** положите файл `.desktop` в `~/.config/autostart/` с `Exec=x-terminal-emulator -e opencrabs`."
-
+"**Linux-десктоп:** положите файл `.desktop` в `~/.config/autostart/` с "
+"`Exec=x-terminal-emulator -e opencrabs`."
 
 #: src/getting-started/cli-commands.md:120
 msgid ""
 "**macOS:** System Settings > General > Login Items > add a `.command` script "
 "that runs `opencrabs`."
 msgstr ""
-"**macOS:** Системные настройки > Основные > Объекты входа > добавьте скрипт `.command`, запускающий `opencrabs`."
-
+"**macOS:** Системные настройки > Основные > Объекты входа > добавьте скрипт "
+"`.command`, запускающий `opencrabs`."
 
 #: src/getting-started/cli-commands.md:121
 msgid ""
 "**VPS over SSH:** run inside `tmux`/`screen` and reattach. On a headless VPS "
 "you usually want the daemon, not the TUI."
 msgstr ""
-"**VPS по SSH:** запускайте внутри `tmux`/`screen` и переподключайтесь. На headless-VPS вам обычно нужен демон, а не TUI."
-
+"**VPS по SSH:** запускайте внутри `tmux`/`screen` и переподключайтесь. На "
+"headless-VPS вам обычно нужен демон, а не TUI."
 
 #: src/getting-started/cli-commands.md:123
 msgid ""
@@ -4921,8 +5012,11 @@ msgid ""
 "service\"_. The agent handles the launchd (macOS) or systemd (Linux) setup "
 "and removal for you automatically."
 msgstr ""
-"**Настоятельно рекомендуется ежедневным пользователям.** Если планируете пользоваться OpenCrabs каждый день, попросите его настроить себя как системный сервис. Просто скажите что-то вроде _«настрой себя запускаться вместе с компьютером»_ или _«убери автозапуск сервиса»_. Агент сам настроит и уберёт launchd (macOS) или systemd (Linux) автоматически."
-
+"**Настоятельно рекомендуется ежедневным пользователям.** Если планируете "
+"пользоваться OpenCrabs каждый день, попросите его настроить себя как "
+"системный сервис. Просто скажите что-то вроде _«настрой себя запускаться "
+"вместе с компьютером»_ или _«убери автозапуск сервиса»_. Агент сам настроит "
+"и уберёт launchd (macOS) или systemd (Linux) автоматически."
 
 #: src/getting-started/cli-commands.md:125
 msgid "Keep the TUI running on a VPS (tmux)"
@@ -4934,8 +5028,9 @@ msgid ""
 "(not the headless daemon), `tmux` is the way. Your session survives SSH "
 "disconnects, laptop sleep, and flaky connections."
 msgstr ""
-"Если вам нужен полноценный интерактивный TUI всегда под рукой на удалённом сервере (а не headless-демон), `tmux` — ваш путь. Ваша session переживает обрывы SSH, сон ноутбука и капризные соединения."
-
+"Если вам нужен полноценный интерактивный TUI всегда под рукой на удалённом "
+"сервере (а не headless-демон), `tmux` — ваш путь. Ваша session переживает "
+"обрывы SSH, сон ноутбука и капризные соединения."
 
 #: src/getting-started/cli-commands.md:129
 msgid "**1. Install tmux**"
@@ -4977,8 +5072,8 @@ msgstr "**5. Отключитесь (opencrabs продолжит работат
 msgid ""
 "Press `Ctrl+B`, then `D`. You can now close SSH and opencrabs keeps running."
 msgstr ""
-"Нажмите `Ctrl+B`, затем `D`. Теперь можно закрыть SSH — opencrabs продолжит работать."
-
+"Нажмите `Ctrl+B`, затем `D`. Теперь можно закрыть SSH — opencrabs продолжит "
+"работать."
 
 #: src/getting-started/cli-commands.md:164
 msgid "**6. Reattach later**"
@@ -4991,8 +5086,10 @@ msgid ""
 "headless without the TUI, the daemon is a better fit: `opencrabs service "
 "install && opencrabs service start`."
 msgstr ""
-"Вот и всё. Возвращайтесь с любой машины, подключайтесь и продолжайте с места, где остановились. Если вам нужны только channels (Telegram, Discord, Slack, WhatsApp) в headless-режиме без TUI, демон подойдёт лучше: `opencrabs service install && opencrabs service start`."
-
+"Вот и всё. Возвращайтесь с любой машины, подключайтесь и продолжайте с "
+"места, где остановились. Если вам нужны только channels (Telegram, Discord, "
+"Slack, WhatsApp) в headless-режиме без TUI, демон подойдёт лучше: `opencrabs "
+"service install && opencrabs service start`."
 
 #: src/getting-started/cli-commands.md:172
 msgid "Health Endpoint"
@@ -5007,8 +5104,8 @@ msgid ""
 "Then `GET http://localhost:8080/health` returns 200 OK with JSON status. "
 "Useful for systemd watchdog, uptime monitors, or load balancers."
 msgstr ""
-"Затем `GET http://localhost:8080/health` возвращает 200 OK с JSON-статусом. Полезно для сторожа systemd, мониторов аптайма или балансировщиков."
-
+"Затем `GET http://localhost:8080/health` возвращает 200 OK с JSON-статусом. "
+"Полезно для сторожа systemd, мониторов аптайма или балансировщиков."
 
 #: src/getting-started/cli-commands.md:183
 msgid "Service Management"
@@ -5018,8 +5115,8 @@ msgstr "Управление сервисом"
 msgid ""
 "Install OpenCrabs as a system service (launchd on macOS, systemd on Linux):"
 msgstr ""
-"Установите OpenCrabs как системный сервис (launchd на macOS, systemd на Linux):"
-
+"Установите OpenCrabs как системный сервис (launchd на macOS, systemd на "
+"Linux):"
 
 #: src/getting-started/cli-commands.md:196
 msgid "Profile-aware services"
@@ -5050,8 +5147,8 @@ msgid ""
 "Multiple profiles can run as simultaneous daemon services with full "
 "isolation."
 msgstr ""
-"Несколько профилей могут работать одновременно как демоны-сервисы с полной изоляцией."
-
+"Несколько профилей могут работать одновременно как демоны-сервисы с полной "
+"изоляцией."
 
 #: src/getting-started/cli-commands.md:217
 msgid "OPENCRABS_PROFILE environment variable"
@@ -5062,8 +5159,8 @@ msgid ""
 "Set `OPENCRABS_PROFILE=hermes` to select a profile without the `-p` flag. "
 "Useful for systemd services, cron jobs, and daemon mode."
 msgstr ""
-"Поставьте `OPENCRABS_PROFILE=hermes`, чтобы выбирать профиль без флага `-p`. Полезно для сервисов systemd, задач cron и режима демона."
-
+"Поставьте `OPENCRABS_PROFILE=hermes`, чтобы выбирать профиль без флага `-p`. "
+"Полезно для сервисов systemd, задач cron и режима демона."
 
 #: src/getting-started/cli-commands.md:221
 msgid "Troubleshooting: daemon stays down"
@@ -5081,8 +5178,9 @@ msgid ""
 "down so the interactive session can own the channels. The daemon stays down "
 "until you `opencrabs service start` again."
 msgstr ""
-"**Вы открывали TUI?** Запуск `opencrabs` намеренно выключает демона, чтобы интерактивная session завладела channels. Демон остаётся выключенным, пока вы снова не выполните `opencrabs service start`."
-
+"**Вы открывали TUI?** Запуск `opencrabs` намеренно выключает демона, чтобы "
+"интерактивная session завладела channels. Демон остаётся выключенным, пока "
+"вы снова не выполните `opencrabs service start`."
 
 #: src/getting-started/cli-commands.md:226
 #: src/getting-started/troubleshooting.md:305
@@ -5091,8 +5189,9 @@ msgid ""
 "`Restart=always`. Re-generate the unit with `opencrabs service install` "
 "(then `service start`) to pick up the always-restart policy."
 msgstr ""
-"**Старые сборки** могут ещё иметь `Restart=on-failure` вместо `Restart=always`. Перегенерируйте юнит через `opencrabs service install` (затем `service start`), чтобы получить политику вечного перезапуска."
-
+"**Старые сборки** могут ещё иметь `Restart=on-failure` вместо "
+"`Restart=always`. Перегенерируйте юнит через `opencrabs service install` "
+"(затем `service start`), чтобы получить политику вечного перезапуска."
 
 #: src/getting-started/cli-commands.md:227
 #: src/getting-started/troubleshooting.md:306
@@ -5102,8 +5201,10 @@ msgid ""
 "taking effect, check the logs for a `ConfigWatcher: reloaded` line rather "
 "than restarting."
 msgstr ""
-"**Конфигурация, ключи, команды и инструменты перезагружаются на лету.** Правка `config.toml` или `keys.toml` никогда не требует перезапуска демона. Если изменение не применяется, поищите в логах строку `ConfigWatcher: reloaded` вместо перезапуска."
-
+"**Конфигурация, ключи, команды и инструменты перезагружаются на лету.** "
+"Правка `config.toml` или `keys.toml` никогда не требует перезапуска демона. "
+"Если изменение не применяется, поищите в логах строку `ConfigWatcher: "
+"reloaded` вместо перезапуска."
 
 #: src/getting-started/cli-commands.md:229
 msgid "Cron Management"
@@ -5311,8 +5412,8 @@ msgstr ""
 #: src/getting-started/troubleshooting.md:39
 msgid ""
 "If the latest release crashes on your machine, download a previous working "
-"version from [GitHub "
-"Releases](https://github.com/adolfousier/opencrabs/releases):"
+"version from [GitHub Releases](https://github.com/adolfousier/opencrabs/"
+"releases):"
 msgstr ""
 
 #: src/getting-started/troubleshooting.md:42
@@ -5338,7 +5439,8 @@ msgid ""
 msgstr ""
 
 #: src/getting-started/troubleshooting.md:55
-msgid "**Download** — Fetches the platform-specific binary from GitHub Releases"
+msgid ""
+"**Download** — Fetches the platform-specific binary from GitHub Releases"
 msgstr ""
 
 #: src/getting-started/troubleshooting.md:56
@@ -5515,7 +5617,8 @@ msgid "Symptoms"
 msgstr ""
 
 #: src/getting-started/troubleshooting.md:116
-msgid "Local STT option doesn't appear in `/onboard:voice` — your CPU lacks AVX2"
+msgid ""
+"Local STT option doesn't appear in `/onboard:voice` — your CPU lacks AVX2"
 msgstr ""
 
 #: src/getting-started/troubleshooting.md:117
@@ -5668,8 +5771,8 @@ msgstr ""
 
 #: src/getting-started/troubleshooting.md:195
 msgid ""
-"Paste your **bot token** again if it's missing (get it from "
-"[@BotFather](https://t.me/BotFather))."
+"Paste your **bot token** again if it's missing (get it from [@BotFather]"
+"(https://t.me/BotFather))."
 msgstr ""
 
 #: src/getting-started/troubleshooting.md:196
@@ -5695,8 +5798,8 @@ msgid ""
 "when you leave the field blank, but that only works if (a) you've already "
 "messaged the bot and (b) the bot isn't already running and consuming those "
 "updates — which is exactly the case during a reconnect. So on reconnect, "
-"message the bot first, or just paste the ID (get it from "
-"[@userinfobot](https://t.me/userinfobot))."
+"message the bot first, or just paste the ID (get it from [@userinfobot]"
+"(https://t.me/userinfobot))."
 msgstr ""
 
 #: src/getting-started/troubleshooting.md:205
@@ -5987,8 +6090,8 @@ msgstr ""
 
 #: src/getting-started/troubleshooting.md:308
 msgid ""
-"For full daemon/service documentation, see [CLI Commands: Daemon Mode vs "
-"TUI](../getting-started/cli-commands#daemon-mode-vs-tui)."
+"For full daemon/service documentation, see [CLI Commands: Daemon Mode vs TUI]"
+"(../getting-started/cli-commands#daemon-mode-vs-tui)."
 msgstr ""
 
 #: src/getting-started/troubleshooting.md:312
@@ -6255,8 +6358,8 @@ msgstr ""
 
 #: src/getting-started/troubleshooting.md:402
 msgid ""
-"Build from source with CPU targeting (see [Older "
-"CPUs](#older-cpus-pre-2011--no-avx) above)."
+"Build from source with CPU targeting (see [Older CPUs](#older-cpus-pre-2011--"
+"no-avx) above)."
 msgstr ""
 
 #: src/getting-started/troubleshooting.md:404
@@ -6589,7 +6692,8 @@ msgid "GPT-5.5, GPT-5.4, GPT-5.3-Codex"
 msgstr ""
 
 #: src/brain/providers-overview.md:16
-msgid "Native Codex subscription auth via device-code PKCE — no CLI, no API key"
+msgid ""
+"Native Codex subscription auth via device-code PKCE — no CLI, no API key"
 msgstr ""
 
 #: src/brain/providers-overview.md:17
@@ -6724,8 +6828,8 @@ msgid ""
 "**`vision_model` works on ANY provider** — add `vision_model = \"...\"` to "
 "any built-in or custom provider block and the agent routes incoming images "
 "through that model on the same endpoint. No second API key, no Gemini "
-"dependency. See [Image Generation & Vision](./images.md) for the full "
-"two-path setup"
+"dependency. See [Image Generation & Vision](./images.md) for the full two-"
+"path setup"
 msgstr ""
 
 #: src/brain/providers-overview.md:34
@@ -6778,8 +6882,8 @@ msgstr ""
 
 #: src/brain/providers-overview.md:50
 msgid ""
-"**Patient backoff** — defaults changed from 100ms hammering to 1s / 2s / 4s "
-"/ 8s, giving rate-limited endpoints time to recover"
+"**Patient backoff** — defaults changed from 100ms hammering to 1s / 2s / "
+"4s / 8s, giving rate-limited endpoints time to recover"
 msgstr ""
 
 #: src/brain/providers-overview.md:51
@@ -6831,9 +6935,9 @@ msgstr ""
 
 #: src/brain/providers-overview.md:63
 msgid ""
-"Qwen models sometimes emit bare JSON tool-call objects like "
-"`{\"name\":\"bash\",\"arguments\":{\"command\":\"ls\"}}` directly in the "
-"content text instead of through the proper tool-call API. A new "
+"Qwen models sometimes emit bare JSON tool-call objects like `{\"name\":"
+"\"bash\",\"arguments\":{\"command\":\"ls\"}}` directly in the content text "
+"instead of through the proper tool-call API. A new "
 "`bare_tool_call_extractor` detects and strips these leaks so they don't "
 "appear as raw JSON in the chat output."
 msgstr ""
@@ -6845,9 +6949,9 @@ msgstr ""
 #: src/brain/providers-overview.md:67
 msgid ""
 "The `/models` command now surfaces **every known provider** including "
-"unconfigured ones, marked with a 🔒 lock icon and setup help text. This helps "
-"users discover available providers without needing to know which ones need "
-"API keys. Custom providers with no configured models show a helpful "
+"unconfigured ones, marked with a 🔒 lock icon and setup help text. This "
+"helps users discover available providers without needing to know which ones "
+"need API keys. Custom providers with no configured models show a helpful "
 "empty-state message instead of an inert button."
 msgstr ""
 
@@ -6889,8 +6993,8 @@ msgstr ""
 
 #: src/brain/providers.md:7
 msgid ""
-"The fastest way to configure a provider is the interactive wizard. Run "
-"`/onboard:provider` (or `/onboard` and navigate to step 3)."
+"The fastest way to configure a provider is the interactive wizard. Run `/"
+"onboard:provider` (or `/onboard` and navigate to step 3)."
 msgstr ""
 
 #: src/brain/providers.md:9 src/features/mission-control.md:60
@@ -6986,8 +7090,8 @@ msgstr ""
 #: src/brain/providers.md:34
 msgid ""
 "**Tip:** If you've already configured a key, the wizard detects it (shown as "
-"`••••••••`) and skips straight to the model picker. Press `Enter` to "
-"re-fetch models with the existing key."
+"`••••••••`) and skips straight to the model picker. Press `Enter` to re-"
+"fetch models with the existing key."
 msgstr ""
 
 #: src/brain/providers.md:36
@@ -7131,8 +7235,8 @@ msgstr ""
 
 #: src/brain/providers.md:88
 msgid ""
-"**Press Enter on empty field** — triggers a live fetch from "
-"`{base_url}/models`, then pick from the list"
+"**Press Enter on empty field** — triggers a live fetch from `{base_url}/"
+"models`, then pick from the list"
 msgstr ""
 
 #: src/brain/providers.md:89
@@ -7144,8 +7248,8 @@ msgstr ""
 #: src/brain/providers.md:91
 msgid ""
 "**Context Window Recommendation:** Set to **200000** (200k tokens) for best "
-"results. OpenCrabs handles large contexts gracefully with smart "
-"auto-compaction that keeps you always up to date without manual intervention."
+"results. OpenCrabs handles large contexts gracefully with smart auto-"
+"compaction that keeps you always up to date without manual intervention."
 msgstr ""
 
 #: src/brain/providers.md:93
@@ -7195,10 +7299,10 @@ msgstr ""
 #: src/brain/providers.md:111
 msgid ""
 "`keys.toml` no longer drops provider API keys at runtime (#1066): four "
-"providers could silently lose their keys during config reloads. The "
-"stored-key marker has **one owner**, and keys already poisoned by the old "
-"marker are **self-healed** on load. If a provider worked yesterday and 401s "
-"today, re-check `keys.toml` — the fix also repairs the file in place."
+"providers could silently lose their keys during config reloads. The stored-"
+"key marker has **one owner**, and keys already poisoned by the old marker "
+"are **self-healed** on load. If a provider worked yesterday and 401s today, "
+"re-check `keys.toml` — the fix also repairs the file in place."
 msgstr ""
 
 #: src/brain/providers.md:113
@@ -7313,9 +7417,8 @@ msgstr ""
 
 #: src/brain/providers.md:187
 msgid ""
-"**Requirements:** An active [GitHub "
-"Copilot](https://github.com/features/copilot) subscription (Individual, "
-"Business, or Enterprise)."
+"**Requirements:** An active [GitHub Copilot](https://github.com/features/"
+"copilot) subscription (Individual, Business, or Enterprise)."
 msgstr ""
 
 #: src/brain/providers.md:189
@@ -7473,8 +7576,8 @@ msgstr ""
 
 #: src/brain/providers.md:274
 msgid ""
-"**Requirements:** The `codex` CLI must be installed (`npm install -g "
-"@openai/codex`) and authenticated. Models are detected automatically."
+"**Requirements:** The `codex` CLI must be installed (`npm install -g @openai/"
+"codex`) and authenticated. Models are detected automatically."
 msgstr ""
 
 #: src/brain/providers.md:276
@@ -7913,9 +8016,9 @@ msgstr ""
 #: src/brain/providers.md:437
 msgid ""
 "When you set `force_default = true` on a provider section, a config reload "
-"pushes that provider's default pair (provider + model) to **every "
-"non-archived session**, overriding their stored pairs. This enforces your "
-"chosen default across all active sessions instead of just new ones."
+"pushes that provider's default pair (provider + model) to **every non-"
+"archived session**, overriding their stored pairs. This enforces your chosen "
+"default across all active sessions instead of just new ones."
 msgstr ""
 
 #: src/brain/providers.md:439
@@ -8155,9 +8258,9 @@ msgstr ""
 #: src/brain/images.md:24
 msgid ""
 "**Example:** User sends an image while you're on MiniMax M2.5 (no native "
-"vision). The agent calls the vision tool, which sends the image to "
-"`MiniMax-Text-01` (or any model you set), gets the description, and M2.5 "
-"replies using that context."
+"vision). The agent calls the vision tool, which sends the image to `MiniMax-"
+"Text-01` (or any model you set), gets the description, and M2.5 replies "
+"using that context."
 msgstr ""
 
 #: src/brain/images.md:26
@@ -8276,7 +8379,8 @@ msgid "Agent Tools"
 msgstr ""
 
 #: src/brain/images.md:74
-msgid "When vision or image generation is enabled, these tools become available:"
+msgid ""
+"When vision or image generation is enabled, these tools become available:"
 msgstr ""
 
 #: src/brain/images.md:76 src/channels/overview.md:125 src/brain/tools.md:7
@@ -8363,9 +8467,8 @@ msgstr ""
 
 #: src/brain/images.md:101
 msgid ""
-"When a user sends an image from any channel, it arrives as "
-"`<<IMG:/tmp/path>>` in the message. The file is already downloaded — the "
-"agent can:"
+"When a user sends an image from any channel, it arrives as `<<IMG:/tmp/"
+"path>>` in the message. The file is already downloaded — the agent can:"
 msgstr ""
 
 #: src/brain/images.md:103
@@ -8426,9 +8529,9 @@ msgstr ""
 #: src/brain/images.md:121
 msgid ""
 "**Path A** — any vision-capable model on your active provider. On "
-"OpenRouter: `google/gemini-2.5-flash`, `anthropic/claude-sonnet-4`, "
-"`openai/gpt-4o`. On Ollama: `llava`, `bakllava`. On custom endpoints: "
-"whatever the server offers."
+"OpenRouter: `google/gemini-2.5-flash`, `anthropic/claude-sonnet-4`, `openai/"
+"gpt-4o`. On Ollama: `llava`, `bakllava`. On custom endpoints: whatever the "
+"server offers."
 msgstr ""
 
 #: src/brain/images.md:122
@@ -8444,8 +8547,8 @@ msgstr ""
 #: src/channels/overview.md:3
 msgid ""
 "OpenCrabs connects to multiple messaging platforms simultaneously. All "
-"channels share the TUI session by default, with per-user sessions for "
-"non-owners."
+"channels share the TUI session by default, with per-user sessions for non-"
+"owners."
 msgstr ""
 
 #: src/channels/overview.md:5
@@ -8614,8 +8717,8 @@ msgstr ""
 #: src/channels/overview.md:47
 msgid ""
 "After enabling and configuring your channels, the wizard saves everything to "
-"`config.toml` and `keys.toml` automatically. You can always re-run "
-"`/onboard:channels` to modify settings."
+"`config.toml` and `keys.toml` automatically. You can always re-run `/"
+"onboard:channels` to modify settings."
 msgstr ""
 
 #: src/channels/overview.md:49
@@ -8755,8 +8858,8 @@ msgstr ""
 msgid ""
 "All messaging channels now share a stable `[chat:<id>]` suffix pattern for "
 "reliable session lookup. Previously only Telegram had this; Discord, Slack, "
-"and WhatsApp used exact-title matching which broke when the agent "
-"auto-renamed sessions (creating duplicates on every message)."
+"and WhatsApp used exact-title matching which broke when the agent auto-"
+"renamed sessions (creating duplicates on every message)."
 msgstr ""
 
 #: src/channels/overview.md:63
@@ -8850,8 +8953,8 @@ msgstr ""
 
 #: src/channels/overview.md:88
 msgid ""
-"**Register joining members** — any member who joins a bot group is "
-"auto-registered (#710)."
+"**Register joining members** — any member who joins a bot group is auto-"
+"registered (#710)."
 msgstr ""
 
 #: src/channels/overview.md:89
@@ -9076,8 +9179,8 @@ msgid ""
 "User-defined slash commands and skills are **owner-gated on the channel "
 "catch-all arm** (#975). In a group chat, only the bot owner can trigger "
 "custom commands and skills; other members' messages fall through to normal "
-"conversation. This closes a gap where any group member could run "
-"owner-defined automation through the catch-all routing path."
+"conversation. This closes a gap where any group member could run owner-"
+"defined automation through the catch-all routing path."
 msgstr ""
 
 #: src/channels/telegram.md:3
@@ -9160,8 +9263,8 @@ msgstr ""
 
 #: src/channels/telegram.md:31
 msgid ""
-"If you prefer editing files directly, the wizard writes to "
-"`~/.opencrabs/keys.toml` and `~/.opencrabs/config.toml`:"
+"If you prefer editing files directly, the wizard writes to `~/.opencrabs/"
+"keys.toml` and `~/.opencrabs/config.toml`:"
 msgstr ""
 
 #: src/channels/telegram.md:33
@@ -9215,10 +9318,10 @@ msgstr ""
 
 #: src/channels/telegram.md:55
 msgid ""
-"The `/new` command is now **gated to the bot owner** in group chats. "
-"Non-owners cannot create new sessions or reset context. The command menu is "
-"also scoped: owners see the full menu, non-owners see only the commands "
-"available to them."
+"The `/new` command is now **gated to the bot owner** in group chats. Non-"
+"owners cannot create new sessions or reset context. The command menu is also "
+"scoped: owners see the full menu, non-owners see only the commands available "
+"to them."
 msgstr ""
 
 #: src/channels/telegram.md:57
@@ -9334,9 +9437,9 @@ msgstr ""
 
 #: src/channels/telegram.md:83
 msgid ""
-"**`follow_up_question` polish** (v0.3.34) — Telegram keyboard is now "
-"single-column with a 40-character label cap (longer options rejected with a "
-"clear error). The rolling \"Running follow_up_question (16s)\" status is "
+"**`follow_up_question` polish** (v0.3.34) — Telegram keyboard is now single-"
+"column with a 40-character label cap (longer options rejected with a clear "
+"error). The rolling \"Running follow_up_question (16s)\" status is "
 "suppressed while the keyboard is pending so buttons don't get visually "
 "buried. The LLM is instructed to call the tool silently without echoing the "
 "question text in surrounding prose"
@@ -9380,9 +9483,9 @@ msgstr ""
 msgid ""
 "**Teloxide upgrade + join detection** (v0.3.35) — Upgraded from teloxide "
 "0.13 to 0.17. New members joining a group are now detected before the "
-"allowlist check, so the bot can greet or moderate join events. "
-"Marathon-bucket rolling status rotates through project-author quip pool for "
-"more varied status messages."
+"allowlist check, so the bot can greet or moderate join events. Marathon-"
+"bucket rolling status rotates through project-author quip pool for more "
+"varied status messages."
 msgstr ""
 
 #: src/channels/telegram.md:92
@@ -9495,8 +9598,8 @@ msgstr ""
 
 #: src/channels/telegram.md:122
 msgid ""
-"All Telegram options live under `[channels.telegram]` in "
-"`~/.opencrabs/config.toml`:"
+"All Telegram options live under `[channels.telegram]` in `~/.opencrabs/"
+"config.toml`:"
 msgstr ""
 
 #: src/channels/telegram.md:124
@@ -9513,8 +9616,8 @@ msgid ""
 "session_idle_hours = 24.0             # idle timeout for non-owner sessions\n"
 "rich_messages = false                 # native Telegram rich messages (Bot "
 "API 10.1)\n"
-"silence_group_start = true            # silently ignore /start from "
-"non-allowed users in groups\n"
+"silence_group_start = true            # silently ignore /start from non-"
+"allowed users in groups\n"
 "bot_owner = [\"123456789\"]             # owner IDs (gated commands, /cd "
 "hidden dirs, /profiles)\n"
 "```"
@@ -9679,7 +9782,8 @@ msgid "`send_photo`"
 msgstr ""
 
 #: src/channels/telegram.md:199
-msgid "Send image file (supports `caption` and `reply_parameters` since v0.3.58)"
+msgid ""
+"Send image file (supports `caption` and `reply_parameters` since v0.3.58)"
 msgstr ""
 
 #: src/channels/telegram.md:200
@@ -9758,8 +9862,8 @@ msgstr ""
 #: src/channels/telegram.md:214
 msgid ""
 "**Reaction-only replies** — when a short acknowledgement says it all (a "
-"thumbs-up, a 👀, a 😂), the bot can respond with just a reaction instead of a "
-"full text message, keeping the chat uncluttered."
+"thumbs-up, a 👀, a 😂), the bot can respond with just a reaction instead of "
+"a full text message, keeping the chat uncluttered."
 msgstr ""
 
 #: src/channels/telegram.md:215
@@ -9911,8 +10015,8 @@ msgstr ""
 
 #: src/channels/discord.md:9
 msgid ""
-"Go to "
-"[discord.com/developers/applications](https://discord.com/developers/applications)"
+"Go to [discord.com/developers/applications](https://discord.com/developers/"
+"applications)"
 msgstr ""
 
 #: src/channels/discord.md:10
@@ -9957,8 +10061,8 @@ msgstr ""
 
 #: src/channels/discord.md:26
 msgid ""
-"**Channel ID** — the Discord channel to send the welcome message to "
-"(right-click a channel with Developer Mode on → Copy Channel ID)"
+"**Channel ID** — the Discord channel to send the welcome message to (right-"
+"click a channel with Developer Mode on → Copy Channel ID)"
 msgstr ""
 
 #: src/channels/discord.md:27
@@ -9997,8 +10101,8 @@ msgstr ""
 
 #: src/channels/discord.md:51
 msgid ""
-"All Discord options live under `[channels.discord]` in "
-"`~/.opencrabs/config.toml`:"
+"All Discord options live under `[channels.discord]` in `~/.opencrabs/"
+"config.toml`:"
 msgstr ""
 
 #: src/channels/discord.md:53
@@ -10022,7 +10126,8 @@ msgid "Idle timeout for non-owner sessions. Owner sessions never expire"
 msgstr ""
 
 #: src/channels/discord.md:74
-msgid "**Server channels and DMs** — Works in text channels and direct messages"
+msgid ""
+"**Server channels and DMs** — Works in text channels and direct messages"
 msgstr ""
 
 #: src/channels/discord.md:75
@@ -10258,8 +10363,8 @@ msgstr ""
 
 #: src/channels/slack.md:53
 msgid ""
-"All Slack options live under `[channels.slack]` in "
-"`~/.opencrabs/config.toml`:"
+"All Slack options live under `[channels.slack]` in `~/.opencrabs/"
+"config.toml`:"
 msgstr ""
 
 #: src/channels/slack.md:55
@@ -10301,8 +10406,8 @@ msgstr ""
 
 #: src/channels/slack.md:83
 msgid ""
-"**Grouped tool calls** — Consecutive tool calls collapse into one "
-"edited-in-place message with Expand/Collapse toggle"
+"**Grouped tool calls** — Consecutive tool calls collapse into one edited-in-"
+"place message with Expand/Collapse toggle"
 msgstr ""
 
 #: src/channels/slack.md:84
@@ -10437,8 +10542,8 @@ msgstr ""
 
 #: src/channels/whatsapp.md:21
 msgid ""
-"When already paired, press `R` on the Connection field to **reset** and "
-"re-pair"
+"When already paired, press `R` on the Connection field to **reset** and re-"
+"pair"
 msgstr ""
 
 #: src/channels/whatsapp.md:24
@@ -10457,8 +10562,8 @@ msgstr ""
 
 #: src/channels/whatsapp.md:37
 msgid ""
-"WhatsApp options live under `[channels.whatsapp]` in "
-"`~/.opencrabs/config.toml`:"
+"WhatsApp options live under `[channels.whatsapp]` in `~/.opencrabs/"
+"config.toml`:"
 msgstr ""
 
 #: src/channels/whatsapp.md:39
@@ -10655,8 +10760,8 @@ msgstr ""
 
 #: src/channels/trello.md:46
 msgid ""
-"All Trello options live under `[channels.trello]` in "
-"`~/.opencrabs/config.toml`:"
+"All Trello options live under `[channels.trello]` in `~/.opencrabs/"
+"config.toml`:"
 msgstr ""
 
 #: src/channels/trello.md:48
@@ -11033,8 +11138,8 @@ msgstr ""
 
 #: src/brain/tools.md:28
 msgid ""
-"Native URL-to-markdown scraping with SSRF protection, sitemap crawling, "
-"JS-shell detection (v0.3.60)"
+"Native URL-to-markdown scraping with SSRF protection, sitemap crawling, JS-"
+"shell detection (v0.3.60)"
 msgstr ""
 
 #: src/brain/tools.md:29
@@ -11060,9 +11165,9 @@ msgstr ""
 #: src/brain/tools.md:35
 msgid ""
 "Extract text from PDF, DOCX, XLSX, XLS, XLSM, XLSB, ODS, DOC, CSV, HTML, "
-"TXT, MD, JSON, XML (v0.3.61 added spreadsheet support; v0.3.80 added "
-"xlsm/xlsb/ods via calamine, legacy .doc via rwml, and VBA macro source "
-"extraction from macro-enabled workbooks)"
+"TXT, MD, JSON, XML (v0.3.61 added spreadsheet support; v0.3.80 added xlsm/"
+"xlsb/ods via calamine, legacy .doc via rwml, and VBA macro source extraction "
+"from macro-enabled workbooks)"
 msgstr ""
 
 #: src/brain/tools.md:41
@@ -11151,9 +11256,9 @@ msgstr ""
 
 #: src/brain/tools.md:57
 msgid ""
-"Analyze videos via Gemini multimodal vision. Supports "
-"mp4/m4v/mov/webm/mkv/avi/3gp/flv. Inline bytes for ≤18 MB, resumable Files "
-"API upload for larger files (v0.3.17)"
+"Analyze videos via Gemini multimodal vision. Supports mp4/m4v/mov/webm/mkv/"
+"avi/3gp/flv. Inline bytes for ≤18 MB, resumable Files API upload for larger "
+"files (v0.3.17)"
 msgstr ""
 
 #: src/brain/tools.md:63
@@ -11771,7 +11876,8 @@ msgid "`system`"
 msgstr ""
 
 #: src/brain/commands.md:31
-msgid "Displays the `value` directly as a system message — no agent involvement"
+msgid ""
+"Displays the `value` directly as a system message — no agent involvement"
 msgstr ""
 
 #: src/brain/commands.md:33
@@ -12092,8 +12198,8 @@ msgstr ""
 
 #: src/brain/memory.md:95
 msgid ""
-"`web_scrape` sitemap mode pairs with `extra_paths` into a complete, "
-"zero-cost pipeline — scrape a site to markdown, index it, then ask questions "
+"`web_scrape` sitemap mode pairs with `extra_paths` into a complete, zero-"
+"cost pipeline — scrape a site to markdown, index it, then ask questions "
 "answered verbatim from those docs (see [Web Scraping](./web-scrape.md)):"
 msgstr ""
 
@@ -12573,9 +12679,9 @@ msgstr ""
 msgid ""
 "Create a session named `mybrand-mobile` and connect it to a Telegram group "
 "with your co-founder. The agent is locked into the Dart/Flutter codebase, "
-"the product design context, and the mobile-specific toolchain. Your "
-"co-founder can ask questions, request design changes, or review PRs directly "
-"in Telegram while you work on backend tasks in a separate session. The two "
+"the product design context, and the mobile-specific toolchain. Your co-"
+"founder can ask questions, request design changes, or review PRs directly in "
+"Telegram while you work on backend tasks in a separate session. The two "
 "contexts never mix."
 msgstr ""
 
@@ -12666,7 +12772,8 @@ msgid "Good first messages are specific and contextual:"
 msgstr ""
 
 #: src/features/sessions.md:59
-msgid "`\"Devops for server XYZ — nginx, cronjobs, deployments, log cleanups\"`"
+msgid ""
+"`\"Devops for server XYZ — nginx, cronjobs, deployments, log cleanups\"`"
 msgstr ""
 
 #: src/features/sessions.md:60
@@ -12696,7 +12803,8 @@ msgid ""
 msgstr ""
 
 #: src/features/sessions.md:68
-msgid "**Channels:** Type `/sessions` to see recent sessions with inline buttons"
+msgid ""
+"**Channels:** Type `/sessions` to see recent sessions with inline buttons"
 msgstr ""
 
 #: src/features/sessions.md:70
@@ -13017,8 +13125,8 @@ msgstr ""
 
 #: src/features/sessions.md:162
 msgid ""
-"**Case-insensitive tool input** — Tool input descriptions use "
-"case-insensitive key lookup, fixing failures when providers return different "
+"**Case-insensitive tool input** — Tool input descriptions use case-"
+"insensitive key lookup, fixing failures when providers return different "
 "casing"
 msgstr ""
 
@@ -13171,8 +13279,8 @@ msgstr ""
 
 #: src/features/split-panes.md:56
 msgid ""
-"Inactive panes now update **live** in the background. Previously, "
-"non-focused panes only refreshed when you switched focus to them. Now a "
+"Inactive panes now update **live** in the background. Previously, non-"
+"focused panes only refreshed when you switched focus to them. Now a "
 "background-session live-state cache routes `IntermediateText` and "
 "`QueuedUserMessage` events into per-session deltas, so you can watch tool "
 "calls and responses appearing in other panes in real time without switching "
@@ -13199,10 +13307,10 @@ msgstr ""
 
 #: src/features/split-panes.md:64
 msgid ""
-"Reasoning blocks now cycle through **three states** instead of toggling "
-"open/closed. Click a reasoning block (or press `Ctrl+O`) to cycle: "
-"**collapsed → capped → full**. The capped middle state shows a bounded "
-"preview so a long chain-of-thought never floods the viewport (#727, #726)."
+"Reasoning blocks now cycle through **three states** instead of toggling open/"
+"closed. Click a reasoning block (or press `Ctrl+O`) to cycle: **collapsed → "
+"capped → full**. The capped middle state shows a bounded preview so a long "
+"chain-of-thought never floods the viewport (#727, #726)."
 msgstr ""
 
 #: src/features/split-panes.md:66
@@ -13997,7 +14105,8 @@ msgid "**Progress bar** — Visual `██████░░░░` bar with per
 msgstr ""
 
 #: src/features/plans.md:46
-msgid "**Task list** — Up to 6 tasks visible with status icons and task numbers"
+msgid ""
+"**Task list** — Up to 6 tasks visible with status icons and task numbers"
 msgstr ""
 
 #: src/features/plans.md:47
@@ -14135,7 +14244,8 @@ msgid ""
 msgstr ""
 
 #: src/features/plans.md:97
-msgid "Tasks without explicit criteria fall back to the standard exit-code check"
+msgid ""
+"Tasks without explicit criteria fall back to the standard exit-code check"
 msgstr ""
 
 #: src/features/plans.md:99
@@ -14267,10 +14377,10 @@ msgstr ""
 
 #: src/features/plans.md:137
 msgid ""
-"Bundled reference plans ship with OpenCrabs at "
-"`~/.opencrabs/profiles/<profile>/plans/` covering common patterns like "
-"`rust-fast`, `rust-medium`, `rust-full`, `python-fast`, `python-medium`, "
-"`python-full`, and `sample-minimal-plan`."
+"Bundled reference plans ship with OpenCrabs at `~/.opencrabs/profiles/"
+"<profile>/plans/` covering common patterns like `rust-fast`, `rust-medium`, "
+"`rust-full`, `python-fast`, `python-medium`, `python-full`, and `sample-"
+"minimal-plan`."
 msgstr ""
 
 #: src/features/plans.md:139
@@ -14371,7 +14481,8 @@ msgid ""
 msgstr ""
 
 #: src/features/multi-agent.md:34
-msgid "Send follow-up instructions to a running agent (multi-turn conversation)"
+msgid ""
+"Send follow-up instructions to a running agent (multi-turn conversation)"
 msgstr ""
 
 #: src/features/multi-agent.md:35
@@ -14425,7 +14536,8 @@ msgid "Multi-Turn with send_input"
 msgstr ""
 
 #: src/features/multi-agent.md:61
-msgid "After spawning, you can send additional instructions without restarting:"
+msgid ""
+"After spawning, you can send additional instructions without restarting:"
 msgstr ""
 
 #: src/features/multi-agent.md:63
@@ -14705,16 +14817,16 @@ msgstr ""
 
 #: src/features/multi-agent.md:208
 msgid ""
-"The subagent provider must be enabled and have a valid API key (or be a "
-"CLI/none-auth provider). Missing keys cause the spawn to fail with a "
-"provider resolution error."
+"The subagent provider must be enabled and have a valid API key (or be a CLI/"
+"none-auth provider). Missing keys cause the spawn to fail with a provider "
+"resolution error."
 msgstr ""
 
 #: src/features/multi-agent.md:209
 msgid ""
-"`subagent_model` must be a model the provider actually serves. "
-"`qwen/qwen3-235b` works on OpenRouter, not on Anthropic. Check `/models` on "
-"the target provider to confirm."
+"`subagent_model` must be a model the provider actually serves. `qwen/"
+"qwen3-235b` works on OpenRouter, not on Anthropic. Check `/models` on the "
+"target provider to confirm."
 msgstr ""
 
 #: src/features/multi-agent.md:210
@@ -14995,7 +15107,8 @@ msgid ""
 msgstr ""
 
 #: src/features/a2a.md:41
-msgid "**`tasks/get`** — Poll a task by ID to check status and retrieve results."
+msgid ""
+"**`tasks/get`** — Poll a task by ID to check status and retrieve results."
 msgstr ""
 
 #: src/features/a2a.md:42
@@ -15013,8 +15126,8 @@ msgstr ""
 #: src/features/a2a.md:48
 msgid ""
 "The agent has a built-in `a2a_send` tool that lets it proactively "
-"communicate with remote A2A agents. This enables true bidirectional "
-"agent-to-agent communication."
+"communicate with remote A2A agents. This enables true bidirectional agent-to-"
+"agent communication."
 msgstr ""
 
 #: src/features/a2a.md:50
@@ -15194,8 +15307,8 @@ msgstr ""
 msgid ""
 "OpenCrabs has had **crash recovery** since early versions -- if the process "
 "dies mid-request, pending requests are tracked in SQLite and automatically "
-"resumed on restart (see [Pending Request "
-"Recovery](#pending-request-recovery) below)."
+"resumed on restart (see [Pending Request Recovery](#pending-request-"
+"recovery) below)."
 msgstr ""
 
 #: src/features/self-healing.md:9
@@ -15212,10 +15325,9 @@ msgstr ""
 
 #: src/features/self-healing.md:13
 msgid ""
-"Every successful write to `config.toml` creates a snapshot at "
-"`~/.opencrabs/config.last_good.toml`. When the config becomes corrupted or "
-"unparseable, OpenCrabs restores from the last-known-good snapshot "
-"automatically."
+"Every successful write to `config.toml` creates a snapshot at `~/.opencrabs/"
+"config.last_good.toml`. When the config becomes corrupted or unparseable, "
+"OpenCrabs restores from the last-known-good snapshot automatically."
 msgstr ""
 
 #: src/features/self-healing.md:19
@@ -15265,8 +15377,8 @@ msgstr ""
 
 #: src/features/self-healing.md:35
 msgid ""
-"Per-provider success/failure history is persisted to "
-"`~/.opencrabs/provider_health.json`. Each provider tracks:"
+"Per-provider success/failure history is persisted to `~/.opencrabs/"
+"provider_health.json`. Each provider tracks:"
 msgstr ""
 
 #: src/features/self-healing.md:37
@@ -15318,8 +15430,8 @@ msgstr ""
 
 #: src/features/self-healing.md:58
 msgid ""
-"**Source:** `src/config/health.rs` (120 lines), integrated into "
-"`src/brain/agent/service/helpers.rs`."
+"**Source:** `src/config/health.rs` (120 lines), integrated into `src/brain/"
+"agent/service/helpers.rs`."
 msgstr ""
 
 #: src/features/self-healing.md:60
@@ -15418,9 +15530,9 @@ msgstr ""
 
 #: src/features/self-healing.md:93
 msgid ""
-"The 65% threshold exists because providers like MiniMax degrade on "
-"function-calling quality well before hitting theoretical context limits -- "
-"tool calls break around ~133k tokens of a 200k limit."
+"The 65% threshold exists because providers like MiniMax degrade on function-"
+"calling quality well before hitting theoretical context limits -- tool calls "
+"break around ~133k tokens of a 200k limit."
 msgstr ""
 
 #: src/features/self-healing.md:95
@@ -15482,8 +15594,8 @@ msgstr ""
 #: src/features/self-healing.md:114
 msgid ""
 "**Source:** `src/brain/agent/service/tool_loop.rs` (lines 550-687), tested "
-"with `ArgTooLongMockProvider` and `ContextLengthMockProvider` in "
-"`src/tests/cli_arg_too_long_test.rs` (352 lines)."
+"with `ArgTooLongMockProvider` and `ContextLengthMockProvider` in `src/tests/"
+"cli_arg_too_long_test.rs` (352 lines)."
 msgstr ""
 
 #: src/features/self-healing.md:116
@@ -15587,7 +15699,8 @@ msgid ""
 msgstr ""
 
 #: src/features/self-healing.md:153
-msgid "Emit `TuiEvent::PendingResumed` so the TUI shows a recovery notification"
+msgid ""
+"Emit `TuiEvent::PendingResumed` so the TUI shows a recovery notification"
 msgstr ""
 
 #: src/features/self-healing.md:155
@@ -15705,8 +15818,8 @@ msgstr ""
 
 #: src/features/self-healing.md:191
 msgid ""
-"Model switching errors now surface the actual error with a `⚠️` prefix on "
-"all channels, instead of always showing \"Model switched\" even on failure."
+"Model switching errors now surface the actual error with a `⚠️` prefix on all "
+"channels, instead of always showing \"Model switched\" even on failure."
 msgstr ""
 
 #: src/features/self-healing.md:193
@@ -15951,8 +16064,9 @@ msgstr ""
 #: src/features/self-healing.md:273
 msgid ""
 "Wired into 5 drop sites across OpenAI-compatible providers and the "
-"ContentBlockStop finalizer. Unrecoverable input returns a `{\"_partial\": "
-"..., \"_repair_failed\": true}` envelope instead of crashing the turn."
+"ContentBlockStop finalizer. Unrecoverable input returns a "
+"`{\"_partial\": ..., \"_repair_failed\": true}` envelope instead of crashing "
+"the turn."
 msgstr ""
 
 #: src/features/self-healing.md:275
@@ -16007,8 +16121,8 @@ msgstr ""
 #: src/features/self-healing.md:289
 msgid ""
 "Bumped cloud provider handshake timeout from 30s to 60s. Routing proxies "
-"like dialagram legitimately take 20-45s; 30s was killing mid-request on "
-"slow-but-healthy providers."
+"like dialagram legitimately take 20-45s; 30s was killing mid-request on slow-"
+"but-healthy providers."
 msgstr ""
 
 #: src/features/self-healing.md:291
@@ -16017,9 +16131,9 @@ msgstr ""
 
 #: src/features/self-healing.md:293
 msgid ""
-"Fixed CodeQL #64 (HIGH): Gemini API key was leaked in URL query string "
-"(`?key=...`) in `analyze_video`'s resumable upload init and file-state "
-"polling. Moved to `x-goog-api-key` header, matching `analyze_image` and "
+"Fixed CodeQL #64 (HIGH): Gemini API key was leaked in URL query string (`?"
+"key=...`) in `analyze_video`'s resumable upload init and file-state polling. "
+"Moved to `x-goog-api-key` header, matching `analyze_image` and "
 "`generate_image`."
 msgstr ""
 
@@ -16036,8 +16150,8 @@ msgstr ""
 
 #: src/features/self-healing.md:298
 msgid ""
-"**Truncation continuations no longer trigger provider fallback** — "
-"mid-sentence continuations should stay on the same provider. Fallback now "
+"**Truncation continuations no longer trigger provider fallback** — mid-"
+"sentence continuations should stay on the same provider. Fallback now "
 "skipped for truncation paths."
 msgstr ""
 
@@ -16092,8 +16206,8 @@ msgstr ""
 #: src/features/self-healing.md:309
 msgid ""
 "**Channel improvements** — WhatsApp photo batching for multi-image uploads, "
-"Telegram `media_group_id`\\-based batching, Gemini schema strips "
-"`default`/`example` from tool schemas (#101, @leshchenko1979)"
+"Telegram `media_group_id`\\-based batching, Gemini schema strips `default`/"
+"`example` from tool schemas (#101, @leshchenko1979)"
 msgstr ""
 
 #: src/features/self-healing.md:310
@@ -16155,8 +16269,8 @@ msgstr ""
 msgid ""
 "**Version-aware model sort** — when OpenAI-compatible servers return zero or "
 "identical `created` timestamps, extracts numeric segments from model names "
-"and sorts newest version first. Fixes meaningless model lists on "
-"vLLM/llama.cpp."
+"and sorts newest version first. Fixes meaningless model lists on vLLM/"
+"llama.cpp."
 msgstr ""
 
 #: src/features/self-healing.md:322
@@ -16186,8 +16300,8 @@ msgstr ""
 msgid ""
 "**Multi-language phantom detection via compile-time TOML** — replaced regex "
 "patterns per language with TOML-defined char sets compiled into build-time "
-"match arms. New languages added by editing TOML, no Rust changes. "
-"Cross-language regression test added."
+"match arms. New languages added by editing TOML, no Rust changes. Cross-"
+"language regression test added."
 msgstr ""
 
 #: src/features/self-healing.md:330
@@ -16218,9 +16332,9 @@ msgstr ""
 
 #: src/features/self-healing.md:334
 msgid ""
-"**Pipe-separate model callback** — custom-provider model callbacks now "
-"pipe-separated so colons in provider names (e.g. \"Qwen: DashScope\") "
-"survive parse."
+"**Pipe-separate model callback** — custom-provider model callbacks now pipe-"
+"separated so colons in provider names (e.g. \"Qwen: DashScope\") survive "
+"parse."
 msgstr ""
 
 #: src/features/self-healing.md:335
@@ -16267,15 +16381,15 @@ msgstr ""
 #: src/features/self-healing.md:343
 msgid ""
 "**Windows CI test failures fixed** — `tool_loop_helpers_test.rs` used "
-"hardcoded Unix `/tmp/` paths and `/etc/hosts` assertions. Added "
-"platform-specific test variants with `#[cfg(unix)]` / `#[cfg(windows)]`."
+"hardcoded Unix `/tmp/` paths and `/etc/hosts` assertions. Added platform-"
+"specific test variants with `#[cfg(unix)]` / `#[cfg(windows)]`."
 msgstr ""
 
 #: src/features/self-healing.md:344
 msgid ""
 "**CI Node 24 forced upgrade removed** — removed "
-"`FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true` env var that broke "
-"`actions/cache@v4` with `punycode` deprecation on Node 21+."
+"`FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true` env var that broke `actions/"
+"cache@v4` with `punycode` deprecation on Node 21+."
 msgstr ""
 
 #: src/features/self-healing.md:345
@@ -16306,8 +16420,8 @@ msgstr ""
 
 #: src/features/self-healing.md:351
 msgid ""
-"**Hashline collision detection** (#105) — pure content hash prevents "
-"line-shift avalanche when lines are inserted/deleted above a hash anchor. On "
+"**Hashline collision detection** (#105) — pure content hash prevents line-"
+"shift avalanche when lines are inserted/deleted above a hash anchor. On "
 "collision, escalates to `edit_file` fallback instead of corrupting the edit"
 msgstr ""
 
@@ -16369,9 +16483,9 @@ msgstr ""
 
 #: src/features/self-healing.md:365
 msgid ""
-"**Tool-call shape recovery** — dict-by-call-id extraction for "
-"Qwen-3.7-max-preview regression where tool calls arrive as flat dicts "
-"instead of nested arrays"
+"**Tool-call shape recovery** — dict-by-call-id extraction for Qwen-3.7-max-"
+"preview regression where tool calls arrive as flat dicts instead of nested "
+"arrays"
 msgstr ""
 
 #: src/features/self-healing.md:366
@@ -16433,8 +16547,8 @@ msgstr ""
 
 #: src/features/self-healing.md:379
 msgid ""
-"**5-language deferment stall detection** — self-heal catches \"I need to X\" "
-"/ \"I have to X\" / \"I must X\" / \"I should X\" patterns in English, "
+"**5-language deferment stall detection** — self-heal catches \"I need to "
+"X\" / \"I have to X\" / \"I must X\" / \"I should X\" patterns in English, "
 "Spanish, Portuguese, French, and Russian"
 msgstr ""
 
@@ -16447,9 +16561,9 @@ msgstr ""
 
 #: src/features/self-healing.md:381
 msgid ""
-"**Dynamic Telegram status messages** — replaced hardcoded quips with "
-"context-aware messages showing actual tool being called, tokens streamed, "
-"and elapsed time"
+"**Dynamic Telegram status messages** — replaced hardcoded quips with context-"
+"aware messages showing actual tool being called, tokens streamed, and "
+"elapsed time"
 msgstr ""
 
 #: src/features/self-healing.md:382
@@ -16571,10 +16685,10 @@ msgstr ""
 
 #: src/features/self-healing.md:405
 msgid ""
-"**FINISHING A TURN rewrite** — split the brain preamble directive into "
-"side-effect vs analysis response shapes, added a nudge on empty data-fetch "
-"closes so the agent never ends a turn silently after running research tools, "
-"and requires an explicit acknowledgement sentence instead of letting "
+"**FINISHING A TURN rewrite** — split the brain preamble directive into side-"
+"effect vs analysis response shapes, added a nudge on empty data-fetch closes "
+"so the agent never ends a turn silently after running research tools, and "
+"requires an explicit acknowledgement sentence instead of letting "
 "`finish_reason: stop` with no content reach the user."
 msgstr ""
 
@@ -16621,12 +16735,12 @@ msgstr ""
 #: src/features/self-healing.md:412
 msgid ""
 "**`follow_up_question` intermediate flush** (issue #142) — when the agent "
-"called `follow_up_question` after typing an explanatory preamble, "
-"Telegram/Discord/Slack/WhatsApp sometimes delivered the button block "
-"_before_ the preamble text because intermediate text sat in a 500ms-polled "
-"queue while `follow_up_question` sent directly. All four channel handlers "
-"now flush pending intermediate `JoinHandle`s before dispatching the "
-"question, guaranteeing the explanatory text renders above the buttons."
+"called `follow_up_question` after typing an explanatory preamble, Telegram/"
+"Discord/Slack/WhatsApp sometimes delivered the button block _before_ the "
+"preamble text because intermediate text sat in a 500ms-polled queue while "
+"`follow_up_question` sent directly. All four channel handlers now flush "
+"pending intermediate `JoinHandle`s before dispatching the question, "
+"guaranteeing the explanatory text renders above the buttons."
 msgstr ""
 
 #: src/features/self-healing.md:414
@@ -16702,7 +16816,8 @@ msgid "The stuck stream is terminated"
 msgstr ""
 
 #: src/features/self-healing.md:431
-msgid "Phantom enforcement retry fires (nudges the agent to produce real output)"
+msgid ""
+"Phantom enforcement retry fires (nudges the agent to produce real output)"
 msgstr ""
 
 #: src/features/self-healing.md:432
@@ -16866,8 +16981,8 @@ msgid ""
 "When the loop detector kills a stalled turn, that kill **reaches the "
 "fallback chain** (#1023): it is raised as a provider-attributable error so "
 "the turn can retry with another provider instead of surfacing as a hard "
-"failure, and it is no longer misreported as a provider fault. Spent "
-"thinking-loop budget is routed into the fallback chain the same way (#1021)."
+"failure, and it is no longer misreported as a provider fault. Spent thinking-"
+"loop budget is routed into the fallback chain the same way (#1021)."
 msgstr ""
 
 #: src/features/self-healing.md:473
@@ -17053,8 +17168,8 @@ msgid ""
 "Agent notices pattern of 5+ corrections on output hygiene:\n"
 "  → feedback_analyze(query=\"failures\")\n"
 "  → self_improve(action=\"apply\", target_file=\"SOUL.md\", \n"
-"    content=\"Never include testing steps or verification commands in "
-"user-facing output.\")\n"
+"    content=\"Never include testing steps or verification commands in user-"
+"facing output.\")\n"
 "  → Logged to rsi/improvements.md\n"
 "```"
 msgstr ""
@@ -17076,7 +17191,8 @@ msgid ""
 msgstr ""
 
 #: src/features/self-improvement.md:54
-msgid "**Always reads before modifying** — never blindly overwrites brain files"
+msgid ""
+"**Always reads before modifying** — never blindly overwrites brain files"
 msgstr ""
 
 #: src/features/self-improvement.md:55
@@ -17173,8 +17289,8 @@ msgstr ""
 
 #: src/features/self-improvement.md:77
 msgid ""
-"**Startup** — writes a digest of feedback stats to "
-"`~/.opencrabs/rsi/digest.md`"
+"**Startup** — writes a digest of feedback stats to `~/.opencrabs/rsi/"
+"digest.md`"
 msgstr ""
 
 #: src/features/self-improvement.md:78
@@ -17335,9 +17451,8 @@ msgstr ""
 
 #: src/features/self-improvement.md:122
 msgid ""
-"User applies or rejects — applied entries go to "
-"`tools.toml`/`commands.toml`, rejected entries are archived with an optional "
-"reason"
+"User applies or rejects — applied entries go to `tools.toml`/"
+"`commands.toml`, rejected entries are archived with an optional reason"
 msgstr ""
 
 #: src/features/self-improvement.md:124
@@ -17467,8 +17582,8 @@ msgstr ""
 #: src/features/self-improvement.md:160
 msgid ""
 "**Phantom detection reduced to 2-signal requirement** — needs both intent "
-"keyphrase AND zero tool calls before flagging, eliminating spurious "
-"self-heal triggers"
+"keyphrase AND zero tool calls before flagging, eliminating spurious self-"
+"heal triggers"
 msgstr ""
 
 #: src/features/self-improvement.md:161
@@ -17575,9 +17690,8 @@ msgstr ""
 
 #: src/features/self-improvement.md:184
 msgid ""
-"**OpenAI-compatible image generation** — image generation via any "
-"`/v1/images/generations` endpoint with configurable `generation_model` "
-"override."
+"**OpenAI-compatible image generation** — image generation via any `/v1/"
+"images/generations` endpoint with configurable `generation_model` override."
 msgstr ""
 
 #: src/features/self-improvement.md:186
@@ -17605,20 +17719,20 @@ msgstr ""
 msgid ""
 "**Brain file cleanup_intent** — `write_opencrabs_file` accepts "
 "`cleanup_intent` flag for user-driven brain file maintenance. RSI agent "
-"explicitly blocked from shrinking brain files, preventing autonomous "
-"self-improvement from accidentally wiping content (issue #103)."
+"explicitly blocked from shrinking brain files, preventing autonomous self-"
+"improvement from accidentally wiping content (issue #103)."
 msgstr ""
 
 #: src/features/self-improvement.md:194
 msgid ""
 "**RTK Token Savings integration** — bundled RTK binary (4MB, v0.40.0) as "
 "default feature with zero-config. Works as direct proxy: agent runs `git "
-"status`, RTK intercepts output through Rust, filters it, returns "
-"token-optimized version. 100+ commands supported (git, cargo, npm, pnpm, "
-"docker, kubectl, grep, find, ls, tree, curl), blocklist for interactive/REPL "
+"status`, RTK intercepts output through Rust, filters it, returns token-"
+"optimized version. 100+ commands supported (git, cargo, npm, pnpm, docker, "
+"kubectl, grep, find, ls, tree, curl), blocklist for interactive/REPL "
 "commands (vim, ssh, python, mysql). Binary discovery checks bundled location "
-"first, falls back to PATH. `/rtk` slash command shows savings stats. "
-"Real-world results: 53.5% token savings across 180 commands (PR #102)."
+"first, falls back to PATH. `/rtk` slash command shows savings stats. Real-"
+"world results: 53.5% token savings across 180 commands (PR #102)."
 msgstr ""
 
 #: src/features/self-improvement.md:196
@@ -17641,9 +17755,9 @@ msgstr ""
 
 #: src/features/self-improvement.md:200
 msgid ""
-"**@ file picker fixed for large repos** — recursive walk now skips "
-"`.git`/`.hg`/`.svn` directories and raised result cap from 5k to 20k, "
-"preventing pack/ref files from exhausting the cap"
+"**@ file picker fixed for large repos** — recursive walk now skips `.git`/"
+"`.hg`/`.svn` directories and raised result cap from 5k to 20k, preventing "
+"pack/ref files from exhausting the cap"
 msgstr ""
 
 #: src/features/self-improvement.md:202
@@ -17715,9 +17829,9 @@ msgid ""
 "**RSI skill proposals** — `skill` is now a third proposal kind alongside "
 "`tool` and `command`. When RSI identifies a multi-stage workflow pattern "
 "that recurs across sessions, it proposes a `SKILL.md` file instead of a "
-"simple tool or command. Applied skill proposals write to "
-"`~/.opencrabs/skills/<name>/SKILL.md` and become immediately invocable as "
-"`/<name>` across all channels."
+"simple tool or command. Applied skill proposals write to `~/.opencrabs/"
+"skills/<name>/SKILL.md` and become immediately invocable as `/<name>` across "
+"all channels."
 msgstr ""
 
 #: src/features/self-improvement.md:221
@@ -17749,8 +17863,8 @@ msgid ""
 "cycles (about once per day at 1-hour intervals), never auto-applies — human "
 "approval required through the existing `rsi_proposals` apply/reject flow. "
 "Core scan logic in `dedup_scan.rs` (393 lines), hooked into the RSI cycle "
-"with periodicity gating, 14 regression tests covering empty files, "
-"short-line filtering, cross-file detection, proposal format, and canonical "
+"with periodicity gating, 14 regression tests covering empty files, short-"
+"line filtering, cross-file detection, proposal format, and canonical "
 "selection."
 msgstr ""
 
@@ -17998,8 +18112,8 @@ msgstr ""
 #: src/features/mission-control.md:3
 msgid ""
 "Mission Control is a full-screen TUI dashboard that brings RSI activity, "
-"inbox proposals, and scheduled jobs into one place. Open it with "
-"`/mission-control`."
+"inbox proposals, and scheduled jobs into one place. Open it with `/mission-"
+"control`."
 msgstr ""
 
 #: src/features/mission-control.md:5
@@ -18060,9 +18174,8 @@ msgstr ""
 
 #: src/features/mission-control.md:22
 msgid ""
-"Applied and rejected entries are archived daily to "
-"`~/.opencrabs/rsi/applied/` and `~/.opencrabs/rsi/rejected/` so the trail is "
-"auditable."
+"Applied and rejected entries are archived daily to `~/.opencrabs/rsi/applied/"
+"` and `~/.opencrabs/rsi/rejected/` so the trail is auditable."
 msgstr ""
 
 #: src/features/mission-control.md:24
@@ -18339,8 +18452,8 @@ msgstr ""
 
 #: src/features/mission-control.md:104
 msgid ""
-"**Model status icons** — each model row shows a health icon "
-"(green/yellow/red) based on recent success rate."
+"**Model status icons** — each model row shows a health icon (green/yellow/"
+"red) based on recent success rate."
 msgstr ""
 
 #: src/features/mission-control.md:105
@@ -18683,9 +18796,9 @@ msgstr ""
 #: src/features/voice.md:7
 msgid ""
 "Run `/onboard:voice` in the TUI to configure everything interactively. The "
-"voice screen has radio selectors for both STT and TTS, with fields "
-"shown/hidden based on the selected provider. API keys are wired to "
-"`keys.toml` automatically."
+"voice screen has radio selectors for both STT and TTS, with fields shown/"
+"hidden based on the selected provider. API keys are wired to `keys.toml` "
+"automatically."
 msgstr ""
 
 #: src/features/voice.md:9
@@ -18832,8 +18945,8 @@ msgstr ""
 
 #: src/features/voice.md:29
 msgid ""
-"Models auto-download from HuggingFace to "
-"`~/.local/share/opencrabs/models/whisper/` on first use."
+"Models auto-download from HuggingFace to `~/.local/share/opencrabs/models/"
+"whisper/` on first use."
 msgstr ""
 
 #: src/features/voice.md:33
@@ -18921,9 +19034,8 @@ msgstr ""
 
 #: src/features/voice.md:70
 msgid ""
-"Models auto-download from HuggingFace to "
-"`~/.local/share/opencrabs/models/piper/`. A Python venv is created "
-"automatically for the Piper runtime."
+"Models auto-download from HuggingFace to `~/.local/share/opencrabs/models/"
+"piper/`. A Python venv is created automatically for the Piper runtime."
 msgstr ""
 
 #: src/features/voice.md:74
@@ -19182,8 +19294,8 @@ msgstr ""
 
 #: src/features/skills.md:45
 msgid ""
-"**User** (teal badge) — created by you in "
-"`~/.opencrabs/skills/<name>/SKILL.md`. Override built-ins by file presence."
+"**User** (teal badge) — created by you in `~/.opencrabs/skills/<name>/"
+"SKILL.md`. Override built-ins by file presence."
 msgstr ""
 
 #: src/features/skills.md:47
@@ -19242,8 +19354,8 @@ msgstr ""
 #: src/features/skills.md:55
 msgid ""
 "Language-agnostic security & CVE audit. Detects project type from manifests, "
-"runs the appropriate scanner, reviews the diff for injection / auth / crypto "
-"/ deserialization / path-traversal patterns, and scores 0-100."
+"runs the appropriate scanner, reviews the diff for injection / auth / "
+"crypto / deserialization / path-traversal patterns, and scores 0-100."
 msgstr ""
 
 #: src/features/skills.md:56
@@ -19351,8 +19463,8 @@ msgstr ""
 
 #: src/features/skills.md:113
 msgid ""
-"The skill immediately appears in `/skills` (with a `user` badge) and as "
-"`/my-skill` in TUI and all channels."
+"The skill immediately appears in `/skills` (with a `user` badge) and as `/my-"
+"skill` in TUI and all channels."
 msgstr ""
 
 #: src/features/skills.md:115
@@ -19393,18 +19505,17 @@ msgstr ""
 #: src/features/skills.md:128
 msgid ""
 "The RSI engine can propose new skills based on usage patterns it observes in "
-"the feedback ledger. For example, if the agent repeatedly performs a "
-"multi-step workflow that isn't covered by an existing skill, RSI will draft "
-"a skill and file it in the [Mission Control](./mission-control.md) inbox for "
+"the feedback ledger. For example, if the agent repeatedly performs a multi-"
+"step workflow that isn't covered by an existing skill, RSI will draft a "
+"skill and file it in the [Mission Control](./mission-control.md) inbox for "
 "your review."
 msgstr ""
 
 #: src/features/skills.md:130
 msgid ""
-"This is part of the [RSI Proposals "
-"system](./self-improvement.md#rsi-proposals) — RSI identifies gaps in the "
-"agent's capabilities and drafts solutions, but installation always requires "
-"your approval."
+"This is part of the [RSI Proposals system](./self-improvement.md#rsi-"
+"proposals) — RSI identifies gaps in the agent's capabilities and drafts "
+"solutions, but installation always requires your approval."
 msgstr ""
 
 #: src/features/skills.md:132
@@ -19413,12 +19524,12 @@ msgstr ""
 
 #: src/features/skills.md:134
 msgid ""
-"The `slash_command` tool now correctly resolves **skills** and the "
-"`/onboard:<topic>` form. Previously, calling a skill via `slash_command` "
-"could fail if the skill name didn't exactly match the internal registry key. "
-"The resolver now checks skills, built-in commands, and user commands in "
-"priority order, and the `/onboard:voice` / `/onboard:provider` / "
-"`/onboard:channels` sub-topic forms route correctly."
+"The `slash_command` tool now correctly resolves **skills** and the `/onboard:"
+"<topic>` form. Previously, calling a skill via `slash_command` could fail if "
+"the skill name didn't exactly match the internal registry key. The resolver "
+"now checks skills, built-in commands, and user commands in priority order, "
+"and the `/onboard:voice` / `/onboard:provider` / `/onboard:channels` sub-"
+"topic forms route correctly."
 msgstr ""
 
 #: src/features/usage-dashboard.md:3
@@ -19580,9 +19691,8 @@ msgstr ""
 #: src/features/usage-dashboard.md:57
 msgid ""
 "Parent rows show **aggregated stats** (total tokens, cost, calls) across all "
-"quant variants. This eliminates the noisy duplication where "
-"`qwen3.6-35b-a3b-gguf`, `-oq2`, `-oq4`, `-iq4_xs` each appeared as separate "
-"rows."
+"quant variants. This eliminates the noisy duplication where `qwen3.6-35b-a3b-"
+"gguf`, `-oq2`, `-oq4`, `-iq4_xs` each appeared as separate rows."
 msgstr ""
 
 #: src/features/usage-dashboard.md:59
@@ -19607,8 +19717,8 @@ msgstr ""
 
 #: src/features/usage-dashboard.md:68
 msgid ""
-"A summary table showing cost and turns by activity category (Development, "
-"CI/Deploy, Features), plus the 1-shot success rate for each."
+"A summary table showing cost and turns by activity category (Development, CI/"
+"Deploy, Features), plus the 1-shot success rate for each."
 msgstr ""
 
 #: src/features/usage-dashboard.md:70
@@ -19768,7 +19878,8 @@ msgid "**Returns** the optimized output to the agent"
 msgstr ""
 
 #: src/features/rtk.md:14
-msgid "The agent sees the same information, but using a fraction of the tokens."
+msgid ""
+"The agent sees the same information, but using a fraction of the tokens."
 msgstr ""
 
 #: src/features/rtk.md:16
@@ -20065,7 +20176,8 @@ msgid "In the TUI, type `/rtk` to see your token savings dashboard:"
 msgstr ""
 
 #: src/features/rtk.md:108
-msgid "RTK is **enabled by default** in all OpenCrabs builds. No setup required."
+msgid ""
+"RTK is **enabled by default** in all OpenCrabs builds. No setup required."
 msgstr ""
 
 #: src/features/rtk.md:110
@@ -20421,9 +20533,9 @@ msgstr ""
 
 #: src/features/web-scrape.md:9
 msgid ""
-"**Validate** — SSRF guard rejects private IPs, localhost, loopback, "
-"link-local addresses, cloud metadata endpoints (169.254.169.254), and "
-"non-http(s) schemes"
+"**Validate** — SSRF guard rejects private IPs, localhost, loopback, link-"
+"local addresses, cloud metadata endpoints (169.254.169.254), and non-http(s) "
+"schemes"
 msgstr ""
 
 #: src/features/web-scrape.md:10
@@ -20449,8 +20561,8 @@ msgstr ""
 #: src/features/web-scrape.md:13
 msgid ""
 "**Convert** — `htmd` converts cleaned HTML to markdown. `absolutize_urls` "
-"resolves relative src/href against page base URL. Images preserved as "
-"`![alt](url)` tags for selective agent vision"
+"resolves relative src/href against page base URL. Images preserved as `![alt]"
+"(url)` tags for selective agent vision"
 msgstr ""
 
 #: src/features/web-scrape.md:15
@@ -20509,9 +20621,9 @@ msgid ""
 "**Pair it with memory:** point `[memory] extra_paths` at the export "
 "directory and every scraped page becomes searchable via `memory_search "
 "scope=\"external\"` — a zero-cost knowledge base your agent quotes verbatim. "
-"Full walkthrough in [Memory System → Build a knowledge "
-"base](../brain/memory.md#build-a-knowledge-base-from-any-docs-site). Note "
-"the hard cap: 100 pages per sitemap scrape."
+"Full walkthrough in [Memory System → Build a knowledge base](../brain/"
+"memory.md#build-a-knowledge-base-from-any-docs-site). Note the hard cap: 100 "
+"pages per sitemap scrape."
 msgstr ""
 
 #: src/features/web-scrape.md:39
@@ -20650,9 +20762,9 @@ msgstr ""
 
 #: src/features/document-generation.md:10
 msgid ""
-"Headings (real Word styles, navigation pane works), paragraphs, "
-"bullet/numbered lists (real numbering), tables, **image blocks** (inline "
-"PNG/JPEG with optional caption)"
+"Headings (real Word styles, navigation pane works), paragraphs, bullet/"
+"numbered lists (real numbering), tables, **image blocks** (inline PNG/JPEG "
+"with optional caption)"
 msgstr ""
 
 #: src/features/document-generation.md:10
@@ -20700,8 +20812,8 @@ msgstr ""
 #: src/features/document-generation.md:12
 msgid ""
 "**Brand template**: build slides into an existing `.pptx` so they inherit "
-"the company master (logos, fonts, backgrounds); accent-colored titles; "
-"per-slide layout choice"
+"the company master (logos, fonts, backgrounds); accent-colored titles; per-"
+"slide layout choice"
 msgstr ""
 
 #: src/features/document-generation.md:16
@@ -22600,11 +22712,10 @@ msgstr ""
 
 #: src/development/testing.md:163
 msgid ""
-"`src/utils/retry.rs` (8 inline) + "
-"`src/tests/provider_retry_consolidation_test.rs` (11) — "
-"`brain/provider/retry.rs` was deleted and folded onto `utils::retry`; covers "
-"patient backoff schedule, hard-down fast-fail, Retry-After clamp, and "
-"retry-notify surfacing"
+"`src/utils/retry.rs` (8 inline) + `src/tests/"
+"provider_retry_consolidation_test.rs` (11) — `brain/provider/retry.rs` was "
+"deleted and folded onto `utils::retry`; covers patient backoff schedule, "
+"hard-down fast-fail, Retry-After clamp, and retry-notify surfacing"
 msgstr ""
 
 #: src/development/testing.md:164
@@ -24352,8 +24463,8 @@ msgstr ""
 
 #: src/development/testing.md:373
 msgid ""
-"`src/tests/provider_retry_consolidation_test.rs` — patient backoff, "
-"hard-down/DNS fast-fail, Retry-After clamp, retry-notify surfacing"
+"`src/tests/provider_retry_consolidation_test.rs` — patient backoff, hard-"
+"down/DNS fast-fail, Retry-After clamp, retry-notify surfacing"
 msgstr ""
 
 #: src/development/testing.md:374
@@ -24372,8 +24483,8 @@ msgstr ""
 
 #: src/development/testing.md:375
 msgid ""
-"`src/tests/tool_description_redaction_test.rs` — redacts "
-"Bearer/api_key/URL-password from the one-line tool display"
+"`src/tests/tool_description_redaction_test.rs` — redacts Bearer/api_key/URL-"
+"password from the one-line tool display"
 msgstr ""
 
 #: src/development/testing.md:376
@@ -24424,8 +24535,8 @@ msgstr ""
 
 #: src/development/testing.md:380
 msgid ""
-"`src/tests/streaming_tok_per_sec_guard_test.rs` — floors/ceilings "
-"burst-delivery tok/s artifacts"
+"`src/tests/streaming_tok_per_sec_guard_test.rs` — floors/ceilings burst-"
+"delivery tok/s artifacts"
 msgstr ""
 
 #: src/development/testing.md:381
@@ -24485,8 +24596,8 @@ msgstr ""
 #: src/development/testing.md:387
 msgid ""
 "`src/tests/config_repair_test.rs` — closes unterminated arrays/inline tables "
-"in a broken `config.toml`, gated on the result re-parsing; leaves "
-"valid/nested/string cases and unfixable errors alone"
+"in a broken `config.toml`, gated on the result re-parsing; leaves valid/"
+"nested/string cases and unfixable errors alone"
 msgstr ""
 
 #: src/development/testing.md:388
@@ -24835,7 +24946,8 @@ msgid "Code Style"
 msgstr ""
 
 #: src/development/contributing.md:20
-msgid "Run `cargo clippy --all-features` before committing — never `cargo check`"
+msgid ""
+"Run `cargo clippy --all-features` before committing — never `cargo check`"
 msgstr ""
 
 #: src/development/contributing.md:21
@@ -24920,9 +25032,8 @@ msgstr ""
 
 #: src/development/contributing.md:49
 msgid ""
-"Open an issue at "
-"[github.com/adolfousier/opencrabs/issues](https://github.com/adolfousier/opencrabs/issues) "
-"with:"
+"Open an issue at [github.com/adolfousier/opencrabs/issues](https://"
+"github.com/adolfousier/opencrabs/issues) with:"
 msgstr ""
 
 #: src/development/contributing.md:51
@@ -25129,10 +25240,9 @@ msgstr ""
 msgid ""
 "Shell commands are checked against a TOML-defined blocklist before "
 "execution. Dangerous patterns (recursive deletes on root, raw disk writes, "
-"fork bombs) are rejected with a clear error. The blocklist is "
-"user-extensible and hot-reloads on file change. See "
-"[Configuration](../getting-started/configuration.md#toml-bash-blocklist-v0378) "
-"for details."
+"fork bombs) are rejected with a clear error. The blocklist is user-"
+"extensible and hot-reloads on file change. See [Configuration](../getting-"
+"started/configuration.md#toml-bash-blocklist-v0378) for details."
 msgstr ""
 
 #: src/development/security.md:68
@@ -25182,4 +25292,3 @@ msgid ""
 "their structural integrity after RSI writes. Required anchors (H1 title, "
 "Owns header) are checked, and writes that break structure are flagged."
 msgstr ""
-
