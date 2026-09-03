@@ -171,6 +171,7 @@ fn App() -> impl IntoView {
 #[component]
 fn LangSwitcher() -> impl IntoView {
     let i18n = use_i18n();
+    // Display: compact initials (fits nav on any width); title keeps the full name on hover.
     let langs: Vec<(Locale, &'static str, &'static str)> = vec![
         (Locale::en, "en", "English"),
         (Locale::pt_PT, "pt-PT", "Português"),
@@ -179,6 +180,18 @@ fn LangSwitcher() -> impl IntoView {
         (Locale::ru, "ru", "Русский"),
         (Locale::id, "id", "Indonesia"),
     ];
+    let initials = |name: &str| -> String {
+        // "English" -> "EN", "Português" -> "PT", "Русский" -> "RU", "Indonesia" -> "ID"
+        match name {
+            "English" => "EN".into(),
+            "Português" => "PT".into(),
+            "Español" => "ES".into(),
+            "Français" => "FR".into(),
+            "Русский" => "RU".into(),
+            "Indonesia" => "ID".into(),
+            other => other.chars().take(2).collect(),
+        }
+    };
 
     let stored = window()
         .and_then(|w| w.local_storage().ok().flatten())
@@ -205,7 +218,8 @@ fn LangSwitcher() -> impl IntoView {
         >
             {langs.into_iter().map(|(loc, code, name)| {
                 let selected = loc == current;
-                view! { <option value=code selected=selected>{name}</option> }
+                let label = initials(name);
+                view! { <option value=code title=name selected=selected>{label}</option> }
             }).collect::<Vec<_>>()}
         </select>
     }
@@ -216,6 +230,7 @@ fn LangSwitcher() -> impl IntoView {
 #[component]
 fn Nav(stars: Signal<u32>, tag: Signal<String>) -> impl IntoView {
     let i18n = use_i18n();
+    let menu_open = RwSignal::new(false);
     let star_label = move || {
         let count = stars.get();
         if count > 0 {
@@ -232,7 +247,7 @@ fn Nav(stars: Signal<u32>, tag: Signal<String>) -> impl IntoView {
                     <img class="crab-icon" src="public/opencrabs-logo.png" alt="" />
                     "OpenCrabs"
                 </a>
-                <ul class="nav-links">
+                <ul class="nav-links" class:open=menu_open on:click=move |_| menu_open.set(false)>
                     <li><a href="https://docs.opencrabs.com" target="_blank">{move || t!(i18n, nav_docs)}</a></li>
                     <li><a href="#features">{move || t!(i18n, nav_features)}</a></li>
                     <li><a href="#integrations">{move || t!(i18n, sec_integrations)}</a></li>
@@ -254,8 +269,21 @@ fn Nav(stars: Signal<u32>, tag: Signal<String>) -> impl IntoView {
                             <span class="github-stars">{star_label}</span>
                         </a>
                     </li>
-                    <li><LangSwitcher /></li>
                 </ul>
+                <div class="nav-actions">
+                    <LangSwitcher />
+                    <button
+                        class="nav-toggle"
+                        class:active=menu_open
+                        aria-label="Menu"
+                        aria-expanded=move || if menu_open.get() { "true" } else { "false" }
+                        on:click=move |_| menu_open.update(|o| *o = !*o)
+                    >
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                    </button>
+                </div>
             </div>
         </nav>
     }

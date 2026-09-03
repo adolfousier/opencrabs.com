@@ -781,7 +781,35 @@ footer {
     .features-grid { grid-template-columns: 1fr; }
     .testimonials-grid { grid-template-columns: 1fr; }
     .community-grid { grid-template-columns: repeat(2, 1fr); }
-    .nav-links { gap: 16px; }
+    .nav-toggle { display: flex; }
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 4px;
+        padding: 12px 20px 20px;
+        background: rgba(8, 8, 13, 0.98);
+        border-bottom: 1px solid var(--border);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        box-shadow: 0 16px 32px rgba(0, 0, 0, 0.45);
+    }
+    .nav-links.open { display: flex; }
+    .nav-links li { width: 100%; }
+    .nav-links a,
+    .nav-links .nav-download,
+    .nav-links .btn-github {
+        display: block;
+        width: 100%;
+        padding: 12px 8px;
+        font-size: 1rem;
+        text-align: left;
+    }
+    .nav-links .btn-github { text-align: left; }
     section { padding: 48px 0; }
     .newsletter { padding: 32px 20px; }
     .newsletter-form { flex-direction: column; }
@@ -789,9 +817,44 @@ footer {
 
 @media (max-width: 480px) {
     .hero h1 { font-size: 2rem; }
-    .nav-links a:not(.btn-github) { display: none; }
-    .nav-links { gap: 14px; }
 }
+
+/* ── Nav actions (lang switcher + hamburger) ─────────────────── */
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+.nav-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 42px;
+    height: 42px;
+    padding: 0 10px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.nav-toggle .bar {
+    display: block;
+    height: 2px;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.85);
+    border-radius: 2px;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.nav-toggle:hover .bar { background: #fff; }
+
+.nav-toggle.active .bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-toggle.active .bar:nth-child(2) { opacity: 0; }
+.nav-toggle.active .bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
 /* ── Language switcher ─────────────────────────────────────────────────── */
 
