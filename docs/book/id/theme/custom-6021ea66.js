@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Map each card's displayed category tag to a broad filter group.
     var groupOf = {
         'Accounting': 'business-ops',
+        'Accounting · Real Estate': 'business-ops',
         'Finance': 'business-ops',
         'Real Estate': 'business-ops',
         'Automation': 'business-ops',
