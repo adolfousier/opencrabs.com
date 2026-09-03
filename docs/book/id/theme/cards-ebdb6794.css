@@ -284,23 +284,35 @@
 }
 
 /* Language switcher (menu bar) */
+/* The menu bar is a 50px-tall flex row (icons use line-height:
+   menu-bar-height) with default align-items: stretch — a bare select
+   inflates to the full row height, and the native macOS pill adds its
+   own fat padding. Pin the height, center it, kill native appearance,
+   draw our own chevron. */
 .menu-bar #lang-switcher {
+    align-self: center;
+    height: 24px;
     margin-left: 8px;
-    padding: 2px 4px;
-    font-size: 13px;
-    line-height: 1.4;
+    padding: 0 18px 0 6px;
+    font-size: 12px;
+    line-height: 1;
     color: var(--fg, #232333);
-    background: transparent;
+    background-color: transparent;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='5' viewBox='0 0 8 5'%3E%3Cpath d='M0 0l4 5 4-5z' fill='%23888'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 4px center;
+    background-size: 8px 5px;
     border: 1px solid var(--fg, #232333);
     border-radius: 6px;
     opacity: 0.7;
     cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
 }
 .menu-bar #lang-switcher:hover { opacity: 1; }
 @media (max-width: 1439px) {
     .menu-bar #lang-switcher {
-        font-size: 12px;
-        padding: 1px 3px;
+        font-size: 11px;
         margin-left: 6px;
     }
 }
