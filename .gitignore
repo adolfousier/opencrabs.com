@@ -8,3 +8,6 @@ opencrabs.com
 docs/po/tr_*.json
 docs/po/*_ids_*.json
 docs/po/tier1_msgids.json
+
+# msgmerge backups
+docs/po/*.po~
