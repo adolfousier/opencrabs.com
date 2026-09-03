@@ -58,7 +58,7 @@
         <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
 
         <!-- Custom theme stylesheets -->
-        <link rel="stylesheet" href="theme/cards-77c040ab.css">
+        <link rel="stylesheet" href="theme/cards-1bbb28cc.css">
 
 
         <!-- Provide site root and default themes to javascript -->
@@ -66,7 +66,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-08f80381.js";
+            window.path_to_searchindex_js = "searchindex-cc078d39.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-55df8b59.js"></script>
@@ -1625,6 +1625,25 @@ cp ~/.opencrabs/config.toml.backup ~/.opencrabs/config.toml
 cp ~/.opencrabs/keys.toml ~/.opencrabs/keys.toml.backup
 cp ~/.opencrabs/commands.toml ~/.opencrabs/commands.toml.backup
 </code></pre>
+<h3 id="rsi-has-never-run"><a class="header" href="#rsi-has-never-run">RSI Has Never Run</a></h3>
+<p>Mission Control shows <code>⚠ RSI has never run — N tool event(s) recorded and unprocessed</code> even though <code>rsi_enabled = true</code> is set.</p>
+<p>Most common cause: <code>self_improvement_provider</code> is misspelled. Its value is the <strong>bare provider section name</strong> — no <code>custom:</code> prefix, no model appended:</p>
+<pre><code class="language-toml">[providers.custom.glm-53-max]              # the name is "glm-53-max"
+
+[agent]
+self_improvement_provider = "glm-53-max"   # ✅ not "custom:glm-53-max"
+self_improvement_model = "..."             # the model goes in its own key
+</code></pre>
+<p>Checklist:</p>
+<ol>
+<li>The provider value matches the config section name exactly (<code>[providers.custom.moonshotai]</code> → <code>"moonshotai"</code>).</li>
+<li>No <code>custom:</code> / <code>custom.</code> / <code>custom/</code> prefix anywhere in a provider reference.</li>
+<li>The model is in its own key (<code>self_improvement_model</code>), never appended to the provider.</li>
+<li>Restart after fixing — Mission Control confirms cycles on the next run.</li>
+</ol>
+<blockquote>
+<p>Fixed at source in <a href="https://github.com/adolfousier/opencrabs/issues/1314">opencrabs#1314</a>: current main normalises misspelled values with a warning. Released versions fail silently, which is exactly why the spelling matters.</p>
+</blockquote>
 <hr>
 <h2 id="channel-issues"><a class="header" href="#channel-issues">Channel Issues</a></h2>
 <h3 id="telegram-1"><a class="header" href="#telegram-1">Telegram</a></h3>
@@ -2189,6 +2208,23 @@ enabled = false
 base_url = "http://localhost:11434/v1"
 default_model = "mistral"
 </code></pre>
+<h3 id="naming-custom-providers"><a class="header" href="#naming-custom-providers">Naming Custom Providers</a></h3>
+<p>The provider’s name is the <strong>last segment of its config section</strong> — nothing else.</p>
+<pre><code class="language-toml">[providers.custom.moonshotai]   # the name is "moonshotai"
+</code></pre>
+<p>When you reference the provider anywhere — <code>self_improvement_provider</code>, <code>subagent_provider</code>, <code>plan_provider</code>, <code>execute_provider</code>, or the <code>/models</code> command — use that bare name:</p>
+<pre><code class="language-toml">[agent]
+self_improvement_provider = "moonshotai"        # ✅ bare section name
+self_improvement_model = "kimi-k2.5"            # the model has its own key
+</code></pre>
+<p>Never carry the <code>custom</code> path into the reference, and never append the model:</p>
+<pre><code class="language-toml">self_improvement_provider = "custom:moonshotai"    # ❌ RSI silently never runs
+self_improvement_provider = "custom.moonshotai"    # ❌ same
+self_improvement_provider = "moonshotai/kimi-k2.5" # ❌ provider-only — model goes in self_improvement_model
+</code></pre>
+<blockquote>
+<p><strong>Real case:</strong> a user with <code>[providers.custom.glm-53-max]</code> set <code>self_improvement_provider = "custom:glm-53-max"</code> and RSI silently never ran — Mission Control showed thousands of tool events recorded and unprocessed. Dropping the <code>custom:</code> prefix fixed it instantly (<a href="https://github.com/adolfousier/opencrabs/issues/1314">opencrabs#1314</a>). Current main auto-corrects misspelled values with a warning; released versions fail silently, so spell it bare.</p>
+</blockquote>
 <h3 id="free-prototyping-with-nvidia-api"><a class="header" href="#free-prototyping-with-nvidia-api">Free Prototyping with NVIDIA API</a></h3>
 <p><a href="https://build.nvidia.com/moonshotai/kimi-k2.5">Kimi K2.5</a> is available for free on the NVIDIA API Catalog — no billing required.</p>
 <pre><code class="language-toml"># config.toml
@@ -8197,7 +8233,7 @@ cargo test --all-features
         <script src="book-609e4cb8.js"></script>
 
         <!-- Custom JS scripts -->
-        <script src="theme/custom-6021ea66.js"></script>
+        <script src="theme/custom-36074e9c.js"></script>
 
         <script>
         window.addEventListener('load', function() {

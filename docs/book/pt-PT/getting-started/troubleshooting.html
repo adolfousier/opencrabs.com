@@ -57,7 +57,7 @@
         <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="../ayu-highlight-3fdfc3ac.css">
 
         <!-- Custom theme stylesheets -->
-        <link rel="stylesheet" href="../theme/cards-77c040ab.css">
+        <link rel="stylesheet" href="../theme/cards-1bbb28cc.css">
 
 
         <!-- Provide site root and default themes to javascript -->
@@ -65,7 +65,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-24a739bc.js";
+            window.path_to_searchindex_js = "../searchindex-59f654f4.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-55df8b59.js"></script>
@@ -327,6 +327,25 @@ cp ~/.opencrabs/config.toml.backup ~/.opencrabs/config.toml
 cp ~/.opencrabs/keys.toml ~/.opencrabs/keys.toml.backup
 cp ~/.opencrabs/commands.toml ~/.opencrabs/commands.toml.backup
 </code></pre>
+<h3 id="rsi-has-never-run"><a class="header" href="#rsi-has-never-run">RSI Has Never Run</a></h3>
+<p>Mission Control shows <code>⚠ RSI has never run — N tool event(s) recorded and unprocessed</code> even though <code>rsi_enabled = true</code> is set.</p>
+<p>Most common cause: <code>self_improvement_provider</code> is misspelled. Its value is the <strong>bare provider section name</strong> — no <code>custom:</code> prefix, no model appended:</p>
+<pre><code class="language-toml">[providers.custom.glm-53-max]              # the name is "glm-53-max"
+
+[agent]
+self_improvement_provider = "glm-53-max"   # ✅ not "custom:glm-53-max"
+self_improvement_model = "..."             # the model goes in its own key
+</code></pre>
+<p>Checklist:</p>
+<ol>
+<li>The provider value matches the config section name exactly (<code>[providers.custom.moonshotai]</code> → <code>"moonshotai"</code>).</li>
+<li>No <code>custom:</code> / <code>custom.</code> / <code>custom/</code> prefix anywhere in a provider reference.</li>
+<li>The model is in its own key (<code>self_improvement_model</code>), never appended to the provider.</li>
+<li>Restart after fixing — Mission Control confirms cycles on the next run.</li>
+</ol>
+<blockquote>
+<p>Fixed at source in <a href="https://github.com/adolfousier/opencrabs/issues/1314">opencrabs#1314</a>: current main normalises misspelled values with a warning. Released versions fail silently, which is exactly why the spelling matters.</p>
+</blockquote>
 <hr>
 <h2 id="channel-issues"><a class="header" href="#channel-issues">Channel Issues</a></h2>
 <h3 id="telegram"><a class="header" href="#telegram">Telegram</a></h3>
@@ -620,7 +639,7 @@ cargo build --release
         <script src="../book-609e4cb8.js"></script>
 
         <!-- Custom JS scripts -->
-        <script src="../theme/custom-6021ea66.js"></script>
+        <script src="../theme/custom-36074e9c.js"></script>
 
 
 

@@ -68,3 +68,56 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
+// Language switcher — mdbook menu bar (right side).
+// The book ships per-locale (English at the root, pt-PT/es/fr/ru/id in
+// subdirectories). Every page exists in every locale — untranslated
+// paragraphs fall back to English — so switching is a same-path
+// locale-prefix swap. Works under both hosting bases: docs.opencrabs.com
+// (book at root) and the landing image (book under /docs/).
+document.addEventListener('DOMContentLoaded', function() {
+    if (document.getElementById('lang-switcher')) return;
+    var bar = document.querySelector('.menu-bar');
+    if (!bar) return;
+
+    var LOCALES = ['pt-PT', 'es', 'fr', 'ru', 'id'];
+    var LABELS = { '': 'EN', 'pt-PT': 'PT', 'es': 'ES', 'fr': 'FR', 'ru': 'RU', 'id': 'ID' };
+
+    var path = window.location.pathname;
+    var base = '';
+    if (path === '/docs' || path.indexOf('/docs/') === 0) {
+        base = '/docs';
+        path = path.slice(5) || '/';
+    }
+    path = path.replace(/index\.html$/, '');
+
+    var current = '';
+    var rest = path;
+    for (var i = 0; i < LOCALES.length; i++) {
+        var l = LOCALES[i];
+        if (path === '/' + l || path.indexOf('/' + l + '/') === 0) {
+            current = l;
+            rest = path.slice(l.length + 1) || '/';
+            break;
+        }
+    }
+
+    var sel = document.createElement('select');
+    sel.id = 'lang-switcher';
+    sel.title = 'Language';
+    sel.setAttribute('aria-label', 'Language');
+    [''].concat(LOCALES).forEach(function(code) {
+        var opt = document.createElement('option');
+        opt.value = code;
+        opt.textContent = LABELS[code];
+        if (code === current) opt.selected = true;
+        sel.appendChild(opt);
+    });
+    sel.addEventListener('change', function() {
+        var next = (sel.value ? '/' + sel.value : '') + rest;
+        if (next === '') next = '/';
+        window.location.href = base + next;
+    });
+
+    bar.appendChild(sel);
+});

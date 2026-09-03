@@ -282,3 +282,25 @@
   transform: translateY(-2px);
   text-decoration: none;
 }
+
+/* Language switcher (menu bar) */
+.menu-bar #lang-switcher {
+    margin-left: 8px;
+    padding: 2px 4px;
+    font-size: 13px;
+    line-height: 1.4;
+    color: var(--fg, #232333);
+    background: transparent;
+    border: 1px solid var(--fg, #232333);
+    border-radius: 6px;
+    opacity: 0.7;
+    cursor: pointer;
+}
+.menu-bar #lang-switcher:hover { opacity: 1; }
+@media (max-width: 1439px) {
+    .menu-bar #lang-switcher {
+        font-size: 12px;
+        padding: 1px 3px;
+        margin-left: 6px;
+    }
+}

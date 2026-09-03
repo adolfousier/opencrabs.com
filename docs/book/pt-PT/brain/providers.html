@@ -57,7 +57,7 @@
         <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="../ayu-highlight-3fdfc3ac.css">
 
         <!-- Custom theme stylesheets -->
-        <link rel="stylesheet" href="../theme/cards-77c040ab.css">
+        <link rel="stylesheet" href="../theme/cards-1bbb28cc.css">
 
 
         <!-- Provide site root and default themes to javascript -->
@@ -65,7 +65,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-24a739bc.js";
+            window.path_to_searchindex_js = "../searchindex-59f654f4.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-55df8b59.js"></script>
@@ -459,6 +459,23 @@ enabled = false
 base_url = "http://localhost:11434/v1"
 default_model = "mistral"
 </code></pre>
+<h3 id="naming-custom-providers"><a class="header" href="#naming-custom-providers">Naming Custom Providers</a></h3>
+<p>The provider’s name is the <strong>last segment of its config section</strong> — nothing else.</p>
+<pre><code class="language-toml">[providers.custom.moonshotai]   # the name is "moonshotai"
+</code></pre>
+<p>When you reference the provider anywhere — <code>self_improvement_provider</code>, <code>subagent_provider</code>, <code>plan_provider</code>, <code>execute_provider</code>, or the <code>/models</code> command — use that bare name:</p>
+<pre><code class="language-toml">[agent]
+self_improvement_provider = "moonshotai"        # ✅ bare section name
+self_improvement_model = "kimi-k2.5"            # the model has its own key
+</code></pre>
+<p>Never carry the <code>custom</code> path into the reference, and never append the model:</p>
+<pre><code class="language-toml">self_improvement_provider = "custom:moonshotai"    # ❌ RSI silently never runs
+self_improvement_provider = "custom.moonshotai"    # ❌ same
+self_improvement_provider = "moonshotai/kimi-k2.5" # ❌ provider-only — model goes in self_improvement_model
+</code></pre>
+<blockquote>
+<p><strong>Real case:</strong> a user with <code>[providers.custom.glm-53-max]</code> set <code>self_improvement_provider = "custom:glm-53-max"</code> and RSI silently never ran — Mission Control showed thousands of tool events recorded and unprocessed. Dropping the <code>custom:</code> prefix fixed it instantly (<a href="https://github.com/adolfousier/opencrabs/issues/1314">opencrabs#1314</a>). Current main auto-corrects misspelled values with a warning; released versions fail silently, so spell it bare.</p>
+</blockquote>
 <h3 id="free-prototyping-with-nvidia-api"><a class="header" href="#free-prototyping-with-nvidia-api">Free Prototyping with NVIDIA API</a></h3>
 <p><a href="https://build.nvidia.com/moonshotai/kimi-k2.5">Kimi K2.5</a> is available for free on the NVIDIA API Catalog — no billing required.</p>
 <pre><code class="language-toml"># config.toml
@@ -649,7 +666,7 @@ execute_model = "anthropic/claude-sonnet-4"
         <script src="../book-609e4cb8.js"></script>
 
         <!-- Custom JS scripts -->
-        <script src="../theme/custom-6021ea66.js"></script>
+        <script src="../theme/custom-36074e9c.js"></script>
 
 
 
