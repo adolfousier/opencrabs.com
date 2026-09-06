@@ -18,6 +18,8 @@
   "dl_linux": "Скачать для Linux",
   "all_platforms": "Все платформы →",
   "or_via_terminal": "или через терминал",
+  "or_direct": "или прямая загрузка:",
+  "brew_rec_cmt": "# Рекомендуется для macOS: brew выберет нужную архитектуру и будет обновлять",
   "cmt_powershell": "# PowerShell",
   "cmt_cargo": "# Установка через cargo (стабильный Rust)",
   "cmt_deps": "# Поставить все зависимости + Rust stable (macOS, Debian, Fedora, Arch)",

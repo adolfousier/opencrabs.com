@@ -18,6 +18,8 @@
   "dl_linux": "Unduh untuk Linux",
   "all_platforms": "Semua platform →",
   "or_via_terminal": "atau lewat terminal",
+  "or_direct": "atau unduh langsung:",
+  "brew_rec_cmt": "# Disarankan untuk macOS: brew memilih arsitektur yang tepat dan menangani pembaruan",
   "cmt_powershell": "# PowerShell",
   "cmt_cargo": "# Instal via cargo (Rust stable)",
   "cmt_deps": "# Pasang semua dependensi + Rust stable (macOS, Debian, Fedora, Arch)",

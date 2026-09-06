@@ -76,6 +76,12 @@ fn copy_terminal_code() {
     }
 }
 
+fn copy_inline(text: &'static str) {
+    if let Some(w) = window() {
+        let _ = w.navigator().clipboard().write_text(text);
+    }
+}
+
 fn detect_os() -> &'static str {
     let window = leptos::prelude::window();
     let nav: web_sys::Navigator = window.navigator();
@@ -446,12 +452,42 @@ fn QuickStart(tag: Signal<String>) -> impl IntoView {
                                 build_download_url_full(&t, os)
                             };
                             view! {
-                                <div class="download-row">
-                                    <a href=url class="download-btn">{label}</a>
-                                    <a href="https://github.com/adolfousier/opencrabs/releases/latest" class="download-all">{move || t!(i18n, all_platforms)}</a>
-                                </div>
-                                <div class="download-divider">{move || t!(i18n, or_via_terminal)}</div>
-                                {if os == "windows" {
+                                {if os == "macos" {
+                                    view! {
+                                        <div class="brew-hero">
+                                            <div class="brew-cmd-row">
+                                                <span class="terminal-prompt">"$ "</span>
+                                                <span class="terminal-cmd"><strong>"brew install opencrabs"</strong></span>
+                                                <button class="copy-inline" on:click=move |_| copy_inline("brew install opencrabs")>"📋"</button>
+                                            </div>
+                                            <div class="terminal-comment">{move || t!(i18n, brew_rec_cmt)}</div>
+                                        </div>
+                                        <div class="download-row" style="margin-top:12px">
+                                            <a href=url class="download-all">"⬇ "{move || t!(i18n, dl_macos)}</a>
+                                            <a href="https://github.com/adolfousier/opencrabs/releases/latest" class="download-all">{move || t!(i18n, all_platforms)}</a>
+                                        </div>
+                                        <div class="download-divider">{move || t!(i18n, or_via_terminal)}</div>
+                                        <div>
+                                            <span class="terminal-prompt">"$ "</span>
+                                            <span class="terminal-cmd">"TAG=$(curl -s https://api.github.com/repos/adolfousier/opencrabs/releases/latest | jq -r .tag_name)"</span>
+                                        </div>
+                                        <div>
+                                            <span class="terminal-prompt">"$ "</span>
+                                            <span class="terminal-cmd">"curl -fsSL https://github.com/adolfousier/opencrabs/releases/download/$TAG/opencrabs-$TAG-macos-arm64.tar.gz | tar xz"</span>
+                                        </div>
+                                        <div>
+                                            <span class="terminal-prompt">"$ "</span>
+                                            <span class="terminal-cmd">"./opencrabs"</span>
+                                        </div>
+                                    }.into_any()
+                                } else {
+                                    view! {
+                                        <div class="download-row">
+                                            <a href=url class="download-btn">{label}</a>
+                                            <a href="https://github.com/adolfousier/opencrabs/releases/latest" class="download-all">{move || t!(i18n, all_platforms)}</a>
+                                        </div>
+                                        <div class="download-divider">{move || t!(i18n, or_via_terminal)}</div>
+                                        {if os == "windows" {
                                     view! {
                                         <div>
                                             <span class="terminal-comment">{move || t!(i18n, cmt_powershell)}</span>
@@ -483,6 +519,8 @@ fn QuickStart(tag: Signal<String>) -> impl IntoView {
                                             <span class="terminal-prompt">"$ "</span>
                                             <span class="terminal-cmd">"./opencrabs"</span>
                                         </div>
+                                    }.into_any()
+                                }}
                                     }.into_any()
                                 }}
                             }
