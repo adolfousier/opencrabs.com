@@ -66,7 +66,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-59f654f4.js";
+            window.path_to_searchindex_js = "searchindex-cacf4d01.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-55df8b59.js"></script>
@@ -210,7 +210,7 @@
                     <main>
                         <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
 <p><strong>O OpenCrabs</strong> é um agente de orquestração de IA auto-hospedado e agnóstico de provider que corre como um único binário Rust. Automatiza o teu terminal, browser, channels (Telegram/Discord/Slack/WhatsApp/Trello) e codebase, respeitando a tua privacidade e mantendo-te no controlo.</p>
-<p><strong>6,997 testes</strong> abrangendo providers, ferramentas, channels, TUI, self-healing e automação de browser.</p>
+<p><strong>7,886 testes</strong> abrangendo providers, ferramentas, channels, TUI, self-healing e automação de browser.<strong>6,997 testes</strong> abrangendo providers, ferramentas, channels, TUI, self-healing e automação de browser.</p>
 <h2 id="o-que-distingue-o-opencrabs"><a class="header" href="#o-que-distingue-o-opencrabs">O Que Distingue o OpenCrabs</a></h2>
 <h3 id="zero-telemetria-nem-por-opção"><a class="header" href="#zero-telemetria-nem-por-opção">Zero Telemetria, Nem por Opção</a></h3>
 <ul>
@@ -279,6 +279,13 @@
 <li><strong><code>/restart</code> e <code>/exit</code> (v0.3.79)</strong> — reinicia ou desliga a partir de qualquer channel ou do TUI; só o owner nos channels, anuncia antes de agir</li>
 <li><strong>Circuit breaker de quota (v0.3.79)</strong> — providers com quota esgotada recebem um breaker com TTL e são saltados nas passagens de fallback; o esgotamento da cadeia é reportado explicitamente</li>
 <li><strong>Estado de planos entre sessions (v0.3.79)</strong> — os planos sobrevivem aos limites das sessions; a execução isolada de tarefas de plano vem ligada por defeito, o Ralph verifica no próprio diretório da session</li>
+<li><strong>Sistema de temas (v0.5.0)</strong> — presets verificados, um seletor interativo e os teus próprios temas em <code>~/.opencrabs/themes/*.toml</code>; o truecolor é detetado com um nível de recurso ANSI-256, e um preset cujo contraste tornaria o texto ilegível é recusado</li>
+<li><strong>Memória estrutural de código (v0.5.0)</strong> — o tree-sitter constrói um índice de símbolos e de grafo de chamadas ao lado do índice de texto, por isso “quem chama X” percorre arestas de chamada reais enquanto as perguntas conceptuais mantêm o percurso de texto (#1324)</li>
+<li><strong>Transferência de ficheiros por SSH (v0.5.0)</strong> — um ficheiro largado numa TUI a correr num host remoto é obtido através da ligação já aberta, com um <code>opencrabs drop-agent</code> do lado do cliente (#1289)</li>
+<li><strong>Veredictos de entrega do notify (v0.5.0)</strong> — o <code>session_notify</code> devolve um resultado de envio legível por máquina, os recibos de injeção de profundidade 3 tornam o <code>notify_id</code> verificável, e a entrega é redirecionada para a session que detém o channel nesse momento</li>
+<li><strong>Compactação em segundo plano (v0.5.0)</strong> — o sumarizador corre fora do turno em vez de reter a session enquanto trabalha</li>
+<li><strong>Redação do token na escrita (v0.5.0)</strong> — um erro de provider que transporte um URL já não pode expor o token do bot num log, seja qual for a origem do registo (#1322)</li>
+<li><strong>Userbot de Telegram só de receção (v0.5.0, experimental)</strong> — captura MTProto protegida por feature com início de sessão local por QR/código/2FA; guarda texto autorizado para consulta e nunca age como o utilizador</li>
 <li><strong>Modo de reparação doctor –fix (v0.3.83)</strong> — linhas de cron presas, markers obsoletos e permissões partidas são reparados no momento em vez de apenas reportados</li>
 <li><strong>Locks de escrita por caminho (v0.3.83)</strong> — escritas concorrentes no mesmo ficheiro são serializadas; o último a escrever deixa de ganhar silenciosamente</li>
 <li><strong>Isolamento de worktree para sub-agentes (v0.3.83)</strong> — cada agente filho recebe o seu próprio worktree e branch, pelo que um fan-out não consegue destruir a árvore partilhada</li>

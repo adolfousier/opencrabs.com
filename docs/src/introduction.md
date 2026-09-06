@@ -2,7 +2,7 @@
 
 **OpenCrabs** is a self-hosted, provider-agnostic AI orchestration agent that runs as a single Rust binary. It automates your terminal, browser, channels (Telegram/Discord/Slack/WhatsApp/Trello), and codebase, all while respecting your privacy and keeping you in control.
 
-**6,997 tests** across providers, tools, channels, TUI, self-healing, and browser automation.
+**7,886 tests** across providers, tools, channels, TUI, self-healing, and browser automation.
 
 ## What Makes OpenCrabs Different
 
@@ -68,6 +68,13 @@
 - **`/restart` and `/exit` (v0.3.79)** — restart or shut down from any channel or the TUI; owner-only on channels, announce before acting
 - **Quota circuit breaker (v0.3.79)** — quota-exhausted providers get a TTL breaker and are skipped in fallback walks; chain exhaustion reported explicitly
 - **Plan state across sessions (v0.3.79)** — plans survive session boundaries; isolated plan-task execution defaults on, Ralph verifies in the session's own directory
+- **Theme system (v0.5.0)** — verified presets, an interactive picker, and your own themes from `~/.opencrabs/themes/*.toml`; truecolor is detected with an ANSI-256 fallback tier, and a preset whose contrast would make text unreadable is refused
+- **Structural code memory (v0.5.0)** — tree-sitter builds a symbol and call-graph index beside the text index, so "who calls X" walks real call edges while conceptual questions keep the text lane (#1324)
+- **Drop transfer over SSH (v0.5.0)** — a file dropped into a TUI running on a remote host is pulled back through the connection already open, with an `opencrabs drop-agent` on the client side (#1289)
+- **Notify delivery verdicts (v0.5.0)** — `session_notify` returns a machine-readable send result, depth-3 injection receipts make `notify_id` checkable, and delivery redirects to the session that owns the channel now
+- **Background compaction (v0.5.0)** — the summariser runs off the turn instead of holding the session while it works
+- **Token redaction at the writer (v0.5.0)** — a provider error carrying a URL can no longer leak the bot token into a log, wherever it is logged from (#1322)
+- **Receive-only Telegram userbot (v0.5.0, experimental)** — feature-gated MTProto capture with local QR/code/2FA login; it stores allowlisted text for retrieval and never acts as the user
 - **doctor --fix repair mode (v0.3.83)** — stuck cron rows, stale markers and broken permissions are repaired on the spot instead of only reported
 - **Per-path write locks (v0.3.83)** — concurrent writes to the same file serialize; the last writer no longer silently wins
 - **Sub-agent worktree isolation (v0.3.83)** — each child agent gets its own worktree and branch, so a fan-out cannot clobber the shared tree

@@ -195,6 +195,14 @@ nav .container {
     margin-bottom: 24px;
 }
 
+.release-note {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin: 16px auto 0;
+    line-height: 1.6;
+}
+
 .hero-description {
     font-size: 1.15rem;
     color: var(--text-secondary);

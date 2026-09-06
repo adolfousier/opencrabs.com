@@ -52,5 +52,6 @@
   "footer_coffee": "Buy Me a Coffee",
   "footer_license": "Licence MIT",
   "footer_built_by": "Construit avec 🦀 par ",
-  "footer_and_community": " & la communauté OpenCrabs."
+  "footer_and_community": " & la communauté OpenCrabs.",
+  "latest_release_note": "v0.5.0 : notre plus grande version à ce jour, 595 commits. Thèmes, mémoire qui comprend le code et transfert de fichiers via SSH."
 }

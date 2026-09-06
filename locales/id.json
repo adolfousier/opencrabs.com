@@ -52,5 +52,6 @@
   "footer_coffee": "Buy Me a Coffee",
   "footer_license": "Lisensi MIT",
   "footer_built_by": "Dibangun dengan 🦀 oleh ",
-  "footer_and_community": " & komunitas OpenCrabs."
+  "footer_and_community": " & komunitas OpenCrabs.",
+  "latest_release_note": "v0.5.0: rilis terbesar kami sejauh ini, 595 commits. Tema, memori yang memahami kode, dan transfer berkas lewat SSH."
 }
