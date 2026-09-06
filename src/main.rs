@@ -237,6 +237,7 @@ fn LangSwitcher() -> impl IntoView {
 fn Nav(stars: Signal<u32>, tag: Signal<String>) -> impl IntoView {
     let i18n = use_i18n();
     let menu_open = RwSignal::new(false);
+    let dl_popover = RwSignal::new(false);
     let star_label = move || {
         let count = stars.get();
         if count > 0 {
@@ -266,7 +267,38 @@ fn Nav(stars: Signal<u32>, tag: Signal<String>) -> impl IntoView {
                             } else {
                                 build_download_url_full(&t, os)
                             };
-                            view! { <a href=url class="nav-download">{move || t!(i18n, nav_download)}</a> }
+                            if os == "macos" {
+                                view! {
+                                    <span class="dl-wrap">
+                                        <a
+                                            href=url.clone()
+                                            class="nav-download"
+                                            on:click=move |ev: leptos::ev::MouseEvent| { ev.prevent_default(); dl_popover.update(|o| *o = !*o); }
+                                        >
+                                            {move || t!(i18n, nav_download)}
+                                        </a>
+                                        <span class="dl-popover" class:open=dl_popover>
+                                            <a
+                                                class="dl-popover-close"
+                                                href="#"
+                                                on:click=move |ev: leptos::ev::MouseEvent| { ev.prevent_default(); dl_popover.set(false); }
+                                            >
+                                                "×"
+                                            </a>
+                                            <span class="dl-popover-title">"macOS"</span>
+                                            <span class="dl-brew-row">
+                                                <code>"brew install opencrabs"</code>
+                                                <button class="dl-copy" on:click=move |_| copy_inline("brew install opencrabs")>"⧉"</button>
+                                            </span>
+                                            <a class="dl-direct" href=url>
+                                                "⬇ "{move || t!(i18n, or_direct)}
+                                            </a>
+                                        </span>
+                                    </span>
+                                }.into_any()
+                            } else {
+                                view! { <a href=url class="nav-download">{move || t!(i18n, nav_download)}</a> }.into_any()
+                            }
                         }}
                     </li>
                     <li>

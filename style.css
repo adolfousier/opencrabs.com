@@ -459,6 +459,97 @@ nav .container {
     opacity: 0.85;
 }
 
+/* ── macOS Download Popover ─────────────────────────────────── */
+.dl-wrap {
+    position: relative;
+    display: inline-block;
+}
+
+.dl-popover {
+    display: none;
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    z-index: 200;
+    min-width: 240px;
+    background: var(--bg-card, #161b22);
+    border: 1px solid var(--border, #30363d);
+    border-radius: 8px;
+    padding: 12px 14px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    flex-direction: column;
+    gap: 8px;
+}
+
+.dl-popover.open {
+    display: flex;
+}
+
+.dl-popover-close {
+    position: absolute;
+    top: 6px;
+    right: 8px;
+    color: var(--text-muted, #8b949e);
+    font-size: 0.9rem;
+    text-decoration: none;
+}
+
+.dl-popover-title {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted, #8b949e);
+}
+
+.dl-brew-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.dl-brew-row code {
+    flex: 1;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.75rem;
+    background: rgba(0, 0, 0, 0.35);
+    border: 1px solid var(--border, #30363d);
+    border-radius: 6px;
+    padding: 7px 10px;
+    color: var(--accent, #ff8c42);
+    white-space: nowrap;
+    overflow-x: auto;
+}
+
+.dl-copy {
+    background: transparent;
+    border: 1px solid var(--border, #30363d);
+    border-radius: 6px;
+    color: var(--text-muted, #8b949e);
+    cursor: pointer;
+    padding: 6px 8px;
+    font-size: 0.8rem;
+    flex-shrink: 0;
+}
+
+.dl-copy:hover {
+    color: var(--accent, #ff8c42);
+    border-color: var(--accent, #ff8c42);
+}
+
+.dl-direct {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text, #e6edf3);
+    text-decoration: none;
+    border-top: 1px solid var(--border, #30363d);
+    padding-top: 8px;
+}
+
+.dl-direct:hover {
+    color: var(--accent, #ff8c42);
+}
+
 .terminal-note {
     text-align: center;
     color: var(--text-muted);
