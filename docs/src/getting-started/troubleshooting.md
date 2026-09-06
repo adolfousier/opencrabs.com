@@ -320,6 +320,30 @@ This reliably resolves the issue. A fix is coming in a future release.
 
 ---
 
+## Claude Code CLI Refuses to Run as Root (VPS, Docker)
+
+**Symptom:** the `claude_cli` provider is enabled and `claude` is authenticated, but every request fails as soon as it spawns. In the log the CLI exits immediately with a message about `--dangerously-skip-permissions` not being allowed for root, or the first spawn hangs waiting on a prompt nobody can answer.
+
+**Cause:** OpenCrabs runs the CLI headless with `--dangerously-skip-permissions` (it owns tool execution itself, so the CLI never asks). Claude Code refuses that flag when the process runs as root unless it believes it is inside a sandbox, and on a fresh install it also wants a one-time interactive acknowledgement of that mode. A VPS or container where OpenCrabs runs as root hits both.
+
+**Fix:** put the acknowledgement and the sandbox marker in the CLI's own settings file, `~/.claude/settings.json` for the user OpenCrabs runs as (`/root/.claude/settings.json` on a root box):
+
+```json
+{
+  "permissions": { "defaultMode": "bypassPermissions" },
+  "skipDangerousModePermissionPrompt": true,
+  "env": { "IS_SANDBOX": "1" }
+}
+```
+
+Merge these keys into the file if it already exists (keep `model`, `theme`, and the rest). The CLI reads `settings.json` on every invocation, so no OpenCrabs restart is needed; the next spawn goes through. Verify as the same user:
+
+```bash
+echo "say OK" | claude -p --dangerously-skip-permissions
+```
+
+`IS_SANDBOX=1` only tells Claude Code that the root check may be skipped. It does not sandbox anything, so keep the box firewalled the way you would for any root agent. On a desktop where OpenCrabs runs as your own user none of this is required.
+
 ## Daemon Stays Down
 
 If `opencrabs service status` says stopped:

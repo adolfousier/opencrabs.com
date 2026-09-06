@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OpenCrabs\n"
-"POT-Creation-Date: 2026-09-06T02:20:15+01:00\n"
+"POT-Creation-Date: 2026-09-06T21:07:05+01:00\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -226,7 +226,7 @@ msgstr ""
 msgid "Development"
 msgstr ""
 
-#: src/SUMMARY.md:64 src/getting-started/troubleshooting.md:458
+#: src/SUMMARY.md:64 src/getting-started/troubleshooting.md:482
 #: src/development/building.md:1
 msgid "Building from Source"
 msgstr ""
@@ -2438,8 +2438,8 @@ msgstr ""
 #: src/getting-started/configuration.md:384
 #: src/getting-started/cli-commands.md:13
 #: src/getting-started/cli-commands.md:46
-#: src/getting-started/troubleshooting.md:380
-#: src/getting-started/troubleshooting.md:476 src/brain/providers.md:430
+#: src/getting-started/troubleshooting.md:404
+#: src/getting-started/troubleshooting.md:500 src/brain/providers.md:430
 #: src/brain/images.md:76 src/channels/telegram.md:137
 #: src/channels/telegram.md:195 src/channels/discord.md:63
 #: src/channels/slack.md:66 src/channels/whatsapp.md:46
@@ -2832,7 +2832,7 @@ msgstr ""
 #: src/getting-started/configuration.md:363
 #: src/getting-started/configuration.md:384
 #: src/getting-started/cli-commands.md:46
-#: src/getting-started/troubleshooting.md:476 src/brain/providers.md:430
+#: src/getting-started/troubleshooting.md:500 src/brain/providers.md:430
 #: src/channels/telegram.md:137 src/channels/discord.md:63
 #: src/channels/slack.md:66 src/channels/whatsapp.md:46
 #: src/channels/trello.md:59 src/brain/memory.md:82 src/features/a2a.md:21
@@ -4297,7 +4297,7 @@ msgid "Configuration Flags"
 msgstr ""
 
 #: src/getting-started/cli-commands.md:46
-#: src/getting-started/troubleshooting.md:476 src/features/cron-jobs.md:39
+#: src/getting-started/troubleshooting.md:500 src/features/cron-jobs.md:39
 msgid "Flag"
 msgstr ""
 
@@ -4701,12 +4701,12 @@ msgid "Troubleshooting: daemon stays down"
 msgstr ""
 
 #: src/getting-started/cli-commands.md:223
-#: src/getting-started/troubleshooting.md:325
+#: src/getting-started/troubleshooting.md:349
 msgid "If `opencrabs service status` says stopped:"
 msgstr ""
 
 #: src/getting-started/cli-commands.md:225
-#: src/getting-started/troubleshooting.md:327
+#: src/getting-started/troubleshooting.md:351
 msgid ""
 "**Did you open the TUI?** Opening `opencrabs` deliberately shuts the daemon "
 "down so the interactive session can own the channels. The daemon stays down "
@@ -4714,7 +4714,7 @@ msgid ""
 msgstr ""
 
 #: src/getting-started/cli-commands.md:226
-#: src/getting-started/troubleshooting.md:328
+#: src/getting-started/troubleshooting.md:352
 msgid ""
 "**Old builds** may still have `Restart=on-failure` instead of "
 "`Restart=always`. Re-generate the unit with `opencrabs service install` "
@@ -4722,7 +4722,7 @@ msgid ""
 msgstr ""
 
 #: src/getting-started/cli-commands.md:227
-#: src/getting-started/troubleshooting.md:329
+#: src/getting-started/troubleshooting.md:353
 msgid ""
 "**Config, keys, commands, and tools hot-reload at runtime.** Editing "
 "`config.toml` or `keys.toml` never needs a daemon restart. If a change isn't "
@@ -5095,7 +5095,7 @@ msgid "CPU Requirement"
 msgstr ""
 
 #: src/getting-started/troubleshooting.md:108
-#: src/getting-started/troubleshooting.md:419
+#: src/getting-started/troubleshooting.md:443
 msgid "Fallback"
 msgstr ""
 
@@ -5668,249 +5668,327 @@ msgid "This reliably resolves the issue. A fix is coming in a future release."
 msgstr ""
 
 #: src/getting-started/troubleshooting.md:323
+msgid "Claude Code CLI Refuses to Run as Root (VPS, Docker)"
+msgstr ""
+
+#: src/getting-started/troubleshooting.md:325
+msgid ""
+"**Symptom:** the `claude_cli` provider is enabled and `claude` is "
+"authenticated, but every request fails as soon as it spawns. In the log the "
+"CLI exits immediately with a message about `--dangerously-skip-permissions` "
+"not being allowed for root, or the first spawn hangs waiting on a prompt "
+"nobody can answer."
+msgstr ""
+
+#: src/getting-started/troubleshooting.md:327
+msgid ""
+"**Cause:** OpenCrabs runs the CLI headless with "
+"`--dangerously-skip-permissions` (it owns tool execution itself, so the CLI "
+"never asks). Claude Code refuses that flag when the process runs as root "
+"unless it believes it is inside a sandbox, and on a fresh install it also "
+"wants a one-time interactive acknowledgement of that mode. A VPS or "
+"container where OpenCrabs runs as root hits both."
+msgstr ""
+
+#: src/getting-started/troubleshooting.md:329
+msgid ""
+"**Fix:** put the acknowledgement and the sandbox marker in the CLI's own "
+"settings file, `~/.claude/settings.json` for the user OpenCrabs runs as "
+"(`/root/.claude/settings.json` on a root box):"
+msgstr ""
+
+#: src/getting-started/troubleshooting.md:333
+msgid "\"permissions\""
+msgstr ""
+
+#: src/getting-started/troubleshooting.md:333
+msgid "\"defaultMode\""
+msgstr ""
+
+#: src/getting-started/troubleshooting.md:333
+msgid "\"bypassPermissions\""
+msgstr ""
+
+#: src/getting-started/troubleshooting.md:334
+msgid "\"skipDangerousModePermissionPrompt\""
+msgstr ""
+
+#: src/getting-started/troubleshooting.md:335
+msgid "\"env\""
+msgstr ""
+
+#: src/getting-started/troubleshooting.md:335
+msgid "\"IS_SANDBOX\""
+msgstr ""
+
+#: src/getting-started/troubleshooting.md:335
+msgid "\"1\""
+msgstr ""
+
+#: src/getting-started/troubleshooting.md:339
+msgid ""
+"Merge these keys into the file if it already exists (keep `model`, `theme`, "
+"and the rest). The CLI reads `settings.json` on every invocation, so no "
+"OpenCrabs restart is needed; the next spawn goes through. Verify as the same "
+"user:"
+msgstr ""
+
+#: src/getting-started/troubleshooting.md:342
+msgid "\"say OK\""
+msgstr ""
+
+#: src/getting-started/troubleshooting.md:345
+msgid ""
+"`IS_SANDBOX=1` only tells Claude Code that the root check may be skipped. It "
+"does not sandbox anything, so keep the box firewalled the way you would for "
+"any root agent. On a desktop where OpenCrabs runs as your own user none of "
+"this is required."
+msgstr ""
+
+#: src/getting-started/troubleshooting.md:347
 msgid "Daemon Stays Down"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:331
+#: src/getting-started/troubleshooting.md:355
 msgid ""
 "For full daemon/service documentation, see [CLI Commands: Daemon Mode vs "
 "TUI](../getting-started/cli-commands#daemon-mode-vs-tui)."
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:335
+#: src/getting-started/troubleshooting.md:359
 msgid "Local STT (Speech-to-Text)"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:337
+#: src/getting-started/troubleshooting.md:361
 msgid ""
 "Since v0.2.67, local STT uses **rwhisper** (candle, pure Rust) instead of "
 "whisper-rs/ggml. On macOS, it uses **Metal GPU acceleration** automatically."
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:339 src/brain/providers-overview.md:5
+#: src/getting-started/troubleshooting.md:363 src/brain/providers-overview.md:5
 msgid "Models"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:341 src/features/voice.md:22
+#: src/getting-started/troubleshooting.md:365 src/features/voice.md:22
 #: src/features/usage-dashboard.md:41 src/features/usage-dashboard.md:54
 msgid "Model"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:341
-#: src/getting-started/troubleshooting.md:380 src/features/voice.md:22
+#: src/getting-started/troubleshooting.md:365
+#: src/getting-started/troubleshooting.md:404 src/features/voice.md:22
 msgid "Size"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:341 src/features/voice.md:22
+#: src/getting-started/troubleshooting.md:365 src/features/voice.md:22
 msgid "Quality"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:343
+#: src/getting-started/troubleshooting.md:367
 msgid "`quantized-tiny`"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:343
+#: src/getting-started/troubleshooting.md:367
 msgid "~42 MB"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:343 src/features/voice.md:24
+#: src/getting-started/troubleshooting.md:367 src/features/voice.md:24
 msgid "Good for short messages"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:344
+#: src/getting-started/troubleshooting.md:368
 msgid "`base-en`"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:344 src/features/voice.md:25
+#: src/getting-started/troubleshooting.md:368 src/features/voice.md:25
 msgid "~142 MB"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:344
+#: src/getting-started/troubleshooting.md:368
 msgid "Better accuracy (English)"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:345
+#: src/getting-started/troubleshooting.md:369
 msgid "`small-en`"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:345 src/features/voice.md:26
+#: src/getting-started/troubleshooting.md:369 src/features/voice.md:26
 msgid "~466 MB"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:345 src/features/voice.md:26
+#: src/getting-started/troubleshooting.md:369 src/features/voice.md:26
 msgid "High accuracy"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:346
+#: src/getting-started/troubleshooting.md:370
 msgid "`medium-en`"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:346 src/features/voice.md:27
+#: src/getting-started/troubleshooting.md:370 src/features/voice.md:27
 msgid "~1.5 GB"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:346 src/features/voice.md:27
+#: src/getting-started/troubleshooting.md:370 src/features/voice.md:27
 msgid "Best accuracy"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:348
+#: src/getting-started/troubleshooting.md:372
 msgid "Models download automatically from HuggingFace on first use."
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:350
-#: src/getting-started/troubleshooting.md:389
+#: src/getting-started/troubleshooting.md:374
+#: src/getting-started/troubleshooting.md:413
 msgid "Common Issues"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:352
+#: src/getting-started/troubleshooting.md:376
 msgid ""
 "**Local STT option not showing in wizard:** Your CPU lacks AVX2. Use API "
 "mode (Groq Whisper) instead, or build from source with `RUSTFLAGS=\"-C "
 "target-cpu=native\"`."
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:354
+#: src/getting-started/troubleshooting.md:378
 msgid ""
 "**\"No audio samples decoded\":** Audio file is corrupt or unsupported "
 "format. Supported: OGG/Opus, WAV."
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:356
+#: src/getting-started/troubleshooting.md:380
 msgid ""
 "**Transcription hangs:** Times out after 300 seconds. Try a smaller model "
 "(`quantized-tiny`)."
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:358
+#: src/getting-started/troubleshooting.md:382
 msgid ""
 "**Model download fails:** Check network connection. Models are fetched from "
 "HuggingFace."
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:360
+#: src/getting-started/troubleshooting.md:384
 msgid ""
 "**Audio too short:** Messages under 1 second are automatically padded to "
 "prevent tensor errors."
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:362
-#: src/getting-started/troubleshooting.md:406
+#: src/getting-started/troubleshooting.md:386
+#: src/getting-started/troubleshooting.md:430
 msgid "Disabling"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:371
+#: src/getting-started/troubleshooting.md:395
 msgid "Local TTS (Text-to-Speech)"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:373 src/features/browser.md:5
+#: src/getting-started/troubleshooting.md:397 src/features/browser.md:5
 msgid "Requirements"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:375
+#: src/getting-started/troubleshooting.md:399
 msgid "**Python 3** must be installed and in PATH"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:376
+#: src/getting-started/troubleshooting.md:400
 msgid ""
 "Piper installs automatically in a venv at `~/.opencrabs/models/piper/venv/`"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:378 src/features/voice.md:52
+#: src/getting-started/troubleshooting.md:402 src/features/voice.md:52
 msgid "Voices"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:380 src/features/voice.md:61
+#: src/getting-started/troubleshooting.md:404 src/features/voice.md:61
 msgid "Voice"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:382 src/features/voice.md:63
+#: src/getting-started/troubleshooting.md:406 src/features/voice.md:63
 msgid "`ryan`"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:382 src/features/voice.md:63
+#: src/getting-started/troubleshooting.md:406 src/features/voice.md:63
 msgid "US Male (default)"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:382
-#: src/getting-started/troubleshooting.md:383
-#: src/getting-started/troubleshooting.md:384
-#: src/getting-started/troubleshooting.md:385
-#: src/getting-started/troubleshooting.md:386
-#: src/getting-started/troubleshooting.md:387
+#: src/getting-started/troubleshooting.md:406
+#: src/getting-started/troubleshooting.md:407
+#: src/getting-started/troubleshooting.md:408
+#: src/getting-started/troubleshooting.md:409
+#: src/getting-started/troubleshooting.md:410
+#: src/getting-started/troubleshooting.md:411
 msgid "~200-400 MB"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:383 src/features/voice.md:64
+#: src/getting-started/troubleshooting.md:407 src/features/voice.md:64
 msgid "`amy`"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:383
-#: src/getting-started/troubleshooting.md:384
-#: src/getting-started/troubleshooting.md:385 src/features/voice.md:64
+#: src/getting-started/troubleshooting.md:407
+#: src/getting-started/troubleshooting.md:408
+#: src/getting-started/troubleshooting.md:409 src/features/voice.md:64
 #: src/features/voice.md:65 src/features/voice.md:66
 msgid "US Female"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:384 src/features/voice.md:65
+#: src/getting-started/troubleshooting.md:408 src/features/voice.md:65
 msgid "`lessac`"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:385 src/features/voice.md:66
+#: src/getting-started/troubleshooting.md:409 src/features/voice.md:66
 msgid "`kristin`"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:386 src/features/voice.md:67
+#: src/getting-started/troubleshooting.md:410 src/features/voice.md:67
 msgid "`joe`"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:386 src/features/voice.md:67
+#: src/getting-started/troubleshooting.md:410 src/features/voice.md:67
 msgid "US Male"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:387 src/features/voice.md:68
+#: src/getting-started/troubleshooting.md:411 src/features/voice.md:68
 msgid "`cori`"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:387 src/features/voice.md:68
+#: src/getting-started/troubleshooting.md:411 src/features/voice.md:68
 msgid "UK Female"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:391
+#: src/getting-started/troubleshooting.md:415
 msgid ""
 "**\"python3 -m venv failed\":** Install Python 3. On Ubuntu: `sudo apt "
 "install python3 python3-venv`. On macOS: `brew install python3`."
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:393
+#: src/getting-started/troubleshooting.md:417
 msgid ""
 "**\"pip install piper-tts failed\":** Network issue or pip corrupted. Fix "
 "pip first:"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:398
+#: src/getting-started/troubleshooting.md:422
 msgid ""
 "**Telegram voice messages show no waveform:** This was fixed in v0.2.64 — "
 "audio is now properly encoded as OGG/Opus (RFC 7845). Update to latest "
 "version."
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:400
+#: src/getting-started/troubleshooting.md:424
 msgid ""
 "**Voice preview not playing:** Preview uses `afplay` (macOS), `aplay` "
 "(Linux), or `powershell` (Windows). Ensure audio output is available."
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:402
+#: src/getting-started/troubleshooting.md:426
 msgid "Re-setup"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:404
+#: src/getting-started/troubleshooting.md:428
 msgid ""
 "Run `/onboard:voice` in the TUI to reconfigure STT/TTS mode and re-download "
 "models."
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:408
+#: src/getting-started/troubleshooting.md:432
 msgid ""
 "```toml\n"
 "[voice]\n"
@@ -5918,173 +5996,173 @@ msgid ""
 "```"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:415
+#: src/getting-started/troubleshooting.md:439
 msgid "Local Embeddings (Memory Search)"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:417
+#: src/getting-started/troubleshooting.md:441
 msgid ""
 "The memory search engine uses a ~300 MB embedding model (llama.cpp) for "
 "semantic search. It requires **AVX** on x86 CPUs."
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:421
+#: src/getting-started/troubleshooting.md:445
 msgid ""
 "If embeddings can't initialize (no AVX, download failed, disk full), memory "
 "search falls back to **FTS-only** (keyword matching). It still works, just "
 "less semantic."
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:423
+#: src/getting-started/troubleshooting.md:447
 msgid "Fix for Older CPUs"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:425
+#: src/getting-started/troubleshooting.md:449
 msgid ""
 "Build from source with CPU targeting (see [Older "
 "CPUs](#older-cpus-pre-2011--no-avx) above)."
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:427
+#: src/getting-started/troubleshooting.md:451
 msgid "Model Location"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:429
+#: src/getting-started/troubleshooting.md:453
 msgid ""
 "Models are stored in `~/.local/share/opencrabs/models/` (platform-specific "
 "data directory)."
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:433
+#: src/getting-started/troubleshooting.md:457
 msgid "Database Issues"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:435 src/development/testing.md:11
+#: src/getting-started/troubleshooting.md:459 src/development/testing.md:11
 msgid "Location"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:437
+#: src/getting-started/troubleshooting.md:461
 msgid "**Main database:** `~/.opencrabs/opencrabs.db` (SQLite + WAL)"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:438
+#: src/getting-started/troubleshooting.md:462
 msgid "**WhatsApp session:** `~/.opencrabs/whatsapp/session.db`"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:440
+#: src/getting-started/troubleshooting.md:464
 msgid "Database Corruption"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:442
+#: src/getting-started/troubleshooting.md:466
 msgid "SQLite with WAL mode is very resilient, but if corruption occurs:"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:445
+#: src/getting-started/troubleshooting.md:469
 msgid "# Back up the corrupted file first\n"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:447
+#: src/getting-started/troubleshooting.md:471
 msgid "# Reinitialize (WARNING: loses all history)\n"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:452
+#: src/getting-started/troubleshooting.md:476
 msgid "Migration Errors"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:454
+#: src/getting-started/troubleshooting.md:478
 msgid ""
 "The database automatically migrates on startup (11 migrations). If migrating "
 "from an older version with sqlx, the transition is handled automatically — "
 "no manual steps needed."
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:460 src/features/voice.md:5
+#: src/getting-started/troubleshooting.md:484 src/features/voice.md:5
 msgid "Quick Setup"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:468
+#: src/getting-started/troubleshooting.md:492
 msgid "Build Without Voice (Smaller Binary)"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:474 src/development/building.md:38
+#: src/getting-started/troubleshooting.md:498 src/development/building.md:38
 msgid "Feature Flags"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:478 src/development/testing.md:399
+#: src/getting-started/troubleshooting.md:502 src/development/testing.md:399
 msgid "`local-stt`"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:478
-#: src/getting-started/troubleshooting.md:479
-#: src/getting-started/troubleshooting.md:480
-#: src/getting-started/troubleshooting.md:481
-#: src/getting-started/troubleshooting.md:482
-#: src/getting-started/troubleshooting.md:483
-#: src/getting-started/troubleshooting.md:484
+#: src/getting-started/troubleshooting.md:502
+#: src/getting-started/troubleshooting.md:503
+#: src/getting-started/troubleshooting.md:504
+#: src/getting-started/troubleshooting.md:505
+#: src/getting-started/troubleshooting.md:506
+#: src/getting-started/troubleshooting.md:507
+#: src/getting-started/troubleshooting.md:508
 msgid "On"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:478
+#: src/getting-started/troubleshooting.md:502
 msgid "whisper.cpp for local speech-to-text"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:479 src/development/testing.md:400
+#: src/getting-started/troubleshooting.md:503 src/development/testing.md:400
 msgid "`local-tts`"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:479
+#: src/getting-started/troubleshooting.md:503
 msgid "Piper for local text-to-speech"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:480 src/development/building.md:44
+#: src/getting-started/troubleshooting.md:504 src/development/building.md:44
 msgid "`telegram`"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:480
+#: src/getting-started/troubleshooting.md:504
 msgid "Telegram channel"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:481 src/development/building.md:47
+#: src/getting-started/troubleshooting.md:505 src/development/building.md:47
 msgid "`whatsapp`"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:481
+#: src/getting-started/troubleshooting.md:505
 msgid "WhatsApp channel"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:482 src/development/building.md:45
+#: src/getting-started/troubleshooting.md:506 src/development/building.md:45
 msgid "`discord`"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:482
+#: src/getting-started/troubleshooting.md:506
 msgid "Discord channel"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:483 src/development/building.md:46
+#: src/getting-started/troubleshooting.md:507 src/development/building.md:46
 msgid "`slack`"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:483
+#: src/getting-started/troubleshooting.md:507
 msgid "Slack channel"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:484 src/development/building.md:48
+#: src/getting-started/troubleshooting.md:508 src/development/building.md:48
 msgid "`trello`"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:484
+#: src/getting-started/troubleshooting.md:508
 msgid "Trello channel"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:488
+#: src/getting-started/troubleshooting.md:512
 msgid "Debug Mode"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:490
+#: src/getting-started/troubleshooting.md:514
 msgid "Run with `-d` for verbose logging:"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:496
+#: src/getting-started/troubleshooting.md:520
 msgid "Logs go to `~/.opencrabs/logs/` with 7-day retention."
 msgstr ""
 
