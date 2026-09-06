@@ -6266,9 +6266,8 @@ msgid "\"permissions\""
 msgstr ""
 
 #: src/getting-started/troubleshooting.md:333
-#, fuzzy
 msgid "\"defaultMode\""
-msgstr "Por defecto"
+msgstr ""
 
 #: src/getting-started/troubleshooting.md:333
 msgid "\"bypassPermissions\""
