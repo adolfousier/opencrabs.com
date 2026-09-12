@@ -65,7 +65,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-034612d5.js";
+            window.path_to_searchindex_js = "searchindex-493a2404.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-55df8b59.js"></script>
@@ -209,7 +209,7 @@
                     <main>
                         <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
 <p><strong>OpenCrabs</strong> es un agente de orquestación de IA autoalojado y agnóstico de proveedor que funciona como un único binario Rust. Automatiza tu terminal, navegador, canales (Telegram/Discord/Slack/WhatsApp/Trello) y código base, respetando tu privacidad y manteniéndote en control.</p>
-<p><strong>7,886 pruebas</strong> en providers, herramientas, channels, TUI, self-healing y automatización de browser.<strong>6,997 tests</strong> cubriendo proveedores, herramientas, canales, TUI, auto-reparación y automatización de navegador.</p>
+<p><strong>8,412 tests</strong> across providers, tools, channels, TUI, self-healing, and browser automation.</p>
 <h2 id="qué-hace-diferente-a-opencrabs"><a class="header" href="#qué-hace-diferente-a-opencrabs">Qué Hace Diferente a OpenCrabs</a></h2>
 <h3 id="cero-telemetría-ni-siquiera-opt-in"><a class="header" href="#cero-telemetría-ni-siquiera-opt-in">Cero Telemetría, Ni Siquiera Opt-In</a></h3>
 <ul>
@@ -259,74 +259,231 @@
 </ul>
 <h3 id="auto-reparación-y-automejora"><a class="header" href="#auto-reparación-y-automejora">Auto-Reparación y Automejora</a></h3>
 <ul>
-<li><strong>Automejora Recursiva (RSI)</strong> — el agente analiza su rendimiento, identifica patrones y reescribe sus brain files</li>
-<li><strong>Detección de tool calls fantasma</strong> — detecta cuando el modelo narra cambios sin ejecutar herramientas</li>
-<li><strong>Autocuración de fantasmas (v0.3.72)</strong> — detecta turnos sin herramientas que afirman efectos secundarios de alto riesgo (ship/push/tag/release)</li>
-<li><strong>Ediciones de config solo vía config_manager (v0.3.74)</strong> — el agente nunca edita en crudo config.toml/keys.toml; cada escritura se valida antes de aterrizar</li>
-<li><strong>Deduplicación de brain (v0.3.75)</strong> — el comando <code>/dedup</code> más escaneos post-escritura y semanales entre archivos evitan que los brain files deriven hacia la duplicación, con aprobación por teclado inline en Telegram</li>
-<li><strong>Pistas de brain files en fallos de herramientas (v0.3.75)</strong> — las notas relevantes del brain aparecen automáticamente cuando una llamada a herramienta falla o da error</li>
-<li><strong>Memoria proactiva (v0.3.76)</strong> — la memoria relevante aparece sin que se lo pidan cuando el contexto de la conversación coincide con conocimiento almacenado</li>
-<li><strong>Nombres de modelos naturales (v0.3.76)</strong> — <code>/models opus</code> funciona; los nombres coloquiales se resuelven a IDs exactos de modelo</li>
-<li><strong>Enrutado de proveedor planificar/ejecutar (v0.3.76)</strong> — enruta la planificación y la ejecución hacia proveedores/modelos separados</li>
-<li><strong>Timeout de bucle de pensamiento (v0.3.78)</strong> — detecta bucles de razonamiento infinitos, dispara la aplicación anti-fantasma con fallback persistente</li>
-<li><strong>Motor epistémico (v0.3.78)</strong> — seguimiento de creencias con niveles de confianza, malla cognitiva OODA/BDI, puerta Orient antes de ejecutar planes</li>
-<li><strong>Puerta de verificación Ralph (v0.3.78)</strong> — verificación de tareas consciente de criterios con tope de iteraciones; las tareas deben cumplir los criterios de aceptación establecidos</li>
-<li><strong>Puertas de seguridad TOML (v0.3.78)</strong> — blocklist de bash configurable en caliente, redacción de secretos entrecomillados, verificación de brain files</li>
-<li><strong>Analíticas de Mission Control (v0.3.78)</strong> — filtro D/W/M, rejilla de tarjetas de 3 en fondo, pestañas fantasma/modelo/streaming, BD de eventos dedicada</li>
-<li><strong>Onboarding de OpenAI TTS (v0.3.78)</strong> — selector de voz y campo de clave API en el asistente de onboarding</li>
-<li><strong>Instalación vía Homebrew (v0.3.79)</strong> — <code>brew install opencrabs</code> desde homebrew-core: binario precompilado, ambas arquitecturas, sin toolchain de Rust</li>
-<li><strong><code>/restart</code> y <code>/exit</code> (v0.3.79)</strong> — reinicia o apaga desde cualquier canal o la TUI; solo el owner en canales, anuncia antes de actuar</li>
-<li><strong>Cortacircuitos de cuota (v0.3.79)</strong> — los proveedores con cuota agotada reciben un breaker con TTL y se saltan en los recorridos de fallback; el agotamiento de la cadena se informa explícitamente</li>
-<li><strong>Estado de plan entre sesiones (v0.3.79)</strong> — los planes sobreviven a los límites de sesión; la ejecución aislada de tareas de plan viene activada por defecto, Ralph verifica en el directorio propio de la sesión</li>
-<li><strong>Sistema de temas (v0.5.0)</strong> — presets verificados, un selector interactivo y tus propios temas en <code>~/.opencrabs/themes/*.toml</code>; el truecolor se detecta con un nivel de reserva ANSI-256, y un preset cuyo contraste haría el texto ilegible se rechaza</li>
-<li><strong>Memoria estructural de código (v0.5.0)</strong> — tree-sitter construye un índice de símbolos y de grafo de llamadas junto al índice de texto, de modo que “quién llama a X” recorre aristas de llamada reales mientras las preguntas conceptuales siguen la vía de texto (#1324)</li>
-<li><strong>Transferencia de archivos por SSH (v0.5.0)</strong> — un archivo soltado en una TUI que corre en un host remoto se recupera por la conexión ya abierta, con un <code>opencrabs drop-agent</code> en el lado del cliente (#1289)</li>
-<li><strong>Veredictos de entrega de notify (v0.5.0)</strong> — <code>session_notify</code> devuelve un resultado de envío legible por máquina, los recibos de inyección de profundidad 3 hacen verificable el <code>notify_id</code>, y la entrega se redirige a la session que posee el channel en ese momento</li>
-<li><strong>Compactación en segundo plano (v0.5.0)</strong> — el resumidor corre fuera del turno en lugar de retener la session mientras trabaja</li>
-<li><strong>Redacción del token en la escritura (v0.5.0)</strong> — un error de provider que lleve una URL ya no puede filtrar el token del bot a un log, sea cual sea el origen del registro (#1322)</li>
-<li><strong>Userbot de Telegram solo de recepción (v0.5.0, experimental)</strong> — captura MTProto tras una feature, con inicio de sesión local por QR/código/2FA; almacena texto permitido para su consulta y nunca actúa como el usuario</li>
-<li><strong>Modo de reparación doctor –fix (v0.3.83)</strong> — las filas de cron atascadas, los marcadores obsoletos y los permisos rotos se reparan al momento en vez de solo reportarse</li>
-<li><strong>Bloqueos de escritura por ruta (v0.3.83)</strong> — las escrituras concurrentes al mismo archivo se serializan; el último escritor ya no gana en silencio</li>
-<li><strong>Aislamiento de worktree en sub-agentes (v0.3.83)</strong> — cada agente hijo recibe su propio worktree y rama, así un fan-out no puede machacar el árbol compartido</li>
-<li><strong>Criterios de aceptación conscientes del tipo (v0.3.83)</strong> — los criterios del plan se aplican contra la toolchain que el proyecto realmente usa (#1133)</li>
-<li><strong>Verificación de plan consciente del proyecto (v0.3.83)</strong> — los planes verifican con los comandos propios del proyecto, no siempre cargo, y localizan el proyecto desde la carpeta de la sesión</li>
-<li><strong>/stop cancela de inmediato (v0.3.83)</strong> — interrumpe durante el handshake del proveedor y las esperas de reintento (#1148)</li>
-<li><strong>Reanudación de sesión A2A (v0.3.83)</strong> — las sesiones se reanudan por context id, el gateway se direcciona por perfil (#1159, #1161)</li>
-<li><strong>Perillas de razonamiento de DeepSeek (v0.3.83)</strong> — DeepSeek recibe los parámetros de thinking que realmente lee, más gestión de turnos solo-con-tool-calls</li>
-<li><strong>Correlación de logs por session_id (v0.3.82)</strong> — cada turno abre un tracing span que lleva su session id, y los cron jobs y el motor RSI tienen los suyos, así un solo grep reconstruye un turno completo desde un log diario compartido</li>
-<li><strong>Fiabilidad del logger (v0.3.82)</strong> — el logger deja de perder eventos y de escribir en la terminal de la TUI; una escritura atascada ya no puede silenciar el logging de todos los demás hilos</li>
-<li><strong>Brain files del usuario protegidos (v0.3.82)</strong> — a SOUL.md, USER.md y MEMORY.md nunca se les fusiona contenido de upstream, y las directivas van a AGENTS.md, que siempre está cargado</li>
-<li><strong>Unificación de secciones de config (v0.3.82)</strong> — la escritura legada <code>[gateway]</code> se migra en disco a <code>[a2a]</code>, así un solo nombre sobrevive a un ciclo de recarga</li>
-<li><strong>Caché por hash de chunk (v0.3.82)</strong> — la memoria se salta re-embedder chunks cuyo contenido no ha cambiado</li>
-<li><strong>Binarios pre-release (v0.3.82)</strong> — cinco objetivos de plataforma más SHA256SUMS, publicados como pre-release continuo para que los contribuidores prueben código no publicado sin esperar un tag. Se ejecuta bajo demanda, no en cada push</li>
-<li><strong>Salida ante rate-limit (v0.3.82)</strong> — una ventana larga de rate-limit en Telegram devuelve de inmediato en vez de aparcar el envío en línea</li>
-<li><strong>Almacén de memoria in-tree (v0.3.81)</strong> — la dependencia qmd se elimina; búsqueda SQLite FTS5 + vectorial propiedad del propio árbol</li>
-<li><strong>Rutas de índice externas (v0.3.81)</strong> — la búsqueda de memoria lee índices fuera del directorio del perfil, default-deny en sesiones compartidas</li>
-<li><strong>Mermaid como imágenes en Telegram (v0.3.81)</strong> — los diagramas se renderizan como imágenes mientras las tablas mantienen el formato nativo</li>
-<li><strong>Razonamiento de Qwen entre turnos (v0.3.81)</strong> — preserve_thinking, perillas de thinking por familia, nivel de esfuerzo recomendado por defecto, Qwen hosted alcanzable desde todo</li>
-<li><strong>Arreglo de pérdida de claves en keys.toml (v0.3.81)</strong> — las claves API de proveedores ya no se pierden en tiempo de ejecución; las claves envenenadas se auto-reparan</li>
-<li><strong>Detección temprana de bucles (v0.3.81)</strong> — las rondas de herramientas repetitivas se detectan antes de que el proveedor rechace el turno</li>
-<li><strong>Puerta del motor RSI (v0.3.81)</strong> — RSI autónomo desactivado por defecto en daemons headless, actívalo con <code>rsi_enabled</code></li>
-<li><strong>Ámbito de memory_search (v0.3.80)</strong> — busca en logs diarios (<code>memory</code>), brain files (<code>brain</code>) o ambos (<code>all</code>); los brain files se indexan al escribir</li>
-<li><strong>Recuperación de memoria por chunks (v0.3.80)</strong> — los documentos se trocean antes del embedding para que los chunks posteriores sean buscables; el recall se ordena con BM25</li>
-<li><strong>Renderizado nativo de Slack (v0.3.80)</strong> — tablas y encabezados llegan en el propio formato de Slack en vez de markdown en crudo</li>
-<li><strong>Comandos de canal con puerta de owner (v0.3.80)</strong> — los comandos y skills personalizados son solo-owner en el brazo catch-all del canal en grupos</li>
-<li><strong>Puertas de convergencia RSI (v0.3.80)</strong> — la automejora se pausa al converger, se retira en rachas de cero mejora, y calcula hashes de hallazgos por identidad estable</li>
-<li><strong>Guardas anti-bucle (v0.3.80)</strong> — guardas de repetición por anuncio y casi-coincidencia en todas las herramientas; los kills del detector de bucles llegan a la cadena de fallback</li>
-<li><strong>Modo inventario del navegador (v0.3.80)</strong> — <code>browser_find</code> a secas enumera cada elemento clicable de la página</li>
-<li><strong>Actualización de plantillas de brain files (v0.3.80)</strong> — las plantillas de AGENTS.md, BOOT.md y SOUL.md cambiaron; el seeding nunca sobrescribe archivos existentes, así que haz diff contra <code>src/docs/reference/templates/</code> y fusiona a mano si quieres los nuevos valores por defecto</li>
-<li><strong>Reconstrucción del brain del sistema</strong> — los brain files se reconstruyen desde disco al cambiar, sin reiniciar</li>
-<li><strong>Descubrimiento proactivo de herramientas</strong> — busca herramientas disponibles antes de declararse incapaz</li>
-<li><strong>Analizador de prompts multilenguaje (v0.3.67)</strong> — PromptAnalyzer compartido con soft-nudge en TUI y Telegram, 6 paquetes de idioma (EN/ES/FR/ID/PT/RU)</li>
-<li><strong>Modo plan (v0.3.67-v0.3.68)</strong> — pistas design/checklist, tarjeta de plan persistente, comando <code>/plan &lt;query&gt;</code>, auto-aprobación del agente cuando el usuario concede autonomía</li>
-<li><strong>Clic-para-expandir (v0.3.69)</strong> — clic izquierdo en un bloque de tool-call o razonamiento para expandir solo ese bloque, complementando Ctrl+O</li>
-<li><strong>review_gate en skills (v0.3.70)</strong> — declaración en frontmatter para skills de alto riesgo que exigen aprobación del usuario antes de efectos secundarios</li>
-<li><strong>Activación JIT de herramientas</strong> — herramientas extendidas activadas bajo demanda, sin pre-registro</li>
-<li><strong>Auto-reparación de config</strong> — repara automáticamente un config.toml roto, nunca envenena la última config buena</li>
-<li><strong>Gestión del presupuesto de contexto</strong> — umbrales de compactación 65% suave / 90% duro con fallback a LLM</li>
-<li><strong>Detección de streams atascados</strong> — ventana rodante de 2048 bytes detecta patrones repetitivos</li>
-<li><strong>Defensa anti-gaslighting</strong> — elimina los preámbulos de rechazo de herramientas a mitad de turno</li>
-<li><strong>Entrega de resultados de build (v0.3.61)</strong> — los resultados de rebuild/evolve llegan a quien los pidió, a través de canales y TUI</li>
+<li>
+<p><strong>Automejora Recursiva (RSI)</strong> — el agente analiza su rendimiento, identifica patrones y reescribe sus brain files</p>
+</li>
+<li>
+<p><strong>Detección de tool calls fantasma</strong> — detecta cuando el modelo narra cambios sin ejecutar herramientas</p>
+</li>
+<li>
+<p><strong>Autocuración de fantasmas (v0.3.72)</strong> — detecta turnos sin herramientas que afirman efectos secundarios de alto riesgo (ship/push/tag/release)</p>
+</li>
+<li>
+<p><strong>Ediciones de config solo vía config_manager (v0.3.74)</strong> — el agente nunca edita en crudo config.toml/keys.toml; cada escritura se valida antes de aterrizar</p>
+</li>
+<li>
+<p><strong>Deduplicación de brain (v0.3.75)</strong> — el comando <code>/dedup</code> más escaneos post-escritura y semanales entre archivos evitan que los brain files deriven hacia la duplicación, con aprobación por teclado inline en Telegram</p>
+</li>
+<li>
+<p><strong>Pistas de brain files en fallos de herramientas (v0.3.75)</strong> — las notas relevantes del brain aparecen automáticamente cuando una llamada a herramienta falla o da error</p>
+</li>
+<li>
+<p><strong>Memoria proactiva (v0.3.76)</strong> — la memoria relevante aparece sin que se lo pidan cuando el contexto de la conversación coincide con conocimiento almacenado</p>
+</li>
+<li>
+<p><strong>Nombres de modelos naturales (v0.3.76)</strong> — <code>/models opus</code> funciona; los nombres coloquiales se resuelven a IDs exactos de modelo</p>
+</li>
+<li>
+<p><strong>Enrutado de proveedor planificar/ejecutar (v0.3.76)</strong> — enruta la planificación y la ejecución hacia proveedores/modelos separados</p>
+</li>
+<li>
+<p><strong>Timeout de bucle de pensamiento (v0.3.78)</strong> — detecta bucles de razonamiento infinitos, dispara la aplicación anti-fantasma con fallback persistente</p>
+</li>
+<li>
+<p><strong>Motor epistémico (v0.3.78)</strong> — seguimiento de creencias con niveles de confianza, malla cognitiva OODA/BDI, puerta Orient antes de ejecutar planes</p>
+</li>
+<li>
+<p><strong>Puerta de verificación Ralph (v0.3.78)</strong> — verificación de tareas consciente de criterios con tope de iteraciones; las tareas deben cumplir los criterios de aceptación establecidos</p>
+</li>
+<li>
+<p><strong>Puertas de seguridad TOML (v0.3.78)</strong> — blocklist de bash configurable en caliente, redacción de secretos entrecomillados, verificación de brain files</p>
+</li>
+<li>
+<p><strong>Analíticas de Mission Control (v0.3.78)</strong> — filtro D/W/M, rejilla de tarjetas de 3 en fondo, pestañas fantasma/modelo/streaming, BD de eventos dedicada</p>
+</li>
+<li>
+<p><strong>Onboarding de OpenAI TTS (v0.3.78)</strong> — selector de voz y campo de clave API en el asistente de onboarding</p>
+</li>
+<li>
+<p><strong>Instalación vía Homebrew (v0.3.79)</strong> — <code>brew install opencrabs</code> desde homebrew-core: binario precompilado, ambas arquitecturas, sin toolchain de Rust</p>
+</li>
+<li>
+<p><strong><code>/restart</code> y <code>/exit</code> (v0.3.79)</strong> — reinicia o apaga desde cualquier canal o la TUI; solo el owner en canales, anuncia antes de actuar</p>
+</li>
+<li>
+<p><strong>Cortacircuitos de cuota (v0.3.79)</strong> — los proveedores con cuota agotada reciben un breaker con TTL y se saltan en los recorridos de fallback; el agotamiento de la cadena se informa explícitamente</p>
+</li>
+<li>
+<p><strong>Estado de plan entre sesiones (v0.3.79)</strong> — los planes sobreviven a los límites de sesión; la ejecución aislada de tareas de plan viene activada por defecto, Ralph verifica en el directorio propio de la sesión</p>
+</li>
+<li>
+<p><strong>Sistema de temas (v0.5.0)</strong> — presets verificados, un selector interactivo y tus propios temas en <code>~/.opencrabs/themes/*.toml</code>; el truecolor se detecta con un nivel de reserva ANSI-256, y un preset cuyo contraste haría el texto ilegible se rechaza</p>
+</li>
+<li>
+<p><strong>Memoria estructural de código (v0.5.0)</strong> — tree-sitter construye un índice de símbolos y de grafo de llamadas junto al índice de texto, de modo que “quién llama a X” recorre aristas de llamada reales mientras las preguntas conceptuales siguen la vía de texto (#1324)</p>
+</li>
+<li>
+<p><strong>Transferencia de archivos por SSH (v0.5.0)</strong> — un archivo soltado en una TUI que corre en un host remoto se recupera por la conexión ya abierta, con un <code>opencrabs drop-agent</code> en el lado del cliente (#1289)</p>
+</li>
+<li>
+<p><strong>Veredictos de entrega de notify (v0.5.0)</strong> — <code>session_notify</code> devuelve un resultado de envío legible por máquina, los recibos de inyección de profundidad 3 hacen verificable el <code>notify_id</code>, y la entrega se redirige a la session que posee el channel en ese momento</p>
+</li>
+<li>
+<p><strong>Compactación en segundo plano (v0.5.0)</strong> — el resumidor corre fuera del turno en lugar de retener la session mientras trabaja</p>
+</li>
+<li>
+<p><strong>Redacción del token en la escritura (v0.5.0)</strong> — un error de provider que lleve una URL ya no puede filtrar el token del bot a un log, sea cual sea el origen del registro (#1322)</p>
+</li>
+<li>
+<p><strong>Userbot de Telegram solo de recepción (v0.5.0, experimental)</strong> — captura MTProto tras una feature, con inicio de sesión local por QR/código/2FA; almacena texto permitido para su consulta y nunca actúa como el usuario</p>
+</li>
+<li>
+<p><strong>Anclaje temporal (v0.5.1)</strong> — el agente siempre sabe qué hora es: cada turno lleva una marca temporal en la zona horaria del usuario, y el prompt del sistema permanece byte a byte estable para la caché del proveedor (#1516)</p>
+</li>
+<li>
+<p><strong>Sesiones de cron por job (v0.5.1)</strong> — cada job programado recibe su propia sesión, para que dos jobs en ejecución simultánea nunca compartan contexto ni proveedores (#1511)</p>
+</li>
+<li>
+<p><strong>Puerta de globs de skill (v0.5.1)</strong> — la lista <code>globs:</code> de una skill puede rechazar llamadas a herramientas sobre ficheros coincidentes hasta que el agente haya leído el cuerpo de la skill (#1515)</p>
+</li>
+<li>
+<p><strong>Escrituras de config validadas contra la estructura (v0.5.1)</strong> — la barrera de escritura y las sugerencias de sección de config_manager se derivan ahora del propio tipo <code>Config</code>, para no divergir jamás del código publicado (#1508)</p>
+</li>
+<li>
+<p><strong>Diseños de plan rechazados al escribir (v0.5.1)</strong> — un diseño de plan malformado rebota al instante con las secciones que faltan nombradas, y una escritura rechazada restaura el scaffold en vez de borrar el borrador (#1507)</p>
+</li>
+<li>
+<p><strong>Contrapresión de presupuesto del proveedor (v0.5.1)</strong> — un proveedor que informa un presupuesto de tokens de salida dispara una sola compactación acotada y un reintento, en vez de una cascada de 400 (#1518)</p>
+</li>
+<li>
+<p><strong>Tokens A2A atados y config solo del owner (v0.5.1)</strong> — los tokens A2A se atan al gateway que los emitió, y config.toml/keys.toml pasan a modo exclusivo del owner, con secretos limpiados de los logs</p>
+</li>
+<li>
+<p><strong>Modo de reparación doctor –fix (v0.3.83)</strong> — las filas de cron atascadas, los marcadores obsoletos y los permisos rotos se reparan al momento en vez de solo reportarse</p>
+</li>
+<li>
+<p><strong>Bloqueos de escritura por ruta (v0.3.83)</strong> — las escrituras concurrentes al mismo archivo se serializan; el último escritor ya no gana en silencio</p>
+</li>
+<li>
+<p><strong>Aislamiento de worktree en sub-agentes (v0.3.83)</strong> — cada agente hijo recibe su propio worktree y rama, así un fan-out no puede machacar el árbol compartido</p>
+</li>
+<li>
+<p><strong>Criterios de aceptación conscientes del tipo (v0.3.83)</strong> — los criterios del plan se aplican contra la toolchain que el proyecto realmente usa (#1133)</p>
+</li>
+<li>
+<p><strong>Verificación de plan consciente del proyecto (v0.3.83)</strong> — los planes verifican con los comandos propios del proyecto, no siempre cargo, y localizan el proyecto desde la carpeta de la sesión</p>
+</li>
+<li>
+<p><strong>/stop cancela de inmediato (v0.3.83)</strong> — interrumpe durante el handshake del proveedor y las esperas de reintento (#1148)</p>
+</li>
+<li>
+<p><strong>Reanudación de sesión A2A (v0.3.83)</strong> — las sesiones se reanudan por context id, el gateway se direcciona por perfil (#1159, #1161)</p>
+</li>
+<li>
+<p><strong>Perillas de razonamiento de DeepSeek (v0.3.83)</strong> — DeepSeek recibe los parámetros de thinking que realmente lee, más gestión de turnos solo-con-tool-calls</p>
+</li>
+<li>
+<p><strong>Correlación de logs por session_id (v0.3.82)</strong> — cada turno abre un tracing span que lleva su session id, y los cron jobs y el motor RSI tienen los suyos, así un solo grep reconstruye un turno completo desde un log diario compartido</p>
+</li>
+<li>
+<p><strong>Fiabilidad del logger (v0.3.82)</strong> — el logger deja de perder eventos y de escribir en la terminal de la TUI; una escritura atascada ya no puede silenciar el logging de todos los demás hilos</p>
+</li>
+<li>
+<p><strong>Brain files del usuario protegidos (v0.3.82)</strong> — a SOUL.md, USER.md y MEMORY.md nunca se les fusiona contenido de upstream, y las directivas van a AGENTS.md, que siempre está cargado</p>
+</li>
+<li>
+<p><strong>Unificación de secciones de config (v0.3.82)</strong> — la escritura legada <code>[gateway]</code> se migra en disco a <code>[a2a]</code>, así un solo nombre sobrevive a un ciclo de recarga</p>
+</li>
+<li>
+<p><strong>Caché por hash de chunk (v0.3.82)</strong> — la memoria se salta re-embedder chunks cuyo contenido no ha cambiado</p>
+</li>
+<li>
+<p><strong>Binarios pre-release (v0.3.82)</strong> — cinco objetivos de plataforma más SHA256SUMS, publicados como pre-release continuo para que los contribuidores prueben código no publicado sin esperar un tag. Se ejecuta bajo demanda, no en cada push</p>
+</li>
+<li>
+<p><strong>Salida ante rate-limit (v0.3.82)</strong> — una ventana larga de rate-limit en Telegram devuelve de inmediato en vez de aparcar el envío en línea</p>
+</li>
+<li>
+<p><strong>Almacén de memoria in-tree (v0.3.81)</strong> — la dependencia qmd se elimina; búsqueda SQLite FTS5 + vectorial propiedad del propio árbol</p>
+</li>
+<li>
+<p><strong>Rutas de índice externas (v0.3.81)</strong> — la búsqueda de memoria lee índices fuera del directorio del perfil, default-deny en sesiones compartidas</p>
+</li>
+<li>
+<p><strong>Mermaid como imágenes en Telegram (v0.3.81)</strong> — los diagramas se renderizan como imágenes mientras las tablas mantienen el formato nativo</p>
+</li>
+<li>
+<p><strong>Razonamiento de Qwen entre turnos (v0.3.81)</strong> — preserve_thinking, perillas de thinking por familia, nivel de esfuerzo recomendado por defecto, Qwen hosted alcanzable desde todo</p>
+</li>
+<li>
+<p><strong>Arreglo de pérdida de claves en keys.toml (v0.3.81)</strong> — las claves API de proveedores ya no se pierden en tiempo de ejecución; las claves envenenadas se auto-reparan</p>
+</li>
+<li>
+<p><strong>Detección temprana de bucles (v0.3.81)</strong> — las rondas de herramientas repetitivas se detectan antes de que el proveedor rechace el turno</p>
+</li>
+<li>
+<p><strong>Puerta del motor RSI (v0.3.81)</strong> — RSI autónomo desactivado por defecto en daemons headless, actívalo con <code>rsi_enabled</code></p>
+</li>
+<li>
+<p><strong>Ámbito de memory_search (v0.3.80)</strong> — busca en logs diarios (<code>memory</code>), brain files (<code>brain</code>) o ambos (<code>all</code>); los brain files se indexan al escribir</p>
+</li>
+<li>
+<p><strong>Recuperación de memoria por chunks (v0.3.80)</strong> — los documentos se trocean antes del embedding para que los chunks posteriores sean buscables; el recall se ordena con BM25</p>
+</li>
+<li>
+<p><strong>Renderizado nativo de Slack (v0.3.80)</strong> — tablas y encabezados llegan en el propio formato de Slack en vez de markdown en crudo</p>
+</li>
+<li>
+<p><strong>Comandos de canal con puerta de owner (v0.3.80)</strong> — los comandos y skills personalizados son solo-owner en el brazo catch-all del canal en grupos</p>
+</li>
+<li>
+<p><strong>Puertas de convergencia RSI (v0.3.80)</strong> — la automejora se pausa al converger, se retira en rachas de cero mejora, y calcula hashes de hallazgos por identidad estable</p>
+</li>
+<li>
+<p><strong>Guardas anti-bucle (v0.3.80)</strong> — guardas de repetición por anuncio y casi-coincidencia en todas las herramientas; los kills del detector de bucles llegan a la cadena de fallback</p>
+</li>
+<li>
+<p><strong>Modo inventario del navegador (v0.3.80)</strong> — <code>browser_find</code> a secas enumera cada elemento clicable de la página</p>
+</li>
+<li>
+<p><strong>Actualización de plantillas de brain files (v0.3.80)</strong> — las plantillas de AGENTS.md, BOOT.md y SOUL.md cambiaron; el seeding nunca sobrescribe archivos existentes, así que haz diff contra <code>src/docs/reference/templates/</code> y fusiona a mano si quieres los nuevos valores por defecto</p>
+</li>
+<li>
+<p><strong>Reconstrucción del brain del sistema</strong> — los brain files se reconstruyen desde disco al cambiar, sin reiniciar</p>
+</li>
+<li>
+<p><strong>Descubrimiento proactivo de herramientas</strong> — busca herramientas disponibles antes de declararse incapaz</p>
+</li>
+<li>
+<p><strong>Analizador de prompts multilenguaje (v0.3.67)</strong> — PromptAnalyzer compartido con soft-nudge en TUI y Telegram, 6 paquetes de idioma (EN/ES/FR/ID/PT/RU)</p>
+</li>
+<li>
+<p><strong>Modo plan (v0.3.67-v0.3.68)</strong> — pistas design/checklist, tarjeta de plan persistente, comando <code>/plan &lt;query&gt;</code>, auto-aprobación del agente cuando el usuario concede autonomía</p>
+</li>
+<li>
+<p><strong>Clic-para-expandir (v0.3.69)</strong> — clic izquierdo en un bloque de tool-call o razonamiento para expandir solo ese bloque, complementando Ctrl+O</p>
+</li>
+<li>
+<p><strong>review_gate en skills (v0.3.70)</strong> — declaración en frontmatter para skills de alto riesgo que exigen aprobación del usuario antes de efectos secundarios</p>
+</li>
+<li>
+<p><strong>Activación JIT de herramientas</strong> — herramientas extendidas activadas bajo demanda, sin pre-registro</p>
+</li>
+<li>
+<p><strong>Auto-reparación de config</strong> — repara automáticamente un config.toml roto, nunca envenena la última config buena</p>
+</li>
+<li>
+<p><strong>Gestión del presupuesto de contexto</strong> — umbrales de compactación 65% suave / 90% duro con fallback a LLM</p>
+</li>
+<li>
+<p><strong>Detección de streams atascados</strong> — ventana rodante de 2048 bytes detecta patrones repetitivos</p>
+</li>
+<li>
+<p><strong>Defensa anti-gaslighting</strong> — elimina los preámbulos de rechazo de herramientas a mitad de turno</p>
+</li>
+<li>
+<p><strong>Entrega de resultados de build (v0.3.61)</strong> — los resultados de rebuild/evolve llegan a quien los pidió, a través de canales y TUI</p>
+</li>
 </ul>
 <h3 id="terminal-ui"><a class="header" href="#terminal-ui">Terminal UI</a></h3>
 <ul>

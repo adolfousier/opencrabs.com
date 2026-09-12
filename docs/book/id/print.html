@@ -66,7 +66,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-7c5c8c62.js";
+            window.path_to_searchindex_js = "searchindex-27b06119.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-55df8b59.js"></script>
@@ -210,7 +210,7 @@
                     <main>
                         <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
 <p><strong>OpenCrabs</strong> adalah agen orkestrasi AI yang di-hosting sendiri dan tidak terikat provider, berjalan sebagai satu biner Rust. Ia mengotomatiskan terminal, browser, channels (Telegram/Discord/Slack/WhatsApp/Trello), dan codebase Anda, sambil menghormati privasi Anda dan menjaga kendali tetap di tangan Anda.</p>
-<p><strong>7.886 tes</strong> mencakup providers, tools, channels, TUI, self-healing, dan otomatisasi browser.<strong>6.997 tes</strong> mencakup provider, tools, channels, TUI, self-healing, dan otomasi browser.</p>
+<p><strong>8,412 tests</strong> across providers, tools, channels, TUI, self-healing, and browser automation.</p>
 <h2 id="apa-yang-membedakan-opencrabs"><a class="header" href="#apa-yang-membedakan-opencrabs">Apa yang Membedakan OpenCrabs</a></h2>
 <h3 id="nol-telemetri-bahkan-tanpa-opt-in"><a class="header" href="#nol-telemetri-bahkan-tanpa-opt-in">Nol Telemetri, Bahkan Tanpa Opt-In</a></h3>
 <ul>
@@ -260,74 +260,231 @@
 </ul>
 <h3 id="self-healing--peningkatan-diri"><a class="header" href="#self-healing--peningkatan-diri">Self-Healing &amp; Peningkatan Diri</a></h3>
 <ul>
-<li><strong>Recursive Self-Improvement (RSI)</strong> — agen menganalisis kinerja, mengenali pola, dan menulis ulang brain files</li>
-<li><strong>Deteksi tool call fantom</strong> — menangkap saat model menceritakan perubahan tanpa benar-benar mengeksekusi tools</li>
-<li><strong>Self-heal deteksi fantom (v0.3.72)</strong> — menangkap giliran tanpa tool yang mengklaim efek samping berisiko tinggi (ship/push/tag/release)</li>
-<li><strong>Edit konfigurasi hanya via config_manager (v0.3.74)</strong> — agen tidak pernah mengedit config.toml/keys.toml secara mentah; setiap penulisan divalidasi sebelum diterapkan</li>
-<li><strong>Dedup brain (v0.3.75)</strong> — perintah <code>/dedup</code> plus pemindaian pasca-tulis dan mingguan lintas file menjaga brain files agar tidak mengganda, dengan persetujuan inline-keyboard Telegram</li>
-<li><strong>Petunjuk brain-file saat tools meleset (v0.3.75)</strong> — catatan brain yang relevan muncul otomatis saat tool call meleset atau error</li>
-<li><strong>Kemunculan memori proaktif (v0.3.76)</strong> — memori relevan muncul tanpa diminta saat konteks percakapan cocok dengan pengetahuan tersimpan</li>
-<li><strong>Penamaan model natural (v0.3.76)</strong> — <code>/models opus</code> berhasil; nama percakapan diresolusi menjadi ID model yang tepat</li>
-<li><strong>Routing provider plan/eksekusi (v0.3.76)</strong> — arahkan perencanaan dan eksekusi ke provider/model terpisah</li>
-<li><strong>Timeout loop berpikir (v0.3.78)</strong> — menangkap loop penalaran tak berujung, memicu penegakan fantom dengan sticky fallback</li>
-<li><strong>Mesin epistemik (v0.3.78)</strong> — pelacakan keyakinan dengan tingkat kepercayaan, mesh kognitif OODA/BDI, gerbang Orient sebelum eksekusi rencana</li>
-<li><strong>Gerbang verifikasi Ralph (v0.3.78)</strong> — verifikasi tugas sadar-kriteria dengan batas iterasi; tugas harus memenuhi kriteria penerimaan yang dinyatakan</li>
-<li><strong>Gerbang keamanan TOML (v0.3.78)</strong> — blocklist bash yang bisa dikonfigurasi saat runtime dengan hot-reload, redaksi rahasia bertanda kutip, verifikasi brain file</li>
-<li><strong>Analitik Mission Control (v0.3.78)</strong> — filter D/W/M, grid kartu tiga kolom, tab phantom/model/streaming, DB event khusus</li>
-<li><strong>Onboarding OpenAI TTS (v0.3.78)</strong> — pemilih suara dan kolom kunci API di wizard onboarding</li>
-<li><strong>Instalasi Homebrew (v0.3.79)</strong> — <code>brew install opencrabs</code> dari homebrew-core: biner siap pakai, kedua arsitektur, tanpa toolchain Rust</li>
-<li><strong><code>/restart</code> dan <code>/exit</code> (v0.3.79)</strong> — restart atau matikan dari channel atau TUI mana pun; hanya owner di channels, mengumumkan sebelum bertindak</li>
-<li><strong>Pemutus arus kuota (v0.3.79)</strong> — provider dengan kuota habis mendapat breaker TTL dan dilewati dalam perjalanan fallback; kehabisan rantai dilaporkan eksplisit</li>
-<li><strong>Status rencana lintas session (v0.3.79)</strong> — rencana bertahan melewati batas session; eksekusi tugas rencana terisolasi aktif secara default, Ralph memverifikasi di direktori session itu sendiri</li>
-<li><strong>Sistem tema (v0.5.0)</strong> — preset terverifikasi, pemilih interaktif, dan tema Anda sendiri dari <code>~/.opencrabs/themes/*.toml</code>; truecolor dideteksi dengan tingkat cadangan ANSI-256, dan preset yang kontrasnya membuat teks tak terbaca akan ditolak</li>
-<li><strong>Memori struktur kode (v0.5.0)</strong> — tree-sitter membangun indeks simbol dan graf pemanggilan di samping indeks teks, sehingga “siapa yang memanggil X” menelusuri sisi pemanggilan yang sebenarnya sementara pertanyaan konseptual tetap lewat jalur teks (#1324)</li>
-<li><strong>Transfer berkas lewat SSH (v0.5.0)</strong> — berkas yang dijatuhkan ke TUI di host jarak jauh ditarik kembali melalui koneksi yang sudah terbuka, dengan <code>opencrabs drop-agent</code> di sisi klien (#1289)</li>
-<li><strong>Putusan pengiriman notify (v0.5.0)</strong> — <code>session_notify</code> mengembalikan hasil kirim yang terbaca mesin, tanda terima injeksi kedalaman 3 membuat <code>notify_id</code> dapat diperiksa, dan pengiriman dialihkan ke session yang memiliki channel saat itu</li>
-<li><strong>Pemadatan di latar belakang (v0.5.0)</strong> — peringkas berjalan di luar giliran alih-alih menahan session selama bekerja</li>
-<li><strong>Penyuntingan token saat penulisan (v0.5.0)</strong> — galat provider yang membawa URL tidak lagi bisa membocorkan token bot ke log, dari mana pun dicatat (#1322)</li>
-<li><strong>Userbot Telegram hanya-terima (v0.5.0, eksperimental)</strong> — penangkapan MTProto di balik feature, dengan login lokal via QR/kode/2FA; menyimpan teks yang diizinkan untuk diambil dan tidak pernah bertindak sebagai pengguna</li>
-<li><strong>Mode perbaikan doctor –fix (v0.3.83)</strong> — baris cron macet, marker basi, dan izin rusak diperbaiki di tempat alih-alih sekadar dilaporkan</li>
-<li><strong>Kunci tulis per path (v0.3.83)</strong> — penulisan bersamaan ke file yang sama diserialisasi; penulis terakhir tidak lagi menang diam-diam</li>
-<li><strong>Isolasi worktree sub-agent (v0.3.83)</strong> — setiap agen anak mendapat worktree dan branch sendiri, sehingga fan-out tidak bisa merusak pohon bersama</li>
-<li><strong>Kriteria penerimaan sadar-tipe (v0.3.83)</strong> — kriteria rencana ditegakkan terhadap toolchain yang benar-benar dipakai proyek (#1133)</li>
-<li><strong>Verifikasi rencana sadar-proyek (v0.3.83)</strong> — rencana diverifikasi dengan perintah proyeknya sendiri, bukan selalu cargo, dan menemukan proyek dari folder session</li>
-<li><strong>/stop membatalkan seketika (v0.3.83)</strong> — menyela bahkan saat handshake provider dan jeda retry (#1148)</li>
-<li><strong>Resume session A2A (v0.3.83)</strong> — session diresume berdasarkan context id, gateway dialamatkan per profil (#1159, #1161)</li>
-<li><strong>Kenop thinking DeepSeek (v0.3.83)</strong> — DeepSeek mendapat parameter thinking yang benar-benar dibacanya, plus penanganan giliran khusus tool-call</li>
-<li><strong>Korelasi log session_id (v0.3.82)</strong> — setiap giliran membuka span tracing berisi session id-nya, tugas cron dan mesin RSI punya miliknya sendiri, jadi satu grep menyusun ulang seluruh giliran dari log harian bersama</li>
-<li><strong>Keandalan logger (v0.3.82)</strong> — logger berhenti membuang event dan berhenti menulis ke terminal TUI; penulisan yang macet tidak lagi membungkam logging thread lain</li>
-<li><strong>Brain files milik pengguna dilindungi (v0.3.82)</strong> — SOUL.md, USER.md, dan MEMORY.md tidak pernah diisi dari upstream, dan direktif dialihkan ke AGENTS.md, yang selalu dimuat</li>
-<li><strong>Penyatuan seksi konfigurasi (v0.3.82)</strong> — ejaan legacy <code>[gateway]</code> dimigrasikan di disk menjadi <code>[a2a]</code>, jadi satu nama bertahan melewati putaran reload</li>
-<li><strong>Cache chunk-hash (v0.3.82)</strong> — memori melewatkan embedding ulang chunk yang isinya tidak berubah</li>
-<li><strong>Biner pra-rilis (v0.3.82)</strong> — lima target platform plus SHA256SUMS, dipublikasikan sebagai pre-release bergulir agar kontributor bisa menguji kode yang belum dirilis tanpa menunggu tag. Dijalankan sesuai permintaan, bukan setiap push</li>
-<li><strong>Pelepasan rate-limit (v0.3.82)</strong> — jendela rate-limit Telegram yang panjang langsung kembali alih-alih memarkir pengiriman di antrean</li>
-<li><strong>Penyimpanan memori in-tree (v0.3.81)</strong> — dependensi qmd dihapus; pencarian SQLite FTS5 + vektor dikelola in-tree</li>
-<li><strong>Path indeks eksternal (v0.3.81)</strong> — pencarian memori membaca indeks di luar direktori profil, default-deny di session bersama</li>
-<li><strong>Mermaid sebagai gambar di Telegram (v0.3.81)</strong> — diagram dirender sebagai gambar sementara tabel tetap formatting natif</li>
-<li><strong>Penalaran Qwen lintas giliran (v0.3.81)</strong> — preserve_thinking, kenop thinking per keluarga, tier effort rekomendasi secara default, Qwen hosted terjangkau di mana saja</li>
-<li><strong>Perbaikan kehilangan kunci keys.toml (v0.3.81)</strong> — kunci API provider tidak lagi hilang saat runtime; kunci yang teracuni menyembuhkan diri</li>
-<li><strong>Deteksi loop dini (v0.3.81)</strong> — putaran tool berulang tertangkap sebelum provider menolak giliran</li>
-<li><strong>Gerbang mesin RSI (v0.3.81)</strong> — RSI otonom mati secara default untuk daemon headless, aktifkan dengan <code>rsi_enabled</code></li>
-<li><strong>Cakupan memory_search (v0.3.80)</strong> — cari log harian (<code>memory</code>), brain files (<code>brain</code>), atau keduanya (<code>all</code>); brain files diindeks saat ditulis</li>
-<li><strong>Pengambilan memori ter-chunk (v0.3.80)</strong> — dokumen di-chunk sebelum embedding sehingga chunk belakang tetap bisa dicari; recall diperingkat dengan BM25</li>
-<li><strong>Rendering natif Slack (v0.3.80)</strong> — tabel dan heading datang dalam format Slack sendiri alih-alih markdown mentah</li>
-<li><strong>Perintah channel terkunci owner (v0.3.80)</strong> — perintah dan skills kustom hanya untuk owner pada lengan catch-all channel di grup</li>
-<li><strong>Gerbang konvergensi RSI (v0.3.80)</strong> — self-improvement berhenti saat konvergen, mundur saat beruntun tanpa perbaikan, meng-hash temuan berdasarkan identitas stabil</li>
-<li><strong>Penjaga loop (v0.3.80)</strong> — penjaga pengumuman berulang dan pengulangan hampir-identik di semua tools; tembakan detektor loop sampai ke rantai fallback</li>
-<li><strong>Mode inventaris browser (v0.3.80)</strong> — <code>browser_find</code> polos menghitung setiap elemen yang bisa diklik di halaman</li>
-<li><strong>Pembaruan templat brain-file (v0.3.80)</strong> — templat AGENTS.md, BOOT.md, dan SOUL.md berubah; seeding tidak pernah menimpa file yang ada, jadi diff terhadap <code>src/docs/reference/templates/</code> dan merge manual jika Anda ingin default baru</li>
-<li><strong>Rebuild brain sistem</strong> — brain files dibangun ulang dari disk saat berubah, tanpa perlu restart</li>
-<li><strong>Penemuan tools proaktif</strong> — mencari tools yang tersedia sebelum mengaku tidak bisa</li>
-<li><strong>Analyzer prompt multi-bahasa (v0.3.67)</strong> — PromptAnalyzer bersama dengan dorongan lembut di TUI dan Telegram, 6 paket bahasa (EN/ES/FR/ID/PT/RU)</li>
-<li><strong>Mode rencana (v0.3.67-v0.3.68)</strong> — trek design/checklist, kartu rencana persisten, perintah <code>/plan &lt;query&gt;</code>, persetujuan-diri agen saat pengguna memberi otonomi</li>
-<li><strong>Klik-untuk-membuka (v0.3.69)</strong> — klik kiri pada blok tool-call atau penalaran untuk membuka blok itu saja, melengkapi Ctrl+O</li>
-<li><strong>review_gate skills (v0.3.70)</strong> — deklarasi frontmatter untuk skills berisiko tinggi yang memerlukan persetujuan pengguna sebelum efek samping</li>
-<li><strong>Aktivasi tools JIT</strong> — tools extended diaktifkan sesuai permintaan, tanpa pra-registrasi</li>
-<li><strong>Perbaikan konfigurasi otomatis</strong> — config.toml rusak diperbaiki otomatis, konfigurasi terakhir-yang-baik tidak pernah dirusak</li>
-<li><strong>Manajemen anggaran konteks</strong> — ambang compaction 65% lunak / 90% keras dengan fallback LLM</li>
-<li><strong>Deteksi stream macet</strong> — jendela bergulir 2048 byte menangkap pola berulang</li>
-<li><strong>Pertahanan gaslighting</strong> — membuang pembuka penolakan-tool di tengah giliran</li>
-<li><strong>Pengiriman hasil build (v0.3.61)</strong> — hasil rebuild/evolve sampai ke siapa pun yang meminta, di semua channels dan TUI</li>
+<li>
+<p><strong>Recursive Self-Improvement (RSI)</strong> — agen menganalisis kinerja, mengenali pola, dan menulis ulang brain files</p>
+</li>
+<li>
+<p><strong>Deteksi tool call fantom</strong> — menangkap saat model menceritakan perubahan tanpa benar-benar mengeksekusi tools</p>
+</li>
+<li>
+<p><strong>Self-heal deteksi fantom (v0.3.72)</strong> — menangkap giliran tanpa tool yang mengklaim efek samping berisiko tinggi (ship/push/tag/release)</p>
+</li>
+<li>
+<p><strong>Edit konfigurasi hanya via config_manager (v0.3.74)</strong> — agen tidak pernah mengedit config.toml/keys.toml secara mentah; setiap penulisan divalidasi sebelum diterapkan</p>
+</li>
+<li>
+<p><strong>Dedup brain (v0.3.75)</strong> — perintah <code>/dedup</code> plus pemindaian pasca-tulis dan mingguan lintas file menjaga brain files agar tidak mengganda, dengan persetujuan inline-keyboard Telegram</p>
+</li>
+<li>
+<p><strong>Petunjuk brain-file saat tools meleset (v0.3.75)</strong> — catatan brain yang relevan muncul otomatis saat tool call meleset atau error</p>
+</li>
+<li>
+<p><strong>Kemunculan memori proaktif (v0.3.76)</strong> — memori relevan muncul tanpa diminta saat konteks percakapan cocok dengan pengetahuan tersimpan</p>
+</li>
+<li>
+<p><strong>Penamaan model natural (v0.3.76)</strong> — <code>/models opus</code> berhasil; nama percakapan diresolusi menjadi ID model yang tepat</p>
+</li>
+<li>
+<p><strong>Routing provider plan/eksekusi (v0.3.76)</strong> — arahkan perencanaan dan eksekusi ke provider/model terpisah</p>
+</li>
+<li>
+<p><strong>Timeout loop berpikir (v0.3.78)</strong> — menangkap loop penalaran tak berujung, memicu penegakan fantom dengan sticky fallback</p>
+</li>
+<li>
+<p><strong>Mesin epistemik (v0.3.78)</strong> — pelacakan keyakinan dengan tingkat kepercayaan, mesh kognitif OODA/BDI, gerbang Orient sebelum eksekusi rencana</p>
+</li>
+<li>
+<p><strong>Gerbang verifikasi Ralph (v0.3.78)</strong> — verifikasi tugas sadar-kriteria dengan batas iterasi; tugas harus memenuhi kriteria penerimaan yang dinyatakan</p>
+</li>
+<li>
+<p><strong>Gerbang keamanan TOML (v0.3.78)</strong> — blocklist bash yang bisa dikonfigurasi saat runtime dengan hot-reload, redaksi rahasia bertanda kutip, verifikasi brain file</p>
+</li>
+<li>
+<p><strong>Analitik Mission Control (v0.3.78)</strong> — filter D/W/M, grid kartu tiga kolom, tab phantom/model/streaming, DB event khusus</p>
+</li>
+<li>
+<p><strong>Onboarding OpenAI TTS (v0.3.78)</strong> — pemilih suara dan kolom kunci API di wizard onboarding</p>
+</li>
+<li>
+<p><strong>Instalasi Homebrew (v0.3.79)</strong> — <code>brew install opencrabs</code> dari homebrew-core: biner siap pakai, kedua arsitektur, tanpa toolchain Rust</p>
+</li>
+<li>
+<p><strong><code>/restart</code> dan <code>/exit</code> (v0.3.79)</strong> — restart atau matikan dari channel atau TUI mana pun; hanya owner di channels, mengumumkan sebelum bertindak</p>
+</li>
+<li>
+<p><strong>Pemutus arus kuota (v0.3.79)</strong> — provider dengan kuota habis mendapat breaker TTL dan dilewati dalam perjalanan fallback; kehabisan rantai dilaporkan eksplisit</p>
+</li>
+<li>
+<p><strong>Status rencana lintas session (v0.3.79)</strong> — rencana bertahan melewati batas session; eksekusi tugas rencana terisolasi aktif secara default, Ralph memverifikasi di direktori session itu sendiri</p>
+</li>
+<li>
+<p><strong>Sistem tema (v0.5.0)</strong> — preset terverifikasi, pemilih interaktif, dan tema Anda sendiri dari <code>~/.opencrabs/themes/*.toml</code>; truecolor dideteksi dengan tingkat cadangan ANSI-256, dan preset yang kontrasnya membuat teks tak terbaca akan ditolak</p>
+</li>
+<li>
+<p><strong>Memori struktur kode (v0.5.0)</strong> — tree-sitter membangun indeks simbol dan graf pemanggilan di samping indeks teks, sehingga “siapa yang memanggil X” menelusuri sisi pemanggilan yang sebenarnya sementara pertanyaan konseptual tetap lewat jalur teks (#1324)</p>
+</li>
+<li>
+<p><strong>Transfer berkas lewat SSH (v0.5.0)</strong> — berkas yang dijatuhkan ke TUI di host jarak jauh ditarik kembali melalui koneksi yang sudah terbuka, dengan <code>opencrabs drop-agent</code> di sisi klien (#1289)</p>
+</li>
+<li>
+<p><strong>Putusan pengiriman notify (v0.5.0)</strong> — <code>session_notify</code> mengembalikan hasil kirim yang terbaca mesin, tanda terima injeksi kedalaman 3 membuat <code>notify_id</code> dapat diperiksa, dan pengiriman dialihkan ke session yang memiliki channel saat itu</p>
+</li>
+<li>
+<p><strong>Pemadatan di latar belakang (v0.5.0)</strong> — peringkas berjalan di luar giliran alih-alih menahan session selama bekerja</p>
+</li>
+<li>
+<p><strong>Penyuntingan token saat penulisan (v0.5.0)</strong> — galat provider yang membawa URL tidak lagi bisa membocorkan token bot ke log, dari mana pun dicatat (#1322)</p>
+</li>
+<li>
+<p><strong>Userbot Telegram hanya-terima (v0.5.0, eksperimental)</strong> — penangkapan MTProto di balik feature, dengan login lokal via QR/kode/2FA; menyimpan teks yang diizinkan untuk diambil dan tidak pernah bertindak sebagai pengguna</p>
+</li>
+<li>
+<p><strong>Penjangkaran waktu (v0.5.1)</strong> — agen selalu tahu jam berapa sekarang: setiap giliran membawa penanda waktu dalam zona waktu pengguna, dan prompt sistem tetap stabil byte demi byte untuk caching penyedia (#1516)</p>
+</li>
+<li>
+<p><strong>Sesi cron per job (v0.5.1)</strong> — setiap job terjadwal mendapat sesinya sendiri, sehingga dua job yang berjalan bersamaan tidak pernah berbagi konteks atau penyedia (#1511)</p>
+</li>
+<li>
+<p><strong>Gerbang glob skill (v0.5.1)</strong> — daftar <code>globs:</code> sebuah skill dapat menolak panggilan tool ke berkas yang cocok sampai agen benar-benar membaca body skill tersebut (#1515)</p>
+</li>
+<li>
+<p><strong>Tulisan config divalidasi terhadap struct (v0.5.1)</strong> — penjaga tulis dan saran bagian config_manager kini diturunkan dari tipe <code>Config</code> itu sendiri, agar tidak pernah menyimpang dari kode yang dikirim (#1508)</p>
+</li>
+<li>
+<p><strong>Desain plan ditolak saat ditulis (v0.5.1)</strong> — desain plan yang rusak langsung dipantul dengan menyebutkan bagian yang hilang, dan tulisan yang ditolak mengembalikan scaffold alih-alih menghapus draf (#1507)</p>
+</li>
+<li>
+<p><strong>Tekanan balik anggaran penyedia (v0.5.1)</strong> — penyedia yang melaporkan anggaran token output memicu satu komaksi berbatas lalu percobaan ulang, alih-alih kaskade 400 (#1518)</p>
+</li>
+<li>
+<p><strong>Token A2A terikat dan config khusus owner (v0.5.1)</strong> — token A2A terikat ke gateway yang menerbitkannya, dan config.toml/keys.toml berpindah ke mode khusus owner, dengan rahasia disingkirkan dari log</p>
+</li>
+<li>
+<p><strong>Mode perbaikan doctor –fix (v0.3.83)</strong> — baris cron macet, marker basi, dan izin rusak diperbaiki di tempat alih-alih sekadar dilaporkan</p>
+</li>
+<li>
+<p><strong>Kunci tulis per path (v0.3.83)</strong> — penulisan bersamaan ke file yang sama diserialisasi; penulis terakhir tidak lagi menang diam-diam</p>
+</li>
+<li>
+<p><strong>Isolasi worktree sub-agent (v0.3.83)</strong> — setiap agen anak mendapat worktree dan branch sendiri, sehingga fan-out tidak bisa merusak pohon bersama</p>
+</li>
+<li>
+<p><strong>Kriteria penerimaan sadar-tipe (v0.3.83)</strong> — kriteria rencana ditegakkan terhadap toolchain yang benar-benar dipakai proyek (#1133)</p>
+</li>
+<li>
+<p><strong>Verifikasi rencana sadar-proyek (v0.3.83)</strong> — rencana diverifikasi dengan perintah proyeknya sendiri, bukan selalu cargo, dan menemukan proyek dari folder session</p>
+</li>
+<li>
+<p><strong>/stop membatalkan seketika (v0.3.83)</strong> — menyela bahkan saat handshake provider dan jeda retry (#1148)</p>
+</li>
+<li>
+<p><strong>Resume session A2A (v0.3.83)</strong> — session diresume berdasarkan context id, gateway dialamatkan per profil (#1159, #1161)</p>
+</li>
+<li>
+<p><strong>Kenop thinking DeepSeek (v0.3.83)</strong> — DeepSeek mendapat parameter thinking yang benar-benar dibacanya, plus penanganan giliran khusus tool-call</p>
+</li>
+<li>
+<p><strong>Korelasi log session_id (v0.3.82)</strong> — setiap giliran membuka span tracing berisi session id-nya, tugas cron dan mesin RSI punya miliknya sendiri, jadi satu grep menyusun ulang seluruh giliran dari log harian bersama</p>
+</li>
+<li>
+<p><strong>Keandalan logger (v0.3.82)</strong> — logger berhenti membuang event dan berhenti menulis ke terminal TUI; penulisan yang macet tidak lagi membungkam logging thread lain</p>
+</li>
+<li>
+<p><strong>Brain files milik pengguna dilindungi (v0.3.82)</strong> — SOUL.md, USER.md, dan MEMORY.md tidak pernah diisi dari upstream, dan direktif dialihkan ke AGENTS.md, yang selalu dimuat</p>
+</li>
+<li>
+<p><strong>Penyatuan seksi konfigurasi (v0.3.82)</strong> — ejaan legacy <code>[gateway]</code> dimigrasikan di disk menjadi <code>[a2a]</code>, jadi satu nama bertahan melewati putaran reload</p>
+</li>
+<li>
+<p><strong>Cache chunk-hash (v0.3.82)</strong> — memori melewatkan embedding ulang chunk yang isinya tidak berubah</p>
+</li>
+<li>
+<p><strong>Biner pra-rilis (v0.3.82)</strong> — lima target platform plus SHA256SUMS, dipublikasikan sebagai pre-release bergulir agar kontributor bisa menguji kode yang belum dirilis tanpa menunggu tag. Dijalankan sesuai permintaan, bukan setiap push</p>
+</li>
+<li>
+<p><strong>Pelepasan rate-limit (v0.3.82)</strong> — jendela rate-limit Telegram yang panjang langsung kembali alih-alih memarkir pengiriman di antrean</p>
+</li>
+<li>
+<p><strong>Penyimpanan memori in-tree (v0.3.81)</strong> — dependensi qmd dihapus; pencarian SQLite FTS5 + vektor dikelola in-tree</p>
+</li>
+<li>
+<p><strong>Path indeks eksternal (v0.3.81)</strong> — pencarian memori membaca indeks di luar direktori profil, default-deny di session bersama</p>
+</li>
+<li>
+<p><strong>Mermaid sebagai gambar di Telegram (v0.3.81)</strong> — diagram dirender sebagai gambar sementara tabel tetap formatting natif</p>
+</li>
+<li>
+<p><strong>Penalaran Qwen lintas giliran (v0.3.81)</strong> — preserve_thinking, kenop thinking per keluarga, tier effort rekomendasi secara default, Qwen hosted terjangkau di mana saja</p>
+</li>
+<li>
+<p><strong>Perbaikan kehilangan kunci keys.toml (v0.3.81)</strong> — kunci API provider tidak lagi hilang saat runtime; kunci yang teracuni menyembuhkan diri</p>
+</li>
+<li>
+<p><strong>Deteksi loop dini (v0.3.81)</strong> — putaran tool berulang tertangkap sebelum provider menolak giliran</p>
+</li>
+<li>
+<p><strong>Gerbang mesin RSI (v0.3.81)</strong> — RSI otonom mati secara default untuk daemon headless, aktifkan dengan <code>rsi_enabled</code></p>
+</li>
+<li>
+<p><strong>Cakupan memory_search (v0.3.80)</strong> — cari log harian (<code>memory</code>), brain files (<code>brain</code>), atau keduanya (<code>all</code>); brain files diindeks saat ditulis</p>
+</li>
+<li>
+<p><strong>Pengambilan memori ter-chunk (v0.3.80)</strong> — dokumen di-chunk sebelum embedding sehingga chunk belakang tetap bisa dicari; recall diperingkat dengan BM25</p>
+</li>
+<li>
+<p><strong>Rendering natif Slack (v0.3.80)</strong> — tabel dan heading datang dalam format Slack sendiri alih-alih markdown mentah</p>
+</li>
+<li>
+<p><strong>Perintah channel terkunci owner (v0.3.80)</strong> — perintah dan skills kustom hanya untuk owner pada lengan catch-all channel di grup</p>
+</li>
+<li>
+<p><strong>Gerbang konvergensi RSI (v0.3.80)</strong> — self-improvement berhenti saat konvergen, mundur saat beruntun tanpa perbaikan, meng-hash temuan berdasarkan identitas stabil</p>
+</li>
+<li>
+<p><strong>Penjaga loop (v0.3.80)</strong> — penjaga pengumuman berulang dan pengulangan hampir-identik di semua tools; tembakan detektor loop sampai ke rantai fallback</p>
+</li>
+<li>
+<p><strong>Mode inventaris browser (v0.3.80)</strong> — <code>browser_find</code> polos menghitung setiap elemen yang bisa diklik di halaman</p>
+</li>
+<li>
+<p><strong>Pembaruan templat brain-file (v0.3.80)</strong> — templat AGENTS.md, BOOT.md, dan SOUL.md berubah; seeding tidak pernah menimpa file yang ada, jadi diff terhadap <code>src/docs/reference/templates/</code> dan merge manual jika Anda ingin default baru</p>
+</li>
+<li>
+<p><strong>Rebuild brain sistem</strong> — brain files dibangun ulang dari disk saat berubah, tanpa perlu restart</p>
+</li>
+<li>
+<p><strong>Penemuan tools proaktif</strong> — mencari tools yang tersedia sebelum mengaku tidak bisa</p>
+</li>
+<li>
+<p><strong>Analyzer prompt multi-bahasa (v0.3.67)</strong> — PromptAnalyzer bersama dengan dorongan lembut di TUI dan Telegram, 6 paket bahasa (EN/ES/FR/ID/PT/RU)</p>
+</li>
+<li>
+<p><strong>Mode rencana (v0.3.67-v0.3.68)</strong> — trek design/checklist, kartu rencana persisten, perintah <code>/plan &lt;query&gt;</code>, persetujuan-diri agen saat pengguna memberi otonomi</p>
+</li>
+<li>
+<p><strong>Klik-untuk-membuka (v0.3.69)</strong> — klik kiri pada blok tool-call atau penalaran untuk membuka blok itu saja, melengkapi Ctrl+O</p>
+</li>
+<li>
+<p><strong>review_gate skills (v0.3.70)</strong> — deklarasi frontmatter untuk skills berisiko tinggi yang memerlukan persetujuan pengguna sebelum efek samping</p>
+</li>
+<li>
+<p><strong>Aktivasi tools JIT</strong> — tools extended diaktifkan sesuai permintaan, tanpa pra-registrasi</p>
+</li>
+<li>
+<p><strong>Perbaikan konfigurasi otomatis</strong> — config.toml rusak diperbaiki otomatis, konfigurasi terakhir-yang-baik tidak pernah dirusak</p>
+</li>
+<li>
+<p><strong>Manajemen anggaran konteks</strong> — ambang compaction 65% lunak / 90% keras dengan fallback LLM</p>
+</li>
+<li>
+<p><strong>Deteksi stream macet</strong> — jendela bergulir 2048 byte menangkap pola berulang</p>
+</li>
+<li>
+<p><strong>Pertahanan gaslighting</strong> — membuang pembuka penolakan-tool di tengah giliran</p>
+</li>
+<li>
+<p><strong>Pengiriman hasil build (v0.3.61)</strong> — hasil rebuild/evolve sampai ke siapa pun yang meminta, di semua channels dan TUI</p>
+</li>
 </ul>
 <h3 id="ui-terminal"><a class="header" href="#ui-terminal">UI Terminal</a></h3>
 <ul>
