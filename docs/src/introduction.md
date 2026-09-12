@@ -2,7 +2,7 @@
 
 **OpenCrabs** is a self-hosted, provider-agnostic AI orchestration agent that runs as a single Rust binary. It automates your terminal, browser, channels (Telegram/Discord/Slack/WhatsApp/Trello), and codebase, all while respecting your privacy and keeping you in control.
 
-**7,886 tests** across providers, tools, channels, TUI, self-healing, and browser automation.
+**8,412 tests** across providers, tools, channels, TUI, self-healing, and browser automation.
 
 ## What Makes OpenCrabs Different
 
@@ -75,6 +75,14 @@
 - **Background compaction (v0.5.0)** — the summariser runs off the turn instead of holding the session while it works
 - **Token redaction at the writer (v0.5.0)** — a provider error carrying a URL can no longer leak the bot token into a log, wherever it is logged from (#1322)
 - **Receive-only Telegram userbot (v0.5.0, experimental)** — feature-gated MTProto capture with local QR/code/2FA login; it stores allowlisted text for retrieval and never acts as the user
+- **Temporal grounding (v0.5.1)** — the agent always knows what time it is: every turn carries a time-stamped marker in the user's timezone, and the system prompt stays byte-stable for provider caching (#1516)
+- **Per-job cron sessions (v0.5.1)** — every scheduled job gets its own session, so two jobs running at the same time can never bleed into each other's context or providers (#1511)
+- **Skill-glob gating (v0.5.1)** — a skill's `globs:` list can refuse tool calls that touch matching files until the agent has actually read the skill body (#1515)
+- **Config writes validated against the struct (v0.5.1)** — the write guard and section suggestions in config_manager now derive from the `Config` type itself, so they never drift from shipped code (#1508)
+- **Plan designs refused at write time (v0.5.1)** — a malformed plan design bounces immediately with the missing sections named, and a refused write restores the scaffold instead of wiping the draft (#1507)
+- **Provider budget backpressure (v0.5.1)** — a provider that reports an output-token budget triggers one bounded compaction and retry instead of a cascade of 400s (#1518)
+- **A2A tokens bound and config owner-only (v0.5.1)** — A2A tokens bind to the gateway that minted them, and config.toml/keys.toml move to owner-exclusive mode with secrets scrubbed from the logs
+
 - **doctor --fix repair mode (v0.3.83)** — stuck cron rows, stale markers and broken permissions are repaired on the spot instead of only reported
 - **Per-path write locks (v0.3.83)** — concurrent writes to the same file serialize; the last writer no longer silently wins
 - **Sub-agent worktree isolation (v0.3.83)** — each child agent gets its own worktree and branch, so a fan-out cannot clobber the shared tree
