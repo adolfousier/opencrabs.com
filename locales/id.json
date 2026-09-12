@@ -53,5 +53,5 @@
   "footer_license": "Lisensi MIT",
   "footer_built_by": "Dibangun dengan 🦀 oleh ",
   "footer_and_community": " & komunitas OpenCrabs.",
-  "latest_release_note": "v0.5.0: rilis terbesar kami sejauh ini, 595 commits. Tema, memori yang memahami kode, dan transfer berkas lewat SSH."
+  "latest_release_note": "v0.5.1: brain yang sadar waktu. Penjangkaran waktu, sesi cron per job, gerbang glob skill, dan tulisan config divalidasi terhadap struct."
 }

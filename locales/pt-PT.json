@@ -53,5 +53,5 @@
   "footer_license": "Licença MIT",
   "footer_built_by": "Construído com 🦀 por ",
   "footer_and_community": " & pela comunidade OpenCrabs.",
-  "latest_release_note": "v0.5.0: a nossa maior versão até hoje, 595 commits. Temas, memória que percebe código e transferência de ficheiros por SSH."
+  "latest_release_note": "v0.5.1: o brain com noção de hora. Ancoragem temporal, sessões cron por job, gating por globs de skill e escritas de config validadas pela estrutura."
 }

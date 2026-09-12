@@ -53,5 +53,5 @@
   "footer_license": "Лицензия MIT",
   "footer_built_by": "Сделано с 🦀 ",
   "footer_and_community": " и сообществом OpenCrabs.",
-  "latest_release_note": "v0.5.0: наш самый крупный релиз, 595 коммитов. Темы, память, понимающая код, и передача файлов по SSH."
+  "latest_release_note": "v0.5.1: brain, который знает время. Привязка ко времени, cron-сессии для каждой задачи, фильтр по glob'ам skill и проверка записей config по структуре."
 }

@@ -53,5 +53,5 @@
   "footer_license": "MIT License",
   "footer_built_by": "Built with 🦀 by ",
   "footer_and_community": " & the OpenCrabs community.",
-  "latest_release_note": "v0.5.0: our largest release yet, 595 commits. Themes, code-aware memory, and drop transfer over SSH."
+  "latest_release_note": "v0.5.1: the time-aware brain. Temporal grounding, per-job cron sessions, skill-glob gating, and config writes validated against the struct."
 }
