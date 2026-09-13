@@ -103,6 +103,23 @@ extra_paths = ["scrapes/docs.example.com"]
 2. Point `extra_paths` at the scrapes directory (relative paths resolve against the OpenCrabs home)
 3. Ask anything — answers are grounded in and quoted from the indexed docs
 
+### Structural Code Search Upgrades (v0.5.1)
+
+The code-graph answers (`who calls X`, `what does X call`, `impact of X`) got four upgrades:
+
+- **Truncation is now visible.** Caller sets in real repos are unbounded (5,000+ call sites
+  exist), so every structural listing that had to cut ends with a marker line —
+  *"… and N more callers of X (re-query with higher n or offset)"* — and sets beyond 500
+  collapse into a per-file rollup instead of one-liners. Nothing is silently chopped anymore.
+- **Offset pagination.** `memory_search` accepts an `offset` alongside `n` for structural
+  listings, so the full set can be walked page by page. Ranked text/vector results stay
+  rank-truncated — the window applies to listings only.
+- **Depth-2 impact chains.** `impact of X` now walks two hops over the call-edge graph,
+  surfacing the callers-of-callers that a direct query misses.
+- **Cleaner hits.** External code hits render **repo-relative paths** instead of absolute
+  machine paths, and every `scope=all` hit carries a **corpus provenance tag** (which index
+  the fact came from), so a memory answer and a code-graph answer can be told apart (#89).
+
 ### Embedding Hardening (v0.3.81)
 
 Embedding API calls now carry **timeouts**, a **vector gate** (malformed or empty vectors never reach the store), and **non-blocking writes** (embedding failures never stall the turn) (#1062). `/doctor` reports **embedding health**, and a sweep finds **unembedded documents** and backfills them (#1069, #1067).

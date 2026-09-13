@@ -41,11 +41,31 @@ No agent type has access to these tools, preventing dangerous or recursive opera
 spawn_agent(
   label: "refactor-auth",      # Human-readable label
   agent_type: "code",          # general | explore | plan | code | research
-  prompt: "Refactor auth..."   # Task instruction
+  prompt: "Refactor auth...",  # Task instruction
+  include_brain: false         # opt in to workspace brain pre-injection (v0.5.1)
 )
 ```
 
 The agent runs in its own session with auto-approved tools. No blocking -- it executes in the background while the parent continues.
+
+### Lean children and `include_brain` (v0.5.1)
+
+Sub-agents start **lean**: no pre-injected workspace brain (SOUL.md, USER.md, AGENTS.md,
+project directives). Pass `include_brain: true` to `spawn_agent` (or per-agent in
+`team_create`) to opt into pre-injection; the choice is frozen for the agent's lifetime and
+`resume_agent` re-attaches accordingly. When a child runs lean, its prompt **discloses the
+gap** — the child is told the workspace brain is not loaded and pointed at `load_brain_file`
+for on-demand access, so neither side operates on the assumption rules are ambiently known (#145).
+
+### Headless children (v0.5.1)
+
+Child agents are **headless by law**: interactive-only tools (`session_notify`,
+`suggest_options`) are stripped from the child's tool surface and the registry refuses to
+register them there — a call returns a hard tool error, not a silent no-op. The headless
+tool roster excludes interactive-only tools wholesale, and headless prompts (spawn and
+resume, cron/daemon, CLI one-shot) carry a preamble saying so, so the child never reaches for
+a button it does not have (#129). The same backstop covers cron's `here` target: it is
+refused on headless surfaces.
 
 ### Wait for Completion
 

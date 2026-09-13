@@ -64,7 +64,35 @@ Supported targets in any combination:
 - `telegram:CHAT_ID` or `telegram:-GROUP_ID`
 - `discord:CHANNEL_ID`
 - `slack:CHANNEL_ID`
+- `whatsapp:PHONE_OR_JID`
 - `http://...` or `https://...` (webhook URL)
+
+### Target URLs (v0.5.1)
+
+Since v0.5.1 every delivery field also speaks a unified `oc://` target scheme, resolved by a
+central resolver against the live channel bindings (issue #148):
+
+| Form | Meaning |
+|---|---|
+| `oc://telegram/<chat>[/<thread>]` | Telegram chat (optionally a forum topic) |
+| `oc://discord/<channel>` | Discord channel |
+| `oc://slack/<channel>` | Slack channel |
+| `oc://whatsapp/<phone\|jid>` | WhatsApp contact |
+| `oc://session/<uuid-or-prefix>` | Park the result in that OpenCrabs session's notify queue — the agent gets cron output the same way a sub-agent or a detached command reaches its parent (v0.5.1) |
+| `here` | This conversation's channel (refused on headless surfaces, which have none) |
+
+Target URLs are resolved **once, at create/update time**, and the concrete channel target is
+baked into the job; if an unbaked URL ever reaches fire time the run fails loudly instead of
+resolving against a possibly-changed world.
+
+### Forum-topic delivery (v0.5.1, opt-in)
+
+`telegram:CHAT_ID:THREAD_ID` (or the `oc://telegram/<chat>/<thread>` form) delivers into a
+specific topic of a forum group. It is deliberately opt-in: the chat must actually be a
+forum and the topic must exist — an invalid thread target is **rejected loudly at fire
+time**, never silently re-routed to the general topic. When a job is created from inside a
+thread (`here`/`oc://` form), the origin thread id is persisted so the result lands back in
+the same topic (#104).
 
 Results are stored in the DB via the `cron_results` table regardless of delivery target, so you can query past execution results with `opencrabs cron results <name>`.
 

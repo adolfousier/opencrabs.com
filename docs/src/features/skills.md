@@ -31,6 +31,26 @@ description: Language-agnostic security & CVE audit for any codebase
 You are a senior security engineer performing a comprehensive
 security audit of the codebase in the current working directory...
 
+### Path-Triggered Skills: `globs` (v0.5.1)
+
+A skill can claim file patterns the way editor rule files do, via an opt-in `globs:`
+frontmatter field — a comma string, an inline flow list, or a block list:
+
+```markdown
+---
+name: rust-style
+description: Project conventions for Rust edits
+globs: ["src/**/*.rs", "build.rs"]
+---
+```
+
+When the agent is about to touch a matching path **without that skill loaded in the current
+context**, the tool call is rejected once, carrying the full skill body in the rejection. The
+identical retry then passes — the model has now read the rules. A registry of seen skills
+(track of loads, epoch-tracked) re-arms the gate after context compaction, and the master
+switch is `[agent] skill_glob_gate` (default: on). The effect: conventions attached to a path
+are impossible to edit against by omission.
+
 ## Stage 1 — Project detection
 ...
 ```
