@@ -65,6 +65,28 @@ session_idle_hours = 24.0              # idle timeout for non-owner sessions
 - **Plain text UI** — No buttons (WhatsApp limitation), uses text-based menus
 - **Slash commands** — All built-in and custom commands work
 
+## Outbound rate limiting
+
+WhatsApp is the channel with the heaviest ban consequences, so every outbound send goes
+through a budget (since v0.5.1):
+
+```toml
+[channels.whatsapp.rate_limit]
+messages_per_minute = 30   # token bucket: sustained sends per minute
+daily_cap = 800            # rolling 24h hard cap
+```
+
+| Mechanism | Behavior |
+|-----------|----------|
+| **Per-minute pacing** | A token bucket sized to `messages_per_minute` (default 30) refills continuously. An over-budget send is **paced**, not dropped: the caller sleeps for the refill gap and then sends. Set `0` to disable pacing. |
+| **Rolling daily cap** | The 24h window allows `daily_cap` sends (default 800). On saturation further sends park in a FIFO queue; a background drainer flushes them as the window slides. A queued quote-reply loses its quote context — the text still arrives. Set `0` to disable the cap. |
+| **Owner alert** | The first send queued in a saturation episode alerts the bot owner exactly once (through the WhatsApp session), and the alert re-arms when traffic drops back under the cap. |
+| **Owner bypass** | Messages addressed to the owner skip budget consumption entirely, so you always get fast replies; the saturation alert itself is also exempt. |
+
+Streaming answers used to post every chunk as its own message — exactly the volume pattern
+Meta's heuristics hunt. Outbound replies now edit one message in place (since v0.5.1), which
+keeps chunked turns well inside the budget; the limiter is the safety net underneath.
+
 ## Formatting Notes
 
 - No markdown tables — use bullet lists
