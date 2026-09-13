@@ -68,7 +68,7 @@ session_idle_hours = 24.0               # idle timeout for non-owner sessions
 | `enabled` | `false` | Enable the Slack bot channel |
 | `token` | `None` | Bot token (`xoxb-...`) |
 | `app_token` | `None` | App-level token for Socket Mode (`xapp-...`) |
-| `allowed_users` | `[]` (accept all) | Slack user IDs (`U12345678`) |
+| `allowed_users` | `[]` (unconfigured: denies everyone) | Slack user IDs (`U12345678`). Since v0.5.1 a workspace with no allowlist and no `bot_owner` denies all messages; once configured it admits allowlisted users or the owner |
 | `allowed_channels` | `[]` (all channels) | Restrict bot to specific channel IDs |
 | `respond_to` | `"mention"` | When to respond: `"all"`, `"dm_only"`, `"mention"` |
 | `session_idle_hours` | `None` (no timeout) | Idle timeout for non-owner sessions. Owner sessions never expire |

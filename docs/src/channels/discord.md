@@ -24,7 +24,7 @@ Run `/onboard:channels` (or `/onboard` and navigate to the Channels step):
 4. Fill in the fields:
    - **Bot Token** — paste the token from the Developer Portal
    - **Channel ID** — the Discord channel to send the welcome message to (right-click a channel with Developer Mode on → Copy Channel ID)
-   - **Allowed Users** — comma-separated Discord user IDs (leave empty to allow everyone)
+   - **Allowed Users** — comma-separated Discord user IDs (since v0.5.1 an empty allowlist no longer allows everyone: until you set users, roles, or `bot_owner`, the channel denies all messages)
    - **Respond To** — `all`, `dm_only`, or `mention`
 5. Press `Enter` on **Test Connection** to verify
 6. Press `Enter` to save and return to the channel list
@@ -64,7 +64,7 @@ session_idle_hours = 24.0               # idle timeout for non-owner sessions
 |-------|---------|-------------|
 | `enabled` | `false` | Enable the Discord bot channel |
 | `token` | `None` | Discord bot token from the Developer Portal |
-| `allowed_users` | `[]` (accept all) | Discord user IDs. Accepts int or string arrays |
+| `allowed_users` | `[]` (denies unless roles/owner configured) | Discord user IDs. Accepts int or string arrays. Any one of `allowed_users`, `allowed_roles`, `bot_owner` configures the channel; a configured one admits allowlisted users, holders of an allowed role (never in DMs), or the owner |
 | `allowed_channels` | `[]` (all channels) | Restrict bot to specific channel IDs |
 | `respond_to` | `"mention"` | When to respond: `"all"`, `"dm_only"`, `"mention"` |
 | `session_idle_hours` | `None` (no timeout) | Idle timeout for non-owner sessions. Owner sessions never expire |

@@ -46,7 +46,7 @@ session_idle_hours = 24.0              # idle timeout for non-owner sessions
 | Field | Default | Description |
 |-------|---------|-------------|
 | `enabled` | `false` | Enable the WhatsApp channel |
-| `allowed_phones` | `[]` (accept all) | E.164 phone numbers. Empty = accept everyone (not recommended for business numbers) |
+| `allowed_phones` | `[]` (open replies under `auto`, but **never** owner rights) | E.164 phone numbers. Since v0.5.1 an empty list no longer makes every sender the bot owner — owner commands (`/evolve`, `/rebuild`, `/exit`, `/cd`) and approval answers need the self-chat, `bot_owner`, or the resolver over `bot_owner` + `allowed_phones` |
 | `session_idle_hours` | `None` (no timeout) | Idle timeout for non-owner sessions. Owner sessions never expire |
 | `response_policy` | `"auto"` | Who the bot responds to. `auto`: reply to all while there is at most one active sender, then switch to mention-only once a second unique sender appears. `owner_only`: only the bot owner. `allowlist`: only allowed phones. `open`: everyone |
 | `bot_owner` | `None` (auto-seeded from `allowed_phones[0]`) | Phone number of the bot owner in E.164 format. The owner gets access that other allowlisted users do not. Commands that expose personal data or the host system are owner-only |
@@ -57,7 +57,17 @@ session_idle_hours = 24.0              # idle timeout for non-owner sessions
 
 **The bot talks to itself.** If you message the bot's own paired number, the bot replies to you. This is by design. The paired account's self-chat is always allowed, regardless of `response_policy` or `allowed_phones`.
 
-**Allowlist behavior.** Anyone messaging the paired number who is on the `allowed_phones` list gets a reply. The `response_policy` controls who else can interact beyond the allowlist.
+**Allowlist behavior.** Anyone messaging the paired number who is on the `allowed_phones`
+list gets a reply. The `response_policy` controls who else can interact beyond the allowlist.
+
+**Ownership (v0.5.1, deny-by-default).** Before v0.5.1 an empty `allowed_phones` under
+`response_policy = "auto"` answered every contact *and* elevated them all to owner — one
+forgotten allowlist away from handing strangers `/evolve` and `/cd`. That elevation is gone:
+being answered no longer means being in charge. Owner status comes from the paired
+account's self-chat, a configured `bot_owner`, or ownership resolution over
+`allowed_phones` + `bot_owner` — never from an empty list. Tool-approval replies
+(Yes/Always/No/YOLO) resolve only for the owner on all four channels.
+
 
 - **Personal and group chats** — Works in DMs and group conversations
 - **Image support** — Send and receive images

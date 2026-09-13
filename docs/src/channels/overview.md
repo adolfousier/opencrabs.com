@@ -102,7 +102,12 @@ All messaging channels support:
 - **Shared session** with TUI (owner) or per-user sessions (non-owners)
 - **Slash commands** — `/help`, `/models`, `/new`, `/sessions`, custom commands
 - **Inline buttons** — Provider picker, model picker, session switcher (Telegram, Discord, Slack)
-- **User allowlists** — Restrict access by user ID, chat ID, or phone number
+- **User allowlists** — Restrict access by user ID, chat ID, role, or phone number. Since
+  v0.5.1 the allowlists are **deny-by-default** and are the access boundary: on Discord and
+  Slack an unconfigured channel (no `allowed_users`, no `allowed_roles`, no `bot_owner`)
+  refuses every message, matching Telegram; on WhatsApp an empty `allowed_phones` no longer
+  grants anyone owner rights. Because the default `approval_policy` is `auto-always`, the
+  allowlist is what decides who can drive tools at all — set it deliberately
 - **`respond_to` filter** — `all`, `dm_only`, or `mention` (respond only when @mentioned)
 
 ## File & Media Support
