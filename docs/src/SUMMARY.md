@@ -48,6 +48,7 @@
 - [Multi-Profile](./features/profiles.md)
 - [Voice (TTS & STT)](./features/voice.md)
 - [Skills System](./features/skills.md)
+- [Themes](./features/themes.md)
 - [Usage Dashboard](./features/usage-dashboard.md)
 - [RTK — Token Savings](./features/rtk.md)
 - [/goal — Autonomous Goal Loop](./features/goal.md)
