@@ -65,10 +65,10 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-d931bde4.js";
+            window.path_to_searchindex_js = "../searchindex-3c9eb961.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-55df8b59.js"></script>
+        <script src="../toc-0aaa5745.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -314,7 +314,7 @@
 <li><strong>Shared session</strong> with TUI (owner) or per-user sessions (non-owners)</li>
 <li><strong>Slash commands</strong> — <code>/help</code>, <code>/models</code>, <code>/new</code>, <code>/sessions</code>, custom commands</li>
 <li><strong>Inline buttons</strong> — Provider picker, model picker, session switcher (Telegram, Discord, Slack)</li>
-<li><strong>User allowlists</strong> — Restrict access by user ID, chat ID, or phone number</li>
+<li><strong>User allowlists</strong> — Restrict access by user ID, chat ID, role, or phone number. Since v0.5.1 the allowlists are <strong>deny-by-default</strong> and are the access boundary: on Discord and Slack an unconfigured channel (no <code>allowed_users</code>, no <code>allowed_roles</code>, no <code>bot_owner</code>) refuses every message, matching Telegram; on WhatsApp an empty <code>allowed_phones</code> no longer grants anyone owner rights. Because the default <code>approval_policy</code> is <code>auto-always</code>, the allowlist is what decides who can drive tools at all — set it deliberately</li>
 <li><strong><code>respond_to</code> filter</strong> — <code>all</code>, <code>dm_only</code>, or <code>mention</code> (respond only when @mentioned)</li>
 </ul>
 <h2 id="file--media-support"><a class="header" href="#file--media-support">File &amp; Media Support</a></h2>

@@ -66,10 +66,10 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-493a2404.js";
+            window.path_to_searchindex_js = "searchindex-fba88e75.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-55df8b59.js"></script>
+        <script src="toc-0aaa5745.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -2754,7 +2754,7 @@ Agent: generate_image(prompt="dark background with thin white border", image="/t
 <li><strong>Shared session</strong> with TUI (owner) or per-user sessions (non-owners)</li>
 <li><strong>Slash commands</strong> — <code>/help</code>, <code>/models</code>, <code>/new</code>, <code>/sessions</code>, custom commands</li>
 <li><strong>Inline buttons</strong> — Provider picker, model picker, session switcher (Telegram, Discord, Slack)</li>
-<li><strong>User allowlists</strong> — Restrict access by user ID, chat ID, or phone number</li>
+<li><strong>User allowlists</strong> — Restrict access by user ID, chat ID, role, or phone number. Since v0.5.1 the allowlists are <strong>deny-by-default</strong> and are the access boundary: on Discord and Slack an unconfigured channel (no <code>allowed_users</code>, no <code>allowed_roles</code>, no <code>bot_owner</code>) refuses every message, matching Telegram; on WhatsApp an empty <code>allowed_phones</code> no longer grants anyone owner rights. Because the default <code>approval_policy</code> is <code>auto-always</code>, the allowlist is what decides who can drive tools at all — set it deliberately</li>
 <li><strong><code>respond_to</code> filter</strong> — <code>all</code>, <code>dm_only</code>, or <code>mention</code> (respond only when @mentioned)</li>
 </ul>
 <h2 id="file--media-support"><a class="header" href="#file--media-support">File &amp; Media Support</a></h2>
@@ -3052,7 +3052,7 @@ open = true                              # all members can talk, no per-user reg
 <ul>
 <li><strong>Bot Token</strong> — paste the token from the Developer Portal</li>
 <li><strong>Channel ID</strong> — the Discord channel to send the welcome message to (right-click a channel with Developer Mode on → Copy Channel ID)</li>
-<li><strong>Allowed Users</strong> — comma-separated Discord user IDs (leave empty to allow everyone)</li>
+<li><strong>Allowed Users</strong> — comma-separated Discord user IDs (since v0.5.1 an empty allowlist no longer allows everyone: until you set users, roles, or <code>bot_owner</code>, the channel denies all messages)</li>
 <li><strong>Respond To</strong> — <code>all</code>, <code>dm_only</code>, or <code>mention</code></li>
 </ul>
 </li>
@@ -3092,7 +3092,7 @@ session_idle_hours = 24.0               # idle timeout for non-owner sessions
 <tbody>
 <tr><td><code>enabled</code></td><td><code>false</code></td><td>Enable the Discord bot channel</td></tr>
 <tr><td><code>token</code></td><td><code>None</code></td><td>Discord bot token from the Developer Portal</td></tr>
-<tr><td><code>allowed_users</code></td><td><code>[]</code> (accept all)</td><td>Discord user IDs. Accepts int or string arrays</td></tr>
+<tr><td><code>allowed_users</code></td><td><code>[]</code> (denies unless roles/owner configured)</td><td>Discord user IDs. Accepts int or string arrays. Any one of <code>allowed_users</code>, <code>allowed_roles</code>, <code>bot_owner</code> configures the channel; a configured one admits allowlisted users, holders of an allowed role (never in DMs), or the owner</td></tr>
 <tr><td><code>allowed_channels</code></td><td><code>[]</code> (all channels)</td><td>Restrict bot to specific channel IDs</td></tr>
 <tr><td><code>respond_to</code></td><td><code>"mention"</code></td><td>When to respond: <code>"all"</code>, <code>"dm_only"</code>, <code>"mention"</code></td></tr>
 <tr><td><code>session_idle_hours</code></td><td><code>None</code> (no timeout)</td><td>Idle timeout for non-owner sessions. Owner sessions never expire</td></tr>
@@ -3201,7 +3201,7 @@ session_idle_hours = 24.0               # idle timeout for non-owner sessions
 <tr><td><code>enabled</code></td><td><code>false</code></td><td>Enable the Slack bot channel</td></tr>
 <tr><td><code>token</code></td><td><code>None</code></td><td>Bot token (<code>xoxb-...</code>)</td></tr>
 <tr><td><code>app_token</code></td><td><code>None</code></td><td>App-level token for Socket Mode (<code>xapp-...</code>)</td></tr>
-<tr><td><code>allowed_users</code></td><td><code>[]</code> (accept all)</td><td>Slack user IDs (<code>U12345678</code>)</td></tr>
+<tr><td><code>allowed_users</code></td><td><code>[]</code> (unconfigured: denies everyone)</td><td>Slack user IDs (<code>U12345678</code>). Since v0.5.1 a workspace with no allowlist and no <code>bot_owner</code> denies all messages; once configured it admits allowlisted users or the owner</td></tr>
 <tr><td><code>allowed_channels</code></td><td><code>[]</code> (all channels)</td><td>Restrict bot to specific channel IDs</td></tr>
 <tr><td><code>respond_to</code></td><td><code>"mention"</code></td><td>When to respond: <code>"all"</code>, <code>"dm_only"</code>, <code>"mention"</code></td></tr>
 <tr><td><code>session_idle_hours</code></td><td><code>None</code> (no timeout)</td><td>Idle timeout for non-owner sessions. Owner sessions never expire</td></tr>
@@ -3285,7 +3285,7 @@ session_idle_hours = 24.0              # idle timeout for non-owner sessions
 </thead>
 <tbody>
 <tr><td><code>enabled</code></td><td><code>false</code></td><td>Enable the WhatsApp channel</td></tr>
-<tr><td><code>allowed_phones</code></td><td><code>[]</code> (accept all)</td><td>E.164 phone numbers. Empty = accept everyone (not recommended for business numbers)</td></tr>
+<tr><td><code>allowed_phones</code></td><td><code>[]</code> (open replies under <code>auto</code>, but <strong>never</strong> owner rights)</td><td>E.164 phone numbers. Since v0.5.1 an empty list no longer makes every sender the bot owner — owner commands (<code>/evolve</code>, <code>/rebuild</code>, <code>/exit</code>, <code>/cd</code>) and approval answers need the self-chat, <code>bot_owner</code>, or the resolver over <code>bot_owner</code> + <code>allowed_phones</code></td></tr>
 <tr><td><code>session_idle_hours</code></td><td><code>None</code> (no timeout)</td><td>Idle timeout for non-owner sessions. Owner sessions never expire</td></tr>
 <tr><td><code>response_policy</code></td><td><code>"auto"</code></td><td>Who the bot responds to. <code>auto</code>: reply to all while there is at most one active sender, then switch to mention-only once a second unique sender appears. <code>owner_only</code>: only the bot owner. <code>allowlist</code>: only allowed phones. <code>open</code>: everyone</td></tr>
 <tr><td><code>bot_owner</code></td><td><code>None</code> (auto-seeded from <code>allowed_phones[0]</code>)</td><td>Phone number of the bot owner in E.164 format. The owner gets access that other allowlisted users do not. Commands that expose personal data or the host system are owner-only</td></tr>
@@ -3296,6 +3296,7 @@ session_idle_hours = 24.0              # idle timeout for non-owner sessions
 <p><strong>One account per instance.</strong> Each OpenCrabs instance supports one WhatsApp account (one companion device). You run the bot AS whatever account you scan: your own number (talk via “Message Yourself”), or any other number you own, including a WhatsApp Business account.</p>
 <p><strong>The bot talks to itself.</strong> If you message the bot’s own paired number, the bot replies to you. This is by design. The paired account’s self-chat is always allowed, regardless of <code>response_policy</code> or <code>allowed_phones</code>.</p>
 <p><strong>Allowlist behavior.</strong> Anyone messaging the paired number who is on the <code>allowed_phones</code> list gets a reply. The <code>response_policy</code> controls who else can interact beyond the allowlist.</p>
+<p><strong>Ownership (v0.5.1, deny-by-default).</strong> Before v0.5.1 an empty <code>allowed_phones</code> under <code>response_policy = "auto"</code> answered every contact <em>and</em> elevated them all to owner — one forgotten allowlist away from handing strangers <code>/evolve</code> and <code>/cd</code>. That elevation is gone: being answered no longer means being in charge. Owner status comes from the paired account’s self-chat, a configured <code>bot_owner</code>, or ownership resolution over <code>allowed_phones</code> + <code>bot_owner</code> — never from an empty list. Tool-approval replies (Yes/Always/No/YOLO) resolve only for the owner on all four channels.</p>
 <ul>
 <li><strong>Personal and group chats</strong> — Works in DMs and group conversations</li>
 <li><strong>Image support</strong> — Send and receive images</li>
@@ -3303,6 +3304,26 @@ session_idle_hours = 24.0              # idle timeout for non-owner sessions
 <li><strong>Plain text UI</strong> — No buttons (WhatsApp limitation), uses text-based menus</li>
 <li><strong>Slash commands</strong> — All built-in and custom commands work</li>
 </ul>
+<h2 id="outbound-rate-limiting"><a class="header" href="#outbound-rate-limiting">Outbound rate limiting</a></h2>
+<p>WhatsApp is the channel with the heaviest ban consequences, so every outbound send goes through a budget (since v0.5.1):</p>
+<pre><code class="language-toml">[channels.whatsapp.rate_limit]
+messages_per_minute = 30   # token bucket: sustained sends per minute
+daily_cap = 800            # rolling 24h hard cap
+</code></pre>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Mechanism</th><th>Behavior</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Per-minute pacing</strong></td><td>A token bucket sized to <code>messages_per_minute</code> (default 30) refills continuously. An over-budget send is <strong>paced</strong>, not dropped: the caller sleeps for the refill gap and then sends. Set <code>0</code> to disable pacing.</td></tr>
+<tr><td><strong>Rolling daily cap</strong></td><td>The 24h window allows <code>daily_cap</code> sends (default 800). On saturation further sends park in a FIFO queue; a background drainer flushes them as the window slides. A queued quote-reply loses its quote context — the text still arrives. Set <code>0</code> to disable the cap.</td></tr>
+<tr><td><strong>Owner alert</strong></td><td>The first send queued in a saturation episode alerts the bot owner exactly once (through the WhatsApp session), and the alert re-arms when traffic drops back under the cap.</td></tr>
+<tr><td><strong>Owner bypass</strong></td><td>Messages addressed to the owner skip budget consumption entirely, so you always get fast replies; the saturation alert itself is also exempt.</td></tr>
+</tbody>
+</table>
+</div>
+<p>Streaming answers used to post every chunk as its own message — exactly the volume pattern Meta’s heuristics hunt. Outbound replies now edit one message in place (since v0.5.1), which keeps chunked turns well inside the budget; the limiter is the safety net underneath.</p>
 <h2 id="formatting-notes-1"><a class="header" href="#formatting-notes-1">Formatting Notes</a></h2>
 <ul>
 <li>No markdown tables — use bullet lists</li>
@@ -3833,6 +3854,14 @@ extra_paths = ["scrapes/docs.example.com"]
 <li>Point <code>extra_paths</code> at the scrapes directory (relative paths resolve against the OpenCrabs home)</li>
 <li>Ask anything — answers are grounded in and quoted from the indexed docs</li>
 </ol>
+<h3 id="structural-code-search-upgrades-v051"><a class="header" href="#structural-code-search-upgrades-v051">Structural Code Search Upgrades (v0.5.1)</a></h3>
+<p>The code-graph answers (<code>who calls X</code>, <code>what does X call</code>, <code>impact of X</code>) got four upgrades:</p>
+<ul>
+<li><strong>Truncation is now visible.</strong> Caller sets in real repos are unbounded (5,000+ call sites exist), so every structural listing that had to cut ends with a marker line — <em>“… and N more callers of X (re-query with higher n or offset)”</em> — and sets beyond 500 collapse into a per-file rollup instead of one-liners. Nothing is silently chopped anymore.</li>
+<li><strong>Offset pagination.</strong> <code>memory_search</code> accepts an <code>offset</code> alongside <code>n</code> for structural listings, so the full set can be walked page by page. Ranked text/vector results stay rank-truncated — the window applies to listings only.</li>
+<li><strong>Depth-2 impact chains.</strong> <code>impact of X</code> now walks two hops over the call-edge graph, surfacing the callers-of-callers that a direct query misses.</li>
+<li><strong>Cleaner hits.</strong> External code hits render <strong>repo-relative paths</strong> instead of absolute machine paths, and every <code>scope=all</code> hit carries a <strong>corpus provenance tag</strong> (which index the fact came from), so a memory answer and a code-graph answer can be told apart (#89).</li>
+</ul>
 <h3 id="embedding-hardening-v0381"><a class="header" href="#embedding-hardening-v0381">Embedding Hardening (v0.3.81)</a></h3>
 <p>Embedding API calls now carry <strong>timeouts</strong>, a <strong>vector gate</strong> (malformed or empty vectors never reach the store), and <strong>non-blocking writes</strong> (embedding failures never stall the turn) (#1062). <code>/doctor</code> reports <strong>embedding health</strong>, and a sweep finds <strong>unembedded documents</strong> and backfills them (#1069, #1067).</p>
 <h3 id="embedding-modes"><a class="header" href="#embedding-modes">Embedding Modes</a></h3>
@@ -4325,8 +4354,29 @@ opencrabs cron remove "Morning Report"
 <li><code>telegram:CHAT_ID</code> or <code>telegram:-GROUP_ID</code></li>
 <li><code>discord:CHANNEL_ID</code></li>
 <li><code>slack:CHANNEL_ID</code></li>
+<li><code>whatsapp:PHONE_OR_JID</code></li>
 <li><code>http://...</code> or <code>https://...</code> (webhook URL)</li>
 </ul>
+<h3 id="target-urls-v051"><a class="header" href="#target-urls-v051">Target URLs (v0.5.1)</a></h3>
+<p>Since v0.5.1 every delivery field also speaks a unified <code>oc://</code> target scheme, resolved by a central resolver against the live channel bindings (issue #148):</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Form</th><th>Meaning</th></tr>
+</thead>
+<tbody>
+<tr><td><code>oc://telegram/&lt;chat&gt;[/&lt;thread&gt;]</code></td><td>Telegram chat (optionally a forum topic)</td></tr>
+<tr><td><code>oc://discord/&lt;channel&gt;</code></td><td>Discord channel</td></tr>
+<tr><td><code>oc://slack/&lt;channel&gt;</code></td><td>Slack channel</td></tr>
+<tr><td><code>oc://whatsapp/&lt;phone|jid&gt;</code></td><td>WhatsApp contact</td></tr>
+<tr><td><code>oc://session/&lt;uuid-or-prefix&gt;</code></td><td>Park the result in that OpenCrabs session’s notify queue — the agent gets cron output the same way a sub-agent or a detached command reaches its parent (v0.5.1)</td></tr>
+<tr><td><code>here</code></td><td>This conversation’s channel (refused on headless surfaces, which have none)</td></tr>
+</tbody>
+</table>
+</div>
+<p>Target URLs are resolved <strong>once, at create/update time</strong>, and the concrete channel target is baked into the job; if an unbaked URL ever reaches fire time the run fails loudly instead of resolving against a possibly-changed world.</p>
+<h3 id="forum-topic-delivery-v051-opt-in"><a class="header" href="#forum-topic-delivery-v051-opt-in">Forum-topic delivery (v0.5.1, opt-in)</a></h3>
+<p><code>telegram:CHAT_ID:THREAD_ID</code> (or the <code>oc://telegram/&lt;chat&gt;/&lt;thread&gt;</code> form) delivers into a specific topic of a forum group. It is deliberately opt-in: the chat must actually be a forum and the topic must exist — an invalid thread target is <strong>rejected loudly at fire time</strong>, never silently re-routed to the general topic. When a job is created from inside a thread (<code>here</code>/<code>oc://</code> form), the origin thread id is persisted so the result lands back in the same topic (#104).</p>
 <p>Results are stored in the DB via the <code>cron_results</code> table regardless of delivery target, so you can query past execution results with <code>opencrabs cron results &lt;name&gt;</code>.</p>
 <h2 id="scheduler-lock-v0365"><a class="header" href="#scheduler-lock-v0365">Scheduler Lock (v0.3.65)</a></h2>
 <p>The cron scheduler uses a <strong>file lock</strong> to prevent duplicate job execution. Only one scheduler instance can run per profile at a time. If you accidentally start OpenCrabs twice, the second instance won’t fire duplicate cron jobs.</p>
@@ -4495,10 +4545,15 @@ opencrabs cron remove "Morning Report"
 <pre><code>spawn_agent(
   label: "refactor-auth",      # Human-readable label
   agent_type: "code",          # general | explore | plan | code | research
-  prompt: "Refactor auth..."   # Task instruction
+  prompt: "Refactor auth...",  # Task instruction
+  include_brain: false         # opt in to workspace brain pre-injection (v0.5.1)
 )
 </code></pre>
 <p>The agent runs in its own session with auto-approved tools. No blocking – it executes in the background while the parent continues.</p>
+<h3 id="lean-children-and-include_brain-v051"><a class="header" href="#lean-children-and-include_brain-v051">Lean children and <code>include_brain</code> (v0.5.1)</a></h3>
+<p>Sub-agents start <strong>lean</strong>: no pre-injected workspace brain (SOUL.md, USER.md, AGENTS.md, project directives). Pass <code>include_brain: true</code> to <code>spawn_agent</code> (or per-agent in <code>team_create</code>) to opt into pre-injection; the choice is frozen for the agent’s lifetime and <code>resume_agent</code> re-attaches accordingly. When a child runs lean, its prompt <strong>discloses the gap</strong> — the child is told the workspace brain is not loaded and pointed at <code>load_brain_file</code> for on-demand access, so neither side operates on the assumption rules are ambiently known (#145).</p>
+<h3 id="headless-children-v051"><a class="header" href="#headless-children-v051">Headless children (v0.5.1)</a></h3>
+<p>Child agents are <strong>headless by law</strong>: interactive-only tools (<code>session_notify</code>, <code>suggest_options</code>) are stripped from the child’s tool surface and the registry refuses to register them there — a call returns a hard tool error, not a silent no-op. The headless tool roster excludes interactive-only tools wholesale, and headless prompts (spawn and resume, cron/daemon, CLI one-shot) carry a preamble saying so, so the child never reaches for a button it does not have (#129). The same backstop covers cron’s <code>here</code> target: it is refused on headless surfaces.</p>
 <h3 id="wait-for-completion"><a class="header" href="#wait-for-completion">Wait for Completion</a></h3>
 <pre><code>wait_agent(
   agent_id: "abc-123",
@@ -5941,67 +5996,80 @@ description: Language-agnostic security &amp; CVE audit for any codebase
 You are a senior security engineer performing a comprehensive
 security audit of the codebase in the current working directory...
 
-## Stage 1 — Project detection
-...
+### Path-Triggered Skills: `globs` (v0.5.1)
+
+A skill can claim file patterns the way editor rule files do, via an opt-in `globs:`
+frontmatter field — a comma string, an inline flow list, or a block list:
+
+```markdown
+---
+name: rust-style
+description: Project conventions for Rust edits
+globs: ["src/**/*.rs", "build.rs"]
+---
 </code></pre>
-<p>The <code>name</code> and <code>description</code> fields in the frontmatter are required. The markdown body becomes the prompt that gets injected when the skill runs.</p>
-<h2 id="built-in-vs-user-skills"><a class="header" href="#built-in-vs-user-skills">Built-in vs User Skills</a></h2>
-<p>Skills come from two sources:</p>
-<ul>
-<li><strong>Built-in</strong> (orange badge) — ship with the OpenCrabs binary via <code>include_str!</code>. Always available.</li>
-<li><strong>User</strong> (teal badge) — created by you in <code>~/.opencrabs/skills/&lt;name&gt;/SKILL.md</code>. Override built-ins by file presence.</li>
-</ul>
-<h2 id="built-in-skills"><a class="header" href="#built-in-skills">Built-in Skills</a></h2>
-<div class="table-wrapper">
-<table>
-<thead>
-<tr><th>Skill</th><th>Descripción</th></tr>
-</thead>
-<tbody>
-<tr><td><code>opencli</code></td><td>Reference for all 25+ opencli-rs dynamic tools (news, social, search, web). Use when user asks about trending topics, news, social media, jobs, or web search.</td></tr>
-<tr><td><code>browser-cdp</code></td><td>Native CDP browser automation reference. Headless/headed Chrome control, screenshots, JS evaluation.</td></tr>
-<tr><td><code>a2a-gateway</code></td><td>Agent-to-Agent (A2A) protocol gateway reference. JSON-RPC 2.0 peer-to-peer agent communication.</td></tr>
-<tr><td><code>dynamic-tools</code></td><td>Runtime tool management with tool_manage and tools.toml format. Create, enable, disable, reload tools without restart.</td></tr>
-<tr><td><code>security-audit</code></td><td>Language-agnostic security &amp; CVE audit. Detects project type from manifests, runs the appropriate scanner, reviews the diff for injection / auth / crypto / deserialization / path-traversal patterns, and scores 0-100.</td></tr>
-<tr><td><code>cost-estimate</code></td><td>Codebase cost-to-build estimate, AI-assisted ROI breakdown, and fair-market valuation.</td></tr>
-<tr><td><code>repo-audit</code></td><td>Language-agnostic repository health checks. 5-phase pipeline: language detection, native tool execution, git metrics, AST analysis, scoring + recommendations. Covers Rust, JS/TS, Python, Go. (v0.3.18)</td></tr>
-</tbody>
-</table>
-</div>
-<h2 id="running-skills"><a class="header" href="#running-skills">Running Skills</a></h2>
-<h3 id="skills-picker-skills"><a class="header" href="#skills-picker-skills">Skills Picker (<code>/skills</code>)</a></h3>
-<p>Type <code>/skills</code> to open the full-screen filterable picker. The top shows a filter bar with the total skill count. The main area lists all skills, each showing:</p>
-<ul>
-<li><strong>Skill name</strong> as a slash command (e.g. <code>/security-audit</code>)</li>
-<li><strong>Type badge</strong> — orange <code>built-in</code> or teal <code>user</code></li>
-<li><strong>Description</strong> of what the skill does</li>
-<li><strong>Keywords</strong> for search matching in parentheses</li>
-</ul>
-<div class="table-wrapper">
-<table>
-<thead>
-<tr><th>Tecla</th><th>Acción</th></tr>
-</thead>
-<tbody>
-<tr><td><code>Tab</code> / <code>↑↓</code></td><td>Navigate the skill list</td></tr>
-<tr><td><code>Enter</code></td><td>Run the selected skill</td></tr>
-<tr><td><code>Esc</code></td><td>Close the picker</td></tr>
-<tr><td>Type</td><td>Filter skills by name and description (case-insensitive)</td></tr>
-</tbody>
-</table>
-</div>
-<p>When the filter narrows to a single match, Enter fires it immediately.</p>
-<h3 id="slash-commands"><a class="header" href="#slash-commands">Slash Commands</a></h3>
-<p>Type any skill name directly as a slash command:</p>
-<pre><code>/security-audit
+<p>When the agent is about to touch a matching path <strong>without that skill loaded in the current context</strong>, the tool call is rejected once, carrying the full skill body in the rejection. The identical retry then passes — the model has now read the rules. A registry of seen skills (track of loads, epoch-tracked) re-arms the gate after context compaction, and the master switch is <code>[agent] skill_glob_gate</code> (default: on). The effect: conventions attached to a path are impossible to edit against by omission.</p>
+<h2 id="stage-1--project-detection"><a class="header" href="#stage-1--project-detection">Stage 1 — Project detection</a></h2>
+<p>…</p>
+<pre><code>
+The `name` and `description` fields in the frontmatter are required. The markdown body becomes the prompt that gets injected when the skill runs.
+
+## Built-in vs User Skills
+
+Skills come from two sources:
+
+- **Built-in** (orange badge) — ship with the OpenCrabs binary via `include_str!`. Always available.
+- **User** (teal badge) — created by you in `~/.opencrabs/skills/&lt;name&gt;/SKILL.md`. Override built-ins by file presence.
+
+## Built-in Skills
+
+| Skill | Description |
+|-------|-------------|
+| `opencli` | Reference for all 25+ opencli-rs dynamic tools (news, social, search, web). Use when user asks about trending topics, news, social media, jobs, or web search. |
+| `browser-cdp` | Native CDP browser automation reference. Headless/headed Chrome control, screenshots, JS evaluation. |
+| `a2a-gateway` | Agent-to-Agent (A2A) protocol gateway reference. JSON-RPC 2.0 peer-to-peer agent communication. |
+| `dynamic-tools` | Runtime tool management with tool_manage and tools.toml format. Create, enable, disable, reload tools without restart. |
+| `security-audit` | Language-agnostic security &amp; CVE audit. Detects project type from manifests, runs the appropriate scanner, reviews the diff for injection / auth / crypto / deserialization / path-traversal patterns, and scores 0-100. |
+| `cost-estimate` | Codebase cost-to-build estimate, AI-assisted ROI breakdown, and fair-market valuation. |
+| `repo-audit` | Language-agnostic repository health checks. 5-phase pipeline: language detection, native tool execution, git metrics, AST analysis, scoring + recommendations. Covers Rust, JS/TS, Python, Go. (v0.3.18) |
+
+## Running Skills
+
+### Skills Picker (`/skills`)
+
+Type `/skills` to open the full-screen filterable picker. The top shows a filter bar with the total skill count. The main area lists all skills, each showing:
+
+- **Skill name** as a slash command (e.g. `/security-audit`)
+- **Type badge** — orange `built-in` or teal `user`
+- **Description** of what the skill does
+- **Keywords** for search matching in parentheses
+
+| Key | Action |
+|-----|--------|
+| `Tab` / `↑↓` | Navigate the skill list |
+| `Enter` | Run the selected skill |
+| `Esc` | Close the picker |
+| Type | Filter skills by name and description (case-insensitive) |
+
+When the filter narrows to a single match, Enter fires it immediately.
+
+### Slash Commands
+
+Type any skill name directly as a slash command:
+
 </code></pre>
-<h3 id="channels"><a class="header" href="#channels">Channels</a></h3>
-<p>Skills auto-register as slash commands across all connected channels (Telegram, Discord, Slack, WhatsApp). No <code>commands.toml</code> entry needed. Just type <code>/&lt;skill-name&gt;</code> in any channel to run it.</p>
-<h2 id="creating-custom-skills"><a class="header" href="#creating-custom-skills">Creating Custom Skills</a></h2>
-<ol>
-<li>Create a directory under <code>~/.opencrabs/skills/</code>:</li>
-</ol>
-<pre><code class="language-bash">mkdir -p ~/.opencrabs/skills/my-skill
+<p>/security-audit</p>
+<pre><code>
+### Channels
+
+Skills auto-register as slash commands across all connected channels (Telegram, Discord, Slack, WhatsApp). No `commands.toml` entry needed. Just type `/&lt;skill-name&gt;` in any channel to run it.
+
+## Creating Custom Skills
+
+1. Create a directory under `~/.opencrabs/skills/`:
+
+```bash
+mkdir -p ~/.opencrabs/skills/my-skill
 </code></pre>
 <ol start="2">
 <li>Create <code>SKILL.md</code> with frontmatter and prompt:</li>
@@ -6033,6 +6101,219 @@ Instructions for the agent when this skill runs...
 <p>This is part of the <a href="#rsi-proposals">RSI Proposals system</a> — RSI identifies gaps in the agent’s capabilities and drafts solutions, but installation always requires your approval.</p>
 <h2 id="slash-command-resolution-v0378"><a class="header" href="#slash-command-resolution-v0378">Slash Command Resolution (v0.3.78)</a></h2>
 <p>The <code>slash_command</code> tool now correctly resolves <strong>skills</strong> and the <code>/onboard:&lt;topic&gt;</code> form. Previously, calling a skill via <code>slash_command</code> could fail if the skill name didn’t exactly match the internal registry key. The resolver now checks skills, built-in commands, and user commands in priority order, and the <code>/onboard:voice</code> / <code>/onboard:provider</code> / <code>/onboard:channels</code> sub-topic forms route correctly.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="themes"><a class="header" href="#themes">Themes</a></h1>
+<p>The TUI is colored by <strong>semantic roles</strong>, not raw hexes. Every render site resolves a role (<code>accent</code>, <code>text_primary</code>, <code>selection_bg</code>, …) through the active theme, so one switch restyles the whole interface at runtime. A theme is <strong>one file, 43 keys, done</strong>.</p>
+<h2 id="switching-themes"><a class="header" href="#switching-themes">Switching themes</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Comando</th><th>What it does</th></tr>
+</thead>
+<tbody>
+<tr><td><code>/theme</code></td><td>Opens the interactive picker: <code>↑</code>/<code>↓</code> (or <code>j</code>/<code>k</code>) move the cursor and <strong>preview live</strong> — the whole UI recolors under the arrow keys. <code>Enter</code> applies and persists, <code>Esc</code> (or <code>q</code>) cancels and reverts to whatever was active when the picker opened.</td></tr>
+<tr><td><code>/theme list</code></td><td>Lists built-in themes and user presets, then re-scans <code>~/.opencrabs/themes/</code>. Files that fail validation are listed with a human-readable rejection reason — never silently ignored.</td></tr>
+<tr><td><code>/theme set &lt;name&gt;</code></td><td>Applies a theme immediately and writes it to your config. Lookup is case-insensitive across built-ins and user presets; an unknown name tells you to run <code>/theme list</code>.</td></tr>
+<tr><td><code>/theme reset</code></td><td>Returns to the default (<code>crab-dark</code>) and clears the config key.</td></tr>
+</tbody>
+</table>
+</div>
+<p>To pin a theme without the picker, set it in <code>config.toml</code>:</p>
+<pre><code class="language-toml">[tui]
+theme = "nord"
+</code></pre>
+<p>The value is applied at boot before the first frame. An empty or unknown name falls back to <code>crab-dark</code>. User theme files are re-scanned on every <code>/theme</code> invocation, so editing a preset file hot-loads it without restarting the TUI.</p>
+<h2 id="built-in-themes"><a class="header" href="#built-in-themes">Built-in themes</a></h2>
+<p>There are <strong>39</strong> built-in themes: 8 hand-tuned presets plus a curated pack of 31 converted from popular upstream palettes (see <a href="#imported-themes">Imported themes</a>). <code>crab-dark</code> is the default and matches the historical OpenCrabs look.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Preset</th><th>Vibe</th></tr>
+</thead>
+<tbody>
+<tr><td><code>crab-dark</code></td><td>The house palette: burnt-orange accent, cool grays, deep ink</td></tr>
+<tr><td><code>dracula</code></td><td>The classic purple-blue dark theme with orange accent</td></tr>
+<tr><td><code>alucard</code></td><td>Warm dark, muted contrast (Castlevania’s good-boy Dracula)</td></tr>
+<tr><td><code>monokai</code></td><td>Sublime’s iconic warm dark with pink/yellow</td></tr>
+<tr><td><code>catppuccin-mocha</code></td><td>Pastel dark, soft and low-contrast</td></tr>
+<tr><td><code>catppuccin-latte</code></td><td>The same pastels on light surfaces</td></tr>
+<tr><td><code>solarized-light</code></td><td>Ethan Schoonlif’s light base</td></tr>
+<tr><td><code>solarized-dark</code></td><td>The original dark base</td></tr>
+</tbody>
+</table>
+</div>
+<p>The curated pack adds: <code>aura</code>, <code>ayu</code>, <code>carbonfox</code>, <code>catppuccin-frappe</code>, <code>catppuccin-macchiato</code>, <code>cobalt2</code>, <code>cursor</code>, <code>everforest</code>, <code>flexoki</code>, <code>github</code>, <code>gruvbox</code>, <code>gruvbox-light</code>, <code>kanagawa</code>, <code>material</code>, <code>matrix</code>, <code>mercury</code>, <code>nightowl</code>, <code>nord</code>, <code>one-dark</code>, <code>opencode</code>, <code>orng</code>, <code>osaka-jade</code>, <code>palenight</code>, <code>rosepine</code>, <code>rosepine-dawn</code>, <code>synthwave84</code>, <code>tokyonight</code>, <code>tokyonight-storm</code>, <code>vercel</code>, <code>vesper</code>, <code>zenburn</code>.</p>
+<h2 id="gallery"><a class="header" href="#gallery">Gallery</a></h2>
+<p>Swatches show four anchor roles per theme (accent, body text, success, ink background), read from the shipped sources. Regenerate with <code>python3 docs/scripts/gen_theme_gallery.py</code>.</p>
+<!-- GALLERY:BEGIN -->
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Theme</th><th>Type</th><th>accent</th><th>text</th><th>success</th><th>ink</th><th>Fuente</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>crab-dark</strong></td><td>default</td><td><span style="background:#d76414;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#d76414</code></td><td><span style="background:#c8c8d2;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#c8c8d2</code></td><td><span style="background:#50c878;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#50c878</code></td><td><span style="background:#14141e;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#14141e</code></td><td>built-in</td></tr>
+<tr><td><strong>dracula</strong></td><td>hand-built</td><td><span style="background:#ffb86c;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#ffb86c</code></td><td><span style="background:#f8f8f2;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#f8f8f2</code></td><td><span style="background:#50fa7b;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#50fa7b</code></td><td><span style="background:#282a36;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#282a36</code></td><td>built-in</td></tr>
+<tr><td><strong>alucard</strong></td><td>hand-built</td><td><span style="background:#a34d14;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#a34d14</code></td><td><span style="background:#1f1f1f;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#1f1f1f</code></td><td><span style="background:#14710a;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#14710a</code></td><td><span style="background:#1f1f1f;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#1f1f1f</code></td><td>built-in</td></tr>
+<tr><td><strong>monokai</strong></td><td>hand-built</td><td><span style="background:#fd971f;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#fd971f</code></td><td><span style="background:#f8f8f2;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#f8f8f2</code></td><td><span style="background:#a6e22e;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#a6e22e</code></td><td><span style="background:#272822;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#272822</code></td><td>built-in</td></tr>
+<tr><td><strong>catppuccin-mocha</strong></td><td>hand-built</td><td><span style="background:#fab387;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#fab387</code></td><td><span style="background:#cdd6f4;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#cdd6f4</code></td><td><span style="background:#a6e3a1;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#a6e3a1</code></td><td><span style="background:#1e1e2e;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#1e1e2e</code></td><td>built-in</td></tr>
+<tr><td><strong>catppuccin-latte</strong></td><td>hand-built</td><td><span style="background:#fe640b;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#fe640b</code></td><td><span style="background:#4c4f69;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#4c4f69</code></td><td><span style="background:#40a02b;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#40a02b</code></td><td><span style="background:#4c4f69;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#4c4f69</code></td><td>built-in</td></tr>
+<tr><td><strong>solarized-light</strong></td><td>hand-built</td><td><span style="background:#cb4b16;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#cb4b16</code></td><td><span style="background:#657b83;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#657b83</code></td><td><span style="background:#859900;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#859900</code></td><td><span style="background:#073642;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#073642</code></td><td>built-in</td></tr>
+<tr><td><strong>solarized-dark</strong></td><td>hand-built</td><td><span style="background:#cb4b16;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#cb4b16</code></td><td><span style="background:#839496;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#839496</code></td><td><span style="background:#859900;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#859900</code></td><td><span style="background:#002b36;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#002b36</code></td><td>built-in</td></tr>
+<tr><td><strong>aura</strong></td><td>curated pack</td><td><span style="background:#a277ff;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#a277ff</code></td><td><span style="background:#edecee;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#edecee</code></td><td><span style="background:#61ffca;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#61ffca</code></td><td><span style="background:#0f0f0f;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#0f0f0f</code></td><td>opencode, dark, 2026-09-11</td></tr>
+<tr><td><strong>ayu</strong></td><td>curated pack</td><td><span style="background:#e6b450;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#e6b450</code></td><td><span style="background:#bfbdb6;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#bfbdb6</code></td><td><span style="background:#7fd962;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#7fd962</code></td><td><span style="background:#0b0e14;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#0b0e14</code></td><td>opencode, dark, 2026-09-11</td></tr>
+<tr><td><strong>carbonfox</strong></td><td>curated pack</td><td><span style="background:#ff7eb6;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#ff7eb6</code></td><td><span style="background:#f2f4f8;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#f2f4f8</code></td><td><span style="background:#25be6a;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#25be6a</code></td><td><span style="background:#161616;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#161616</code></td><td>opencode, dark, 2026-09-11</td></tr>
+<tr><td><strong>catppuccin-macchiato</strong></td><td>curated pack</td><td><span style="background:#f5bde6;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#f5bde6</code></td><td><span style="background:#cad3f5;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#cad3f5</code></td><td><span style="background:#a6da95;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#a6da95</code></td><td><span style="background:#24273a;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#24273a</code></td><td>opencode, dark, 2026-09-11</td></tr>
+<tr><td><strong>cobalt2</strong></td><td>curated pack</td><td><span style="background:#2affdf;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#2affdf</code></td><td><span style="background:#ffffff;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#ffffff</code></td><td><span style="background:#9eff80;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#9eff80</code></td><td><span style="background:#193549;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#193549</code></td><td>opencode, dark, 2026-09-11</td></tr>
+<tr><td><strong>cursor</strong></td><td>curated pack</td><td><span style="background:#88c0d0;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#88c0d0</code></td><td><span style="background:#e4e4e4;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#e4e4e4</code></td><td><span style="background:#3fa266;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#3fa266</code></td><td><span style="background:#181818;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#181818</code></td><td>opencode, dark, 2026-09-11</td></tr>
+<tr><td><strong>everforest</strong></td><td>curated pack</td><td><span style="background:#d699b6;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#d699b6</code></td><td><span style="background:#d3c6aa;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#d3c6aa</code></td><td><span style="background:#a7c080;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#a7c080</code></td><td><span style="background:#2d353b;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#2d353b</code></td><td>opencode, dark, 2026-09-11</td></tr>
+<tr><td><strong>flexoki</strong></td><td>curated pack</td><td><span style="background:#8b7ec8;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#8b7ec8</code></td><td><span style="background:#cecdc3;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#cecdc3</code></td><td><span style="background:#879a39;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#879a39</code></td><td><span style="background:#100f0f;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#100f0f</code></td><td>opencode, dark, 2026-09-11</td></tr>
+<tr><td><strong>github</strong></td><td>curated pack</td><td><span style="background:#39c5cf;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#39c5cf</code></td><td><span style="background:#c9d1d9;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#c9d1d9</code></td><td><span style="background:#3fb950;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#3fb950</code></td><td><span style="background:#0d1117;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#0d1117</code></td><td>opencode, dark, 2026-09-11</td></tr>
+<tr><td><strong>gruvbox</strong></td><td>curated pack</td><td><span style="background:#8ec07c;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#8ec07c</code></td><td><span style="background:#ebdbb2;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#ebdbb2</code></td><td><span style="background:#b8bb26;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#b8bb26</code></td><td><span style="background:#282828;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#282828</code></td><td>opencode, dark, 2026-09-11</td></tr>
+<tr><td><strong>kanagawa</strong></td><td>curated pack</td><td><span style="background:#d27e99;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#d27e99</code></td><td><span style="background:#dcd7ba;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#dcd7ba</code></td><td><span style="background:#98bb6c;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#98bb6c</code></td><td><span style="background:#1f1f28;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#1f1f28</code></td><td>opencode, dark, 2026-09-11</td></tr>
+<tr><td><strong>material</strong></td><td>curated pack</td><td><span style="background:#89ddff;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#89ddff</code></td><td><span style="background:#eeffff;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#eeffff</code></td><td><span style="background:#c3e88d;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#c3e88d</code></td><td><span style="background:#263238;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#263238</code></td><td>opencode, dark, 2026-09-11</td></tr>
+<tr><td><strong>matrix</strong></td><td>curated pack</td><td><span style="background:#c770ff;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#c770ff</code></td><td><span style="background:#62ff94;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#62ff94</code></td><td><span style="background:#62ff94;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#62ff94</code></td><td><span style="background:#0a0e0a;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#0a0e0a</code></td><td>opencode, dark, 2026-09-11</td></tr>
+<tr><td><strong>mercury</strong></td><td>curated pack</td><td><span style="background:#8da4f5;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#8da4f5</code></td><td><span style="background:#dddde5;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#dddde5</code></td><td><span style="background:#77c599;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#77c599</code></td><td><span style="background:#171721;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#171721</code></td><td>opencode, dark, 2026-09-11</td></tr>
+<tr><td><strong>nightowl</strong></td><td>curated pack</td><td><span style="background:#c792ea;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#c792ea</code></td><td><span style="background:#d6deeb;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#d6deeb</code></td><td><span style="background:#c5e478;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#c5e478</code></td><td><span style="background:#011627;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#011627</code></td><td>opencode, dark, 2026-09-11</td></tr>
+<tr><td><strong>nord</strong></td><td>curated pack</td><td><span style="background:#8fbcbb;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#8fbcbb</code></td><td><span style="background:#eceff4;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#eceff4</code></td><td><span style="background:#a3be8c;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#a3be8c</code></td><td><span style="background:#2e3440;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#2e3440</code></td><td>opencode, dark, 2026-09-11</td></tr>
+<tr><td><strong>one-dark</strong></td><td>curated pack</td><td><span style="background:#56b6c2;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#56b6c2</code></td><td><span style="background:#abb2bf;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#abb2bf</code></td><td><span style="background:#98c379;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#98c379</code></td><td><span style="background:#282c34;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#282c34</code></td><td>opencode, dark, 2026-09-11</td></tr>
+<tr><td><strong>opencode</strong></td><td>curated pack</td><td><span style="background:#9d7cd8;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#9d7cd8</code></td><td><span style="background:#eeeeee;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#eeeeee</code></td><td><span style="background:#7fd88f;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#7fd88f</code></td><td><span style="background:#0a0a0a;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#0a0a0a</code></td><td>opencode, dark, 2026-09-11</td></tr>
+<tr><td><strong>orng</strong></td><td>curated pack</td><td><span style="background:#fff7f1;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#fff7f1</code></td><td><span style="background:#eeeeee;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#eeeeee</code></td><td><span style="background:#6ba1e6;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#6ba1e6</code></td><td><span style="background:#0a0a0a;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#0a0a0a</code></td><td>opencode, dark, 2026-09-11</td></tr>
+<tr><td><strong>osaka-jade</strong></td><td>curated pack</td><td><span style="background:#549e6a;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#549e6a</code></td><td><span style="background:#c1c497;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#c1c497</code></td><td><span style="background:#549e6a;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#549e6a</code></td><td><span style="background:#111c18;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#111c18</code></td><td>opencode, dark, 2026-09-11</td></tr>
+<tr><td><strong>palenight</strong></td><td>curated pack</td><td><span style="background:#89ddff;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#89ddff</code></td><td><span style="background:#a6accd;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#a6accd</code></td><td><span style="background:#c3e88d;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#c3e88d</code></td><td><span style="background:#292d3e;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#292d3e</code></td><td>opencode, dark, 2026-09-11</td></tr>
+<tr><td><strong>rosepine</strong></td><td>curated pack</td><td><span style="background:#ebbcba;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#ebbcba</code></td><td><span style="background:#e0def4;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#e0def4</code></td><td><span style="background:#31748f;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#31748f</code></td><td><span style="background:#191724;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#191724</code></td><td>opencode, dark, 2026-09-11</td></tr>
+<tr><td><strong>synthwave84</strong></td><td>curated pack</td><td><span style="background:#b084eb;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#b084eb</code></td><td><span style="background:#ffffff;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#ffffff</code></td><td><span style="background:#72f1b8;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#72f1b8</code></td><td><span style="background:#262335;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#262335</code></td><td>opencode, dark, 2026-09-11</td></tr>
+<tr><td><strong>tokyonight</strong></td><td>curated pack</td><td><span style="background:#ff966c;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#ff966c</code></td><td><span style="background:#c8d3f5;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#c8d3f5</code></td><td><span style="background:#c3e88d;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#c3e88d</code></td><td><span style="background:#1a1b26;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#1a1b26</code></td><td>opencode, dark, 2026-09-11</td></tr>
+<tr><td><strong>vercel</strong></td><td>curated pack</td><td><span style="background:#8e4ec6;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#8e4ec6</code></td><td><span style="background:#ededed;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#ededed</code></td><td><span style="background:#46a758;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#46a758</code></td><td><span style="background:#000000;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#000000</code></td><td>opencode, dark, 2026-09-11</td></tr>
+<tr><td><strong>vesper</strong></td><td>curated pack</td><td><span style="background:#ffc799;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#ffc799</code></td><td><span style="background:#ffffff;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#ffffff</code></td><td><span style="background:#99ffe4;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#99ffe4</code></td><td><span style="background:#101010;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#101010</code></td><td>opencode, dark, 2026-09-11</td></tr>
+<tr><td><strong>zenburn</strong></td><td>curated pack</td><td><span style="background:#93e0e3;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#93e0e3</code></td><td><span style="background:#dcdccc;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#dcdccc</code></td><td><span style="background:#7f9f7f;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#7f9f7f</code></td><td><span style="background:#3f3f3f;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#3f3f3f</code></td><td>opencode, dark, 2026-09-11</td></tr>
+<tr><td><strong>catppuccin-frappe</strong></td><td>curated pack</td><td><span style="background:#e5c890;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#e5c890</code></td><td><span style="background:#c6d0f5;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#c6d0f5</code></td><td><span style="background:#a6d189;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#a6d189</code></td><td><span style="background:#303446;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#303446</code></td><td>alacritty-theme, 2026-09-11</td></tr>
+<tr><td><strong>gruvbox-light</strong></td><td>curated pack</td><td><span style="background:#b57614;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#b57614</code></td><td><span style="background:#3c3836;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#3c3836</code></td><td><span style="background:#98971a;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#98971a</code></td><td><span style="background:#fbf1c7;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#fbf1c7</code></td><td>alacritty-theme, 2026-09-11</td></tr>
+<tr><td><strong>rosepine-dawn</strong></td><td>curated pack</td><td><span style="background:#d38d2f;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#d38d2f</code></td><td><span style="background:#575279;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#575279</code></td><td><span style="background:#286983;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#286983</code></td><td><span style="background:#faf4ed;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#faf4ed</code></td><td>alacritty-theme, 2026-09-11</td></tr>
+<tr><td><strong>tokyonight-storm</strong></td><td>curated pack</td><td><span style="background:#ff9e64;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#ff9e64</code></td><td><span style="background:#a9b1d6;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#a9b1d6</code></td><td><span style="background:#9ece6a;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#9ece6a</code></td><td><span style="background:#24283b;width:.9em;height:.9em;display:inline-block;border-radius:2px"></span> <code>#24283b</code></td><td>alacritty-theme, 2026-09-11</td></tr>
+</tbody>
+</table>
+</div>
+<!-- GALLERY:END -->
+<h2 id="the-43-roles"><a class="header" href="#the-43-roles">The 43 roles</a></h2>
+<p>A user theme is a flat TOML file mapping every role to a <code>#RRGGBB</code> hex. Role names double as the TOML keys. What each one colors:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Group</th><th>Tecla</th><th>Colors</th></tr>
+</thead>
+<tbody>
+<tr><td>Accents</td><td><code>accent</code></td><td>Primary emphasis: prompts, active states, the crab orange</td></tr>
+<tr><td></td><td><code>accent_teal</code></td><td>Primary action / selected accent</td></tr>
+<tr><td></td><td><code>accent_soft</code></td><td>Passive, informational accent (soft white)</td></tr>
+<tr><td>Text</td><td><code>text_primary</code></td><td>Body text</td></tr>
+<tr><td></td><td><code>text_secondary</code></td><td>Secondary text</td></tr>
+<tr><td></td><td><code>text_muted</code></td><td>Muted labels</td></tr>
+<tr><td></td><td><code>text_dim</code></td><td>Deepest text tier</td></tr>
+<tr><td>Chrome grays</td><td><code>gray</code></td><td>Borders, passive labels, info lines (the workhorse)</td></tr>
+<tr><td></td><td><code>gray_mid</code></td><td>Secondary borders, quiet panel text</td></tr>
+<tr><td></td><td><code>gray_detail</code></td><td>Detail rows under primary rows (tool list)</td></tr>
+<tr><td></td><td><code>gray_dim</code></td><td>Inactive borders (unfocused input frame)</td></tr>
+<tr><td></td><td><code>gray_dark</code></td><td>Deeper inactive chrome</td></tr>
+<tr><td></td><td><code>gray_base</code></td><td>Darkest neutral foreground (plan-widget borders)</td></tr>
+<tr><td></td><td><code>gray_light</code></td><td>Bright neutral text</td></tr>
+<tr><td></td><td><code>gray_soft</code></td><td>Soft label text</td></tr>
+<tr><td></td><td><code>gray_muted</code></td><td>Muted body text (plan widget)</td></tr>
+<tr><td>Positive</td><td><code>success</code></td><td>“ok” states, active pane borders</td></tr>
+<tr><td></td><td><code>analytics_green</code></td><td>Mission-control bars and values</td></tr>
+<tr><td></td><td><code>green_check</code></td><td>Checked-markdown checkboxes</td></tr>
+<tr><td>Negative</td><td><code>error</code></td><td>Primary failures</td></tr>
+<tr><td></td><td><code>error_soft</code></td><td>Error titles</td></tr>
+<tr><td></td><td><code>error_faded</code></td><td>Error bodies</td></tr>
+<tr><td>Warning</td><td><code>warning</code></td><td>Amber input hints</td></tr>
+<tr><td></td><td><code>warning_muted</code></td><td>Muted amber</td></tr>
+<tr><td></td><td><code>amber_muted</code></td><td>Proposed-skill inbox badges</td></tr>
+<tr><td>Teal tiers</td><td><code>teal_vivid</code></td><td>Selection/active in input + tools</td></tr>
+<tr><td></td><td><code>teal_bright</code></td><td>Dialogs</td></tr>
+<tr><td></td><td><code>teal_muted</code></td><td>Completed/skipped plan tasks</td></tr>
+<tr><td></td><td><code>teal_calm</code></td><td>Plan progress bars</td></tr>
+<tr><td>Blue tiers</td><td><code>blue_slate</code></td><td>Help text, input placeholders</td></tr>
+<tr><td></td><td><code>blue_steel</code></td><td>Informational accents (sessions, files, projects)</td></tr>
+<tr><td></td><td><code>blue_link</code></td><td>Markdown links</td></tr>
+<tr><td></td><td><code>blue_sky</code></td><td>Projects</td></tr>
+<tr><td></td><td><code>blue_soft</code></td><td>Chat accents</td></tr>
+<tr><td></td><td><code>blue_vivid</code></td><td>Onboarding voice brand accent</td></tr>
+<tr><td></td><td><code>blue_code</code></td><td>Inline code (markdown)</td></tr>
+<tr><td>Surfaces</td><td><code>selection_bg</code></td><td>Selected text in the composer</td></tr>
+<tr><td></td><td><code>surface_panel</code></td><td>Mission-control panel background</td></tr>
+<tr><td></td><td><code>surface_qr</code></td><td>QR panel background (onboarding)</td></tr>
+<tr><td></td><td><code>surface_code</code></td><td>Code-block background</td></tr>
+<tr><td></td><td><code>surface_code_alt</code></td><td>Code-block background, alternate shade</td></tr>
+<tr><td>Ink</td><td><code>ink</code></td><td>The main background canvas</td></tr>
+<tr><td>Misc</td><td><code>purple_soft</code></td><td>Proposed-brain-dedup inbox badges</td></tr>
+</tbody>
+</table>
+</div>
+<p>Decorative animation cycles (like the rotating project badge colors) are deliberately <strong>not</strong> roles: they stay preset-agnostic.</p>
+<h2 id="writing-your-own-theme"><a class="header" href="#writing-your-own-theme">Writing your own theme</a></h2>
+<p>Drop a file at <code>~/.opencrabs/themes/&lt;name&gt;.toml</code>. The file stem <strong>is</strong> the theme name. All 43 keys are required; here is a complete valid theme (<code>nord</code>, from the curated pack):</p>
+<pre><code class="language-toml">accent = "#8fbcbb"
+accent_teal = "#8fbcbb"
+accent_soft = "#eceff4"
+text_primary = "#eceff4"
+text_secondary = "#8b95a7"
+text_muted = "#767b84"
+text_dim = "#9ca0a8"
+gray = "#434c5e"
+gray_mid = "#9ca0a8"
+gray_detail = "#91959e"
+gray_dim = "#7e838c"
+gray_dark = "#6b707a"
+gray_base = "#434c5e"
+gray_light = "#d0d3d9"
+gray_soft = "#afb3ba"
+gray_muted = "#8d929a"
+success = "#a3be8c"
+analytics_green = "#a3be8c"
+green_check = "#a3be8c"
+error = "#bf616a"
+error_soft = "#bf616a"
+error_faded = "#6f4853"
+warning = "#d08770"
+warning_muted = "#9f6e62"
+amber_muted = "#87625a"
+teal_vivid = "#8fbcbb"
+teal_bright = "#8fbcbb"
+teal_muted = "#6d8c90"
+teal_calm = "#5a7177"
+blue_slate = "#698f9e"
+blue_steel = "#88c0d0"
+blue_link = "#81a1c1"
+blue_sky = "#88c0d0"
+blue_soft = "#648896"
+blue_vivid = "#88c0d0"
+blue_code = "#88c0d0"
+selection_bg = "#505660"
+surface_panel = "#3b4252"
+surface_qr = "#343a45"
+surface_code = "#434c5e"
+surface_code_alt = "#494e59"
+ink = "#2e3440"
+purple_soft = "#81a1c1"
+</code></pre>
+<h3 id="validation-rules"><a class="header" href="#validation-rules">Validation rules</a></h3>
+<p>Validation is loud, never silent. A theme file is rejected, with the reason shown by <code>/theme list</code>, when it:</p>
+<ol>
+<li><strong>misses any of the 43 roles</strong> — the error names the missing key;</li>
+<li><strong>carries an unknown key</strong> — strict typo guard, there is no partial-schema mode;</li>
+<li><strong>uses a malformed value</strong> — only <code>#RRGGBB</code> or <code>RRGGBB</code>, case-insensitive;</li>
+<li><strong>fails the contrast floor</strong> — eight reading-critical (foreground, background) pairs must hit <strong>2.5:1</strong> WCAG contrast: <code>text_primary</code>/<code>text_secondary</code>/<code>accent</code>/<code>success</code>/<code>error</code>/ <code>warning</code> on <code>ink</code>, <code>blue_code</code> on <code>surface_code</code>, and <code>gray_mid</code> on <code>surface_panel</code>. Deliberately dim tiers (<code>text_muted</code>, <code>text_dim</code>, …) are excluded — dim is their job;</li>
+<li><strong>collides with a built-in name</strong> — user files can never shadow a shipped preset.</li>
+</ol>
+<p>Everything else is free for the runtime: each valid theme gets its <strong>ANSI-256 fallback tier derived automatically</strong>, so terminals without truecolor still render it (nearest index in the 6×6×6 cube, grayscale ramp for neutrals).</p>
+<h2 id="imported-themes"><a class="header" href="#imported-themes">Imported themes</a></h2>
+<p>The 31-theme curated pack was generated by the in-tree converter (<code>tui::theme_catalog</code>) from two upstream formats:</p>
+<ul>
+<li><strong>alacritty-theme TOML</strong> (<code>[colors.primary]</code> background/foreground plus the 16 ANSI colors) — the <code>alacritty/alacritty-theme</code> catalog, 176 themes;</li>
+<li><strong>opencode theme JSON</strong> (<code>defs</code> + <code>theme</code> token maps with dark/light variants, hex strings, ANSI integers, <code>defs</code> references and <code>"none"</code>) — the <code>sst/opencode</code> built-in themes, 33 assets.</li>
+</ul>
+<p>Both convert through a <strong>fixed 43-role mapping</strong> (semantic token first, ANSI color or deterministic bg/fg mix as fallback), and every generated file is pre-certified by the same validator user themes face — a converted file that doesn’t validate never ships. Each pack file carries a <code># source:</code> provenance header naming the upstream repo, file, and fetch date; the gallery table shows it. Upstream palettes belong to their authors; the pack imports their colors, not their names’ goodwill.</p>
+<p>The converter is generation-time tooling: the TUI itself only knows the embedded presets and your drop-in files.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="usage-dashboard"><a class="header" href="#usage-dashboard">Usage Dashboard</a></h1>
 <p>The Usage Dashboard shows your token usage, costs, models, tools, and project breakdown. Open it with <code>/usage</code>.</p>
@@ -8401,7 +8682,7 @@ cargo test --all-features
 <ul>
 <li>Binds to <code>127.0.0.1</code> (loopback) by default</li>
 <li>CORS disabled unless explicitly configured</li>
-<li>No authentication built-in — use a reverse proxy for public exposure</li>
+<li>A bearer token (<code>[a2a] api_key</code>) is the only authorization boundary in front of the agent’s tool surface, and since v0.5.1 the gateway refuses to start as an open gate: with no key configured, a non-loopback bind is rejected at boot. With a key set, every request must present it, compared in constant time. For public exposure still use a reverse proxy + TLS</li>
 </ul>
 <h3 id="channel-connections"><a class="header" href="#channel-connections">Channel Connections</a></h3>
 <ul>
@@ -8411,6 +8692,12 @@ cargo test --all-features
 <li>Slack: Socket Mode (WebSocket)</li>
 <li>WhatsApp: Noise protocol encryption</li>
 </ul>
+<h3 id="config-files--logs-v051"><a class="header" href="#config-files--logs-v051">Config Files &amp; Logs (v0.5.1)</a></h3>
+<ul>
+<li>Home files (<code>config.toml</code>, <code>keys.toml</code>, brain files) are written with owner-only permissions from every write path — the mode is derived from the <code>Config</code> struct itself, so a new writer cannot forget it</li>
+<li>The daemon log moved off world-readable <code>/tmp</code> into <code>~/.opencrabs/logs/</code></li>
+<li>Secret scrubbing covers all delivery paths, not only chat output</li>
+</ul>
 <h2 id="tool-approval"><a class="header" href="#tool-approval">Tool Approval</a></h2>
 <p>Tools that modify your system require approval:</p>
 <ul>
@@ -8419,6 +8706,7 @@ cargo test --all-features
 <li><strong>Git operations</strong> — Push, commit, branch operations</li>
 </ul>
 <p>Auto-approve mode (<code>--auto-approve</code>) bypasses this for automation use cases like cron jobs.</p>
+<p>Channel approvals are <strong>owner-only</strong> since v0.5.1: the Yes / Always / YOLO buttons and text replies on Telegram, Discord, Slack, and WhatsApp resolve only for the bot owner (canonical resolver), never for an allowlisted non-owner who happened to trigger the tool. The default <code>approval_policy</code> is <code>auto-always</code> by design — you are not meant to babysit prompts — because the channel allowlists (below) are the actual access boundary. To confirm every tool call instead, set <code>approval_policy = "ask"</code> in <code>[agent]</code>.</p>
 <h2 id="data-storage"><a class="header" href="#data-storage">Data Storage</a></h2>
 <ul>
 <li>All data stored locally in <code>~/.opencrabs/opencrabs.db</code> (SQLite)</li>
@@ -8449,6 +8737,16 @@ cargo test --all-features
 <p>Redaction fires on all delivery paths (TUI, Telegram, Discord, Slack, WhatsApp), so a secret accidentally echoed by the agent never reaches the chat.</p>
 <h3 id="brain-file-verification"><a class="header" href="#brain-file-verification">Brain File Verification</a></h3>
 <p>Post-write verification (via brain_verify.toml) ensures brain files maintain their structural integrity after RSI writes. Required anchors (H1 title, Owns header) are checked, and writes that break structure are flagged.</p>
+<h2 id="harness-level-denials-v051"><a class="header" href="#harness-level-denials-v051">Harness-Level Denials (v0.5.1)</a></h2>
+<p>Prompt instructions are a request; the harness is a wall. The v0.5.1 hardening batch moved the load-bearing safety rules out of brain-file prose and into code paths that run even when the model is jailbroken or an RSI pass weakens a prompt file:</p>
+<ul>
+<li><strong>Confidential-path deny on <code>read_file</code></strong> — resolved paths matching the agent’s own <code>keys.toml</code>, anything under a <code>.ssh/</code> directory, SSH private-key names, <code>.env</code> files, <code>.pem</code> / <code>.key</code> / <code>.pfx</code> material, <code>/etc/shadow</code>, or files that name themselves a credential are refused <strong>before a byte is read</strong>. Public keys and ordinary files are unaffected, and <code>..</code>/<code>~</code> spelling does not change the verdict.</li>
+<li><strong>One SSRF guard for every fetch tool</strong> — <code>web_scrape</code> and <code>http_request</code> share <code>brain::tools::ssrf</code>: cloud metadata endpoints (by name as well as IP), RFC1918/LAN, IPv6 link-local, the unspecified addresses, CGNAT <code>100.64.0.0/10</code>, and IPv4-mapped IPv6 forms are blocked; domains are DNS-resolved and <strong>every</strong> answer checked before the request, and each redirect hop is re-validated, so a public-looking name or a 302 cannot smuggle an internal target. Loopback stays deliberately allowed: a local-first agent legitimately reaches the operator’s own machine.</li>
+<li><strong>The bash blocklist floor everywhere</strong> — <code>execute_code</code> and dynamic shell tools now pass through the same blocklist as <code>bash</code> (hardcoded plus the user TOML list), checked before writing or running, for every language, since <code>os.system</code>/<code>subprocess</code> can carry the same command. Dynamic tools also cannot be named like core tools: <code>add_tool</code> refuses to create an unguarded stand-in for <code>bash</code>, <code>read_file</code>, <code>evolve</code>, and friends.</li>
+<li><strong>Deny-by-default channel allowlists</strong> — an unconfigured Discord or Slack channel now refuses everyone (matching Telegram): empty <code>allowed_users</code>/<code>allowed_roles</code> is no longer “accept all”. On WhatsApp an empty <code>allowed_phones</code> no longer elevates strangers to owner. Details per channel in <a href="#channel-integrations">Channels overview</a>.</li>
+<li><strong>Verified self-update</strong> — <code>/evolve</code> checks the release <code>SHA256SUMS</code> against the download before swapping the binary, and the download host is pinned, so a redirected release asset cannot hot-swap an unverified binary.</li>
+</ul>
+<p>These complement the v0.3.78 safety gates above; together they mean a stranger who reaches a channel, or a prompt injection that reaches a tool, meets code that refuses, not prose that asks politely.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="changelog"><a class="header" href="#changelog">Changelog</a></h1>
 <div id="changelog-content">Loading changelog from GitHub...</div>

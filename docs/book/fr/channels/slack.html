@@ -65,10 +65,10 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-d931bde4.js";
+            window.path_to_searchindex_js = "../searchindex-3c9eb961.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-55df8b59.js"></script>
+        <script src="../toc-0aaa5745.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -276,7 +276,7 @@ session_idle_hours = 24.0               # idle timeout for non-owner sessions
 <tr><td><code>enabled</code></td><td><code>false</code></td><td>Enable the Slack bot channel</td></tr>
 <tr><td><code>token</code></td><td><code>None</code></td><td>Bot token (<code>xoxb-...</code>)</td></tr>
 <tr><td><code>app_token</code></td><td><code>None</code></td><td>App-level token for Socket Mode (<code>xapp-...</code>)</td></tr>
-<tr><td><code>allowed_users</code></td><td><code>[]</code> (accept all)</td><td>Slack user IDs (<code>U12345678</code>)</td></tr>
+<tr><td><code>allowed_users</code></td><td><code>[]</code> (unconfigured: denies everyone)</td><td>Slack user IDs (<code>U12345678</code>). Since v0.5.1 a workspace with no allowlist and no <code>bot_owner</code> denies all messages; once configured it admits allowlisted users or the owner</td></tr>
 <tr><td><code>allowed_channels</code></td><td><code>[]</code> (all channels)</td><td>Restrict bot to specific channel IDs</td></tr>
 <tr><td><code>respond_to</code></td><td><code>"mention"</code></td><td>When to respond: <code>"all"</code>, <code>"dm_only"</code>, <code>"mention"</code></td></tr>
 <tr><td><code>session_idle_hours</code></td><td><code>None</code> (no timeout)</td><td>Idle timeout for non-owner sessions. Owner sessions never expire</td></tr>

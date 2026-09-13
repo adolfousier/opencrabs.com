@@ -65,10 +65,10 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-fb1031a4.js";
+            window.path_to_searchindex_js = "../searchindex-89798ac2.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-55df8b59.js"></script>
+        <script src="../toc-0aaa5745.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -228,7 +228,10 @@
 <ul>
 <li>Binds to <code>127.0.0.1</code> (loopback) by default</li>
 <li>CORS disabled unless explicitly configured</li>
-<li>No authentication built-in — use a reverse proxy for public exposure</li>
+<li>A bearer token (<code>[a2a] api_key</code>) is the only authorization boundary in front of the agent’s
+tool surface, and since v0.5.1 the gateway refuses to start as an open gate: with no key
+configured, a non-loopback bind is rejected at boot. With a key set, every request must
+present it, compared in constant time. For public exposure still use a reverse proxy + TLS</li>
 </ul>
 <h3 id="channel-connections"><a class="header" href="#channel-connections">Channel Connections</a></h3>
 <ul>
@@ -238,6 +241,14 @@
 <li>Slack: Socket Mode (WebSocket)</li>
 <li>WhatsApp: Noise protocol encryption</li>
 </ul>
+<h3 id="config-files--logs-v051"><a class="header" href="#config-files--logs-v051">Config Files &amp; Logs (v0.5.1)</a></h3>
+<ul>
+<li>Home files (<code>config.toml</code>, <code>keys.toml</code>, brain files) are written with owner-only
+permissions from every write path — the mode is derived from the <code>Config</code> struct itself,
+so a new writer cannot forget it</li>
+<li>The daemon log moved off world-readable <code>/tmp</code> into <code>~/.opencrabs/logs/</code></li>
+<li>Secret scrubbing covers all delivery paths, not only chat output</li>
+</ul>
 <h2 id="tool-approval"><a class="header" href="#tool-approval">Tool Approval</a></h2>
 <p>Tools that modify your system require approval:</p>
 <ul>
@@ -246,6 +257,12 @@
 <li><strong>Git operations</strong> — Push, commit, branch operations</li>
 </ul>
 <p>Auto-approve mode (<code>--auto-approve</code>) bypasses this for automation use cases like cron jobs.</p>
+<p>Channel approvals are <strong>owner-only</strong> since v0.5.1: the Yes / Always / YOLO buttons and text
+replies on Telegram, Discord, Slack, and WhatsApp resolve only for the bot owner (canonical
+resolver), never for an allowlisted non-owner who happened to trigger the tool. The default
+<code>approval_policy</code> is <code>auto-always</code> by design — you are not meant to babysit prompts — because
+the channel allowlists (below) are the actual access boundary. To confirm every tool call
+instead, set <code>approval_policy = "ask"</code> in <code>[agent]</code>.</p>
 <h2 id="data-storage"><a class="header" href="#data-storage">Data Storage</a></h2>
 <ul>
 <li>All data stored locally in <code>~/.opencrabs/opencrabs.db</code> (SQLite)</li>
@@ -276,6 +293,39 @@
 <p>Redaction fires on all delivery paths (TUI, Telegram, Discord, Slack, WhatsApp), so a secret accidentally echoed by the agent never reaches the chat.</p>
 <h3 id="brain-file-verification"><a class="header" href="#brain-file-verification">Brain File Verification</a></h3>
 <p>Post-write verification (via brain_verify.toml) ensures brain files maintain their structural integrity after RSI writes. Required anchors (H1 title, Owns header) are checked, and writes that break structure are flagged.</p>
+<h2 id="harness-level-denials-v051"><a class="header" href="#harness-level-denials-v051">Harness-Level Denials (v0.5.1)</a></h2>
+<p>Prompt instructions are a request; the harness is a wall. The v0.5.1 hardening batch moved
+the load-bearing safety rules out of brain-file prose and into code paths that run even when
+the model is jailbroken or an RSI pass weakens a prompt file:</p>
+<ul>
+<li><strong>Confidential-path deny on <code>read_file</code></strong> — resolved paths matching the agent’s own
+<code>keys.toml</code>, anything under a <code>.ssh/</code> directory, SSH private-key names, <code>.env</code> files,
+<code>.pem</code> / <code>.key</code> / <code>.pfx</code> material, <code>/etc/shadow</code>, or files that name themselves a
+credential are refused <strong>before a byte is read</strong>. Public keys and ordinary files are
+unaffected, and <code>..</code>/<code>~</code> spelling does not change the verdict.</li>
+<li><strong>One SSRF guard for every fetch tool</strong> — <code>web_scrape</code> and <code>http_request</code> share
+<code>brain::tools::ssrf</code>: cloud metadata endpoints (by name as well as IP), RFC1918/LAN,
+IPv6 link-local, the unspecified addresses, CGNAT <code>100.64.0.0/10</code>, and IPv4-mapped IPv6
+forms are blocked; domains are DNS-resolved and <strong>every</strong> answer checked before the
+request, and each redirect hop is re-validated, so a public-looking name or a 302 cannot
+smuggle an internal target. Loopback stays deliberately allowed: a local-first agent
+legitimately reaches the operator’s own machine.</li>
+<li><strong>The bash blocklist floor everywhere</strong> — <code>execute_code</code> and dynamic shell tools now pass
+through the same blocklist as <code>bash</code> (hardcoded plus the user TOML list), checked before
+writing or running, for every language, since <code>os.system</code>/<code>subprocess</code> can carry the same
+command. Dynamic tools also cannot be named like core tools: <code>add_tool</code> refuses to create
+an unguarded stand-in for <code>bash</code>, <code>read_file</code>, <code>evolve</code>, and friends.</li>
+<li><strong>Deny-by-default channel allowlists</strong> — an unconfigured Discord or Slack channel now
+refuses everyone (matching Telegram): empty <code>allowed_users</code>/<code>allowed_roles</code> is no
+longer “accept all”. On WhatsApp an empty <code>allowed_phones</code> no longer elevates strangers
+to owner. Details per channel in <a href="../channels/overview.html">Channels overview</a>.</li>
+<li><strong>Verified self-update</strong> — <code>/evolve</code> checks the release <code>SHA256SUMS</code> against the download
+before swapping the binary, and the download host is pinned, so a redirected release
+asset cannot hot-swap an unverified binary.</li>
+</ul>
+<p>These complement the v0.3.78 safety gates above; together they mean a stranger who reaches
+a channel, or a prompt injection that reaches a tool, meets code that refuses, not prose
+that asks politely.</p>
 
                     </main>
 

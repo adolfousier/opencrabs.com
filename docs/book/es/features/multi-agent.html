@@ -65,10 +65,10 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-493a2404.js";
+            window.path_to_searchindex_js = "../searchindex-fba88e75.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-55df8b59.js"></script>
+        <script src="../toc-0aaa5745.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -253,10 +253,15 @@
 <pre><code>spawn_agent(
   label: "refactor-auth",      # Human-readable label
   agent_type: "code",          # general | explore | plan | code | research
-  prompt: "Refactor auth..."   # Task instruction
+  prompt: "Refactor auth...",  # Task instruction
+  include_brain: false         # opt in to workspace brain pre-injection (v0.5.1)
 )
 </code></pre>
 <p>The agent runs in its own session with auto-approved tools. No blocking – it executes in the background while the parent continues.</p>
+<h3 id="lean-children-and-include_brain-v051"><a class="header" href="#lean-children-and-include_brain-v051">Lean children and <code>include_brain</code> (v0.5.1)</a></h3>
+<p>Sub-agents start <strong>lean</strong>: no pre-injected workspace brain (SOUL.md, USER.md, AGENTS.md, project directives). Pass <code>include_brain: true</code> to <code>spawn_agent</code> (or per-agent in <code>team_create</code>) to opt into pre-injection; the choice is frozen for the agent’s lifetime and <code>resume_agent</code> re-attaches accordingly. When a child runs lean, its prompt <strong>discloses the gap</strong> — the child is told the workspace brain is not loaded and pointed at <code>load_brain_file</code> for on-demand access, so neither side operates on the assumption rules are ambiently known (#145).</p>
+<h3 id="headless-children-v051"><a class="header" href="#headless-children-v051">Headless children (v0.5.1)</a></h3>
+<p>Child agents are <strong>headless by law</strong>: interactive-only tools (<code>session_notify</code>, <code>suggest_options</code>) are stripped from the child’s tool surface and the registry refuses to register them there — a call returns a hard tool error, not a silent no-op. The headless tool roster excludes interactive-only tools wholesale, and headless prompts (spawn and resume, cron/daemon, CLI one-shot) carry a preamble saying so, so the child never reaches for a button it does not have (#129). The same backstop covers cron’s <code>here</code> target: it is refused on headless surfaces.</p>
 <h3 id="wait-for-completion"><a class="header" href="#wait-for-completion">Wait for Completion</a></h3>
 <pre><code>wait_agent(
   agent_id: "abc-123",

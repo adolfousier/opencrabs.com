@@ -65,10 +65,10 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-f539b543.js";
+            window.path_to_searchindex_js = "../searchindex-7174877e.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-55df8b59.js"></script>
+        <script src="../toc-0aaa5745.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -297,6 +297,14 @@ extra_paths = ["scrapes/docs.example.com"]
 <li>Point <code>extra_paths</code> at the scrapes directory (relative paths resolve against the OpenCrabs home)</li>
 <li>Ask anything — answers are grounded in and quoted from the indexed docs</li>
 </ol>
+<h3 id="structural-code-search-upgrades-v051"><a class="header" href="#structural-code-search-upgrades-v051">Structural Code Search Upgrades (v0.5.1)</a></h3>
+<p>The code-graph answers (<code>who calls X</code>, <code>what does X call</code>, <code>impact of X</code>) got four upgrades:</p>
+<ul>
+<li><strong>Truncation is now visible.</strong> Caller sets in real repos are unbounded (5,000+ call sites exist), so every structural listing that had to cut ends with a marker line — <em>“… and N more callers of X (re-query with higher n or offset)”</em> — and sets beyond 500 collapse into a per-file rollup instead of one-liners. Nothing is silently chopped anymore.</li>
+<li><strong>Offset pagination.</strong> <code>memory_search</code> accepts an <code>offset</code> alongside <code>n</code> for structural listings, so the full set can be walked page by page. Ranked text/vector results stay rank-truncated — the window applies to listings only.</li>
+<li><strong>Depth-2 impact chains.</strong> <code>impact of X</code> now walks two hops over the call-edge graph, surfacing the callers-of-callers that a direct query misses.</li>
+<li><strong>Cleaner hits.</strong> External code hits render <strong>repo-relative paths</strong> instead of absolute machine paths, and every <code>scope=all</code> hit carries a <strong>corpus provenance tag</strong> (which index the fact came from), so a memory answer and a code-graph answer can be told apart (#89).</li>
+</ul>
 <h3 id="embedding-hardening-v0381"><a class="header" href="#embedding-hardening-v0381">Embedding Hardening (v0.3.81)</a></h3>
 <p>Embedding API calls now carry <strong>timeouts</strong>, a <strong>vector gate</strong> (malformed or empty vectors never reach the store), and <strong>non-blocking writes</strong> (embedding failures never stall the turn) (#1062). <code>/doctor</code> reports <strong>embedding health</strong>, and a sweep finds <strong>unembedded documents</strong> and backfills them (#1069, #1067).</p>
 <h3 id="embedding-modes"><a class="header" href="#embedding-modes">Embedding Modes</a></h3>

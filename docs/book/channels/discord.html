@@ -65,10 +65,10 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-fb1031a4.js";
+            window.path_to_searchindex_js = "../searchindex-89798ac2.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-55df8b59.js"></script>
+        <script src="../toc-0aaa5745.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -230,7 +230,7 @@
 <ul>
 <li><strong>Bot Token</strong> — paste the token from the Developer Portal</li>
 <li><strong>Channel ID</strong> — the Discord channel to send the welcome message to (right-click a channel with Developer Mode on → Copy Channel ID)</li>
-<li><strong>Allowed Users</strong> — comma-separated Discord user IDs (leave empty to allow everyone)</li>
+<li><strong>Allowed Users</strong> — comma-separated Discord user IDs (since v0.5.1 an empty allowlist no longer allows everyone: until you set users, roles, or <code>bot_owner</code>, the channel denies all messages)</li>
 <li><strong>Respond To</strong> — <code>all</code>, <code>dm_only</code>, or <code>mention</code></li>
 </ul>
 </li>
@@ -270,7 +270,7 @@ session_idle_hours = 24.0               # idle timeout for non-owner sessions
 <tbody>
 <tr><td><code>enabled</code></td><td><code>false</code></td><td>Enable the Discord bot channel</td></tr>
 <tr><td><code>token</code></td><td><code>None</code></td><td>Discord bot token from the Developer Portal</td></tr>
-<tr><td><code>allowed_users</code></td><td><code>[]</code> (accept all)</td><td>Discord user IDs. Accepts int or string arrays</td></tr>
+<tr><td><code>allowed_users</code></td><td><code>[]</code> (denies unless roles/owner configured)</td><td>Discord user IDs. Accepts int or string arrays. Any one of <code>allowed_users</code>, <code>allowed_roles</code>, <code>bot_owner</code> configures the channel; a configured one admits allowlisted users, holders of an allowed role (never in DMs), or the owner</td></tr>
 <tr><td><code>allowed_channels</code></td><td><code>[]</code> (all channels)</td><td>Restrict bot to specific channel IDs</td></tr>
 <tr><td><code>respond_to</code></td><td><code>"mention"</code></td><td>When to respond: <code>"all"</code>, <code>"dm_only"</code>, <code>"mention"</code></td></tr>
 <tr><td><code>session_idle_hours</code></td><td><code>None</code> (no timeout)</td><td>Idle timeout for non-owner sessions. Owner sessions never expire</td></tr>

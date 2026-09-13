@@ -65,10 +65,10 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-f539b543.js";
+            window.path_to_searchindex_js = "../searchindex-7174877e.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-55df8b59.js"></script>
+        <script src="../toc-0aaa5745.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -265,8 +265,29 @@ opencrabs cron remove "Morning Report"
 <li><code>telegram:CHAT_ID</code> or <code>telegram:-GROUP_ID</code></li>
 <li><code>discord:CHANNEL_ID</code></li>
 <li><code>slack:CHANNEL_ID</code></li>
+<li><code>whatsapp:PHONE_OR_JID</code></li>
 <li><code>http://...</code> or <code>https://...</code> (webhook URL)</li>
 </ul>
+<h3 id="target-urls-v051"><a class="header" href="#target-urls-v051">Target URLs (v0.5.1)</a></h3>
+<p>Since v0.5.1 every delivery field also speaks a unified <code>oc://</code> target scheme, resolved by a central resolver against the live channel bindings (issue #148):</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Form</th><th>Meaning</th></tr>
+</thead>
+<tbody>
+<tr><td><code>oc://telegram/&lt;chat&gt;[/&lt;thread&gt;]</code></td><td>Telegram chat (optionally a forum topic)</td></tr>
+<tr><td><code>oc://discord/&lt;channel&gt;</code></td><td>Discord channel</td></tr>
+<tr><td><code>oc://slack/&lt;channel&gt;</code></td><td>Slack channel</td></tr>
+<tr><td><code>oc://whatsapp/&lt;phone|jid&gt;</code></td><td>WhatsApp contact</td></tr>
+<tr><td><code>oc://session/&lt;uuid-or-prefix&gt;</code></td><td>Park the result in that OpenCrabs session’s notify queue — the agent gets cron output the same way a sub-agent or a detached command reaches its parent (v0.5.1)</td></tr>
+<tr><td><code>here</code></td><td>This conversation’s channel (refused on headless surfaces, which have none)</td></tr>
+</tbody>
+</table>
+</div>
+<p>Target URLs are resolved <strong>once, at create/update time</strong>, and the concrete channel target is baked into the job; if an unbaked URL ever reaches fire time the run fails loudly instead of resolving against a possibly-changed world.</p>
+<h3 id="forum-topic-delivery-v051-opt-in"><a class="header" href="#forum-topic-delivery-v051-opt-in">Forum-topic delivery (v0.5.1, opt-in)</a></h3>
+<p><code>telegram:CHAT_ID:THREAD_ID</code> (or the <code>oc://telegram/&lt;chat&gt;/&lt;thread&gt;</code> form) delivers into a specific topic of a forum group. It is deliberately opt-in: the chat must actually be a forum and the topic must exist — an invalid thread target is <strong>rejected loudly at fire time</strong>, never silently re-routed to the general topic. When a job is created from inside a thread (<code>here</code>/<code>oc://</code> form), the origin thread id is persisted so the result lands back in the same topic (#104).</p>
 <p>Results are stored in the DB via the <code>cron_results</code> table regardless of delivery target, so you can query past execution results with <code>opencrabs cron results &lt;name&gt;</code>.</p>
 <h2 id="scheduler-lock-v0365"><a class="header" href="#scheduler-lock-v0365">Scheduler Lock (v0.3.65)</a></h2>
 <p>The cron scheduler uses a <strong>file lock</strong> to prevent duplicate job execution. Only one scheduler instance can run per profile at a time. If you accidentally start OpenCrabs twice, the second instance won’t fire duplicate cron jobs.</p>

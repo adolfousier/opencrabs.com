@@ -65,10 +65,10 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-fb1031a4.js";
+            window.path_to_searchindex_js = "../searchindex-89798ac2.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-55df8b59.js"></script>
+        <script src="../toc-0aaa5745.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -231,67 +231,85 @@ description: Language-agnostic security &amp; CVE audit for any codebase
 You are a senior security engineer performing a comprehensive
 security audit of the codebase in the current working directory...
 
-## Stage 1 — Project detection
-...
+### Path-Triggered Skills: `globs` (v0.5.1)
+
+A skill can claim file patterns the way editor rule files do, via an opt-in `globs:`
+frontmatter field — a comma string, an inline flow list, or a block list:
+
+```markdown
+---
+name: rust-style
+description: Project conventions for Rust edits
+globs: ["src/**/*.rs", "build.rs"]
+---
 </code></pre>
-<p>The <code>name</code> and <code>description</code> fields in the frontmatter are required. The markdown body becomes the prompt that gets injected when the skill runs.</p>
-<h2 id="built-in-vs-user-skills"><a class="header" href="#built-in-vs-user-skills">Built-in vs User Skills</a></h2>
-<p>Skills come from two sources:</p>
-<ul>
-<li><strong>Built-in</strong> (orange badge) — ship with the OpenCrabs binary via <code>include_str!</code>. Always available.</li>
-<li><strong>User</strong> (teal badge) — created by you in <code>~/.opencrabs/skills/&lt;name&gt;/SKILL.md</code>. Override built-ins by file presence.</li>
-</ul>
-<h2 id="built-in-skills"><a class="header" href="#built-in-skills">Built-in Skills</a></h2>
-<div class="table-wrapper">
-<table>
-<thead>
-<tr><th>Skill</th><th>Description</th></tr>
-</thead>
-<tbody>
-<tr><td><code>opencli</code></td><td>Reference for all 25+ opencli-rs dynamic tools (news, social, search, web). Use when user asks about trending topics, news, social media, jobs, or web search.</td></tr>
-<tr><td><code>browser-cdp</code></td><td>Native CDP browser automation reference. Headless/headed Chrome control, screenshots, JS evaluation.</td></tr>
-<tr><td><code>a2a-gateway</code></td><td>Agent-to-Agent (A2A) protocol gateway reference. JSON-RPC 2.0 peer-to-peer agent communication.</td></tr>
-<tr><td><code>dynamic-tools</code></td><td>Runtime tool management with tool_manage and tools.toml format. Create, enable, disable, reload tools without restart.</td></tr>
-<tr><td><code>security-audit</code></td><td>Language-agnostic security &amp; CVE audit. Detects project type from manifests, runs the appropriate scanner, reviews the diff for injection / auth / crypto / deserialization / path-traversal patterns, and scores 0-100.</td></tr>
-<tr><td><code>cost-estimate</code></td><td>Codebase cost-to-build estimate, AI-assisted ROI breakdown, and fair-market valuation.</td></tr>
-<tr><td><code>repo-audit</code></td><td>Language-agnostic repository health checks. 5-phase pipeline: language detection, native tool execution, git metrics, AST analysis, scoring + recommendations. Covers Rust, JS/TS, Python, Go. (v0.3.18)</td></tr>
-</tbody>
-</table>
-</div>
-<h2 id="running-skills"><a class="header" href="#running-skills">Running Skills</a></h2>
-<h3 id="skills-picker-skills"><a class="header" href="#skills-picker-skills">Skills Picker (<code>/skills</code>)</a></h3>
-<p>Type <code>/skills</code> to open the full-screen filterable picker. The top shows a filter bar with the total skill count. The main area lists all skills, each showing:</p>
-<ul>
-<li><strong>Skill name</strong> as a slash command (e.g. <code>/security-audit</code>)</li>
-<li><strong>Type badge</strong> — orange <code>built-in</code> or teal <code>user</code></li>
-<li><strong>Description</strong> of what the skill does</li>
-<li><strong>Keywords</strong> for search matching in parentheses</li>
-</ul>
-<div class="table-wrapper">
-<table>
-<thead>
-<tr><th>Key</th><th>Action</th></tr>
-</thead>
-<tbody>
-<tr><td><code>Tab</code> / <code>↑↓</code></td><td>Navigate the skill list</td></tr>
-<tr><td><code>Enter</code></td><td>Run the selected skill</td></tr>
-<tr><td><code>Esc</code></td><td>Close the picker</td></tr>
-<tr><td>Type</td><td>Filter skills by name and description (case-insensitive)</td></tr>
-</tbody>
-</table>
-</div>
-<p>When the filter narrows to a single match, Enter fires it immediately.</p>
-<h3 id="slash-commands"><a class="header" href="#slash-commands">Slash Commands</a></h3>
-<p>Type any skill name directly as a slash command:</p>
-<pre><code>/security-audit
+<p>When the agent is about to touch a matching path <strong>without that skill loaded in the current
+context</strong>, the tool call is rejected once, carrying the full skill body in the rejection. The
+identical retry then passes — the model has now read the rules. A registry of seen skills
+(track of loads, epoch-tracked) re-arms the gate after context compaction, and the master
+switch is <code>[agent] skill_glob_gate</code> (default: on). The effect: conventions attached to a path
+are impossible to edit against by omission.</p>
+<h2 id="stage-1--project-detection"><a class="header" href="#stage-1--project-detection">Stage 1 — Project detection</a></h2>
+<p>…</p>
+<pre><code>
+The `name` and `description` fields in the frontmatter are required. The markdown body becomes the prompt that gets injected when the skill runs.
+
+## Built-in vs User Skills
+
+Skills come from two sources:
+
+- **Built-in** (orange badge) — ship with the OpenCrabs binary via `include_str!`. Always available.
+- **User** (teal badge) — created by you in `~/.opencrabs/skills/&lt;name&gt;/SKILL.md`. Override built-ins by file presence.
+
+## Built-in Skills
+
+| Skill | Description |
+|-------|-------------|
+| `opencli` | Reference for all 25+ opencli-rs dynamic tools (news, social, search, web). Use when user asks about trending topics, news, social media, jobs, or web search. |
+| `browser-cdp` | Native CDP browser automation reference. Headless/headed Chrome control, screenshots, JS evaluation. |
+| `a2a-gateway` | Agent-to-Agent (A2A) protocol gateway reference. JSON-RPC 2.0 peer-to-peer agent communication. |
+| `dynamic-tools` | Runtime tool management with tool_manage and tools.toml format. Create, enable, disable, reload tools without restart. |
+| `security-audit` | Language-agnostic security &amp; CVE audit. Detects project type from manifests, runs the appropriate scanner, reviews the diff for injection / auth / crypto / deserialization / path-traversal patterns, and scores 0-100. |
+| `cost-estimate` | Codebase cost-to-build estimate, AI-assisted ROI breakdown, and fair-market valuation. |
+| `repo-audit` | Language-agnostic repository health checks. 5-phase pipeline: language detection, native tool execution, git metrics, AST analysis, scoring + recommendations. Covers Rust, JS/TS, Python, Go. (v0.3.18) |
+
+## Running Skills
+
+### Skills Picker (`/skills`)
+
+Type `/skills` to open the full-screen filterable picker. The top shows a filter bar with the total skill count. The main area lists all skills, each showing:
+
+- **Skill name** as a slash command (e.g. `/security-audit`)
+- **Type badge** — orange `built-in` or teal `user`
+- **Description** of what the skill does
+- **Keywords** for search matching in parentheses
+
+| Key | Action |
+|-----|--------|
+| `Tab` / `↑↓` | Navigate the skill list |
+| `Enter` | Run the selected skill |
+| `Esc` | Close the picker |
+| Type | Filter skills by name and description (case-insensitive) |
+
+When the filter narrows to a single match, Enter fires it immediately.
+
+### Slash Commands
+
+Type any skill name directly as a slash command:
+
 </code></pre>
-<h3 id="channels"><a class="header" href="#channels">Channels</a></h3>
-<p>Skills auto-register as slash commands across all connected channels (Telegram, Discord, Slack, WhatsApp). No <code>commands.toml</code> entry needed. Just type <code>/&lt;skill-name&gt;</code> in any channel to run it.</p>
-<h2 id="creating-custom-skills"><a class="header" href="#creating-custom-skills">Creating Custom Skills</a></h2>
-<ol>
-<li>Create a directory under <code>~/.opencrabs/skills/</code>:</li>
-</ol>
-<pre><code class="language-bash">mkdir -p ~/.opencrabs/skills/my-skill
+<p>/security-audit</p>
+<pre><code>
+### Channels
+
+Skills auto-register as slash commands across all connected channels (Telegram, Discord, Slack, WhatsApp). No `commands.toml` entry needed. Just type `/&lt;skill-name&gt;` in any channel to run it.
+
+## Creating Custom Skills
+
+1. Create a directory under `~/.opencrabs/skills/`:
+
+```bash
+mkdir -p ~/.opencrabs/skills/my-skill
 </code></pre>
 <ol start="2">
 <li>Create <code>SKILL.md</code> with frontmatter and prompt:</li>
@@ -332,7 +350,7 @@ Instructions for the agent when this skill runs...
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                             </a>
 
-                            <a rel="next prefetch" href="../features/usage-dashboard.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next prefetch" href="../features/themes.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                             </a>
 
@@ -346,7 +364,7 @@ Instructions for the agent when this skill runs...
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
                     </a>
 
-                    <a rel="next prefetch" href="../features/usage-dashboard.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next prefetch" href="../features/themes.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
                     </a>
             </nav>
