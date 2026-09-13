@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OpenCrabs\n"
-"POT-Creation-Date: 2026-09-12T19:33:58+01:00\n"
+"POT-Creation-Date: 2026-09-13T14:46:33+01:00\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -45,7 +45,7 @@ msgid "CLI Commands"
 msgstr ""
 
 #: src/SUMMARY.md:11 src/getting-started/troubleshooting.md:1
-#: src/channels/whatsapp.md:89
+#: src/channels/whatsapp.md:121
 msgid "Troubleshooting"
 msgstr ""
 
@@ -75,35 +75,35 @@ msgstr ""
 
 #: src/SUMMARY.md:22 src/getting-started/configuration.md:131
 #: src/getting-started/troubleshooting.md:196 src/channels/overview.md:41
-#: src/channels/overview.md:112 src/channels/telegram.md:1
+#: src/channels/overview.md:117 src/channels/telegram.md:1
 #: src/features/self-healing.md:165
 msgid "Telegram"
 msgstr ""
 
 #: src/SUMMARY.md:23 src/getting-started/configuration.md:158
 #: src/getting-started/troubleshooting.md:270 src/channels/overview.md:42
-#: src/channels/overview.md:114 src/channels/discord.md:1
+#: src/channels/overview.md:119 src/channels/discord.md:1
 #: src/features/self-healing.md:166
 msgid "Discord"
 msgstr ""
 
 #: src/SUMMARY.md:24 src/getting-started/configuration.md:179
 #: src/getting-started/troubleshooting.md:279 src/channels/overview.md:44
-#: src/channels/overview.md:115 src/channels/slack.md:1
+#: src/channels/overview.md:120 src/channels/slack.md:1
 #: src/features/self-healing.md:167
 msgid "Slack"
 msgstr ""
 
 #: src/SUMMARY.md:25 src/getting-started/configuration.md:202
 #: src/getting-started/troubleshooting.md:226 src/channels/overview.md:43
-#: src/channels/overview.md:113 src/channels/whatsapp.md:1
+#: src/channels/overview.md:118 src/channels/whatsapp.md:1
 #: src/features/self-healing.md:168
 msgid "WhatsApp"
 msgstr ""
 
 #: src/SUMMARY.md:26 src/getting-started/configuration.md:217
 #: src/getting-started/troubleshooting.md:289 src/channels/overview.md:45
-#: src/channels/overview.md:116 src/channels/trello.md:1
+#: src/channels/overview.md:121 src/channels/trello.md:1
 #: src/features/self-healing.md:169
 msgid "Trello"
 msgstr ""
@@ -125,12 +125,12 @@ msgid "Memory System"
 msgstr ""
 
 #: src/SUMMARY.md:33 src/getting-started/configuration.md:303
-#: src/brain/memory.md:144 src/brain/brain-files.md:1
+#: src/brain/memory.md:161 src/brain/brain-files.md:1
 msgid "Brain Files"
 msgstr ""
 
 #: src/SUMMARY.md:35 src/channels/telegram.md:45 src/channels/discord.md:72
-#: src/channels/slack.md:76 src/channels/whatsapp.md:81
+#: src/channels/slack.md:76 src/channels/whatsapp.md:113
 msgid "Features"
 msgstr ""
 
@@ -192,62 +192,66 @@ msgstr ""
 msgid "Skills System"
 msgstr ""
 
-#: src/SUMMARY.md:51 src/features/usage-dashboard.md:1
+#: src/SUMMARY.md:51 src/features/themes.md:1
+msgid "Themes"
+msgstr ""
+
+#: src/SUMMARY.md:52 src/features/usage-dashboard.md:1
 msgid "Usage Dashboard"
 msgstr ""
 
-#: src/SUMMARY.md:52
+#: src/SUMMARY.md:53
 msgid "RTK — Token Savings"
 msgstr ""
 
-#: src/SUMMARY.md:53
+#: src/SUMMARY.md:54
 msgid "/goal — Autonomous Goal Loop"
 msgstr ""
 
-#: src/SUMMARY.md:54 src/brain/tools.md:175 src/features/companion-tools.md:1
+#: src/SUMMARY.md:55 src/brain/tools.md:175 src/features/companion-tools.md:1
 msgid "Companion Tools"
 msgstr ""
 
-#: src/SUMMARY.md:55 src/features/web-scrape.md:1
+#: src/SUMMARY.md:56 src/features/web-scrape.md:1
 msgid "Web Scraping"
 msgstr ""
 
-#: src/SUMMARY.md:56 src/brain/tools.md:37
+#: src/SUMMARY.md:57 src/brain/tools.md:37
 #: src/features/document-generation.md:1
 msgid "Document Generation"
 msgstr ""
 
-#: src/SUMMARY.md:58 src/SUMMARY.md:60 src/user-stories.md:1
+#: src/SUMMARY.md:59 src/SUMMARY.md:61 src/user-stories.md:1
 msgid "User Stories"
 msgstr ""
 
-#: src/SUMMARY.md:62
+#: src/SUMMARY.md:63
 msgid "Development"
 msgstr ""
 
-#: src/SUMMARY.md:64 src/getting-started/troubleshooting.md:482
+#: src/SUMMARY.md:65 src/getting-started/troubleshooting.md:482
 #: src/development/building.md:1
 msgid "Building from Source"
 msgstr ""
 
-#: src/SUMMARY.md:65 src/introduction.md:207 src/features/mission-control.md:71
+#: src/SUMMARY.md:66 src/introduction.md:207 src/features/mission-control.md:71
 #: src/features/mission-control.md:107 src/development/architecture.md:1
 msgid "Architecture"
 msgstr ""
 
-#: src/SUMMARY.md:66 src/features/multi-agent.md:252
+#: src/SUMMARY.md:67 src/features/multi-agent.md:272
 msgid "Testing"
 msgstr ""
 
-#: src/SUMMARY.md:67 src/development/contributing.md:1
+#: src/SUMMARY.md:68 src/development/contributing.md:1
 msgid "Contributing"
 msgstr ""
 
-#: src/SUMMARY.md:68 src/features/a2a.md:157 src/development/security.md:1
+#: src/SUMMARY.md:69 src/features/a2a.md:157 src/development/security.md:1
 msgid "Security"
 msgstr ""
 
-#: src/SUMMARY.md:72 src/changelog.md:1
+#: src/SUMMARY.md:73 src/changelog.md:1
 msgid "Changelog"
 msgstr ""
 
@@ -270,11 +274,11 @@ msgid ""
 "**8,412 tests** across providers, tools, channels, TUI, self-healing, and "
 "browser automation."
 msgstr ""
-"**8 412 tests** répartis sur les fournisseurs, outils, channels, TUI, auto-réparation et l'automatisation du navigateur."
-"**7 886 tests** couvrant les providers, les outils, les channels, la TUI, le "
-"self-healing et l'automatisation du browser.**6,997 tests** couvrant "
-"providers, outils, channels, TUI, self-healing et automatisation du "
-"navigateur."
+"**8 412 tests** répartis sur les fournisseurs, outils, channels, TUI, auto-"
+"réparation et l'automatisation du navigateur.**7 886 tests** couvrant les "
+"providers, les outils, les channels, la TUI, le self-healing et "
+"l'automatisation du browser.**6,997 tests** couvrant providers, outils, "
+"channels, TUI, self-healing et automatisation du navigateur."
 
 #: src/introduction.md:7
 msgid "What Makes OpenCrabs Different"
@@ -813,8 +817,10 @@ msgid ""
 "every turn carries a time-stamped marker in the user's timezone, and the "
 "system prompt stays byte-stable for provider caching (#1516)"
 msgstr ""
-"**Ancrage temporel (v0.5.1)** — l'agent sait toujours l'heure qu'il est : chaque tour porte un horodatage dans le fuseau horaire de l'utilisateur, et le prompt système reste octet pour octet identique pour le cache du fournisseur (#1516)"
-
+"**Ancrage temporel (v0.5.1)** — l'agent sait toujours l'heure qu'il est : "
+"chaque tour porte un horodatage dans le fuseau horaire de l'utilisateur, et "
+"le prompt système reste octet pour octet identique pour le cache du "
+"fournisseur (#1516)"
 
 #: src/introduction.md:79
 msgid ""
@@ -822,8 +828,9 @@ msgid ""
 "session, so two jobs running at the same time can never bleed into each "
 "other's context or providers (#1511)"
 msgstr ""
-"**Sessions cron par job (v0.5.1)** — chaque job programmé obtient sa propre session, afin que deux jobs simultanés ne partagent jamais leur contexte ou leurs fournisseurs (#1511)"
-
+"**Sessions cron par job (v0.5.1)** — chaque job programmé obtient sa propre "
+"session, afin que deux jobs simultanés ne partagent jamais leur contexte ou "
+"leurs fournisseurs (#1511)"
 
 #: src/introduction.md:80
 msgid ""
@@ -831,8 +838,9 @@ msgid ""
 "calls that touch matching files until the agent has actually read the skill "
 "body (#1515)"
 msgstr ""
-"**Verrou par globs de skill (v0.5.1)** — la liste `globs:` d'une skill peut refuser les appels d'outils sur les fichiers correspondants tant que l'agent n'a pas lu le corps de la skill (#1515)"
-
+"**Verrou par globs de skill (v0.5.1)** — la liste `globs:` d'une skill peut "
+"refuser les appels d'outils sur les fichiers correspondants tant que l'agent "
+"n'a pas lu le corps de la skill (#1515)"
 
 #: src/introduction.md:81
 msgid ""
@@ -840,8 +848,10 @@ msgid ""
 "and section suggestions in config_manager now derive from the `Config` type "
 "itself, so they never drift from shipped code (#1508)"
 msgstr ""
-"**Écritures de config validées par la structure (v0.5.1)** — le garde d'écriture et les suggestions de section de config_manager dérivent désormais du type `Config` lui-même, pour ne jamais diverger du code publié (#1508)"
-
+"**Écritures de config validées par la structure (v0.5.1)** — le garde "
+"d'écriture et les suggestions de section de config_manager dérivent "
+"désormais du type `Config` lui-même, pour ne jamais diverger du code publié "
+"(#1508)"
 
 #: src/introduction.md:82
 msgid ""
@@ -849,8 +859,10 @@ msgid ""
 "bounces immediately with the missing sections named, and a refused write "
 "restores the scaffold instead of wiping the draft (#1507)"
 msgstr ""
-"**Conceptions de plan refusées à l'écriture (v0.5.1)** — une conception de plan malformée rebondit immédiatement avec les sections manquantes nommées, et une écriture refusée restaure le scaffold au lieu d'effacer le brouillon (#1507)"
-
+"**Conceptions de plan refusées à l'écriture (v0.5.1)** — une conception de "
+"plan malformée rebondit immédiatement avec les sections manquantes nommées, "
+"et une écriture refusée restaure le scaffold au lieu d'effacer le brouillon "
+"(#1507)"
 
 #: src/introduction.md:83
 msgid ""
@@ -858,8 +870,9 @@ msgid ""
 "output-token budget triggers one bounded compaction and retry instead of a "
 "cascade of 400s (#1518)"
 msgstr ""
-"**Backpressure de budget fournisseur (v0.5.1)** — un fournisseur qui signale un budget de tokens en sortie déclenche une seule compaction bornée puis une nouvelle tentative, au lieu d'une cascade de 400 (#1518)"
-
+"**Backpressure de budget fournisseur (v0.5.1)** — un fournisseur qui signale "
+"un budget de tokens en sortie déclenche une seule compaction bornée puis une "
+"nouvelle tentative, au lieu d'une cascade de 400 (#1518)"
 
 #: src/introduction.md:84
 msgid ""
@@ -867,8 +880,9 @@ msgid ""
 "gateway that minted them, and config.toml/keys.toml move to owner-exclusive "
 "mode with secrets scrubbed from the logs"
 msgstr ""
-"**Jetons A2A liés et config réservée au owner (v0.5.1)** — les jetons A2A sont liés à la gateway qui les a émis, et config.toml/keys.toml passent en mode owner exclusif, les secrets étant purgés des logs"
-
+"**Jetons A2A liés et config réservée au owner (v0.5.1)** — les jetons A2A "
+"sont liés à la gateway qui les a émis, et config.toml/keys.toml passent en "
+"mode owner exclusif, les secrets étant purgés des logs"
 
 #: src/introduction.md:86
 msgid ""
@@ -1547,6 +1561,7 @@ msgstr ""
 "outils `AGENTS.md`. Pas de config, pas d'étape d'import."
 
 #: src/introduction.md:178 src/getting-started/onboarding.md:134
+#: src/features/themes.md:56
 msgid "Source"
 msgstr "Source"
 
@@ -2238,7 +2253,7 @@ msgstr ""
 #: src/channels/trello.md:73 src/brain/commands.md:28
 #: src/features/sessions.md:114 src/features/split-panes.md:7
 #: src/features/a2a.md:52 src/features/mission-control.md:62
-#: src/features/skills.md:70 src/features/usage-dashboard.md:104
+#: src/features/usage-dashboard.md:104
 msgid "Action"
 msgstr "Action"
 
@@ -2668,7 +2683,7 @@ msgstr ""
 
 #: src/getting-started/onboarding.md:83 src/getting-started/onboarding.md:146
 #: src/getting-started/cli-commands.md:13 src/brain/providers.md:97
-#: src/features/rtk.md:31
+#: src/features/themes.md:9 src/features/rtk.md:31
 msgid "Command"
 msgstr "Commande"
 
@@ -2950,10 +2965,9 @@ msgstr ""
 #: src/features/dynamic-tools.md:26 src/features/browser.md:14
 #: src/features/cron-jobs.md:39 src/features/multi-agent.md:30
 #: src/features/a2a.md:21 src/features/a2a.md:31 src/features/a2a.md:52
-#: src/features/voice.md:61 src/features/skills.md:49
-#: src/features/usage-dashboard.md:9 src/features/usage-dashboard.md:28
-#: src/features/usage-dashboard.md:39 src/features/usage-dashboard.md:52
-#: src/development/building.md:42
+#: src/features/voice.md:61 src/features/usage-dashboard.md:9
+#: src/features/usage-dashboard.md:28 src/features/usage-dashboard.md:39
+#: src/features/usage-dashboard.md:52 src/development/building.md:42
 msgid "Description"
 msgstr "Description"
 
@@ -3042,8 +3056,9 @@ msgstr ""
 msgid "Mode"
 msgstr "Mode"
 
-#: src/getting-started/onboarding.md:162 src/channels/trello.md:98
-#: src/brain/commands.md:28 src/development/testing.md:483
+#: src/getting-started/onboarding.md:162 src/channels/whatsapp.md:89
+#: src/channels/trello.md:98 src/brain/commands.md:28
+#: src/development/testing.md:483
 msgid "Behavior"
 msgstr ""
 
@@ -3689,8 +3704,7 @@ msgstr ""
 #: src/getting-started/configuration.md:197
 #: src/getting-started/configuration.md:214
 #: src/getting-started/configuration.md:235 src/channels/telegram.md:141
-#: src/channels/discord.md:67 src/channels/slack.md:71
-#: src/channels/whatsapp.md:49 src/channels/trello.md:64
+#: src/channels/trello.md:64
 msgid "`[]` (accept all)"
 msgstr ""
 
@@ -3817,7 +3831,7 @@ msgstr ""
 msgid "Discord bot token from the Developer Portal"
 msgstr ""
 
-#: src/getting-started/configuration.md:174 src/channels/discord.md:67
+#: src/getting-started/configuration.md:174
 msgid "Discord user IDs. Accepts int or string arrays"
 msgstr ""
 
@@ -3872,7 +3886,7 @@ msgstr ""
 msgid "App-level token for Socket Mode (`xapp-...`)"
 msgstr ""
 
-#: src/getting-started/configuration.md:197 src/channels/slack.md:71
+#: src/getting-started/configuration.md:197
 msgid "Slack user IDs (`U12345678`)"
 msgstr ""
 
@@ -3894,7 +3908,7 @@ msgstr ""
 msgid "`allowed_phones`"
 msgstr ""
 
-#: src/getting-started/configuration.md:214 src/channels/whatsapp.md:49
+#: src/getting-started/configuration.md:214
 msgid ""
 "E.164 phone numbers. Empty = accept everyone (not recommended for business "
 "numbers)"
@@ -5397,13 +5411,13 @@ msgstr "Raccourcis clavier du TUI"
 
 #: src/getting-started/cli-commands.md:256 src/brain/providers.md:11
 #: src/channels/overview.md:19 src/features/mission-control.md:62
-#: src/features/skills.md:70 src/features/usage-dashboard.md:78
+#: src/features/themes.md:104 src/features/usage-dashboard.md:78
 #: src/features/usage-dashboard.md:104
 msgid "Key"
 msgstr "Touche"
 
 #: src/getting-started/cli-commands.md:258 src/features/mission-control.md:66
-#: src/features/skills.md:73 src/features/usage-dashboard.md:107
+#: src/features/usage-dashboard.md:107
 msgid "`Enter`"
 msgstr ""
 
@@ -5413,8 +5427,7 @@ msgstr "Envoyer le message"
 
 #: src/getting-started/cli-commands.md:259 src/brain/providers.md:16
 #: src/channels/overview.md:26 src/features/mission-control.md:69
-#: src/features/skills.md:74 src/features/usage-dashboard.md:84
-#: src/features/usage-dashboard.md:108
+#: src/features/usage-dashboard.md:84 src/features/usage-dashboard.md:108
 msgid "`Esc`"
 msgstr ""
 
@@ -6077,24 +6090,24 @@ msgstr ""
 msgid "WhatsApp Won't Connect / Wrong Number Replying"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:248 src/channels/whatsapp.md:93
+#: src/getting-started/troubleshooting.md:248 src/channels/whatsapp.md:125
 msgid ""
 "Each OpenCrabs instance supports one WhatsApp account (one companion "
 "device). If you connected multiple numbers or the wrong number is replying, "
 "you need a full reset. The bot always uses the last number you connected."
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:250 src/channels/whatsapp.md:95
+#: src/getting-started/troubleshooting.md:250 src/channels/whatsapp.md:127
 msgid ""
 "**Critical:** Always reset the connection before connecting a new number. "
 "OpenCrabs only keeps the last paired number."
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:252 src/channels/whatsapp.md:97
+#: src/getting-started/troubleshooting.md:252 src/channels/whatsapp.md:129
 msgid "**Full reset steps:**"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:254 src/channels/whatsapp.md:99
+#: src/getting-started/troubleshooting.md:254 src/channels/whatsapp.md:131
 msgid ""
 "**Remove ALL linked devices from WhatsApp.** Open WhatsApp on your phone, go "
 "to **Settings > Linked Devices**, and remove every device in the list. Don't "
@@ -6103,21 +6116,21 @@ msgid ""
 "reliable fix is to clear them all and start fresh."
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:255 src/channels/whatsapp.md:100
+#: src/getting-started/troubleshooting.md:255 src/channels/whatsapp.md:132
 msgid ""
 "**Reset the connection in OpenCrabs** — in the TUI or from a channel, go to "
 "`/onboard:channels` and press **R** to reset the WhatsApp connection. Wait "
 "for confirmation that the reset is complete."
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:256 src/channels/whatsapp.md:101
+#: src/getting-started/troubleshooting.md:256 src/channels/whatsapp.md:133
 msgid ""
 "**Re-pair from scratch** — after the reset is confirmed, go to WhatsApp > "
 "**Settings > Linked Devices** > **Link a Device** and scan the new QR code "
 "shown by OpenCrabs."
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:258 src/channels/whatsapp.md:103
+#: src/getting-started/troubleshooting.md:258 src/channels/whatsapp.md:135
 msgid ""
 "If the bot still shows the old number after resetting, make sure you "
 "completed step 1 (removing the device from WhatsApp) before step 2."
@@ -6127,78 +6140,78 @@ msgstr ""
 msgid "**Common issues:**"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:262 src/channels/whatsapp.md:107
+#: src/getting-started/troubleshooting.md:262 src/channels/whatsapp.md:139
 msgid "Symptom"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:262 src/channels/whatsapp.md:107
+#: src/getting-started/troubleshooting.md:262 src/channels/whatsapp.md:139
 msgid "Cause"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:262 src/channels/whatsapp.md:107
+#: src/getting-started/troubleshooting.md:262 src/channels/whatsapp.md:139
 msgid "Fix"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:264 src/channels/whatsapp.md:109
+#: src/getting-started/troubleshooting.md:264 src/channels/whatsapp.md:141
 msgid "Old number still replying"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:264 src/channels/whatsapp.md:109
+#: src/getting-started/troubleshooting.md:264 src/channels/whatsapp.md:141
 msgid "A stale linked device is still paired"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:264 src/channels/whatsapp.md:109
+#: src/getting-started/troubleshooting.md:264 src/channels/whatsapp.md:141
 msgid ""
 "Remove **ALL** linked devices from WhatsApp > Settings > Linked Devices, "
 "then press **R** in `/onboard:channels` and re-pair"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:265 src/channels/whatsapp.md:110
+#: src/getting-started/troubleshooting.md:265 src/channels/whatsapp.md:142
 msgid "QR code doesn't appear"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:265 src/channels/whatsapp.md:110
+#: src/getting-started/troubleshooting.md:265 src/channels/whatsapp.md:142
 msgid "Agent is still connected (no restart triggered)"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:265 src/channels/whatsapp.md:110
+#: src/getting-started/troubleshooting.md:265 src/channels/whatsapp.md:142
 msgid ""
 "Press **R** in `/onboard:channels` to force a restart, then wait for the new "
 "QR"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:266 src/channels/whatsapp.md:111
+#: src/getting-started/troubleshooting.md:266 src/channels/whatsapp.md:143
 msgid "Bot doesn't reply to anyone"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:266 src/channels/whatsapp.md:111
+#: src/getting-started/troubleshooting.md:266 src/channels/whatsapp.md:143
 msgid "`response_policy` is too restrictive"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:266 src/channels/whatsapp.md:111
+#: src/getting-started/troubleshooting.md:266 src/channels/whatsapp.md:143
 msgid ""
 "Set `response_policy = \"allowlist\"` and add phone numbers to "
 "`allowed_phones` in `config.toml`"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:267 src/channels/whatsapp.md:112
+#: src/getting-started/troubleshooting.md:267 src/channels/whatsapp.md:144
 msgid "Bot replies to everyone"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:267 src/channels/whatsapp.md:112
+#: src/getting-started/troubleshooting.md:267 src/channels/whatsapp.md:144
 msgid "`response_policy` is `open`"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:267 src/channels/whatsapp.md:112
+#: src/getting-started/troubleshooting.md:267 src/channels/whatsapp.md:144
 msgid ""
 "Set `response_policy = \"allowlist\"` or `\"owner_only\"` in `config.toml`"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:268 src/channels/whatsapp.md:113
+#: src/getting-started/troubleshooting.md:268 src/channels/whatsapp.md:145
 msgid "Bot doesn't reply to self-chat"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:268 src/channels/whatsapp.md:113
+#: src/getting-started/troubleshooting.md:268 src/channels/whatsapp.md:145
 msgid "`allowed_phones` doesn't include the paired number"
 msgstr ""
 
@@ -6784,7 +6797,7 @@ msgstr ""
 msgid "`discord`"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:506
+#: src/getting-started/troubleshooting.md:506 src/features/cron-jobs.md:78
 msgid "Discord channel"
 msgstr ""
 
@@ -6792,7 +6805,7 @@ msgstr ""
 msgid "`slack`"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:507
+#: src/getting-started/troubleshooting.md:507 src/features/cron-jobs.md:79
 msgid "Slack channel"
 msgstr ""
 
@@ -7575,7 +7588,7 @@ msgstr ""
 msgid "Re-running Provider Setup"
 msgstr ""
 
-#: src/brain/providers.md:97
+#: src/brain/providers.md:97 src/features/themes.md:9
 msgid "What it does"
 msgstr ""
 
@@ -8225,7 +8238,7 @@ msgid "Every provider section (`[providers.<name>]`) supports these fields:"
 msgstr ""
 
 #: src/brain/providers.md:430 src/brain/tools.md:87
-#: src/features/multi-agent.md:9 src/features/skills.md:75
+#: src/features/multi-agent.md:9 src/features/themes.md:56
 msgid "Type"
 msgstr ""
 
@@ -8755,7 +8768,7 @@ msgid ""
 "When vision or image generation is enabled, these tools become available:"
 msgstr ""
 
-#: src/brain/images.md:76 src/channels/overview.md:125 src/brain/tools.md:7
+#: src/brain/images.md:76 src/channels/overview.md:130 src/brain/tools.md:7
 #: src/brain/tools.md:18 src/brain/tools.md:25 src/brain/tools.md:33
 #: src/brain/tools.md:39 src/brain/tools.md:45 src/brain/tools.md:53
 #: src/brain/tools.md:61 src/brain/tools.md:72 src/brain/tools.md:101
@@ -9037,7 +9050,7 @@ msgid "\\#"
 msgstr ""
 
 #: src/channels/overview.md:39 src/channels/overview.md:51
-#: src/channels/overview.md:110
+#: src/channels/overview.md:115
 msgid "Channel"
 msgstr ""
 
@@ -9130,20 +9143,20 @@ msgstr ""
 
 #: src/channels/overview.md:53 src/channels/overview.md:54
 #: src/channels/overview.md:55 src/channels/overview.md:56
-#: src/channels/overview.md:112 src/channels/overview.md:113
-#: src/channels/overview.md:114 src/channels/overview.md:115
+#: src/channels/overview.md:117 src/channels/overview.md:118
+#: src/channels/overview.md:119 src/channels/overview.md:120
 msgid "Vision pipeline"
 msgstr ""
 
 #: src/channels/overview.md:53 src/channels/overview.md:54
 #: src/channels/overview.md:55 src/channels/overview.md:56
-#: src/channels/overview.md:112 src/channels/overview.md:113
-#: src/channels/overview.md:114 src/channels/overview.md:115
-#: src/channels/overview.md:117
+#: src/channels/overview.md:117 src/channels/overview.md:118
+#: src/channels/overview.md:119 src/channels/overview.md:120
+#: src/channels/overview.md:122
 msgid "STT"
 msgstr ""
 
-#: src/channels/overview.md:53 src/channels/overview.md:112
+#: src/channels/overview.md:53 src/channels/overview.md:117
 msgid "Native photo"
 msgstr ""
 
@@ -9159,7 +9172,7 @@ msgstr ""
 msgid "WebSocket"
 msgstr ""
 
-#: src/channels/overview.md:54 src/channels/overview.md:114
+#: src/channels/overview.md:54 src/channels/overview.md:119
 msgid "File attachment"
 msgstr ""
 
@@ -9171,7 +9184,7 @@ msgstr ""
 msgid "Socket Mode"
 msgstr ""
 
-#: src/channels/overview.md:55 src/channels/overview.md:115
+#: src/channels/overview.md:55 src/channels/overview.md:120
 msgid "File upload"
 msgstr ""
 
@@ -9187,7 +9200,7 @@ msgstr ""
 msgid "QR pairing"
 msgstr ""
 
-#: src/channels/overview.md:56 src/channels/overview.md:113
+#: src/channels/overview.md:56 src/channels/overview.md:118
 msgid "Native image"
 msgstr ""
 
@@ -9207,14 +9220,14 @@ msgstr ""
 msgid "Card attachments"
 msgstr ""
 
-#: src/channels/overview.md:57 src/channels/overview.md:116
-#: src/channels/overview.md:117 src/brain/tools.md:111 src/brain/tools.md:130
+#: src/channels/overview.md:57 src/channels/overview.md:121
+#: src/channels/overview.md:122 src/brain/tools.md:111 src/brain/tools.md:130
 #: src/features/sessions.md:118 src/features/sessions.md:119
 #: src/development/testing.md:379
 msgid "—"
 msgstr ""
 
-#: src/channels/overview.md:57 src/channels/overview.md:116
+#: src/channels/overview.md:57 src/channels/overview.md:121
 msgid "Card attachment"
 msgstr ""
 
@@ -9390,72 +9403,79 @@ msgstr ""
 
 #: src/channels/overview.md:105
 msgid ""
-"**User allowlists** — Restrict access by user ID, chat ID, or phone number"
+"**User allowlists** — Restrict access by user ID, chat ID, role, or phone "
+"number. Since v0.5.1 the allowlists are **deny-by-default** and are the "
+"access boundary: on Discord and Slack an unconfigured channel (no "
+"`allowed_users`, no `allowed_roles`, no `bot_owner`) refuses every message, "
+"matching Telegram; on WhatsApp an empty `allowed_phones` no longer grants "
+"anyone owner rights. Because the default `approval_policy` is `auto-always`, "
+"the allowlist is what decides who can drive tools at all — set it "
+"deliberately"
 msgstr ""
 
-#: src/channels/overview.md:106
+#: src/channels/overview.md:111
 msgid ""
 "**`respond_to` filter** — `all`, `dm_only`, or `mention` (respond only when "
 "@mentioned)"
 msgstr ""
 
-#: src/channels/overview.md:108
+#: src/channels/overview.md:113
 msgid "File & Media Support"
 msgstr ""
 
-#: src/channels/overview.md:110
+#: src/channels/overview.md:115
 msgid "Images (in)"
 msgstr ""
 
-#: src/channels/overview.md:110
+#: src/channels/overview.md:115
 msgid "Text files (in)"
 msgstr ""
 
-#: src/channels/overview.md:110
+#: src/channels/overview.md:115
 msgid "Documents (in)"
 msgstr ""
 
-#: src/channels/overview.md:110
+#: src/channels/overview.md:115
 msgid "Audio (in)"
 msgstr ""
 
-#: src/channels/overview.md:110
+#: src/channels/overview.md:115
 msgid "Image gen (out)"
 msgstr ""
 
-#: src/channels/overview.md:112 src/channels/overview.md:113
-#: src/channels/overview.md:114 src/channels/overview.md:115
-#: src/channels/overview.md:116
+#: src/channels/overview.md:117 src/channels/overview.md:118
+#: src/channels/overview.md:119 src/channels/overview.md:120
+#: src/channels/overview.md:121
 msgid "Extracted inline"
 msgstr ""
 
-#: src/channels/overview.md:112 src/channels/overview.md:113
-#: src/channels/overview.md:114 src/channels/overview.md:115
+#: src/channels/overview.md:117 src/channels/overview.md:118
+#: src/channels/overview.md:119 src/channels/overview.md:120
 msgid "PDF note"
 msgstr ""
 
-#: src/channels/overview.md:116
+#: src/channels/overview.md:121
 msgid "Card attachments → vision"
 msgstr ""
 
-#: src/channels/overview.md:117 src/features/sessions.md:114
+#: src/channels/overview.md:122 src/features/sessions.md:114
 #: src/features/self-healing.md:170
 msgid "TUI"
 msgstr ""
 
-#: src/channels/overview.md:117
+#: src/channels/overview.md:122
 msgid "Paste path → vision"
 msgstr ""
 
-#: src/channels/overview.md:117
+#: src/channels/overview.md:122
 msgid "Paste path → inline"
 msgstr ""
 
-#: src/channels/overview.md:117
+#: src/channels/overview.md:122
 msgid "`[IMG: name]` display"
 msgstr ""
 
-#: src/channels/overview.md:119
+#: src/channels/overview.md:124
 msgid ""
 "Images are passed to the active model's vision pipeline if it supports "
 "multimodal input, or routed to the `analyze_image` tool (Google Gemini "
@@ -9463,52 +9483,52 @@ msgid ""
 "to 8,000 characters."
 msgstr ""
 
-#: src/channels/overview.md:121
+#: src/channels/overview.md:126
 msgid "Proactive Channel Tools"
 msgstr ""
 
-#: src/channels/overview.md:123
+#: src/channels/overview.md:128
 msgid "The agent can send messages and take actions proactively:"
 msgstr ""
 
-#: src/channels/overview.md:125
+#: src/channels/overview.md:130
 msgid "Actions"
 msgstr ""
 
-#: src/channels/overview.md:127
+#: src/channels/overview.md:132
 msgid "`discord_send`"
 msgstr ""
 
-#: src/channels/overview.md:127
+#: src/channels/overview.md:132
 msgid ""
 "17 actions: send, reply, react, edit, delete, pin, create_thread, "
 "send_embed, etc."
 msgstr ""
 
-#: src/channels/overview.md:128 src/brain/tools.md:65
+#: src/channels/overview.md:133 src/brain/tools.md:65
 msgid "`slack_send`"
 msgstr ""
 
-#: src/channels/overview.md:128
+#: src/channels/overview.md:133
 msgid ""
 "17 actions: send, reply, react, edit, delete, pin, set_topic, send_blocks, "
 "send_file (TTS voice via OGG/Opus)"
 msgstr ""
 
-#: src/channels/overview.md:129
+#: src/channels/overview.md:134
 msgid "`trello_send`"
 msgstr ""
 
-#: src/channels/overview.md:129
+#: src/channels/overview.md:134
 msgid ""
 "22 actions: create_card, move_card, add_comment, add_checklist, search, etc."
 msgstr ""
 
-#: src/channels/overview.md:131
+#: src/channels/overview.md:136
 msgid "Channel Voice Parity"
 msgstr ""
 
-#: src/channels/overview.md:133
+#: src/channels/overview.md:138
 msgid ""
 "All four messaging channels (Telegram, Discord, WhatsApp, Slack) now share a "
 "single code path via `crate::channels::voice::{transcribe, synthesize}`. Bot "
@@ -9516,11 +9536,11 @@ msgid ""
 "context — previously only user messages were stored."
 msgstr ""
 
-#: src/channels/overview.md:135
+#: src/channels/overview.md:140
 msgid "Typing Indicator Persistence (v0.3.76)"
 msgstr ""
 
-#: src/channels/overview.md:137
+#: src/channels/overview.md:142
 msgid ""
 "Typing indicators now **survive background tasks**. Previously, when the "
 "agent spawned a background task (long build, test suite), the typing "
@@ -9529,11 +9549,11 @@ msgid ""
 "background tasks run in between."
 msgstr ""
 
-#: src/channels/overview.md:139
+#: src/channels/overview.md:144
 msgid "Smart Chunk Boundaries (v0.3.78)"
 msgstr ""
 
-#: src/channels/overview.md:141
+#: src/channels/overview.md:146
 msgid ""
 "When a response exceeds platform message limits and must be split into "
 "chunks, the splitter now **prefers boundaries that leave no markup open**. "
@@ -9542,11 +9562,11 @@ msgid ""
 "nearest safe break point where all markdown delimiters are balanced."
 msgstr ""
 
-#: src/channels/overview.md:143
+#: src/channels/overview.md:148
 msgid "Owner-Gated Channel Commands (v0.3.80)"
 msgstr ""
 
-#: src/channels/overview.md:145
+#: src/channels/overview.md:150
 msgid ""
 "User-defined slash commands and skills are **owner-gated on the channel "
 "catch-all arm** (#975). In a group chat, only the bot owner can trigger "
@@ -9827,8 +9847,8 @@ msgstr ""
 msgid "**Image support** — Send images to the bot, receive generated images"
 msgstr ""
 
-#: src/channels/telegram.md:86 src/channels/whatsapp.md:64
-#: src/channels/whatsapp.md:85
+#: src/channels/telegram.md:86 src/channels/whatsapp.md:74
+#: src/channels/whatsapp.md:117
 msgid "**Voice messages** — STT transcription + TTS response"
 msgstr ""
 
@@ -10439,8 +10459,9 @@ msgstr ""
 
 #: src/channels/discord.md:27
 msgid ""
-"**Allowed Users** — comma-separated Discord user IDs (leave empty to allow "
-"everyone)"
+"**Allowed Users** — comma-separated Discord user IDs (since v0.5.1 an empty "
+"allowlist no longer allows everyone: until you set users, roles, or "
+"`bot_owner`, the channel denies all messages)"
 msgstr ""
 
 #: src/channels/discord.md:28 src/channels/slack.md:31
@@ -10492,6 +10513,17 @@ msgid ""
 "```"
 msgstr ""
 
+#: src/channels/discord.md:67
+msgid "`[]` (denies unless roles/owner configured)"
+msgstr ""
+
+#: src/channels/discord.md:67
+msgid ""
+"Discord user IDs. Accepts int or string arrays. Any one of `allowed_users`, "
+"`allowed_roles`, `bot_owner` configures the channel; a configured one admits "
+"allowlisted users, holders of an allowed role (never in DMs), or the owner"
+msgstr ""
+
 #: src/channels/discord.md:70 src/channels/slack.md:74
 #: src/channels/whatsapp.md:50 src/channels/trello.md:67
 msgid "Idle timeout for non-owner sessions. Owner sessions never expire"
@@ -10529,8 +10561,8 @@ msgstr ""
 msgid "**Forum threads** — Support for Discord forum channels"
 msgstr ""
 
-#: src/channels/discord.md:80 src/channels/whatsapp.md:63
-#: src/channels/whatsapp.md:84
+#: src/channels/discord.md:80 src/channels/whatsapp.md:73
+#: src/channels/whatsapp.md:116
 msgid "**Image support** — Send and receive images"
 msgstr ""
 
@@ -10540,7 +10572,7 @@ msgid ""
 msgstr ""
 
 #: src/channels/discord.md:82 src/channels/slack.md:81
-#: src/channels/whatsapp.md:66 src/channels/whatsapp.md:87
+#: src/channels/whatsapp.md:76 src/channels/whatsapp.md:119
 msgid "**Slash commands** — All built-in and custom commands work"
 msgstr ""
 
@@ -10600,7 +10632,7 @@ msgid ""
 "enables quick, lightweight interactions without typing full messages."
 msgstr ""
 
-#: src/channels/discord.md:103 src/channels/whatsapp.md:68
+#: src/channels/discord.md:103 src/channels/whatsapp.md:100
 msgid "Formatting Notes"
 msgstr ""
 
@@ -10753,6 +10785,17 @@ msgid ""
 "session_idle_hours = 24.0               # idle timeout for non-owner "
 "sessions\n"
 "```"
+msgstr ""
+
+#: src/channels/slack.md:71
+msgid "`[]` (unconfigured: denies everyone)"
+msgstr ""
+
+#: src/channels/slack.md:71
+msgid ""
+"Slack user IDs (`U12345678`). Since v0.5.1 a workspace with no allowlist and "
+"no `bot_owner` denies all messages; once configured it admits allowlisted "
+"users or the owner"
 msgstr ""
 
 #: src/channels/slack.md:78
@@ -10949,6 +10992,18 @@ msgid ""
 "```"
 msgstr ""
 
+#: src/channels/whatsapp.md:49
+msgid "`[]` (open replies under `auto`, but **never** owner rights)"
+msgstr ""
+
+#: src/channels/whatsapp.md:49
+msgid ""
+"E.164 phone numbers. Since v0.5.1 an empty list no longer makes every sender "
+"the bot owner — owner commands (`/evolve`, `/rebuild`, `/exit`, `/cd`) and "
+"approval answers need the self-chat, `bot_owner`, or the resolver over "
+"`bot_owner` + `allowed_phones`"
+msgstr ""
+
 #: src/channels/whatsapp.md:51
 msgid "`response_policy`"
 msgstr ""
@@ -11002,56 +11057,134 @@ msgid ""
 "can interact beyond the allowlist."
 msgstr ""
 
-#: src/channels/whatsapp.md:62 src/channels/whatsapp.md:83
+#: src/channels/whatsapp.md:63
+msgid ""
+"**Ownership (v0.5.1, deny-by-default).** Before v0.5.1 an empty "
+"`allowed_phones` under `response_policy = \"auto\"` answered every contact "
+"_and_ elevated them all to owner — one forgotten allowlist away from handing "
+"strangers `/evolve` and `/cd`. That elevation is gone: being answered no "
+"longer means being in charge. Owner status comes from the paired account's "
+"self-chat, a configured `bot_owner`, or ownership resolution over "
+"`allowed_phones` + `bot_owner` — never from an empty list. Tool-approval "
+"replies (Yes/Always/No/YOLO) resolve only for the owner on all four channels."
+msgstr ""
+
+#: src/channels/whatsapp.md:72 src/channels/whatsapp.md:115
 msgid "**Personal and group chats** — Works in DMs and group conversations"
 msgstr ""
 
-#: src/channels/whatsapp.md:65 src/channels/whatsapp.md:86
+#: src/channels/whatsapp.md:75 src/channels/whatsapp.md:118
 msgid ""
 "**Plain text UI** — No buttons (WhatsApp limitation), uses text-based menus"
 msgstr ""
 
-#: src/channels/whatsapp.md:70
-msgid "No markdown tables — use bullet lists"
-msgstr ""
-
-#: src/channels/whatsapp.md:71
-msgid "No headers — use **bold** or CAPS for emphasis"
-msgstr ""
-
-#: src/channels/whatsapp.md:72
-msgid "Links render natively"
-msgstr ""
-
-#: src/channels/whatsapp.md:74
-msgid "Voice Message Handling"
-msgstr ""
-
-#: src/channels/whatsapp.md:76
-msgid "When receiving a voice message:"
-msgstr ""
-
-#: src/channels/whatsapp.md:77
-msgid "Agent downloads and transcribes via STT"
-msgstr ""
-
 #: src/channels/whatsapp.md:78
-msgid "Sends text response first (searchable)"
+msgid "Outbound rate limiting"
 msgstr ""
 
-#: src/channels/whatsapp.md:79
-msgid "Optionally generates TTS audio response"
+#: src/channels/whatsapp.md:80
+msgid ""
+"WhatsApp is the channel with the heaviest ban consequences, so every "
+"outbound send goes through a budget (since v0.5.1):"
+msgstr ""
+
+#: src/channels/whatsapp.md:89
+msgid "Mechanism"
 msgstr ""
 
 #: src/channels/whatsapp.md:91
+msgid "**Per-minute pacing**"
+msgstr ""
+
+#: src/channels/whatsapp.md:91
+msgid ""
+"A token bucket sized to `messages_per_minute` (default 30) refills "
+"continuously. An over-budget send is **paced**, not dropped: the caller "
+"sleeps for the refill gap and then sends. Set `0` to disable pacing."
+msgstr ""
+
+#: src/channels/whatsapp.md:92
+msgid "**Rolling daily cap**"
+msgstr ""
+
+#: src/channels/whatsapp.md:92
+msgid ""
+"The 24h window allows `daily_cap` sends (default 800). On saturation further "
+"sends park in a FIFO queue; a background drainer flushes them as the window "
+"slides. A queued quote-reply loses its quote context — the text still "
+"arrives. Set `0` to disable the cap."
+msgstr ""
+
+#: src/channels/whatsapp.md:93
+msgid "**Owner alert**"
+msgstr ""
+
+#: src/channels/whatsapp.md:93
+msgid ""
+"The first send queued in a saturation episode alerts the bot owner exactly "
+"once (through the WhatsApp session), and the alert re-arms when traffic "
+"drops back under the cap."
+msgstr ""
+
+#: src/channels/whatsapp.md:94
+msgid "**Owner bypass**"
+msgstr ""
+
+#: src/channels/whatsapp.md:94
+msgid ""
+"Messages addressed to the owner skip budget consumption entirely, so you "
+"always get fast replies; the saturation alert itself is also exempt."
+msgstr ""
+
+#: src/channels/whatsapp.md:96
+msgid ""
+"Streaming answers used to post every chunk as its own message — exactly the "
+"volume pattern Meta's heuristics hunt. Outbound replies now edit one message "
+"in place (since v0.5.1), which keeps chunked turns well inside the budget; "
+"the limiter is the safety net underneath."
+msgstr ""
+
+#: src/channels/whatsapp.md:102
+msgid "No markdown tables — use bullet lists"
+msgstr ""
+
+#: src/channels/whatsapp.md:103
+msgid "No headers — use **bold** or CAPS for emphasis"
+msgstr ""
+
+#: src/channels/whatsapp.md:104
+msgid "Links render natively"
+msgstr ""
+
+#: src/channels/whatsapp.md:106
+msgid "Voice Message Handling"
+msgstr ""
+
+#: src/channels/whatsapp.md:108
+msgid "When receiving a voice message:"
+msgstr ""
+
+#: src/channels/whatsapp.md:109
+msgid "Agent downloads and transcribes via STT"
+msgstr ""
+
+#: src/channels/whatsapp.md:110
+msgid "Sends text response first (searchable)"
+msgstr ""
+
+#: src/channels/whatsapp.md:111
+msgid "Optionally generates TTS audio response"
+msgstr ""
+
+#: src/channels/whatsapp.md:123
 msgid "Wrong number replying"
 msgstr ""
 
-#: src/channels/whatsapp.md:105
+#: src/channels/whatsapp.md:137
 msgid "Common issues"
 msgstr ""
 
-#: src/channels/whatsapp.md:113
+#: src/channels/whatsapp.md:145
 msgid ""
 "The paired number's self-chat is always allowed, regardless of "
 "`allowed_phones`. If it's not working, check that `response_policy` isn't "
@@ -12601,10 +12734,50 @@ msgid "Ask anything — answers are grounded in and quoted from the indexed docs
 msgstr ""
 
 #: src/brain/memory.md:106
-msgid "Embedding Hardening (v0.3.81)"
+msgid "Structural Code Search Upgrades (v0.5.1)"
 msgstr ""
 
 #: src/brain/memory.md:108
+msgid ""
+"The code-graph answers (`who calls X`, `what does X call`, `impact of X`) "
+"got four upgrades:"
+msgstr ""
+
+#: src/brain/memory.md:110
+msgid ""
+"**Truncation is now visible.** Caller sets in real repos are unbounded "
+"(5,000+ call sites exist), so every structural listing that had to cut ends "
+"with a marker line — _\"… and N more callers of X (re-query with higher n or "
+"offset)\"_ — and sets beyond 500 collapse into a per-file rollup instead of "
+"one-liners. Nothing is silently chopped anymore."
+msgstr ""
+
+#: src/brain/memory.md:114
+msgid ""
+"**Offset pagination.** `memory_search` accepts an `offset` alongside `n` for "
+"structural listings, so the full set can be walked page by page. Ranked text/"
+"vector results stay rank-truncated — the window applies to listings only."
+msgstr ""
+
+#: src/brain/memory.md:117
+msgid ""
+"**Depth-2 impact chains.** `impact of X` now walks two hops over the call-"
+"edge graph, surfacing the callers-of-callers that a direct query misses."
+msgstr ""
+
+#: src/brain/memory.md:119
+msgid ""
+"**Cleaner hits.** External code hits render **repo-relative paths** instead "
+"of absolute machine paths, and every `scope=all` hit carries a **corpus "
+"provenance tag** (which index the fact came from), so a memory answer and a "
+"code-graph answer can be told apart (#89)."
+msgstr ""
+
+#: src/brain/memory.md:123
+msgid "Embedding Hardening (v0.3.81)"
+msgstr ""
+
+#: src/brain/memory.md:125
 msgid ""
 "Embedding API calls now carry **timeouts**, a **vector gate** (malformed or "
 "empty vectors never reach the store), and **non-blocking writes** (embedding "
@@ -12613,21 +12786,21 @@ msgid ""
 "(#1069, #1067)."
 msgstr ""
 
-#: src/brain/memory.md:110
+#: src/brain/memory.md:127
 msgid "Embedding Modes"
 msgstr ""
 
-#: src/brain/memory.md:112
+#: src/brain/memory.md:129
 msgid "OpenCrabs supports three embedding configurations:"
 msgstr ""
 
-#: src/brain/memory.md:114
+#: src/brain/memory.md:131
 msgid ""
 "**Local GGUF** (default) — downloads a 300MB embedding model and runs it "
 "locally via llama.cpp"
 msgstr ""
 
-#: src/brain/memory.md:115
+#: src/brain/memory.md:132
 msgid ""
 "**OpenAI-compatible API** — configure external embedding providers (OpenAI "
 "`text-embedding-3-small`, Ollama `nomic-embed-text`, Jina, LM Studio, or any "
@@ -12635,83 +12808,83 @@ msgid ""
 "`model`, `api_key`, `dimensions`"
 msgstr ""
 
-#: src/brain/memory.md:116
+#: src/brain/memory.md:133
 msgid ""
 "**FTS5-only** — pure keyword search with zero RAM overhead. Set `[memory] "
 "vector_enabled = false`. Auto-detects VPS environments and configures "
 "automatically"
 msgstr ""
 
-#: src/brain/memory.md:118
+#: src/brain/memory.md:135
 msgid "Context Compaction"
 msgstr ""
 
-#: src/brain/memory.md:120
+#: src/brain/memory.md:137
 msgid "When context reaches ~80% capacity, OpenCrabs automatically compacts:"
 msgstr ""
 
-#: src/brain/memory.md:122
+#: src/brain/memory.md:139
 msgid ""
 "Summarizes the conversation so far into a comprehensive continuation document"
 msgstr ""
 
-#: src/brain/memory.md:123
+#: src/brain/memory.md:140
 msgid "Clears old messages from context"
 msgstr ""
 
-#: src/brain/memory.md:124
+#: src/brain/memory.md:141
 msgid "Continues with the summary as context"
 msgstr ""
 
-#: src/brain/memory.md:126
+#: src/brain/memory.md:143
 msgid "Manual compaction: type `/compact` in chat."
 msgstr ""
 
-#: src/brain/memory.md:128
+#: src/brain/memory.md:145
 msgid "Auto-Save Triggers"
 msgstr ""
 
-#: src/brain/memory.md:130
+#: src/brain/memory.md:147
 msgid "The agent saves to memory when:"
 msgstr ""
 
-#: src/brain/memory.md:131
+#: src/brain/memory.md:148
 msgid "New integrations are connected"
 msgstr ""
 
-#: src/brain/memory.md:132
+#: src/brain/memory.md:149
 msgid "Server/infrastructure changes occur"
 msgstr ""
 
-#: src/brain/memory.md:133
+#: src/brain/memory.md:150
 msgid "Bugs are found and fixed"
 msgstr ""
 
-#: src/brain/memory.md:134
+#: src/brain/memory.md:151
 msgid "New tools are configured"
 msgstr ""
 
-#: src/brain/memory.md:135
+#: src/brain/memory.md:152
 msgid "Credentials are rotated"
 msgstr ""
 
-#: src/brain/memory.md:136
+#: src/brain/memory.md:153
 msgid "Architecture decisions are made"
 msgstr ""
 
-#: src/brain/memory.md:137
+#: src/brain/memory.md:154
 msgid "You say \"remember this\""
 msgstr ""
 
-#: src/brain/memory.md:138
+#: src/brain/memory.md:155
 msgid "Errors take >5 minutes to debug"
 msgstr ""
 
-#: src/brain/memory.md:140
+#: src/brain/memory.md:157
 msgid "Proactive Memory Surfacing (v0.3.76)"
 msgstr ""
 
-#: src/brain/memory.md:142
+#: src/brain/memory.md:159
 msgid ""
 "The agent now **surfaces relevant memory without being asked**. When a "
 "conversation topic matches something stored in MEMORY.md or daily notes, the "
@@ -12723,7 +12896,7 @@ msgid ""
 "\"check your memory.\""
 msgstr ""
 
-#: src/brain/memory.md:146
+#: src/brain/memory.md:163
 msgid ""
 "See [Brain Files](./brain-files.md) for the full list of files the agent "
 "reads on startup."
@@ -13320,7 +13493,7 @@ msgstr ""
 msgid "Session Management"
 msgstr ""
 
-#: src/features/sessions.md:114 src/features/skills.md:87
+#: src/features/sessions.md:114
 msgid "Channels"
 msgstr ""
 
@@ -14284,21 +14457,111 @@ msgid "`slack:CHANNEL_ID`"
 msgstr ""
 
 #: src/features/cron-jobs.md:67
+msgid "`whatsapp:PHONE_OR_JID`"
+msgstr ""
+
+#: src/features/cron-jobs.md:68
 msgid "`http://...` or `https://...` (webhook URL)"
 msgstr ""
 
-#: src/features/cron-jobs.md:69
+#: src/features/cron-jobs.md:70
+msgid "Target URLs (v0.5.1)"
+msgstr ""
+
+#: src/features/cron-jobs.md:72
+msgid ""
+"Since v0.5.1 every delivery field also speaks a unified `oc://` target "
+"scheme, resolved by a central resolver against the live channel bindings "
+"(issue #148):"
+msgstr ""
+
+#: src/features/cron-jobs.md:75
+msgid "Form"
+msgstr ""
+
+#: src/features/cron-jobs.md:75
+msgid "Meaning"
+msgstr ""
+
+#: src/features/cron-jobs.md:77
+msgid "`oc://telegram/<chat>[/<thread>]`"
+msgstr ""
+
+#: src/features/cron-jobs.md:77
+msgid "Telegram chat (optionally a forum topic)"
+msgstr ""
+
+#: src/features/cron-jobs.md:78
+msgid "`oc://discord/<channel>`"
+msgstr ""
+
+#: src/features/cron-jobs.md:79
+msgid "`oc://slack/<channel>`"
+msgstr ""
+
+#: src/features/cron-jobs.md:80
+msgid "`oc://whatsapp/<phone\\|jid>`"
+msgstr ""
+
+#: src/features/cron-jobs.md:80
+msgid "WhatsApp contact"
+msgstr ""
+
+#: src/features/cron-jobs.md:81
+msgid "`oc://session/<uuid-or-prefix>`"
+msgstr ""
+
+#: src/features/cron-jobs.md:81
+msgid ""
+"Park the result in that OpenCrabs session's notify queue — the agent gets "
+"cron output the same way a sub-agent or a detached command reaches its "
+"parent (v0.5.1)"
+msgstr ""
+
+#: src/features/cron-jobs.md:82
+msgid "`here`"
+msgstr ""
+
+#: src/features/cron-jobs.md:82
+msgid ""
+"This conversation's channel (refused on headless surfaces, which have none)"
+msgstr ""
+
+#: src/features/cron-jobs.md:84
+msgid ""
+"Target URLs are resolved **once, at create/update time**, and the concrete "
+"channel target is baked into the job; if an unbaked URL ever reaches fire "
+"time the run fails loudly instead of resolving against a possibly-changed "
+"world."
+msgstr ""
+
+#: src/features/cron-jobs.md:88
+msgid "Forum-topic delivery (v0.5.1, opt-in)"
+msgstr ""
+
+#: src/features/cron-jobs.md:90
+msgid ""
+"`telegram:CHAT_ID:THREAD_ID` (or the `oc://telegram/<chat>/<thread>` form) "
+"delivers into a specific topic of a forum group. It is deliberately opt-in: "
+"the chat must actually be a forum and the topic must exist — an invalid "
+"thread target is **rejected loudly at fire time**, never silently re-routed "
+"to the general topic. When a job is created from inside a thread (`here`/"
+"`oc://` form), the origin thread id is persisted so the result lands back in "
+"the same topic (#104)."
+msgstr ""
+
+#: src/features/cron-jobs.md:97
 msgid ""
 "Results are stored in the DB via the `cron_results` table regardless of "
 "delivery target, so you can query past execution results with `opencrabs "
 "cron results <name>`."
 msgstr ""
 
-#: src/features/cron-jobs.md:71
+#: src/features/cron-jobs.md:99
 msgid "Scheduler Lock (v0.3.65)"
 msgstr ""
 
-#: src/features/cron-jobs.md:73
+#: src/features/cron-jobs.md:101
 msgid ""
 "The cron scheduler uses a **file lock** to prevent duplicate job execution. "
 "Only one scheduler instance can run per profile at a time. If you "
@@ -14306,43 +14569,43 @@ msgid ""
 "cron jobs."
 msgstr ""
 
-#: src/features/cron-jobs.md:75
+#: src/features/cron-jobs.md:103
 msgid "Heartbeat vs Cron"
 msgstr ""
 
-#: src/features/cron-jobs.md:77
+#: src/features/cron-jobs.md:105
 msgid "**Use heartbeat (`HEARTBEAT.md`) when:**"
 msgstr ""
 
-#: src/features/cron-jobs.md:78
+#: src/features/cron-jobs.md:106
 msgid "Checks are periodic but timing is flexible (~30 min)"
 msgstr ""
 
-#: src/features/cron-jobs.md:79
+#: src/features/cron-jobs.md:107
 msgid "You want to reduce API calls by batching"
 msgstr ""
 
-#: src/features/cron-jobs.md:80
+#: src/features/cron-jobs.md:108
 msgid "Tasks share the main session context"
 msgstr ""
 
-#: src/features/cron-jobs.md:82
+#: src/features/cron-jobs.md:110
 msgid "**Use cron when:**"
 msgstr ""
 
-#: src/features/cron-jobs.md:83
+#: src/features/cron-jobs.md:111
 msgid "Exact timing matters (\"9:00 AM every Monday\")"
 msgstr ""
 
-#: src/features/cron-jobs.md:84
+#: src/features/cron-jobs.md:112
 msgid "Task needs isolation from main session"
 msgstr ""
 
-#: src/features/cron-jobs.md:85
+#: src/features/cron-jobs.md:113
 msgid "You want a different model or thinking level"
 msgstr ""
 
-#: src/features/cron-jobs.md:86
+#: src/features/cron-jobs.md:114
 msgid "Output should deliver to a specific channel"
 msgstr ""
 
@@ -14878,22 +15141,56 @@ msgid ""
 "  label: \"refactor-auth\",      # Human-readable label\n"
 "  agent_type: \"code\",          # general | explore | plan | code | "
 "research\n"
-"  prompt: \"Refactor auth...\"   # Task instruction\n"
+"  prompt: \"Refactor auth...\",  # Task instruction\n"
+"  include_brain: false         # opt in to workspace brain pre-injection "
+"(v0.5.1)\n"
 ")\n"
 "```"
 msgstr ""
 
-#: src/features/multi-agent.md:48
+#: src/features/multi-agent.md:49
 msgid ""
 "The agent runs in its own session with auto-approved tools. No blocking -- "
 "it executes in the background while the parent continues."
 msgstr ""
 
-#: src/features/multi-agent.md:50
+#: src/features/multi-agent.md:51
+msgid "Lean children and `include_brain` (v0.5.1)"
+msgstr ""
+
+#: src/features/multi-agent.md:53
+msgid ""
+"Sub-agents start **lean**: no pre-injected workspace brain (SOUL.md, "
+"USER.md, AGENTS.md, project directives). Pass `include_brain: true` to "
+"`spawn_agent` (or per-agent in `team_create`) to opt into pre-injection; the "
+"choice is frozen for the agent's lifetime and `resume_agent` re-attaches "
+"accordingly. When a child runs lean, its prompt **discloses the gap** — the "
+"child is told the workspace brain is not loaded and pointed at "
+"`load_brain_file` for on-demand access, so neither side operates on the "
+"assumption rules are ambiently known (#145)."
+msgstr ""
+
+#: src/features/multi-agent.md:60
+msgid "Headless children (v0.5.1)"
+msgstr ""
+
+#: src/features/multi-agent.md:62
+msgid ""
+"Child agents are **headless by law**: interactive-only tools "
+"(`session_notify`, `suggest_options`) are stripped from the child's tool "
+"surface and the registry refuses to register them there — a call returns a "
+"hard tool error, not a silent no-op. The headless tool roster excludes "
+"interactive-only tools wholesale, and headless prompts (spawn and resume, "
+"cron/daemon, CLI one-shot) carry a preamble saying so, so the child never "
+"reaches for a button it does not have (#129). The same backstop covers "
+"cron's `here` target: it is refused on headless surfaces."
+msgstr ""
+
+#: src/features/multi-agent.md:70
 msgid "Wait for Completion"
 msgstr ""
 
-#: src/features/multi-agent.md:52
+#: src/features/multi-agent.md:72
 msgid ""
 "```\n"
 "wait_agent(\n"
@@ -14903,16 +15200,16 @@ msgid ""
 "```"
 msgstr ""
 
-#: src/features/multi-agent.md:59
+#: src/features/multi-agent.md:79
 msgid "Multi-Turn with send_input"
 msgstr ""
 
-#: src/features/multi-agent.md:61
+#: src/features/multi-agent.md:81
 msgid ""
 "After spawning, you can send additional instructions without restarting:"
 msgstr ""
 
-#: src/features/multi-agent.md:63
+#: src/features/multi-agent.md:83
 msgid ""
 "```\n"
 "send_input(\n"
@@ -14922,18 +15219,18 @@ msgid ""
 "```"
 msgstr ""
 
-#: src/features/multi-agent.md:70
+#: src/features/multi-agent.md:90
 msgid ""
 "The child agent processes the input on its next iteration. This enables "
 "iterative workflows -- review the agent's output, then ask it to refine or "
 "continue."
 msgstr ""
 
-#: src/features/multi-agent.md:72
+#: src/features/multi-agent.md:92
 msgid "Resume a Completed Agent"
 msgstr ""
 
-#: src/features/multi-agent.md:74
+#: src/features/multi-agent.md:94
 msgid ""
 "```\n"
 "resume_agent(\n"
@@ -14943,27 +15240,27 @@ msgid ""
 "```"
 msgstr ""
 
-#: src/features/multi-agent.md:81
+#: src/features/multi-agent.md:101
 msgid ""
 "The agent continues in its original session, preserving all prior context. "
 "No need to re-explain the codebase."
 msgstr ""
 
-#: src/features/multi-agent.md:83
+#: src/features/multi-agent.md:103
 msgid "Team Orchestration"
 msgstr ""
 
-#: src/features/multi-agent.md:85
+#: src/features/multi-agent.md:105
 msgid ""
 "The `TeamManager` coordinates named groups of agents for parallel execution. "
 "Three team-specific tools:"
 msgstr ""
 
-#: src/features/multi-agent.md:87
+#: src/features/multi-agent.md:107
 msgid "Create a Team"
 msgstr ""
 
-#: src/features/multi-agent.md:89
+#: src/features/multi-agent.md:109
 msgid ""
 "```\n"
 "team_create(\n"
@@ -14980,17 +15277,17 @@ msgid ""
 "```"
 msgstr ""
 
-#: src/features/multi-agent.md:100
+#: src/features/multi-agent.md:120
 msgid ""
 "All agents spawn simultaneously and run in parallel. Returns the team name "
 "and all agent IDs."
 msgstr ""
 
-#: src/features/multi-agent.md:102
+#: src/features/multi-agent.md:122
 msgid "Broadcast to a Team"
 msgstr ""
 
-#: src/features/multi-agent.md:104
+#: src/features/multi-agent.md:124
 msgid ""
 "```\n"
 "team_broadcast(\n"
@@ -15000,41 +15297,41 @@ msgid ""
 "```"
 msgstr ""
 
-#: src/features/multi-agent.md:111
+#: src/features/multi-agent.md:131
 msgid ""
 "Sends a message to all running agents in the team. Non-running agents are "
 "skipped. Useful for sharing context or direction changes."
 msgstr ""
 
-#: src/features/multi-agent.md:113
+#: src/features/multi-agent.md:133
 msgid "Delete a Team"
 msgstr ""
 
-#: src/features/multi-agent.md:115
+#: src/features/multi-agent.md:135
 msgid ""
 "```\n"
 "team_delete(team_name: \"backend-refactor\")\n"
 "```"
 msgstr ""
 
-#: src/features/multi-agent.md:119
+#: src/features/multi-agent.md:139
 msgid ""
 "Cancels all running agents and cleans up resources. Completed agents are "
 "left in the subagent manager for reference."
 msgstr ""
 
-#: src/features/multi-agent.md:121
+#: src/features/multi-agent.md:141
 msgid "Subagent Provider/Model Config"
 msgstr ""
 
-#: src/features/multi-agent.md:123
+#: src/features/multi-agent.md:143
 msgid ""
 "By default, every spawned agent inherits the parent session's provider and "
 "model. You can override this globally in `config.toml` so child agents route "
 "to a different (usually cheaper or faster) backend:"
 msgstr ""
 
-#: src/features/multi-agent.md:125
+#: src/features/multi-agent.md:145
 msgid ""
 "```toml\n"
 "[agent]\n"
@@ -15046,25 +15343,25 @@ msgid ""
 "```"
 msgstr ""
 
-#: src/features/multi-agent.md:134
+#: src/features/multi-agent.md:154
 msgid ""
 "The override applies to `spawn_agent`, `resume_agent`, and every member of a "
 "`team_create` team. Changes take effect on next session start; running "
 "sessions keep their existing provider."
 msgstr ""
 
-#: src/features/multi-agent.md:136
+#: src/features/multi-agent.md:156
 msgid "Per-Call Overrides (v0.3.35)"
 msgstr ""
 
-#: src/features/multi-agent.md:138
+#: src/features/multi-agent.md:158
 msgid ""
 "`spawn_agent`, `resume_agent`, and `team_create` now accept optional "
 "`provider` and `model` fields that override config defaults for a single "
 "call. This enables mixed-model teams:"
 msgstr ""
 
-#: src/features/multi-agent.md:140
+#: src/features/multi-agent.md:160
 msgid ""
 "```\n"
 "team_create(\n"
@@ -15081,17 +15378,17 @@ msgid ""
 "```"
 msgstr ""
 
-#: src/features/multi-agent.md:151
+#: src/features/multi-agent.md:171
 msgid ""
 "Precedence order (highest first): per-call `provider`/`model` > `[agent] "
 "subagent_provider`/`subagent_model` in config > parent session's provider."
 msgstr ""
 
-#: src/features/multi-agent.md:153 src/features/rtk.md:126
+#: src/features/multi-agent.md:173 src/features/rtk.md:126
 msgid "Why It Matters"
 msgstr ""
 
-#: src/features/multi-agent.md:155
+#: src/features/multi-agent.md:175
 msgid ""
 "The common pattern is **premium parent, cheap children**. Your main "
 "conversation stays on a reasoning-capable model (Opus, GPT-5, Gemini 2.5 "
@@ -15101,16 +15398,16 @@ msgid ""
 "roughly 50x."
 msgstr ""
 
-#: src/features/multi-agent.md:157
+#: src/features/multi-agent.md:177
 msgid "Concrete Examples"
 msgstr ""
 
-#: src/features/multi-agent.md:159
+#: src/features/multi-agent.md:179
 msgid ""
 "**OpenRouter parent, Qwen children** — best bang-for-buck on mixed workloads:"
 msgstr ""
 
-#: src/features/multi-agent.md:160
+#: src/features/multi-agent.md:180
 msgid ""
 "```toml\n"
 "[providers.openrouter]\n"
@@ -15124,13 +15421,13 @@ msgid ""
 "```"
 msgstr ""
 
-#: src/features/multi-agent.md:171
+#: src/features/multi-agent.md:191
 msgid ""
 "**Kimi on custom OpenCode provider** — fast code generation for `code` and "
 "`explore` agents:"
 msgstr ""
 
-#: src/features/multi-agent.md:172
+#: src/features/multi-agent.md:192
 msgid ""
 "```toml\n"
 "[providers.opencode-kimi]\n"
@@ -15145,13 +15442,13 @@ msgid ""
 "```"
 msgstr ""
 
-#: src/features/multi-agent.md:184
+#: src/features/multi-agent.md:204
 msgid ""
 "**Local Ollama children** — zero cost, fully offline, good for `explore` "
 "agents that just read files:"
 msgstr ""
 
-#: src/features/multi-agent.md:185
+#: src/features/multi-agent.md:205
 msgid ""
 "```toml\n"
 "[providers.ollama]\n"
@@ -15164,13 +15461,13 @@ msgid ""
 "```"
 msgstr ""
 
-#: src/features/multi-agent.md:195
+#: src/features/multi-agent.md:215
 msgid ""
 "**Gemini parent, Gemini Flash children** — single billing account, reasoning "
 "on main, flash on team:"
 msgstr ""
 
-#: src/features/multi-agent.md:196
+#: src/features/multi-agent.md:216
 msgid ""
 "```toml\n"
 "[providers.gemini]\n"
@@ -15183,25 +15480,25 @@ msgid ""
 "```"
 msgstr ""
 
-#: src/features/multi-agent.md:206
+#: src/features/multi-agent.md:226
 msgid "Gotchas"
 msgstr ""
 
-#: src/features/multi-agent.md:208
+#: src/features/multi-agent.md:228
 msgid ""
 "The subagent provider must be enabled and have a valid API key (or be a CLI/"
 "none-auth provider). Missing keys cause the spawn to fail with a provider "
 "resolution error."
 msgstr ""
 
-#: src/features/multi-agent.md:209
+#: src/features/multi-agent.md:229
 msgid ""
 "`subagent_model` must be a model the provider actually serves. `qwen/"
 "qwen3-235b` works on OpenRouter, not on Anthropic. Check `/models` on the "
 "target provider to confirm."
 msgstr ""
 
-#: src/features/multi-agent.md:210
+#: src/features/multi-agent.md:230
 msgid ""
 "`team_create` members all share the same subagent config. If you need "
 "heterogeneous routing (e.g. a research agent on web-search model, a code "
@@ -15209,29 +15506,29 @@ msgid ""
 "under different config profiles."
 msgstr ""
 
-#: src/features/multi-agent.md:211
+#: src/features/multi-agent.md:231
 msgid ""
 "The CLI model override is surfaced in the `spawn_agent`, `resume_agent`, and "
 "`team_create` tool descriptions themselves, so the LLM knows to mention "
 "these keys to you instead of inventing per-call overrides."
 msgstr ""
 
-#: src/features/multi-agent.md:213
+#: src/features/multi-agent.md:233
 msgid ""
 "If `subagent_provider` or `subagent_model` is not set, the spawned agent "
 "loads from the parent session's provider and runs on that provider's default "
 "model."
 msgstr ""
 
-#: src/features/multi-agent.md:215
+#: src/features/multi-agent.md:235
 msgid "Workflow Patterns"
 msgstr ""
 
-#: src/features/multi-agent.md:217
+#: src/features/multi-agent.md:237
 msgid "Parallel Research + Implementation"
 msgstr ""
 
-#: src/features/multi-agent.md:219
+#: src/features/multi-agent.md:239
 msgid ""
 "```\n"
 "team_create(\"feature-research\", [\n"
@@ -15243,15 +15540,15 @@ msgid ""
 "```"
 msgstr ""
 
-#: src/features/multi-agent.md:226
+#: src/features/multi-agent.md:246
 msgid "Wait for results, then spawn a code agent with the combined context."
 msgstr ""
 
-#: src/features/multi-agent.md:228
+#: src/features/multi-agent.md:248
 msgid "Iterative Code Review"
 msgstr ""
 
-#: src/features/multi-agent.md:230
+#: src/features/multi-agent.md:250
 msgid ""
 "```\n"
 "# 1. Spawn a code agent\n"
@@ -15267,11 +15564,11 @@ msgid ""
 "```"
 msgstr ""
 
-#: src/features/multi-agent.md:241
+#: src/features/multi-agent.md:261
 msgid "Large-Scale Refactoring"
 msgstr ""
 
-#: src/features/multi-agent.md:243
+#: src/features/multi-agent.md:263
 msgid ""
 "```\n"
 "team_create(\"refactor-team\", [\n"
@@ -15287,43 +15584,43 @@ msgid ""
 "```"
 msgstr ""
 
-#: src/features/multi-agent.md:254
+#: src/features/multi-agent.md:274
 msgid "84 tests cover the entire multi-agent system:"
 msgstr ""
 
-#: src/features/multi-agent.md:255
+#: src/features/multi-agent.md:275
 msgid "Manager state machine (spawn, wait, close lifecycle)"
 msgstr ""
 
-#: src/features/multi-agent.md:256
+#: src/features/multi-agent.md:276
 msgid "`SendInput` wiring and input loop"
 msgstr ""
 
-#: src/features/multi-agent.md:257
+#: src/features/multi-agent.md:277
 msgid "`CloseAgent` cleanup"
 msgstr ""
 
-#: src/features/multi-agent.md:258
+#: src/features/multi-agent.md:278
 msgid "`WaitAgent` timeout behavior"
 msgstr ""
 
-#: src/features/multi-agent.md:259
+#: src/features/multi-agent.md:279
 msgid "`AgentType` tool filtering"
 msgstr ""
 
-#: src/features/multi-agent.md:260
+#: src/features/multi-agent.md:280
 msgid "`TeamManager`, `TeamDelete`, `TeamBroadcast`"
 msgstr ""
 
-#: src/features/multi-agent.md:261
+#: src/features/multi-agent.md:281
 msgid "Registry exclusion (ALWAYS_EXCLUDED enforcement)"
 msgstr ""
 
-#: src/features/multi-agent.md:263
+#: src/features/multi-agent.md:283
 msgid "Sub-Agent Result Reporting (v0.3.81)"
 msgstr ""
 
-#: src/features/multi-agent.md:265
+#: src/features/multi-agent.md:285
 msgid ""
 "A finished agent **reports its result back to the spawning session** "
 "(#1036): the parent sees the outcome in-turn instead of polling or reading "
@@ -15332,11 +15629,11 @@ msgid ""
 "agents that no longer exist."
 msgstr ""
 
-#: src/features/multi-agent.md:267
+#: src/features/multi-agent.md:287
 msgid "Sub-Agent Worktree Isolation (v0.3.83)"
 msgstr ""
 
-#: src/features/multi-agent.md:269
+#: src/features/multi-agent.md:289
 msgid ""
 "Each spawned agent gets **its own worktree and branch** instead of sharing "
 "the parent's working tree: a fan-out of several agents on one repository can "
@@ -19644,237 +19941,75 @@ msgstr ""
 msgid "Every skill is a markdown file with YAML frontmatter:"
 msgstr ""
 
-#: src/features/skills.md:38
-msgid ""
-"The `name` and `description` fields in the frontmatter are required. The "
-"markdown body becomes the prompt that gets injected when the skill runs."
-msgstr ""
-
-#: src/features/skills.md:40
-msgid "Built-in vs User Skills"
-msgstr ""
-
-#: src/features/skills.md:42
-msgid "Skills come from two sources:"
-msgstr ""
-
-#: src/features/skills.md:44
-msgid ""
-"**Built-in** (orange badge) — ship with the OpenCrabs binary via "
-"`include_str!`. Always available."
-msgstr ""
-
-#: src/features/skills.md:45
-msgid ""
-"**User** (teal badge) — created by you in `~/.opencrabs/skills/<name>/"
-"SKILL.md`. Override built-ins by file presence."
-msgstr ""
-
 #: src/features/skills.md:47
-msgid "Built-in Skills"
-msgstr ""
-
-#: src/features/skills.md:49
-msgid "Skill"
-msgstr ""
-
-#: src/features/skills.md:51
-msgid "`opencli`"
-msgstr ""
-
-#: src/features/skills.md:51
 msgid ""
-"Reference for all 25+ opencli-rs dynamic tools (news, social, search, web). "
-"Use when user asks about trending topics, news, social media, jobs, or web "
-"search."
-msgstr ""
-
-#: src/features/skills.md:52
-msgid "`browser-cdp`"
-msgstr ""
-
-#: src/features/skills.md:52
-msgid ""
-"Native CDP browser automation reference. Headless/headed Chrome control, "
-"screenshots, JS evaluation."
-msgstr ""
-
-#: src/features/skills.md:53
-msgid "`a2a-gateway`"
-msgstr ""
-
-#: src/features/skills.md:53
-msgid ""
-"Agent-to-Agent (A2A) protocol gateway reference. JSON-RPC 2.0 peer-to-peer "
-"agent communication."
+"When the agent is about to touch a matching path **without that skill loaded "
+"in the current context**, the tool call is rejected once, carrying the full "
+"skill body in the rejection. The identical retry then passes — the model has "
+"now read the rules. A registry of seen skills (track of loads, epoch-"
+"tracked) re-arms the gate after context compaction, and the master switch is "
+"`[agent] skill_glob_gate` (default: on). The effect: conventions attached to "
+"a path are impossible to edit against by omission."
 msgstr ""
 
 #: src/features/skills.md:54
-msgid "`dynamic-tools`"
-msgstr ""
-
-#: src/features/skills.md:54
-msgid ""
-"Runtime tool management with tool_manage and tools.toml format. Create, "
-"enable, disable, reload tools without restart."
+msgid "Stage 1 — Project detection"
 msgstr ""
 
 #: src/features/skills.md:55
-msgid "`security-audit`"
+msgid "..."
 msgstr ""
 
-#: src/features/skills.md:55
-msgid ""
-"Language-agnostic security & CVE audit. Detects project type from manifests, "
-"runs the appropriate scanner, reviews the diff for injection / auth / "
-"crypto / deserialization / path-traversal patterns, and scores 0-100."
+#: src/features/skills.md:104
+msgid "/security-audit"
 msgstr ""
 
-#: src/features/skills.md:56
-msgid "`cost-estimate`"
-msgstr ""
-
-#: src/features/skills.md:56
-msgid ""
-"Codebase cost-to-build estimate, AI-assisted ROI breakdown, and fair-market "
-"valuation."
-msgstr ""
-
-#: src/features/skills.md:57
-msgid "`repo-audit`"
-msgstr ""
-
-#: src/features/skills.md:57
-msgid ""
-"Language-agnostic repository health checks. 5-phase pipeline: language "
-"detection, native tool execution, git metrics, AST analysis, scoring + "
-"recommendations. Covers Rust, JS/TS, Python, Go. (v0.3.18)"
-msgstr ""
-
-#: src/features/skills.md:59
-msgid "Running Skills"
-msgstr ""
-
-#: src/features/skills.md:61
-msgid "Skills Picker (`/skills`)"
-msgstr ""
-
-#: src/features/skills.md:63
-msgid ""
-"Type `/skills` to open the full-screen filterable picker. The top shows a "
-"filter bar with the total skill count. The main area lists all skills, each "
-"showing:"
-msgstr ""
-
-#: src/features/skills.md:65
-msgid "**Skill name** as a slash command (e.g. `/security-audit`)"
-msgstr ""
-
-#: src/features/skills.md:66
-msgid "**Type badge** — orange `built-in` or teal `user`"
-msgstr ""
-
-#: src/features/skills.md:67
-msgid "**Description** of what the skill does"
-msgstr ""
-
-#: src/features/skills.md:68
-msgid "**Keywords** for search matching in parentheses"
-msgstr ""
-
-#: src/features/skills.md:72
-msgid "`Tab` / `↑↓`"
-msgstr ""
-
-#: src/features/skills.md:72
-msgid "Navigate the skill list"
-msgstr ""
-
-#: src/features/skills.md:73
-msgid "Run the selected skill"
-msgstr ""
-
-#: src/features/skills.md:74
-msgid "Close the picker"
-msgstr ""
-
-#: src/features/skills.md:75
-msgid "Filter skills by name and description (case-insensitive)"
-msgstr ""
-
-#: src/features/skills.md:77
-msgid "When the filter narrows to a single match, Enter fires it immediately."
-msgstr ""
-
-#: src/features/skills.md:79
-msgid "Slash Commands"
-msgstr ""
-
-#: src/features/skills.md:81
-msgid "Type any skill name directly as a slash command:"
-msgstr ""
-
-#: src/features/skills.md:89
-msgid ""
-"Skills auto-register as slash commands across all connected channels "
-"(Telegram, Discord, Slack, WhatsApp). No `commands.toml` entry needed. Just "
-"type `/<skill-name>` in any channel to run it."
-msgstr ""
-
-#: src/features/skills.md:91
-msgid "Creating Custom Skills"
-msgstr ""
-
-#: src/features/skills.md:93
-msgid "Create a directory under `~/.opencrabs/skills/`:"
-msgstr ""
-
-#: src/features/skills.md:99
+#: src/features/skills.md:119
 msgid "Create `SKILL.md` with frontmatter and prompt:"
 msgstr ""
 
-#: src/features/skills.md:113
+#: src/features/skills.md:133
 msgid ""
 "The skill immediately appears in `/skills` (with a `user` badge) and as `/my-"
 "skill` in TUI and all channels."
 msgstr ""
 
-#: src/features/skills.md:115
+#: src/features/skills.md:135
 msgid "Cross-Harness Compatibility"
 msgstr ""
 
-#: src/features/skills.md:117
+#: src/features/skills.md:137
 msgid "The `SKILL.md` format works identically on:"
 msgstr ""
 
-#: src/features/skills.md:119
+#: src/features/skills.md:139
 msgid "**OpenCrabs** — native support via `/skills` picker and slash commands"
 msgstr ""
 
-#: src/features/skills.md:120
+#: src/features/skills.md:140
 msgid ""
 "**Claude Code** — drop the same `SKILL.md` file into Claude Code's skills "
 "directory"
 msgstr ""
 
-#: src/features/skills.md:121
+#: src/features/skills.md:141
 msgid ""
 "**Anthropic managed agents** — compatible with managed agent skill loading"
 msgstr ""
 
-#: src/features/skills.md:122
+#: src/features/skills.md:142
 msgid "**OpenClaw** — works with OpenClaw's skill system"
 msgstr ""
 
-#: src/features/skills.md:124
+#: src/features/skills.md:144
 msgid "Write a skill once, use it everywhere."
 msgstr ""
 
-#: src/features/skills.md:126
+#: src/features/skills.md:146
 msgid "RSI-Proposed Skills"
 msgstr ""
 
-#: src/features/skills.md:128
+#: src/features/skills.md:148
 msgid ""
 "The RSI engine can propose new skills based on usage patterns it observes in "
 "the feedback ledger. For example, if the agent repeatedly performs a multi-"
@@ -19883,18 +20018,18 @@ msgid ""
 "your review."
 msgstr ""
 
-#: src/features/skills.md:130
+#: src/features/skills.md:150
 msgid ""
 "This is part of the [RSI Proposals system](./self-improvement.md#rsi-"
 "proposals) — RSI identifies gaps in the agent's capabilities and drafts "
 "solutions, but installation always requires your approval."
 msgstr ""
 
-#: src/features/skills.md:132
+#: src/features/skills.md:152
 msgid "Slash Command Resolution (v0.3.78)"
 msgstr ""
 
-#: src/features/skills.md:134
+#: src/features/skills.md:154
 msgid ""
 "The `slash_command` tool now correctly resolves **skills** and the `/onboard:"
 "<topic>` form. Previously, calling a skill via `slash_command` could fail if "
@@ -19902,6 +20037,1835 @@ msgid ""
 "now checks skills, built-in commands, and user commands in priority order, "
 "and the `/onboard:voice` / `/onboard:provider` / `/onboard:channels` sub-"
 "topic forms route correctly."
+msgstr ""
+
+#: src/features/themes.md:3
+msgid ""
+"The TUI is colored by **semantic roles**, not raw hexes. Every render site "
+"resolves a role (`accent`, `text_primary`, `selection_bg`, …) through the "
+"active theme, so one switch restyles the whole interface at runtime. A theme "
+"is **one file, 43 keys, done**."
+msgstr ""
+
+#: src/features/themes.md:7
+msgid "Switching themes"
+msgstr ""
+
+#: src/features/themes.md:11
+msgid "`/theme`"
+msgstr ""
+
+#: src/features/themes.md:11
+msgid ""
+"Opens the interactive picker: `↑`/`↓` (or `j`/`k`) move the cursor and "
+"**preview live** — the whole UI recolors under the arrow keys. `Enter` "
+"applies and persists, `Esc` (or `q`) cancels and reverts to whatever was "
+"active when the picker opened."
+msgstr ""
+
+#: src/features/themes.md:12
+msgid "`/theme list`"
+msgstr ""
+
+#: src/features/themes.md:12
+msgid ""
+"Lists built-in themes and user presets, then re-scans `~/.opencrabs/themes/"
+"`. Files that fail validation are listed with a human-readable rejection "
+"reason — never silently ignored."
+msgstr ""
+
+#: src/features/themes.md:13
+msgid "`/theme set <name>`"
+msgstr ""
+
+#: src/features/themes.md:13
+msgid ""
+"Applies a theme immediately and writes it to your config. Lookup is case-"
+"insensitive across built-ins and user presets; an unknown name tells you to "
+"run `/theme list`."
+msgstr ""
+
+#: src/features/themes.md:14
+msgid "`/theme reset`"
+msgstr ""
+
+#: src/features/themes.md:14
+msgid "Returns to the default (`crab-dark`) and clears the config key."
+msgstr ""
+
+#: src/features/themes.md:16
+msgid "To pin a theme without the picker, set it in `config.toml`:"
+msgstr ""
+
+#: src/features/themes.md:18
+msgid ""
+"```toml\n"
+"[tui]\n"
+"theme = \"nord\"\n"
+"```"
+msgstr ""
+
+#: src/features/themes.md:23
+msgid ""
+"The value is applied at boot before the first frame. An empty or unknown "
+"name falls back to `crab-dark`. User theme files are re-scanned on every `/"
+"theme` invocation, so editing a preset file hot-loads it without restarting "
+"the TUI."
+msgstr ""
+
+#: src/features/themes.md:27
+msgid "Built-in themes"
+msgstr ""
+
+#: src/features/themes.md:29
+msgid ""
+"There are **39** built-in themes: 8 hand-tuned presets plus a curated pack "
+"of 31 converted from popular upstream palettes (see [Imported themes]"
+"(#imported-themes)). `crab-dark` is the default and matches the historical "
+"OpenCrabs look."
+msgstr ""
+
+#: src/features/themes.md:33
+msgid "Preset"
+msgstr ""
+
+#: src/features/themes.md:33
+msgid "Vibe"
+msgstr ""
+
+#: src/features/themes.md:35
+msgid "`crab-dark`"
+msgstr ""
+
+#: src/features/themes.md:35
+msgid "The house palette: burnt-orange accent, cool grays, deep ink"
+msgstr ""
+
+#: src/features/themes.md:36
+msgid "`dracula`"
+msgstr ""
+
+#: src/features/themes.md:36
+msgid "The classic purple-blue dark theme with orange accent"
+msgstr ""
+
+#: src/features/themes.md:37
+msgid "`alucard`"
+msgstr ""
+
+#: src/features/themes.md:37
+msgid "Warm dark, muted contrast (Castlevania's good-boy Dracula)"
+msgstr ""
+
+#: src/features/themes.md:38
+msgid "`monokai`"
+msgstr ""
+
+#: src/features/themes.md:38
+msgid "Sublime's iconic warm dark with pink/yellow"
+msgstr ""
+
+#: src/features/themes.md:39
+msgid "`catppuccin-mocha`"
+msgstr ""
+
+#: src/features/themes.md:39
+msgid "Pastel dark, soft and low-contrast"
+msgstr ""
+
+#: src/features/themes.md:40
+msgid "`catppuccin-latte`"
+msgstr ""
+
+#: src/features/themes.md:40
+msgid "The same pastels on light surfaces"
+msgstr ""
+
+#: src/features/themes.md:41
+msgid "`solarized-light`"
+msgstr ""
+
+#: src/features/themes.md:41
+msgid "Ethan Schoonlif's light base"
+msgstr ""
+
+#: src/features/themes.md:42
+msgid "`solarized-dark`"
+msgstr ""
+
+#: src/features/themes.md:42
+msgid "The original dark base"
+msgstr ""
+
+#: src/features/themes.md:44
+msgid ""
+"The curated pack adds: `aura`, `ayu`, `carbonfox`, `catppuccin-frappe`, "
+"`catppuccin-macchiato`, `cobalt2`, `cursor`, `everforest`, `flexoki`, "
+"`github`, `gruvbox`, `gruvbox-light`, `kanagawa`, `material`, `matrix`, "
+"`mercury`, `nightowl`, `nord`, `one-dark`, `opencode`, `orng`, `osaka-jade`, "
+"`palenight`, `rosepine`, `rosepine-dawn`, `synthwave84`, `tokyonight`, "
+"`tokyonight-storm`, `vercel`, `vesper`, `zenburn`."
+msgstr ""
+
+#: src/features/themes.md:50
+msgid "Gallery"
+msgstr ""
+
+#: src/features/themes.md:52
+msgid ""
+"Swatches show four anchor roles per theme (accent, body text, success, ink "
+"background), read from the shipped sources. Regenerate with `python3 docs/"
+"scripts/gen_theme_gallery.py`."
+msgstr ""
+
+#: src/features/themes.md:56
+msgid "Theme"
+msgstr ""
+
+#: src/features/themes.md:56
+msgid "accent"
+msgstr ""
+
+#: src/features/themes.md:56
+msgid "text"
+msgstr ""
+
+#: src/features/themes.md:56
+msgid "success"
+msgstr ""
+
+#: src/features/themes.md:56
+msgid "ink"
+msgstr ""
+
+#: src/features/themes.md:58
+msgid "**crab-dark**"
+msgstr ""
+
+#: src/features/themes.md:58
+#, fuzzy
+msgid "default"
+msgstr "Défaut"
+
+#: src/features/themes.md:58
+msgid ""
+"<span style=\"background:#d76414;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#d76414`"
+msgstr ""
+
+#: src/features/themes.md:58
+msgid ""
+"<span style=\"background:#c8c8d2;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#c8c8d2`"
+msgstr ""
+
+#: src/features/themes.md:58
+msgid ""
+"<span style=\"background:#50c878;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#50c878`"
+msgstr ""
+
+#: src/features/themes.md:58
+msgid ""
+"<span style=\"background:#14141e;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#14141e`"
+msgstr ""
+
+#: src/features/themes.md:58 src/features/themes.md:59
+#: src/features/themes.md:60 src/features/themes.md:61
+#: src/features/themes.md:62 src/features/themes.md:63
+#: src/features/themes.md:64 src/features/themes.md:65
+msgid "built-in"
+msgstr ""
+
+#: src/features/themes.md:59
+msgid "**dracula**"
+msgstr ""
+
+#: src/features/themes.md:59 src/features/themes.md:60
+#: src/features/themes.md:61 src/features/themes.md:62
+#: src/features/themes.md:63 src/features/themes.md:64
+#: src/features/themes.md:65
+msgid "hand-built"
+msgstr ""
+
+#: src/features/themes.md:59
+msgid ""
+"<span style=\"background:#ffb86c;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#ffb86c`"
+msgstr ""
+
+#: src/features/themes.md:59 src/features/themes.md:61
+msgid ""
+"<span style=\"background:#f8f8f2;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#f8f8f2`"
+msgstr ""
+
+#: src/features/themes.md:59
+msgid ""
+"<span style=\"background:#50fa7b;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#50fa7b`"
+msgstr ""
+
+#: src/features/themes.md:59
+msgid ""
+"<span style=\"background:#282a36;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#282a36`"
+msgstr ""
+
+#: src/features/themes.md:60
+msgid "**alucard**"
+msgstr ""
+
+#: src/features/themes.md:60
+msgid ""
+"<span style=\"background:#a34d14;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#a34d14`"
+msgstr ""
+
+#: src/features/themes.md:60
+msgid ""
+"<span style=\"background:#1f1f1f;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#1f1f1f`"
+msgstr ""
+
+#: src/features/themes.md:60
+msgid ""
+"<span style=\"background:#14710a;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#14710a`"
+msgstr ""
+
+#: src/features/themes.md:61
+msgid "**monokai**"
+msgstr ""
+
+#: src/features/themes.md:61
+msgid ""
+"<span style=\"background:#fd971f;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#fd971f`"
+msgstr ""
+
+#: src/features/themes.md:61
+msgid ""
+"<span style=\"background:#a6e22e;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#a6e22e`"
+msgstr ""
+
+#: src/features/themes.md:61
+msgid ""
+"<span style=\"background:#272822;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#272822`"
+msgstr ""
+
+#: src/features/themes.md:62
+msgid "**catppuccin-mocha**"
+msgstr ""
+
+#: src/features/themes.md:62
+msgid ""
+"<span style=\"background:#fab387;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#fab387`"
+msgstr ""
+
+#: src/features/themes.md:62
+msgid ""
+"<span style=\"background:#cdd6f4;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#cdd6f4`"
+msgstr ""
+
+#: src/features/themes.md:62
+msgid ""
+"<span style=\"background:#a6e3a1;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#a6e3a1`"
+msgstr ""
+
+#: src/features/themes.md:62
+msgid ""
+"<span style=\"background:#1e1e2e;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#1e1e2e`"
+msgstr ""
+
+#: src/features/themes.md:63
+msgid "**catppuccin-latte**"
+msgstr ""
+
+#: src/features/themes.md:63
+msgid ""
+"<span style=\"background:#fe640b;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#fe640b`"
+msgstr ""
+
+#: src/features/themes.md:63
+msgid ""
+"<span style=\"background:#4c4f69;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#4c4f69`"
+msgstr ""
+
+#: src/features/themes.md:63
+msgid ""
+"<span style=\"background:#40a02b;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#40a02b`"
+msgstr ""
+
+#: src/features/themes.md:64
+msgid "**solarized-light**"
+msgstr ""
+
+#: src/features/themes.md:64 src/features/themes.md:65
+msgid ""
+"<span style=\"background:#cb4b16;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#cb4b16`"
+msgstr ""
+
+#: src/features/themes.md:64
+msgid ""
+"<span style=\"background:#657b83;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#657b83`"
+msgstr ""
+
+#: src/features/themes.md:64 src/features/themes.md:65
+msgid ""
+"<span style=\"background:#859900;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#859900`"
+msgstr ""
+
+#: src/features/themes.md:64
+msgid ""
+"<span style=\"background:#073642;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#073642`"
+msgstr ""
+
+#: src/features/themes.md:65
+msgid "**solarized-dark**"
+msgstr ""
+
+#: src/features/themes.md:65
+msgid ""
+"<span style=\"background:#839496;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#839496`"
+msgstr ""
+
+#: src/features/themes.md:65
+msgid ""
+"<span style=\"background:#002b36;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#002b36`"
+msgstr ""
+
+#: src/features/themes.md:66
+msgid "**aura**"
+msgstr ""
+
+#: src/features/themes.md:66 src/features/themes.md:67
+#: src/features/themes.md:68 src/features/themes.md:69
+#: src/features/themes.md:70 src/features/themes.md:71
+#: src/features/themes.md:72 src/features/themes.md:73
+#: src/features/themes.md:74 src/features/themes.md:75
+#: src/features/themes.md:76 src/features/themes.md:77
+#: src/features/themes.md:78 src/features/themes.md:79
+#: src/features/themes.md:80 src/features/themes.md:81
+#: src/features/themes.md:82 src/features/themes.md:83
+#: src/features/themes.md:84 src/features/themes.md:85
+#: src/features/themes.md:86 src/features/themes.md:87
+#: src/features/themes.md:88 src/features/themes.md:89
+#: src/features/themes.md:90 src/features/themes.md:91
+#: src/features/themes.md:92 src/features/themes.md:93
+#: src/features/themes.md:94 src/features/themes.md:95
+#: src/features/themes.md:96
+msgid "curated pack"
+msgstr ""
+
+#: src/features/themes.md:66
+msgid ""
+"<span style=\"background:#a277ff;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#a277ff`"
+msgstr ""
+
+#: src/features/themes.md:66
+msgid ""
+"<span style=\"background:#edecee;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#edecee`"
+msgstr ""
+
+#: src/features/themes.md:66
+msgid ""
+"<span style=\"background:#61ffca;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#61ffca`"
+msgstr ""
+
+#: src/features/themes.md:66
+msgid ""
+"<span style=\"background:#0f0f0f;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#0f0f0f`"
+msgstr ""
+
+#: src/features/themes.md:66 src/features/themes.md:67
+#: src/features/themes.md:68 src/features/themes.md:69
+#: src/features/themes.md:70 src/features/themes.md:71
+#: src/features/themes.md:72 src/features/themes.md:73
+#: src/features/themes.md:74 src/features/themes.md:75
+#: src/features/themes.md:76 src/features/themes.md:77
+#: src/features/themes.md:78 src/features/themes.md:79
+#: src/features/themes.md:80 src/features/themes.md:81
+#: src/features/themes.md:82 src/features/themes.md:83
+#: src/features/themes.md:84 src/features/themes.md:85
+#: src/features/themes.md:86 src/features/themes.md:87
+#: src/features/themes.md:88 src/features/themes.md:89
+#: src/features/themes.md:90 src/features/themes.md:91
+#: src/features/themes.md:92
+msgid "opencode, dark, 2026-09-11"
+msgstr ""
+
+#: src/features/themes.md:67
+msgid "**ayu**"
+msgstr ""
+
+#: src/features/themes.md:67
+msgid ""
+"<span style=\"background:#e6b450;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#e6b450`"
+msgstr ""
+
+#: src/features/themes.md:67
+msgid ""
+"<span style=\"background:#bfbdb6;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#bfbdb6`"
+msgstr ""
+
+#: src/features/themes.md:67
+msgid ""
+"<span style=\"background:#7fd962;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#7fd962`"
+msgstr ""
+
+#: src/features/themes.md:67
+msgid ""
+"<span style=\"background:#0b0e14;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#0b0e14`"
+msgstr ""
+
+#: src/features/themes.md:68
+msgid "**carbonfox**"
+msgstr ""
+
+#: src/features/themes.md:68
+msgid ""
+"<span style=\"background:#ff7eb6;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#ff7eb6`"
+msgstr ""
+
+#: src/features/themes.md:68
+msgid ""
+"<span style=\"background:#f2f4f8;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#f2f4f8`"
+msgstr ""
+
+#: src/features/themes.md:68
+msgid ""
+"<span style=\"background:#25be6a;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#25be6a`"
+msgstr ""
+
+#: src/features/themes.md:68
+msgid ""
+"<span style=\"background:#161616;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#161616`"
+msgstr ""
+
+#: src/features/themes.md:69
+msgid "**catppuccin-macchiato**"
+msgstr ""
+
+#: src/features/themes.md:69
+msgid ""
+"<span style=\"background:#f5bde6;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#f5bde6`"
+msgstr ""
+
+#: src/features/themes.md:69
+msgid ""
+"<span style=\"background:#cad3f5;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#cad3f5`"
+msgstr ""
+
+#: src/features/themes.md:69
+msgid ""
+"<span style=\"background:#a6da95;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#a6da95`"
+msgstr ""
+
+#: src/features/themes.md:69
+msgid ""
+"<span style=\"background:#24273a;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#24273a`"
+msgstr ""
+
+#: src/features/themes.md:70
+msgid "**cobalt2**"
+msgstr ""
+
+#: src/features/themes.md:70
+msgid ""
+"<span style=\"background:#2affdf;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#2affdf`"
+msgstr ""
+
+#: src/features/themes.md:70 src/features/themes.md:88
+#: src/features/themes.md:91
+msgid ""
+"<span style=\"background:#ffffff;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#ffffff`"
+msgstr ""
+
+#: src/features/themes.md:70
+msgid ""
+"<span style=\"background:#9eff80;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#9eff80`"
+msgstr ""
+
+#: src/features/themes.md:70
+msgid ""
+"<span style=\"background:#193549;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#193549`"
+msgstr ""
+
+#: src/features/themes.md:71
+msgid "**cursor**"
+msgstr ""
+
+#: src/features/themes.md:71
+msgid ""
+"<span style=\"background:#88c0d0;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#88c0d0`"
+msgstr ""
+
+#: src/features/themes.md:71
+msgid ""
+"<span style=\"background:#e4e4e4;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#e4e4e4`"
+msgstr ""
+
+#: src/features/themes.md:71
+msgid ""
+"<span style=\"background:#3fa266;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#3fa266`"
+msgstr ""
+
+#: src/features/themes.md:71
+msgid ""
+"<span style=\"background:#181818;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#181818`"
+msgstr ""
+
+#: src/features/themes.md:72
+msgid "**everforest**"
+msgstr ""
+
+#: src/features/themes.md:72
+msgid ""
+"<span style=\"background:#d699b6;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#d699b6`"
+msgstr ""
+
+#: src/features/themes.md:72
+msgid ""
+"<span style=\"background:#d3c6aa;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#d3c6aa`"
+msgstr ""
+
+#: src/features/themes.md:72
+msgid ""
+"<span style=\"background:#a7c080;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#a7c080`"
+msgstr ""
+
+#: src/features/themes.md:72
+msgid ""
+"<span style=\"background:#2d353b;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#2d353b`"
+msgstr ""
+
+#: src/features/themes.md:73
+msgid "**flexoki**"
+msgstr ""
+
+#: src/features/themes.md:73
+msgid ""
+"<span style=\"background:#8b7ec8;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#8b7ec8`"
+msgstr ""
+
+#: src/features/themes.md:73
+msgid ""
+"<span style=\"background:#cecdc3;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#cecdc3`"
+msgstr ""
+
+#: src/features/themes.md:73
+msgid ""
+"<span style=\"background:#879a39;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#879a39`"
+msgstr ""
+
+#: src/features/themes.md:73
+msgid ""
+"<span style=\"background:#100f0f;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#100f0f`"
+msgstr ""
+
+#: src/features/themes.md:74
+msgid "**github**"
+msgstr ""
+
+#: src/features/themes.md:74
+msgid ""
+"<span style=\"background:#39c5cf;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#39c5cf`"
+msgstr ""
+
+#: src/features/themes.md:74
+msgid ""
+"<span style=\"background:#c9d1d9;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#c9d1d9`"
+msgstr ""
+
+#: src/features/themes.md:74
+msgid ""
+"<span style=\"background:#3fb950;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#3fb950`"
+msgstr ""
+
+#: src/features/themes.md:74
+msgid ""
+"<span style=\"background:#0d1117;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#0d1117`"
+msgstr ""
+
+#: src/features/themes.md:75
+msgid "**gruvbox**"
+msgstr ""
+
+#: src/features/themes.md:75
+msgid ""
+"<span style=\"background:#8ec07c;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#8ec07c`"
+msgstr ""
+
+#: src/features/themes.md:75
+msgid ""
+"<span style=\"background:#ebdbb2;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#ebdbb2`"
+msgstr ""
+
+#: src/features/themes.md:75
+msgid ""
+"<span style=\"background:#b8bb26;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#b8bb26`"
+msgstr ""
+
+#: src/features/themes.md:75
+msgid ""
+"<span style=\"background:#282828;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#282828`"
+msgstr ""
+
+#: src/features/themes.md:76
+msgid "**kanagawa**"
+msgstr ""
+
+#: src/features/themes.md:76
+msgid ""
+"<span style=\"background:#d27e99;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#d27e99`"
+msgstr ""
+
+#: src/features/themes.md:76
+msgid ""
+"<span style=\"background:#dcd7ba;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#dcd7ba`"
+msgstr ""
+
+#: src/features/themes.md:76
+msgid ""
+"<span style=\"background:#98bb6c;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#98bb6c`"
+msgstr ""
+
+#: src/features/themes.md:76
+msgid ""
+"<span style=\"background:#1f1f28;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#1f1f28`"
+msgstr ""
+
+#: src/features/themes.md:77
+msgid "**material**"
+msgstr ""
+
+#: src/features/themes.md:77 src/features/themes.md:86
+msgid ""
+"<span style=\"background:#89ddff;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#89ddff`"
+msgstr ""
+
+#: src/features/themes.md:77
+msgid ""
+"<span style=\"background:#eeffff;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#eeffff`"
+msgstr ""
+
+#: src/features/themes.md:77 src/features/themes.md:86
+#: src/features/themes.md:89
+msgid ""
+"<span style=\"background:#c3e88d;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#c3e88d`"
+msgstr ""
+
+#: src/features/themes.md:77
+msgid ""
+"<span style=\"background:#263238;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#263238`"
+msgstr ""
+
+#: src/features/themes.md:78
+msgid "**matrix**"
+msgstr ""
+
+#: src/features/themes.md:78
+msgid ""
+"<span style=\"background:#c770ff;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#c770ff`"
+msgstr ""
+
+#: src/features/themes.md:78
+msgid ""
+"<span style=\"background:#62ff94;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#62ff94`"
+msgstr ""
+
+#: src/features/themes.md:78
+msgid ""
+"<span style=\"background:#0a0e0a;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#0a0e0a`"
+msgstr ""
+
+#: src/features/themes.md:79
+msgid "**mercury**"
+msgstr ""
+
+#: src/features/themes.md:79
+msgid ""
+"<span style=\"background:#8da4f5;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#8da4f5`"
+msgstr ""
+
+#: src/features/themes.md:79
+msgid ""
+"<span style=\"background:#dddde5;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#dddde5`"
+msgstr ""
+
+#: src/features/themes.md:79
+msgid ""
+"<span style=\"background:#77c599;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#77c599`"
+msgstr ""
+
+#: src/features/themes.md:79
+msgid ""
+"<span style=\"background:#171721;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#171721`"
+msgstr ""
+
+#: src/features/themes.md:80
+msgid "**nightowl**"
+msgstr ""
+
+#: src/features/themes.md:80
+msgid ""
+"<span style=\"background:#c792ea;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#c792ea`"
+msgstr ""
+
+#: src/features/themes.md:80
+msgid ""
+"<span style=\"background:#d6deeb;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#d6deeb`"
+msgstr ""
+
+#: src/features/themes.md:80
+msgid ""
+"<span style=\"background:#c5e478;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#c5e478`"
+msgstr ""
+
+#: src/features/themes.md:80
+msgid ""
+"<span style=\"background:#011627;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#011627`"
+msgstr ""
+
+#: src/features/themes.md:81
+msgid "**nord**"
+msgstr ""
+
+#: src/features/themes.md:81
+msgid ""
+"<span style=\"background:#8fbcbb;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#8fbcbb`"
+msgstr ""
+
+#: src/features/themes.md:81
+msgid ""
+"<span style=\"background:#eceff4;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#eceff4`"
+msgstr ""
+
+#: src/features/themes.md:81
+msgid ""
+"<span style=\"background:#a3be8c;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#a3be8c`"
+msgstr ""
+
+#: src/features/themes.md:81
+msgid ""
+"<span style=\"background:#2e3440;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#2e3440`"
+msgstr ""
+
+#: src/features/themes.md:82
+msgid "**one-dark**"
+msgstr ""
+
+#: src/features/themes.md:82
+msgid ""
+"<span style=\"background:#56b6c2;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#56b6c2`"
+msgstr ""
+
+#: src/features/themes.md:82
+msgid ""
+"<span style=\"background:#abb2bf;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#abb2bf`"
+msgstr ""
+
+#: src/features/themes.md:82
+msgid ""
+"<span style=\"background:#98c379;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#98c379`"
+msgstr ""
+
+#: src/features/themes.md:82
+msgid ""
+"<span style=\"background:#282c34;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#282c34`"
+msgstr ""
+
+#: src/features/themes.md:83
+msgid "**opencode**"
+msgstr ""
+
+#: src/features/themes.md:83
+msgid ""
+"<span style=\"background:#9d7cd8;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#9d7cd8`"
+msgstr ""
+
+#: src/features/themes.md:83 src/features/themes.md:84
+msgid ""
+"<span style=\"background:#eeeeee;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#eeeeee`"
+msgstr ""
+
+#: src/features/themes.md:83
+msgid ""
+"<span style=\"background:#7fd88f;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#7fd88f`"
+msgstr ""
+
+#: src/features/themes.md:83 src/features/themes.md:84
+msgid ""
+"<span style=\"background:#0a0a0a;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#0a0a0a`"
+msgstr ""
+
+#: src/features/themes.md:84
+msgid "**orng**"
+msgstr ""
+
+#: src/features/themes.md:84
+msgid ""
+"<span style=\"background:#fff7f1;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#fff7f1`"
+msgstr ""
+
+#: src/features/themes.md:84
+msgid ""
+"<span style=\"background:#6ba1e6;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#6ba1e6`"
+msgstr ""
+
+#: src/features/themes.md:85
+msgid "**osaka-jade**"
+msgstr ""
+
+#: src/features/themes.md:85
+msgid ""
+"<span style=\"background:#549e6a;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#549e6a`"
+msgstr ""
+
+#: src/features/themes.md:85
+msgid ""
+"<span style=\"background:#c1c497;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#c1c497`"
+msgstr ""
+
+#: src/features/themes.md:85
+msgid ""
+"<span style=\"background:#111c18;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#111c18`"
+msgstr ""
+
+#: src/features/themes.md:86
+msgid "**palenight**"
+msgstr ""
+
+#: src/features/themes.md:86
+msgid ""
+"<span style=\"background:#a6accd;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#a6accd`"
+msgstr ""
+
+#: src/features/themes.md:86
+msgid ""
+"<span style=\"background:#292d3e;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#292d3e`"
+msgstr ""
+
+#: src/features/themes.md:87
+msgid "**rosepine**"
+msgstr ""
+
+#: src/features/themes.md:87
+msgid ""
+"<span style=\"background:#ebbcba;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#ebbcba`"
+msgstr ""
+
+#: src/features/themes.md:87
+msgid ""
+"<span style=\"background:#e0def4;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#e0def4`"
+msgstr ""
+
+#: src/features/themes.md:87
+msgid ""
+"<span style=\"background:#31748f;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#31748f`"
+msgstr ""
+
+#: src/features/themes.md:87
+msgid ""
+"<span style=\"background:#191724;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#191724`"
+msgstr ""
+
+#: src/features/themes.md:88
+msgid "**synthwave84**"
+msgstr ""
+
+#: src/features/themes.md:88
+msgid ""
+"<span style=\"background:#b084eb;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#b084eb`"
+msgstr ""
+
+#: src/features/themes.md:88
+msgid ""
+"<span style=\"background:#72f1b8;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#72f1b8`"
+msgstr ""
+
+#: src/features/themes.md:88
+msgid ""
+"<span style=\"background:#262335;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#262335`"
+msgstr ""
+
+#: src/features/themes.md:89
+msgid "**tokyonight**"
+msgstr ""
+
+#: src/features/themes.md:89
+msgid ""
+"<span style=\"background:#ff966c;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#ff966c`"
+msgstr ""
+
+#: src/features/themes.md:89
+msgid ""
+"<span style=\"background:#c8d3f5;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#c8d3f5`"
+msgstr ""
+
+#: src/features/themes.md:89
+msgid ""
+"<span style=\"background:#1a1b26;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#1a1b26`"
+msgstr ""
+
+#: src/features/themes.md:90
+msgid "**vercel**"
+msgstr ""
+
+#: src/features/themes.md:90
+msgid ""
+"<span style=\"background:#8e4ec6;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#8e4ec6`"
+msgstr ""
+
+#: src/features/themes.md:90
+msgid ""
+"<span style=\"background:#ededed;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#ededed`"
+msgstr ""
+
+#: src/features/themes.md:90
+msgid ""
+"<span style=\"background:#46a758;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#46a758`"
+msgstr ""
+
+#: src/features/themes.md:90
+msgid ""
+"<span style=\"background:#000000;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#000000`"
+msgstr ""
+
+#: src/features/themes.md:91
+msgid "**vesper**"
+msgstr ""
+
+#: src/features/themes.md:91
+msgid ""
+"<span style=\"background:#ffc799;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#ffc799`"
+msgstr ""
+
+#: src/features/themes.md:91
+msgid ""
+"<span style=\"background:#99ffe4;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#99ffe4`"
+msgstr ""
+
+#: src/features/themes.md:91
+msgid ""
+"<span style=\"background:#101010;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#101010`"
+msgstr ""
+
+#: src/features/themes.md:92
+msgid "**zenburn**"
+msgstr ""
+
+#: src/features/themes.md:92
+msgid ""
+"<span style=\"background:#93e0e3;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#93e0e3`"
+msgstr ""
+
+#: src/features/themes.md:92
+msgid ""
+"<span style=\"background:#dcdccc;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#dcdccc`"
+msgstr ""
+
+#: src/features/themes.md:92
+msgid ""
+"<span style=\"background:#7f9f7f;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#7f9f7f`"
+msgstr ""
+
+#: src/features/themes.md:92
+msgid ""
+"<span style=\"background:#3f3f3f;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#3f3f3f`"
+msgstr ""
+
+#: src/features/themes.md:93
+msgid "**catppuccin-frappe**"
+msgstr ""
+
+#: src/features/themes.md:93
+msgid ""
+"<span style=\"background:#e5c890;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#e5c890`"
+msgstr ""
+
+#: src/features/themes.md:93
+msgid ""
+"<span style=\"background:#c6d0f5;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#c6d0f5`"
+msgstr ""
+
+#: src/features/themes.md:93
+msgid ""
+"<span style=\"background:#a6d189;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#a6d189`"
+msgstr ""
+
+#: src/features/themes.md:93
+msgid ""
+"<span style=\"background:#303446;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#303446`"
+msgstr ""
+
+#: src/features/themes.md:93 src/features/themes.md:94
+#: src/features/themes.md:95 src/features/themes.md:96
+msgid "alacritty-theme, 2026-09-11"
+msgstr ""
+
+#: src/features/themes.md:94
+msgid "**gruvbox-light**"
+msgstr ""
+
+#: src/features/themes.md:94
+msgid ""
+"<span style=\"background:#b57614;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#b57614`"
+msgstr ""
+
+#: src/features/themes.md:94
+msgid ""
+"<span style=\"background:#3c3836;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#3c3836`"
+msgstr ""
+
+#: src/features/themes.md:94
+msgid ""
+"<span style=\"background:#98971a;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#98971a`"
+msgstr ""
+
+#: src/features/themes.md:94
+msgid ""
+"<span style=\"background:#fbf1c7;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#fbf1c7`"
+msgstr ""
+
+#: src/features/themes.md:95
+msgid "**rosepine-dawn**"
+msgstr ""
+
+#: src/features/themes.md:95
+msgid ""
+"<span style=\"background:#d38d2f;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#d38d2f`"
+msgstr ""
+
+#: src/features/themes.md:95
+msgid ""
+"<span style=\"background:#575279;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#575279`"
+msgstr ""
+
+#: src/features/themes.md:95
+msgid ""
+"<span style=\"background:#286983;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#286983`"
+msgstr ""
+
+#: src/features/themes.md:95
+msgid ""
+"<span style=\"background:#faf4ed;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#faf4ed`"
+msgstr ""
+
+#: src/features/themes.md:96
+msgid "**tokyonight-storm**"
+msgstr ""
+
+#: src/features/themes.md:96
+msgid ""
+"<span style=\"background:#ff9e64;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#ff9e64`"
+msgstr ""
+
+#: src/features/themes.md:96
+msgid ""
+"<span style=\"background:#a9b1d6;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#a9b1d6`"
+msgstr ""
+
+#: src/features/themes.md:96
+msgid ""
+"<span style=\"background:#9ece6a;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#9ece6a`"
+msgstr ""
+
+#: src/features/themes.md:96
+msgid ""
+"<span style=\"background:#24283b;width:.9em;height:.9em;display:inline-"
+"block;border-radius:2px\"></span> `#24283b`"
+msgstr ""
+
+#: src/features/themes.md:99
+msgid "The 43 roles"
+msgstr ""
+
+#: src/features/themes.md:101
+msgid ""
+"A user theme is a flat TOML file mapping every role to a `#RRGGBB` hex. Role "
+"names double as the TOML keys. What each one colors:"
+msgstr ""
+
+#: src/features/themes.md:104
+msgid "Group"
+msgstr ""
+
+#: src/features/themes.md:104
+msgid "Colors"
+msgstr ""
+
+#: src/features/themes.md:106
+msgid "Accents"
+msgstr ""
+
+#: src/features/themes.md:106
+msgid "`accent`"
+msgstr ""
+
+#: src/features/themes.md:106
+msgid "Primary emphasis: prompts, active states, the crab orange"
+msgstr ""
+
+#: src/features/themes.md:107
+msgid "`accent_teal`"
+msgstr ""
+
+#: src/features/themes.md:107
+msgid "Primary action / selected accent"
+msgstr ""
+
+#: src/features/themes.md:108
+msgid "`accent_soft`"
+msgstr ""
+
+#: src/features/themes.md:108
+msgid "Passive, informational accent (soft white)"
+msgstr ""
+
+#: src/features/themes.md:109
+msgid "Text"
+msgstr ""
+
+#: src/features/themes.md:109
+msgid "`text_primary`"
+msgstr ""
+
+#: src/features/themes.md:109
+msgid "Body text"
+msgstr ""
+
+#: src/features/themes.md:110
+msgid "`text_secondary`"
+msgstr ""
+
+#: src/features/themes.md:110
+msgid "Secondary text"
+msgstr ""
+
+#: src/features/themes.md:111
+msgid "`text_muted`"
+msgstr ""
+
+#: src/features/themes.md:111
+msgid "Muted labels"
+msgstr ""
+
+#: src/features/themes.md:112
+msgid "`text_dim`"
+msgstr ""
+
+#: src/features/themes.md:112
+msgid "Deepest text tier"
+msgstr ""
+
+#: src/features/themes.md:113
+msgid "Chrome grays"
+msgstr ""
+
+#: src/features/themes.md:113
+msgid "`gray`"
+msgstr ""
+
+#: src/features/themes.md:113
+msgid "Borders, passive labels, info lines (the workhorse)"
+msgstr ""
+
+#: src/features/themes.md:114
+msgid "`gray_mid`"
+msgstr ""
+
+#: src/features/themes.md:114
+msgid "Secondary borders, quiet panel text"
+msgstr ""
+
+#: src/features/themes.md:115
+msgid "`gray_detail`"
+msgstr ""
+
+#: src/features/themes.md:115
+msgid "Detail rows under primary rows (tool list)"
+msgstr ""
+
+#: src/features/themes.md:116
+msgid "`gray_dim`"
+msgstr ""
+
+#: src/features/themes.md:116
+msgid "Inactive borders (unfocused input frame)"
+msgstr ""
+
+#: src/features/themes.md:117
+msgid "`gray_dark`"
+msgstr ""
+
+#: src/features/themes.md:117
+msgid "Deeper inactive chrome"
+msgstr ""
+
+#: src/features/themes.md:118
+msgid "`gray_base`"
+msgstr ""
+
+#: src/features/themes.md:118
+msgid "Darkest neutral foreground (plan-widget borders)"
+msgstr ""
+
+#: src/features/themes.md:119
+msgid "`gray_light`"
+msgstr ""
+
+#: src/features/themes.md:119
+msgid "Bright neutral text"
+msgstr ""
+
+#: src/features/themes.md:120
+msgid "`gray_soft`"
+msgstr ""
+
+#: src/features/themes.md:120
+msgid "Soft label text"
+msgstr ""
+
+#: src/features/themes.md:121
+msgid "`gray_muted`"
+msgstr ""
+
+#: src/features/themes.md:121
+msgid "Muted body text (plan widget)"
+msgstr ""
+
+#: src/features/themes.md:122
+msgid "Positive"
+msgstr ""
+
+#: src/features/themes.md:122
+msgid "`success`"
+msgstr ""
+
+#: src/features/themes.md:122
+msgid "\"ok\" states, active pane borders"
+msgstr ""
+
+#: src/features/themes.md:123
+msgid "`analytics_green`"
+msgstr ""
+
+#: src/features/themes.md:123
+msgid "Mission-control bars and values"
+msgstr ""
+
+#: src/features/themes.md:124
+msgid "`green_check`"
+msgstr ""
+
+#: src/features/themes.md:124
+msgid "Checked-markdown checkboxes"
+msgstr ""
+
+#: src/features/themes.md:125
+msgid "Negative"
+msgstr ""
+
+#: src/features/themes.md:125
+msgid "`error`"
+msgstr ""
+
+#: src/features/themes.md:125
+msgid "Primary failures"
+msgstr ""
+
+#: src/features/themes.md:126
+msgid "`error_soft`"
+msgstr ""
+
+#: src/features/themes.md:126
+msgid "Error titles"
+msgstr ""
+
+#: src/features/themes.md:127
+msgid "`error_faded`"
+msgstr ""
+
+#: src/features/themes.md:127
+msgid "Error bodies"
+msgstr ""
+
+#: src/features/themes.md:128
+msgid "Warning"
+msgstr ""
+
+#: src/features/themes.md:128
+msgid "`warning`"
+msgstr ""
+
+#: src/features/themes.md:128
+msgid "Amber input hints"
+msgstr ""
+
+#: src/features/themes.md:129
+msgid "`warning_muted`"
+msgstr ""
+
+#: src/features/themes.md:129
+msgid "Muted amber"
+msgstr ""
+
+#: src/features/themes.md:130
+msgid "`amber_muted`"
+msgstr ""
+
+#: src/features/themes.md:130
+msgid "Proposed-skill inbox badges"
+msgstr ""
+
+#: src/features/themes.md:131
+msgid "Teal tiers"
+msgstr ""
+
+#: src/features/themes.md:131
+msgid "`teal_vivid`"
+msgstr ""
+
+#: src/features/themes.md:131
+msgid "Selection/active in input + tools"
+msgstr ""
+
+#: src/features/themes.md:132
+msgid "`teal_bright`"
+msgstr ""
+
+#: src/features/themes.md:132
+msgid "Dialogs"
+msgstr ""
+
+#: src/features/themes.md:133
+msgid "`teal_muted`"
+msgstr ""
+
+#: src/features/themes.md:133
+msgid "Completed/skipped plan tasks"
+msgstr ""
+
+#: src/features/themes.md:134
+msgid "`teal_calm`"
+msgstr ""
+
+#: src/features/themes.md:134
+msgid "Plan progress bars"
+msgstr ""
+
+#: src/features/themes.md:135
+msgid "Blue tiers"
+msgstr ""
+
+#: src/features/themes.md:135
+msgid "`blue_slate`"
+msgstr ""
+
+#: src/features/themes.md:135
+msgid "Help text, input placeholders"
+msgstr ""
+
+#: src/features/themes.md:136
+msgid "`blue_steel`"
+msgstr ""
+
+#: src/features/themes.md:136
+msgid "Informational accents (sessions, files, projects)"
+msgstr ""
+
+#: src/features/themes.md:137
+msgid "`blue_link`"
+msgstr ""
+
+#: src/features/themes.md:137
+msgid "Markdown links"
+msgstr ""
+
+#: src/features/themes.md:138
+msgid "`blue_sky`"
+msgstr ""
+
+#: src/features/themes.md:138
+msgid "Projects"
+msgstr ""
+
+#: src/features/themes.md:139
+msgid "`blue_soft`"
+msgstr ""
+
+#: src/features/themes.md:139
+msgid "Chat accents"
+msgstr ""
+
+#: src/features/themes.md:140
+msgid "`blue_vivid`"
+msgstr ""
+
+#: src/features/themes.md:140
+msgid "Onboarding voice brand accent"
+msgstr ""
+
+#: src/features/themes.md:141
+msgid "`blue_code`"
+msgstr ""
+
+#: src/features/themes.md:141
+msgid "Inline code (markdown)"
+msgstr ""
+
+#: src/features/themes.md:142
+msgid "Surfaces"
+msgstr ""
+
+#: src/features/themes.md:142
+msgid "`selection_bg`"
+msgstr ""
+
+#: src/features/themes.md:142
+msgid "Selected text in the composer"
+msgstr ""
+
+#: src/features/themes.md:143
+msgid "`surface_panel`"
+msgstr ""
+
+#: src/features/themes.md:143
+msgid "Mission-control panel background"
+msgstr ""
+
+#: src/features/themes.md:144
+msgid "`surface_qr`"
+msgstr ""
+
+#: src/features/themes.md:144
+msgid "QR panel background (onboarding)"
+msgstr ""
+
+#: src/features/themes.md:145
+msgid "`surface_code`"
+msgstr ""
+
+#: src/features/themes.md:145
+msgid "Code-block background"
+msgstr ""
+
+#: src/features/themes.md:146
+msgid "`surface_code_alt`"
+msgstr ""
+
+#: src/features/themes.md:146
+msgid "Code-block background, alternate shade"
+msgstr ""
+
+#: src/features/themes.md:147
+msgid "Ink"
+msgstr ""
+
+#: src/features/themes.md:147
+msgid "`ink`"
+msgstr ""
+
+#: src/features/themes.md:147
+msgid "The main background canvas"
+msgstr ""
+
+#: src/features/themes.md:148
+msgid "Misc"
+msgstr ""
+
+#: src/features/themes.md:148
+msgid "`purple_soft`"
+msgstr ""
+
+#: src/features/themes.md:148
+msgid "Proposed-brain-dedup inbox badges"
+msgstr ""
+
+#: src/features/themes.md:150
+msgid ""
+"Decorative animation cycles (like the rotating project badge colors) are "
+"deliberately **not** roles: they stay preset-agnostic."
+msgstr ""
+
+#: src/features/themes.md:153
+msgid "Writing your own theme"
+msgstr ""
+
+#: src/features/themes.md:155
+msgid ""
+"Drop a file at `~/.opencrabs/themes/<name>.toml`. The file stem **is** the "
+"theme name. All 43 keys are required; here is a complete valid theme "
+"(`nord`, from the curated pack):"
+msgstr ""
+
+#: src/features/themes.md:158
+msgid ""
+"```toml\n"
+"accent = \"#8fbcbb\"\n"
+"accent_teal = \"#8fbcbb\"\n"
+"accent_soft = \"#eceff4\"\n"
+"text_primary = \"#eceff4\"\n"
+"text_secondary = \"#8b95a7\"\n"
+"text_muted = \"#767b84\"\n"
+"text_dim = \"#9ca0a8\"\n"
+"gray = \"#434c5e\"\n"
+"gray_mid = \"#9ca0a8\"\n"
+"gray_detail = \"#91959e\"\n"
+"gray_dim = \"#7e838c\"\n"
+"gray_dark = \"#6b707a\"\n"
+"gray_base = \"#434c5e\"\n"
+"gray_light = \"#d0d3d9\"\n"
+"gray_soft = \"#afb3ba\"\n"
+"gray_muted = \"#8d929a\"\n"
+"success = \"#a3be8c\"\n"
+"analytics_green = \"#a3be8c\"\n"
+"green_check = \"#a3be8c\"\n"
+"error = \"#bf616a\"\n"
+"error_soft = \"#bf616a\"\n"
+"error_faded = \"#6f4853\"\n"
+"warning = \"#d08770\"\n"
+"warning_muted = \"#9f6e62\"\n"
+"amber_muted = \"#87625a\"\n"
+"teal_vivid = \"#8fbcbb\"\n"
+"teal_bright = \"#8fbcbb\"\n"
+"teal_muted = \"#6d8c90\"\n"
+"teal_calm = \"#5a7177\"\n"
+"blue_slate = \"#698f9e\"\n"
+"blue_steel = \"#88c0d0\"\n"
+"blue_link = \"#81a1c1\"\n"
+"blue_sky = \"#88c0d0\"\n"
+"blue_soft = \"#648896\"\n"
+"blue_vivid = \"#88c0d0\"\n"
+"blue_code = \"#88c0d0\"\n"
+"selection_bg = \"#505660\"\n"
+"surface_panel = \"#3b4252\"\n"
+"surface_qr = \"#343a45\"\n"
+"surface_code = \"#434c5e\"\n"
+"surface_code_alt = \"#494e59\"\n"
+"ink = \"#2e3440\"\n"
+"purple_soft = \"#81a1c1\"\n"
+"```"
+msgstr ""
+
+#: src/features/themes.md:204
+msgid "Validation rules"
+msgstr ""
+
+#: src/features/themes.md:206
+msgid ""
+"Validation is loud, never silent. A theme file is rejected, with the reason "
+"shown by `/theme list`, when it:"
+msgstr ""
+
+#: src/features/themes.md:209
+msgid "**misses any of the 43 roles** — the error names the missing key;"
+msgstr ""
+
+#: src/features/themes.md:210
+msgid ""
+"**carries an unknown key** — strict typo guard, there is no partial-schema "
+"mode;"
+msgstr ""
+
+#: src/features/themes.md:211
+msgid ""
+"**uses a malformed value** — only `#RRGGBB` or `RRGGBB`, case-insensitive;"
+msgstr ""
+
+#: src/features/themes.md:212
+msgid ""
+"**fails the contrast floor** — eight reading-critical (foreground, "
+"background) pairs must hit **2.5:1** WCAG contrast: `text_primary`/"
+"`text_secondary`/`accent`/`success`/`error`/ `warning` on `ink`, `blue_code` "
+"on `surface_code`, and `gray_mid` on `surface_panel`. Deliberately dim tiers "
+"(`text_muted`, `text_dim`, …) are excluded — dim is their job;"
+msgstr ""
+
+#: src/features/themes.md:216
+msgid ""
+"**collides with a built-in name** — user files can never shadow a shipped "
+"preset."
+msgstr ""
+
+#: src/features/themes.md:218
+msgid ""
+"Everything else is free for the runtime: each valid theme gets its "
+"**ANSI-256 fallback tier derived automatically**, so terminals without "
+"truecolor still render it (nearest index in the 6×6×6 cube, grayscale ramp "
+"for neutrals)."
+msgstr ""
+
+#: src/features/themes.md:222
+msgid "Imported themes"
+msgstr ""
+
+#: src/features/themes.md:224
+msgid ""
+"The 31-theme curated pack was generated by the in-tree converter "
+"(`tui::theme_catalog`) from two upstream formats:"
+msgstr ""
+
+#: src/features/themes.md:227
+msgid ""
+"**alacritty-theme TOML** (`[colors.primary]` background/foreground plus the "
+"16 ANSI colors) — the `alacritty/alacritty-theme` catalog, 176 themes;"
+msgstr ""
+
+#: src/features/themes.md:229
+msgid ""
+"**opencode theme JSON** (`defs` + `theme` token maps with dark/light "
+"variants, hex strings, ANSI integers, `defs` references and `\"none\"`) — "
+"the `sst/opencode` built-in themes, 33 assets."
+msgstr ""
+
+#: src/features/themes.md:233
+msgid ""
+"Both convert through a **fixed 43-role mapping** (semantic token first, ANSI "
+"color or deterministic bg/fg mix as fallback), and every generated file is "
+"pre-certified by the same validator user themes face — a converted file that "
+"doesn't validate never ships. Each pack file carries a `# source:` "
+"provenance header naming the upstream repo, file, and fetch date; the "
+"gallery table shows it. Upstream palettes belong to their authors; the pack "
+"imports their colors, not their names' goodwill."
+msgstr ""
+
+#: src/features/themes.md:240
+msgid ""
+"The converter is generation-time tooling: the TUI itself only knows the "
+"embedded presets and your drop-in files."
 msgstr ""
 
 #: src/features/usage-dashboard.md:3
@@ -25503,112 +27467,148 @@ msgid "CORS disabled unless explicitly configured"
 msgstr ""
 
 #: src/development/security.md:26
-msgid "No authentication built-in — use a reverse proxy for public exposure"
-msgstr ""
-
-#: src/development/security.md:28
-msgid "Channel Connections"
-msgstr ""
-
-#: src/development/security.md:30
-msgid "All channel APIs use TLS (HTTPS/WSS)"
+msgid ""
+"A bearer token (`[a2a] api_key`) is the only authorization boundary in front "
+"of the agent's tool surface, and since v0.5.1 the gateway refuses to start "
+"as an open gate: with no key configured, a non-loopback bind is rejected at "
+"boot. With a key set, every request must present it, compared in constant "
+"time. For public exposure still use a reverse proxy + TLS"
 msgstr ""
 
 #: src/development/security.md:31
-msgid "Telegram: long polling over HTTPS"
-msgstr ""
-
-#: src/development/security.md:32
-msgid "Discord: WebSocket with TLS"
+msgid "Channel Connections"
 msgstr ""
 
 #: src/development/security.md:33
-msgid "Slack: Socket Mode (WebSocket)"
+msgid "All channel APIs use TLS (HTTPS/WSS)"
 msgstr ""
 
 #: src/development/security.md:34
-msgid "WhatsApp: Noise protocol encryption"
+msgid "Telegram: long polling over HTTPS"
+msgstr ""
+
+#: src/development/security.md:35
+msgid "Discord: WebSocket with TLS"
 msgstr ""
 
 #: src/development/security.md:36
-msgid "Tool Approval"
+msgid "Slack: Socket Mode (WebSocket)"
 msgstr ""
 
-#: src/development/security.md:38
-msgid "Tools that modify your system require approval:"
+#: src/development/security.md:37
+msgid "WhatsApp: Noise protocol encryption"
 msgstr ""
 
-#: src/development/security.md:40
-msgid "**File writes** — Shows the file path and diff"
+#: src/development/security.md:39
+msgid "Config Files & Logs (v0.5.1)"
 msgstr ""
 
 #: src/development/security.md:41
-msgid "**Shell commands** — Shows the exact command before execution"
-msgstr ""
-
-#: src/development/security.md:42
-msgid "**Git operations** — Push, commit, branch operations"
+msgid ""
+"Home files (`config.toml`, `keys.toml`, brain files) are written with owner-"
+"only permissions from every write path — the mode is derived from the "
+"`Config` struct itself, so a new writer cannot forget it"
 msgstr ""
 
 #: src/development/security.md:44
+msgid ""
+"The daemon log moved off world-readable `/tmp` into `~/.opencrabs/logs/`"
+msgstr ""
+
+#: src/development/security.md:45
+msgid "Secret scrubbing covers all delivery paths, not only chat output"
+msgstr ""
+
+#: src/development/security.md:47
+msgid "Tool Approval"
+msgstr ""
+
+#: src/development/security.md:49
+msgid "Tools that modify your system require approval:"
+msgstr ""
+
+#: src/development/security.md:51
+msgid "**File writes** — Shows the file path and diff"
+msgstr ""
+
+#: src/development/security.md:52
+msgid "**Shell commands** — Shows the exact command before execution"
+msgstr ""
+
+#: src/development/security.md:53
+msgid "**Git operations** — Push, commit, branch operations"
+msgstr ""
+
+#: src/development/security.md:55
 msgid ""
 "Auto-approve mode (`--auto-approve`) bypasses this for automation use cases "
 "like cron jobs."
 msgstr ""
 
-#: src/development/security.md:46
+#: src/development/security.md:57
+msgid ""
+"Channel approvals are **owner-only** since v0.5.1: the Yes / Always / YOLO "
+"buttons and text replies on Telegram, Discord, Slack, and WhatsApp resolve "
+"only for the bot owner (canonical resolver), never for an allowlisted non-"
+"owner who happened to trigger the tool. The default `approval_policy` is "
+"`auto-always` by design — you are not meant to babysit prompts — because the "
+"channel allowlists (below) are the actual access boundary. To confirm every "
+"tool call instead, set `approval_policy = \"ask\"` in `[agent]`."
+msgstr ""
+
+#: src/development/security.md:64
 msgid "Data Storage"
 msgstr ""
 
-#: src/development/security.md:48
+#: src/development/security.md:66
 msgid "All data stored locally in `~/.opencrabs/opencrabs.db` (SQLite)"
 msgstr ""
 
-#: src/development/security.md:49
+#: src/development/security.md:67
 msgid "No telemetry or analytics"
 msgstr ""
 
-#: src/development/security.md:50
+#: src/development/security.md:68
 msgid "No data sent to OpenCrabs servers (there are none)"
 msgstr ""
 
-#: src/development/security.md:51
+#: src/development/security.md:69
 msgid "Conversation history stays on your machine"
 msgstr ""
 
-#: src/development/security.md:53
+#: src/development/security.md:71
 msgid "Reporting Vulnerabilities"
 msgstr ""
 
-#: src/development/security.md:55
+#: src/development/security.md:73
 msgid "If you discover a security vulnerability, please report it responsibly:"
 msgstr ""
 
-#: src/development/security.md:57
+#: src/development/security.md:75
 msgid "Email: adolfo@meetneura.ai"
 msgstr ""
 
-#: src/development/security.md:58
+#: src/development/security.md:76
 msgid "Do not open a public issue for security vulnerabilities"
 msgstr ""
 
-#: src/development/security.md:59
+#: src/development/security.md:77
 msgid "We will acknowledge receipt within 48 hours"
 msgstr ""
 
-#: src/development/security.md:61
+#: src/development/security.md:79
 msgid "Safety Gates (v0.3.78)"
 msgstr ""
 
-#: src/development/security.md:63
+#: src/development/security.md:81
 msgid "OpenCrabs v0.3.78 introduced a layered safety-gate system:"
 msgstr ""
 
-#: src/development/security.md:65
+#: src/development/security.md:83
 msgid "TOML Bash Blocklist"
 msgstr ""
 
-#: src/development/security.md:66
+#: src/development/security.md:84
 msgid ""
 "Shell commands are checked against a TOML-defined blocklist before "
 "execution. Dangerous patterns (recursive deletes on root, raw disk writes, "
@@ -25617,50 +27617,117 @@ msgid ""
 "started/configuration.md#toml-bash-blocklist-v0378) for details."
 msgstr ""
 
-#: src/development/security.md:68
+#: src/development/security.md:86
 msgid "Secret Redaction"
 msgstr ""
 
-#: src/development/security.md:69
+#: src/development/security.md:87
 msgid ""
 "Quoted secrets in agent output are now **redacted before delivery**. This "
 "covers:"
 msgstr ""
 
-#: src/development/security.md:70
+#: src/development/security.md:88
 msgid "Bearer tokens"
 msgstr ""
 
-#: src/development/security.md:71
+#: src/development/security.md:89
 msgid "API key patterns"
 msgstr ""
 
-#: src/development/security.md:72
+#: src/development/security.md:90
 msgid "Colon-token shapes (key: value in YAML-like output)"
 msgstr ""
 
-#: src/development/security.md:73
+#: src/development/security.md:91
 msgid "Query-param keys"
 msgstr ""
 
-#: src/development/security.md:74
+#: src/development/security.md:92
 msgid "URL passwords"
 msgstr ""
 
-#: src/development/security.md:76
+#: src/development/security.md:94
 msgid ""
 "Redaction fires on all delivery paths (TUI, Telegram, Discord, Slack, "
 "WhatsApp), so a secret accidentally echoed by the agent never reaches the "
 "chat."
 msgstr ""
 
-#: src/development/security.md:78
+#: src/development/security.md:96
 msgid "Brain File Verification"
 msgstr ""
 
-#: src/development/security.md:79
+#: src/development/security.md:97
 msgid ""
 "Post-write verification (via brain_verify.toml) ensures brain files maintain "
 "their structural integrity after RSI writes. Required anchors (H1 title, "
 "Owns header) are checked, and writes that break structure are flagged."
+msgstr ""
+
+#: src/development/security.md:99
+msgid "Harness-Level Denials (v0.5.1)"
+msgstr ""
+
+#: src/development/security.md:101
+msgid ""
+"Prompt instructions are a request; the harness is a wall. The v0.5.1 "
+"hardening batch moved the load-bearing safety rules out of brain-file prose "
+"and into code paths that run even when the model is jailbroken or an RSI "
+"pass weakens a prompt file:"
+msgstr ""
+
+#: src/development/security.md:105
+msgid ""
+"**Confidential-path deny on `read_file`** — resolved paths matching the "
+"agent's own `keys.toml`, anything under a `.ssh/` directory, SSH private-key "
+"names, `.env` files, `.pem` / `.key` / `.pfx` material, `/etc/shadow`, or "
+"files that name themselves a credential are refused **before a byte is "
+"read**. Public keys and ordinary files are unaffected, and `..`/`~` spelling "
+"does not change the verdict."
+msgstr ""
+
+#: src/development/security.md:110
+msgid ""
+"**One SSRF guard for every fetch tool** — `web_scrape` and `http_request` "
+"share `brain::tools::ssrf`: cloud metadata endpoints (by name as well as "
+"IP), RFC1918/LAN, IPv6 link-local, the unspecified addresses, CGNAT "
+"`100.64.0.0/10`, and IPv4-mapped IPv6 forms are blocked; domains are DNS-"
+"resolved and **every** answer checked before the request, and each redirect "
+"hop is re-validated, so a public-looking name or a 302 cannot smuggle an "
+"internal target. Loopback stays deliberately allowed: a local-first agent "
+"legitimately reaches the operator's own machine."
+msgstr ""
+
+#: src/development/security.md:117
+msgid ""
+"**The bash blocklist floor everywhere** — `execute_code` and dynamic shell "
+"tools now pass through the same blocklist as `bash` (hardcoded plus the user "
+"TOML list), checked before writing or running, for every language, since "
+"`os.system`/`subprocess` can carry the same command. Dynamic tools also "
+"cannot be named like core tools: `add_tool` refuses to create an unguarded "
+"stand-in for `bash`, `read_file`, `evolve`, and friends."
+msgstr ""
+
+#: src/development/security.md:122
+msgid ""
+"**Deny-by-default channel allowlists** — an unconfigured Discord or Slack "
+"channel now refuses everyone (matching Telegram): empty `allowed_users`/"
+"`allowed_roles` is no longer \"accept all\". On WhatsApp an empty "
+"`allowed_phones` no longer elevates strangers to owner. Details per channel "
+"in [Channels overview](../channels/overview.md)."
+msgstr ""
+
+#: src/development/security.md:126
+msgid ""
+"**Verified self-update** — `/evolve` checks the release `SHA256SUMS` against "
+"the download before swapping the binary, and the download host is pinned, so "
+"a redirected release asset cannot hot-swap an unverified binary."
+msgstr ""
+
+#: src/development/security.md:130
+msgid ""
+"These complement the v0.3.78 safety gates above; together they mean a "
+"stranger who reaches a channel, or a prompt injection that reaches a tool, "
+"meets code that refuses, not prose that asks politely."
 msgstr ""
