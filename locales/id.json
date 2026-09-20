@@ -53,5 +53,5 @@
   "footer_license": "Lisensi MIT",
   "footer_built_by": "Dibangun dengan 🦀 oleh ",
   "footer_and_community": " & komunitas OpenCrabs.",
-  "latest_release_note": "v0.5.2: rilis integrasi. Mode server ACP untuk Zed dan MonoCode, penjelajahan sadar shadow-DOM, permukaan WhatsApp penuh, dan tracing langsung di Discord dengan tabel native."
+  "latest_release_note": "v0.5.3: rilis konsolidasi. Cron dengan trigger, Windows kelas satu, saran sebagai poll di WhatsApp, memori dengan confidence dan decay, serta mesin tema yang selesai."
 }

@@ -53,5 +53,5 @@
   "footer_license": "Licence MIT",
   "footer_built_by": "Construit avec 🦀 par ",
   "footer_and_community": " & la communauté OpenCrabs.",
-  "latest_release_note": "v0.5.2 : la release des intégrations. Mode serveur ACP pour Zed et MonoCode, navigation compatible shadow-DOM, la surface WhatsApp complète et le tracing en direct sur Discord avec tables natives."
+  "latest_release_note": "v0.5.3 : la release de la consolidation. Cron déclenché sur condition, Windows natif, suggestions en sondage sur WhatsApp, mémoire avec confiance et décroissance, et le moteur de thèmes achevé."
 }
