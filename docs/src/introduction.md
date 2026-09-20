@@ -2,7 +2,7 @@
 
 **OpenCrabs** is a self-hosted, provider-agnostic AI orchestration agent that runs as a single Rust binary. It automates your terminal, browser, channels (Telegram/Discord/Slack/WhatsApp/Trello), and codebase, all while respecting your privacy and keeping you in control.
 
-**8,852 tests** across providers, tools, channels, TUI, self-healing, and browser automation.
+**9,032 tests** across providers, tools, channels, TUI, self-healing, and browser automation.
 
 ## What Makes OpenCrabs Different
 
@@ -88,6 +88,11 @@
 - **Discord live tracing and native tables (v0.5.2)** — long turns stream as a traced live reply, answers auto-thread, markdown tables render natively, and tool turns no longer double-post the final response (#1603, #1608)
 - **Telegram forum topics and /clear (v0.5.2)** — forum topic create/rename with session binding, and /clear starts a fresh session without the summariser call (#1585)
 - **Command menu payload budget (v0.5.2)** — Telegram's setMyCommands silently rejects request bodies over ~7.8KB while reporting BOT_COMMANDS_TOO_MUCH; descriptions now shorten in tiers so the whole menu fits (#1613)
+- **Trigger-gated cron (v0.5.3)** — a job runs a pre-flight check and only executes when your condition is met (non-empty output, exit code, regex), skipped runs cost 0 tokens, and a fired trigger can dispatch a goal into a session (#233)
+- **First-class Windows (v0.5.3)** — platform shell handling, BOM/UTF-16 file reads, tilde and cwd fallbacks, with CI building Windows and gating PRs (#627)
+- **Epistemic memory (v0.5.3)** — MEMORY.md facts carry confidence and decay (#1643), cold sections archive themselves, and `opencrabs memory prune` previews what went cold before touching it (#1657)
+- **Finished theme engine (v0.5.3)** — every TUI widget resolves through the theme with a suite guard against new raw ANSI, and themes can declare a canvas background (#1634)
+- **WhatsApp suggestion polls (v0.5.3)** — follow-up option sets past the native button cap render as a poll, and a vote selects the option (#1616)
 
 - **doctor --fix repair mode (v0.3.83)** — stuck cron rows, stale markers and broken permissions are repaired on the spot instead of only reported
 - **Per-path write locks (v0.3.83)** — concurrent writes to the same file serialize; the last writer no longer silently wins

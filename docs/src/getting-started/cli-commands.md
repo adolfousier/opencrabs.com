@@ -17,7 +17,7 @@ opencrabs [COMMAND] [OPTIONS]
 | `agent` | Interactive multi-turn chat or single-message mode |
 | `cron` | Manage scheduled tasks (add/list/remove/enable/disable/test) |
 | `channel` | Channel management (list, doctor) |
-| `memory` | Memory management (list, get, stats) |
+| `memory` | Memory management (list, get, stats, prune) |
 | `session` | Session management (list, get) |
 | `db` | Database management (init, stats, clear) |
 | `logs` | Log management (status, view, clean, open) |

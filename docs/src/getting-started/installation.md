@@ -54,6 +54,9 @@ Expand-Archive opencrabs.zip -Force
 
 The onboarding wizard handles everything on first run.
 
+> **Windows is a first-class platform (v0.5.3):** platform-aware shell handling, BOM/UTF-16
+> file reads, and tilde/cwd fallbacks are built in, and CI builds Windows on every PR (#627).
+
 > **Verify your download (optional):** every release publishes a `SHA256SUMS` file alongside the tarballs.
 
 > **Terminal permissions required.** OpenCrabs reads/writes brain files, config, and project files. Your terminal app needs filesystem access or the OS will block operations.
