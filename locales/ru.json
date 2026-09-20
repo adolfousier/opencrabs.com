@@ -53,5 +53,5 @@
   "footer_license": "Лицензия MIT",
   "footer_built_by": "Сделано с 🦀 ",
   "footer_and_community": " и сообществом OpenCrabs.",
-  "latest_release_note": "v0.5.1: brain, который знает время. Привязка ко времени, cron-сессии для каждой задачи, фильтр по glob'ам skill и проверка записей config по структуре."
+  "latest_release_note": "v0.5.2: релиз интеграций. Режим сервера ACP для Zed и MonoCode, работа с shadow-DOM в browser, полная поверхность WhatsApp и живой tracing в Discord с нативными таблицами."
 }

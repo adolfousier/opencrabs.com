@@ -53,5 +53,5 @@
   "footer_license": "Lisensi MIT",
   "footer_built_by": "Dibangun dengan 🦀 oleh ",
   "footer_and_community": " & komunitas OpenCrabs.",
-  "latest_release_note": "v0.5.1: brain yang sadar waktu. Penjangkaran waktu, sesi cron per job, gerbang glob skill, dan tulisan config divalidasi terhadap struct."
+  "latest_release_note": "v0.5.2: rilis integrasi. Mode server ACP untuk Zed dan MonoCode, penjelajahan sadar shadow-DOM, permukaan WhatsApp penuh, dan tracing langsung di Discord dengan tabel native."
 }
