@@ -158,6 +158,21 @@ The agent saves to memory when:
 
 The agent now **surfaces relevant memory without being asked**. When a conversation topic matches something stored in MEMORY.md or daily notes, the relevant context is loaded and injected automatically. Previously, memory was only recalled when the agent explicitly called `memory_search` or `load_brain_file`. Now the system proactively checks for relevant context on each turn, so the agent brings up past decisions, server details, or preferences that apply to the current conversation without you having to say "check your memory."
 
+## Confidence, Decay and Pruning (v0.5.3)
+
+MEMORY.md facts carry **confidence** and **decay** over time (#1643): a belief's trust
+drops as it goes unused and unverified, so stale claims stop outranking fresh ones when
+memory is recalled. Decay is config-driven through the `[epistemic]` section.
+
+Cold content is managed in two passes (#1657):
+
+- **Archive pass** — cold MEMORY.md sections move to `memory/archive/` with a backup and
+  reindex, instead of silently accumulating forever.
+- **`opencrabs memory prune`** — a dry-run preview (the default) of cold beliefs (key,
+  confidence, hits, age) and cold sections (heading, bytes). `--apply` archives the
+  sections first, then sweeps the remaining cold beliefs. `--max-age-days <N>` overrides
+  the cold threshold (default: 90).
+
 ## Brain Files
 
 See [Brain Files](./brain-files.md) for the full list of files the agent reads on startup.
