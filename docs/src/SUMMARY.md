@@ -42,6 +42,7 @@
 - [Plans](./features/plans.md)
 - [Multi-Agent Orchestration](./features/multi-agent.md)
 - [Agent-to-Agent (A2A)](./features/a2a.md)
+- [ACP — Editor Integration](./features/acp.md)
 - [Self-Healing](./features/self-healing.md)
 - [Self-Improvement (RSI)](./features/self-improvement.md)
 - [Mission Control](./features/mission-control.md)

@@ -2,7 +2,7 @@
 
 **OpenCrabs** is a self-hosted, provider-agnostic AI orchestration agent that runs as a single Rust binary. It automates your terminal, browser, channels (Telegram/Discord/Slack/WhatsApp/Trello), and codebase, all while respecting your privacy and keeping you in control.
 
-**8,412 tests** across providers, tools, channels, TUI, self-healing, and browser automation.
+**8,852 tests** across providers, tools, channels, TUI, self-healing, and browser automation.
 
 ## What Makes OpenCrabs Different
 
@@ -82,6 +82,12 @@
 - **Plan designs refused at write time (v0.5.1)** — a malformed plan design bounces immediately with the missing sections named, and a refused write restores the scaffold instead of wiping the draft (#1507)
 - **Provider budget backpressure (v0.5.1)** — a provider that reports an output-token budget triggers one bounded compaction and retry instead of a cascade of 400s (#1518)
 - **A2A tokens bound and config owner-only (v0.5.1)** — A2A tokens bind to the gateway that minted them, and config.toml/keys.toml move to owner-exclusive mode with secrets scrubbed from the logs
+- **ACP server mode (v0.5.2)** — `opencrabs acp` speaks the Agent Client Protocol over stdio JSON-RPC, so Zed, MonoCode and any ACP client drive the same brain your channels use, with progress streaming and approvals round-tripping to the editor (#1540)
+- **Shadow-DOM aware browsing (v0.5.2)** — selector resolution pierces shadow roots, so automation reaches web components that used to be invisible to the tools
+- **WhatsApp full surface (v0.5.2)** — native voice notes, inbound video/sticker/location/contact, poll votes, presence and media recovery, reaction acks, edit-in-place streaming, disappearing messages, contact blocking, pin/forward/profile, status updates, newsletter discovery, native-flow buttons, per-chat history
+- **Discord live tracing and native tables (v0.5.2)** — long turns stream as a traced live reply, answers auto-thread, markdown tables render natively, and tool turns no longer double-post the final response (#1603, #1608)
+- **Telegram forum topics and /clear (v0.5.2)** — forum topic create/rename with session binding, and /clear starts a fresh session without the summariser call (#1585)
+- **Command menu payload budget (v0.5.2)** — Telegram's setMyCommands silently rejects request bodies over ~7.8KB while reporting BOT_COMMANDS_TOO_MUCH; descriptions now shorten in tiers so the whole menu fits (#1613)
 
 - **doctor --fix repair mode (v0.3.83)** — stuck cron rows, stale markers and broken permissions are repaired on the spot instead of only reported
 - **Per-path write locks (v0.3.83)** — concurrent writes to the same file serialize; the last writer no longer silently wins

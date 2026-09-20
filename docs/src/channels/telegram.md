@@ -245,6 +245,10 @@ The flow-log message is edited in-place as each step completes, so the channel s
 
 Flow blocks **re-stick to the chat bottom** when buried (v0.3.65), so you always see the latest progress without scrolling.
 
+## Forum Topic Management and /clear (v0.5.2)
+
+The agent can create and rename forum topics (not just route into existing ones), and a group's session can bind to a topic so each topic keeps its own conversation context. `/clear` starts a fresh session in place — the current one closes and a blank one begins — without invoking the summariser, so it is instant and free (#1585).
+
 ## Group Chat Behavior
 
 In groups, the agent:

@@ -42,6 +42,10 @@ The agent will chain `navigate` → `type` (username) → `type` (password) → 
 
 This is the structural fix for the screenshot-as-discovery loop: instead of screenshotting repeatedly and guessing selectors, the agent gets the page's clickable inventory in one call. When `browser_screenshot` reports an identical page, the hint now nudges toward inventory mode.
 
+## Shadow-DOM Resolution (v0.5.2)
+
+Selector resolution is shadow-DOM aware: an element inside one or more shadow roots is reached by piercing the roots along the path, so web components and widget libraries that host their UI in shadow trees are automatable like light-DOM content. Applies across the browser tools (click, type, find, screenshot targeting).
+
 ## Configuration
 
 No configuration needed. The browser feature is enabled by default. To disable it at build time:

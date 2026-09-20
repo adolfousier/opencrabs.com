@@ -102,8 +102,12 @@ The agent can add emoji reactions to messages. When a user reacts with an emoji,
 
 ## Formatting Notes
 
-- No markdown tables in Discord — use bullet lists instead
+- Markdown tables in agent output convert to native Discord tables (v0.5.2); in your own messages, bullet lists are still the safest habit
 - Wrap multiple links in `<url>` to suppress embeds
+
+## Live Reply Tracing, Auto-Threading, Native Tables (v0.5.2)
+
+Long turns stream as a live reply that is traced and edited in place instead of staying silent until the end. Answers that belong together are auto-threaded, and markdown tables in agent output render as native Discord tables rather than raw pipes (#1608). A dedup guard on tool turns stops the final response from double-posting content a tool summary already showed (#1603).
 
 ## Sustained Typing Indicator (v0.3.76)
 

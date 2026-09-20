@@ -31,6 +31,7 @@ opencrabs [COMMAND] [OPTIONS]
 | `/evolve` | **Auto-update** — Downloads latest release and hot-restarts. Runs automatically on startup when `[agent] auto_update = true` |
 | `/restart` | **Restart** (v0.3.79) — Relaunches the same binary with the same arguments, so nothing about how it was started has to be known or repeated. Unfinished turns resume automatically on startup. In the TUI it resumes the current session. Owner-only on channels; announces before acting. |
 | `/exit` | **Shutdown** (v0.3.79) — Shuts OpenCrabs down. Starting it again needs access to the machine it runs on, so this is **the one command with no way back from chat**. Owner-only on channels; announces before acting. |
+| `/clear` | **Fresh session** (v0.5.2) — Closes the current session and starts a blank one in place, without the summariser call, so it is instant. Owner-only on channels. |
 | `/btw` | **Parallel agent** — Spawns an isolated sub-agent for a side task while the main conversation continues. e.g. `/btw research the latest Rust async patterns` |
 | `/mission-control` | **Mission Control** — Full-screen dashboard showing RSI inbox (pending proposals), activity log (improvements applied), and cron schedule. Navigate with vim keys, apply/reject proposals with `a`/`r`. |
 | `/skills` | **Skills picker** — Browse and launch workflow templates with fuzzy-finding. Every loaded skill auto-registers as a slash command. |
