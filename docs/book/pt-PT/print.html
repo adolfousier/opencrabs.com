@@ -66,10 +66,10 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-857db873.js";
+            window.path_to_searchindex_js = "searchindex-18ca4ef7.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-0aaa5745.js"></script>
+        <script src="toc-bfb94109.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -210,7 +210,7 @@
                     <main>
                         <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
 <p><strong>O OpenCrabs</strong> é um agente de orquestração de IA auto-hospedado e agnóstico de provider que corre como um único binário Rust. Automatiza o teu terminal, browser, channels (Telegram/Discord/Slack/WhatsApp/Trello) e codebase, respeitando a tua privacidade e mantendo-te no controlo.</p>
-<p><strong>8,412 tests</strong> across providers, tools, channels, TUI, self-healing, and browser automation.</p>
+<p><strong>8.852 testes</strong> cobrindo providers, ferramentas, channels, TUI, self-healing e automação de browser.</p>
 <h2 id="o-que-distingue-o-opencrabs"><a class="header" href="#o-que-distingue-o-opencrabs">O Que Distingue o OpenCrabs</a></h2>
 <h3 id="zero-telemetria-nem-por-opção"><a class="header" href="#zero-telemetria-nem-por-opção">Zero Telemetria, Nem por Opção</a></h3>
 <ul>
@@ -358,6 +358,24 @@
 </li>
 <li>
 <p><strong>Tokens A2A vinculados e config só do owner (v0.5.1)</strong> — os tokens A2A ligam-se ao gateway que os emitiu, e config.toml/keys.toml passam a modo exclusivo do owner, com segredos removidos dos logs</p>
+</li>
+<li>
+<p><strong>Modo servidor ACP (v0.5.2)</strong> — <code>opencrabs acp</code> fala o Agent Client Protocol sobre stdio JSON-RPC, por isso o Zed, o MonoCode e qualquer cliente ACP conduzem o mesmo brain que os teus channels usam, com streaming do progresso e aprovações a voltar até ao editor (#1540)</p>
+</li>
+<li>
+<p><strong>Navegação com consciência de shadow-DOM (v0.5.2)</strong> — a resolução de seletores atravessa shadow roots, por isso a automação chega a web components que antes eram invisíveis para as ferramentas</p>
+</li>
+<li>
+<p><strong>Superfície completa do WhatsApp (v0.5.2)</strong> — mensagens de voz nativas, vídeo/sticker/localização/contacto recebidos, votos em sondagens, recuperação de presença e media, confirmações de reação, streaming com edição no lugar, mensagens temporárias, bloqueio de contactos, fixar/reencaminhar/perfil, atualizações de estado, descoberta de newsletters, botões de native flow, histórico por conversa</p>
+</li>
+<li>
+<p><strong>Tracing ao vivo e tabelas nativas no Discord (v0.5.2)</strong> — turnos longos são transmitidos como uma resposta ao vivo com tracing, as respostas criam thread automaticamente, as tabelas markdown renderizam nativamente e os turnos com ferramentas deixam de publicar a resposta final duas vezes (#1603, #1608)</p>
+</li>
+<li>
+<p><strong>Tópicos de fórum do Telegram e /clear (v0.5.2)</strong> — criar/renomear tópicos de fórum com ligação à session, e /clear inicia uma session nova sem a chamada ao summariser (#1585)</p>
+</li>
+<li>
+<p><strong>Orçamento do payload do menu de comandos (v0.5.2)</strong> — o setMyCommands do Telegram rejeita silenciosamente corpos de pedido acima de ~7,8KB reportando BOT_COMMANDS_TOO_MUCH; as descrições passam a encurtar por níveis para o menu inteiro caber (#1613)</p>
 </li>
 <li>
 <p><strong>Modo de reparação doctor –fix (v0.3.83)</strong> — linhas de cron presas, markers obsoletos e permissões partidas são reparados no momento em vez de apenas reportados</p>
@@ -1465,6 +1483,7 @@ patterns = ["rm -rf /", "dd if=", "mkfs", ":(){ :|:&amp; };:"]
 <tr><td><code>/evolve</code></td><td><strong>Auto-update</strong> — Descarrega a última release e faz hot-restart. Corre automaticamente no arranque quando <code>[agent] auto_update = true</code></td></tr>
 <tr><td><code>/restart</code></td><td><strong>Reiniciar</strong> (v0.3.79) — Relança o mesmo binário com os mesmos argumentos, pelo que nada sobre como foi iniciado tem de ser conhecido ou repetido. Os turns inacabados retomam automaticamente no arranque. No TUI retoma a session atual. Só o owner nos channels; anuncia antes de agir.</td></tr>
 <tr><td><code>/exit</code></td><td><strong>Desligar</strong> (v0.3.79) — Desliga o OpenCrabs. Para o voltar a ligar é preciso acesso à máquina onde corre, por isto é <strong>o único comando sem caminho de volta a partir do chat</strong>. Só o owner nos channels; anuncia antes de agir.</td></tr>
+<tr><td><code>/clear</code></td><td><strong>Session nova</strong> (v0.5.2) — Fecha a session atual e inicia uma em branco no mesmo sítio, sem a chamada ao summariser, por isso é instantâneo. Apenas para o owner nos channels.</td></tr>
 <tr><td><code>/btw</code></td><td><strong>Agente paralelo</strong> — Cria um sub-agente isolado para uma tarefa paralela enquanto a conversa principal continua. Ex.: <code>/btw research the latest Rust async patterns</code></td></tr>
 <tr><td><code>/mission-control</code></td><td><strong>Mission Control</strong> — Dashboard de ecrã inteiro com a inbox RSI (propostas pendentes), log de atividade (melhorias aplicadas) e agenda de cron. Navega com teclas vim, aplica/rejeita propostas com <code>a</code>/<code>r</code>.</td></tr>
 <tr><td><code>/skills</code></td><td><strong>Seletor de skills</strong> — Navega e lança templates de workflow com fuzzy-finding. Cada skill carregada regista-se automaticamente como slash command.</td></tr>
@@ -3021,6 +3040,8 @@ open = true                              # all members can talk, no per-user reg
 </ul>
 <p>The flow-log message is edited in-place as each step completes, so the channel stays clean. Users see real-time progress without message spam.</p>
 <p>Flow blocks <strong>re-stick to the chat bottom</strong> when buried (v0.3.65), so you always see the latest progress without scrolling.</p>
+<h2 id="forum-topic-management-and-clear-v052"><a class="header" href="#forum-topic-management-and-clear-v052">Forum Topic Management and /clear (v0.5.2)</a></h2>
+<p>The agent can create and rename forum topics (not just route into existing ones), and a group’s session can bind to a topic so each topic keeps its own conversation context. <code>/clear</code> starts a fresh session in place — the current one closes and a blank one begins — without invoking the summariser, so it is instant and free (#1585).</p>
 <h2 id="group-chat-behavior"><a class="header" href="#group-chat-behavior">Group Chat Behavior</a></h2>
 <p>In groups, the agent:</p>
 <ul>
@@ -3126,9 +3147,11 @@ session_idle_hours = 24.0               # idle timeout for non-owner sessions
 <p>The agent can add emoji reactions to messages. When a user reacts with an emoji, it triggers an agent turn (parity with Slack and Telegram). This enables quick, lightweight interactions without typing full messages.</p>
 <h2 id="formatting-notes"><a class="header" href="#formatting-notes">Formatting Notes</a></h2>
 <ul>
-<li>No markdown tables in Discord — use bullet lists instead</li>
+<li>Markdown tables in agent output convert to native Discord tables (v0.5.2); in your own messages, bullet lists are still the safest habit</li>
 <li>Wrap multiple links in <code>&lt;url&gt;</code> to suppress embeds</li>
 </ul>
+<h2 id="live-reply-tracing-auto-threading-native-tables-v052"><a class="header" href="#live-reply-tracing-auto-threading-native-tables-v052">Live Reply Tracing, Auto-Threading, Native Tables (v0.5.2)</a></h2>
+<p>Long turns stream as a live reply that is traced and edited in place instead of staying silent until the end. Answers that belong together are auto-threaded, and markdown tables in agent output render as native Discord tables rather than raw pipes (#1608). A dedup guard on tool turns stops the final response from double-posting content a tool summary already showed (#1603).</p>
 <h2 id="sustained-typing-indicator-v0376"><a class="header" href="#sustained-typing-indicator-v0376">Sustained Typing Indicator (v0.3.76)</a></h2>
 <p>Discord now shows a <strong>sustained typing indicator</strong> while the agent processes a request. Previously, Discord had no typing indicator at all (Telegram and Slack did). The indicator stays alive through background tasks and long tool executions, so users see “OpenCrabs is typing…” for the entire processing duration, not just the first few seconds.</p>
 <div style="break-before: page; page-break-before: always;"></div>
@@ -3344,6 +3367,14 @@ daily_cap = 800            # rolling 24h hard cap
 <li><strong>Voice messages</strong> — STT transcription + TTS response</li>
 <li><strong>Plain text UI</strong> — No buttons (WhatsApp limitation), uses text-based menus</li>
 <li><strong>Slash commands</strong> — All built-in and custom commands work</li>
+</ul>
+<h2 id="surface-v052"><a class="header" href="#surface-v052">Surface (v0.5.2)</a></h2>
+<p>The WhatsApp channel grew to match the phone app’s surface:</p>
+<ul>
+<li><strong>Outbound</strong>: native voice notes (opus), edit-in-place streaming for long replies, pin, forward, and profile actions</li>
+<li><strong>Inbound</strong>: video, stickers, location, contacts, reactions, and poll votes are parsed into the turn; presence events and media recovery fill gaps after reconnects</li>
+<li><strong>Sessions</strong>: disappearing messages honored per chat, contact blocking, per-chat history with reaction acknowledgements</li>
+<li><strong>Surfaces</strong>: status updates and newsletter discovery, native-flow buttons for interactive prompts</li>
 </ul>
 <h2 id="troubleshooting-1"><a class="header" href="#troubleshooting-1">Troubleshooting</a></h2>
 <h3 id="wrong-number-replying"><a class="header" href="#wrong-number-replying">Wrong number replying</a></h3>
@@ -4291,6 +4322,8 @@ coerce_empty_to = "--quiet"
 <h2 id="inventory-mode-v0380"><a class="header" href="#inventory-mode-v0380">Inventory Mode (v0.3.80)</a></h2>
 <p><code>browser_find</code> now works <strong>without a pattern</strong> (#1022). Call it bare and it enumerates every visible interactive element on the page — links, buttons, inputs, selects, textareas, role=button elements, onclick handlers, tabindex elements, labels, and disclosure widgets — each stamped with a selector and index you can click directly.</p>
 <p>This is the structural fix for the screenshot-as-discovery loop: instead of screenshotting repeatedly and guessing selectors, the agent gets the page’s clickable inventory in one call. When <code>browser_screenshot</code> reports an identical page, the hint now nudges toward inventory mode.</p>
+<h2 id="shadow-dom-resolution-v052"><a class="header" href="#shadow-dom-resolution-v052">Shadow-DOM Resolution (v0.5.2)</a></h2>
+<p>Selector resolution is shadow-DOM aware: an element inside one or more shadow roots is reached by piercing the roots along the path, so web components and widget libraries that host their UI in shadow trees are automatable like light-DOM content. Applies across the browser tools (click, type, find, screenshot targeting).</p>
 <h2 id="configuration-7"><a class="header" href="#configuration-7">Configuration</a></h2>
 <p>No configuration needed. The browser feature is enabled by default. To disable it at build time:</p>
 <pre><code class="language-bash">cargo build --release --no-default-features --features "telegram,discord,slack"
@@ -4873,6 +4906,24 @@ curl http://127.0.0.1:18790/a2a/health | jq .
 <li><strong>CORS locked down</strong> — no cross-origin requests unless <code>allowed_origins</code> is set</li>
 <li>For public exposure, use a reverse proxy with TLS + the <code>api_key</code> Bearer auth</li>
 </ul>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="acp--editor-integration"><a class="header" href="#acp--editor-integration">ACP — Editor Integration</a></h1>
+<p><strong>ACP server mode</strong> lets agent-aware editors (Zed, MonoCode, any ACP client) drive OpenCrabs as a backend agent over the <a href="https://agentclientprotocol.com">Agent Client Protocol</a>. The editor spawns <code>opencrabs acp</code> as a child process and speaks JSON-RPC 2.0 over stdio, so your editor session and your channels share the same brain, tools, memory, and provider configuration (#1540).</p>
+<h2 id="running"><a class="header" href="#running">Running</a></h2>
+<pre><code class="language-bash">opencrabs acp            # default model from config
+opencrabs acp --model anthropic/claude-sonnet-4-20250514
+</code></pre>
+<p>Point your editor’s ACP/agent client at the <code>opencrabs acp</code> command and it appears as an available agent. One child process serves one conversation thread.</p>
+<h2 id="protocol"><a class="header" href="#protocol">Protocol</a></h2>
+<ul>
+<li><strong>Framing</strong>: JSON-RPC 2.0, newline-delimited (NDJSON) over stdio</li>
+<li><strong><code>session/prompt</code></strong>: runs the full tool loop for a turn; the reply arrives when the turn settles</li>
+<li><strong><code>session/update</code></strong>: progress notifications stream back while the turn works (tool calls, output chunks)</li>
+<li><strong><code>session/request_permission</code></strong>: tool approvals round-trip to the editor, so the client’s permission UI gates dangerous calls the same way channel approvals do</li>
+</ul>
+<p>stdout is the protocol channel: nothing but JSON-RPC frames is ever written to it. Logs go to the daily log file (or stderr in debug builds), never stdout.</p>
+<h2 id="why-it-matters-1"><a class="header" href="#why-it-matters-1">Why it matters</a></h2>
+<p>Before ACP mode, driving OpenCrabs from an editor meant copy-pasting between the editor and a channel. With ACP mode the editor is a first-class surface: same providers, same skill gating, same plan approvals, same memory. Configuration is shared with the rest of OpenCrabs; there is no separate ACP config section.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="self-healing"><a class="header" href="#self-healing">Self-Healing</a></h1>
 <p>OpenCrabs monitors its own health and automatically recovers from failures without user intervention. All recovery events surface as visible notifications across TUI and all channels.</p>
@@ -6545,7 +6596,7 @@ Savings by Command Type:
 # Or check if the binary is available:
 which rtk
 </code></pre>
-<h2 id="why-it-matters-1"><a class="header" href="#why-it-matters-1">Why It Matters</a></h2>
+<h2 id="why-it-matters-2"><a class="header" href="#why-it-matters-2">Why It Matters</a></h2>
 <p>LLM API costs are based on token count. A typical <code>git diff</code> on a large repo can produce 50,000+ tokens of output. With RTK, that same diff might use only 5,000 tokens — a <strong>90% reduction</strong>.</p>
 <p>Over a day of heavy development work:</p>
 <ul>

@@ -65,10 +65,10 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-c880ab0d.js";
+            window.path_to_searchindex_js = "searchindex-a5097dfd.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-0aaa5745.js"></script>
+        <script src="toc-bfb94109.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -209,7 +209,7 @@
                     <main>
                         <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
 <p><strong>OpenCrabs</strong> adalah agen orkestrasi AI yang di-hosting sendiri dan tidak terikat provider, berjalan sebagai satu biner Rust. Ia mengotomatiskan terminal, browser, channels (Telegram/Discord/Slack/WhatsApp/Trello), dan codebase Anda, sambil menghormati privasi Anda dan menjaga kendali tetap di tangan Anda.</p>
-<p><strong>8,412 tests</strong> across providers, tools, channels, TUI, self-healing, and browser automation.</p>
+<p><strong>8.852 tes</strong> mencakup providers, tools, channels, TUI, self-healing, dan otomasi browser.</p>
 <h2 id="apa-yang-membedakan-opencrabs"><a class="header" href="#apa-yang-membedakan-opencrabs">Apa yang Membedakan OpenCrabs</a></h2>
 <h3 id="nol-telemetri-bahkan-tanpa-opt-in"><a class="header" href="#nol-telemetri-bahkan-tanpa-opt-in">Nol Telemetri, Bahkan Tanpa Opt-In</a></h3>
 <ul>
@@ -357,6 +357,24 @@
 </li>
 <li>
 <p><strong>Token A2A terikat dan config khusus owner (v0.5.1)</strong> — token A2A terikat ke gateway yang menerbitkannya, dan config.toml/keys.toml berpindah ke mode khusus owner, dengan rahasia disingkirkan dari log</p>
+</li>
+<li>
+<p><strong>Mode server ACP (v0.5.2)</strong> — <code>opencrabs acp</code> berbicara Agent Client Protocol lewat stdio JSON-RPC, sehingga Zed, MonoCode, dan klien ACP mana pun menjalankan brain yang sama dengan channels Anda, lengkap dengan streaming progres dan persetujuan yang kembali ke editor (#1540)</p>
+</li>
+<li>
+<p><strong>Penjelajahan sadar shadow-DOM (v0.5.2)</strong> — resolusi selector menembus shadow root, sehingga otomasi menjangkau web component yang sebelumnya tidak terlihat oleh tools</p>
+</li>
+<li>
+<p><strong>Permukaan WhatsApp penuh (v0.5.2)</strong> — pesan suara native, video/stiker/lokasi/kontak masuk, suara polling, pemulihan presence dan media, tanda terima reaksi, streaming dengan edit di tempat, pesan sementara, pemblokiran kontak, pin/teruskan/profil, pembaruan status, penemuan newsletter, tombol native flow, riwayat per chat</p>
+</li>
+<li>
+<p><strong>Tracing langsung dan tabel native di Discord (v0.5.2)</strong> — giliran panjang mengalir sebagai balasan langsung ber-tracing, jawaban otomatis masuk thread, tabel markdown dirender secara native, dan giliran dengan tools tidak lagi mengirim jawaban akhir dua kali (#1603, #1608)</p>
+</li>
+<li>
+<p><strong>Topik forum Telegram dan /clear (v0.5.2)</strong> — buat/ganti nama topik forum dengan pengikatan session, dan /clear memulai session baru tanpa panggilan summariser (#1585)</p>
+</li>
+<li>
+<p><strong>Anggaran payload menu perintah (v0.5.2)</strong> — setMyCommands Telegram diam-diam menolak body permintaan di atas ~7,8KB sambil melaporkan BOT_COMMANDS_TOO_MUCH; deskripsi kini dipendekkan bertingkat agar seluruh menu muat (#1613)</p>
 </li>
 <li>
 <p><strong>Mode perbaikan doctor –fix (v0.3.83)</strong> — baris cron macet, marker basi, dan izin rusak diperbaiki di tempat alih-alih sekadar dilaporkan</p>

@@ -65,10 +65,10 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-7174877e.js";
+            window.path_to_searchindex_js = "../searchindex-f171a937.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-0aaa5745.js"></script>
+        <script src="../toc-bfb94109.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -238,6 +238,7 @@
 <tr><td><code>/evolve</code></td><td><strong>Автообновление</strong> — скачивает последний релиз и перезапускается на лету. Запускается автоматически при старте, если <code>[agent] auto_update = true</code></td></tr>
 <tr><td><code>/restart</code></td><td><strong>Перезапуск</strong> (v0.3.79) — заново запускает тот же бинарник с теми же аргументами, так что знать или повторять способ запуска не нужно. Незавершённые ходы возобновляются автоматически при старте. В TUI возобновляется текущая session. В channels только для owner; с объявлением перед действием.</td></tr>
 <tr><td><code>/exit</code></td><td><strong>Выключение</strong> (v0.3.79) — останавливает OpenCrabs. Чтобы запустить снова, нужен доступ к машине, где он работает, поэтому это <strong>единственная команда, из которой нет пути назад через чат</strong>. В channels только для owner; с объявлением перед действием.</td></tr>
+<tr><td><code>/clear</code></td><td><strong>Свежая session</strong> (v0.5.2) — Закрывает текущую session и запускает на её месте пустую, без вызова summariser, поэтому это мгновенно. В channels только для owner.</td></tr>
 <tr><td><code>/btw</code></td><td><strong>Параллельный агент</strong> — запускает изолированного суб-агента для побочной задачи, пока основной разговор продолжается. Например: <code>/btw research the latest Rust async patterns</code></td></tr>
 <tr><td><code>/mission-control</code></td><td><strong>Mission Control</strong> — полноэкранная панель: входящие RSI (ожидающие предложения), журнал активности (применённые улучшения) и расписание cron. Навигация vim-клавишами, применение/отклонение предложений клавишами <code>a</code>/<code>r</code>.</td></tr>
 <tr><td><code>/skills</code></td><td><strong>Выбор skills</strong> — просмотр и запуск шаблонов рабочих процессов с нечётким поиском. Каждый загруженный skill автоматически регистрируется как slash-команда.</td></tr>

@@ -65,10 +65,10 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-3c9eb961.js";
+            window.path_to_searchindex_js = "../searchindex-434dd23a.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-0aaa5745.js"></script>
+        <script src="../toc-bfb94109.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -238,6 +238,7 @@
 <tr><td><code>/evolve</code></td><td><strong>Auto-update</strong> — Télécharge la dernière release et fait un hot-restart. S’exécute automatiquement au démarrage quand <code>[agent] auto_update = true</code></td></tr>
 <tr><td><code>/restart</code></td><td><strong>Redémarrer</strong> (v0.3.79) — Relance le même binaire avec les mêmes arguments, donc rien de la façon dont il a été lancé n’a à être connu ou répété. Les turns inachevés reprennent automatiquement au démarrage. Dans le TUI, il reprend la session en cours. Réservé au owner sur les channels ; annonce avant d’agir.</td></tr>
 <tr><td><code>/exit</code></td><td><strong>Arrêt</strong> (v0.3.79) — Éteint OpenCrabs. Le relancer nécessite l’accès à la machine où il tourne, donc c’est <strong>l’unique commande sans retour possible depuis le chat</strong>. Réservé au owner sur les channels ; annonce avant d’agir.</td></tr>
+<tr><td><code>/clear</code></td><td><strong>Session fraîche</strong> (v0.5.2) — Ferme la session courante et en démarre une vierge sur place, sans l’appel au summariser, donc c’est instantané. Réservé à l’owner sur les channels.</td></tr>
 <tr><td><code>/btw</code></td><td><strong>Agent parallèle</strong> — Crée un sous-agent isolé pour une tâche annexe pendant que la conversation principale continue. Ex. : <code>/btw research the latest Rust async patterns</code></td></tr>
 <tr><td><code>/mission-control</code></td><td><strong>Mission Control</strong> — Tableau de bord plein écran montrant l’inbox RSI (propositions en attente), le log d’activité (améliorations appliquées) et le planning cron. Naviguez aux touches vim, appliquez/rejetez les propositions avec <code>a</code>/<code>r</code>.</td></tr>
 <tr><td><code>/skills</code></td><td><strong>Sélecteur de skills</strong> — Parcourez et lancez des templates de workflow avec fuzzy-finding. Chaque skill chargée s’enregistre automatiquement comme slash command.</td></tr>

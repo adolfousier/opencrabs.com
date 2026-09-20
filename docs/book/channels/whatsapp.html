@@ -65,10 +65,10 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-89798ac2.js";
+            window.path_to_searchindex_js = "../searchindex-9e13cd8d.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-0aaa5745.js"></script>
+        <script src="../toc-bfb94109.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -322,6 +322,14 @@ keeps chunked turns well inside the budget; the limiter is the safety net undern
 <li><strong>Voice messages</strong> — STT transcription + TTS response</li>
 <li><strong>Plain text UI</strong> — No buttons (WhatsApp limitation), uses text-based menus</li>
 <li><strong>Slash commands</strong> — All built-in and custom commands work</li>
+</ul>
+<h2 id="surface-v052"><a class="header" href="#surface-v052">Surface (v0.5.2)</a></h2>
+<p>The WhatsApp channel grew to match the phone app’s surface:</p>
+<ul>
+<li><strong>Outbound</strong>: native voice notes (opus), edit-in-place streaming for long replies, pin, forward, and profile actions</li>
+<li><strong>Inbound</strong>: video, stickers, location, contacts, reactions, and poll votes are parsed into the turn; presence events and media recovery fill gaps after reconnects</li>
+<li><strong>Sessions</strong>: disappearing messages honored per chat, contact blocking, per-chat history with reaction acknowledgements</li>
+<li><strong>Surfaces</strong>: status updates and newsletter discovery, native-flow buttons for interactive prompts</li>
 </ul>
 <h2 id="troubleshooting"><a class="header" href="#troubleshooting">Troubleshooting</a></h2>
 <h3 id="wrong-number-replying"><a class="header" href="#wrong-number-replying">Wrong number replying</a></h3>

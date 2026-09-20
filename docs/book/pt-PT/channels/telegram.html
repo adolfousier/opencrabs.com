@@ -65,10 +65,10 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-857db873.js";
+            window.path_to_searchindex_js = "../searchindex-18ca4ef7.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-0aaa5745.js"></script>
+        <script src="../toc-bfb94109.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -431,6 +431,8 @@ open = true                              # all members can talk, no per-user reg
 </ul>
 <p>The flow-log message is edited in-place as each step completes, so the channel stays clean. Users see real-time progress without message spam.</p>
 <p>Flow blocks <strong>re-stick to the chat bottom</strong> when buried (v0.3.65), so you always see the latest progress without scrolling.</p>
+<h2 id="forum-topic-management-and-clear-v052"><a class="header" href="#forum-topic-management-and-clear-v052">Forum Topic Management and /clear (v0.5.2)</a></h2>
+<p>The agent can create and rename forum topics (not just route into existing ones), and a group’s session can bind to a topic so each topic keeps its own conversation context. <code>/clear</code> starts a fresh session in place — the current one closes and a blank one begins — without invoking the summariser, so it is instant and free (#1585).</p>
 <h2 id="group-chat-behavior"><a class="header" href="#group-chat-behavior">Group Chat Behavior</a></h2>
 <p>In groups, the agent:</p>
 <ul>

@@ -65,10 +65,10 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-fba88e75.js";
+            window.path_to_searchindex_js = "../searchindex-ea9e7ced.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-0aaa5745.js"></script>
+        <script src="../toc-bfb94109.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -238,6 +238,7 @@
 <tr><td><code>/evolve</code></td><td><strong>Auto-actualización</strong> — Descarga el último release y reinicia en caliente. Se ejecuta automáticamente al arrancar cuando <code>[agent] auto_update = true</code></td></tr>
 <tr><td><code>/restart</code></td><td><strong>Reinicio</strong> (v0.3.79) — Relanza el mismo binario con los mismos argumentos, así que no hay que conocer ni repetir cómo se inició. Los turnos sin terminar se reanudan automáticamente al arrancar. En la TUI reanuda la sesión actual. Solo el owner en canales; anuncia antes de actuar.</td></tr>
 <tr><td><code>/exit</code></td><td><strong>Apagado</strong> (v0.3.79) — Apaga OpenCrabs. Arrancarlo de nuevo requiere acceso a la máquina donde corre, así que este es <strong>el único comando sin retorno desde el chat</strong>. Solo el owner en canales; anuncia antes de actuar.</td></tr>
+<tr><td><code>/clear</code></td><td><strong>Session nueva</strong> (v0.5.2) — Cierra la session actual y arranca una en blanco en el mismo sitio, sin la llamada al summariser, así que es instantáneo. Solo para el owner en los channels.</td></tr>
 <tr><td><code>/btw</code></td><td><strong>Agente paralelo</strong> — Lanza un sub-agente aislado para una tarea lateral mientras la conversación principal continúa. P. ej. <code>/btw research the latest Rust async patterns</code></td></tr>
 <tr><td><code>/mission-control</code></td><td><strong>Mission Control</strong> — Panel a pantalla completa con la bandeja RSI (propuestas pendientes), log de actividad (mejoras aplicadas) y programación de cron. Navega con teclas vim, aplica/rechaza propuestas con <code>a</code>/<code>r</code>.</td></tr>
 <tr><td><code>/skills</code></td><td><strong>Selector de skills</strong> — Explora y lanza plantillas de workflow con búsqueda difusa. Cada skill cargada se auto-registra como comando slash.</td></tr>

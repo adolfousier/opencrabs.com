@@ -65,10 +65,10 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-c880ab0d.js";
+            window.path_to_searchindex_js = "../searchindex-a5097dfd.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-0aaa5745.js"></script>
+        <script src="../toc-bfb94109.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -238,6 +238,7 @@
 <tr><td><code>/evolve</code></td><td><strong>Pembaruan otomatis</strong> — mengunduh rilis terbaru dan hot-restart. Berjalan otomatis saat startup bila <code>[agent] auto_update = true</code></td></tr>
 <tr><td><code>/restart</code></td><td><strong>Restart</strong> (v0.3.79) — menjalankan ulang biner yang sama dengan argumen yang sama, jadi cara ia dulu dijalankan tidak perlu diketahui atau diulang. Giliran yang belum selesai dilanjutkan otomatis saat startup. Di TUI ia melanjutkan session saat ini. Hanya owner di channels; mengumumkan sebelum bertindak.</td></tr>
 <tr><td><code>/exit</code></td><td><strong>Shutdown</strong> (v0.3.79) — mematikan OpenCrabs. Menyalakannya lagi butuh akses ke mesin tempat ia berjalan, jadi ini <strong>satu-satunya perintah tanpa jalan kembali dari chat</strong>. Hanya owner di channels; mengumumkan sebelum bertindak.</td></tr>
+<tr><td><code>/clear</code></td><td><strong>Session baru</strong> (v0.5.2) — Menutup session saat ini dan memulai session kosong di tempatnya, tanpa panggilan summariser, jadi instan. Hanya owner di channels.</td></tr>
 <tr><td><code>/btw</code></td><td><strong>Agen paralel</strong> — memunculkan sub-agent terisolasi untuk tugas sampingan sementara percakapan utama berlanjut. Mis. <code>/btw research the latest Rust async patterns</code></td></tr>
 <tr><td><code>/mission-control</code></td><td><strong>Mission Control</strong> — dasbor layar penuh berisi kotak masuk RSI (proposal tertunda), log aktivitas (perbaikan yang diterapkan), dan jadwal cron. Navigasi dengan tombol vim, terima/tolak proposal dengan <code>a</code>/<code>r</code>.</td></tr>
 <tr><td><code>/skills</code></td><td><strong>Pemilih skills</strong> — jelajahi dan jalankan templat alur kerja dengan pencarian fuzzy. Setiap skill yang dimuat otomatis terdaftar sebagai slash command.</td></tr>

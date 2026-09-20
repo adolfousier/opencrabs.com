@@ -65,10 +65,10 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-89798ac2.js";
+            window.path_to_searchindex_js = "../searchindex-9e13cd8d.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="../toc-0aaa5745.js"></script>
+        <script src="../toc-bfb94109.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -304,9 +304,11 @@ session_idle_hours = 24.0               # idle timeout for non-owner sessions
 <p>The agent can add emoji reactions to messages. When a user reacts with an emoji, it triggers an agent turn (parity with Slack and Telegram). This enables quick, lightweight interactions without typing full messages.</p>
 <h2 id="formatting-notes"><a class="header" href="#formatting-notes">Formatting Notes</a></h2>
 <ul>
-<li>No markdown tables in Discord — use bullet lists instead</li>
+<li>Markdown tables in agent output convert to native Discord tables (v0.5.2); in your own messages, bullet lists are still the safest habit</li>
 <li>Wrap multiple links in <code>&lt;url&gt;</code> to suppress embeds</li>
 </ul>
+<h2 id="live-reply-tracing-auto-threading-native-tables-v052"><a class="header" href="#live-reply-tracing-auto-threading-native-tables-v052">Live Reply Tracing, Auto-Threading, Native Tables (v0.5.2)</a></h2>
+<p>Long turns stream as a live reply that is traced and edited in place instead of staying silent until the end. Answers that belong together are auto-threaded, and markdown tables in agent output render as native Discord tables rather than raw pipes (#1608). A dedup guard on tool turns stops the final response from double-posting content a tool summary already showed (#1603).</p>
 <h2 id="sustained-typing-indicator-v0376"><a class="header" href="#sustained-typing-indicator-v0376">Sustained Typing Indicator (v0.3.76)</a></h2>
 <p>Discord now shows a <strong>sustained typing indicator</strong> while the agent processes a request. Previously, Discord had no typing indicator at all (Telegram and Slack did). The indicator stays alive through background tasks and long tool executions, so users see “OpenCrabs is typing…” for the entire processing duration, not just the first few seconds.</p>
 

@@ -65,10 +65,10 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-fba88e75.js";
+            window.path_to_searchindex_js = "searchindex-ea9e7ced.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-0aaa5745.js"></script>
+        <script src="toc-bfb94109.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -209,7 +209,7 @@
                     <main>
                         <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
 <p><strong>OpenCrabs</strong> es un agente de orquestación de IA autoalojado y agnóstico de proveedor que funciona como un único binario Rust. Automatiza tu terminal, navegador, canales (Telegram/Discord/Slack/WhatsApp/Trello) y código base, respetando tu privacidad y manteniéndote en control.</p>
-<p><strong>8,412 tests</strong> across providers, tools, channels, TUI, self-healing, and browser automation.</p>
+<p><strong>8.852 pruebas</strong> entre providers, herramientas, channels, TUI, self-healing y automatización de browser.</p>
 <h2 id="qué-hace-diferente-a-opencrabs"><a class="header" href="#qué-hace-diferente-a-opencrabs">Qué Hace Diferente a OpenCrabs</a></h2>
 <h3 id="cero-telemetría-ni-siquiera-opt-in"><a class="header" href="#cero-telemetría-ni-siquiera-opt-in">Cero Telemetría, Ni Siquiera Opt-In</a></h3>
 <ul>
@@ -357,6 +357,24 @@
 </li>
 <li>
 <p><strong>Tokens A2A atados y config solo del owner (v0.5.1)</strong> — los tokens A2A se atan al gateway que los emitió, y config.toml/keys.toml pasan a modo exclusivo del owner, con secretos limpiados de los logs</p>
+</li>
+<li>
+<p><strong>Modo servidor ACP (v0.5.2)</strong> — <code>opencrabs acp</code> habla el Agent Client Protocol sobre stdio JSON-RPC, así que Zed, MonoCode y cualquier cliente ACP manejan el mismo brain que usan tus channels, con streaming del progreso y aprobaciones que vuelven al editor (#1540)</p>
+</li>
+<li>
+<p><strong>Navegación consciente del shadow-DOM (v0.5.2)</strong> — la resolución de selectores atraviesa shadow roots, así que la automatización alcanza web components que antes eran invisibles para las herramientas</p>
+</li>
+<li>
+<p><strong>Superficie completa de WhatsApp (v0.5.2)</strong> — notas de voz nativas, vídeo/sticker/ubicación/contacto entrantes, votos de encuestas, recuperación de presencia y media, acuses de reacción, streaming con edición en el sitio, mensajes temporales, bloqueo de contactos, fijar/reenviar/perfil, actualizaciones de estado, descubrimiento de newsletters, botones de native flow, historial por chat</p>
+</li>
+<li>
+<p><strong>Tracing en vivo y tablas nativas en Discord (v0.5.2)</strong> — los turnos largos se transmiten como una respuesta en vivo con tracing, las respuestas crean hilo automáticamente, las tablas markdown se renderizan de forma nativa y los turnos con herramientas ya no publican dos veces la respuesta final (#1603, #1608)</p>
+</li>
+<li>
+<p><strong>Temas de foro de Telegram y /clear (v0.5.2)</strong> — crear/renombrar temas de foro con vinculación de session, y /clear inicia una session nueva sin la llamada al summariser (#1585)</p>
+</li>
+<li>
+<p><strong>Presupuesto del payload del menú de comandos (v0.5.2)</strong> — setMyCommands de Telegram rechaza en silencio los cuerpos de petición por encima de ~7,8KB informando BOT_COMMANDS_TOO_MUCH; ahora las descripciones se acortan por niveles para que quepa el menú entero (#1613)</p>
 </li>
 <li>
 <p><strong>Modo de reparación doctor –fix (v0.3.83)</strong> — las filas de cron atascadas, los marcadores obsoletos y los permisos rotos se reparan al momento en vez de solo reportarse</p>
