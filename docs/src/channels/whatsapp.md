@@ -125,7 +125,7 @@ The WhatsApp channel grew to match the phone app's surface:
 - **Outbound**: native voice notes (opus), edit-in-place streaming for long replies, pin, forward, and profile actions
 - **Inbound**: video, stickers, location, contacts, reactions, and poll votes are parsed into the turn; presence events and media recovery fill gaps after reconnects
 - **Sessions**: disappearing messages honored per chat, contact blocking, per-chat history with reaction acknowledgements
-- **Surfaces**: status updates and newsletter discovery, native-flow buttons for interactive prompts
+- **Surfaces**: status updates and newsletter discovery, native-flow buttons for interactive prompts; follow-up suggestion sets that exceed the native button cap render as a poll, and a vote selects the option (#1616)
 
 ## Troubleshooting
 
