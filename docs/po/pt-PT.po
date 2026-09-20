@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OpenCrabs\n"
-"POT-Creation-Date: 2026-09-16T19:16:14+01:00\n"
+"POT-Creation-Date: 2026-09-20T22:41:16+01:00\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -125,7 +125,7 @@ msgid "Memory System"
 msgstr ""
 
 #: src/SUMMARY.md:33 src/getting-started/configuration.md:303
-#: src/brain/memory.md:161 src/brain/brain-files.md:1
+#: src/brain/memory.md:176 src/brain/brain-files.md:1
 msgid "Brain Files"
 msgstr ""
 
@@ -146,7 +146,7 @@ msgstr ""
 msgid "Dynamic Tools"
 msgstr ""
 
-#: src/SUMMARY.md:40 src/introduction.md:174 src/brain/tools.md:97
+#: src/SUMMARY.md:40 src/introduction.md:179 src/brain/tools.md:97
 #: src/features/browser.md:1
 msgid "Browser Automation"
 msgstr ""
@@ -238,7 +238,7 @@ msgstr ""
 msgid "Building from Source"
 msgstr ""
 
-#: src/SUMMARY.md:67 src/introduction.md:213 src/features/mission-control.md:71
+#: src/SUMMARY.md:67 src/introduction.md:218 src/features/mission-control.md:71
 #: src/features/mission-control.md:107 src/development/architecture.md:1
 msgid "Architecture"
 msgstr ""
@@ -273,10 +273,10 @@ msgstr ""
 
 #: src/introduction.md:5
 msgid ""
-"**8,852 tests** across providers, tools, channels, TUI, self-healing, and "
+"**9,032 tests** across providers, tools, channels, TUI, self-healing, and "
 "browser automation."
 msgstr ""
-"**8.852 testes** cobrindo providers, ferramentas, channels, TUI, self-healing e automação de browser."
+"**9,032 testes** em providers, ferramentas, channels, TUI, self-healing e automação de browser."
 
 #: src/introduction.md:7
 msgid "What Makes OpenCrabs Different"
@@ -877,7 +877,10 @@ msgid ""
 "same brain your channels use, with progress streaming and approvals round-"
 "tripping to the editor (#1540)"
 msgstr ""
-"**Modo servidor ACP (v0.5.2)** — `opencrabs acp` fala o Agent Client Protocol sobre stdio JSON-RPC, por isso o Zed, o MonoCode e qualquer cliente ACP conduzem o mesmo brain que os teus channels usam, com streaming do progresso e aprovações a voltar até ao editor (#1540)"
+"**Modo servidor ACP (v0.5.2)** — `opencrabs acp` fala o Agent Client "
+"Protocol sobre stdio JSON-RPC, por isso o Zed, o MonoCode e qualquer cliente "
+"ACP conduzem o mesmo brain que os teus channels usam, com streaming do "
+"progresso e aprovações a voltar até ao editor (#1540)"
 
 #: src/introduction.md:86
 msgid ""
@@ -885,7 +888,9 @@ msgid ""
 "roots, so automation reaches web components that used to be invisible to the "
 "tools"
 msgstr ""
-"**Navegação com consciência de shadow-DOM (v0.5.2)** — a resolução de seletores atravessa shadow roots, por isso a automação chega a web components que antes eram invisíveis para as ferramentas"
+"**Navegação com consciência de shadow-DOM (v0.5.2)** — a resolução de "
+"seletores atravessa shadow roots, por isso a automação chega a web "
+"components que antes eram invisíveis para as ferramentas"
 
 #: src/introduction.md:87
 msgid ""
@@ -895,7 +900,12 @@ msgid ""
 "forward/profile, status updates, newsletter discovery, native-flow buttons, "
 "per-chat history"
 msgstr ""
-"**Superfície completa do WhatsApp (v0.5.2)** — mensagens de voz nativas, vídeo/sticker/localização/contacto recebidos, votos em sondagens, recuperação de presença e media, confirmações de reação, streaming com edição no lugar, mensagens temporárias, bloqueio de contactos, fixar/reencaminhar/perfil, atualizações de estado, descoberta de newsletters, botões de native flow, histórico por conversa"
+"**Superfície completa do WhatsApp (v0.5.2)** — mensagens de voz nativas, "
+"vídeo/sticker/localização/contacto recebidos, votos em sondagens, "
+"recuperação de presença e media, confirmações de reação, streaming com "
+"edição no lugar, mensagens temporárias, bloqueio de contactos, fixar/"
+"reencaminhar/perfil, atualizações de estado, descoberta de newsletters, "
+"botões de native flow, histórico por conversa"
 
 #: src/introduction.md:88
 msgid ""
@@ -903,7 +913,11 @@ msgid ""
 "traced live reply, answers auto-thread, markdown tables render natively, and "
 "tool turns no longer double-post the final response (#1603, #1608)"
 msgstr ""
-"**Tracing ao vivo e tabelas nativas no Discord (v0.5.2)** — turnos longos são transmitidos como uma resposta ao vivo com tracing, as respostas criam thread automaticamente, as tabelas markdown renderizam nativamente e os turnos com ferramentas deixam de publicar a resposta final duas vezes (#1603, #1608)"
+"**Tracing ao vivo e tabelas nativas no Discord (v0.5.2)** — turnos longos "
+"são transmitidos como uma resposta ao vivo com tracing, as respostas criam "
+"thread automaticamente, as tabelas markdown renderizam nativamente e os "
+"turnos com ferramentas deixam de publicar a resposta final duas vezes "
+"(#1603, #1608)"
 
 #: src/introduction.md:89
 msgid ""
@@ -911,7 +925,9 @@ msgid ""
 "with session binding, and /clear starts a fresh session without the "
 "summariser call (#1585)"
 msgstr ""
-"**Tópicos de fórum do Telegram e /clear (v0.5.2)** — criar/renomear tópicos de fórum com ligação à session, e /clear inicia uma session nova sem a chamada ao summariser (#1585)"
+"**Tópicos de fórum do Telegram e /clear (v0.5.2)** — criar/renomear tópicos "
+"de fórum com ligação à session, e /clear inicia uma session nova sem a "
+"chamada ao summariser (#1585)"
 
 #: src/introduction.md:90
 msgid ""
@@ -919,9 +935,52 @@ msgid ""
 "rejects request bodies over ~7.8KB while reporting BOT_COMMANDS_TOO_MUCH; "
 "descriptions now shorten in tiers so the whole menu fits (#1613)"
 msgstr ""
-"**Orçamento do payload do menu de comandos (v0.5.2)** — o setMyCommands do Telegram rejeita silenciosamente corpos de pedido acima de ~7,8KB reportando BOT_COMMANDS_TOO_MUCH; as descrições passam a encurtar por níveis para o menu inteiro caber (#1613)"
+"**Orçamento do payload do menu de comandos (v0.5.2)** — o setMyCommands do "
+"Telegram rejeita silenciosamente corpos de pedido acima de ~7,8KB reportando "
+"BOT_COMMANDS_TOO_MUCH; as descrições passam a encurtar por níveis para o "
+"menu inteiro caber (#1613)"
+
+#: src/introduction.md:91
+msgid ""
+"**Trigger-gated cron (v0.5.3)** — a job runs a pre-flight check and only "
+"executes when your condition is met (non-empty output, exit code, regex), "
+"skipped runs cost 0 tokens, and a fired trigger can dispatch a goal into a "
+"session (#233)"
+msgstr ""
+"**Cron com triggers (v0.5.3)** — um job corre um pre-flight check e só executa quando a condição é satisfeita (output não vazio, exit code, regex), os runs saltados custam 0 tokens e um trigger disparado pode despachar um goal para uma session (#233)"
 
 #: src/introduction.md:92
+msgid ""
+"**First-class Windows (v0.5.3)** — platform shell handling, BOM/UTF-16 file "
+"reads, tilde and cwd fallbacks, with CI building Windows and gating PRs "
+"(#627)"
+msgstr ""
+"**Windows de primeira classe (v0.5.3)** — shell handling por plataforma, leitura de ficheiros BOM/UTF-16, fallbacks de tilde e cwd, com a CI a compilar Windows e a fazer gate aos PRs (#627)"
+
+#: src/introduction.md:93
+msgid ""
+"**Epistemic memory (v0.5.3)** — MEMORY.md facts carry confidence and decay "
+"(#1643), cold sections archive themselves, and `opencrabs memory prune` "
+"previews what went cold before touching it (#1657)"
+msgstr ""
+"**Memória epistémica (v0.5.3)** — os factos do MEMORY.md ganham confidence e decay (#1643), as secções frias arquivam-se sozinhas e o `opencrabs memory prune` mostra o que ficou frio antes de tocar em nada (#1657)"
+
+#: src/introduction.md:94
+msgid ""
+"**Finished theme engine (v0.5.3)** — every TUI widget resolves through the "
+"theme with a suite guard against new raw ANSI, and themes can declare a "
+"canvas background (#1634)"
+msgstr ""
+"**Motor de temas terminado (v0.5.3)** — todos os widgets do TUI resolvem as cores através do tema, com um guard de suite contra novos sítios de ANSI cru, e os temas podem declarar um canvas background (#1634)"
+
+#: src/introduction.md:95
+msgid ""
+"**WhatsApp suggestion polls (v0.5.3)** — follow-up option sets past the "
+"native button cap render as a poll, and a vote selects the option (#1616)"
+msgstr ""
+"**Polls de sugestões no WhatsApp (v0.5.3)** — conjuntos de follow-ups além do limite nativo de botões renderizam como poll, e um voto seleciona a opção (#1616)"
+
+#: src/introduction.md:97
 msgid ""
 "**doctor --fix repair mode (v0.3.83)** — stuck cron rows, stale markers and "
 "broken permissions are repaired on the spot instead of only reported"
@@ -930,7 +989,7 @@ msgstr ""
 "markers obsoletos e permissões partidas são reparados no momento em vez de "
 "apenas reportados"
 
-#: src/introduction.md:93
+#: src/introduction.md:98
 msgid ""
 "**Per-path write locks (v0.3.83)** — concurrent writes to the same file "
 "serialize; the last writer no longer silently wins"
@@ -939,7 +998,7 @@ msgstr ""
 "ficheiro são serializadas; o último a escrever deixa de ganhar "
 "silenciosamente"
 
-#: src/introduction.md:94
+#: src/introduction.md:99
 msgid ""
 "**Sub-agent worktree isolation (v0.3.83)** — each child agent gets its own "
 "worktree and branch, so a fan-out cannot clobber the shared tree"
@@ -948,7 +1007,7 @@ msgstr ""
 "recebe o seu próprio worktree e branch, pelo que um fan-out não consegue "
 "destruir a árvore partilhada"
 
-#: src/introduction.md:95
+#: src/introduction.md:100
 msgid ""
 "**Type-aware acceptance criteria (v0.3.83)** — plan criteria are enforced "
 "against the toolchain the project actually uses (#1133)"
@@ -956,7 +1015,7 @@ msgstr ""
 "**Critérios de aceitação com noção de tipo (v0.3.83)** — os critérios do "
 "plano são aplicados contra a toolchain que o projeto realmente usa (#1133)"
 
-#: src/introduction.md:96
+#: src/introduction.md:101
 msgid ""
 "**Project-aware plan verification (v0.3.83)** — plans verify with the "
 "project's own commands, not always cargo, and find the project from the "
@@ -966,7 +1025,7 @@ msgstr ""
 "verificam com os comandos do próprio projeto, não sempre cargo, e encontram "
 "o projeto a partir da pasta da session"
 
-#: src/introduction.md:97
+#: src/introduction.md:102
 msgid ""
 "**/stop cancels immediately (v0.3.83)** — interrupts during provider "
 "handshake and retry backoffs (#1148)"
@@ -974,7 +1033,7 @@ msgstr ""
 "**/stop cancela imediatamente (v0.3.83)** — interrompe durante o handshake "
 "do provider e os backoffs de retry (#1148)"
 
-#: src/introduction.md:98
+#: src/introduction.md:103
 msgid ""
 "**A2A session resume (v0.3.83)** — sessions resume by context id, the "
 "gateway is profile-addressed (#1159, #1161)"
@@ -982,7 +1041,7 @@ msgstr ""
 "**Retoma de sessions A2A (v0.3.83)** — as sessions retomam por context id, o "
 "gateway é endereçado por profile (#1159, #1161)"
 
-#: src/introduction.md:99
+#: src/introduction.md:104
 msgid ""
 "**DeepSeek thinking knobs (v0.3.83)** — DeepSeek gets the thinking "
 "parameters it actually reads, plus tool-call-only turn handling"
@@ -991,7 +1050,7 @@ msgstr ""
 "parâmetros de thinking que realmente lê, mais tratamento de turns só de tool-"
 "call"
 
-#: src/introduction.md:100
+#: src/introduction.md:105
 msgid ""
 "**session_id log correlation (v0.3.82)** — every turn opens a tracing span "
 "carrying its session id, and cron jobs and the RSI engine get their own, so "
@@ -1002,7 +1061,7 @@ msgstr ""
 "próprios, pelo que um único grep reconstrói um turn inteiro a partir de um "
 "log diário partilhado"
 
-#: src/introduction.md:101
+#: src/introduction.md:106
 msgid ""
 "**Logger reliability (v0.3.82)** — the logger stops dropping events and "
 "stops writing to the TUI's terminal; a stalled write can no longer silence "
@@ -1012,7 +1071,7 @@ msgstr ""
 "deixa de escrever no terminal do TUI; uma escrita travada deixa de silenciar "
 "o logging de todas as outras threads"
 
-#: src/introduction.md:102
+#: src/introduction.md:107
 msgid ""
 "**User-owned brain files protected (v0.3.82)** — SOUL.md, USER.md and "
 "MEMORY.md are never merged into from upstream, and directives route to "
@@ -1022,7 +1081,7 @@ msgstr ""
 "e MEMORY.md nunca recebem merges do upstream, e as diretivas são "
 "encaminhadas para o AGENTS.md, que está sempre carregado"
 
-#: src/introduction.md:103
+#: src/introduction.md:108
 msgid ""
 "**Config section unification (v0.3.82)** — the legacy `[gateway]` spelling "
 "is migrated on disk to `[a2a]`, so one name survives a reload round trip"
@@ -1031,7 +1090,7 @@ msgstr ""
 "é migrada em disco para `[a2a]`, pelo que um nome sobrevive a um ciclo de "
 "reload"
 
-#: src/introduction.md:104
+#: src/introduction.md:109
 msgid ""
 "**Chunk-hash caching (v0.3.82)** — memory skips re-embedding chunks whose "
 "content has not changed"
@@ -1039,7 +1098,7 @@ msgstr ""
 "**Cache por hash de chunk (v0.3.82)** — a memória salta o re-embedding de "
 "chunks cujo conteúdo não mudou"
 
-#: src/introduction.md:105
+#: src/introduction.md:110
 msgid ""
 "**Pre-release binaries (v0.3.82)** — five platform targets plus SHA256SUMS, "
 "published as a rolling pre-release so contributors can test unreleased code "
@@ -1050,7 +1109,7 @@ msgstr ""
 "testem código por lançar sem esperar por uma tag. Corre a pedido, não em "
 "cada push"
 
-#: src/introduction.md:106
+#: src/introduction.md:111
 msgid ""
 "**Rate-limit bail (v0.3.82)** — a long Telegram rate-limit window returns "
 "immediately instead of parking the send inline"
@@ -1058,7 +1117,7 @@ msgstr ""
 "**Abandono em rate-limit (v0.3.82)** — uma janela longa de rate-limit do "
 "Telegram devolve imediatamente em vez de estacionar o envio em linha"
 
-#: src/introduction.md:107
+#: src/introduction.md:112
 msgid ""
 "**In-tree memory store (v0.3.81)** — the qmd dependency is dropped; SQLite "
 "FTS5 + vector search owned in-tree"
@@ -1066,7 +1125,7 @@ msgstr ""
 "**Store de memória in-tree (v0.3.81)** — a dependência qmd foi removida; "
 "pesquisa vetorial + SQLite FTS5 mantida in-tree"
 
-#: src/introduction.md:108
+#: src/introduction.md:113
 msgid ""
 "**External index paths (v0.3.81)** — memory search reads indexes outside the "
 "profile directory, default-deny in shared sessions"
@@ -1076,7 +1135,7 @@ msgstr ""
 "de índice externos (v0.3.81)** — a pesquisa de memória l�� índices fora do "
 "diretório do profile, default-deny em sessions partilhadas"
 
-#: src/introduction.md:109
+#: src/introduction.md:114
 msgid ""
 "**Mermaid as images on Telegram (v0.3.81)** — diagrams render as images "
 "while tables stay native formatting"
@@ -1084,7 +1143,7 @@ msgstr ""
 "**Mermaid como imagens no Telegram (v0.3.81)** — os diagramas renderizam "
 "como imagens enquanto as tabelas mantêm a formatação nativa"
 
-#: src/introduction.md:110
+#: src/introduction.md:115
 msgid ""
 "**Qwen reasoning across turns (v0.3.81)** — preserve_thinking, family-gated "
 "thinking knobs, recommended effort tier by default, hosted Qwen reachable "
@@ -1094,7 +1153,7 @@ msgstr ""
 "thinking gated por família, nível de esforço recomendado por defeito, Qwen "
 "hospedado acessível em todo o lado"
 
-#: src/introduction.md:111
+#: src/introduction.md:116
 msgid ""
 "**keys.toml key-loss fix (v0.3.81)** — provider API keys no longer dropped "
 "at runtime; poisoned keys self-heal"
@@ -1103,7 +1162,7 @@ msgstr ""
 "dos providers deixam de se perder em runtime; chaves envenenadas "
 "autorrecuperam-se"
 
-#: src/introduction.md:112
+#: src/introduction.md:117
 msgid ""
 "**Early loop detection (v0.3.81)** — repeating tool rounds caught before the "
 "provider rejects the turn"
@@ -1111,7 +1170,7 @@ msgstr ""
 "**Deteção precoce de loops (v0.3.81)** — rondas de ferramentas repetitivas "
 "apanhadas antes de o provider rejeitar o turn"
 
-#: src/introduction.md:113
+#: src/introduction.md:118
 msgid ""
 "**RSI engine gate (v0.3.81)** — autonomous RSI off by default for headless "
 "daemons, opt in with `rsi_enabled`"
@@ -1119,7 +1178,7 @@ msgstr ""
 "**Gate do motor RSI (v0.3.81)** — RSI autónomo desligado por defeito para "
 "daemons headless, ativa com `rsi_enabled`"
 
-#: src/introduction.md:114
+#: src/introduction.md:119
 msgid ""
 "**memory_search scope (v0.3.80)** — search daily logs (`memory`), brain "
 "files (`brain`), or both (`all`); brain files are indexed on write"
@@ -1128,7 +1187,7 @@ msgstr ""
 "os ficheiros brain (`brain`) ou ambos (`all`); os ficheiros brain são "
 "indexados no momento da escrita"
 
-#: src/introduction.md:115
+#: src/introduction.md:120
 msgid ""
 "**Chunked memory retrieval (v0.3.80)** — documents chunked before embedding "
 "so later chunks are searchable; recall ranked with BM25"
@@ -1137,7 +1196,7 @@ msgstr ""
 "chunks antes do embedding para que chunks posteriores sejam pesquisáveis; "
 "recall ordenado com BM25"
 
-#: src/introduction.md:116
+#: src/introduction.md:121
 msgid ""
 "**Slack-native rendering (v0.3.80)** — tables and headings arrive in Slack's "
 "own shape instead of raw markdown"
@@ -1145,7 +1204,7 @@ msgstr ""
 "**Renderização nativa do Slack (v0.3.80)** — tabelas e títulos chegam na "
 "própria forma do Slack em vez de markdown cru"
 
-#: src/introduction.md:117
+#: src/introduction.md:122
 msgid ""
 "**Owner-gated channel commands (v0.3.80)** — custom commands and skills are "
 "owner-only on the channel catch-all arm in groups"
@@ -1153,7 +1212,7 @@ msgstr ""
 "**Comandos de channel reservados ao owner (v0.3.80)** — comandos e skills "
 "personalizados são só do owner no braço catch-all dos channels em grupos"
 
-#: src/introduction.md:118
+#: src/introduction.md:123
 msgid ""
 "**RSI convergence gates (v0.3.80)** — self-improvement pauses on "
 "convergence, backs off on zero-improvement streaks, hashes findings by "
@@ -1163,7 +1222,7 @@ msgstr ""
 "convergência, recua em sequências de zero melhorias, faz hash dos achados "
 "por identidade estável"
 
-#: src/introduction.md:119
+#: src/introduction.md:124
 msgid ""
 "**Loop guards (v0.3.80)** — announcement and near-match repetition guards on "
 "all tools; loop-detector kills reach the fallback chain"
@@ -1172,7 +1231,7 @@ msgstr ""
 "correspondências em todas as ferramentas; kills do detetor de loop chegam à "
 "cadeia de fallback"
 
-#: src/introduction.md:120
+#: src/introduction.md:125
 msgid ""
 "**Browser inventory mode (v0.3.80)** — bare `browser_find` enumerates every "
 "clickable element on the page"
@@ -1180,7 +1239,7 @@ msgstr ""
 "**Modo de inventário do browser (v0.3.80)** — o `browser_find` nu enumera "
 "todos os elementos clicáveis na página"
 
-#: src/introduction.md:121
+#: src/introduction.md:126
 msgid ""
 "**Brain-file template updates (v0.3.80)** — AGENTS.md, BOOT.md, and SOUL.md "
 "templates changed; seeding never overwrites existing files, so diff against "
@@ -1192,7 +1251,7 @@ msgstr ""
 "existentes, por isso faz diff contra `src/docs/reference/templates/` e faz "
 "merge à mão se quiseres os novos defeitos"
 
-#: src/introduction.md:122
+#: src/introduction.md:127
 msgid ""
 "**System brain rebuild** — brain files rebuilt from disk when changed, no "
 "restart needed"
@@ -1200,7 +1259,7 @@ msgstr ""
 "**Reconstrução do brain de sistema** — ficheiros brain reconstruídos a "
 "partir do disco quando mudam, sem reinício"
 
-#: src/introduction.md:123
+#: src/introduction.md:128
 msgid ""
 "**Proactive tool discovery** — searches for available tools before claiming "
 "inability"
@@ -1208,7 +1267,7 @@ msgstr ""
 "**Descoberta proativa de ferramentas** — pesquisa ferramentas disponíveis "
 "antes de alegar incapacidade"
 
-#: src/introduction.md:124
+#: src/introduction.md:129
 msgid ""
 "**Multilanguage prompt analyzer (v0.3.67)** — shared PromptAnalyzer with "
 "soft-nudge on TUI and Telegram, 6 language packs (EN/ES/FR/ID/PT/RU)"
@@ -1216,7 +1275,7 @@ msgstr ""
 "**Analisador de prompts multilingue (v0.3.67)** — PromptAnalyzer partilhado "
 "com soft-nudge no TUI e Telegram, 6 packs de idioma (EN/ES/FR/ID/PT/RU)"
 
-#: src/introduction.md:125
+#: src/introduction.md:130
 msgid ""
 "**Plan mode (v0.3.67-v0.3.68)** — design/checklist tracks, persistent plan "
 "card, `/plan <query>` command, agent self-approval when user grants autonomy"
@@ -1225,7 +1284,7 @@ msgstr ""
 "plano persistente, comando `/plan <query>`, auto-aprovação do agente quando "
 "o utilizador concede autonomia"
 
-#: src/introduction.md:126
+#: src/introduction.md:131
 msgid ""
 "**Click-to-expand (v0.3.69)** — left-click a tool-call or reasoning block to "
 "expand just that block, complementing Ctrl+O"
@@ -1233,7 +1292,7 @@ msgstr ""
 "**Clique-para-expandir (v0.3.69)** — clique esquerdo num bloco de tool-call "
 "ou reasoning para expandir só esse bloco, a complementar o Ctrl+O"
 
-#: src/introduction.md:127
+#: src/introduction.md:132
 msgid ""
 "**Skills review_gate (v0.3.70)** — frontmatter declaration for high-stakes "
 "skills that require user approval before side effects"
@@ -1241,7 +1300,7 @@ msgstr ""
 "**review_gate de skills (v0.3.70)** — declaração no frontmatter para skills "
 "críticas que exigem aprovação do utilizador antes de efeitos secundários"
 
-#: src/introduction.md:128
+#: src/introduction.md:133
 msgid ""
 "**JIT tool activation** — extended tools activated on-demand, no pre-"
 "registration needed"
@@ -1249,7 +1308,7 @@ msgstr ""
 "**Ativação JIT de ferramentas** — ferramentas estendidas ativadas a pedido, "
 "sem pré-registo"
 
-#: src/introduction.md:129
+#: src/introduction.md:134
 msgid ""
 "**Config auto-repair** — auto-repair broken config.toml, never poison last-"
 "good config"
@@ -1257,7 +1316,7 @@ msgstr ""
 "**Auto-reparação da config** — repara automaticamente um config.toml "
 "partido, nunca envenena a última config boa"
 
-#: src/introduction.md:130
+#: src/introduction.md:135
 msgid ""
 "**Context budget management** — 65% soft / 90% hard compaction thresholds "
 "with LLM fallback"
@@ -1265,7 +1324,7 @@ msgstr ""
 "**Gestão do orçamento de contexto** — limiares de compaction de 65% suave / "
 "90% rígido com fallback LLM"
 
-#: src/introduction.md:131
+#: src/introduction.md:136
 msgid ""
 "**Stuck stream detection** — 2048-byte rolling window catches repeating "
 "patterns"
@@ -1273,13 +1332,13 @@ msgstr ""
 "**Deteção de streams presas** — janela deslizante de 2048 bytes apanha "
 "padrões repetitivos"
 
-#: src/introduction.md:132
+#: src/introduction.md:137
 msgid "**Gaslighting defense** — strips tool-refusal preambles mid-turn"
 msgstr ""
 "**Defesa contra gaslighting** — remove preâmbulos de recusa de ferramentas a "
 "meio do turn"
 
-#: src/introduction.md:133
+#: src/introduction.md:138
 msgid ""
 "**Deliver build outcomes (v0.3.61)** — rebuild/evolve results reach whoever "
 "asked, across channels and TUI"
@@ -1287,11 +1346,11 @@ msgstr ""
 "**Entrega de resultados de build (v0.3.61)** — os resultados de rebuild/"
 "evolve chegam a quem pediu, através de channels e TUI"
 
-#: src/introduction.md:135
+#: src/introduction.md:140
 msgid "Terminal UI"
 msgstr "Interface de Terminal (TUI)"
 
-#: src/introduction.md:136
+#: src/introduction.md:141
 msgid ""
 "**Native markdown rendering** — emphasis, lists, links, and task items "
 "render directly in the terminal"
@@ -1299,7 +1358,7 @@ msgstr ""
 "**Renderização nativa de markdown** — ênfase, listas, links e itens de "
 "tarefa renderizam diretamente no terminal"
 
-#: src/introduction.md:137
+#: src/introduction.md:142
 msgid ""
 "**Real-time tok/s throughput meter** — live tokens-per-second during "
 "streaming"
@@ -1307,7 +1366,7 @@ msgstr ""
 "**Medidor de tok/s em tempo real** — tokens por segundo em direto durante o "
 "streaming"
 
-#: src/introduction.md:138
+#: src/introduction.md:143
 msgid ""
 "**Version display (v0.3.73)** — show the running version on the TUI header "
 "and in channel /help + /usage"
@@ -1315,7 +1374,7 @@ msgstr ""
 "**Exibição da versão (v0.3.73)** — mostra a versão em execução no cabeçalho "
 "do TUI e no /help + /usage dos channels"
 
-#: src/introduction.md:139
+#: src/introduction.md:144
 msgid ""
 "**3-state reasoning expand (v0.3.74)** — click or Ctrl+O cycles a reasoning "
 "block collapsed → capped → full, so it never floods the view"
@@ -1324,7 +1383,7 @@ msgstr ""
 "um bloco de reasoning colapsado → limitado → completo, para nunca inundar a "
 "vista"
 
-#: src/introduction.md:140
+#: src/introduction.md:145
 msgid ""
 "**Per-turn headers (v0.3.75)** — every turn gets a one-line summary header, "
 "its working-out folds into it, and turns fold by default so the view stays "
@@ -1334,7 +1393,7 @@ msgstr ""
 "de uma linha, o raciocínio enrola-se nele, e os turns vêm dobrados por "
 "defeito para a vista se manter limpa"
 
-#: src/introduction.md:141
+#: src/introduction.md:146
 msgid ""
 "**Group tool calls (v0.3.61)** — consecutive tool calls collapse into one "
 "expandable block, keeping the TUI clean during multi-step operations"
@@ -1343,7 +1402,7 @@ msgstr ""
 "consecutivas colapsam num único bloco expansível, mantendo o TUI limpo em "
 "operações multi-passo"
 
-#: src/introduction.md:142
+#: src/introduction.md:147
 msgid ""
 "**Fold intermediate text (v0.3.61)** — intermediate processing text folds "
 "into the same in-place log as tool calls, so only the final answer stays "
@@ -1353,20 +1412,20 @@ msgstr ""
 "dobra-se no mesmo log in-place das tool calls, pelo que só a resposta final "
 "fica visível"
 
-#: src/introduction.md:143
+#: src/introduction.md:148
 msgid ""
 "**Session search** — search filter + viewport scroll across all sessions"
 msgstr ""
 "**Pesquisa de sessions** — filtro de pesquisa + scroll no viewport por todas "
 "as sessions"
 
-#: src/introduction.md:144
+#: src/introduction.md:149
 msgid "**Split panes** — tmux-style parallel sessions with layout persistence"
 msgstr ""
 "**Painéis divididos** — sessions paralelas ao estilo tmux com persistência "
 "de layout"
 
-#: src/introduction.md:145
+#: src/introduction.md:150
 msgid ""
 "**Clipboard image paste** — paste images from browser or any app directly "
 "into TUI"
@@ -1374,19 +1433,19 @@ msgstr ""
 "**Colar imagens da clipboard** — cola imagens do browser ou de qualquer app "
 "diretamente no TUI"
 
-#: src/introduction.md:146
+#: src/introduction.md:151
 msgid "**Plan pinning** — active plan pinned at end of prompt each turn"
 msgstr ""
 "**Afixar o plano** — o plano ativo é afixado no fim do prompt a cada turn"
 
-#: src/introduction.md:147
+#: src/introduction.md:152
 msgid ""
 "**Agent-driven onboarding** — personalized first-time setup with guided flow"
 msgstr ""
 "**Onboarding orientado pelo agente** — configuração inicial personalizada "
 "com fluxo guiado"
 
-#: src/introduction.md:148
+#: src/introduction.md:153
 msgid ""
 "**`/goal` autonomous loop** — set a goal and the agent loops until an LLM "
 "judge says it's done, with pause/resume/status controls"
@@ -1394,7 +1453,7 @@ msgstr ""
 "**Loop autónomo `/goal`** — define um objetivo e o agente entra em loop até "
 "um juiz LLM dizer que está feito, com controlos pause/resume/status"
 
-#: src/introduction.md:149
+#: src/introduction.md:154
 msgid ""
 "**Self-goaling (v0.3.61)** — agent can set and drive its own multi-turn "
 "goals via `goal_manage` tool without user invoking `/goal`"
@@ -1403,11 +1462,11 @@ msgstr ""
 "próprios objetivos multi-turn via ferramenta `goal_manage` sem o utilizador "
 "invocar `/goal`"
 
-#: src/introduction.md:151
+#: src/introduction.md:156
 msgid "Developer Experience"
 msgstr "Experiência de Desenvolvimento"
 
-#: src/introduction.md:152
+#: src/introduction.md:157
 msgid ""
 "**50+ built-in tools** — file ops, bash, web search, code execution, browser "
 "automation, image gen, voice, PDF rendering"
@@ -1416,7 +1475,7 @@ msgstr ""
 "pesquisa web, execução de código, automação de browser, geração de imagens, "
 "voz, renderização de PDF"
 
-#: src/introduction.md:153
+#: src/introduction.md:158
 msgid ""
 "**Unified parallel web search (v0.3.73)** — web_search, exa_search, and "
 "brave_search fan out in parallel under a single web_search tool"
@@ -1424,7 +1483,7 @@ msgstr ""
 "**Pesquisa web paralela unificada (v0.3.73)** — web_search, exa_search e "
 "brave_search dispersam em paralelo sob uma única ferramenta web_search"
 
-#: src/introduction.md:154
+#: src/introduction.md:159
 msgid ""
 "**web_scrape** — native URL-to-markdown scraping with SSRF protection, "
 "sitemap crawling, JS-shell detection, and profile-aware export"
@@ -1432,7 +1491,7 @@ msgstr ""
 "**web_scrape** — scraping nativo de URL para markdown com proteção SSRF, "
 "rastreio de sitemaps, deteção de JS-shell e export com noção de profile"
 
-#: src/introduction.md:155
+#: src/introduction.md:160
 msgid ""
 "**DDG captcha detection (v0.3.73)** — detect DuckDuckGo captcha via HTTP 202 "
 "+ structural form check"
@@ -1440,7 +1499,7 @@ msgstr ""
 "**Deteção de captcha DDG (v0.3.73)** — deteta captcha do DuckDuckGo via HTTP "
 "202 + verificação estrutural de formulário"
 
-#: src/introduction.md:156
+#: src/introduction.md:161
 msgid ""
 "**Built-in /github skill** — full gh CLI control for issues, PRs, code "
 "reviews, repo management"
@@ -1448,14 +1507,14 @@ msgstr ""
 "**Skill /github integrada** — controlo total do gh CLI para issues, PRs, "
 "code reviews, gestão de repos"
 
-#: src/introduction.md:157
+#: src/introduction.md:162
 msgid ""
 "**Proactive tool discovery** — agent finds tools before saying \"I can't\""
 msgstr ""
 "**Descoberta proativa de ferramentas** — o agente encontra ferramentas antes "
 "de dizer \"não consigo\""
 
-#: src/introduction.md:158
+#: src/introduction.md:163
 msgid ""
 "**Skills system** — workflow templates with fuzzy-finding, auto-registered "
 "as slash commands"
@@ -1463,13 +1522,13 @@ msgstr ""
 "**Sistema de skills** — templates de workflow com fuzzy-finding, registadas "
 "automaticamente como slash commands"
 
-#: src/introduction.md:159
+#: src/introduction.md:164
 msgid "**Dynamic tools** — runtime-defined via TOML (HTTP + shell executors)"
 msgstr ""
 "**Ferramentas dinâmicas** — definidas em runtime via TOML (executores HTTP + "
 "shell)"
 
-#: src/introduction.md:160
+#: src/introduction.md:165
 msgid ""
 "**Projects system** — dedicated sessions with per-project brain overlays, "
 "file archiving, and color badges"
@@ -1477,7 +1536,7 @@ msgstr ""
 "**Sistema de projetos** — sessions dedicadas com overlays de brain por "
 "projeto, arquivo de ficheiros e badges de cor"
 
-#: src/introduction.md:161
+#: src/introduction.md:166
 msgid ""
 "**Hashline editing** — hash-anchored file editing with batch support and "
 "collision detection"
@@ -1485,7 +1544,7 @@ msgstr ""
 "**Edição hashline** — edição de ficheiros ancorada por hash com suporte de "
 "lote e deteção de colisões"
 
-#: src/introduction.md:162
+#: src/introduction.md:167
 msgid ""
 "**Mission Control** — full-screen dashboard with RSI inbox, activity log, "
 "and cron schedule"
@@ -1493,7 +1552,7 @@ msgstr ""
 "**Mission Control** — dashboard de ecrã inteiro com inbox RSI, log de "
 "atividade e agenda de cron"
 
-#: src/introduction.md:163
+#: src/introduction.md:168
 msgid ""
 "**RTK auto-download** — bundled 4MB proxy for 53.5% token savings on 100+ "
 "commands"
@@ -1501,7 +1560,7 @@ msgstr ""
 "**RTK auto-download** — proxy de 4MB incluído para 53.5% de poupança de "
 "tokens em mais de 100 comandos"
 
-#: src/introduction.md:164
+#: src/introduction.md:169
 msgid ""
 "**Confidential file protection** — SSH keys, .env, credentials protected by "
 "default"
@@ -1509,14 +1568,14 @@ msgstr ""
 "**Proteção de ficheiros confidenciais** — chaves SSH, .env, credenciais "
 "protegidas por defeito"
 
-#: src/introduction.md:165
+#: src/introduction.md:170
 msgid ""
 "**AGENTS always-loaded** — hard rules and governance enforced every turn"
 msgstr ""
 "**AGENTS sempre carregado** — regras rígidas e governança aplicadas a cada "
 "turn"
 
-#: src/introduction.md:166 src/introduction.md:169
+#: src/introduction.md:171 src/introduction.md:174
 msgid ""
 "**Config-driven debug_logs (v0.3.71)** — toggle debug logs with hot-reload, "
 "no restart needed"
@@ -1524,7 +1583,7 @@ msgstr ""
 "**debug_logs orientado por config (v0.3.71)** — alterna logs de debug com "
 "hot-reload, sem reinício"
 
-#: src/introduction.md:167 src/introduction.md:168
+#: src/introduction.md:172 src/introduction.md:173
 msgid ""
 "**Secret redaction scope (v0.3.71)** — scope redaction to global/group/DM "
 "with `/redact` command"
@@ -1532,14 +1591,14 @@ msgstr ""
 "**Âmbito de redação de segredos (v0.3.71)** — limita a redação a global/"
 "grupo/DM com o comando `/redact`"
 
-#: src/introduction.md:170
+#: src/introduction.md:175
 msgid ""
 "**Tmux watchdog (v0.3.71)** — pane-only kill, 30s warning, auto-reattach"
 msgstr ""
 "**Watchdog de tmux (v0.3.71)** — kill só do painel, aviso de 30s, re-"
 "anexação automática"
 
-#: src/introduction.md:171
+#: src/introduction.md:176
 msgid ""
 "**Plan-gate three-state (v0.3.71)** — GateDecision with bash going to "
 "approval in post-init Editing"
@@ -1547,7 +1606,7 @@ msgstr ""
 "**Plan-gate de três estados (v0.3.71)** — GateDecision com bash a ir para "
 "aprovação no Editing pós-init"
 
-#: src/introduction.md:172
+#: src/introduction.md:177
 msgid ""
 "**MCP-style ToolHints (v0.3.71)** — risk model for tool classification, "
 "drives plan gate"
@@ -1555,7 +1614,7 @@ msgstr ""
 "**ToolHints ao estilo MCP (v0.3.71)** — modelo de risco para classificação "
 "de ferramentas, alimenta o plan gate"
 
-#: src/introduction.md:175
+#: src/introduction.md:180
 msgid ""
 "**Full CDP support** — navigate, click, type, screenshot, JS eval, find "
 "elements"
@@ -1563,24 +1622,24 @@ msgstr ""
 "**Suporte CDP total** — navegar, clicar, escrever, screenshot, avaliar JS, "
 "encontrar elementos"
 
-#: src/introduction.md:176
+#: src/introduction.md:181
 msgid "**Headless or headed** mode with element-specific screenshots"
 msgstr "Modo **headless ou headed** com screenshots específicas por elemento"
 
-#: src/introduction.md:177
+#: src/introduction.md:182
 msgid "**Cookie/session persistence** across browser sessions"
 msgstr "**Persistência de cookies/sessions** entre sessions de browser"
 
-#: src/introduction.md:178
+#: src/introduction.md:183
 msgid "**Per-session tab isolation** — no cross-session DOM stomping"
 msgstr ""
 "**Isolamento de separadores por session** — sem pisões de DOM entre sessions"
 
-#: src/introduction.md:180
+#: src/introduction.md:185
 msgid "Project Directive Discovery (v0.3.59)"
 msgstr "Descoberta de Diretivas de Projeto (v0.3.59)"
 
-#: src/introduction.md:182
+#: src/introduction.md:187
 msgid ""
 "OpenCrabs auto-discovers rule files that other AI coding tools drop in a "
 "repo. Point the agent at any repository (via `/cd`, a channel workspace, or "
@@ -1595,81 +1654,81 @@ msgstr ""
 "Windsurf, Cline, Gemini CLI, GitHub Copilot, OpenCode e o standard entre "
 "ferramentas `AGENTS.md`. Sem config, sem passo de importação."
 
-#: src/introduction.md:184 src/getting-started/onboarding.md:134
+#: src/introduction.md:189 src/getting-started/onboarding.md:134
 #: src/features/themes.md:56
 msgid "Source"
 msgstr "Origem"
 
-#: src/introduction.md:184
+#: src/introduction.md:189
 msgid "Files"
 msgstr "Ficheiros"
 
-#: src/introduction.md:186
+#: src/introduction.md:191
 msgid "Cross-tool standard"
 msgstr "Standard entre ferramentas"
 
-#: src/introduction.md:186 src/features/self-improvement.md:93
+#: src/introduction.md:191 src/features/self-improvement.md:93
 msgid "`AGENTS.md`"
 msgstr ""
 
-#: src/introduction.md:187
+#: src/introduction.md:192
 msgid "Claude Code"
 msgstr ""
 
-#: src/introduction.md:187
+#: src/introduction.md:192
 msgid ""
 "`CLAUDE.md`, `CLAUDE.local.md`, `.claude/CLAUDE.md`, `.claude/rules/**/*.md`"
 msgstr ""
 
-#: src/introduction.md:188
+#: src/introduction.md:193
 msgid "Cursor"
 msgstr ""
 
-#: src/introduction.md:188
+#: src/introduction.md:193
 msgid "`.cursorrules`, `.cursor/rules/**/*.mdc`"
 msgstr ""
 
-#: src/introduction.md:189
+#: src/introduction.md:194
 msgid "Windsurf"
 msgstr ""
 
-#: src/introduction.md:189
+#: src/introduction.md:194
 msgid "`.windsurfrules`"
 msgstr ""
 
-#: src/introduction.md:190
+#: src/introduction.md:195
 msgid "Cline"
 msgstr ""
 
-#: src/introduction.md:190
+#: src/introduction.md:195
 msgid "`.clinerules` (file or `.clinerules/**/*.{md,txt}`)"
 msgstr ""
 
-#: src/introduction.md:191
+#: src/introduction.md:196
 msgid "Gemini CLI"
 msgstr ""
 
-#: src/introduction.md:191
+#: src/introduction.md:196
 msgid "`GEMINI.md`"
 msgstr ""
 
-#: src/introduction.md:192 src/brain/providers.md:175
+#: src/introduction.md:197 src/brain/providers.md:175
 msgid "GitHub Copilot"
 msgstr ""
 
-#: src/introduction.md:192
+#: src/introduction.md:197
 msgid "`.github/copilot-instructions.md`"
 msgstr ""
 
-#: src/introduction.md:193
+#: src/introduction.md:198
 msgid "OpenCode"
 msgstr ""
 
-#: src/introduction.md:193
+#: src/introduction.md:198
 msgid "`.opencode/AGENTS.md`"
 msgstr ""
 
-#: src/introduction.md:195
+#: src/introduction.md:200
 msgid ""
 "The index rebuilds when you `/cd` into a new directory, so directive files "
 "are always current."
@@ -1677,23 +1736,23 @@ msgstr ""
 "O índice reconstrói-se quando fazes `/cd` para um novo diretório, pelo que "
 "os ficheiros de diretivas estão sempre atualizados."
 
-#: src/introduction.md:197
+#: src/introduction.md:202
 msgid "Quick Start"
 msgstr "Início Rápido"
 
-#: src/introduction.md:200
+#: src/introduction.md:205
 msgid "# Install (Linux/macOS)\n"
 msgstr "# Instalar (Linux/macOS)\n"
 
-#: src/introduction.md:201
+#: src/introduction.md:206
 msgid "$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/')"
 msgstr ""
 
-#: src/introduction.md:202
+#: src/introduction.md:207
 msgid "$(uname -s | tr A-Z a-z)"
 msgstr ""
 
-#: src/introduction.md:203
+#: src/introduction.md:208
 msgid ""
 "$(command -v jq >/dev/null 2>&1 && curl -s https://api.github.com/repos/"
 "adolfousier/opencrabs/releases/latest | jq -r .tag_name || curl -s https://"
@@ -1701,17 +1760,17 @@ msgid ""
 "'\"tag_name\":\"[^\"]*\"' | cut -d'\"' -f4)"
 msgstr ""
 
-#: src/introduction.md:204
+#: src/introduction.md:209
 msgid ""
 "\"https://github.com/adolfousier/opencrabs/releases/download/${TAG}/"
 "opencrabs-${TAG}-${OS}-${ARCH}.tar.gz\""
 msgstr ""
 
-#: src/introduction.md:206
+#: src/introduction.md:211
 msgid "# Or via Cargo (requires Rust 1.94+)\n"
 msgstr "# Ou via Cargo (requer Rust 1.94+)\n"
 
-#: src/introduction.md:211
+#: src/introduction.md:216
 msgid ""
 "Auto-update enabled by default. Disable with `[agent] auto_update = false` "
 "in `~/.opencrabs/config.toml`."
@@ -1719,48 +1778,48 @@ msgstr ""
 "Auto-update ativado por defeito. Desativa com `[agent] auto_update = false` "
 "em `~/.opencrabs/config.toml`."
 
-#: src/introduction.md:258
+#: src/introduction.md:263
 msgid "Next Steps"
 msgstr "Próximos Passos"
 
-#: src/introduction.md:260
+#: src/introduction.md:265
 msgid "[Installation](getting-started/installation.md) — Install and configure"
 msgstr "[Instalação](getting-started/installation.md) — Instalar e configurar"
 
-#: src/introduction.md:261
+#: src/introduction.md:266
 msgid "[Configuration](getting-started/configuration.md) — All config options"
 msgstr ""
 "[Configuração](getting-started/configuration.md) — Tod as opções de config"
 
-#: src/introduction.md:262
+#: src/introduction.md:267
 msgid "[Providers](brain/providers-overview.md) — Connect your LLM backends"
 msgstr "[Providers](brain/providers-overview.md) — Liga os teus backends LLM"
 
-#: src/introduction.md:263
+#: src/introduction.md:268
 msgid "[Channels](channels/overview.md) — Connect Telegram, Discord, etc."
 msgstr "[Channels](channels/overview.md) — Liga Telegram, Discord, etc."
 
-#: src/introduction.md:264
+#: src/introduction.md:269
 msgid "[Tools](brain/tools.md) — Explore 50+ built-in capabilities"
 msgstr ""
 "[Ferramentas](brain/tools.md) — Explora mais de 50 capacidades integradas"
 
-#: src/introduction.md:265
+#: src/introduction.md:270
 msgid "[Self-Healing](features/self-healing.md) — Resilience features"
 msgstr ""
 "[Self-Healing](features/self-healing.md) — Funcionalidades de resiliência"
 
-#: src/introduction.md:266
+#: src/introduction.md:271
 msgid ""
 "[Multi-Agent](features/multi-agent.md) — Orchestrate sub-agents and teams"
 msgstr ""
 "[Multi-Agent](features/multi-agent.md) — Orquestra sub-agentes e equipas"
 
-#: src/introduction.md:268
+#: src/introduction.md:273
 msgid "Community & Support"
 msgstr "Comunidade e Suporte"
 
-#: src/introduction.md:270
+#: src/introduction.md:275
 msgid ""
 "[Telegram community](https://t.me/opencrabs) — join the OpenCrabs group for "
 "questions, tips, and release chatter"
@@ -1768,7 +1827,7 @@ msgstr ""
 "[Comunidade no Telegram](https://t.me/opencrabs) — junta-te ao grupo "
 "OpenCrabs para dúvidas, dicas e conversa sobre releases"
 
-#: src/introduction.md:271
+#: src/introduction.md:276
 msgid ""
 "[Sponsor on GitHub](https://github.com/sponsors/adolfousier) — back the "
 "project and keep the crabs fed"
@@ -1776,7 +1835,7 @@ msgstr ""
 "[Patrocina no GitHub](https://github.com/sponsors/adolfousier) — apoia o "
 "projeto e mantém os crabs alimentados"
 
-#: src/introduction.md:272
+#: src/introduction.md:277
 msgid ""
 "[Buy Me a Coffee](https://buymeacoffee.com/opencrabs) — one-time support if "
 "OpenCrabs saved you an afternoon"
@@ -1784,7 +1843,7 @@ msgstr ""
 "[Buy Me a Coffee](https://buymeacoffee.com/opencrabs) — apoio pontual se o "
 "OpenCrabs te poupou uma tarde"
 
-#: src/introduction.md:274
+#: src/introduction.md:279
 msgid ""
 "Found a bug or want a feature? Open an issue on [GitHub](https://github.com/"
 "adolfousier/opencrabs/issues)."
@@ -1897,13 +1956,21 @@ msgstr "O assistente de onboarding trata de tudo na primeira execução."
 
 #: src/getting-started/installation.md:57
 msgid ""
+"**Windows is a first-class platform (v0.5.3):** platform-aware shell "
+"handling, BOM/UTF-16 file reads, and tilde/cwd fallbacks are built in, and "
+"CI builds Windows on every PR (#627)."
+msgstr ""
+"**O Windows é uma plataforma de primeira classe (v0.5.3):** shell handling consciente da plataforma, leitura BOM/UTF-16 e fallbacks de tilde/cwd incluídos, e a CI compila Windows em cada PR (#627)."
+
+#: src/getting-started/installation.md:60
+msgid ""
 "**Verify your download (optional):** every release publishes a `SHA256SUMS` "
 "file alongside the tarballs."
 msgstr ""
 "**Verifica o download (opcional):** cada release publica um ficheiro "
 "`SHA256SUMS` junto com os tarballs."
 
-#: src/getting-started/installation.md:59
+#: src/getting-started/installation.md:62
 msgid ""
 "**Terminal permissions required.** OpenCrabs reads/writes brain files, "
 "config, and project files. Your terminal app needs filesystem access or the "
@@ -1913,19 +1980,19 @@ msgstr ""
 "brain, config e ficheiros de projeto. A tua app de terminal precisa de "
 "acesso ao sistema de ficheiros ou o SO bloqueia as operações."
 
-#: src/getting-started/installation.md:61
+#: src/getting-started/installation.md:64
 msgid "OS"
 msgstr "SO"
 
-#: src/getting-started/installation.md:61
+#: src/getting-started/installation.md:64
 msgid "What to do"
 msgstr "O que fazer"
 
-#: src/getting-started/installation.md:63
+#: src/getting-started/installation.md:66
 msgid "**macOS**"
 msgstr "**macOS**"
 
-#: src/getting-started/installation.md:63
+#: src/getting-started/installation.md:66
 msgid ""
 "**System Settings → Privacy & Security → Full Disk Access** → toggle your "
 "terminal app ON (Alacritty, iTerm2, Terminal, etc.). If not listed, click \"+"
@@ -1938,11 +2005,11 @@ msgstr ""
 "Sem isto, o macOS pergunta repetidamente \"quer aceder a dados de outras "
 "apps\"."
 
-#: src/getting-started/installation.md:64
+#: src/getting-started/installation.md:67
 msgid "**Windows**"
 msgstr "**Windows**"
 
-#: src/getting-started/installation.md:64
+#: src/getting-started/installation.md:67
 msgid ""
 "Run your terminal (Windows Terminal, PowerShell, cmd) **as Administrator** "
 "on first run, or grant the terminal **write access** to `%USERPROFILE%"
@@ -1954,11 +2021,11 @@ msgstr ""
 "`%USERPROFILE%\\.opencrabs\\` e aos teus diretórios de projeto. O Windows "
 "Defender também pode perguntar — clica em \"Permitir\"."
 
-#: src/getting-started/installation.md:65
+#: src/getting-started/installation.md:68
 msgid "**Linux**"
 msgstr "**Linux**"
 
-#: src/getting-started/installation.md:65
+#: src/getting-started/installation.md:68
 msgid ""
 "Ensure your user owns `~/.opencrabs/` and project directories. On SELinux/"
 "AppArmor systems, the terminal process needs read/write access to those "
@@ -1970,7 +2037,7 @@ msgstr ""
 "acesso de leitura/escrita a esses caminhos. Terminais Flatpak/Snap podem "
 "precisar de `--filesystem=home` ou permissão equivalente."
 
-#: src/getting-started/installation.md:67
+#: src/getting-started/installation.md:70
 msgid ""
 "`/rebuild` works even with pre-built binaries — it auto-clones the source to "
 "`~/.opencrabs/source/` on first use, then builds and hot-restarts."
@@ -1979,21 +2046,21 @@ msgstr ""
 "automaticamente o source para `~/.opencrabs/source/` na primeira utilização, "
 "depois compila e faz hot-restart."
 
-#: src/getting-started/installation.md:69
+#: src/getting-started/installation.md:72
 msgid "Option 3: Build from Source"
 msgstr "Opção 3: Compilar a partir do Source"
 
-#: src/getting-started/installation.md:71
+#: src/getting-started/installation.md:74
 msgid "Required for `/rebuild`, adding custom tools, or modifying the agent."
 msgstr ""
 "Necessário para `/rebuild`, adicionar ferramentas personalizadas ou "
 "modificar o agente."
 
-#: src/getting-started/installation.md:73
+#: src/getting-started/installation.md:76
 msgid "Quick setup (recommended)"
 msgstr "Configuração rápida (recomendado)"
 
-#: src/getting-started/installation.md:75
+#: src/getting-started/installation.md:78
 msgid ""
 "The setup script auto-detects your platform (macOS, Debian/Ubuntu, Fedora/"
 "RHEL, Arch) and installs all build dependencies + Rust:"
@@ -2002,23 +2069,23 @@ msgstr ""
 "Debian/Ubuntu, Fedora/RHEL, Arch) e instala todas as dependências de build + "
 "Rust:"
 
-#: src/getting-started/installation.md:78
+#: src/getting-started/installation.md:81
 msgid "# Install all dependencies\n"
 msgstr "# Instalar todas as dependências\n"
 
-#: src/getting-started/installation.md:80
+#: src/getting-started/installation.md:83
 msgid "# Clone and build\n"
 msgstr "# Clonar e compilar\n"
 
-#: src/getting-started/installation.md:88
+#: src/getting-started/installation.md:91
 msgid "Manual setup"
 msgstr "Configuração manual"
 
-#: src/getting-started/installation.md:90
+#: src/getting-started/installation.md:93
 msgid "If you prefer to install dependencies yourself:"
 msgstr "Se preferires instalar as dependências tu mesmo:"
 
-#: src/getting-started/installation.md:92
+#: src/getting-started/installation.md:95
 msgid ""
 "**Rust stable** — [Install Rust](https://rustup.rs/). Stable toolchain works "
 "since v0.2.85"
@@ -2026,19 +2093,19 @@ msgstr ""
 "**Rust stable** — [Instala o Rust](https://rustup.rs/). A toolchain stable "
 "funciona desde a v0.2.85"
 
-#: src/getting-started/installation.md:93
+#: src/getting-started/installation.md:96
 msgid "**An API key** from at least one supported provider"
 msgstr "**Uma chave de API** de pelo menos um provider suportado"
 
-#: src/getting-started/installation.md:94
+#: src/getting-started/installation.md:97
 msgid "**SQLite** (bundled via rusqlite)"
 msgstr "**SQLite** (incluído via rusqlite)"
 
-#: src/getting-started/installation.md:95
+#: src/getting-started/installation.md:98
 msgid "**macOS:** `brew install cmake pkg-config`"
 msgstr "**macOS:** `brew install cmake pkg-config`"
 
-#: src/getting-started/installation.md:96
+#: src/getting-started/installation.md:99
 msgid ""
 "**Debian/Ubuntu:** `sudo apt install build-essential pkg-config libssl-dev "
 "cmake`"
@@ -2046,7 +2113,7 @@ msgstr ""
 "**Debian/Ubuntu:** `sudo apt install build-essential pkg-config libssl-dev "
 "cmake`"
 
-#: src/getting-started/installation.md:97
+#: src/getting-started/installation.md:100
 msgid ""
 "**Fedora/RHEL:** `sudo dnf install gcc gcc-c++ make pkg-config openssl-devel "
 "cmake`"
@@ -2054,11 +2121,11 @@ msgstr ""
 "**Fedora/RHEL:** `sudo dnf install gcc gcc-c++ make pkg-config openssl-devel "
 "cmake`"
 
-#: src/getting-started/installation.md:98
+#: src/getting-started/installation.md:101
 msgid "**Arch:** `sudo pacman -S base-devel pkg-config openssl cmake`"
 msgstr "**Arch:** `sudo pacman -S base-devel pkg-config openssl cmake`"
 
-#: src/getting-started/installation.md:107
+#: src/getting-started/installation.md:110
 msgid ""
 "OpenCrabs uses `keys.toml` instead of `.env` for API keys. The onboarding "
 "wizard will help you set it up, or edit `~/.opencrabs/keys.toml` directly."
@@ -2067,11 +2134,11 @@ msgstr ""
 "assistente de onboarding ajuda-te a configurar, ou edita `~/.opencrabs/"
 "keys.toml` diretamente."
 
-#: src/getting-started/installation.md:109
+#: src/getting-started/installation.md:112
 msgid "Option 4: Docker"
 msgstr "Opção 4: Docker"
 
-#: src/getting-started/installation.md:111
+#: src/getting-started/installation.md:114
 msgid ""
 "Run OpenCrabs in an isolated container. Build takes ~15min (Rust release + "
 "LTO)."
@@ -2079,7 +2146,7 @@ msgstr ""
 "Corre o OpenCrabs num contentor isolado. A compilação demora ~15min (Rust "
 "release + LTO)."
 
-#: src/getting-started/installation.md:119
+#: src/getting-started/installation.md:122
 msgid ""
 "Config, workspace, and memory DB persist in a Docker volume across restarts. "
 "API keys in `keys.toml` are mounted into the container at runtime — never "
@@ -2089,22 +2156,22 @@ msgstr ""
 "reinícios. As chaves de API em `keys.toml` são montadas no contentor em "
 "runtime — nunca vão parar dentro da imagem."
 
-#: src/getting-started/installation.md:121
+#: src/getting-started/installation.md:124
 msgid "Autostart on Boot"
 msgstr "Arranque Automático no Boot"
 
-#: src/getting-started/installation.md:123
+#: src/getting-started/installation.md:126
 msgid ""
 "Keep OpenCrabs running as a background daemon that starts with your system."
 msgstr ""
 "Mantém o OpenCrabs a correr como daemon de fundo que arranca com o teu "
 "sistema."
 
-#: src/getting-started/installation.md:125
+#: src/getting-started/installation.md:128
 msgid "Linux (systemd)"
 msgstr "Linux (systemd)"
 
-#: src/getting-started/installation.md:128
+#: src/getting-started/installation.md:131
 msgid ""
 "<< 'EOF'\n"
 "[Unit]\n"
@@ -2126,7 +2193,7 @@ msgid ""
 "systemctl --user start opencrabs\n"
 msgstr ""
 
-#: src/getting-started/installation.md:148
+#: src/getting-started/installation.md:151
 msgid ""
 "Check status: `systemctl --user status opencrabs` | Logs: `journalctl --user "
 "-u opencrabs -f`"
@@ -2134,11 +2201,11 @@ msgstr ""
 "Verifica o estado: `systemctl --user status opencrabs` | Logs: `journalctl --"
 "user -u opencrabs -f`"
 
-#: src/getting-started/installation.md:150
+#: src/getting-started/installation.md:153
 msgid "macOS (launchd)"
 msgstr "macOS (launchd)"
 
-#: src/getting-started/installation.md:153
+#: src/getting-started/installation.md:156
 msgid ""
 "<< 'EOF'\n"
 "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
@@ -2168,29 +2235,29 @@ msgid ""
 "launchctl load ~/Library/LaunchAgents/com.opencrabs.agent.plist\n"
 msgstr ""
 
-#: src/getting-started/installation.md:181
+#: src/getting-started/installation.md:184
 msgid "Update the path in `ProgramArguments` to match your install location."
 msgstr ""
 "Atualiza o caminho em `ProgramArguments` para corresponder ao local de "
 "instalação."
 
-#: src/getting-started/installation.md:183
+#: src/getting-started/installation.md:186
 msgid "Windows (Task Scheduler)"
 msgstr "Windows (Task Scheduler)"
 
-#: src/getting-started/installation.md:185
+#: src/getting-started/installation.md:188
 msgid "`Win + R` → `taskschd.msc`"
 msgstr "`Win + R` → `taskschd.msc`"
 
-#: src/getting-started/installation.md:186
+#: src/getting-started/installation.md:189
 msgid "**Create Basic Task** → Name: `OpenCrabs`"
 msgstr "**Criar Tarefa Básica** → Nome: `OpenCrabs`"
 
-#: src/getting-started/installation.md:187
+#: src/getting-started/installation.md:190
 msgid "Trigger: **When I log on**"
 msgstr "Gatilho: **Quando inicio sessão**"
 
-#: src/getting-started/installation.md:188
+#: src/getting-started/installation.md:191
 msgid ""
 "Action: **Start a program** → `C:"
 "\\Users\\<you>\\.cargo\\bin\\opencrabs.exe`, Arguments: `daemon`"
@@ -2198,17 +2265,17 @@ msgstr ""
 "Ação: **Iniciar um programa** → `C:"
 "\\Users\\<tu>\\.cargo\\bin\\opencrabs.exe`, Argumentos: `daemon`"
 
-#: src/getting-started/installation.md:189
+#: src/getting-started/installation.md:192
 msgid ""
 "In Properties > Settings, check **If the task fails, restart every 1 minute**"
 msgstr ""
 "Em Properties > Settings, marca **If the task fails, restart every 1 minute**"
 
-#: src/getting-started/installation.md:191
+#: src/getting-started/installation.md:194
 msgid "Or via PowerShell:"
 msgstr "Ou via PowerShell:"
 
-#: src/getting-started/installation.md:193
+#: src/getting-started/installation.md:196
 msgid ""
 "```powershell\n"
 "$action = New-ScheduledTaskAction -Execute "
@@ -2221,11 +2288,11 @@ msgid ""
 "```"
 msgstr ""
 
-#: src/getting-started/installation.md:200
+#: src/getting-started/installation.md:203
 msgid "Updating"
 msgstr "Atualizar"
 
-#: src/getting-started/installation.md:202
+#: src/getting-started/installation.md:205
 msgid ""
 "**Homebrew users:** `brew upgrade opencrabs` (if you type `/evolve` on a "
 "Homebrew install, it delegates to Homebrew — the binary stays managed by "
@@ -2236,14 +2303,14 @@ msgstr ""
 "gerido pelo brew, e o tap antigo foi reformado em favor dos autobumps do "
 "homebrew-core)"
 
-#: src/getting-started/installation.md:203
+#: src/getting-started/installation.md:206
 msgid ""
 "**Binary users:** Type `/evolve` in the TUI to download the latest release"
 msgstr ""
 "**Utilizadores de binário:** Escreve `/evolve` no TUI para descarregar a "
 "última release"
 
-#: src/getting-started/installation.md:204
+#: src/getting-started/installation.md:207
 msgid ""
 "**Source users:** `git pull && cargo build --release`, or type `/rebuild` in "
 "the TUI"
@@ -2251,7 +2318,7 @@ msgstr ""
 "**Utilizadores de source:** `git pull && cargo build --release`, ou escreve "
 "`/rebuild` no TUI"
 
-#: src/getting-started/installation.md:205
+#: src/getting-started/installation.md:208
 msgid "**Docker users:** `docker compose pull && docker compose up -d`"
 msgstr ""
 "**Utilizadores de Docker:** `docker compose pull && docker compose up -d`"
@@ -3364,7 +3431,7 @@ msgstr ""
 #: src/channels/telegram.md:137 src/channels/discord.md:63
 #: src/channels/slack.md:66 src/channels/whatsapp.md:46
 #: src/channels/trello.md:59 src/brain/memory.md:82
-#: src/features/dynamic-tools.md:57
+#: src/features/dynamic-tools.md:57 src/features/cron-jobs.md:109
 msgid "Field"
 msgstr ""
 
@@ -4632,8 +4699,8 @@ msgid "`memory`"
 msgstr "`memory`"
 
 #: src/getting-started/cli-commands.md:20
-msgid "Memory management (list, get, stats)"
-msgstr "Gestão de memória (list, get, stats)"
+msgid "Memory management (list, get, stats, prune)"
+msgstr "Gestão de memória (list, get, stats, prune)"
 
 #: src/getting-started/cli-commands.md:21
 msgid "`session`"
@@ -4774,7 +4841,9 @@ msgid ""
 "one in place, without the summariser call, so it is instant. Owner-only on "
 "channels."
 msgstr ""
-"**Session nova** (v0.5.2) — Fecha a session atual e inicia uma em branco no mesmo sítio, sem a chamada ao summariser, por isso é instantâneo. Apenas para o owner nos channels."
+"**Session nova** (v0.5.2) — Fecha a session atual e inicia uma em branco no "
+"mesmo sítio, sem a chamada ao summariser, por isso é instantâneo. Apenas "
+"para o owner nos channels."
 
 #: src/getting-started/cli-commands.md:35 src/features/goal.md:61
 msgid "`/btw`"
@@ -7630,7 +7699,8 @@ msgstr ""
 msgid "Re-running Provider Setup"
 msgstr ""
 
-#: src/brain/providers.md:97 src/features/themes.md:9
+#: src/brain/providers.md:97 src/features/cron-jobs.md:109
+#: src/features/themes.md:9
 msgid "What it does"
 msgstr ""
 
@@ -11277,7 +11347,8 @@ msgstr ""
 #: src/channels/whatsapp.md:128
 msgid ""
 "**Surfaces**: status updates and newsletter discovery, native-flow buttons "
-"for interactive prompts"
+"for interactive prompts; follow-up suggestion sets that exceed the native "
+"button cap render as a poll, and a vote selects the option (#1616)"
 msgstr ""
 
 #: src/channels/whatsapp.md:132
@@ -13000,7 +13071,37 @@ msgid ""
 "\"check your memory.\""
 msgstr ""
 
+#: src/brain/memory.md:161
+msgid "Confidence, Decay and Pruning (v0.5.3)"
+msgstr ""
+
 #: src/brain/memory.md:163
+msgid ""
+"MEMORY.md facts carry **confidence** and **decay** over time (#1643): a "
+"belief's trust drops as it goes unused and unverified, so stale claims stop "
+"outranking fresh ones when memory is recalled. Decay is config-driven "
+"through the `[epistemic]` section."
+msgstr ""
+
+#: src/brain/memory.md:167
+msgid "Cold content is managed in two passes (#1657):"
+msgstr ""
+
+#: src/brain/memory.md:169
+msgid ""
+"**Archive pass** — cold MEMORY.md sections move to `memory/archive/` with a "
+"backup and reindex, instead of silently accumulating forever."
+msgstr ""
+
+#: src/brain/memory.md:171
+msgid ""
+"**`opencrabs memory prune`** — a dry-run preview (the default) of cold "
+"beliefs (key, confidence, hits, age) and cold sections (heading, bytes). `--"
+"apply` archives the sections first, then sweeps the remaining cold beliefs. "
+"`--max-age-days <N>` overrides the cold threshold (default: 90)."
+msgstr ""
+
+#: src/brain/memory.md:178
 msgid ""
 "See [Brain Files](./brain-files.md) for the full list of files the agent "
 "reads on startup."
@@ -14675,10 +14776,159 @@ msgid ""
 msgstr ""
 
 #: src/features/cron-jobs.md:99
-msgid "Scheduler Lock (v0.3.65)"
+msgid "Trigger-gated jobs (v0.5.3)"
 msgstr ""
 
 #: src/features/cron-jobs.md:101
+msgid ""
+"A job can carry a **pre-flight trigger**: at each fire time the scheduler "
+"runs a shell command first, and only executes the prompt when a condition on "
+"that command's result is met. This turns scheduled jobs from \"fires into "
+"the void every hour\" into \"acts when something actually happened\" (a file "
+"appeared, a health check failed, a log line matched) (#233)."
+msgstr ""
+
+#: src/features/cron-jobs.md:107
+msgid "Set it through the `cron_manage` tool at create or update time:"
+msgstr ""
+
+#: src/features/cron-jobs.md:111
+msgid "`trigger_cmd`"
+msgstr ""
+
+#: src/features/cron-jobs.md:111
+msgid ""
+"Shell command run under `/bin/sh -c` before the prompt. 30s timeout; a hung "
+"trigger is killed, not orphaned. Either `prompt` or `trigger_cmd` must be "
+"set."
+msgstr ""
+
+#: src/features/cron-jobs.md:112
+msgid "`trigger_on`"
+msgstr ""
+
+#: src/features/cron-jobs.md:112
+msgid "Fire condition (see below). Default `non_empty`."
+msgstr ""
+
+#: src/features/cron-jobs.md:113
+#, fuzzy
+msgid "`set_goal`"
+msgstr "`/goal`"
+
+#: src/features/cron-jobs.md:113
+msgid ""
+"On fire, set the active goal in the destination session instead of a plain "
+"prompt turn. Requires `deliver_to` to target a session; refused for passive "
+"channel deliveries."
+msgstr ""
+
+#: src/features/cron-jobs.md:114
+msgid "`goal_template`"
+msgstr ""
+
+#: src/features/cron-jobs.md:114
+msgid ""
+"Template for the goal/notification text. Interpolates `{output}`, `{stdout}"
+"`, `{stderr}`, `{exit_code}`."
+msgstr ""
+
+#: src/features/cron-jobs.md:116
+msgid "`trigger_on` conditions"
+msgstr ""
+
+#: src/features/cron-jobs.md:118 src/features/rtk.md:20
+msgid "Value"
+msgstr ""
+
+#: src/features/cron-jobs.md:118
+msgid "Fires when"
+msgstr ""
+
+#: src/features/cron-jobs.md:120
+#, fuzzy
+msgid "`non_empty` (default)"
+msgstr "`chat` (predefinido)"
+
+#: src/features/cron-jobs.md:120
+msgid "stdout or stderr contains any non-whitespace output"
+msgstr ""
+
+#: src/features/cron-jobs.md:121
+#, fuzzy
+msgid "`exit_zero`"
+msgstr "`/exit`"
+
+#: src/features/cron-jobs.md:121
+msgid "the trigger exits 0"
+msgstr ""
+
+#: src/features/cron-jobs.md:122
+msgid "`exit_non_zero`"
+msgstr ""
+
+#: src/features/cron-jobs.md:122
+msgid "the trigger exits non-zero (health checks, `grep` misses)"
+msgstr ""
+
+#: src/features/cron-jobs.md:123
+msgid "`regex:PATTERN` or `re:PATTERN`"
+msgstr ""
+
+#: src/features/cron-jobs.md:123
+msgid "combined output matches the regular expression"
+msgstr ""
+
+#: src/features/cron-jobs.md:124
+msgid "`always`"
+msgstr ""
+
+#: src/features/cron-jobs.md:124
+msgid "the trigger finished, regardless of output or exit code"
+msgstr ""
+
+#: src/features/cron-jobs.md:126
+msgid "Semantics"
+msgstr ""
+
+#: src/features/cron-jobs.md:128
+msgid ""
+"**Condition not met** → the run is short-circuited at 0 tokens and recorded "
+"as a skipped/success run. The prompt never executes, nothing is delivered."
+msgstr ""
+
+#: src/features/cron-jobs.md:130
+msgid ""
+"**Trigger command errors or times out** → the run is recorded as an error; "
+"the prompt still does not execute."
+msgstr ""
+
+#: src/features/cron-jobs.md:132
+msgid ""
+"**Empty `prompt` with a trigger** → direct 0-token delivery: the formatted "
+"trigger output (`goal_template`, or the raw output) is delivered to "
+"`deliver_to` without an agent turn at all."
+msgstr ""
+
+#: src/features/cron-jobs.md:135
+msgid ""
+"**`set_goal`** → the fired trigger dispatches into the target session as an "
+"active goal, so the session's agent works the condition it detected rather "
+"than just echoing output."
+msgstr ""
+
+#: src/features/cron-jobs.md:139
+msgid ""
+"Put the watching in `trigger_cmd` (deterministic, cheap, script-runner "
+"pattern), the condition in `trigger_on`, and the acting in the prompt or "
+"goal."
+msgstr ""
+
+#: src/features/cron-jobs.md:142
+msgid "Scheduler Lock (v0.3.65)"
+msgstr ""
+
+#: src/features/cron-jobs.md:144
 msgid ""
 "The cron scheduler uses a **file lock** to prevent duplicate job execution. "
 "Only one scheduler instance can run per profile at a time. If you "
@@ -14686,43 +14936,43 @@ msgid ""
 "cron jobs."
 msgstr ""
 
-#: src/features/cron-jobs.md:103
+#: src/features/cron-jobs.md:146
 msgid "Heartbeat vs Cron"
 msgstr ""
 
-#: src/features/cron-jobs.md:105
+#: src/features/cron-jobs.md:148
 msgid "**Use heartbeat (`HEARTBEAT.md`) when:**"
 msgstr ""
 
-#: src/features/cron-jobs.md:106
+#: src/features/cron-jobs.md:149
 msgid "Checks are periodic but timing is flexible (~30 min)"
 msgstr ""
 
-#: src/features/cron-jobs.md:107
+#: src/features/cron-jobs.md:150
 msgid "You want to reduce API calls by batching"
 msgstr ""
 
-#: src/features/cron-jobs.md:108
+#: src/features/cron-jobs.md:151
 msgid "Tasks share the main session context"
 msgstr ""
 
-#: src/features/cron-jobs.md:110
+#: src/features/cron-jobs.md:153
 msgid "**Use cron when:**"
 msgstr ""
 
-#: src/features/cron-jobs.md:111
+#: src/features/cron-jobs.md:154
 msgid "Exact timing matters (\"9:00 AM every Monday\")"
 msgstr ""
 
-#: src/features/cron-jobs.md:112
+#: src/features/cron-jobs.md:155
 msgid "Task needs isolation from main session"
 msgstr ""
 
-#: src/features/cron-jobs.md:113
+#: src/features/cron-jobs.md:156
 msgid "You want a different model or thinking level"
 msgstr ""
 
-#: src/features/cron-jobs.md:114
+#: src/features/cron-jobs.md:157
 msgid "Output should deliver to a specific channel"
 msgstr ""
 
@@ -22018,29 +22268,43 @@ msgid ""
 msgstr ""
 
 #: src/features/themes.md:222
-msgid "Imported themes"
+msgid "Theme enforcement (v0.5.3)"
 msgstr ""
 
 #: src/features/themes.md:224
+msgid ""
+"Every widget in the TUI now resolves its colours through the theme engine — "
+"the last hardcoded ANSI sites are gone, and a suite-level guard fails the "
+"build if a new raw ANSI colour site appears (#1634). Themes can also declare "
+"an optional **canvas background** (the source background carries through "
+"catalog conversion), so a theme can restyle the whole terminal canvas, not "
+"just the widgets on it."
+msgstr ""
+
+#: src/features/themes.md:230
+msgid "Imported themes"
+msgstr ""
+
+#: src/features/themes.md:232
 msgid ""
 "The 31-theme curated pack was generated by the in-tree converter "
 "(`tui::theme_catalog`) from two upstream formats:"
 msgstr ""
 
-#: src/features/themes.md:227
+#: src/features/themes.md:235
 msgid ""
 "**alacritty-theme TOML** (`[colors.primary]` background/foreground plus the "
 "16 ANSI colors) — the `alacritty/alacritty-theme` catalog, 176 themes;"
 msgstr ""
 
-#: src/features/themes.md:229
+#: src/features/themes.md:237
 msgid ""
 "**opencode theme JSON** (`defs` + `theme` token maps with dark/light "
 "variants, hex strings, ANSI integers, `defs` references and `\"none\"`) — "
 "the `sst/opencode` built-in themes, 33 assets."
 msgstr ""
 
-#: src/features/themes.md:233
+#: src/features/themes.md:241
 msgid ""
 "Both convert through a **fixed 43-role mapping** (semantic token first, ANSI "
 "color or deterministic bg/fg mix as fallback), and every generated file is "
@@ -22051,7 +22315,7 @@ msgid ""
 "imports their colors, not their names' goodwill."
 msgstr ""
 
-#: src/features/themes.md:240
+#: src/features/themes.md:248
 msgid ""
 "The converter is generation-time tooling: the TUI itself only knows the "
 "embedded presets and your drop-in files."
@@ -22413,10 +22677,6 @@ msgstr ""
 
 #: src/features/rtk.md:18
 msgid "From production usage (13,600+ commands executed):"
-msgstr ""
-
-#: src/features/rtk.md:20
-msgid "Value"
 msgstr ""
 
 #: src/features/rtk.md:22
