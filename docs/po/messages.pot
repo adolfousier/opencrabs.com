@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OpenCrabs\n"
-"POT-Creation-Date: 2026-09-13T14:46:33+01:00\n"
+"POT-Creation-Date: 2026-09-16T19:16:14+01:00\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -36,7 +36,7 @@ msgstr ""
 #: src/SUMMARY.md:9 src/getting-started/configuration.md:1
 #: src/channels/telegram.md:120 src/channels/discord.md:49
 #: src/channels/slack.md:51 src/channels/whatsapp.md:35
-#: src/channels/trello.md:44 src/brain/commands.md:5 src/features/browser.md:45
+#: src/channels/trello.md:44 src/brain/commands.md:5 src/features/browser.md:49
 #: src/features/voice.md:31 src/features/voice.md:72
 msgid "Configuration"
 msgstr ""
@@ -46,7 +46,7 @@ msgid "CLI Commands"
 msgstr ""
 
 #: src/SUMMARY.md:11 src/getting-started/troubleshooting.md:1
-#: src/channels/whatsapp.md:121
+#: src/channels/whatsapp.md:130
 msgid "Troubleshooting"
 msgstr ""
 
@@ -147,7 +147,7 @@ msgstr ""
 msgid "Dynamic Tools"
 msgstr ""
 
-#: src/SUMMARY.md:40 src/introduction.md:168 src/brain/tools.md:97
+#: src/SUMMARY.md:40 src/introduction.md:174 src/brain/tools.md:97
 #: src/features/browser.md:1
 msgid "Browser Automation"
 msgstr ""
@@ -168,91 +168,95 @@ msgstr ""
 msgid "Agent-to-Agent (A2A)"
 msgstr ""
 
-#: src/SUMMARY.md:45 src/features/self-healing.md:1
+#: src/SUMMARY.md:45 src/features/acp.md:1
+msgid "ACP — Editor Integration"
+msgstr ""
+
+#: src/SUMMARY.md:46 src/features/self-healing.md:1
 #: src/features/self-improvement.md:262
 msgid "Self-Healing"
 msgstr ""
 
-#: src/SUMMARY.md:46 src/features/self-improvement.md:1
+#: src/SUMMARY.md:47 src/features/self-improvement.md:1
 msgid "Self-Improvement (RSI)"
 msgstr ""
 
-#: src/SUMMARY.md:47 src/features/mission-control.md:1
+#: src/SUMMARY.md:48 src/features/mission-control.md:1
 msgid "Mission Control"
 msgstr ""
 
-#: src/SUMMARY.md:48
+#: src/SUMMARY.md:49
 msgid "Multi-Profile"
 msgstr ""
 
-#: src/SUMMARY.md:49 src/features/voice.md:1
+#: src/SUMMARY.md:50 src/features/voice.md:1
 msgid "Voice (TTS & STT)"
 msgstr ""
 
-#: src/SUMMARY.md:50 src/features/skills.md:1
+#: src/SUMMARY.md:51 src/features/skills.md:1
 msgid "Skills System"
 msgstr ""
 
-#: src/SUMMARY.md:51 src/features/themes.md:1
+#: src/SUMMARY.md:52 src/features/themes.md:1
 msgid "Themes"
 msgstr ""
 
-#: src/SUMMARY.md:52 src/features/usage-dashboard.md:1
+#: src/SUMMARY.md:53 src/features/usage-dashboard.md:1
 msgid "Usage Dashboard"
 msgstr ""
 
-#: src/SUMMARY.md:53
+#: src/SUMMARY.md:54
 msgid "RTK — Token Savings"
 msgstr ""
 
-#: src/SUMMARY.md:54
+#: src/SUMMARY.md:55
 msgid "/goal — Autonomous Goal Loop"
 msgstr ""
 
-#: src/SUMMARY.md:55 src/brain/tools.md:175 src/features/companion-tools.md:1
+#: src/SUMMARY.md:56 src/brain/tools.md:175 src/features/companion-tools.md:1
 msgid "Companion Tools"
 msgstr ""
 
-#: src/SUMMARY.md:56 src/features/web-scrape.md:1
+#: src/SUMMARY.md:57 src/features/web-scrape.md:1
 msgid "Web Scraping"
 msgstr ""
 
-#: src/SUMMARY.md:57 src/brain/tools.md:37
+#: src/SUMMARY.md:58 src/brain/tools.md:37
 #: src/features/document-generation.md:1
 msgid "Document Generation"
 msgstr ""
 
-#: src/SUMMARY.md:59 src/SUMMARY.md:61 src/user-stories.md:1
+#: src/SUMMARY.md:60 src/SUMMARY.md:62 src/user-stories.md:1
 msgid "User Stories"
 msgstr ""
 
-#: src/SUMMARY.md:63
+#: src/SUMMARY.md:64
 msgid "Development"
 msgstr ""
 
-#: src/SUMMARY.md:65 src/getting-started/troubleshooting.md:482
+#: src/SUMMARY.md:66 src/getting-started/troubleshooting.md:482
 #: src/development/building.md:1
 msgid "Building from Source"
 msgstr ""
 
-#: src/SUMMARY.md:66 src/introduction.md:207 src/features/mission-control.md:71
+#: src/SUMMARY.md:67 src/introduction.md:213 src/features/mission-control.md:71
 #: src/features/mission-control.md:107 src/development/architecture.md:1
 msgid "Architecture"
 msgstr ""
 
-#: src/SUMMARY.md:67 src/features/multi-agent.md:272
+#: src/SUMMARY.md:68 src/features/multi-agent.md:272
 msgid "Testing"
 msgstr ""
 
-#: src/SUMMARY.md:68 src/development/contributing.md:1
+#: src/SUMMARY.md:69 src/development/contributing.md:1
 msgid "Contributing"
 msgstr ""
 
-#: src/SUMMARY.md:69 src/features/a2a.md:157 src/development/security.md:1
+#: src/SUMMARY.md:70 src/features/a2a.md:157 src/development/security.md:1
 msgid "Security"
 msgstr ""
 
-#: src/SUMMARY.md:73 src/changelog.md:1
+#: src/SUMMARY.md:74 src/changelog.md:1
 msgid "Changelog"
 msgstr ""
 
@@ -266,7 +270,7 @@ msgstr ""
 
 #: src/introduction.md:5
 msgid ""
-"**8,412 tests** across providers, tools, channels, TUI, self-healing, and "
+"**8,852 tests** across providers, tools, channels, TUI, self-healing, and "
 "browser automation."
 msgstr ""
 
@@ -702,188 +706,233 @@ msgid ""
 "mode with secrets scrubbed from the logs"
 msgstr ""
 
+#: src/introduction.md:85
+msgid ""
+"**ACP server mode (v0.5.2)** — `opencrabs acp` speaks the Agent Client "
+"Protocol over stdio JSON-RPC, so Zed, MonoCode and any ACP client drive the "
+"same brain your channels use, with progress streaming and approvals "
+"round-tripping to the editor (#1540)"
+msgstr ""
+
 #: src/introduction.md:86
+msgid ""
+"**Shadow-DOM aware browsing (v0.5.2)** — selector resolution pierces shadow "
+"roots, so automation reaches web components that used to be invisible to the "
+"tools"
+msgstr ""
+
+#: src/introduction.md:87
+msgid ""
+"**WhatsApp full surface (v0.5.2)** — native voice notes, inbound "
+"video/sticker/location/contact, poll votes, presence and media recovery, "
+"reaction acks, edit-in-place streaming, disappearing messages, contact "
+"blocking, pin/forward/profile, status updates, newsletter discovery, "
+"native-flow buttons, per-chat history"
+msgstr ""
+
+#: src/introduction.md:88
+msgid ""
+"**Discord live tracing and native tables (v0.5.2)** — long turns stream as a "
+"traced live reply, answers auto-thread, markdown tables render natively, and "
+"tool turns no longer double-post the final response (#1603, #1608)"
+msgstr ""
+
+#: src/introduction.md:89
+msgid ""
+"**Telegram forum topics and /clear (v0.5.2)** — forum topic create/rename "
+"with session binding, and /clear starts a fresh session without the "
+"summariser call (#1585)"
+msgstr ""
+
+#: src/introduction.md:90
+msgid ""
+"**Command menu payload budget (v0.5.2)** — Telegram's setMyCommands silently "
+"rejects request bodies over ~7.8KB while reporting BOT_COMMANDS_TOO_MUCH; "
+"descriptions now shorten in tiers so the whole menu fits (#1613)"
+msgstr ""
+
+#: src/introduction.md:92
 msgid ""
 "**doctor --fix repair mode (v0.3.83)** — stuck cron rows, stale markers and "
 "broken permissions are repaired on the spot instead of only reported"
 msgstr ""
 
-#: src/introduction.md:87
+#: src/introduction.md:93
 msgid ""
 "**Per-path write locks (v0.3.83)** — concurrent writes to the same file "
 "serialize; the last writer no longer silently wins"
 msgstr ""
 
-#: src/introduction.md:88
+#: src/introduction.md:94
 msgid ""
 "**Sub-agent worktree isolation (v0.3.83)** — each child agent gets its own "
 "worktree and branch, so a fan-out cannot clobber the shared tree"
 msgstr ""
 
-#: src/introduction.md:89
+#: src/introduction.md:95
 msgid ""
 "**Type-aware acceptance criteria (v0.3.83)** — plan criteria are enforced "
 "against the toolchain the project actually uses (#1133)"
 msgstr ""
 
-#: src/introduction.md:90
+#: src/introduction.md:96
 msgid ""
 "**Project-aware plan verification (v0.3.83)** — plans verify with the "
 "project's own commands, not always cargo, and find the project from the "
 "session's folder"
 msgstr ""
 
-#: src/introduction.md:91
+#: src/introduction.md:97
 msgid ""
 "**/stop cancels immediately (v0.3.83)** — interrupts during provider "
 "handshake and retry backoffs (#1148)"
 msgstr ""
 
-#: src/introduction.md:92
+#: src/introduction.md:98
 msgid ""
 "**A2A session resume (v0.3.83)** — sessions resume by context id, the "
 "gateway is profile-addressed (#1159, #1161)"
 msgstr ""
 
-#: src/introduction.md:93
+#: src/introduction.md:99
 msgid ""
 "**DeepSeek thinking knobs (v0.3.83)** — DeepSeek gets the thinking "
 "parameters it actually reads, plus tool-call-only turn handling"
 msgstr ""
 
-#: src/introduction.md:94
+#: src/introduction.md:100
 msgid ""
 "**session_id log correlation (v0.3.82)** — every turn opens a tracing span "
 "carrying its session id, and cron jobs and the RSI engine get their own, so "
 "one grep reconstructs a whole turn out of a shared daily log"
 msgstr ""
 
-#: src/introduction.md:95
+#: src/introduction.md:101
 msgid ""
 "**Logger reliability (v0.3.82)** — the logger stops dropping events and "
 "stops writing to the TUI's terminal; a stalled write can no longer silence "
 "every other thread's logging"
 msgstr ""
 
-#: src/introduction.md:96
+#: src/introduction.md:102
 msgid ""
 "**User-owned brain files protected (v0.3.82)** — SOUL.md, USER.md and "
 "MEMORY.md are never merged into from upstream, and directives route to "
 "AGENTS.md, which is always loaded"
 msgstr ""
 
-#: src/introduction.md:97
+#: src/introduction.md:103
 msgid ""
 "**Config section unification (v0.3.82)** — the legacy `[gateway]` spelling "
 "is migrated on disk to `[a2a]`, so one name survives a reload round trip"
 msgstr ""
 
-#: src/introduction.md:98
+#: src/introduction.md:104
 msgid ""
 "**Chunk-hash caching (v0.3.82)** — memory skips re-embedding chunks whose "
 "content has not changed"
 msgstr ""
 
-#: src/introduction.md:99
+#: src/introduction.md:105
 msgid ""
 "**Pre-release binaries (v0.3.82)** — five platform targets plus SHA256SUMS, "
 "published as a rolling pre-release so contributors can test unreleased code "
 "without waiting for a tag. Run on demand, not on every push"
 msgstr ""
 
-#: src/introduction.md:100
+#: src/introduction.md:106
 msgid ""
 "**Rate-limit bail (v0.3.82)** — a long Telegram rate-limit window returns "
 "immediately instead of parking the send inline"
 msgstr ""
 
-#: src/introduction.md:101
+#: src/introduction.md:107
 msgid ""
 "**In-tree memory store (v0.3.81)** — the qmd dependency is dropped; SQLite "
 "FTS5 + vector search owned in-tree"
 msgstr ""
 
-#: src/introduction.md:102
+#: src/introduction.md:108
 msgid ""
 "**External index paths (v0.3.81)** — memory search reads indexes outside the "
 "profile directory, default-deny in shared sessions"
 msgstr ""
 
-#: src/introduction.md:103
+#: src/introduction.md:109
 msgid ""
 "**Mermaid as images on Telegram (v0.3.81)** — diagrams render as images "
 "while tables stay native formatting"
 msgstr ""
 
-#: src/introduction.md:104
+#: src/introduction.md:110
 msgid ""
 "**Qwen reasoning across turns (v0.3.81)** — preserve_thinking, family-gated "
 "thinking knobs, recommended effort tier by default, hosted Qwen reachable "
 "everywhere"
 msgstr ""
 
-#: src/introduction.md:105
+#: src/introduction.md:111
 msgid ""
 "**keys.toml key-loss fix (v0.3.81)** — provider API keys no longer dropped "
 "at runtime; poisoned keys self-heal"
 msgstr ""
 
-#: src/introduction.md:106
+#: src/introduction.md:112
 msgid ""
 "**Early loop detection (v0.3.81)** — repeating tool rounds caught before the "
 "provider rejects the turn"
 msgstr ""
 
-#: src/introduction.md:107
+#: src/introduction.md:113
 msgid ""
 "**RSI engine gate (v0.3.81)** — autonomous RSI off by default for headless "
 "daemons, opt in with `rsi_enabled`"
 msgstr ""
 
-#: src/introduction.md:108
+#: src/introduction.md:114
 msgid ""
 "**memory_search scope (v0.3.80)** — search daily logs (`memory`), brain "
 "files (`brain`), or both (`all`); brain files are indexed on write"
 msgstr ""
 
-#: src/introduction.md:109
+#: src/introduction.md:115
 msgid ""
 "**Chunked memory retrieval (v0.3.80)** — documents chunked before embedding "
 "so later chunks are searchable; recall ranked with BM25"
 msgstr ""
 
-#: src/introduction.md:110
+#: src/introduction.md:116
 msgid ""
 "**Slack-native rendering (v0.3.80)** — tables and headings arrive in Slack's "
 "own shape instead of raw markdown"
 msgstr ""
 
-#: src/introduction.md:111
+#: src/introduction.md:117
 msgid ""
 "**Owner-gated channel commands (v0.3.80)** — custom commands and skills are "
 "owner-only on the channel catch-all arm in groups"
 msgstr ""
 
-#: src/introduction.md:112
+#: src/introduction.md:118
 msgid ""
 "**RSI convergence gates (v0.3.80)** — self-improvement pauses on "
 "convergence, backs off on zero-improvement streaks, hashes findings by "
 "stable identity"
 msgstr ""
 
-#: src/introduction.md:113
+#: src/introduction.md:119
 msgid ""
 "**Loop guards (v0.3.80)** — announcement and near-match repetition guards on "
 "all tools; loop-detector kills reach the fallback chain"
 msgstr ""
 
-#: src/introduction.md:114
+#: src/introduction.md:120
 msgid ""
 "**Browser inventory mode (v0.3.80)** — bare `browser_find` enumerates every "
 "clickable element on the page"
 msgstr ""
 
-#: src/introduction.md:115
+#: src/introduction.md:121
 msgid ""
 "**Brain-file template updates (v0.3.80)** — AGENTS.md, BOOT.md, and SOUL.md "
 "templates changed; seeding never overwrites existing files, so diff against "
@@ -891,293 +940,293 @@ msgid ""
 "defaults"
 msgstr ""
 
-#: src/introduction.md:116
+#: src/introduction.md:122
 msgid ""
 "**System brain rebuild** — brain files rebuilt from disk when changed, no "
 "restart needed"
 msgstr ""
 
-#: src/introduction.md:117
+#: src/introduction.md:123
 msgid ""
 "**Proactive tool discovery** — searches for available tools before claiming "
 "inability"
 msgstr ""
 
-#: src/introduction.md:118
+#: src/introduction.md:124
 msgid ""
 "**Multilanguage prompt analyzer (v0.3.67)** — shared PromptAnalyzer with "
 "soft-nudge on TUI and Telegram, 6 language packs (EN/ES/FR/ID/PT/RU)"
 msgstr ""
 
-#: src/introduction.md:119
+#: src/introduction.md:125
 msgid ""
 "**Plan mode (v0.3.67-v0.3.68)** — design/checklist tracks, persistent plan "
 "card, `/plan <query>` command, agent self-approval when user grants autonomy"
 msgstr ""
 
-#: src/introduction.md:120
+#: src/introduction.md:126
 msgid ""
 "**Click-to-expand (v0.3.69)** — left-click a tool-call or reasoning block to "
 "expand just that block, complementing Ctrl+O"
 msgstr ""
 
-#: src/introduction.md:121
+#: src/introduction.md:127
 msgid ""
 "**Skills review_gate (v0.3.70)** — frontmatter declaration for high-stakes "
 "skills that require user approval before side effects"
 msgstr ""
 
-#: src/introduction.md:122
+#: src/introduction.md:128
 msgid ""
 "**JIT tool activation** — extended tools activated on-demand, no "
 "pre-registration needed"
 msgstr ""
 
-#: src/introduction.md:123
+#: src/introduction.md:129
 msgid ""
 "**Config auto-repair** — auto-repair broken config.toml, never poison "
 "last-good config"
 msgstr ""
 
-#: src/introduction.md:124
+#: src/introduction.md:130
 msgid ""
 "**Context budget management** — 65% soft / 90% hard compaction thresholds "
 "with LLM fallback"
 msgstr ""
 
-#: src/introduction.md:125
+#: src/introduction.md:131
 msgid ""
 "**Stuck stream detection** — 2048-byte rolling window catches repeating "
 "patterns"
 msgstr ""
 
-#: src/introduction.md:126
+#: src/introduction.md:132
 msgid "**Gaslighting defense** — strips tool-refusal preambles mid-turn"
 msgstr ""
 
-#: src/introduction.md:127
+#: src/introduction.md:133
 msgid ""
 "**Deliver build outcomes (v0.3.61)** — rebuild/evolve results reach whoever "
 "asked, across channels and TUI"
 msgstr ""
 
-#: src/introduction.md:129
+#: src/introduction.md:135
 msgid "Terminal UI"
 msgstr ""
 
-#: src/introduction.md:130
+#: src/introduction.md:136
 msgid ""
 "**Native markdown rendering** — emphasis, lists, links, and task items "
 "render directly in the terminal"
 msgstr ""
 
-#: src/introduction.md:131
+#: src/introduction.md:137
 msgid ""
 "**Real-time tok/s throughput meter** — live tokens-per-second during "
 "streaming"
 msgstr ""
 
-#: src/introduction.md:132
+#: src/introduction.md:138
 msgid ""
 "**Version display (v0.3.73)** — show the running version on the TUI header "
 "and in channel /help + /usage"
 msgstr ""
 
-#: src/introduction.md:133
+#: src/introduction.md:139
 msgid ""
 "**3-state reasoning expand (v0.3.74)** — click or Ctrl+O cycles a reasoning "
 "block collapsed → capped → full, so it never floods the view"
 msgstr ""
 
-#: src/introduction.md:134
+#: src/introduction.md:140
 msgid ""
 "**Per-turn headers (v0.3.75)** — every turn gets a one-line summary header, "
 "its working-out folds into it, and turns fold by default so the view stays "
 "clean"
 msgstr ""
 
-#: src/introduction.md:135
+#: src/introduction.md:141
 msgid ""
 "**Group tool calls (v0.3.61)** — consecutive tool calls collapse into one "
 "expandable block, keeping the TUI clean during multi-step operations"
 msgstr ""
 
-#: src/introduction.md:136
+#: src/introduction.md:142
 msgid ""
 "**Fold intermediate text (v0.3.61)** — intermediate processing text folds "
 "into the same in-place log as tool calls, so only the final answer stays "
 "visible"
 msgstr ""
 
-#: src/introduction.md:137
+#: src/introduction.md:143
 msgid "**Session search** — search filter + viewport scroll across all sessions"
 msgstr ""
 
-#: src/introduction.md:138
+#: src/introduction.md:144
 msgid "**Split panes** — tmux-style parallel sessions with layout persistence"
 msgstr ""
 
-#: src/introduction.md:139
+#: src/introduction.md:145
 msgid ""
 "**Clipboard image paste** — paste images from browser or any app directly "
 "into TUI"
 msgstr ""
 
-#: src/introduction.md:140
+#: src/introduction.md:146
 msgid "**Plan pinning** — active plan pinned at end of prompt each turn"
 msgstr ""
 
-#: src/introduction.md:141
+#: src/introduction.md:147
 msgid ""
 "**Agent-driven onboarding** — personalized first-time setup with guided flow"
 msgstr ""
 
-#: src/introduction.md:142
+#: src/introduction.md:148
 msgid ""
 "**`/goal` autonomous loop** — set a goal and the agent loops until an LLM "
 "judge says it's done, with pause/resume/status controls"
 msgstr ""
 
-#: src/introduction.md:143
+#: src/introduction.md:149
 msgid ""
 "**Self-goaling (v0.3.61)** — agent can set and drive its own multi-turn "
 "goals via `goal_manage` tool without user invoking `/goal`"
 msgstr ""
 
-#: src/introduction.md:145
+#: src/introduction.md:151
 msgid "Developer Experience"
 msgstr ""
 
-#: src/introduction.md:146
+#: src/introduction.md:152
 msgid ""
 "**50+ built-in tools** — file ops, bash, web search, code execution, browser "
 "automation, image gen, voice, PDF rendering"
 msgstr ""
 
-#: src/introduction.md:147
+#: src/introduction.md:153
 msgid ""
 "**Unified parallel web search (v0.3.73)** — web_search, exa_search, and "
 "brave_search fan out in parallel under a single web_search tool"
 msgstr ""
 
-#: src/introduction.md:148
+#: src/introduction.md:154
 msgid ""
 "**web_scrape** — native URL-to-markdown scraping with SSRF protection, "
 "sitemap crawling, JS-shell detection, and profile-aware export"
 msgstr ""
 
-#: src/introduction.md:149
+#: src/introduction.md:155
 msgid ""
 "**DDG captcha detection (v0.3.73)** — detect DuckDuckGo captcha via HTTP 202 "
 "+ structural form check"
 msgstr ""
 
-#: src/introduction.md:150
+#: src/introduction.md:156
 msgid ""
 "**Built-in /github skill** — full gh CLI control for issues, PRs, code "
 "reviews, repo management"
 msgstr ""
 
-#: src/introduction.md:151
+#: src/introduction.md:157
 msgid ""
 "**Proactive tool discovery** — agent finds tools before saying \"I can't\""
 msgstr ""
 
-#: src/introduction.md:152
+#: src/introduction.md:158
 msgid ""
 "**Skills system** — workflow templates with fuzzy-finding, auto-registered "
 "as slash commands"
 msgstr ""
 
-#: src/introduction.md:153
+#: src/introduction.md:159
 msgid "**Dynamic tools** — runtime-defined via TOML (HTTP + shell executors)"
 msgstr ""
 
-#: src/introduction.md:154
+#: src/introduction.md:160
 msgid ""
 "**Projects system** — dedicated sessions with per-project brain overlays, "
 "file archiving, and color badges"
 msgstr ""
 
-#: src/introduction.md:155
+#: src/introduction.md:161
 msgid ""
 "**Hashline editing** — hash-anchored file editing with batch support and "
 "collision detection"
 msgstr ""
 
-#: src/introduction.md:156
+#: src/introduction.md:162
 msgid ""
 "**Mission Control** — full-screen dashboard with RSI inbox, activity log, "
 "and cron schedule"
 msgstr ""
 
-#: src/introduction.md:157
+#: src/introduction.md:163
 msgid ""
 "**RTK auto-download** — bundled 4MB proxy for 53.5% token savings on 100+ "
 "commands"
 msgstr ""
 
-#: src/introduction.md:158
+#: src/introduction.md:164
 msgid ""
 "**Confidential file protection** — SSH keys, .env, credentials protected by "
 "default"
 msgstr ""
 
-#: src/introduction.md:159
+#: src/introduction.md:165
 msgid "**AGENTS always-loaded** — hard rules and governance enforced every turn"
 msgstr ""
 
-#: src/introduction.md:160 src/introduction.md:163
+#: src/introduction.md:166 src/introduction.md:169
 msgid ""
 "**Config-driven debug_logs (v0.3.71)** — toggle debug logs with hot-reload, "
 "no restart needed"
 msgstr ""
 
-#: src/introduction.md:161 src/introduction.md:162
+#: src/introduction.md:167 src/introduction.md:168
 msgid ""
 "**Secret redaction scope (v0.3.71)** — scope redaction to global/group/DM "
 "with `/redact` command"
 msgstr ""
 
-#: src/introduction.md:164
+#: src/introduction.md:170
 msgid "**Tmux watchdog (v0.3.71)** — pane-only kill, 30s warning, auto-reattach"
 msgstr ""
 
-#: src/introduction.md:165
+#: src/introduction.md:171
 msgid ""
 "**Plan-gate three-state (v0.3.71)** — GateDecision with bash going to "
 "approval in post-init Editing"
 msgstr ""
 
-#: src/introduction.md:166
+#: src/introduction.md:172
 msgid ""
 "**MCP-style ToolHints (v0.3.71)** — risk model for tool classification, "
 "drives plan gate"
 msgstr ""
 
-#: src/introduction.md:169
+#: src/introduction.md:175
 msgid ""
 "**Full CDP support** — navigate, click, type, screenshot, JS eval, find "
 "elements"
 msgstr ""
 
-#: src/introduction.md:170
+#: src/introduction.md:176
 msgid "**Headless or headed** mode with element-specific screenshots"
 msgstr ""
 
-#: src/introduction.md:171
+#: src/introduction.md:177
 msgid "**Cookie/session persistence** across browser sessions"
 msgstr ""
 
-#: src/introduction.md:172
+#: src/introduction.md:178
 msgid "**Per-session tab isolation** — no cross-session DOM stomping"
 msgstr ""
 
-#: src/introduction.md:174
+#: src/introduction.md:180
 msgid "Project Directive Discovery (v0.3.59)"
 msgstr ""
 
-#: src/introduction.md:176
+#: src/introduction.md:182
 msgid ""
 "OpenCrabs auto-discovers rule files that other AI coding tools drop in a "
 "repo. Point the agent at any repository (via `/cd`, a channel workspace, or "
@@ -1186,103 +1235,103 @@ msgid ""
 "cross-tool `AGENTS.md` standard. No config, no import step."
 msgstr ""
 
-#: src/introduction.md:178 src/getting-started/onboarding.md:134
+#: src/introduction.md:184 src/getting-started/onboarding.md:134
 #: src/features/themes.md:56
 msgid "Source"
 msgstr ""
 
-#: src/introduction.md:178
+#: src/introduction.md:184
 msgid "Files"
 msgstr ""
 
-#: src/introduction.md:180
+#: src/introduction.md:186
 msgid "Cross-tool standard"
 msgstr ""
 
-#: src/introduction.md:180 src/features/self-improvement.md:93
+#: src/introduction.md:186 src/features/self-improvement.md:93
 msgid "`AGENTS.md`"
 msgstr ""
 
-#: src/introduction.md:181
+#: src/introduction.md:187
 msgid "Claude Code"
 msgstr ""
 
-#: src/introduction.md:181
+#: src/introduction.md:187
 msgid ""
 "`CLAUDE.md`, `CLAUDE.local.md`, `.claude/CLAUDE.md`, `.claude/rules/**/*.md`"
 msgstr ""
 
-#: src/introduction.md:182
+#: src/introduction.md:188
 msgid "Cursor"
 msgstr ""
 
-#: src/introduction.md:182
+#: src/introduction.md:188
 msgid "`.cursorrules`, `.cursor/rules/**/*.mdc`"
 msgstr ""
 
-#: src/introduction.md:183
+#: src/introduction.md:189
 msgid "Windsurf"
 msgstr ""
 
-#: src/introduction.md:183
+#: src/introduction.md:189
 msgid "`.windsurfrules`"
 msgstr ""
 
-#: src/introduction.md:184
+#: src/introduction.md:190
 msgid "Cline"
 msgstr ""
 
-#: src/introduction.md:184
+#: src/introduction.md:190
 msgid "`.clinerules` (file or `.clinerules/**/*.{md,txt}`)"
 msgstr ""
 
-#: src/introduction.md:185
+#: src/introduction.md:191
 msgid "Gemini CLI"
 msgstr ""
 
-#: src/introduction.md:185
+#: src/introduction.md:191
 msgid "`GEMINI.md`"
 msgstr ""
 
-#: src/introduction.md:186 src/brain/providers.md:175
+#: src/introduction.md:192 src/brain/providers.md:175
 msgid "GitHub Copilot"
 msgstr ""
 
-#: src/introduction.md:186
+#: src/introduction.md:192
 msgid "`.github/copilot-instructions.md`"
 msgstr ""
 
-#: src/introduction.md:187
+#: src/introduction.md:193
 msgid "OpenCode"
 msgstr ""
 
-#: src/introduction.md:187
+#: src/introduction.md:193
 msgid "`.opencode/AGENTS.md`"
 msgstr ""
 
-#: src/introduction.md:189
+#: src/introduction.md:195
 msgid ""
 "The index rebuilds when you `/cd` into a new directory, so directive files "
 "are always current."
 msgstr ""
 
-#: src/introduction.md:191
+#: src/introduction.md:197
 msgid "Quick Start"
 msgstr ""
 
-#: src/introduction.md:194
+#: src/introduction.md:200
 msgid "# Install (Linux/macOS)\n"
 msgstr ""
 
-#: src/introduction.md:195
+#: src/introduction.md:201
 msgid "$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/')"
 msgstr ""
 
-#: src/introduction.md:196
+#: src/introduction.md:202
 msgid "$(uname -s | tr A-Z a-z)"
 msgstr ""
 
-#: src/introduction.md:197
+#: src/introduction.md:203
 msgid ""
 "$(command -v jq >/dev/null 2>&1 && curl -s "
 "https://api.github.com/repos/adolfousier/opencrabs/releases/latest | jq -r "
@@ -1291,76 +1340,76 @@ msgid ""
 "'\"tag_name\":\"[^\"]*\"' | cut -d'\"' -f4)"
 msgstr ""
 
-#: src/introduction.md:198
+#: src/introduction.md:204
 msgid ""
 "\"https://github.com/adolfousier/opencrabs/releases/download/${TAG}/opencrabs-${TAG}-${OS}-${ARCH}.tar.gz\""
 msgstr ""
 
-#: src/introduction.md:200
+#: src/introduction.md:206
 msgid "# Or via Cargo (requires Rust 1.94+)\n"
 msgstr ""
 
-#: src/introduction.md:205
+#: src/introduction.md:211
 msgid ""
 "Auto-update enabled by default. Disable with `[agent] auto_update = false` "
 "in `~/.opencrabs/config.toml`."
 msgstr ""
 
-#: src/introduction.md:252
+#: src/introduction.md:258
 msgid "Next Steps"
 msgstr ""
 
-#: src/introduction.md:254
+#: src/introduction.md:260
 msgid "[Installation](getting-started/installation.md) — Install and configure"
 msgstr ""
 
-#: src/introduction.md:255
+#: src/introduction.md:261
 msgid "[Configuration](getting-started/configuration.md) — All config options"
 msgstr ""
 
-#: src/introduction.md:256
+#: src/introduction.md:262
 msgid "[Providers](brain/providers-overview.md) — Connect your LLM backends"
 msgstr ""
 
-#: src/introduction.md:257
+#: src/introduction.md:263
 msgid "[Channels](channels/overview.md) — Connect Telegram, Discord, etc."
 msgstr ""
 
-#: src/introduction.md:258
+#: src/introduction.md:264
 msgid "[Tools](brain/tools.md) — Explore 50+ built-in capabilities"
 msgstr ""
 
-#: src/introduction.md:259
+#: src/introduction.md:265
 msgid "[Self-Healing](features/self-healing.md) — Resilience features"
 msgstr ""
 
-#: src/introduction.md:260
+#: src/introduction.md:266
 msgid "[Multi-Agent](features/multi-agent.md) — Orchestrate sub-agents and teams"
 msgstr ""
 
-#: src/introduction.md:262
+#: src/introduction.md:268
 msgid "Community & Support"
 msgstr ""
 
-#: src/introduction.md:264
+#: src/introduction.md:270
 msgid ""
 "[Telegram community](https://t.me/opencrabs) — join the OpenCrabs group for "
 "questions, tips, and release chatter"
 msgstr ""
 
-#: src/introduction.md:265
+#: src/introduction.md:271
 msgid ""
 "[Sponsor on GitHub](https://github.com/sponsors/adolfousier) — back the "
 "project and keep the crabs fed"
 msgstr ""
 
-#: src/introduction.md:266
+#: src/introduction.md:272
 msgid ""
 "[Buy Me a Coffee](https://buymeacoffee.com/opencrabs) — one-time support if "
 "OpenCrabs saved you an afternoon"
 msgstr ""
 
-#: src/introduction.md:268
+#: src/introduction.md:274
 msgid ""
 "Found a bug or want a feature? Open an issue on "
 "[GitHub](https://github.com/adolfousier/opencrabs/issues)."
@@ -1788,8 +1837,8 @@ msgid "Step"
 msgstr ""
 
 #: src/getting-started/onboarding.md:19 src/getting-started/onboarding.md:36
-#: src/getting-started/cli-commands.md:54
-#: src/getting-started/cli-commands.md:256 src/brain/providers.md:11
+#: src/getting-started/cli-commands.md:55
+#: src/getting-started/cli-commands.md:257 src/brain/providers.md:11
 #: src/channels/overview.md:19 src/channels/telegram.md:195
 #: src/channels/trello.md:73 src/brain/commands.md:28
 #: src/features/sessions.md:114 src/features/split-panes.md:7
@@ -2491,7 +2540,7 @@ msgstr ""
 #: src/getting-started/configuration.md:363
 #: src/getting-started/configuration.md:384
 #: src/getting-started/cli-commands.md:13
-#: src/getting-started/cli-commands.md:46
+#: src/getting-started/cli-commands.md:47
 #: src/getting-started/troubleshooting.md:404
 #: src/getting-started/troubleshooting.md:500 src/brain/providers.md:430
 #: src/brain/images.md:76 src/channels/telegram.md:137
@@ -2592,7 +2641,7 @@ msgid "Control how much autonomy the agent has:"
 msgstr ""
 
 #: src/getting-started/onboarding.md:162
-#: src/getting-started/cli-commands.md:100
+#: src/getting-started/cli-commands.md:101
 msgid "Mode"
 msgstr ""
 
@@ -2885,7 +2934,7 @@ msgstr ""
 #: src/getting-started/configuration.md:348
 #: src/getting-started/configuration.md:363
 #: src/getting-started/configuration.md:384
-#: src/getting-started/cli-commands.md:46
+#: src/getting-started/cli-commands.md:47
 #: src/getting-started/troubleshooting.md:500 src/brain/providers.md:430
 #: src/channels/telegram.md:137 src/channels/discord.md:63
 #: src/channels/slack.md:66 src/channels/whatsapp.md:46
@@ -2978,8 +3027,8 @@ msgstr ""
 #: src/getting-started/configuration.md:105
 #: src/getting-started/configuration.md:155
 #: src/getting-started/configuration.md:317
-#: src/getting-started/cli-commands.md:48
-#: src/getting-started/cli-commands.md:50 src/brain/providers.md:432
+#: src/getting-started/cli-commands.md:49
+#: src/getting-started/cli-commands.md:51 src/brain/providers.md:432
 #: src/channels/telegram.md:146
 msgid "`true`"
 msgstr ""
@@ -3004,7 +3053,7 @@ msgstr ""
 #: src/getting-started/configuration.md:350
 #: src/getting-started/configuration.md:386
 #: src/getting-started/configuration.md:388
-#: src/getting-started/cli-commands.md:49 src/brain/providers.md:437
+#: src/getting-started/cli-commands.md:50 src/brain/providers.md:437
 #: src/channels/telegram.md:139 src/channels/discord.md:65
 #: src/channels/slack.md:68 src/channels/whatsapp.md:48
 #: src/channels/trello.md:61 src/brain/memory.md:86 src/features/a2a.md:23
@@ -4246,76 +4295,87 @@ msgid ""
 "back from chat**. Owner-only on channels; announces before acting."
 msgstr ""
 
-#: src/getting-started/cli-commands.md:34 src/features/goal.md:61
-msgid "`/btw`"
+#: src/getting-started/cli-commands.md:34
+msgid "`/clear`"
 msgstr ""
 
 #: src/getting-started/cli-commands.md:34
+msgid ""
+"**Fresh session** (v0.5.2) — Closes the current session and starts a blank "
+"one in place, without the summariser call, so it is instant. Owner-only on "
+"channels."
+msgstr ""
+
+#: src/getting-started/cli-commands.md:35 src/features/goal.md:61
+msgid "`/btw`"
+msgstr ""
+
+#: src/getting-started/cli-commands.md:35
 msgid ""
 "**Parallel agent** — Spawns an isolated sub-agent for a side task while the "
 "main conversation continues. e.g. `/btw research the latest Rust async "
 "patterns`"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:35
+#: src/getting-started/cli-commands.md:36
 msgid "`/mission-control`"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:35
+#: src/getting-started/cli-commands.md:36
 msgid ""
 "**Mission Control** — Full-screen dashboard showing RSI inbox (pending "
 "proposals), activity log (improvements applied), and cron schedule. Navigate "
 "with vim keys, apply/reject proposals with `a`/`r`."
 msgstr ""
 
-#: src/getting-started/cli-commands.md:36
+#: src/getting-started/cli-commands.md:37
 msgid "`/skills`"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:36
+#: src/getting-started/cli-commands.md:37
 msgid ""
 "**Skills picker** — Browse and launch workflow templates with fuzzy-finding. "
 "Every loaded skill auto-registers as a slash command."
 msgstr ""
 
-#: src/getting-started/cli-commands.md:37
+#: src/getting-started/cli-commands.md:38
 msgid "`/security-audit`"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:37
+#: src/getting-started/cli-commands.md:38
 msgid ""
 "**Security audit** — Comprehensive language-agnostic security & CVE audit. "
 "Detects project type, runs the right scanner, reviews recent diff for "
 "injection/auth/crypto patterns, scores 0-100."
 msgstr ""
 
-#: src/getting-started/cli-commands.md:38
+#: src/getting-started/cli-commands.md:39
 msgid "`/cost-estimate`"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:38
+#: src/getting-started/cli-commands.md:39
 msgid ""
 "**Cost estimate** — Codebase cost-to-build estimate, AI-assisted ROI "
 "breakdown, and fair-market valuation. Asks for business context before "
 "producing the valuation range."
 msgstr ""
 
-#: src/getting-started/cli-commands.md:39
+#: src/getting-started/cli-commands.md:40
 msgid "`/repo-audit`"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:39
+#: src/getting-started/cli-commands.md:40
 msgid ""
 "**Repo audit** — Language-agnostic repository health checks. 5-phase "
 "pipeline: language detection → native tool execution → git metrics → AST "
 "analysis → scoring + recommendations. Covers Rust, JS/TS, Python, Go."
 msgstr ""
 
-#: src/getting-started/cli-commands.md:40 src/features/goal.md:60
+#: src/getting-started/cli-commands.md:41 src/features/goal.md:60
 msgid "`/goal`"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:40
+#: src/getting-started/cli-commands.md:41
 msgid ""
 "**Autonomous goal loop** — Set a goal with `/goal <text>` and the agent "
 "loops autonomously: executing, self-evaluating with an LLM judge, and "
@@ -4323,11 +4383,11 @@ msgid ""
 "out. Supports `/goal pause`, `/goal resume`, `/goal status`, `/goal clear`."
 msgstr ""
 
-#: src/getting-started/cli-commands.md:41
+#: src/getting-started/cli-commands.md:42
 msgid "`/models <provider/model>`"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:41
+#: src/getting-started/cli-commands.md:42
 msgid ""
 "**Direct model switch** (v0.3.66) — Switch directly to a specific model on "
 "every channel. Use `/models anthropic/claude-sonnet-4-20250514` to switch "
@@ -4335,76 +4395,76 @@ msgid ""
 "global scope."
 msgstr ""
 
-#: src/getting-started/cli-commands.md:42
+#: src/getting-started/cli-commands.md:43
 msgid "`opencrabs session set-model`"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:42
+#: src/getting-started/cli-commands.md:43
 msgid ""
 "**Headless model switch** (v0.3.66) — Switch models from the CLI without the "
 "TUI. Useful for scripts and automation."
 msgstr ""
 
-#: src/getting-started/cli-commands.md:44
+#: src/getting-started/cli-commands.md:45
 msgid "Configuration Flags"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:46
+#: src/getting-started/cli-commands.md:47
 #: src/getting-started/troubleshooting.md:500 src/features/cron-jobs.md:39
 msgid "Flag"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:48
+#: src/getting-started/cli-commands.md:49
 msgid "`[agent] auto_update`"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:48
+#: src/getting-started/cli-commands.md:49
 msgid ""
 "Auto-install new releases on startup and hot-restart. Set to `false` to keep "
 "the manual prompt dialog."
 msgstr ""
 
-#: src/getting-started/cli-commands.md:49
+#: src/getting-started/cli-commands.md:50
 msgid "`[agent] force_default`"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:49
+#: src/getting-started/cli-commands.md:50
 msgid ""
 "(v0.3.66) When true, pushes the default provider/model pair to all sessions "
 "on config reload. Useful for enforcing a global model switch."
 msgstr ""
 
-#: src/getting-started/cli-commands.md:50
+#: src/getting-started/cli-commands.md:51
 msgid "`[agent] config_drift_warnings`"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:50
+#: src/getting-started/cli-commands.md:51
 msgid ""
 "(v0.3.66) Show startup warnings when a config value silently drifts from the "
 "expected default. Helps catch unintended config changes."
 msgstr ""
 
-#: src/getting-started/cli-commands.md:52
+#: src/getting-started/cli-commands.md:53
 msgid "Keyboard Shortcuts (TUI)"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:54 src/features/split-panes.md:7
+#: src/getting-started/cli-commands.md:55 src/features/split-panes.md:7
 msgid "Shortcut"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:56
+#: src/getting-started/cli-commands.md:57
 msgid "`F12`"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:56
+#: src/getting-started/cli-commands.md:57
 msgid "Toggle mouse capture on/off for native terminal text selection"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:58
+#: src/getting-started/cli-commands.md:59
 msgid "Startup Update Prompt"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:60
+#: src/getting-started/cli-commands.md:61
 msgid ""
 "When a new version is available, a centered dialog appears on the splash "
 "screen asking you to accept (Enter) or skip (Esc). Accepting triggers "
@@ -4412,11 +4472,11 @@ msgid ""
 "shows the new version."
 msgstr ""
 
-#: src/getting-started/cli-commands.md:62
+#: src/getting-started/cli-commands.md:63
 msgid "Channel Commands"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:64
+#: src/getting-started/cli-commands.md:65
 msgid ""
 "`/doctor`, `/help`, `/usage`, `/evolve`, `/restart`, `/exit`, and system "
 "commands work directly on Telegram, Discord, Slack, and WhatsApp without "
@@ -4424,7 +4484,7 @@ msgid ""
 "channel."
 msgstr ""
 
-#: src/getting-started/cli-commands.md:66
+#: src/getting-started/cli-commands.md:67
 msgid ""
 "`/restart` and `/exit` announce themselves before acting, because once the "
 "process is gone nothing is left to report a failure. Both are owner-only, "
@@ -4433,14 +4493,14 @@ msgid ""
 "machine OpenCrabs runs on."
 msgstr ""
 
-#: src/getting-started/cli-commands.md:68
+#: src/getting-started/cli-commands.md:69
 msgid ""
 "Since v0.3.80, a **spoken stop is honoured too** — telling the bot to stop "
 "in natural language works on channels and in the TUI, not just the bare word "
 "\"stop\"."
 msgstr ""
 
-#: src/getting-started/cli-commands.md:70
+#: src/getting-started/cli-commands.md:71
 msgid ""
 "All channel command logic is centralized in `src/channels/commands.rs` (847 "
 "lines) -- a shared handler that eliminates duplicated command logic across 5 "
@@ -4448,121 +4508,121 @@ msgid ""
 "`try_execute_text_command()` for consistent behavior."
 msgstr ""
 
-#: src/getting-started/cli-commands.md:72
+#: src/getting-started/cli-commands.md:73
 msgid ""
 "`/evolve` on channels now runs directly (downloads + installs the binary) "
 "without requiring an LLM round-trip. Previously it was routed through the "
 "agent."
 msgstr ""
 
-#: src/getting-started/cli-commands.md:74
+#: src/getting-started/cli-commands.md:75
 msgid "Chat Mode"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:77
+#: src/getting-started/cli-commands.md:78
 msgid "# Default — launch TUI\n"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:79
+#: src/getting-started/cli-commands.md:80
 msgid "# Same as above\n"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:84
+#: src/getting-started/cli-commands.md:85
 msgid "Agent Mode"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:86
+#: src/getting-started/cli-commands.md:87
 msgid "Non-interactive mode for scripting and automation:"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:89
+#: src/getting-started/cli-commands.md:90
 msgid "# Interactive multi-turn chat\n"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:91
+#: src/getting-started/cli-commands.md:92
 msgid "# Single-message mode\n"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:93
+#: src/getting-started/cli-commands.md:94
 msgid "\"What files changed today?\""
 msgstr ""
 
-#: src/getting-started/cli-commands.md:96
+#: src/getting-started/cli-commands.md:97
 msgid "Daemon Mode vs TUI"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:98
+#: src/getting-started/cli-commands.md:99
 msgid ""
 "OpenCrabs runs in one of two modes. Pick the one that fits the machine. "
 "**For any one profile, run only one at a time.**"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:100
+#: src/getting-started/cli-commands.md:101
 msgid "How you start it"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:100
+#: src/getting-started/cli-commands.md:101
 msgid "What it is"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:100
+#: src/getting-started/cli-commands.md:101
 msgid "Use it on"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:102
+#: src/getting-started/cli-commands.md:103
 msgid "**TUI (interactive)**"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:102
+#: src/getting-started/cli-commands.md:103
 msgid "`opencrabs`"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:102
+#: src/getting-started/cli-commands.md:103
 msgid ""
 "The full terminal UI: chat panes, sessions, settings. Your channels run too "
 "and share your session."
 msgstr ""
 
-#: src/getting-started/cli-commands.md:102
+#: src/getting-started/cli-commands.md:103
 msgid "A machine you sit at (laptop/desktop)"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:103
+#: src/getting-started/cli-commands.md:104
 msgid "**Daemon (headless)**"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:103
+#: src/getting-started/cli-commands.md:104
 msgid ""
 "`opencrabs daemon`, or install as a service: `opencrabs service install && "
 "opencrabs service start`"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:103
+#: src/getting-started/cli-commands.md:104
 msgid ""
 "No UI. Channels only (Telegram, Discord, Slack, WhatsApp) + cron. Survives "
 "reboots, SSH disconnects, and crashes."
 msgstr ""
 
-#: src/getting-started/cli-commands.md:103
+#: src/getting-started/cli-commands.md:104
 msgid "An always-on box or VPS"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:105
+#: src/getting-started/cli-commands.md:106
 msgid "Why not both at once?"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:107
+#: src/getting-started/cli-commands.md:108
 msgid ""
 "A bot credential (e.g. a Telegram token) can only hold one live `getUpdates` "
 "poll. If a daemon and a TUI both own the same profile's token they fight "
 "(HTTP 409) and the channel drops."
 msgstr ""
 
-#: src/getting-started/cli-commands.md:109
+#: src/getting-started/cli-commands.md:110
 msgid "The TUI always wins"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:111
+#: src/getting-started/cli-commands.md:112
 msgid ""
 "When you open the TUI while a daemon for the _same profile_ is running, the "
 "TUI shuts that daemon down first, takes over the channels, and shows a "
@@ -4571,49 +4631,49 @@ msgid ""
 "service start`, or relaunch `opencrabs daemon`)."
 msgstr ""
 
-#: src/getting-started/cli-commands.md:113
+#: src/getting-started/cli-commands.md:114
 msgid ""
 "On a box where the daemon usually runs, the everyday flow is: open "
 "`opencrabs` when you want to sit down with it; close the TUI and `opencrabs "
 "service start` when you want it headless again."
 msgstr ""
 
-#: src/getting-started/cli-commands.md:115
+#: src/getting-started/cli-commands.md:116
 msgid "Auto-start on boot"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:117
+#: src/getting-started/cli-commands.md:118
 msgid ""
 "**Daemon** — use the service installer (`opencrabs service install`); it "
 "wires up systemd (Linux) / launchd (macOS) to start on boot and restart on "
 "crash. This is the recommended always-on setup."
 msgstr ""
 
-#: src/getting-started/cli-commands.md:118
+#: src/getting-started/cli-commands.md:119
 msgid ""
 "**TUI** — to have the terminal UI open automatically on login, use a "
 "terminal/desktop autostart, not the service installer:"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:119
+#: src/getting-started/cli-commands.md:120
 msgid ""
 "**Linux desktop:** drop a `.desktop` file in `~/.config/autostart/` with "
 "`Exec=x-terminal-emulator -e opencrabs`."
 msgstr ""
 
-#: src/getting-started/cli-commands.md:120
+#: src/getting-started/cli-commands.md:121
 msgid ""
 "**macOS:** System Settings > General > Login Items > add a `.command` script "
 "that runs `opencrabs`."
 msgstr ""
 
-#: src/getting-started/cli-commands.md:121
+#: src/getting-started/cli-commands.md:122
 msgid ""
 "**VPS over SSH:** run inside `tmux`/`screen` and reattach. On a headless VPS "
 "you usually want the daemon, not the TUI."
 msgstr ""
 
-#: src/getting-started/cli-commands.md:123
+#: src/getting-started/cli-commands.md:124
 msgid ""
 "**Strongly recommended for everyday users.** If you plan to use OpenCrabs "
 "daily, ask it to set itself up as a system service. Just say something like "
@@ -4622,63 +4682,63 @@ msgid ""
 "and removal for you automatically."
 msgstr ""
 
-#: src/getting-started/cli-commands.md:125
+#: src/getting-started/cli-commands.md:126
 msgid "Keep the TUI running on a VPS (tmux)"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:127
+#: src/getting-started/cli-commands.md:128
 msgid ""
 "If you want the full interactive TUI always available on a remote server "
 "(not the headless daemon), `tmux` is the way. Your session survives SSH "
 "disconnects, laptop sleep, and flaky connections."
 msgstr ""
 
-#: src/getting-started/cli-commands.md:129
+#: src/getting-started/cli-commands.md:130
 msgid "**1. Install tmux**"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:132
+#: src/getting-started/cli-commands.md:133
 msgid "# Debian / Ubuntu\n"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:134
+#: src/getting-started/cli-commands.md:135
 msgid "# RHEL / CentOS / Fedora\n"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:139
+#: src/getting-started/cli-commands.md:140
 msgid "**2. Find where opencrabs is installed**"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:143
+#: src/getting-started/cli-commands.md:144
 msgid "# If that returns nothing, search the whole filesystem\n"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:145
+#: src/getting-started/cli-commands.md:146
 msgid "\"opencrabs\""
 msgstr ""
 
-#: src/getting-started/cli-commands.md:148
+#: src/getting-started/cli-commands.md:149
 msgid "**3. Start a named tmux session**"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:154
+#: src/getting-started/cli-commands.md:155
 msgid "**4. Launch opencrabs inside it**"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:160
+#: src/getting-started/cli-commands.md:161
 msgid "**5. Detach (leaves opencrabs running)**"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:162
+#: src/getting-started/cli-commands.md:163
 msgid ""
 "Press `Ctrl+B`, then `D`. You can now close SSH and opencrabs keeps running."
 msgstr ""
 
-#: src/getting-started/cli-commands.md:164
+#: src/getting-started/cli-commands.md:165
 msgid "**6. Reattach later**"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:170
+#: src/getting-started/cli-commands.md:171
 msgid ""
 "That's it. Come back from any machine, reattach, and pick up where you left "
 "off. If you only need channels (Telegram, Discord, Slack, WhatsApp) running "
@@ -4686,79 +4746,79 @@ msgid ""
 "install && opencrabs service start`."
 msgstr ""
 
-#: src/getting-started/cli-commands.md:172
+#: src/getting-started/cli-commands.md:173
 msgid "Health Endpoint"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:174
+#: src/getting-started/cli-commands.md:175
 msgid "Add to `config.toml` to expose a health check:"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:181
+#: src/getting-started/cli-commands.md:182
 msgid ""
 "Then `GET http://localhost:8080/health` returns 200 OK with JSON status. "
 "Useful for systemd watchdog, uptime monitors, or load balancers."
 msgstr ""
 
-#: src/getting-started/cli-commands.md:183
+#: src/getting-started/cli-commands.md:184
 msgid "Service Management"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:185
+#: src/getting-started/cli-commands.md:186
 msgid ""
 "Install OpenCrabs as a system service (launchd on macOS, systemd on Linux):"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:196
+#: src/getting-started/cli-commands.md:197
 msgid "Profile-aware services"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:198
+#: src/getting-started/cli-commands.md:199
 msgid "Each profile gets its own independent service:"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:201
+#: src/getting-started/cli-commands.md:202
 msgid "# Install a specific profile as a service\n"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:204
+#: src/getting-started/cli-commands.md:205
 msgid "# Each profile gets its own service name\n"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:206
+#: src/getting-started/cli-commands.md:207
 msgid "# Linux: opencrabs-hermes.service\n"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:208
+#: src/getting-started/cli-commands.md:209
 msgid "# Manage independently\n"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:215
+#: src/getting-started/cli-commands.md:216
 msgid ""
 "Multiple profiles can run as simultaneous daemon services with full "
 "isolation."
 msgstr ""
 
-#: src/getting-started/cli-commands.md:217
+#: src/getting-started/cli-commands.md:218
 msgid "OPENCRABS_PROFILE environment variable"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:219
+#: src/getting-started/cli-commands.md:220
 msgid ""
 "Set `OPENCRABS_PROFILE=hermes` to select a profile without the `-p` flag. "
 "Useful for systemd services, cron jobs, and daemon mode."
 msgstr ""
 
-#: src/getting-started/cli-commands.md:221
+#: src/getting-started/cli-commands.md:222
 msgid "Troubleshooting: daemon stays down"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:223
+#: src/getting-started/cli-commands.md:224
 #: src/getting-started/troubleshooting.md:349
 msgid "If `opencrabs service status` says stopped:"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:225
+#: src/getting-started/cli-commands.md:226
 #: src/getting-started/troubleshooting.md:351
 msgid ""
 "**Did you open the TUI?** Opening `opencrabs` deliberately shuts the daemon "
@@ -4766,7 +4826,7 @@ msgid ""
 "until you `opencrabs service start` again."
 msgstr ""
 
-#: src/getting-started/cli-commands.md:226
+#: src/getting-started/cli-commands.md:227
 #: src/getting-started/troubleshooting.md:352
 msgid ""
 "**Old builds** may still have `Restart=on-failure` instead of "
@@ -4774,7 +4834,7 @@ msgid ""
 "(then `service start`) to pick up the always-restart policy."
 msgstr ""
 
-#: src/getting-started/cli-commands.md:227
+#: src/getting-started/cli-commands.md:228
 #: src/getting-started/troubleshooting.md:353
 msgid ""
 "**Config, keys, commands, and tools hot-reload at runtime.** Editing "
@@ -4783,134 +4843,134 @@ msgid ""
 "than restarting."
 msgstr ""
 
-#: src/getting-started/cli-commands.md:229
+#: src/getting-started/cli-commands.md:230
 msgid "Cron Management"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:232
+#: src/getting-started/cli-commands.md:233
 msgid "# List all cron jobs\n"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:234
+#: src/getting-started/cli-commands.md:235
 msgid "# Add a new cron job\n"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:254
+#: src/getting-started/cli-commands.md:255
 msgid "TUI Keyboard Shortcuts"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:256 src/brain/providers.md:11
+#: src/getting-started/cli-commands.md:257 src/brain/providers.md:11
 #: src/channels/overview.md:19 src/features/mission-control.md:62
 #: src/features/themes.md:104 src/features/usage-dashboard.md:78
 #: src/features/usage-dashboard.md:104
 msgid "Key"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:258 src/features/mission-control.md:66
+#: src/getting-started/cli-commands.md:259 src/features/mission-control.md:66
 #: src/features/usage-dashboard.md:107
 msgid "`Enter`"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:258
+#: src/getting-started/cli-commands.md:259
 msgid "Send message"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:259 src/brain/providers.md:16
+#: src/getting-started/cli-commands.md:260 src/brain/providers.md:16
 #: src/channels/overview.md:26 src/features/mission-control.md:69
 #: src/features/usage-dashboard.md:84 src/features/usage-dashboard.md:108
 msgid "`Esc`"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:259
+#: src/getting-started/cli-commands.md:260
 msgid "Cancel / dismiss"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:260
+#: src/getting-started/cli-commands.md:261
 msgid "`Ctrl+N`"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:260
+#: src/getting-started/cli-commands.md:261
 msgid "New session"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:261
+#: src/getting-started/cli-commands.md:262
 msgid "`Ctrl+L`"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:261
+#: src/getting-started/cli-commands.md:262
 msgid "Sessions screen"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:262
+#: src/getting-started/cli-commands.md:263
 msgid "`Ctrl+K`"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:262
+#: src/getting-started/cli-commands.md:263
 msgid "Clear current session"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:263
+#: src/getting-started/cli-commands.md:264
 msgid "`Ctrl+O`"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:263
+#: src/getting-started/cli-commands.md:264
 msgid "Toggle tool group collapse"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:264
+#: src/getting-started/cli-commands.md:265
 msgid "`\\|`"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:264
+#: src/getting-started/cli-commands.md:265
 msgid "Split pane horizontally"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:265
+#: src/getting-started/cli-commands.md:266
 msgid "`_`"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:265
+#: src/getting-started/cli-commands.md:266
 msgid "Split pane vertically"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:266 src/features/split-panes.md:12
+#: src/getting-started/cli-commands.md:267 src/features/split-panes.md:12
 msgid "`Ctrl+X`"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:266
+#: src/getting-started/cli-commands.md:267
 msgid "Close focused pane"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:267 src/channels/overview.md:25
+#: src/getting-started/cli-commands.md:268 src/channels/overview.md:25
 #: src/features/split-panes.md:11 src/features/usage-dashboard.md:106
 msgid "`Tab`"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:267
+#: src/getting-started/cli-commands.md:268
 msgid "Cycle pane focus / Accept autocomplete"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:268
+#: src/getting-started/cli-commands.md:269
 msgid "`Up/Down`"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:268
+#: src/getting-started/cli-commands.md:269
 msgid "Navigate suggestions / sessions"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:269
+#: src/getting-started/cli-commands.md:270
 msgid "`/`"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:269
+#: src/getting-started/cli-commands.md:270
 msgid "Start slash command (e.g. `/help`, `/models`)"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:270
+#: src/getting-started/cli-commands.md:271
 msgid "`:`"
 msgstr ""
 
-#: src/getting-started/cli-commands.md:270
+#: src/getting-started/cli-commands.md:271
 msgid "Start emoji picker"
 msgstr ""
 
@@ -5479,24 +5539,24 @@ msgstr ""
 msgid "WhatsApp Won't Connect / Wrong Number Replying"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:248 src/channels/whatsapp.md:125
+#: src/getting-started/troubleshooting.md:248 src/channels/whatsapp.md:134
 msgid ""
 "Each OpenCrabs instance supports one WhatsApp account (one companion "
 "device). If you connected multiple numbers or the wrong number is replying, "
 "you need a full reset. The bot always uses the last number you connected."
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:250 src/channels/whatsapp.md:127
+#: src/getting-started/troubleshooting.md:250 src/channels/whatsapp.md:136
 msgid ""
 "**Critical:** Always reset the connection before connecting a new number. "
 "OpenCrabs only keeps the last paired number."
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:252 src/channels/whatsapp.md:129
+#: src/getting-started/troubleshooting.md:252 src/channels/whatsapp.md:138
 msgid "**Full reset steps:**"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:254 src/channels/whatsapp.md:131
+#: src/getting-started/troubleshooting.md:254 src/channels/whatsapp.md:140
 msgid ""
 "**Remove ALL linked devices from WhatsApp.** Open WhatsApp on your phone, go "
 "to **Settings > Linked Devices**, and remove every device in the list. Don't "
@@ -5505,21 +5565,21 @@ msgid ""
 "reliable fix is to clear them all and start fresh."
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:255 src/channels/whatsapp.md:132
+#: src/getting-started/troubleshooting.md:255 src/channels/whatsapp.md:141
 msgid ""
 "**Reset the connection in OpenCrabs** — in the TUI or from a channel, go to "
 "`/onboard:channels` and press **R** to reset the WhatsApp connection. Wait "
 "for confirmation that the reset is complete."
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:256 src/channels/whatsapp.md:133
+#: src/getting-started/troubleshooting.md:256 src/channels/whatsapp.md:142
 msgid ""
 "**Re-pair from scratch** — after the reset is confirmed, go to WhatsApp > "
 "**Settings > Linked Devices** > **Link a Device** and scan the new QR code "
 "shown by OpenCrabs."
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:258 src/channels/whatsapp.md:135
+#: src/getting-started/troubleshooting.md:258 src/channels/whatsapp.md:144
 msgid ""
 "If the bot still shows the old number after resetting, make sure you "
 "completed step 1 (removing the device from WhatsApp) before step 2."
@@ -5529,78 +5589,78 @@ msgstr ""
 msgid "**Common issues:**"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:262 src/channels/whatsapp.md:139
+#: src/getting-started/troubleshooting.md:262 src/channels/whatsapp.md:148
 msgid "Symptom"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:262 src/channels/whatsapp.md:139
+#: src/getting-started/troubleshooting.md:262 src/channels/whatsapp.md:148
 msgid "Cause"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:262 src/channels/whatsapp.md:139
+#: src/getting-started/troubleshooting.md:262 src/channels/whatsapp.md:148
 msgid "Fix"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:264 src/channels/whatsapp.md:141
+#: src/getting-started/troubleshooting.md:264 src/channels/whatsapp.md:150
 msgid "Old number still replying"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:264 src/channels/whatsapp.md:141
+#: src/getting-started/troubleshooting.md:264 src/channels/whatsapp.md:150
 msgid "A stale linked device is still paired"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:264 src/channels/whatsapp.md:141
+#: src/getting-started/troubleshooting.md:264 src/channels/whatsapp.md:150
 msgid ""
 "Remove **ALL** linked devices from WhatsApp > Settings > Linked Devices, "
 "then press **R** in `/onboard:channels` and re-pair"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:265 src/channels/whatsapp.md:142
+#: src/getting-started/troubleshooting.md:265 src/channels/whatsapp.md:151
 msgid "QR code doesn't appear"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:265 src/channels/whatsapp.md:142
+#: src/getting-started/troubleshooting.md:265 src/channels/whatsapp.md:151
 msgid "Agent is still connected (no restart triggered)"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:265 src/channels/whatsapp.md:142
+#: src/getting-started/troubleshooting.md:265 src/channels/whatsapp.md:151
 msgid ""
 "Press **R** in `/onboard:channels` to force a restart, then wait for the new "
 "QR"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:266 src/channels/whatsapp.md:143
+#: src/getting-started/troubleshooting.md:266 src/channels/whatsapp.md:152
 msgid "Bot doesn't reply to anyone"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:266 src/channels/whatsapp.md:143
+#: src/getting-started/troubleshooting.md:266 src/channels/whatsapp.md:152
 msgid "`response_policy` is too restrictive"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:266 src/channels/whatsapp.md:143
+#: src/getting-started/troubleshooting.md:266 src/channels/whatsapp.md:152
 msgid ""
 "Set `response_policy = \"allowlist\"` and add phone numbers to "
 "`allowed_phones` in `config.toml`"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:267 src/channels/whatsapp.md:144
+#: src/getting-started/troubleshooting.md:267 src/channels/whatsapp.md:153
 msgid "Bot replies to everyone"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:267 src/channels/whatsapp.md:144
+#: src/getting-started/troubleshooting.md:267 src/channels/whatsapp.md:153
 msgid "`response_policy` is `open`"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:267 src/channels/whatsapp.md:144
+#: src/getting-started/troubleshooting.md:267 src/channels/whatsapp.md:153
 msgid ""
 "Set `response_policy = \"allowlist\"` or `\"owner_only\"` in `config.toml`"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:268 src/channels/whatsapp.md:145
+#: src/getting-started/troubleshooting.md:268 src/channels/whatsapp.md:154
 msgid "Bot doesn't reply to self-chat"
 msgstr ""
 
-#: src/getting-started/troubleshooting.md:268 src/channels/whatsapp.md:145
+#: src/getting-started/troubleshooting.md:268 src/channels/whatsapp.md:154
 msgid "`allowed_phones` doesn't include the paired number"
 msgstr ""
 
@@ -8499,7 +8559,7 @@ msgstr ""
 msgid "Supported Channels"
 msgstr ""
 
-#: src/channels/overview.md:51
+#: src/channels/overview.md:51 src/features/acp.md:14
 msgid "Protocol"
 msgstr ""
 
@@ -9766,22 +9826,35 @@ msgid ""
 msgstr ""
 
 #: src/channels/telegram.md:248
-msgid "Group Chat Behavior"
+msgid "Forum Topic Management and /clear (v0.5.2)"
 msgstr ""
 
 #: src/channels/telegram.md:250
-msgid "In groups, the agent:"
-msgstr ""
-
-#: src/channels/telegram.md:251
-msgid "Responds when mentioned by name or replied to"
+msgid ""
+"The agent can create and rename forum topics (not just route into existing "
+"ones), and a group's session can bind to a topic so each topic keeps its own "
+"conversation context. `/clear` starts a fresh session in place — the current "
+"one closes and a blank one begins — without invoking the summariser, so it "
+"is instant and free (#1585)."
 msgstr ""
 
 #: src/channels/telegram.md:252
+msgid "Group Chat Behavior"
+msgstr ""
+
+#: src/channels/telegram.md:254
+msgid "In groups, the agent:"
+msgstr ""
+
+#: src/channels/telegram.md:255
+msgid "Responds when mentioned by name or replied to"
+msgstr ""
+
+#: src/channels/telegram.md:256
 msgid "Stays quiet when the conversation doesn't involve it"
 msgstr ""
 
-#: src/channels/telegram.md:253
+#: src/channels/telegram.md:257
 msgid "Tracks context from group messages passively"
 msgstr ""
 
@@ -10024,7 +10097,9 @@ msgid "Formatting Notes"
 msgstr ""
 
 #: src/channels/discord.md:105
-msgid "No markdown tables in Discord — use bullet lists instead"
+msgid ""
+"Markdown tables in agent output convert to native Discord tables (v0.5.2); "
+"in your own messages, bullet lists are still the safest habit"
 msgstr ""
 
 #: src/channels/discord.md:106
@@ -10032,10 +10107,24 @@ msgid "Wrap multiple links in `<url>` to suppress embeds"
 msgstr ""
 
 #: src/channels/discord.md:108
-msgid "Sustained Typing Indicator (v0.3.76)"
+msgid "Live Reply Tracing, Auto-Threading, Native Tables (v0.5.2)"
 msgstr ""
 
 #: src/channels/discord.md:110
+msgid ""
+"Long turns stream as a live reply that is traced and edited in place instead "
+"of staying silent until the end. Answers that belong together are "
+"auto-threaded, and markdown tables in agent output render as native Discord "
+"tables rather than raw pipes (#1608). A dedup guard on tool turns stops the "
+"final response from double-posting content a tool summary already showed "
+"(#1603)."
+msgstr ""
+
+#: src/channels/discord.md:112
+msgid "Sustained Typing Indicator (v0.3.76)"
+msgstr ""
+
+#: src/channels/discord.md:114
 msgid ""
 "Discord now shows a **sustained typing indicator** while the agent processes "
 "a request. Previously, Discord had no typing indicator at all (Telegram and "
@@ -10563,15 +10652,48 @@ msgstr ""
 msgid "Optionally generates TTS audio response"
 msgstr ""
 
+#: src/channels/whatsapp.md:121
+msgid "Surface (v0.5.2)"
+msgstr ""
+
 #: src/channels/whatsapp.md:123
+msgid "The WhatsApp channel grew to match the phone app's surface:"
+msgstr ""
+
+#: src/channels/whatsapp.md:125
+msgid ""
+"**Outbound**: native voice notes (opus), edit-in-place streaming for long "
+"replies, pin, forward, and profile actions"
+msgstr ""
+
+#: src/channels/whatsapp.md:126
+msgid ""
+"**Inbound**: video, stickers, location, contacts, reactions, and poll votes "
+"are parsed into the turn; presence events and media recovery fill gaps after "
+"reconnects"
+msgstr ""
+
+#: src/channels/whatsapp.md:127
+msgid ""
+"**Sessions**: disappearing messages honored per chat, contact blocking, "
+"per-chat history with reaction acknowledgements"
+msgstr ""
+
+#: src/channels/whatsapp.md:128
+msgid ""
+"**Surfaces**: status updates and newsletter discovery, native-flow buttons "
+"for interactive prompts"
+msgstr ""
+
+#: src/channels/whatsapp.md:132
 msgid "Wrong number replying"
 msgstr ""
 
-#: src/channels/whatsapp.md:137
+#: src/channels/whatsapp.md:146
 msgid "Common issues"
 msgstr ""
 
-#: src/channels/whatsapp.md:145
+#: src/channels/whatsapp.md:154
 msgid ""
 "The paired number's self-chat is always allowed, regardless of "
 "`allowed_phones`. If it's not working, check that `response_policy` isn't "
@@ -13691,13 +13813,26 @@ msgid ""
 "identical page, the hint now nudges toward inventory mode."
 msgstr ""
 
+#: src/features/browser.md:45
+msgid "Shadow-DOM Resolution (v0.5.2)"
+msgstr ""
+
 #: src/features/browser.md:47
+msgid ""
+"Selector resolution is shadow-DOM aware: an element inside one or more "
+"shadow roots is reached by piercing the roots along the path, so web "
+"components and widget libraries that host their UI in shadow trees are "
+"automatable like light-DOM content. Applies across the browser tools (click, "
+"type, find, screenshot targeting)."
+msgstr ""
+
+#: src/features/browser.md:51
 msgid ""
 "No configuration needed. The browser feature is enabled by default. To "
 "disable it at build time:"
 msgstr ""
 
-#: src/features/browser.md:50
+#: src/features/browser.md:54
 msgid "\"telegram,discord,slack\""
 msgstr ""
 
@@ -15339,6 +15474,74 @@ msgstr ""
 #: src/features/a2a.md:162
 msgid ""
 "For public exposure, use a reverse proxy with TLS + the `api_key` Bearer auth"
+msgstr ""
+
+#: src/features/acp.md:3
+msgid ""
+"**ACP server mode** lets agent-aware editors (Zed, MonoCode, any ACP client) "
+"drive OpenCrabs as a backend agent over the [Agent Client "
+"Protocol](https://agentclientprotocol.com). The editor spawns `opencrabs "
+"acp` as a child process and speaks JSON-RPC 2.0 over stdio, so your editor "
+"session and your channels share the same brain, tools, memory, and provider "
+"configuration (#1540)."
+msgstr ""
+
+#: src/features/acp.md:5
+msgid "Running"
+msgstr ""
+
+#: src/features/acp.md:8
+msgid "# default model from config\n"
+msgstr ""
+
+#: src/features/acp.md:12
+msgid ""
+"Point your editor's ACP/agent client at the `opencrabs acp` command and it "
+"appears as an available agent. One child process serves one conversation "
+"thread."
+msgstr ""
+
+#: src/features/acp.md:16
+msgid "**Framing**: JSON-RPC 2.0, newline-delimited (NDJSON) over stdio"
+msgstr ""
+
+#: src/features/acp.md:17
+msgid ""
+"**`session/prompt`**: runs the full tool loop for a turn; the reply arrives "
+"when the turn settles"
+msgstr ""
+
+#: src/features/acp.md:18
+msgid ""
+"**`session/update`**: progress notifications stream back while the turn "
+"works (tool calls, output chunks)"
+msgstr ""
+
+#: src/features/acp.md:19
+msgid ""
+"**`session/request_permission`**: tool approvals round-trip to the editor, "
+"so the client's permission UI gates dangerous calls the same way channel "
+"approvals do"
+msgstr ""
+
+#: src/features/acp.md:21
+msgid ""
+"stdout is the protocol channel: nothing but JSON-RPC frames is ever written "
+"to it. Logs go to the daily log file (or stderr in debug builds), never "
+"stdout."
+msgstr ""
+
+#: src/features/acp.md:23
+msgid "Why it matters"
+msgstr ""
+
+#: src/features/acp.md:25
+msgid ""
+"Before ACP mode, driving OpenCrabs from an editor meant copy-pasting between "
+"the editor and a channel. With ACP mode the editor is a first-class surface: "
+"same providers, same skill gating, same plan approvals, same memory. "
+"Configuration is shared with the rest of OpenCrabs; there is no separate ACP "
+"config section."
 msgstr ""
 
 #: src/features/self-healing.md:3

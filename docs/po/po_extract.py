@@ -14,6 +14,16 @@ def block_msgid(block):
     s = "".join(p.replace('\\"', '"').replace("\\n", "\n").replace("\\\\", "\\") for p in parts)
     return s
 
+def msgstr_text(block):
+    """Concatenated msgstr payload. A wrapped msgstr opens with `msgstr ""` and
+    carries its text on the continuation lines, so testing only the first line
+    reports every wrapped entry as untranslated."""
+    m = re.search(r'^msgstr ((?:"(?:[^"\\]|\\.)*"\n?)+)', block, re.M)
+    if not m:
+        return ""
+    return "".join(re.findall(r'"((?:[^"\\]|\\.)*)"', m.group(1)))
+
+
 def main():
     po = sys.argv[1]
     targets = sys.argv[2:]
@@ -24,8 +34,10 @@ def main():
         refs = re.findall(r'^#: (\S+)', b, re.M)
         if not any(any(t in r for t in targets) for r in refs):
             continue
-        if re.search(r'^msgstr "[^"]', b, re.M):
-            continue  # already translated
+        if re.search(r'^#, .*fuzzy', b, re.M):
+            pass  # fuzzy is not a translation: mdbook-gettext falls back to English
+        elif msgstr_text(b):
+            continue  # already translated (single line or wrapped continuation lines)
         mid = block_msgid(b)
         if mid and mid not in seen and mid != "":
             seen.add(mid)
