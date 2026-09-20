@@ -96,6 +96,49 @@ the same topic (#104).
 
 Results are stored in the DB via the `cron_results` table regardless of delivery target, so you can query past execution results with `opencrabs cron results <name>`.
 
+## Trigger-gated jobs (v0.5.3)
+
+A job can carry a **pre-flight trigger**: at each fire time the scheduler runs a shell
+command first, and only executes the prompt when a condition on that command's result is
+met. This turns scheduled jobs from "fires into the void every hour" into "acts when
+something actually happened" (a file appeared, a health check failed, a log line matched)
+(#233).
+
+Set it through the `cron_manage` tool at create or update time:
+
+| Field | What it does |
+|-------|--------------|
+| `trigger_cmd` | Shell command run under `/bin/sh -c` before the prompt. 30s timeout; a hung trigger is killed, not orphaned. Either `prompt` or `trigger_cmd` must be set. |
+| `trigger_on` | Fire condition (see below). Default `non_empty`. |
+| `set_goal` | On fire, set the active goal in the destination session instead of a plain prompt turn. Requires `deliver_to` to target a session; refused for passive channel deliveries. |
+| `goal_template` | Template for the goal/notification text. Interpolates `{output}`, `{stdout}`, `{stderr}`, `{exit_code}`. |
+
+### `trigger_on` conditions
+
+| Value | Fires when |
+|-------|-----------|
+| `non_empty` (default) | stdout or stderr contains any non-whitespace output |
+| `exit_zero` | the trigger exits 0 |
+| `exit_non_zero` | the trigger exits non-zero (health checks, `grep` misses) |
+| `regex:PATTERN` or `re:PATTERN` | combined output matches the regular expression |
+| `always` | the trigger finished, regardless of output or exit code |
+
+### Semantics
+
+- **Condition not met** → the run is short-circuited at 0 tokens and recorded as a
+  skipped/success run. The prompt never executes, nothing is delivered.
+- **Trigger command errors or times out** → the run is recorded as an error; the prompt
+  still does not execute.
+- **Empty `prompt` with a trigger** → direct 0-token delivery: the formatted trigger
+  output (`goal_template`, or the raw output) is delivered to `deliver_to` without an
+  agent turn at all.
+- **`set_goal`** → the fired trigger dispatches into the target session as an active
+  goal, so the session's agent works the condition it detected rather than just echoing
+  output.
+
+Put the watching in `trigger_cmd` (deterministic, cheap, script-runner pattern), the
+condition in `trigger_on`, and the acting in the prompt or goal.
+
 ## Scheduler Lock (v0.3.65)
 
 The cron scheduler uses a **file lock** to prevent duplicate job execution. Only one scheduler instance can run per profile at a time. If you accidentally start OpenCrabs twice, the second instance won't fire duplicate cron jobs.
