@@ -65,7 +65,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-18ca4ef7.js";
+            window.path_to_searchindex_js = "searchindex-2770b62f.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-bfb94109.js"></script>
@@ -209,7 +209,7 @@
                     <main>
                         <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
 <p><strong>O OpenCrabs</strong> é um agente de orquestração de IA auto-hospedado e agnóstico de provider que corre como um único binário Rust. Automatiza o teu terminal, browser, channels (Telegram/Discord/Slack/WhatsApp/Trello) e codebase, respeitando a tua privacidade e mantendo-te no controlo.</p>
-<p><strong>8.852 testes</strong> cobrindo providers, ferramentas, channels, TUI, self-healing e automação de browser.</p>
+<p><strong>9,032 testes</strong> em providers, ferramentas, channels, TUI, self-healing e automação de browser.</p>
 <h2 id="o-que-distingue-o-opencrabs"><a class="header" href="#o-que-distingue-o-opencrabs">O Que Distingue o OpenCrabs</a></h2>
 <h3 id="zero-telemetria-nem-por-opção"><a class="header" href="#zero-telemetria-nem-por-opção">Zero Telemetria, Nem por Opção</a></h3>
 <ul>
@@ -375,6 +375,21 @@
 </li>
 <li>
 <p><strong>Orçamento do payload do menu de comandos (v0.5.2)</strong> — o setMyCommands do Telegram rejeita silenciosamente corpos de pedido acima de ~7,8KB reportando BOT_COMMANDS_TOO_MUCH; as descrições passam a encurtar por níveis para o menu inteiro caber (#1613)</p>
+</li>
+<li>
+<p><strong>Cron com triggers (v0.5.3)</strong> — um job corre um pre-flight check e só executa quando a condição é satisfeita (output não vazio, exit code, regex), os runs saltados custam 0 tokens e um trigger disparado pode despachar um goal para uma session (#233)</p>
+</li>
+<li>
+<p><strong>Windows de primeira classe (v0.5.3)</strong> — shell handling por plataforma, leitura de ficheiros BOM/UTF-16, fallbacks de tilde e cwd, com a CI a compilar Windows e a fazer gate aos PRs (#627)</p>
+</li>
+<li>
+<p><strong>Memória epistémica (v0.5.3)</strong> — os factos do MEMORY.md ganham confidence e decay (#1643), as secções frias arquivam-se sozinhas e o <code>opencrabs memory prune</code> mostra o que ficou frio antes de tocar em nada (#1657)</p>
+</li>
+<li>
+<p><strong>Motor de temas terminado (v0.5.3)</strong> — todos os widgets do TUI resolvem as cores através do tema, com um guard de suite contra novos sítios de ANSI cru, e os temas podem declarar um canvas background (#1634)</p>
+</li>
+<li>
+<p><strong>Polls de sugestões no WhatsApp (v0.5.3)</strong> — conjuntos de follow-ups além do limite nativo de botões renderizam como poll, e um voto seleciona a opção (#1616)</p>
 </li>
 <li>
 <p><strong>Modo de reparação doctor –fix (v0.3.83)</strong> — linhas de cron presas, markers obsoletos e permissões partidas são reparados no momento em vez de apenas reportados</p>

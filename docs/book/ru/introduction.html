@@ -65,7 +65,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-f171a937.js";
+            window.path_to_searchindex_js = "searchindex-0436d9d8.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-bfb94109.js"></script>
@@ -209,7 +209,7 @@
                     <main>
                         <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
 <p><strong>OpenCrabs</strong> — автономный агент оркестрации ИИ, не привязанный к провайдеру, работающий как единый бинарный файл на Rust. Он автоматизирует ваш терминал, браузер, channels (Telegram/Discord/Slack/WhatsApp/Trello) и кодовую базу, уважая вашу приватность и оставляя контроль у вас.</p>
-<p><strong>8 852 теста</strong> охватывают providers, инструменты, channels, TUI, self-healing и автоматизацию browser.</p>
+<p><strong>9,032 теста</strong> по providers, инструментам, channels, TUI, self-healing и браузерной автоматизации.</p>
 <h2 id="что-отличает-opencrabs"><a class="header" href="#что-отличает-opencrabs">Что отличает OpenCrabs</a></h2>
 <h3 id="ноль-телеметрии--даже-опции-включения-нет"><a class="header" href="#ноль-телеметрии--даже-опции-включения-нет">Ноль телеметрии — даже опции включения нет</a></h3>
 <ul>
@@ -375,6 +375,21 @@
 </li>
 <li>
 <p><strong>Бюджет payload меню команд (v0.5.2)</strong> — setMyCommands в Telegram молча отклоняет тела запросов больше ~7,8 КБ, сообщая BOT_COMMANDS_TOO_MUCH; описания теперь сокращаются по уровням, чтобы всё меню поместилось (#1613)</p>
+</li>
+<li>
+<p><strong>Cron с триггерами (v0.5.3)</strong> — job выполняет pre-flight проверку и запускается только при выполнении вашего условия (непустой output, exit code, regex), пропущенные runs стоят 0 токенов, а сработавший trigger может отправить goal в session (#233)</p>
+</li>
+<li>
+<p><strong>Windows как первая платформа (v0.5.3)</strong> — платформенная обработка shell, чтение BOM/UTF-16, fallback для tilde и cwd, CI собирает Windows и блокирует PR (#627)</p>
+</li>
+<li>
+<p><strong>Эпистемическая память (v0.5.3)</strong> — факты в MEMORY.md несут confidence и decay (#1643), холодные секции архивируются сами, а <code>opencrabs memory prune</code> показывает, что остыло, прежде чем что-то менять (#1657)</p>
+</li>
+<li>
+<p><strong>Завершённый движок тем (v0.5.3)</strong> — каждый виджет TUI берёт цвета из темы, suite-guard срабатывает на любой новый сырой ANSI-сайт, и темы могут объявлять canvas background (#1634)</p>
+</li>
+<li>
+<p><strong>Опросы предложений в WhatsApp (v0.5.3)</strong> — наборы follow-up, не влезающие в лимит нативных кнопок, рендерятся опросом, и голос выбирает опцию (#1616)</p>
 </li>
 <li>
 <p><strong>Режим починки doctor –fix (v0.3.83)</strong> — застрявшие строки cron, устаревшие маркеры и сломанные права чинятся на месте, а не только отображаются в отчёте</p>

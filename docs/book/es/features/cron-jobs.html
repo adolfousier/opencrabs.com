@@ -65,7 +65,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-ea9e7ced.js";
+            window.path_to_searchindex_js = "../searchindex-0d25f670.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-bfb94109.js"></script>
@@ -289,6 +289,45 @@ opencrabs cron remove "Morning Report"
 <h3 id="forum-topic-delivery-v051-opt-in"><a class="header" href="#forum-topic-delivery-v051-opt-in">Forum-topic delivery (v0.5.1, opt-in)</a></h3>
 <p><code>telegram:CHAT_ID:THREAD_ID</code> (or the <code>oc://telegram/&lt;chat&gt;/&lt;thread&gt;</code> form) delivers into a specific topic of a forum group. It is deliberately opt-in: the chat must actually be a forum and the topic must exist — an invalid thread target is <strong>rejected loudly at fire time</strong>, never silently re-routed to the general topic. When a job is created from inside a thread (<code>here</code>/<code>oc://</code> form), the origin thread id is persisted so the result lands back in the same topic (#104).</p>
 <p>Results are stored in the DB via the <code>cron_results</code> table regardless of delivery target, so you can query past execution results with <code>opencrabs cron results &lt;name&gt;</code>.</p>
+<h2 id="trigger-gated-jobs-v053"><a class="header" href="#trigger-gated-jobs-v053">Trigger-gated jobs (v0.5.3)</a></h2>
+<p>A job can carry a <strong>pre-flight trigger</strong>: at each fire time the scheduler runs a shell command first, and only executes the prompt when a condition on that command’s result is met. This turns scheduled jobs from “fires into the void every hour” into “acts when something actually happened” (a file appeared, a health check failed, a log line matched) (#233).</p>
+<p>Set it through the <code>cron_manage</code> tool at create or update time:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Field</th><th>What it does</th></tr>
+</thead>
+<tbody>
+<tr><td><code>trigger_cmd</code></td><td>Shell command run under <code>/bin/sh -c</code> before the prompt. 30s timeout; a hung trigger is killed, not orphaned. Either <code>prompt</code> or <code>trigger_cmd</code> must be set.</td></tr>
+<tr><td><code>trigger_on</code></td><td>Fire condition (see below). Default <code>non_empty</code>.</td></tr>
+<tr><td><code>set_goal</code></td><td>On fire, set the active goal in the destination session instead of a plain prompt turn. Requires <code>deliver_to</code> to target a session; refused for passive channel deliveries.</td></tr>
+<tr><td><code>goal_template</code></td><td>Template for the goal/notification text. Interpolates <code>{output}</code>, <code>{stdout}</code>, <code>{stderr}</code>, <code>{exit_code}</code>.</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="trigger_on-conditions"><a class="header" href="#trigger_on-conditions"><code>trigger_on</code> conditions</a></h3>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Value</th><th>Fires when</th></tr>
+</thead>
+<tbody>
+<tr><td><code>non_empty</code> (default)</td><td>stdout or stderr contains any non-whitespace output</td></tr>
+<tr><td><code>exit_zero</code></td><td>the trigger exits 0</td></tr>
+<tr><td><code>exit_non_zero</code></td><td>the trigger exits non-zero (health checks, <code>grep</code> misses)</td></tr>
+<tr><td><code>regex:PATTERN</code> or <code>re:PATTERN</code></td><td>combined output matches the regular expression</td></tr>
+<tr><td><code>always</code></td><td>the trigger finished, regardless of output or exit code</td></tr>
+</tbody>
+</table>
+</div>
+<h3 id="semantics"><a class="header" href="#semantics">Semantics</a></h3>
+<ul>
+<li><strong>Condition not met</strong> → the run is short-circuited at 0 tokens and recorded as a skipped/success run. The prompt never executes, nothing is delivered.</li>
+<li><strong>Trigger command errors or times out</strong> → the run is recorded as an error; the prompt still does not execute.</li>
+<li><strong>Empty <code>prompt</code> with a trigger</strong> → direct 0-token delivery: the formatted trigger output (<code>goal_template</code>, or the raw output) is delivered to <code>deliver_to</code> without an agent turn at all.</li>
+<li><strong><code>set_goal</code></strong> → the fired trigger dispatches into the target session as an active goal, so the session’s agent works the condition it detected rather than just echoing output.</li>
+</ul>
+<p>Put the watching in <code>trigger_cmd</code> (deterministic, cheap, script-runner pattern), the condition in <code>trigger_on</code>, and the acting in the prompt or goal.</p>
 <h2 id="scheduler-lock-v0365"><a class="header" href="#scheduler-lock-v0365">Scheduler Lock (v0.3.65)</a></h2>
 <p>The cron scheduler uses a <strong>file lock</strong> to prevent duplicate job execution. Only one scheduler instance can run per profile at a time. If you accidentally start OpenCrabs twice, the second instance won’t fire duplicate cron jobs.</p>
 <h2 id="heartbeat-vs-cron"><a class="header" href="#heartbeat-vs-cron">Heartbeat vs Cron</a></h2>

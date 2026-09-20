@@ -65,7 +65,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-9e13cd8d.js";
+            window.path_to_searchindex_js = "../searchindex-ee3ef69c.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-bfb94109.js"></script>
@@ -344,6 +344,19 @@ the fact came from), so a memory answer and a code-graph answer can be told apar
 </ul>
 <h2 id="proactive-memory-surfacing-v0376"><a class="header" href="#proactive-memory-surfacing-v0376">Proactive Memory Surfacing (v0.3.76)</a></h2>
 <p>The agent now <strong>surfaces relevant memory without being asked</strong>. When a conversation topic matches something stored in MEMORY.md or daily notes, the relevant context is loaded and injected automatically. Previously, memory was only recalled when the agent explicitly called <code>memory_search</code> or <code>load_brain_file</code>. Now the system proactively checks for relevant context on each turn, so the agent brings up past decisions, server details, or preferences that apply to the current conversation without you having to say “check your memory.”</p>
+<h2 id="confidence-decay-and-pruning-v053"><a class="header" href="#confidence-decay-and-pruning-v053">Confidence, Decay and Pruning (v0.5.3)</a></h2>
+<p>MEMORY.md facts carry <strong>confidence</strong> and <strong>decay</strong> over time (#1643): a belief’s trust
+drops as it goes unused and unverified, so stale claims stop outranking fresh ones when
+memory is recalled. Decay is config-driven through the <code>[epistemic]</code> section.</p>
+<p>Cold content is managed in two passes (#1657):</p>
+<ul>
+<li><strong>Archive pass</strong> — cold MEMORY.md sections move to <code>memory/archive/</code> with a backup and
+reindex, instead of silently accumulating forever.</li>
+<li><strong><code>opencrabs memory prune</code></strong> — a dry-run preview (the default) of cold beliefs (key,
+confidence, hits, age) and cold sections (heading, bytes). <code>--apply</code> archives the
+sections first, then sweeps the remaining cold beliefs. <code>--max-age-days &lt;N&gt;</code> overrides
+the cold threshold (default: 90).</li>
+</ul>
 <h2 id="brain-files"><a class="header" href="#brain-files">Brain Files</a></h2>
 <p>See <a href="./brain-files.html">Brain Files</a> for the full list of files the agent reads on startup.</p>
 

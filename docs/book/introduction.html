@@ -65,7 +65,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-9e13cd8d.js";
+            window.path_to_searchindex_js = "searchindex-ee3ef69c.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-bfb94109.js"></script>
@@ -209,7 +209,7 @@
                     <main>
                         <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
 <p><strong>OpenCrabs</strong> is a self-hosted, provider-agnostic AI orchestration agent that runs as a single Rust binary. It automates your terminal, browser, channels (Telegram/Discord/Slack/WhatsApp/Trello), and codebase, all while respecting your privacy and keeping you in control.</p>
-<p><strong>8,852 tests</strong> across providers, tools, channels, TUI, self-healing, and browser automation.</p>
+<p><strong>9,032 tests</strong> across providers, tools, channels, TUI, self-healing, and browser automation.</p>
 <h2 id="what-makes-opencrabs-different"><a class="header" href="#what-makes-opencrabs-different">What Makes OpenCrabs Different</a></h2>
 <h3 id="zero-telemetry-not-even-opt-in"><a class="header" href="#zero-telemetry-not-even-opt-in">Zero Telemetry, Not Even Opt-In</a></h3>
 <ul>
@@ -375,6 +375,21 @@
 </li>
 <li>
 <p><strong>Command menu payload budget (v0.5.2)</strong> — Telegram’s setMyCommands silently rejects request bodies over ~7.8KB while reporting BOT_COMMANDS_TOO_MUCH; descriptions now shorten in tiers so the whole menu fits (#1613)</p>
+</li>
+<li>
+<p><strong>Trigger-gated cron (v0.5.3)</strong> — a job runs a pre-flight check and only executes when your condition is met (non-empty output, exit code, regex), skipped runs cost 0 tokens, and a fired trigger can dispatch a goal into a session (#233)</p>
+</li>
+<li>
+<p><strong>First-class Windows (v0.5.3)</strong> — platform shell handling, BOM/UTF-16 file reads, tilde and cwd fallbacks, with CI building Windows and gating PRs (#627)</p>
+</li>
+<li>
+<p><strong>Epistemic memory (v0.5.3)</strong> — MEMORY.md facts carry confidence and decay (#1643), cold sections archive themselves, and <code>opencrabs memory prune</code> previews what went cold before touching it (#1657)</p>
+</li>
+<li>
+<p><strong>Finished theme engine (v0.5.3)</strong> — every TUI widget resolves through the theme with a suite guard against new raw ANSI, and themes can declare a canvas background (#1634)</p>
+</li>
+<li>
+<p><strong>WhatsApp suggestion polls (v0.5.3)</strong> — follow-up option sets past the native button cap render as a poll, and a vote selects the option (#1616)</p>
 </li>
 <li>
 <p><strong>doctor –fix repair mode (v0.3.83)</strong> — stuck cron rows, stale markers and broken permissions are repaired on the spot instead of only reported</p>
