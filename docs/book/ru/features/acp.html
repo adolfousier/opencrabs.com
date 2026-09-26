@@ -65,7 +65,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-0436d9d8.js";
+            window.path_to_searchindex_js = "../searchindex-529459c0.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-bfb94109.js"></script>
@@ -222,6 +222,16 @@ opencrabs acp --model anthropic/claude-sonnet-4-20250514
 <li><strong><code>session/request_permission</code></strong>: tool approvals round-trip to the editor, so the client’s permission UI gates dangerous calls the same way channel approvals do</li>
 </ul>
 <p>stdout is the protocol channel: nothing but JSON-RPC frames is ever written to it. Logs go to the daily log file (or stderr in debug builds), never stdout.</p>
+<h2 id="sessions-v054"><a class="header" href="#sessions-v054">Sessions (v0.5.4)</a></h2>
+<p>Sessions are first-class on the ACP surface:</p>
+<ul>
+<li><strong><code>session/new</code></strong> offers a live model catalog, so the client picks from models that actually exist in your config</li>
+<li><strong><code>session/load</code></strong> replays the transcript and restores the per-session model</li>
+<li><strong><code>set_model</code></strong> persists on the session row and survives process restarts</li>
+<li><strong><code>session/set_mode</code></strong> applies the approval policy server-side (native, no prompt workaround)</li>
+<li><strong><code>session/compact</code></strong> pushes compaction to the client</li>
+<li>The context meter is restored on load and rides usage updates, so the editor always shows a true context reading</li>
+</ul>
 <h2 id="why-it-matters"><a class="header" href="#why-it-matters">Why it matters</a></h2>
 <p>Before ACP mode, driving OpenCrabs from an editor meant copy-pasting between the editor and a channel. With ACP mode the editor is a first-class surface: same providers, same skill gating, same plan approvals, same memory. Configuration is shared with the rest of OpenCrabs; there is no separate ACP config section.</p>
 

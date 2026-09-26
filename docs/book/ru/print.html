@@ -66,7 +66,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-0436d9d8.js";
+            window.path_to_searchindex_js = "searchindex-529459c0.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-bfb94109.js"></script>
@@ -210,7 +210,7 @@
                     <main>
                         <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
 <p><strong>OpenCrabs</strong> — автономный агент оркестрации ИИ, не привязанный к провайдеру, работающий как единый бинарный файл на Rust. Он автоматизирует ваш терминал, браузер, channels (Telegram/Discord/Slack/WhatsApp/Trello) и кодовую базу, уважая вашу приватность и оставляя контроль у вас.</p>
-<p><strong>9,032 теста</strong> по providers, инструментам, channels, TUI, self-healing и браузерной автоматизации.</p>
+<p><strong>9,426 тестов</strong> по providers, инструментам, channels, TUI, self-healing и автоматизации browser.</p>
 <h2 id="что-отличает-opencrabs"><a class="header" href="#что-отличает-opencrabs">Что отличает OpenCrabs</a></h2>
 <h3 id="ноль-телеметрии--даже-опции-включения-нет"><a class="header" href="#ноль-телеметрии--даже-опции-включения-нет">Ноль телеметрии — даже опции включения нет</a></h3>
 <ul>
@@ -391,6 +391,27 @@
 </li>
 <li>
 <p><strong>Опросы предложений в WhatsApp (v0.5.3)</strong> — наборы follow-up, не влезающие в лимит нативных кнопок, рендерятся опросом, и голос выбирает опцию (#1616)</p>
+</li>
+<li>
+<p><strong>Семейство sessions ACP (v0.5.4)</strong> — sessions стали первоклассными на поверхности ACP: context meter восстанавливается при загрузке и обновляется вместе с usage updates, <code>session/load</code> воспроизводит transcript и восстанавливает model сессии, <code>set_model</code> сохраняется между процессами, нативный <code>session/set_mode</code> применяет approval policy на стороне сервера, <code>session/compact</code> делает push, а <code>session/new</code> предлагает живой каталог models</p>
+</li>
+<li>
+<p><strong>Интерактивная передача терминала (v0.5.4)</strong> — <code>!vi</code>/<code>!nano</code> интерактивно занимают терминал и возвращают его, не тронув session (#1744)</p>
+</li>
+<li>
+<p><strong>Универсальный paste &amp; drop (v0.5.4)</strong> — общий router для attachments принимает любой тип файла при вставке или перетаскивании и классифицирует код, docs, архивы и данные, чтобы каждый попадал в нужный pipeline (#1740, #1743)</p>
+</li>
+<li>
+<p><strong>Поисковый движок Serper (v0.5.4)</strong> — <code>serper_search</code> добавляет результаты Google SERP, а fan-out web_search дедуплицирует по URL между engines (#1731)</p>
+</li>
+<li>
+<p><strong>Decision cache (v0.5.4)</strong> — <code>decide_cached</code> отвечает на повторные решения из кольца повторного использования L1 с tiers shadow/live и конфигурацией <code>[decisions]</code> (#1648)</p>
+</li>
+<li>
+<p><strong>Стоимость от provider и единая цепочка timeouts (v0.5.4)</strong> — ledger usage предпочитает стоимость, реально сообщённую provider, оценкам из таблицы (#1707), а флаги таймаута разрешаются <code>[providers.&lt;name&gt;]</code> -&gt; <code>[agent]</code> -&gt; default для всех providers (#1688)</p>
+</li>
+<li>
+<p><strong>Скомпилированные команды /architecture и /attach, опциональный audit trail (v0.5.4)</strong> — обе команды поставляются как скомпилированные arms, а опциональный audit trail записывает, что выполнялось, с viewer <code>/audit</code> (#933, #1705)</p>
 </li>
 <li>
 <p><strong>Режим починки doctor –fix (v0.3.83)</strong> — застрявшие строки cron, устаревшие маркеры и сломанные права чинятся на месте, а не только отображаются в отчёте</p>
@@ -1097,6 +1118,7 @@ context_limit = 200000              # context window cap (tokens)
 max_tokens = 65536                  # max output tokens per API call
 auto_update = true                  # auto-install releases on startup
 silent_compaction = false           # suppress post-compaction personality narration
+compaction_notice = false            # show the compaction notice pair; off by default (v0.5.4)
 lazy_tools = true                   # JIT tool-schema loading (ships core + tool_search only)
 redact_sensitive_data = true        # redact API keys, tokens, passwords, IPs from output
 debug_logs = false                  # enable debug file logging (hot-reloads, no restart)
@@ -1117,6 +1139,7 @@ default_model = "MiniMax-M2.7"      # fallback model when no model is active (v0
 <tr><td><code>max_tokens</code></td><td><code>65536</code></td><td>Max output tokens per single API call</td></tr>
 <tr><td><code>auto_update</code></td><td><code>true</code></td><td>Automatically install new releases on startup (binary mode only)</td></tr>
 <tr><td><code>silent_compaction</code></td><td><code>false</code></td><td>When true, suppresses the agent’s playful post-compaction narration. Useful for corporate/formal deployments</td></tr>
+<tr><td><code>compaction_notice</code></td><td><code>false</code></td><td>Show the compaction notice pair in the TUI. Off by default since v0.5.4 (#1686)</td></tr>
 <tr><td><code>lazy_tools</code></td><td><code>true</code></td><td>Ships only core tool schemas (~4k tokens) plus <code>tool_search</code> per request. The agent discovers and activates extended tools on demand via <code>tool_search</code>. Set <code>false</code> to load all ~95 schemas every request</td></tr>
 <tr><td><code>redact_sensitive_data</code></td><td><code>true</code></td><td>Redacts API keys, tokens, passwords, and IPs from tool outputs and display. Set <code>false</code> during sysadmin/devops work where seeing IPs/tokens/passwords is necessary</td></tr>
 <tr><td><code>debug_logs</code></td><td><code>false</code></td><td>Enable debug file logging to <code>~/.opencrabs/logs/</code>. Hot-reloads on change (no restart). The <code>--debug</code> CLI flag always wins when set (OR logic)</td></tr>
@@ -1125,6 +1148,7 @@ default_model = "MiniMax-M2.7"      # fallback model when no model is active (v0
 </tbody>
 </table>
 </div>
+<p>Timeout flags resolve per provider first: <code>[providers.&lt;name&gt;]</code> wins over <code>[agent]</code>, which wins over the built-in default, and every provider family honours the chain, anthropic and gemini included (v0.5.4, #1688).</p>
 <h3 id="sub-agent-and-rsi-overrides"><a class="header" href="#sub-agent-and-rsi-overrides">Sub-agent and RSI Overrides</a></h3>
 <p>Route spawned sub-agents and RSI (self-improvement) cycles to separate providers so they never compete with your main chat for quota:</p>
 <pre><code class="language-toml">[agent]
@@ -1485,6 +1509,7 @@ patterns = ["rm -rf /", "dd if=", "mkfs", ":(){ :|:&amp; };:"]
 <tr><td><code>chat</code> (по умолчанию)</td><td>Запускает интерфейс чата TUI</td></tr>
 <tr><td><code>daemon</code></td><td>Работа в фоне (только channels, без TUI)</td></tr>
 <tr><td><code>agent</code></td><td>Интерактивный многоходовой чат или режим одного сообщения</td></tr>
+<tr><td><code>run</code></td><td>Выполняет один prompt неинтерактивно; <code>--quiet</code> убирает chrome UI для чистого машинного stdout, <code>--format</code> выбирает text/json/markdown (v0.5.4)</td></tr>
 <tr><td><code>cron</code></td><td>Управление запланированными задачами (add/list/remove/enable/disable/test)</td></tr>
 <tr><td><code>channel</code></td><td>Управление channels (list, doctor)</td></tr>
 <tr><td><code>memory</code></td><td>Управление памятью (list, get, stats, prune)</td></tr>
@@ -2641,7 +2666,7 @@ model = "gemini-3.1-flash-image-preview"
 <tr><th>Tool</th><th>Описание</th></tr>
 </thead>
 <tbody>
-<tr><td><code>generate_image</code></td><td>Generate an image from a text prompt — saves to <code>~/.opencrabs/images/</code></td></tr>
+<tr><td><code>generate_image</code></td><td>Generate an image from a text prompt — saves to <code>~/.opencrabs/images/</code>; walks a provider chain with vision parity, so generation falls back the same way vision does (v0.5.4, #1672)</td></tr>
 <tr><td><code>analyze_image</code></td><td>Analyze an image file or URL via the active vision path (Path A provider or Gemini fallback)</td></tr>
 </tbody>
 </table>
@@ -3567,7 +3592,8 @@ session_idle_hours = 24.0               # idle timeout for non-owner sessions
 <tr><th>Tool</th><th>Parameters</th><th>Описание</th></tr>
 </thead>
 <tbody>
-<tr><td><code>web_search</code></td><td><code>query</code></td><td>Search the web (Brave Search)</td></tr>
+<tr><td><code>web_search</code></td><td><code>query</code></td><td>Search the web (multi-engine fan-out; results deduped by URL across engines, v0.5.4)</td></tr>
+<tr><td><code>serper_search</code></td><td><code>query</code></td><td>Google SERP results via Serper; set the key in <code>keys.toml</code> (serper.dev) (v0.5.4)</td></tr>
 <tr><td><code>web_scrape</code></td><td><code>url</code></td><td>Native URL-to-markdown scraping with SSRF protection, sitemap crawling, JS-shell detection (v0.3.60)</td></tr>
 <tr><td><code>http_request</code></td><td><code>method</code>, <code>url</code>, <code>headers</code>, <code>body</code></td><td>Make HTTP requests</td></tr>
 </tbody>
@@ -3605,6 +3631,7 @@ session_idle_hours = 24.0               # idle timeout for non-owner sessions
 <tr><td><code>session_search</code></td><td><code>query</code>, <code>limit</code></td><td>Semantic search across sessions</td></tr>
 <tr><td><code>session_context</code></td><td><code>action</code></td><td>Read/write session context</td></tr>
 <tr><td><code>task_manager</code></td><td><code>action</code>, various</td><td>Manage plans and tasks</td></tr>
+<tr><td><code>decide_cached</code></td><td>decision input</td><td>L1 decision cache (#1648): exact-repeat decisions are served from a reuse ring keyed on canonicalized input, with a shadow tier that logs what it would answer before it goes live (v0.5.4)</td></tr>
 </tbody>
 </table>
 </div>
@@ -4986,6 +5013,16 @@ opencrabs acp --model anthropic/claude-sonnet-4-20250514
 <li><strong><code>session/request_permission</code></strong>: tool approvals round-trip to the editor, so the client’s permission UI gates dangerous calls the same way channel approvals do</li>
 </ul>
 <p>stdout is the protocol channel: nothing but JSON-RPC frames is ever written to it. Logs go to the daily log file (or stderr in debug builds), never stdout.</p>
+<h2 id="sessions-v054"><a class="header" href="#sessions-v054">Sessions (v0.5.4)</a></h2>
+<p>Sessions are first-class on the ACP surface:</p>
+<ul>
+<li><strong><code>session/new</code></strong> offers a live model catalog, so the client picks from models that actually exist in your config</li>
+<li><strong><code>session/load</code></strong> replays the transcript and restores the per-session model</li>
+<li><strong><code>set_model</code></strong> persists on the session row and survives process restarts</li>
+<li><strong><code>session/set_mode</code></strong> applies the approval policy server-side (native, no prompt workaround)</li>
+<li><strong><code>session/compact</code></strong> pushes compaction to the client</li>
+<li>The context meter is restored on load and rides usage updates, so the editor always shows a true context reading</li>
+</ul>
 <h2 id="why-it-matters-1"><a class="header" href="#why-it-matters-1">Why it matters</a></h2>
 <p>Before ACP mode, driving OpenCrabs from an editor meant copy-pasting between the editor and a channel. With ACP mode the editor is a first-class surface: same providers, same skill gating, same plan approvals, same memory. Configuration is shared with the rest of OpenCrabs; there is no separate ACP config section.</p>
 <div style="break-before: page; page-break-before: always;"></div>
@@ -6531,6 +6568,7 @@ purple_soft = "#81a1c1"
 <li><strong>Claude Opus 5</strong> pricing added to the cost calculator</li>
 <li><strong>qwen3.8-max-preview</strong> pricing added</li>
 <li><strong>Cost attribution fix</strong> — costs are now attributed to the provider that actually served the request, not the originally-requested provider (matters when fallback fires mid-turn)</li>
+<li><strong>Provider-reported costs (v0.5.4)</strong> — the ledger prefers the cost the provider actually reported in its usage payload over the calculator estimate (#1707)</li>
 </ul>
 <h2 id="navigation-1"><a class="header" href="#navigation-1">Navigation</a></h2>
 <div class="table-wrapper">

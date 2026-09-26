@@ -65,7 +65,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-c3ed3f61.js";
+            window.path_to_searchindex_js = "searchindex-48eaa86c.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-bfb94109.js"></script>
@@ -209,7 +209,7 @@
                     <main>
                         <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
 <p><strong>OpenCrabs</strong> adalah agen orkestrasi AI yang di-hosting sendiri dan tidak terikat provider, berjalan sebagai satu biner Rust. Ia mengotomatiskan terminal, browser, channels (Telegram/Discord/Slack/WhatsApp/Trello), dan codebase Anda, sambil menghormati privasi Anda dan menjaga kendali tetap di tangan Anda.</p>
-<p><strong>9,032 test</strong> untuk providers, tools, channels, TUI, self-healing, dan otomasi browser.</p>
+<p><strong>9,426 test</strong> mencakup provider, tools, channels, TUI, self-healing, dan otomatisasi browser.</p>
 <h2 id="apa-yang-membedakan-opencrabs"><a class="header" href="#apa-yang-membedakan-opencrabs">Apa yang Membedakan OpenCrabs</a></h2>
 <h3 id="nol-telemetri-bahkan-tanpa-opt-in"><a class="header" href="#nol-telemetri-bahkan-tanpa-opt-in">Nol Telemetri, Bahkan Tanpa Opt-In</a></h3>
 <ul>
@@ -390,6 +390,27 @@
 </li>
 <li>
 <p><strong>Poll saran WhatsApp (v0.5.3)</strong> — kumpulan follow-up yang melebihi batas tombol native dirender sebagai poll, dan satu suara memilih opsinya (#1616)</p>
+</li>
+<li>
+<p><strong>Keluarga session ACP (v0.5.4)</strong> — session kini first-class di permukaan ACP: context meter dipulihkan saat load dan mengikuti usage updates, <code>session/load</code> memutar ulang transcript dan memulihkan model per-session, <code>set_model</code> bertahan antar proses, <code>session/set_mode</code> native menerapkan approval policy di sisi server, <code>session/compact</code> melakukan push, dan <code>session/new</code> menawarkan katalog model secara live</p>
+</li>
+<li>
+<p><strong>Serah terima terminal interaktif (v0.5.4)</strong> — <code>!vi</code>/<code>!nano</code> mengambil alih terminal secara interaktif dan mengembalikannya dengan session utuh (#1744)</p>
+</li>
+<li>
+<p><strong>Paste &amp; drop universal (v0.5.4)</strong> — satu router attachment bersama menerima semua jenis file saat paste atau drop dan mengklasifikasikan kode, docs, arsip, dan data agar masing-masing masuk ke pipeline yang tepat (#1740, #1743)</p>
+</li>
+<li>
+<p><strong>Mesin pencari Serper (v0.5.4)</strong> — <code>serper_search</code> menambahkan hasil Google SERP, dan fan-out web_search mendedupe berdasarkan URL antar engine (#1731)</p>
+</li>
+<li>
+<p><strong>Decision cache (v0.5.4)</strong> — <code>decide_cached</code> menjawab keputusan berulang dari ring reuse L1 dengan tier shadow/live dan config <code>[decisions]</code> (#1648)</p>
+</li>
+<li>
+<p><strong>Biaya yang dilaporkan provider dan satu rantai timeout (v0.5.4)</strong> — ledger usage memilih biaya yang benar-benar dilaporkan provider daripada estimasi tabel (#1707), dan flag timeout diselesaikan <code>[providers.&lt;name&gt;]</code> -&gt; <code>[agent]</code> -&gt; default untuk semua provider (#1688)</p>
+</li>
+<li>
+<p><strong>Perintah terkompilasi /architecture dan /attach, audit trail opsional (v0.5.4)</strong> — keduanya dikirim sebagai arms terkompilasi, dan audit trail opsional mencatat apa yang berjalan dengan viewer <code>/audit</code> (#933, #1705)</p>
 </li>
 <li>
 <p><strong>Mode perbaikan doctor –fix (v0.3.83)</strong> — baris cron macet, marker basi, dan izin rusak diperbaiki di tempat alih-alih sekadar dilaporkan</p>

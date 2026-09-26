@@ -65,7 +65,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-2770b62f.js";
+            window.path_to_searchindex_js = "searchindex-ac36ffaf.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-bfb94109.js"></script>
@@ -209,7 +209,7 @@
                     <main>
                         <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
 <p><strong>O OpenCrabs</strong> é um agente de orquestração de IA auto-hospedado e agnóstico de provider que corre como um único binário Rust. Automatiza o teu terminal, browser, channels (Telegram/Discord/Slack/WhatsApp/Trello) e codebase, respeitando a tua privacidade e mantendo-te no controlo.</p>
-<p><strong>9,032 testes</strong> em providers, ferramentas, channels, TUI, self-healing e automação de browser.</p>
+<p><strong>9,426 testes</strong> em providers, ferramentas, channels, TUI, self-healing e automação de browser.</p>
 <h2 id="o-que-distingue-o-opencrabs"><a class="header" href="#o-que-distingue-o-opencrabs">O Que Distingue o OpenCrabs</a></h2>
 <h3 id="zero-telemetria-nem-por-opção"><a class="header" href="#zero-telemetria-nem-por-opção">Zero Telemetria, Nem por Opção</a></h3>
 <ul>
@@ -390,6 +390,27 @@
 </li>
 <li>
 <p><strong>Polls de sugestões no WhatsApp (v0.5.3)</strong> — conjuntos de follow-ups além do limite nativo de botões renderizam como poll, e um voto seleciona a opção (#1616)</p>
+</li>
+<li>
+<p><strong>Família de sessions ACP (v0.5.4)</strong> — os sessions são first-class na superfície ACP: o context meter é restaurado no load e acompanha as usage updates, o <code>session/load</code> repõe a transcrição e restaura o model do session, o <code>set_model</code> persiste entre processos, o <code>session/set_mode</code> nativo aplica a approval policy do lado do servidor, o <code>session/compact</code> faz push, e o <code>session/new</code> oferece um catálogo de models ao vivo</p>
+</li>
+<li>
+<p><strong>Entrega interativa do terminal (v0.5.4)</strong> — o <code>!vi</code>/<code>!nano</code> assumem o terminal de forma interativa e devolvem-no com o session intacto (#1744)</p>
+</li>
+<li>
+<p><strong>Paste &amp; drop universal (v0.5.4)</strong> — um router de attachments partilhado aceita qualquer tipo de ficheiro no paste ou no drop e classifica código, docs, arquivos e dados para cada um seguir o pipeline certo (#1740, #1743)</p>
+</li>
+<li>
+<p><strong>Motor de pesquisa Serper (v0.5.4)</strong> — o <code>serper_search</code> acrescenta resultados Google SERP, e o fan-out do web_search elimina duplicados por URL entre engines (#1731)</p>
+</li>
+<li>
+<p><strong>Decision cache (v0.5.4)</strong> — o <code>decide_cached</code> responde a decisões repetidas a partir de um anel de reutilização L1 com tiers shadow/live e config <code>[decisions]</code> (#1648)</p>
+</li>
+<li>
+<p><strong>Custos reportados pelo provider e uma cadeia de timeouts unificada (v0.5.4)</strong> — o ledger de usage prefere o custo que o provider reportou de facto em vez de estimativas de tabela (#1707), e os flags de timeout resolvem <code>[providers.&lt;name&gt;]</code> -&gt; <code>[agent]</code> -&gt; default em todos os providers (#1688)</p>
+</li>
+<li>
+<p><strong>Comandos compilados /architecture e /attach, audit trail opcional (v0.5.4)</strong> — ambos os comandos são distribuídos como arms compilados, e um audit trail opcional regista o que correu com um viewer <code>/audit</code> (#933, #1705)</p>
 </li>
 <li>
 <p><strong>Modo de reparação doctor –fix (v0.3.83)</strong> — linhas de cron presas, markers obsoletos e permissões partidas são reparados no momento em vez de apenas reportados</p>

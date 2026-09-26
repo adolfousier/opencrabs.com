@@ -65,7 +65,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-ee3ef69c.js";
+            window.path_to_searchindex_js = "../searchindex-2e7eee0f.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-bfb94109.js"></script>
@@ -244,7 +244,8 @@
 <tr><th>Tool</th><th>Parameters</th><th>Description</th></tr>
 </thead>
 <tbody>
-<tr><td><code>web_search</code></td><td><code>query</code></td><td>Search the web (Brave Search)</td></tr>
+<tr><td><code>web_search</code></td><td><code>query</code></td><td>Search the web (multi-engine fan-out; results deduped by URL across engines, v0.5.4)</td></tr>
+<tr><td><code>serper_search</code></td><td><code>query</code></td><td>Google SERP results via Serper; set the key in <code>keys.toml</code> (serper.dev) (v0.5.4)</td></tr>
 <tr><td><code>web_scrape</code></td><td><code>url</code></td><td>Native URL-to-markdown scraping with SSRF protection, sitemap crawling, JS-shell detection (v0.3.60)</td></tr>
 <tr><td><code>http_request</code></td><td><code>method</code>, <code>url</code>, <code>headers</code>, <code>body</code></td><td>Make HTTP requests</td></tr>
 </tbody>
@@ -282,6 +283,7 @@
 <tr><td><code>session_search</code></td><td><code>query</code>, <code>limit</code></td><td>Semantic search across sessions</td></tr>
 <tr><td><code>session_context</code></td><td><code>action</code></td><td>Read/write session context</td></tr>
 <tr><td><code>task_manager</code></td><td><code>action</code>, various</td><td>Manage plans and tasks</td></tr>
+<tr><td><code>decide_cached</code></td><td>decision input</td><td>L1 decision cache (#1648): exact-repeat decisions are served from a reuse ring keyed on canonicalized input, with a shadow tier that logs what it would answer before it goes live (v0.5.4)</td></tr>
 </tbody>
 </table>
 </div>

@@ -65,7 +65,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-0436d9d8.js";
+            window.path_to_searchindex_js = "searchindex-529459c0.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-bfb94109.js"></script>
@@ -209,7 +209,7 @@
                     <main>
                         <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
 <p><strong>OpenCrabs</strong> — автономный агент оркестрации ИИ, не привязанный к провайдеру, работающий как единый бинарный файл на Rust. Он автоматизирует ваш терминал, браузер, channels (Telegram/Discord/Slack/WhatsApp/Trello) и кодовую базу, уважая вашу приватность и оставляя контроль у вас.</p>
-<p><strong>9,032 теста</strong> по providers, инструментам, channels, TUI, self-healing и браузерной автоматизации.</p>
+<p><strong>9,426 тестов</strong> по providers, инструментам, channels, TUI, self-healing и автоматизации browser.</p>
 <h2 id="что-отличает-opencrabs"><a class="header" href="#что-отличает-opencrabs">Что отличает OpenCrabs</a></h2>
 <h3 id="ноль-телеметрии--даже-опции-включения-нет"><a class="header" href="#ноль-телеметрии--даже-опции-включения-нет">Ноль телеметрии — даже опции включения нет</a></h3>
 <ul>
@@ -390,6 +390,27 @@
 </li>
 <li>
 <p><strong>Опросы предложений в WhatsApp (v0.5.3)</strong> — наборы follow-up, не влезающие в лимит нативных кнопок, рендерятся опросом, и голос выбирает опцию (#1616)</p>
+</li>
+<li>
+<p><strong>Семейство sessions ACP (v0.5.4)</strong> — sessions стали первоклассными на поверхности ACP: context meter восстанавливается при загрузке и обновляется вместе с usage updates, <code>session/load</code> воспроизводит transcript и восстанавливает model сессии, <code>set_model</code> сохраняется между процессами, нативный <code>session/set_mode</code> применяет approval policy на стороне сервера, <code>session/compact</code> делает push, а <code>session/new</code> предлагает живой каталог models</p>
+</li>
+<li>
+<p><strong>Интерактивная передача терминала (v0.5.4)</strong> — <code>!vi</code>/<code>!nano</code> интерактивно занимают терминал и возвращают его, не тронув session (#1744)</p>
+</li>
+<li>
+<p><strong>Универсальный paste &amp; drop (v0.5.4)</strong> — общий router для attachments принимает любой тип файла при вставке или перетаскивании и классифицирует код, docs, архивы и данные, чтобы каждый попадал в нужный pipeline (#1740, #1743)</p>
+</li>
+<li>
+<p><strong>Поисковый движок Serper (v0.5.4)</strong> — <code>serper_search</code> добавляет результаты Google SERP, а fan-out web_search дедуплицирует по URL между engines (#1731)</p>
+</li>
+<li>
+<p><strong>Decision cache (v0.5.4)</strong> — <code>decide_cached</code> отвечает на повторные решения из кольца повторного использования L1 с tiers shadow/live и конфигурацией <code>[decisions]</code> (#1648)</p>
+</li>
+<li>
+<p><strong>Стоимость от provider и единая цепочка timeouts (v0.5.4)</strong> — ledger usage предпочитает стоимость, реально сообщённую provider, оценкам из таблицы (#1707), а флаги таймаута разрешаются <code>[providers.&lt;name&gt;]</code> -&gt; <code>[agent]</code> -&gt; default для всех providers (#1688)</p>
+</li>
+<li>
+<p><strong>Скомпилированные команды /architecture и /attach, опциональный audit trail (v0.5.4)</strong> — обе команды поставляются как скомпилированные arms, а опциональный audit trail записывает, что выполнялось, с viewer <code>/audit</code> (#933, #1705)</p>
 </li>
 <li>
 <p><strong>Режим починки doctor –fix (v0.3.83)</strong> — застрявшие строки cron, устаревшие маркеры и сломанные права чинятся на месте, а не только отображаются в отчёте</p>

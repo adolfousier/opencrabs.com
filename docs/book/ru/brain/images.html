@@ -65,7 +65,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-0436d9d8.js";
+            window.path_to_searchindex_js = "../searchindex-529459c0.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-bfb94109.js"></script>
@@ -269,7 +269,7 @@ model = "gemini-3.1-flash-image-preview"
 <tr><th>Tool</th><th>Описание</th></tr>
 </thead>
 <tbody>
-<tr><td><code>generate_image</code></td><td>Generate an image from a text prompt — saves to <code>~/.opencrabs/images/</code></td></tr>
+<tr><td><code>generate_image</code></td><td>Generate an image from a text prompt — saves to <code>~/.opencrabs/images/</code>; walks a provider chain with vision parity, so generation falls back the same way vision does (v0.5.4, #1672)</td></tr>
 <tr><td><code>analyze_image</code></td><td>Analyze an image file or URL via the active vision path (Path A provider or Gemini fallback)</td></tr>
 </tbody>
 </table>
