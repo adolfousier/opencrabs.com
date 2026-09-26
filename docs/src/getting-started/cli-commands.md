@@ -15,6 +15,7 @@ opencrabs [COMMAND] [OPTIONS]
 | `chat` (default) | Launch the TUI chat interface |
 | `daemon` | Run in background (channels only, no TUI) |
 | `agent` | Interactive multi-turn chat or single-message mode |
+| `run` | Execute a single prompt non-interactively; `--quiet` suppresses UI chrome for machine-pure stdout, `--format` picks text/json/markdown (v0.5.4) |
 | `cron` | Manage scheduled tasks (add/list/remove/enable/disable/test) |
 | `channel` | Channel management (list, doctor) |
 | `memory` | Memory management (list, get, stats, prune) |

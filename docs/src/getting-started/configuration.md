@@ -84,6 +84,7 @@ context_limit = 200000              # context window cap (tokens)
 max_tokens = 65536                  # max output tokens per API call
 auto_update = true                  # auto-install releases on startup
 silent_compaction = false           # suppress post-compaction personality narration
+compaction_notice = false            # show the compaction notice pair; off by default (v0.5.4)
 lazy_tools = true                   # JIT tool-schema loading (ships core + tool_search only)
 redact_sensitive_data = true        # redact API keys, tokens, passwords, IPs from output
 debug_logs = false                  # enable debug file logging (hot-reloads, no restart)
@@ -101,11 +102,14 @@ default_model = "MiniMax-M2.7"      # fallback model when no model is active (v0
 | `max_tokens` | `65536` | Max output tokens per single API call |
 | `auto_update` | `true` | Automatically install new releases on startup (binary mode only) |
 | `silent_compaction` | `false` | When true, suppresses the agent's playful post-compaction narration. Useful for corporate/formal deployments |
+| `compaction_notice` | `false` | Show the compaction notice pair in the TUI. Off by default since v0.5.4 (#1686) |
 | `lazy_tools` | `true` | Ships only core tool schemas (~4k tokens) plus `tool_search` per request. The agent discovers and activates extended tools on demand via `tool_search`. Set `false` to load all ~95 schemas every request |
 | `redact_sensitive_data` | `true` | Redacts API keys, tokens, passwords, and IPs from tool outputs and display. Set `false` during sysadmin/devops work where seeing IPs/tokens/passwords is necessary |
 | `debug_logs` | `false` | Enable debug file logging to `~/.opencrabs/logs/`. Hot-reloads on change (no restart). The `--debug` CLI flag always wins when set (OR logic) |
 | `default_provider` | `None` (uses active provider) | Fallback provider when no provider is active in the current session. Also used for cron jobs without an explicit provider (v0.3.62) |
 | `default_model` | `None` (uses active model) | Fallback model when no model is active in the current session. Also used for cron jobs without an explicit model (v0.3.62) |
+
+Timeout flags resolve per provider first: `[providers.<name>]` wins over `[agent]`, which wins over the built-in default, and every provider family honours the chain, anthropic and gemini included (v0.5.4, #1688).
 
 ### Sub-agent and RSI Overrides
 
