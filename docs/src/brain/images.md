@@ -75,7 +75,7 @@ When vision or image generation is enabled, these tools become available:
 
 | Tool | Description |
 |------|-------------|
-| `generate_image` | Generate an image from a text prompt — saves to `~/.opencrabs/images/` |
+| `generate_image` | Generate an image from a text prompt — saves to `~/.opencrabs/images/`; walks a provider chain with vision parity, so generation falls back the same way vision does (v0.5.4, #1672) |
 | `analyze_image` | Analyze an image file or URL via the active vision path (Path A provider or Gemini fallback) |
 
 **Example prompts:**

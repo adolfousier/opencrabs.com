@@ -24,7 +24,8 @@ OpenCrabs ships with 50+ tools available to the agent out of the box, plus suppo
 
 | Tool | Parameters | Description |
 |------|-----------|-------------|
-| `web_search` | `query` | Search the web (Brave Search) |
+| `web_search` | `query` | Search the web (multi-engine fan-out; results deduped by URL across engines, v0.5.4) |
+| `serper_search` | `query` | Google SERP results via Serper; set the key in `keys.toml` (serper.dev) (v0.5.4) |
 | `web_scrape` | `url` | Native URL-to-markdown scraping with SSRF protection, sitemap crawling, JS-shell detection (v0.3.60) |
 | `http_request` | `method`, `url`, `headers`, `body` | Make HTTP requests |
 
@@ -47,6 +48,7 @@ OpenCrabs ships with 50+ tools available to the agent out of the box, plus suppo
 | `session_search` | `query`, `limit` | Semantic search across sessions |
 | `session_context` | `action` | Read/write session context |
 | `task_manager` | `action`, various | Manage plans and tasks |
+| `decide_cached` | decision input | L1 decision cache (#1648): exact-repeat decisions are served from a reuse ring keyed on canonicalized input, with a shadow tier that logs what it would answer before it goes live (v0.5.4) |
 
 ## Image & Video
 
