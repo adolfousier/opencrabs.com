@@ -53,5 +53,5 @@
   "footer_license": "Licence MIT",
   "footer_built_by": "Construit avec 🦀 par ",
   "footer_and_community": " & la communauté OpenCrabs.",
-  "latest_release_note": "v0.5.3 : la release de la consolidation. Cron déclenché sur condition, Windows natif, suggestions en sondage sur WhatsApp, mémoire avec confiance et décroissance, et le moteur de thèmes achevé."
+  "latest_release_note": "v0.5.4 : la release native partout. Famille de sessions ACP pour les éditeurs, prise en main interactive du terminal avec !vi/!nano, coller ou déposer tout fichier, recherche Serper et une decision cache."
 }

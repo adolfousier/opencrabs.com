@@ -53,5 +53,5 @@
   "footer_license": "Licencia MIT",
   "footer_built_by": "Construido con 🦀 por ",
   "footer_and_community": " & la comunidad de OpenCrabs.",
-  "latest_release_note": "v0.5.3: la release de la consolidación. Cron con triggers, Windows de primera clase, sugerencias en encuesta en WhatsApp, memoria con confianza y decaimiento, y el motor de temas terminado."
+  "latest_release_note": "v0.5.4: la release nativa en todas partes. Familia de sessions ACP para editores, entrega interactiva del terminal con !vi/!nano, pegar o soltar cualquier archivo, búsqueda Serper y una decision cache."
 }

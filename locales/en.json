@@ -53,5 +53,5 @@
   "footer_license": "MIT License",
   "footer_built_by": "Built with 🦀 by ",
   "footer_and_community": " & the OpenCrabs community.",
-  "latest_release_note": "v0.5.3: the consolidation release. Trigger-gated cron, first-class Windows, WhatsApp suggestion polls, memory with confidence and decay, and a finished theme engine."
+  "latest_release_note": "v0.5.4: the native-everywhere release. ACP session family for editors, interactive !vi/!nano terminal handoff, paste or drop any file, Serper search, and a decision cache."
 }

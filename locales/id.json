@@ -53,5 +53,5 @@
   "footer_license": "Lisensi MIT",
   "footer_built_by": "Dibangun dengan 🦀 oleh ",
   "footer_and_community": " & komunitas OpenCrabs.",
-  "latest_release_note": "v0.5.3: rilis konsolidasi. Cron dengan trigger, Windows kelas satu, saran sebagai poll di WhatsApp, memori dengan confidence dan decay, serta mesin tema yang selesai."
+  "latest_release_note": "v0.5.4: rilis native di mana-mana. Keluarga session ACP untuk editor, serah terima terminal interaktif dengan !vi/!nano, paste atau drop file apa pun, pencarian Serper, dan decision cache."
 }
