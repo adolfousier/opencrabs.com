@@ -20,6 +20,17 @@ Point your editor's ACP/agent client at the `opencrabs acp` command and it appea
 
 stdout is the protocol channel: nothing but JSON-RPC frames is ever written to it. Logs go to the daily log file (or stderr in debug builds), never stdout.
 
+## Sessions (v0.5.4)
+
+Sessions are first-class on the ACP surface:
+
+- **`session/new`** offers a live model catalog, so the client picks from models that actually exist in your config
+- **`session/load`** replays the transcript and restores the per-session model
+- **`set_model`** persists on the session row and survives process restarts
+- **`session/set_mode`** applies the approval policy server-side (native, no prompt workaround)
+- **`session/compact`** pushes compaction to the client
+- The context meter is restored on load and rides usage updates, so the editor always shows a true context reading
+
 ## Why it matters
 
 Before ACP mode, driving OpenCrabs from an editor meant copy-pasting between the editor and a channel. With ACP mode the editor is a first-class surface: same providers, same skill gating, same plan approvals, same memory. Configuration is shared with the rest of OpenCrabs; there is no separate ACP config section.
