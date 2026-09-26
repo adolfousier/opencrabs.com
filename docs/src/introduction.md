@@ -2,7 +2,7 @@
 
 **OpenCrabs** is a self-hosted, provider-agnostic AI orchestration agent that runs as a single Rust binary. It automates your terminal, browser, channels (Telegram/Discord/Slack/WhatsApp/Trello), and codebase, all while respecting your privacy and keeping you in control.
 
-**9,032 tests** across providers, tools, channels, TUI, self-healing, and browser automation.
+**9,426 tests** across providers, tools, channels, TUI, self-healing, and browser automation.
 
 ## What Makes OpenCrabs Different
 
@@ -93,6 +93,13 @@
 - **Epistemic memory (v0.5.3)** — MEMORY.md facts carry confidence and decay (#1643), cold sections archive themselves, and `opencrabs memory prune` previews what went cold before touching it (#1657)
 - **Finished theme engine (v0.5.3)** — every TUI widget resolves through the theme with a suite guard against new raw ANSI, and themes can declare a canvas background (#1634)
 - **WhatsApp suggestion polls (v0.5.3)** — follow-up option sets past the native button cap render as a poll, and a vote selects the option (#1616)
+- **ACP session family (v0.5.4)** — sessions are first-class on the ACP surface: the context meter is restored on load and rides usage updates, `session/load` replays the transcript and restores the per-session model, `set_model` persists across processes, native `session/set_mode` applies the approval policy server-side, `session/compact` pushes, and `session/new` offers a live model catalog
+- **Interactive terminal handoff (v0.5.4)** — `!vi`/`!nano` take over the terminal interactively and hand it back with the session intact (#1744)
+- **Universal paste & drop (v0.5.4)** — one shared attachment router accepts every file type on paste or drop and classifies code, docs, archives and data so each lands in the right pipeline (#1740, #1743)
+- **Serper search engine (v0.5.4)** — `serper_search` adds Google SERP results, and the web_search fan-out dedupes by URL across engines (#1731)
+- **Decision cache (v0.5.4)** — `decide_cached` answers repeat decisions from an L1 reuse ring with shadow/live tiers and `[decisions]` config (#1648)
+- **Provider-reported costs and one timeout chain (v0.5.4)** — the usage ledger prefers the cost the provider actually reported over table estimates (#1707), and timeout flags resolve `[providers.<name>]` -> `[agent]` -> default across every provider (#1688)
+- **Compiled /architecture and /attach, opt-in audit trail (v0.5.4)** — both commands ship as compiled arms, and an opt-in audit trail records what ran with a `/audit` viewer (#933, #1705)
 
 - **doctor --fix repair mode (v0.3.83)** — stuck cron rows, stale markers and broken permissions are repaired on the spot instead of only reported
 - **Per-path write locks (v0.3.83)** — concurrent writes to the same file serialize; the last writer no longer silently wins
