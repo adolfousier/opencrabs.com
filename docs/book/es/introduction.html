@@ -65,7 +65,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-335979fc.js";
+            window.path_to_searchindex_js = "searchindex-b371662f.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-bfb94109.js"></script>
@@ -395,7 +395,7 @@
 <p><strong>Familia de sessions ACP (v0.5.4)</strong> — los sessions son first-class en la superficie ACP: el context meter se restaura al cargar y sigue las usage updates, <code>session/load</code> reproduce la transcripción y restaura el model del session, <code>set_model</code> persiste entre procesos, el <code>session/set_mode</code> nativo aplica la approval policy en el servidor, <code>session/compact</code> hace push, y <code>session/new</code> ofrece un catálogo de models en vivo</p>
 </li>
 <li>
-<p><strong>Entrega interactiva del terminal (v0.5.4)</strong> — <code>!vi</code>/<code>!nano</code> toman el terminal de forma interactiva y lo devuelven con el session intacto (#1744)</p>
+<p><strong>Entrega interactiva del terminal (v0.5.4)</strong> — <code>!vi</code>/<code>!nano</code> toman el terminal de forma interactiva y lo devuelven con el session intacto; solo terminales Unix, en Windows se mantiene la captura por pipe (#1744, #1759)</p>
 </li>
 <li>
 <p><strong>Paste &amp; drop universal (v0.5.4)</strong> — un router de attachments compartido acepta cualquier tipo de archivo al pegar o soltar y clasifica código, docs, archivos y datos para que cada uno siga el pipeline correcto (#1740, #1743)</p>
