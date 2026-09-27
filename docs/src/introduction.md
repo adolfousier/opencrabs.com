@@ -94,7 +94,7 @@
 - **Finished theme engine (v0.5.3)** — every TUI widget resolves through the theme with a suite guard against new raw ANSI, and themes can declare a canvas background (#1634)
 - **WhatsApp suggestion polls (v0.5.3)** — follow-up option sets past the native button cap render as a poll, and a vote selects the option (#1616)
 - **ACP session family (v0.5.4)** — sessions are first-class on the ACP surface: the context meter is restored on load and rides usage updates, `session/load` replays the transcript and restores the per-session model, `set_model` persists across processes, native `session/set_mode` applies the approval policy server-side, `session/compact` pushes, and `session/new` offers a live model catalog
-- **Interactive terminal handoff (v0.5.4)** — `!vi`/`!nano` take over the terminal interactively and hand it back with the session intact (#1744)
+- **Interactive terminal handoff (v0.5.4)** — `!vi`/`!nano` take over the terminal interactively and hand it back with the session intact; Unix terminals only, Windows keeps pipe capture (#1744, #1759)
 - **Universal paste & drop (v0.5.4)** — one shared attachment router accepts every file type on paste or drop and classifies code, docs, archives and data so each lands in the right pipeline (#1740, #1743)
 - **Serper search engine (v0.5.4)** — `serper_search` adds Google SERP results, and the web_search fan-out dedupes by URL across engines (#1731)
 - **Decision cache (v0.5.4)** — `decide_cached` answers repeat decisions from an L1 reuse ring with shadow/live tiers and `[decisions]` config (#1648)
