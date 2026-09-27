@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OpenCrabs\n"
-"POT-Creation-Date: 2026-09-27T01:38:02+01:00\n"
+"POT-Creation-Date: 2026-09-27T02:00:19+01:00\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -274,11 +274,10 @@ msgstr ""
 
 #: src/introduction.md:5
 msgid ""
-"**9,426 tests** across providers, tools, channels, TUI, self-healing, and "
+"**9,427 tests** across providers, tools, channels, TUI, self-healing, and "
 "browser automation."
 msgstr ""
-"**9,426 tests** sur les providers, les outils, les channels, le TUI, le self-"
-"healing et l'automatisation de browser."
+"**9,427 tests** sur les providers, les outils, les channels, le TUI, le self-healing et l'automatisation de browser."
 
 #: src/introduction.md:7
 msgid "What Makes OpenCrabs Different"
@@ -1027,7 +1026,10 @@ msgid ""
 "terminal interactively and hand it back with the session intact; Unix "
 "terminals only, Windows keeps pipe capture (#1744, #1759)"
 msgstr ""
-"**Prise en main interactive du terminal (v0.5.4)** — `!vi`/`!nano` prennent le terminal de façon interactive et le rendent avec la session intacte; terminaux Unix uniquement, Windows conserve la capture par pipe (#1744, #1759)"
+"**Prise en main interactive du terminal (v0.5.4)** — `!vi`/`!nano` prennent "
+"le terminal de façon interactive et le rendent avec la session intacte; "
+"terminaux Unix uniquement, Windows conserve la capture par pipe (#1744, "
+"#1759)"
 
 #: src/introduction.md:98
 msgid ""

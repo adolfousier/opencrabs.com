@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OpenCrabs\n"
-"POT-Creation-Date: 2026-09-27T01:38:02+01:00\n"
+"POT-Creation-Date: 2026-09-27T02:00:19+01:00\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -270,7 +270,7 @@ msgstr ""
 
 #: src/introduction.md:5
 msgid ""
-"**9,426 tests** across providers, tools, channels, TUI, self-healing, and "
+"**9,427 tests** across providers, tools, channels, TUI, self-healing, and "
 "browser automation."
 msgstr ""
 
