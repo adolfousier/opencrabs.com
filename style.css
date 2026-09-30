@@ -741,7 +741,7 @@ nav .container {
 /* ── Community Links ─────────────────────────────────────────── */
 .community-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 16px;
 }
 
@@ -1016,4 +1016,101 @@ footer {
 .lang-switcher option {
     background: #16181d;
     color: rgba(255, 255, 255, 0.85);
+}
+
+/* ── Nav social icons (Telegram + Discord) ───────────────────────── */
+.nav-social {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.nav-social-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: rgba(255, 255, 255, 0.75);
+    transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.nav-social-link:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.25);
+}
+
+.nav-social-link.nav-telegram:hover { color: #26A5E4; border-color: rgba(38, 165, 228, 0.5); }
+.nav-social-link.nav-discord:hover { color: #5865F2; border-color: rgba(88, 101, 242, 0.5); }
+
+.nav-social-link svg {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+}
+
+/* ── Footer Community dropdown ───────────────────────────────────── */
+.footer-comm-wrap {
+    position: relative;
+    display: inline-block;
+}
+
+.footer-comm-popover {
+    display: none;
+    position: absolute;
+    bottom: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 200;
+    min-width: 190px;
+    background: var(--bg-card, #161b22);
+    border: 1px solid var(--border, #30363d);
+    border-radius: 8px;
+    padding: 8px 10px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    flex-direction: column;
+    gap: 4px;
+}
+
+.footer-comm-popover.open {
+    display: flex;
+}
+
+.footer-comm-popover a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 7px 8px;
+    border-radius: 6px;
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.footer-comm-popover a:hover {
+    background: rgba(255, 255, 255, 0.06);
+    color: #fff;
+}
+
+.footer-comm-popover svg {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+    flex-shrink: 0;
+}
+
+.footer-comm-popover a:first-child:hover { color: #26A5E4; }
+.footer-comm-popover a:last-child:hover { color: #5865F2; }
+
+/* Brand SVGs inside Colony cards */
+.community-card .icon svg {
+    width: 30px;
+    height: 30px;
+    vertical-align: middle;
 }
