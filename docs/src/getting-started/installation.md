@@ -14,14 +14,16 @@ Run `opencrabs` after install — the onboarding wizard handles everything on fi
 
 ## Option 2: Download Binary (all platforms)
 
-Grab a pre-built binary from [GitHub Releases](https://github.com/adolfousier/opencrabs/releases).
+Grab a pre-built binary from [GitHub Releases](https://github.com/opencrabs/opencrabs/releases).
+
+> **Linux:** the pre-built binaries need glibc 2.39 or newer (Ubuntu 24.04+, Debian 13+). Check yours with `ldd --version`. On older systems such as Debian 12 or Ubuntu 22.04 the binary fails with `GLIBC_2.39 not found`; build from source instead (see below).
 
 ### Linux (amd64)
 
 ```bash
 sudo apt install -y jq libgomp1
-TAG=$(curl -s https://api.github.com/repos/adolfousier/opencrabs/releases/latest | jq -r .tag_name)
-curl -fsSL "https://github.com/adolfousier/opencrabs/releases/download/${TAG}/opencrabs-${TAG}-linux-amd64.tar.gz" | tar xz
+TAG=$(curl -sL https://api.github.com/repos/opencrabs/opencrabs/releases/latest | jq -r .tag_name)
+curl -fsSL "https://github.com/opencrabs/opencrabs/releases/download/${TAG}/opencrabs-${TAG}-linux-amd64.tar.gz" | tar xz
 ./opencrabs
 ```
 
@@ -29,25 +31,25 @@ curl -fsSL "https://github.com/adolfousier/opencrabs/releases/download/${TAG}/op
 
 ```bash
 sudo apt install -y jq libgomp1
-TAG=$(curl -s https://api.github.com/repos/adolfousier/opencrabs/releases/latest | jq -r .tag_name)
-curl -fsSL "https://github.com/adolfousier/opencrabs/releases/download/${TAG}/opencrabs-${TAG}-linux-arm64.tar.gz" | tar xz
+TAG=$(curl -sL https://api.github.com/repos/opencrabs/opencrabs/releases/latest | jq -r .tag_name)
+curl -fsSL "https://github.com/opencrabs/opencrabs/releases/download/${TAG}/opencrabs-${TAG}-linux-arm64.tar.gz" | tar xz
 ./opencrabs
 ```
 
 ### macOS (arm64 / Apple Silicon)
 
 ```bash
-TAG=$(curl -s https://api.github.com/repos/adolfousier/opencrabs/releases/latest | jq -r .tag_name)
-curl -fsSL "https://github.com/adolfousier/opencrabs/releases/download/${TAG}/opencrabs-${TAG}-macos-arm64.tar.gz" | tar xz
+TAG=$(curl -sL https://api.github.com/repos/opencrabs/opencrabs/releases/latest | jq -r .tag_name)
+curl -fsSL "https://github.com/opencrabs/opencrabs/releases/download/${TAG}/opencrabs-${TAG}-macos-arm64.tar.gz" | tar xz
 ./opencrabs
 ```
 
 ### Windows
 
 ```powershell
-$tag = (Invoke-RestMethod https://api.github.com/repos/adolfousier/opencrabs/releases/latest).tag_name
+$tag = (Invoke-RestMethod https://api.github.com/repos/opencrabs/opencrabs/releases/latest).tag_name
 $ProgressPreference = 'SilentlyContinue'
-Invoke-WebRequest "https://github.com/adolfousier/opencrabs/releases/download/$tag/opencrabs-$tag-windows-amd64.zip" -OutFile opencrabs.zip
+Invoke-WebRequest "https://github.com/opencrabs/opencrabs/releases/download/$tag/opencrabs-$tag-windows-amd64.zip" -OutFile opencrabs.zip
 Expand-Archive opencrabs.zip -Force
 .\opencrabs.exe
 ```
@@ -79,10 +81,10 @@ The setup script auto-detects your platform (macOS, Debian/Ubuntu, Fedora/RHEL, 
 
 ```bash
 # Install all dependencies
-curl -fsSL https://raw.githubusercontent.com/adolfousier/opencrabs/main/scripts/setup.sh | bash
+curl -fsSL https://raw.githubusercontent.com/opencrabs/opencrabs/main/src/scripts/setup.sh | bash
 
 # Clone and build
-git clone https://github.com/adolfousier/opencrabs.git
+git clone https://github.com/opencrabs/opencrabs.git
 cd opencrabs
 cargo build --release
 ./target/release/opencrabs
@@ -101,7 +103,7 @@ If you prefer to install dependencies yourself:
 - **Arch:** `sudo pacman -S base-devel pkg-config openssl cmake`
 
 ```bash
-git clone https://github.com/adolfousier/opencrabs.git
+git clone https://github.com/opencrabs/opencrabs.git
 cd opencrabs
 cargo build --release
 ./target/release/opencrabs
@@ -114,7 +116,7 @@ cargo build --release
 Run OpenCrabs in an isolated container. Build takes ~15min (Rust release + LTO).
 
 ```bash
-git clone https://github.com/adolfousier/opencrabs.git
+git clone https://github.com/opencrabs/opencrabs.git
 cd opencrabs
 docker compose -f src/docker/compose.yml up --build
 ```
