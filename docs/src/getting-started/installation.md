@@ -16,8 +16,6 @@ Run `opencrabs` after install — the onboarding wizard handles everything on fi
 
 Grab a pre-built binary from [GitHub Releases](https://github.com/opencrabs/opencrabs/releases).
 
-> **Linux:** the pre-built binaries need glibc 2.39 or newer (Ubuntu 24.04+, Debian 13+). Check yours with `ldd --version`. Older systems such as Debian 12 or Ubuntu 22.04 are not supported: the binary fails with `GLIBC_2.39 not found`.
-
 ### Linux (amd64)
 
 ```bash
