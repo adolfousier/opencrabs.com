@@ -65,7 +65,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-a4a245bd.js";
+            window.path_to_searchindex_js = "../searchindex-0d9c83b0.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-bfb94109.js"></script>
@@ -212,31 +212,31 @@
 <h2 id="option-1-homebrew-recommended-on-macos-and-linux"><a class="header" href="#option-1-homebrew-recommended-on-macos-and-linux">Option 1: Homebrew (recommended on macOS and Linux)</a></h2>
 <pre><code class="language-bash">brew install opencrabs
 </code></pre>
-<p>OpenCrabs is in <a href="https://github.com/Homebrew/homebrew-core/blob/HEAD/Formula/o/opencrabs.rb">homebrew-core</a>, so the standard formula installs the prebuilt binary for macOS and Linux on both architectures — no Rust toolchain required. Every release publishes a <code>SHA256SUMS</code> file and the formula is regenerated automatically from it, so the hashes always match the shipped artifacts.</p>
+<p>OpenCrabs is in <a href="https://github.com/Homebrew/homebrew-core/blob/HEAD/Formula/o/opencrabs.rb">homebrew-core</a>. Homebrew ships prebuilt bottles for Apple Silicon Macs (macOS 15 and newer) and for Linux amd64 and arm64, so no Rust toolchain is needed there. On an Intel Mac, Homebrew builds it from source instead; use the <code>macos-amd64</code> release binary if you’d rather skip the build.</p>
 <p>Run <code>opencrabs</code> after install — the onboarding wizard handles everything on first run.</p>
 <h2 id="option-2-download-binary-all-platforms"><a class="header" href="#option-2-download-binary-all-platforms">Option 2: Download Binary (all platforms)</a></h2>
-<p>Grab a pre-built binary from <a href="https://github.com/adolfousier/opencrabs/releases">GitHub Releases</a>.</p>
+<p>Grab a pre-built binary from <a href="https://github.com/opencrabs/opencrabs/releases">GitHub Releases</a>.</p>
 <h3 id="linux-amd64"><a class="header" href="#linux-amd64">Linux (amd64)</a></h3>
-<pre><code class="language-bash">sudo apt install -y jq libgomp1
-TAG=$(curl -s https://api.github.com/repos/adolfousier/opencrabs/releases/latest | jq -r .tag_name)
-curl -fsSL "https://github.com/adolfousier/opencrabs/releases/download/${TAG}/opencrabs-${TAG}-linux-amd64.tar.gz" | tar xz
+<pre><code class="language-bash">sudo apt update &amp;&amp; sudo apt install -y curl jq libgomp1
+TAG=$(curl -sL https://api.github.com/repos/opencrabs/opencrabs/releases/latest | jq -r .tag_name)
+curl -fsSL "https://github.com/opencrabs/opencrabs/releases/download/${TAG}/opencrabs-${TAG}-linux-amd64.tar.gz" | tar xz
 ./opencrabs
 </code></pre>
 <h3 id="linux-arm64"><a class="header" href="#linux-arm64">Linux (arm64)</a></h3>
-<pre><code class="language-bash">sudo apt install -y jq libgomp1
-TAG=$(curl -s https://api.github.com/repos/adolfousier/opencrabs/releases/latest | jq -r .tag_name)
-curl -fsSL "https://github.com/adolfousier/opencrabs/releases/download/${TAG}/opencrabs-${TAG}-linux-arm64.tar.gz" | tar xz
+<pre><code class="language-bash">sudo apt update &amp;&amp; sudo apt install -y curl jq libgomp1
+TAG=$(curl -sL https://api.github.com/repos/opencrabs/opencrabs/releases/latest | jq -r .tag_name)
+curl -fsSL "https://github.com/opencrabs/opencrabs/releases/download/${TAG}/opencrabs-${TAG}-linux-arm64.tar.gz" | tar xz
 ./opencrabs
 </code></pre>
 <h3 id="macos-arm64--apple-silicon"><a class="header" href="#macos-arm64--apple-silicon">macOS (arm64 / Apple Silicon)</a></h3>
-<pre><code class="language-bash">TAG=$(curl -s https://api.github.com/repos/adolfousier/opencrabs/releases/latest | jq -r .tag_name)
-curl -fsSL "https://github.com/adolfousier/opencrabs/releases/download/${TAG}/opencrabs-${TAG}-macos-arm64.tar.gz" | tar xz
+<pre><code class="language-bash">TAG=$(curl -sL https://api.github.com/repos/opencrabs/opencrabs/releases/latest | jq -r .tag_name)
+curl -fsSL "https://github.com/opencrabs/opencrabs/releases/download/${TAG}/opencrabs-${TAG}-macos-arm64.tar.gz" | tar xz
 ./opencrabs
 </code></pre>
 <h3 id="windows"><a class="header" href="#windows">Windows</a></h3>
-<pre><code class="language-powershell">$tag = (Invoke-RestMethod https://api.github.com/repos/adolfousier/opencrabs/releases/latest).tag_name
+<pre><code class="language-powershell">$tag = (Invoke-RestMethod https://api.github.com/repos/opencrabs/opencrabs/releases/latest).tag_name
 $ProgressPreference = 'SilentlyContinue'
-Invoke-WebRequest "https://github.com/adolfousier/opencrabs/releases/download/$tag/opencrabs-$tag-windows-amd64.zip" -OutFile opencrabs.zip
+Invoke-WebRequest "https://github.com/opencrabs/opencrabs/releases/download/$tag/opencrabs-$tag-windows-amd64.zip" -OutFile opencrabs.zip
 Expand-Archive opencrabs.zip -Force
 .\opencrabs.exe
 </code></pre>
@@ -271,10 +271,10 @@ file reads, and tilde/cwd fallbacks are built in, and CI builds Windows on every
 <h3 id="quick-setup-recommended"><a class="header" href="#quick-setup-recommended">Quick setup (recommended)</a></h3>
 <p>The setup script auto-detects your platform (macOS, Debian/Ubuntu, Fedora/RHEL, Arch) and installs all build dependencies + Rust:</p>
 <pre><code class="language-bash"># Install all dependencies
-curl -fsSL https://raw.githubusercontent.com/adolfousier/opencrabs/main/scripts/setup.sh | bash
+curl -fsSL https://raw.githubusercontent.com/opencrabs/opencrabs/main/src/scripts/setup.sh | bash
 
 # Clone and build
-git clone https://github.com/adolfousier/opencrabs.git
+git clone https://github.com/opencrabs/opencrabs.git
 cd opencrabs
 cargo build --release
 ./target/release/opencrabs
@@ -290,7 +290,7 @@ cargo build --release
 <li><strong>Fedora/RHEL:</strong> <code>sudo dnf install gcc gcc-c++ make pkg-config openssl-devel cmake</code></li>
 <li><strong>Arch:</strong> <code>sudo pacman -S base-devel pkg-config openssl cmake</code></li>
 </ul>
-<pre><code class="language-bash">git clone https://github.com/adolfousier/opencrabs.git
+<pre><code class="language-bash">git clone https://github.com/opencrabs/opencrabs.git
 cd opencrabs
 cargo build --release
 ./target/release/opencrabs
@@ -300,7 +300,7 @@ cargo build --release
 </blockquote>
 <h2 id="option-4-docker"><a class="header" href="#option-4-docker">Option 4: Docker</a></h2>
 <p>Run OpenCrabs in an isolated container. Build takes ~15min (Rust release + LTO).</p>
-<pre><code class="language-bash">git clone https://github.com/adolfousier/opencrabs.git
+<pre><code class="language-bash">git clone https://github.com/opencrabs/opencrabs.git
 cd opencrabs
 docker compose -f src/docker/compose.yml up --build
 </code></pre>

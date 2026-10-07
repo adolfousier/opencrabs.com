@@ -65,7 +65,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-e619bbe0.js";
+            window.path_to_searchindex_js = "../searchindex-2b1b7f2c.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-bfb94109.js"></script>
@@ -208,50 +208,6 @@
                 <div id="mdbook-content" class="content">
                     <main>
                         <h1 id="custom-commands"><a class="header" href="#custom-commands">Custom Commands</a></h1>
-<p>Define your own slash commands in <code>~/.opencrabs/commands.toml</code>. Commands work from the TUI and all channels (Telegram, Discord, Slack, WhatsApp).</p>
-<h2 id="configuration"><a class="header" href="#configuration">Configuration</a></h2>
-<pre><code class="language-toml"># ~/.opencrabs/commands.toml
-
-[commands.credits]
-description = "Show remaining API credits"
-action = "prompt"
-value = "Check my API credit balance across all providers and give me a summary"
-
-[commands.deploy]
-description = "Deploy to production"
-action = "prompt"
-value = "Run the production deployment pipeline: git pull, build, test, deploy"
-
-[commands.status]
-description = "Show system status"
-action = "system"
-value = "System is operational. All channels connected."
-</code></pre>
-<h2 id="action-types"><a class="header" href="#action-types">Action Types</a></h2>
-<div class="table-wrapper">
-<table>
-<thead>
-<tr><th>Ação</th><th>Behavior</th></tr>
-</thead>
-<tbody>
-<tr><td><code>prompt</code></td><td>Sends the <code>value</code> as a message to the agent — the agent processes it like any user message</td></tr>
-<tr><td><code>system</code></td><td>Displays the <code>value</code> directly as a system message — no agent involvement</td></tr>
-</tbody>
-</table>
-</div>
-<h2 id="using-commands"><a class="header" href="#using-commands">Using Commands</a></h2>
-<p>Type <code>/commandname</code> in the TUI or any connected channel:</p>
-<pre><code>/credits     → agent checks API balances
-/deploy      → agent runs deployment
-/status      → shows static system message
-</code></pre>
-<h2 id="visibility"><a class="header" href="#visibility">Visibility</a></h2>
-<p>Custom commands appear in:</p>
-<ul>
-<li><code>/help</code> output (TUI and channels) under a “Custom Commands” section</li>
-<li>TUI slash autocomplete when typing <code>/</code></li>
-</ul>
-<p>Commands are sorted alphabetically and show their description.</p>
 
                     </main>
 
