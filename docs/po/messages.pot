@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OpenCrabs\n"
-"POT-Creation-Date: 2026-09-27T02:00:19+01:00\n"
+"POT-Creation-Date: 2026-10-07T14:13:01+01:00\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -36,7 +36,7 @@ msgstr ""
 #: src/SUMMARY.md:9 src/getting-started/configuration.md:1
 #: src/channels/telegram.md:120 src/channels/discord.md:49
 #: src/channels/slack.md:51 src/channels/whatsapp.md:35
-#: src/channels/trello.md:44 src/brain/commands.md:5 src/features/browser.md:49
+#: src/channels/trello.md:44 src/features/browser.md:49
 #: src/features/voice.md:31 src/features/voice.md:72
 msgid "Configuration"
 msgstr ""
@@ -1512,11 +1512,11 @@ msgstr ""
 #: src/getting-started/installation.md:11
 msgid ""
 "OpenCrabs is in "
-"[homebrew-core](https://github.com/Homebrew/homebrew-core/blob/HEAD/Formula/o/opencrabs.rb), "
-"so the standard formula installs the prebuilt binary for macOS and Linux on "
-"both architectures — no Rust toolchain required. Every release publishes a "
-"`SHA256SUMS` file and the formula is regenerated automatically from it, so "
-"the hashes always match the shipped artifacts."
+"[homebrew-core](https://github.com/Homebrew/homebrew-core/blob/HEAD/Formula/o/opencrabs.rb). "
+"Homebrew ships prebuilt bottles for Apple Silicon Macs (macOS 15 and newer) "
+"and for Linux amd64 and arm64, so no Rust toolchain is needed there. On an "
+"Intel Mac, Homebrew builds it from source instead; use the `macos-amd64` "
+"release binary if you'd rather skip the build."
 msgstr ""
 
 #: src/getting-started/installation.md:13
@@ -1532,7 +1532,7 @@ msgstr ""
 #: src/getting-started/installation.md:17
 msgid ""
 "Grab a pre-built binary from [GitHub "
-"Releases](https://github.com/adolfousier/opencrabs/releases)."
+"Releases](https://github.com/opencrabs/opencrabs/releases)."
 msgstr ""
 
 #: src/getting-started/installation.md:19
@@ -1543,13 +1543,13 @@ msgstr ""
 #: src/getting-started/installation.md:32
 #: src/getting-started/installation.md:40
 msgid ""
-"$(curl -s https://api.github.com/repos/adolfousier/opencrabs/releases/latest "
+"$(curl -sL https://api.github.com/repos/opencrabs/opencrabs/releases/latest "
 "| jq -r .tag_name)"
 msgstr ""
 
 #: src/getting-started/installation.md:24
 msgid ""
-"\"https://github.com/adolfousier/opencrabs/releases/download/${TAG}/opencrabs-${TAG}-linux-amd64.tar.gz\""
+"\"https://github.com/opencrabs/opencrabs/releases/download/${TAG}/opencrabs-${TAG}-linux-amd64.tar.gz\""
 msgstr ""
 
 #: src/getting-started/installation.md:28
@@ -1558,7 +1558,7 @@ msgstr ""
 
 #: src/getting-started/installation.md:33
 msgid ""
-"\"https://github.com/adolfousier/opencrabs/releases/download/${TAG}/opencrabs-${TAG}-linux-arm64.tar.gz\""
+"\"https://github.com/opencrabs/opencrabs/releases/download/${TAG}/opencrabs-${TAG}-linux-arm64.tar.gz\""
 msgstr ""
 
 #: src/getting-started/installation.md:37
@@ -1567,7 +1567,7 @@ msgstr ""
 
 #: src/getting-started/installation.md:41
 msgid ""
-"\"https://github.com/adolfousier/opencrabs/releases/download/${TAG}/opencrabs-${TAG}-macos-arm64.tar.gz\""
+"\"https://github.com/opencrabs/opencrabs/releases/download/${TAG}/opencrabs-${TAG}-macos-arm64.tar.gz\""
 msgstr ""
 
 #: src/getting-started/installation.md:45
@@ -1578,10 +1578,10 @@ msgstr ""
 msgid ""
 "```powershell\n"
 "$tag = (Invoke-RestMethod "
-"https://api.github.com/repos/adolfousier/opencrabs/releases/latest).tag_name\n"
+"https://api.github.com/repos/opencrabs/opencrabs/releases/latest).tag_name\n"
 "$ProgressPreference = 'SilentlyContinue'\n"
 "Invoke-WebRequest "
-"\"https://github.com/adolfousier/opencrabs/releases/download/$tag/opencrabs-$tag-windows-amd64.zip\" "
+"\"https://github.com/opencrabs/opencrabs/releases/download/$tag/opencrabs-$tag-windows-amd64.zip\" "
 "-OutFile opencrabs.zip\n"
 "Expand-Archive opencrabs.zip -Force\n"
 ".\\opencrabs.exe\n"
@@ -1933,10 +1933,9 @@ msgstr ""
 #: src/getting-started/cli-commands.md:56
 #: src/getting-started/cli-commands.md:258 src/brain/providers.md:11
 #: src/channels/overview.md:19 src/channels/telegram.md:195
-#: src/channels/trello.md:73 src/brain/commands.md:28
-#: src/features/sessions.md:114 src/features/split-panes.md:7
-#: src/features/a2a.md:52 src/features/mission-control.md:62
-#: src/features/usage-dashboard.md:105
+#: src/channels/trello.md:73 src/features/sessions.md:114
+#: src/features/split-panes.md:7 src/features/a2a.md:52
+#: src/features/mission-control.md:62 src/features/usage-dashboard.md:105
 msgid "Action"
 msgstr ""
 
@@ -2739,8 +2738,7 @@ msgid "Mode"
 msgstr ""
 
 #: src/getting-started/onboarding.md:162 src/channels/whatsapp.md:89
-#: src/channels/trello.md:98 src/brain/commands.md:28
-#: src/development/testing.md:483
+#: src/channels/trello.md:98 src/development/testing.md:483
 msgid "Behavior"
 msgstr ""
 
@@ -11994,86 +11992,6 @@ msgid ""
 "voice-to-text widget controllable via D-Bus. Click to record, click to stop, "
 "text goes to clipboard. The agent can start/stop recording, switch "
 "providers, and view transcription history via D-Bus commands."
-msgstr ""
-
-#: src/brain/commands.md:3
-msgid ""
-"Define your own slash commands in `~/.opencrabs/commands.toml`. Commands "
-"work from the TUI and all channels (Telegram, Discord, Slack, WhatsApp)."
-msgstr ""
-
-#: src/brain/commands.md:7
-msgid ""
-"```toml\n"
-"# ~/.opencrabs/commands.toml\n"
-"\n"
-"[commands.credits]\n"
-"description = \"Show remaining API credits\"\n"
-"action = \"prompt\"\n"
-"value = \"Check my API credit balance across all providers and give me a "
-"summary\"\n"
-"\n"
-"[commands.deploy]\n"
-"description = \"Deploy to production\"\n"
-"action = \"prompt\"\n"
-"value = \"Run the production deployment pipeline: git pull, build, test, "
-"deploy\"\n"
-"\n"
-"[commands.status]\n"
-"description = \"Show system status\"\n"
-"action = \"system\"\n"
-"value = \"System is operational. All channels connected.\"\n"
-"```"
-msgstr ""
-
-#: src/brain/commands.md:26
-msgid "Action Types"
-msgstr ""
-
-#: src/brain/commands.md:30
-msgid "`prompt`"
-msgstr ""
-
-#: src/brain/commands.md:30
-msgid ""
-"Sends the `value` as a message to the agent — the agent processes it like "
-"any user message"
-msgstr ""
-
-#: src/brain/commands.md:31
-msgid "`system`"
-msgstr ""
-
-#: src/brain/commands.md:31
-msgid "Displays the `value` directly as a system message — no agent involvement"
-msgstr ""
-
-#: src/brain/commands.md:33
-msgid "Using Commands"
-msgstr ""
-
-#: src/brain/commands.md:35
-msgid "Type `/commandname` in the TUI or any connected channel:"
-msgstr ""
-
-#: src/brain/commands.md:43
-msgid "Visibility"
-msgstr ""
-
-#: src/brain/commands.md:45
-msgid "Custom commands appear in:"
-msgstr ""
-
-#: src/brain/commands.md:46
-msgid "`/help` output (TUI and channels) under a \"Custom Commands\" section"
-msgstr ""
-
-#: src/brain/commands.md:47
-msgid "TUI slash autocomplete when typing `/`"
-msgstr ""
-
-#: src/brain/commands.md:49
-msgid "Commands are sorted alphabetically and show their description."
 msgstr ""
 
 #: src/brain/memory.md:3
