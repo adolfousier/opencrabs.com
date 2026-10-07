@@ -8,7 +8,7 @@ Four ways to get OpenCrabs running.
 brew install opencrabs
 ```
 
-OpenCrabs is in [homebrew-core](https://github.com/Homebrew/homebrew-core/blob/HEAD/Formula/o/opencrabs.rb), so the standard formula installs the prebuilt binary for macOS and Linux on both architectures — no Rust toolchain required. Every release publishes a `SHA256SUMS` file and the formula is regenerated automatically from it, so the hashes always match the shipped artifacts.
+OpenCrabs is in [homebrew-core](https://github.com/Homebrew/homebrew-core/blob/HEAD/Formula/o/opencrabs.rb). Homebrew ships prebuilt bottles for Apple Silicon Macs (macOS 15 and newer) and for Linux amd64 and arm64, so no Rust toolchain is needed there. On an Intel Mac, Homebrew builds it from source instead; use the `macos-amd64` release binary if you'd rather skip the build.
 
 Run `opencrabs` after install — the onboarding wizard handles everything on first run.
 
