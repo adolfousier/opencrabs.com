@@ -21,7 +21,7 @@ Grab a pre-built binary from [GitHub Releases](https://github.com/opencrabs/open
 ### Linux (amd64)
 
 ```bash
-sudo apt install -y jq libgomp1
+sudo apt update && sudo apt install -y curl jq libgomp1
 TAG=$(curl -sL https://api.github.com/repos/opencrabs/opencrabs/releases/latest | jq -r .tag_name)
 curl -fsSL "https://github.com/opencrabs/opencrabs/releases/download/${TAG}/opencrabs-${TAG}-linux-amd64.tar.gz" | tar xz
 ./opencrabs
@@ -30,7 +30,7 @@ curl -fsSL "https://github.com/opencrabs/opencrabs/releases/download/${TAG}/open
 ### Linux (arm64)
 
 ```bash
-sudo apt install -y jq libgomp1
+sudo apt update && sudo apt install -y curl jq libgomp1
 TAG=$(curl -sL https://api.github.com/repos/opencrabs/opencrabs/releases/latest | jq -r .tag_name)
 curl -fsSL "https://github.com/opencrabs/opencrabs/releases/download/${TAG}/opencrabs-${TAG}-linux-arm64.tar.gz" | tar xz
 ./opencrabs
