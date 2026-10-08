@@ -47,8 +47,8 @@ curl -fsSL "https://github.com/opencrabs/opencrabs/releases/download/${TAG}/open
 ```powershell
 $tag = (Invoke-RestMethod https://api.github.com/repos/opencrabs/opencrabs/releases/latest).tag_name
 $ProgressPreference = 'SilentlyContinue'
-Invoke-WebRequest "https://github.com/opencrabs/opencrabs/releases/download/$tag/opencrabs-$tag-windows-amd64.zip" -OutFile opencrabs.zip
-Expand-Archive opencrabs.zip -Force
+Invoke-WebRequest "https://github.com/opencrabs/opencrabs/releases/download/$tag/opencrabs-$tag-windows-amd64.zip" -OutFile opencrabs.zip -UseBasicParsing
+Expand-Archive opencrabs.zip -DestinationPath . -Force
 .\opencrabs.exe
 ```
 
