@@ -59,5 +59,5 @@
   "footer_license": "Licencia MIT",
   "footer_built_by": "Construido con 🦀 por ",
   "footer_and_community": " & la comunidad de OpenCrabs.",
-  "latest_release_note": "v0.5.4: la release nativa en todas partes. Familia de sessions ACP para editores, entrega interactiva del terminal con !vi/!nano, pegar o soltar cualquier archivo, búsqueda Serper y una decision cache."
+  "latest_release_note": "v0.5.5: la release nativa por canal. Encuestas, respuestas de voz y slash commands nativos en Discord, flow groups con reloj en vivo en Discord y Slack, /respond_to y /cowork por canal, disciplina de rate limits en Telegram, ciclo de vida de sessions ACP v1 y un onboarding del TUI reconstruido."
 }

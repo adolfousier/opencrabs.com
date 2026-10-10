@@ -40,18 +40,18 @@ fn copy_terminal_code() {
 
     let commands: Vec<String> = match (tab_idx, os) {
         (0, "windows") => vec![
-            "Invoke-WebRequest -Uri https://github.com/adolfousier/opencrabs/releases/latest/download/opencrabs-windows-amd64.zip -OutFile opencrabs.zip".into(),
+            "Invoke-WebRequest -Uri https://github.com/opencrabs/opencrabs/releases/latest/download/opencrabs-windows-amd64.zip -OutFile opencrabs.zip".into(),
             "Expand-Archive opencrabs.zip -DestinationPath . && .\\opencrabs.exe".into(),
         ],
         (0, "macos") => vec![
-            "TAG=$(curl -s https://api.github.com/repos/adolfousier/opencrabs/releases/latest | jq -r .tag_name)".into(),
-            "curl -fsSL https://github.com/adolfousier/opencrabs/releases/download/$TAG/opencrabs-$TAG-macos-arm64.tar.gz | tar xz".into(),
+            "TAG=$(curl -s https://api.github.com/repos/opencrabs/opencrabs/releases/latest | jq -r .tag_name)".into(),
+            "curl -fsSL https://github.com/opencrabs/opencrabs/releases/download/$TAG/opencrabs-$TAG-macos-arm64.tar.gz | tar xz".into(),
             "./opencrabs".into(),
         ],
         (0, _) => vec![
             "sudo apt install libgomp1".into(),
-            "TAG=$(curl -s https://api.github.com/repos/adolfousier/opencrabs/releases/latest | jq -r .tag_name)".into(),
-            "curl -fsSL https://github.com/adolfousier/opencrabs/releases/download/$TAG/opencrabs-$TAG-linux-amd64.tar.gz | tar xz".into(),
+            "TAG=$(curl -s https://api.github.com/repos/opencrabs/opencrabs/releases/latest | jq -r .tag_name)".into(),
+            "curl -fsSL https://github.com/opencrabs/opencrabs/releases/download/$TAG/opencrabs-$TAG-linux-amd64.tar.gz | tar xz".into(),
             "./opencrabs".into(),
         ],
         (1, _) => vec![
@@ -59,8 +59,8 @@ fn copy_terminal_code() {
             "opencrabs".into(),
         ],
         (2, _) => vec![
-            "curl -fsSL https://raw.githubusercontent.com/adolfousier/opencrabs/main/src/scripts/setup.sh | bash".into(),
-            "git clone https://github.com/adolfousier/opencrabs.git && cd opencrabs".into(),
+            "curl -fsSL https://raw.githubusercontent.com/opencrabs/opencrabs/main/src/scripts/setup.sh | bash".into(),
+            "git clone https://github.com/opencrabs/opencrabs.git && cd opencrabs".into(),
             "cargo build --release && ./target/release/opencrabs".into(),
         ],
         (3, _) => vec![
@@ -109,7 +109,7 @@ fn build_download_url_full(tag: &str, os: &str) -> String {
     let asset = download_asset(os);
     let name = asset.replace("opencrabs-", &format!("opencrabs-{}-", tag));
     format!(
-        "https://github.com/adolfousier/opencrabs/releases/download/{}/{}",
+        "https://github.com/opencrabs/opencrabs/releases/download/{}/{}",
         tag, name
     )
 }
@@ -120,7 +120,7 @@ struct GitHubRepo {
 }
 
 async fn fetch_star_count() -> Option<u32> {
-    Request::get("https://api.github.com/repos/adolfousier/opencrabs")
+    Request::get("https://api.github.com/repos/opencrabs/opencrabs")
         .header("Accept", "application/vnd.github+json")
         .send()
         .await
@@ -263,7 +263,7 @@ fn Nav(stars: Signal<u32>, tag: Signal<String>) -> impl IntoView {
                             let t = tag.get();
                             let os = detect_os();
                             let url = if t.is_empty() {
-                                "https://github.com/adolfousier/opencrabs/releases/latest".to_string()
+                                "https://github.com/opencrabs/opencrabs/releases/latest".to_string()
                             } else {
                                 build_download_url_full(&t, os)
                             };
@@ -302,7 +302,7 @@ fn Nav(stars: Signal<u32>, tag: Signal<String>) -> impl IntoView {
                         }}
                     </li>
                     <li>
-                        <a href="https://github.com/adolfousier/opencrabs" class="btn-github" target="_blank">
+                        <a href="https://github.com/opencrabs/opencrabs" class="btn-github" target="_blank">
                             {move || t!(i18n, nav_github)}
                             <span class="github-stars">{star_label}</span>
                         </a>
@@ -345,7 +345,7 @@ struct GitHubRelease {
 }
 
 async fn fetch_latest_release() -> Option<GitHubRelease> {
-    Request::get("https://api.github.com/repos/adolfousier/opencrabs/releases/latest")
+    Request::get("https://api.github.com/repos/opencrabs/opencrabs/releases/latest")
         .header("Accept", "application/vnd.github+json")
         .send()
         .await
@@ -422,7 +422,7 @@ fn Hero() -> impl IntoView {
                 <p class="hero-description">
                     {move || t!(i18n, hero_description)}
                 </p>
-                <a href="https://github.com/adolfousier/opencrabs/releases/latest" class="hero-badge">
+                <a href="https://github.com/opencrabs/opencrabs/releases/latest" class="hero-badge">
                     <span class="badge-new">{move || t!(i18n, badge_latest)}</span>
                     {badge_text}
                     <span class="arrow">" →"</span>
@@ -490,7 +490,7 @@ fn QuickStart(tag: Signal<String>) -> impl IntoView {
                                 _ => t_string!(i18n, dl_linux).to_string(),
                             };
                             let url = if t.is_empty() {
-                                "https://github.com/adolfousier/opencrabs/releases/latest".to_string()
+                                "https://github.com/opencrabs/opencrabs/releases/latest".to_string()
                             } else {
                                 build_download_url_full(&t, os)
                             };
@@ -507,16 +507,16 @@ fn QuickStart(tag: Signal<String>) -> impl IntoView {
                                         </div>
                                         <div class="download-row" style="margin-top:12px">
                                             <a href=url class="download-all">"⬇ "{move || t!(i18n, dl_macos)}</a>
-                                            <a href="https://github.com/adolfousier/opencrabs/releases/latest" class="download-all">{move || t!(i18n, all_platforms)}</a>
+                                            <a href="https://github.com/opencrabs/opencrabs/releases/latest" class="download-all">{move || t!(i18n, all_platforms)}</a>
                                         </div>
                                         <div class="download-divider">{move || t!(i18n, or_via_terminal)}</div>
                                         <div>
                                             <span class="terminal-prompt">"$ "</span>
-                                            <span class="terminal-cmd">"TAG=$(curl -s https://api.github.com/repos/adolfousier/opencrabs/releases/latest | jq -r .tag_name)"</span>
+                                            <span class="terminal-cmd">"TAG=$(curl -s https://api.github.com/repos/opencrabs/opencrabs/releases/latest | jq -r .tag_name)"</span>
                                         </div>
                                         <div>
                                             <span class="terminal-prompt">"$ "</span>
-                                            <span class="terminal-cmd">"curl -fsSL https://github.com/adolfousier/opencrabs/releases/download/$TAG/opencrabs-$TAG-macos-arm64.tar.gz | tar xz"</span>
+                                            <span class="terminal-cmd">"curl -fsSL https://github.com/opencrabs/opencrabs/releases/download/$TAG/opencrabs-$TAG-macos-arm64.tar.gz | tar xz"</span>
                                         </div>
                                         <div>
                                             <span class="terminal-prompt">"$ "</span>
@@ -527,7 +527,7 @@ fn QuickStart(tag: Signal<String>) -> impl IntoView {
                                     view! {
                                         <div class="download-row">
                                             <a href=url class="download-btn">{label}</a>
-                                            <a href="https://github.com/adolfousier/opencrabs/releases/latest" class="download-all">{move || t!(i18n, all_platforms)}</a>
+                                            <a href="https://github.com/opencrabs/opencrabs/releases/latest" class="download-all">{move || t!(i18n, all_platforms)}</a>
                                         </div>
                                         <div class="download-divider">{move || t!(i18n, or_via_terminal)}</div>
                                         {if os == "windows" {
@@ -537,7 +537,7 @@ fn QuickStart(tag: Signal<String>) -> impl IntoView {
                                         </div>
                                         <div>
                                             <span class="terminal-prompt">"PS> "</span>
-                                            <span class="terminal-cmd">"Invoke-WebRequest -Uri https://github.com/adolfousier/opencrabs/releases/latest/download/opencrabs-windows-amd64.zip -OutFile opencrabs.zip"</span>
+                                            <span class="terminal-cmd">"Invoke-WebRequest -Uri https://github.com/opencrabs/opencrabs/releases/latest/download/opencrabs-windows-amd64.zip -OutFile opencrabs.zip"</span>
                                         </div>
                                         <div>
                                             <span class="terminal-prompt">"PS> "</span>
@@ -552,11 +552,11 @@ fn QuickStart(tag: Signal<String>) -> impl IntoView {
                                         </div>
                                         <div>
                                             <span class="terminal-prompt">"$ "</span>
-                                            <span class="terminal-cmd">"TAG=$(curl -s https://api.github.com/repos/adolfousier/opencrabs/releases/latest | jq -r .tag_name)"</span>
+                                            <span class="terminal-cmd">"TAG=$(curl -s https://api.github.com/repos/opencrabs/opencrabs/releases/latest | jq -r .tag_name)"</span>
                                         </div>
                                         <div>
                                             <span class="terminal-prompt">"$ "</span>
-                                            <span class="terminal-cmd">"curl -fsSL https://github.com/adolfousier/opencrabs/releases/download/$TAG/opencrabs-$TAG-linux-amd64.tar.gz | tar xz"</span>
+                                            <span class="terminal-cmd">"curl -fsSL https://github.com/opencrabs/opencrabs/releases/download/$TAG/opencrabs-$TAG-linux-amd64.tar.gz | tar xz"</span>
                                         </div>
                                         <div>
                                             <span class="terminal-prompt">"$ "</span>
@@ -588,14 +588,14 @@ fn QuickStart(tag: Signal<String>) -> impl IntoView {
                         </div>
                         <div>
                             <span class="terminal-prompt">"$ "</span>
-                            <span class="terminal-cmd">"curl -fsSL https://raw.githubusercontent.com/adolfousier/opencrabs/main/src/scripts/setup.sh | bash"</span>
+                            <span class="terminal-cmd">"curl -fsSL https://raw.githubusercontent.com/opencrabs/opencrabs/main/src/scripts/setup.sh | bash"</span>
                         </div>
                         <div>
                             <span class="terminal-comment">{move || t!(i18n, cmt_clone)}</span>
                         </div>
                         <div>
                             <span class="terminal-prompt">"$ "</span>
-                            <span class="terminal-cmd">"git clone https://github.com/adolfousier/opencrabs.git && cd opencrabs"</span>
+                            <span class="terminal-cmd">"git clone https://github.com/opencrabs/opencrabs.git && cd opencrabs"</span>
                         </div>
                         <div>
                             <span class="terminal-prompt">"$ "</span>
@@ -635,27 +635,27 @@ fn Features() -> impl IntoView {
         (
             "🖥️",
             "~34-36 MB Single Binary",
-            "Mac, Windows, or Linux. Anthropic, OpenAI, Gemini, GitHub Copilot, or any local model. Zero telemetry, not even opt-in: no analytics, no tracking, no phone-home. The only outbound traffic is what you explicitly initiate. Your data stays yours. First-class Windows (v0.5.3): platform shell handling, BOM/UTF-16 file reads, tilde and cwd fallbacks, and CI builds Windows on every PR. One timeout chain (v0.5.4): timeout flags resolve per provider, then [agent], then the built-in default, honoured by every provider family including anthropic and gemini.",
+            "Mac, Windows, or Linux. Anthropic, OpenAI, Gemini, GitHub Copilot, or any local model. Zero telemetry, not even opt-in: no analytics, no tracking, no phone-home. The only outbound traffic is what you explicitly initiate. Your data stays yours. First-class Windows (v0.5.3): platform shell handling, BOM/UTF-16 file reads, tilde and cwd fallbacks, and CI builds Windows on every PR. One timeout chain (v0.5.4): timeout flags resolve per provider, then [agent], then the built-in default, honoured by every provider family including anthropic and gemini. Windows lock files (v0.5.5): the LockFileEx saga is closed, and the error paths stopped telling you to run as Administrator or use WSL2.",
         ),
         (
             "💬",
             "Any Chat App",
-            "Talk to it on Telegram, Discord, Slack, WhatsApp, or Trello. Native rich message rendering with tables, lists, code blocks, math. Draft message streaming shows live \"typing...\" updates as tokens generate. Collapsible <details>/<summary> blocks for long outputs. Forum topic session isolation gives each topic its own context. Discord feature parity: interactive components (select menus, modal forms), media gallery (batch files into one message), grouped tool calls with Expand/Collapse, emoji reactions trigger agent turns. Telegram reactions: reads inbound emoji by sentiment, addresses you by first name, and replies with just a reaction when that fits. Mid-turn reactions inject into the running loop instead of spawning a second turn. Follow-up suggestions (v0.3.69): tap-to-send optional follow-ups on Telegram, Discord, Slack, WhatsApp; fill-not-submit in TUI. Slack Block Kit delivery for rich completion formatting with section blocks, context blocks, and dividers. Slack grouped tool calls collapse into one edited-in-place message. Telegram plan card re-stick (v0.3.71): re-stick plan card and fold prose into it when buried. Full group history capture (v0.3.73): persist every group message to history, even from non-allowlisted senders and bots. Correct group speaker (v0.3.73): stop addressing a group-history sender as the current speaker. /cowork workspaces, /rename sessions, instant fast-cancel on /stop. /cd directory browser with auto project assignment. /new inherits the working directory from your most recent session. /profiles command for managing AI profiles. Owner impersonation detection in group chats. Session search across all channels. Per-group open mode: set open = true on a trusted group to serve all members without individual allowlisting. /cowork opens the group (v0.3.74): /cowork sets the target group open=true and persists it, and its admin deep link has the bot join already promoted. Group onboarding (v0.3.74): the bot greets a new group with an onboarding nudge and registers members per-group via /start. follow_up_question degrades gracefully (v0.3.74): questions fall back to plain text on non-interactive surfaces. Works in DMs and group chats with persistent sessions. Or just use the TUI. /restart and /exit (v0.3.79): /restart relaunches the same binary with the same arguments and resumes unfinished turns on startup, and /exit shuts OpenCrabs down. Owner-only on channels, and both announce before acting. Slack-native rendering (v0.3.80): tables and headings arrive in Slack's own shape instead of raw markdown. Mermaid diagrams render as images in rich messages while tables stay native (v0.3.81). Inline rate-limit waits capped at 30s (v0.3.81). Long rate-limit windows bail immediately instead of parking the send inline (v0.3.82). Rich sends stop building a double-slash URL and now honour a redirected API base, so the rich path is finally testable without a real network call (v0.3.82). The model picker pages and filters instead of arriving as one giant message (v0.3.83). /stop cancels instantly even during the provider handshake and retry backoffs (v0.3.83). WhatsApp full surface (v0.5.2): native voice notes, inbound video, stickers, location, contacts, poll votes and reactions, presence and media recovery, edit-in-place streaming, disappearing messages, contact blocking, pin/forward/profile, status updates, newsletter discovery, native-flow buttons and per-chat history. Discord live tracing and native tables (v0.5.2): long turns stream as a traced live reply, answers auto-thread, markdown tables render natively, and tool turns no longer double-post the final response. Telegram forum topics and /clear (v0.5.2): topic create and rename bind to their own session, and /clear starts a fresh session without the summariser call. Command menu payload budget (v0.5.2): Telegram silently rejects a setMyCommands body over ~7.8KB, so descriptions now shorten in tiers and the whole menu fits. WhatsApp suggestion polls (v0.5.3): follow-up option sets past the native button cap render as a poll, and a vote selects the option.",
+            "Talk to it on Telegram, Discord, Slack, WhatsApp, or Trello. Native rich message rendering with tables, lists, code blocks, math. Draft message streaming shows live \"typing...\" updates as tokens generate. Collapsible <details>/<summary> blocks for long outputs. Forum topic session isolation gives each topic its own context. Discord feature parity: interactive components (select menus, modal forms), media gallery (batch files into one message), grouped tool calls with Expand/Collapse, emoji reactions trigger agent turns. Telegram reactions: reads inbound emoji by sentiment, addresses you by first name, and replies with just a reaction when that fits. Mid-turn reactions inject into the running loop instead of spawning a second turn. Follow-up suggestions (v0.3.69): tap-to-send optional follow-ups on Telegram, Discord, Slack, WhatsApp; fill-not-submit in TUI. Slack Block Kit delivery for rich completion formatting with section blocks, context blocks, and dividers. Slack grouped tool calls collapse into one edited-in-place message. Telegram plan card re-stick (v0.3.71): re-stick plan card and fold prose into it when buried. Full group history capture (v0.3.73): persist every group message to history, even from non-allowlisted senders and bots. Correct group speaker (v0.3.73): stop addressing a group-history sender as the current speaker. /cowork workspaces, /rename sessions, instant fast-cancel on /stop. /cd directory browser with auto project assignment. /new inherits the working directory from your most recent session. /profiles command for managing AI profiles. Owner impersonation detection in group chats. Session search across all channels. Per-group open mode: set open = true on a trusted group to serve all members without individual allowlisting. /cowork opens the group (v0.3.74): /cowork sets the target group open=true and persists it, and its admin deep link has the bot join already promoted. Group onboarding (v0.3.74): the bot greets a new group with an onboarding nudge and registers members per-group via /start. follow_up_question degrades gracefully (v0.3.74): questions fall back to plain text on non-interactive surfaces. Works in DMs and group chats with persistent sessions. Or just use the TUI. /restart and /exit (v0.3.79): /restart relaunches the same binary with the same arguments and resumes unfinished turns on startup, and /exit shuts OpenCrabs down. Owner-only on channels, and both announce before acting. Slack-native rendering (v0.3.80): tables and headings arrive in Slack's own shape instead of raw markdown. Mermaid diagrams render as images in rich messages while tables stay native (v0.3.81). Inline rate-limit waits capped at 30s (v0.3.81). Long rate-limit windows bail immediately instead of parking the send inline (v0.3.82). Rich sends stop building a double-slash URL and now honour a redirected API base, so the rich path is finally testable without a real network call (v0.3.82). The model picker pages and filters instead of arriving as one giant message (v0.3.83). /stop cancels instantly even during the provider handshake and retry backoffs (v0.3.83). WhatsApp full surface (v0.5.2): native voice notes, inbound video, stickers, location, contacts, poll votes and reactions, presence and media recovery, edit-in-place streaming, disappearing messages, contact blocking, pin/forward/profile, status updates, newsletter discovery, native-flow buttons and per-chat history. Discord live tracing and native tables (v0.5.2): long turns stream as a traced live reply, answers auto-thread, markdown tables render natively, and tool turns no longer double-post the final response. Telegram forum topics and /clear (v0.5.2): topic create and rename bind to their own session, and /clear starts a fresh session without the summariser call. Command menu payload budget (v0.5.2): Telegram silently rejects a setMyCommands body over ~7.8KB, so descriptions now shorten in tiers and the whole menu fits. WhatsApp suggestion polls (v0.5.3): follow-up option sets past the native button cap render as a poll, and a vote selects the option. Discord goes native (v0.5.5): native polls via send_poll, TTS answers delivered as voice messages, and commands.toml projected onto native slash commands. Flow groups open at turn start with a live clock over thinking on Discord and Slack, and one outbound write governor budgets every edit and parks on 429s. /respond_to picks who the crab answers per channel, and /cowork opens a channel or thread to its members. Telegram learned rate discipline (v0.5.5): instrumented getUpdates, a cross-surface spacing floor, per-chat 429 pause, and local-file links delivered as documents.",
         ),
         (
             "🧠",
             "Persistent Memory",
-            "Remembers you across sessions. Your preferences, your context, your AI. Semantic search over everything. Epistemic memory (v0.5.3): facts carry confidence and decay, cold sections archive themselves, and opencrabs memory prune previews the cleanup before applying it. Decision cache (v0.5.4): decide_cached answers repeat decisions from an L1 reuse ring with shadow/live tiers, so classification-shaped calls are served without re-paying the model.",
+            "Remembers you across sessions. Your preferences, your context, your AI. Semantic search over everything. Epistemic memory (v0.5.3): facts carry confidence and decay, cold sections archive themselves, and opencrabs memory prune previews the cleanup before applying it. Decision cache (v0.5.4): decide_cached answers repeat decisions from an L1 reuse ring with shadow/live tiers, so classification-shaped calls are served without re-paying the model. Pre-migration snapshot (v0.5.5): the database copies itself before any migration touches it, so memory upgrades stop being one-way doors.",
         ),
         (
             "⚡",
             "50+ Built-in Tools",
-            "File ops, bash, web search, web_scrape (native URL-to-markdown with SSRF guard and sitemap crawling), code execution, image gen, browser automation, local voice STT & TTS, generate_document (native PDF, DOCX, XLSX, PPTX with brand styling, logos, image blocks, live Excel formulas, and custom page sizes/orientations), spreadsheet parsing (XLSX/XLS/CSV), sub-agent orchestration. Built-in /github skill: full gh CLI control for issues, PRs, code reviews, repo management. Concurrent auto-approved tool batches run independent calls in parallel. Proactive tool discovery — agent searches for tools before claiming inability. JIT activation for extended tools on-demand. Auto-download RTK for 10x token savings on 100+ commands. Define custom tools at runtime. Race-free multi-image pickup from any channel. Tool registry shared across all entry points so startup tools are available everywhere. Malformed tools.toml surfaces parse errors instead of silently dropping every tool. last_good .bak snapshot auto-creates on every write with fallback recovery. Multilanguage prompt analyzer (v0.3.67): shared PromptAnalyzer with soft-nudge on TUI and Telegram, 6 language packs (EN/ES/FR/ID/PT/RU). Unified parallel web search (v0.3.73): web_search, exa_search, and brave_search fan out in parallel under a single web_search tool. DDG captcha detection (v0.3.73): detect DuckDuckGo captcha via HTTP 202 + structural form check. Background tasks (v0.3.74): known-long commands (builds, test suites, renders) auto-promote to the background and resume your session the moment they finish. Background-task resume everywhere (v0.3.75): Discord, Slack, WhatsApp, and the CLI now hand the session back the moment a long task finishes, same as TUI and Telegram. Structural code memory (v0.5.0): tree-sitter builds a symbol and call-graph index beside the text index, so \"who calls X\" walks real call edges while conceptual questions keep the text lane. Drop transfer over SSH (v0.5.0): a file dropped into a TUI on a remote host is pulled back through the connection already open, with an opencrabs drop-agent on the client side. Skill-glob gating (v0.5.1): a skill's globs list refuses tool calls that touch matching files until the agent has actually read the skill body. Provider budget backpressure (v0.5.1): a provider that reports an output-token budget triggers one bounded compaction and retry instead of a cascade of 400s. Serper search engine (v0.5.4): serper_search adds Google SERP results and the web_search fan-out dedupes by URL across engines. Generate_image provider chain (v0.5.4): image generation walks a provider chain with vision parity. Compiled /architecture and /attach (v0.5.4), plus an opt-in audit trail with a /audit viewer.",
+            "File ops, bash, web search, web_scrape (native URL-to-markdown with SSRF guard and sitemap crawling), code execution, image gen, browser automation, local voice STT & TTS, generate_document (native PDF, DOCX, XLSX, PPTX with brand styling, logos, image blocks, live Excel formulas, and custom page sizes/orientations), spreadsheet parsing (XLSX/XLS/CSV), sub-agent orchestration. Built-in /github skill: full gh CLI control for issues, PRs, code reviews, repo management. Concurrent auto-approved tool batches run independent calls in parallel. Proactive tool discovery — agent searches for tools before claiming inability. JIT activation for extended tools on-demand. Auto-download RTK for 10x token savings on 100+ commands. Define custom tools at runtime. Race-free multi-image pickup from any channel. Tool registry shared across all entry points so startup tools are available everywhere. Malformed tools.toml surfaces parse errors instead of silently dropping every tool. last_good .bak snapshot auto-creates on every write with fallback recovery. Multilanguage prompt analyzer (v0.3.67): shared PromptAnalyzer with soft-nudge on TUI and Telegram, 6 language packs (EN/ES/FR/ID/PT/RU). Unified parallel web search (v0.3.73): web_search, exa_search, and brave_search fan out in parallel under a single web_search tool. DDG captcha detection (v0.3.73): detect DuckDuckGo captcha via HTTP 202 + structural form check. Background tasks (v0.3.74): known-long commands (builds, test suites, renders) auto-promote to the background and resume your session the moment they finish. Background-task resume everywhere (v0.3.75): Discord, Slack, WhatsApp, and the CLI now hand the session back the moment a long task finishes, same as TUI and Telegram. Structural code memory (v0.5.0): tree-sitter builds a symbol and call-graph index beside the text index, so \"who calls X\" walks real call edges while conceptual questions keep the text lane. Drop transfer over SSH (v0.5.0): a file dropped into a TUI on a remote host is pulled back through the connection already open, with an opencrabs drop-agent on the client side. Skill-glob gating (v0.5.1): a skill's globs list refuses tool calls that touch matching files until the agent has actually read the skill body. Provider budget backpressure (v0.5.1): a provider that reports an output-token budget triggers one bounded compaction and retry instead of a cascade of 400s. Serper search engine (v0.5.4): serper_search adds Google SERP results and the web_search fan-out dedupes by URL across engines. Generate_image provider chain (v0.5.4): image generation walks a provider chain with vision parity. Compiled /architecture and /attach (v0.5.4), plus an opt-in audit trail with a /audit viewer. claude-cli background tasks (v0.5.5): spawned tasks mirror into the task manager with process-group isolation and group kill, and completions are delivered after the turn ends.",
         ),
         (
             "🪟",
             "Split Panes",
-            "Tmux-style horizontal and vertical pane splitting. Run 10 sessions side by side, each with its own provider and context. All processing in parallel. Native markdown rendering: emphasis, lists, links, and task items render directly in the terminal. Group tool calls: consecutive calls collapse into one expandable block. Intermediate processing text folds in-place so only the final answer stays visible. Click-to-expand (v0.3.69): left-click a tool-call or reasoning block to expand just that block, complementing Ctrl+O. Tmux watchdog (v0.3.71): pane-only kill, 30s warning, auto-reattach. Version display (v0.3.73): show the running version on the TUI header and in channel /help + /usage. 3-state reasoning expand (v0.3.74): click or Ctrl+O cycles a reasoning block collapsed → capped → full, so it never floods the view. Per-turn headers (v0.3.75): every turn gets a one-line summary header, its working-out folds into it, and turns fold by default so the view stays clean. Live thinking shows a short excerpt instead of a scrolling wall, and the token counter is labeled as a turn total with the ctx budget. Theme system (v0.5.0): verified presets, an interactive picker, and your own themes from ~/.opencrabs/themes/*.toml, with truecolor detection and an ANSI-256 fallback tier. Cancelling a turn now clears the indicator in split panes too, instead of leaving a pane claiming to think forever (v0.5.0). Per-job cron sessions (v0.5.1): every scheduled job runs in its own session, so concurrent jobs can never bleed into each other's context or overwrite each other's provider. Trigger-gated cron (v0.5.3): a pre-flight check decides whether a job fires at all, skipped runs cost 0 tokens, and a fired trigger can dispatch a goal. Theme enforcement (v0.5.3): every widget resolves through the theme with a suite-level guard against new raw ANSI, and themes can declare a canvas background. Universal paste & drop (v0.5.4): paste or drop any file type and one shared router classifies it into the right pipeline. Interactive terminal handoff (v0.5.4): !vi and !nano take over the terminal and hand it back with the session intact.",
+            "Tmux-style horizontal and vertical pane splitting. Run 10 sessions side by side, each with its own provider and context. All processing in parallel. Native markdown rendering: emphasis, lists, links, and task items render directly in the terminal. Group tool calls: consecutive calls collapse into one expandable block. Intermediate processing text folds in-place so only the final answer stays visible. Click-to-expand (v0.3.69): left-click a tool-call or reasoning block to expand just that block, complementing Ctrl+O. Tmux watchdog (v0.3.71): pane-only kill, 30s warning, auto-reattach. Version display (v0.3.73): show the running version on the TUI header and in channel /help + /usage. 3-state reasoning expand (v0.3.74): click or Ctrl+O cycles a reasoning block collapsed → capped → full, so it never floods the view. Per-turn headers (v0.3.75): every turn gets a one-line summary header, its working-out folds into it, and turns fold by default so the view stays clean. Live thinking shows a short excerpt instead of a scrolling wall, and the token counter is labeled as a turn total with the ctx budget. Theme system (v0.5.0): verified presets, an interactive picker, and your own themes from ~/.opencrabs/themes/*.toml, with truecolor detection and an ANSI-256 fallback tier. Cancelling a turn now clears the indicator in split panes too, instead of leaving a pane claiming to think forever (v0.5.0). Per-job cron sessions (v0.5.1): every scheduled job runs in its own session, so concurrent jobs can never bleed into each other's context or overwrite each other's provider. Trigger-gated cron (v0.5.3): a pre-flight check decides whether a job fires at all, skipped runs cost 0 tokens, and a fired trigger can dispatch a goal. Theme enforcement (v0.5.3): every widget resolves through the theme with a suite-level guard against new raw ANSI, and themes can declare a canvas background. Universal paste & drop (v0.5.4): paste or drop any file type and one shared router classifies it into the right pipeline. Interactive terminal handoff (v0.5.4): !vi and !nano take over the terminal and hand it back with the session intact. Shared dialog footer (v0.5.5): every dialog runs on one command footer with direct a/r approval verbs, URLs and file paths are clickable, and onboarding is rebuilt as a left-side step timeline with direct setup commands. Cron one-shot retirement (v0.5.5): one-shot jobs retire on delivery instead of re-firing a year later, every run carries its run id, and Discord cron reports arrive as one forum post.",
         ),
         (
             "🔄",
@@ -670,7 +670,7 @@ fn Features() -> impl IntoView {
         (
             "🤖",
             "Multi-Agent & Teams",
-            "Typed sub-agents (General, Explore, Plan, Code, Research) with filtered tool registries. Team orchestration spawns N agents in parallel and broadcasts to all. 20+ CLI subcommands including /mission-control dashboard, /skills picker, /btw parallel agent, /security-audit, /cost-estimate, and /repo-audit. Cross-harness skill system with auto-registered slash commands. Promoted most-used commands to top of /help. All slash commands render through rich AST pipeline with table formatting. Standardized bot menu on underscore form. Daemon mode with health endpoints. Direct model switching everywhere: /models <provider/model> switches directly on every channel with apply-to-scope selector (session or global). Headless model switching via opencrabs session set-model. force_default on reload pushes the default provider/model pair to all sessions. Config drift warnings on startup. Plan mode (v0.3.67-v0.3.68): design/checklist tracks, persistent plan card, /plan <query> command, agent self-approval when user grants autonomy. Skills review_gate (v0.3.70): frontmatter declaration for high-stakes skills that require user approval before side effects. Plan-gate three-state (v0.3.71): GateDecision with bash going to approval in post-init Editing. MCP-style ToolHints (v0.3.71): risk model for tool classification, drives plan gate. Model picker (v0.3.75): Opus 5 surfaced via parallel discovery, newest-first ordering, and claude-cli models discovered live from the CLI instead of a hardcoded list. Plan state across sessions (v0.3.79): plan state threads across session boundaries so plans survive restarts, and spawned child sessions resolve the parent's plan. Isolated plan-task execution (v0.3.79): checklist tasks run in a fresh isolated worker session with only the task brief, isolation defaults ON, Ralph verification runs in the session's own directory, and the plan gate's RequireApproval respects auto_approve. Scoped memory search (v0.3.80): memory_search takes a scope that searches daily logs, brain files, or both, with brain files indexed on write. Browser inventory mode (v0.3.80): bare browser_find enumerates every clickable element on the page. In-tree memory store (v0.3.81): the qmd dependency is dropped, SQLite FTS5 + vector search owned in-tree. External index paths (v0.3.81): memory search reads indexes outside the profile directory. Chunk-hash caching (v0.3.82): memory skips re-embedding chunks whose content has not changed. Plan hardening (v0.3.82): task-outcome beliefs are scoped to their plan id, stale pre-init markers expire after five minutes, and template warnings reach the agent as a retry nudge instead of being swallowed. Sub-agent worktree isolation (v0.3.83): each child agent gets its own worktree and branch so a fan-out cannot clobber the shared tree. Type-aware acceptance criteria (v0.3.83): criteria are enforced against the toolchain the project actually uses, plans verify with the project's own commands instead of always cargo, and the project is found from the session's folder. A2A sessions resume by context id (v0.3.83). Notify delivery verdicts (v0.5.0): session_notify returns a machine-readable send result, depth-3 injection receipts make notify_id checkable, and delivery redirects to the session that owns the channel now. Plan designs refused at write time (v0.5.1): a malformed design bounces immediately with the missing sections named. Config writes validated against the struct (v0.5.1): the write guard derives from the Config type itself. Temporal grounding (v0.5.1): every turn carries a time-stamped marker in the user's timezone while the system prompt stays byte-stable for provider caching. ACP server mode (v0.5.2): opencrabs acp speaks the Agent Client Protocol over stdio JSON-RPC, so Zed, MonoCode and any ACP client drive the same brain your channels use, with progress streaming and approvals round-tripping to the editor. ACP session family (v0.5.4): sessions are first-class in editors, with the context meter restored on load, session/load replaying the transcript and the per-session model, set_model persisting across processes, native session/set_mode, session/compact, and a live model catalog in session/new.",
+            "Typed sub-agents (General, Explore, Plan, Code, Research) with filtered tool registries. Team orchestration spawns N agents in parallel and broadcasts to all. 20+ CLI subcommands including /mission-control dashboard, /skills picker, /btw parallel agent, /security-audit, /cost-estimate, and /repo-audit. Cross-harness skill system with auto-registered slash commands. Promoted most-used commands to top of /help. All slash commands render through rich AST pipeline with table formatting. Standardized bot menu on underscore form. Daemon mode with health endpoints. Direct model switching everywhere: /models <provider/model> switches directly on every channel with apply-to-scope selector (session or global). Headless model switching via opencrabs session set-model. force_default on reload pushes the default provider/model pair to all sessions. Config drift warnings on startup. Plan mode (v0.3.67-v0.3.68): design/checklist tracks, persistent plan card, /plan <query> command, agent self-approval when user grants autonomy. Skills review_gate (v0.3.70): frontmatter declaration for high-stakes skills that require user approval before side effects. Plan-gate three-state (v0.3.71): GateDecision with bash going to approval in post-init Editing. MCP-style ToolHints (v0.3.71): risk model for tool classification, drives plan gate. Model picker (v0.3.75): Opus 5 surfaced via parallel discovery, newest-first ordering, and claude-cli models discovered live from the CLI instead of a hardcoded list. Plan state across sessions (v0.3.79): plan state threads across session boundaries so plans survive restarts, and spawned child sessions resolve the parent's plan. Isolated plan-task execution (v0.3.79): checklist tasks run in a fresh isolated worker session with only the task brief, isolation defaults ON, Ralph verification runs in the session's own directory, and the plan gate's RequireApproval respects auto_approve. Scoped memory search (v0.3.80): memory_search takes a scope that searches daily logs, brain files, or both, with brain files indexed on write. Browser inventory mode (v0.3.80): bare browser_find enumerates every clickable element on the page. In-tree memory store (v0.3.81): the qmd dependency is dropped, SQLite FTS5 + vector search owned in-tree. External index paths (v0.3.81): memory search reads indexes outside the profile directory. Chunk-hash caching (v0.3.82): memory skips re-embedding chunks whose content has not changed. Plan hardening (v0.3.82): task-outcome beliefs are scoped to their plan id, stale pre-init markers expire after five minutes, and template warnings reach the agent as a retry nudge instead of being swallowed. Sub-agent worktree isolation (v0.3.83): each child agent gets its own worktree and branch so a fan-out cannot clobber the shared tree. Type-aware acceptance criteria (v0.3.83): criteria are enforced against the toolchain the project actually uses, plans verify with the project's own commands instead of always cargo, and the project is found from the session's folder. A2A sessions resume by context id (v0.3.83). Notify delivery verdicts (v0.5.0): session_notify returns a machine-readable send result, depth-3 injection receipts make notify_id checkable, and delivery redirects to the session that owns the channel now. Plan designs refused at write time (v0.5.1): a malformed design bounces immediately with the missing sections named. Config writes validated against the struct (v0.5.1): the write guard derives from the Config type itself. Temporal grounding (v0.5.1): every turn carries a time-stamped marker in the user's timezone while the system prompt stays byte-stable for provider caching. ACP server mode (v0.5.2): opencrabs acp speaks the Agent Client Protocol over stdio JSON-RPC, so Zed, MonoCode and any ACP client drive the same brain your channels use, with progress streaming and approvals round-tripping to the editor. ACP session family (v0.5.4): sessions are first-class in editors, with the context meter restored on load, session/load replaying the transcript and the per-session model, set_model persisting across processes, native session/set_mode, session/compact, and a live model catalog in session/new. ACP v1 lifecycle (v0.5.5): session/list, session/resume, session/set_config_option, session/close and session/delete are native now, the plan publishes as a v1 plan update, and initialize advertises the session capabilities.",
         ),
         (
             "🌐",
@@ -834,7 +834,7 @@ fn Testimonials() -> impl IntoView {
         (
             "After I was using OpenClaw and Hermes, OpenCrabs is the first agent I click with.",
             "@anschmieg",
-            "https://github.com/adolfousier/opencrabs/pull/61#issuecomment-4201983933",
+            "https://github.com/opencrabs/opencrabs/pull/61#issuecomment-4201983933",
         ),
         (
             "I decided to check out Opencrabs. I installed it on Ubuntu Linux and it just works. Lot better than openclaw and if continued development it may even get enough traction among developers.",
@@ -898,17 +898,17 @@ fn Community() -> impl IntoView {
                     {move || t!(i18n, sec_community)}
                 </h2>
                 <div class="community-grid">
-                    <a href="https://github.com/adolfousier/opencrabs" class="community-card" target="_blank">
+                    <a href="https://github.com/opencrabs/opencrabs" class="community-card" target="_blank">
                         <span class="icon">"🐙"</span>
                         <h3>{move || t!(i18n, comm_github_t)}</h3>
                         <p>{move || t!(i18n, comm_github_d)}</p>
                     </a>
-                    <a href="https://github.com/adolfousier/opencrabs/issues" class="community-card" target="_blank">
+                    <a href="https://github.com/opencrabs/opencrabs/issues" class="community-card" target="_blank">
                         <span class="icon">"🐛"</span>
                         <h3>{move || t!(i18n, comm_issues_t)}</h3>
                         <p>{move || t!(i18n, comm_issues_d)}</p>
                     </a>
-                    <a href="https://github.com/adolfousier/opencrabs/blob/main/CHANGELOG.md" class="community-card" target="_blank">
+                    <a href="https://github.com/opencrabs/opencrabs/blob/main/CHANGELOG.md" class="community-card" target="_blank">
                         <span class="icon">"📋"</span>
                         <h3>{move || t!(i18n, comm_changelog_t)}</h3>
                         <p>{move || t!(i18n, comm_changelog_d)}</p>
@@ -979,13 +979,13 @@ fn Footer(stars: Signal<u32>) -> impl IntoView {
     view! {
         <footer>
             <div class="container">
-                <a href="https://github.com/adolfousier/opencrabs" class="footer-star-cta" target="_blank">
+                <a href="https://github.com/opencrabs/opencrabs" class="footer-star-cta" target="_blank">
                     {star_cta}
                 </a>
                 <div class="footer-links">
                     <a href="https://docs.opencrabs.com" target="_blank">{move || t!(i18n, footer_docs)}</a>
-                    <a href="https://github.com/adolfousier/opencrabs">{move || t!(i18n, footer_github)}</a>
-                    <a href="https://github.com/adolfousier/opencrabs/blob/main/CHANGELOG.md">{move || t!(i18n, footer_changelog)}</a>
+                    <a href="https://github.com/opencrabs/opencrabs">{move || t!(i18n, footer_github)}</a>
+                    <a href="https://github.com/opencrabs/opencrabs/blob/main/CHANGELOG.md">{move || t!(i18n, footer_changelog)}</a>
                     <span class="footer-comm-wrap">
                         <a
                             href="#"
@@ -1009,7 +1009,7 @@ fn Footer(stars: Signal<u32>) -> impl IntoView {
                     </span>
                     <a href="https://github.com/sponsors/adolfousier" target="_blank">{move || t!(i18n, footer_sponsor)}</a>
                     <a href="https://buymeacoffee.com/opencrabs" target="_blank">{move || t!(i18n, footer_coffee)}</a>
-                    <a href="https://github.com/adolfousier/opencrabs/blob/main/LICENSE">{move || t!(i18n, footer_license)}</a>
+                    <a href="https://github.com/opencrabs/opencrabs/blob/main/LICENSE">{move || t!(i18n, footer_license)}</a>
                 </div>
                 <p class="footer-tagline">
                     {move || t!(i18n, footer_built_by)}
