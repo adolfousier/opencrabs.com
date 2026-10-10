@@ -28,7 +28,7 @@ sudo pacman -S base-devel sqlite openssl pkg-config
 ## Clone and Build
 
 ```bash
-git clone https://github.com/adolfousier/opencrabs.git
+git clone https://github.com/opencrabs/opencrabs.git
 cd opencrabs
 cargo build --release
 ```

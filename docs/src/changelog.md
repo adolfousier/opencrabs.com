@@ -4,7 +4,7 @@
 
 <script>
 (function() {
-    fetch('https://api.github.com/repos/adolfousier/opencrabs/contents/CHANGELOG.md', {
+    fetch('https://api.github.com/repos/opencrabs/opencrabs/contents/CHANGELOG.md', {
         headers: { 'Accept': 'application/vnd.github.v3.raw' }
     })
     .then(function(r) { return r.text(); })
@@ -33,7 +33,7 @@
     })
     .catch(function() {
         document.getElementById('changelog-content').innerHTML =
-            '<p>Failed to load changelog. <a href="https://github.com/adolfousier/opencrabs/blob/main/CHANGELOG.md">View on GitHub</a></p>';
+            '<p>Failed to load changelog. <a href="https://github.com/opencrabs/opencrabs/blob/main/CHANGELOG.md">View on GitHub</a></p>';
     });
 })();
 </script>

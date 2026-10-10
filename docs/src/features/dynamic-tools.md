@@ -75,11 +75,11 @@ coerce_empty_to = "--quiet"
 
 A shell tool with an optional `--verbose` flag no longer breaks when the parameter is omitted. The engine substitutes `--quiet` (or any configured default) instead of passing an empty string.
 
-([#95](https://github.com/adolfousier/opencrabs/issues/95))
+([#95](https://github.com/opencrabs/opencrabs/issues/95))
 
 External contributions now enable `tools.toml` to be loaded in **run mode** and **agent mode** (not just the TUI). Previously, dynamic tools only worked in the interactive TUI session. Now they're available across all modes, allowing headless automation and scripted workflows to use custom tools.
 
-([#79](https://github.com/adolfousier/opencrabs/issues/79) — thanks @leshchenko)
+([#79](https://github.com/opencrabs/opencrabs/issues/79) — thanks @leshchenko)
 
 ## Shell Parameter Escaping (v0.3.35)
 

@@ -36,14 +36,14 @@ Logs are written to `~/.opencrabs/logs/`.
 
 ### Download a Previous Version
 
-If the latest release crashes on your machine, download a previous working version from [GitHub Releases](https://github.com/adolfousier/opencrabs/releases):
+If the latest release crashes on your machine, download a previous working version from [GitHub Releases](https://github.com/opencrabs/opencrabs/releases):
 
 ```bash
 # List all releases
-gh release list -R adolfousier/opencrabs
+gh release list -R opencrabs/opencrabs
 
 # Download a specific version
-gh release download v0.2.66 -R adolfousier/opencrabs -p "opencrabs-*$(uname -m)*$(uname -s | tr A-Z a-z)*"
+gh release download v0.2.66 -R opencrabs/opencrabs -p "opencrabs-*$(uname -m)*$(uname -s | tr A-Z a-z)*"
 ```
 
 ---
@@ -187,7 +187,7 @@ Checklist:
 3. The model is in its own key (`self_improvement_model`), never appended to the provider.
 4. Restart after fixing — Mission Control confirms cycles on the next run.
 
-> Fixed at source in [opencrabs#1314](https://github.com/adolfousier/opencrabs/issues/1314): current main normalises misspelled values with a warning. Released versions fail silently, which is exactly why the spelling matters.
+> Fixed at source in [opencrabs#1314](https://github.com/opencrabs/opencrabs/issues/1314): current main normalises misspelled values with a warning. Released versions fail silently, which is exactly why the spelling matters.
 
 ---
 
@@ -484,8 +484,8 @@ The database automatically migrates on startup (11 migrations). If migrating fro
 ### Quick Setup
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/adolfousier/opencrabs/main/scripts/setup.sh | bash
-git clone https://github.com/adolfousier/opencrabs.git && cd opencrabs
+curl -fsSL https://raw.githubusercontent.com/opencrabs/opencrabs/main/scripts/setup.sh | bash
+git clone https://github.com/opencrabs/opencrabs.git && cd opencrabs
 cargo build --release
 ```
 

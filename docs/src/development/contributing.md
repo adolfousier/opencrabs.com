@@ -46,7 +46,7 @@
 
 ## Reporting Issues
 
-Open an issue at [github.com/adolfousier/opencrabs/issues](https://github.com/adolfousier/opencrabs/issues) with:
+Open an issue at [github.com/opencrabs/opencrabs/issues](https://github.com/opencrabs/opencrabs/issues) with:
 
 - OpenCrabs version (`opencrabs --version`)
 - OS and architecture

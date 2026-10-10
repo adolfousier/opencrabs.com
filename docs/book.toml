@@ -11,7 +11,7 @@ build-dir = "book"
 [output.html]
 default-theme = "ayu"
 preferred-dark-theme = "ayu"
-git-repository-url = "https://github.com/adolfousier/opencrabs"
+git-repository-url = "https://github.com/opencrabs/opencrabs"
 site-url = "https://docs.opencrabs.com/"
 no-section-label = false
 cname = "docs.opencrabs.com"

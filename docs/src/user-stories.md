@@ -603,7 +603,7 @@
   <div class="share-row">
     <a href="https://x.com/opencrabs" target="_blank" rel="noopener">Tag @opencrabs on X</a>
     <a href="https://t.me/usieradolfo" target="_blank" rel="noopener">DM on Telegram</a>
-    <a href="https://github.com/adolfousier/opencrabs" target="_blank" rel="noopener">GitHub</a>
+    <a href="https://github.com/opencrabs/opencrabs" target="_blank" rel="noopener">GitHub</a>
   </div>
 </div>
 

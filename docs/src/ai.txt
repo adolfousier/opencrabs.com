@@ -17,5 +17,5 @@ Allow: /
 
 ## Contact
 - Website: https://opencrabs.com
-- GitHub: https://github.com/adolfousier/opencrabs
+- GitHub: https://github.com/opencrabs/opencrabs
 - Author: Adolfo Usier

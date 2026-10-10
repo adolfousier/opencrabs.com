@@ -362,7 +362,7 @@ self_improvement_provider = "custom.moonshotai"    # ❌ same
 self_improvement_provider = "moonshotai/kimi-k2.5" # ❌ provider-only — model goes in self_improvement_model
 ```
 
-> **Real case:** a user with `[providers.custom.glm-53-max]` set `self_improvement_provider = "custom:glm-53-max"` and RSI silently never ran — Mission Control showed thousands of tool events recorded and unprocessed. Dropping the `custom:` prefix fixed it instantly ([opencrabs#1314](https://github.com/adolfousier/opencrabs/issues/1314)). Current main auto-corrects misspelled values with a warning; released versions fail silently, so spell it bare.
+> **Real case:** a user with `[providers.custom.glm-53-max]` set `self_improvement_provider = "custom:glm-53-max"` and RSI silently never ran — Mission Control showed thousands of tool events recorded and unprocessed. Dropping the `custom:` prefix fixed it instantly ([opencrabs#1314](https://github.com/opencrabs/opencrabs/issues/1314)). Current main auto-corrects misspelled values with a warning; released versions fail silently, so spell it bare.
 
 ### Free Prototyping with NVIDIA API
 
