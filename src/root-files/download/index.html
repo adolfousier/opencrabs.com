@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Download OpenCrabs</title>
+<meta name="description" content="Direct download of the OpenCrabs binary for Windows, macOS and Linux. This page detects your system and fetches the right build.">
+<link rel="canonical" href="https://opencrabs.com/download/">
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #0b0e14; color: #e6e8ee;
+    font: 16px/1.6 -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    min-height: 100vh; display: flex; flex-direction: column; align-items: center;
+    padding: 48px 20px;
+  }
+  .crab { font-size: 44px; }
+  h1 { font-size: 28px; margin: 8px 0 4px; letter-spacing: -0.02em; }
+  h1 span { color: #ff7a1a; }
+  .tagline { color: #9aa3b2; margin-bottom: 28px; }
+  #status {
+    max-width: 680px; width: 100%; text-align: center;
+    background: #121722; border: 1px solid #1f2735; border-radius: 10px;
+    padding: 14px 18px; margin-bottom: 28px; color: #c7cedb;
+  }
+  #status code { color: #ffb26b; word-break: break-all; }
+  #status a { color: #ff9a3d; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; width: 100%; max-width: 780px; }
+  .pick {
+    display: flex; flex-direction: column; gap: 2px;
+    background: #121722; border: 1px solid #1f2735; border-radius: 10px;
+    padding: 14px 16px; text-decoration: none; color: #e6e8ee;
+    transition: border-color .15s ease;
+  }
+  .pick:hover, .pick.yours { border-color: #ff7a1a; }
+  .pick .os { font-weight: 600; }
+  .pick .sub { color: #9aa3b2; font-size: 13px; }
+  .pick .file { color: #6d7686; font-size: 12px; word-break: break-all; }
+  .muted { color: #6d7686; font-size: 13px; margin-top: 14px; }
+  .muted a { color: #ff9a3d; }
+  .next {
+    width: 100%; max-width: 780px; margin-top: 28px;
+    background: #121722; border: 1px solid #1f2735; border-radius: 10px; padding: 16px 18px;
+  }
+  .next h2 { font-size: 13px; color: #9aa3b2; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 10px; }
+  .next code { display: block; background: #0b0e14; border-radius: 6px; padding: 8px 10px; margin: 6px 0; color: #ffb26b; font-size: 13px; overflow-x: auto; white-space: pre; }
+  footer { margin-top: 36px; color: #6d7686; font-size: 14px; text-align: center; }
+  footer a { color: #9aa3b2; }
+</style>
+</head>
+<body>
+  <div class="crab">&#129433;</div>
+  <h1>Download <span>OpenCrabs</span></h1>
+  <p class="tagline">The AI agent that lives in your terminal.</p>
+  <div id="status">Detecting your system...</div>
+  <div class="grid" id="picks"></div>
+  <p class="muted">Every release also ships a <a id="sha-link" href="#">SHA256SUMS</a> file for verification.</p>
+  <div class="next">
+    <h2>After download</h2>
+    <code id="step1">tar xzf opencrabs-*.tar.gz</code>
+    <code id="step2">./opencrabs</code>
+  </div>
+  <footer>
+    <a href="https://docs.opencrabs.com/getting-started/installation/">Install guide</a> ·
+    <a href="https://github.com/opencrabs/opencrabs">GitHub</a> ·
+    <a href="https://opencrabs.com/">opencrabs.com</a>
+  </footer>
+<script>
+(function () {
+  "use strict";
+  var REPO = "opencrabs/opencrabs";
+  var CDN = "https://github.com/" + REPO + "/releases/download/";
+  var LATEST = "https://github.com/" + REPO + "/releases/latest";
+  var API = "https://api.github.com/repos/" + REPO + "/releases/latest";
+
+  var BUILDS = [
+    { key: "windows-amd64", os: "Windows", sub: "x86_64 · .zip" },
+    { key: "macos-arm64", os: "macOS", sub: "Apple Silicon · .tar.gz" },
+    { key: "macos-amd64", os: "macOS", sub: "Intel · .tar.gz" },
+    { key: "linux-amd64", os: "Linux", sub: "x86_64 · .tar.gz" },
+    { key: "linux-arm64", os: "Linux", sub: "ARM64 · .tar.gz" }
+  ];
+
+  function fname(key, tag) {
+    return "opencrabs-" + tag + "-" + key + (key.indexOf("windows") === 0 ? ".zip" : ".tar.gz");
+  }
+  function url(key, tag) { return CDN + tag + "/" + fname(key, tag); }
+  function prettyArch(os, arch) {
+    if (os === "macOS" && arch === "arm64") return "Apple Silicon";
+    return arch === "amd64" ? "x86_64" : "ARM64";
+  }
+
+  function appleSilicon() {
+    try {
+      var gl = document.createElement("canvas").getContext("webgl");
+      var ext = gl && gl.getExtension("WEBGL_debug_renderer_info");
+      if (ext) {
+        var r = String(gl.getParameter(ext.UNMASKED_RENDERER_WEBGL));
+        if (/Apple (M\d|GPU)/i.test(r)) return true;
+        if (/Intel|AMD|NVIDIA/i.test(r)) return false;
+      }
+    } catch (e) {}
+    return null;
+  }
+
+  function detectOs(ua) {
+    if (navigator.userAgentData && navigator.userAgentData.platform) return navigator.userAgentData.platform;
+    if (/Windows/i.test(ua)) return "Windows";
+    if (/Mac|iPhone|iPad/i.test(ua) || navigator.platform === "MacIntel") return "macOS";
+    if (/Linux|X11/i.test(ua) && !/Android/i.test(ua)) return "Linux";
+    return null;
+  }
+
+  async function detectArch(os, ua) {
+    try {
+      if (navigator.userAgentData && navigator.userAgentData.getHighEntropyValues) {
+        var v = await navigator.userAgentData.getHighEntropyValues(["architecture", "bitness"]);
+        if (/arm/i.test(v.architecture || "")) return "arm64";
+        if (/x86/i.test(v.architecture || "")) return "amd64";
+      }
+    } catch (e) {}
+    if (/arm64|aarch64/i.test(ua)) return "arm64";
+    if (os === "Windows") return "amd64";
+    if (os === "macOS") return appleSilicon() === false ? "amd64" : "arm64";
+    return "amd64";
+  }
+
+  function setStatus(html) { document.getElementById("status").innerHTML = html; }
+
+  function buildList(tag, detectedKey) {
+    var grid = document.getElementById("picks");
+    BUILDS.forEach(function (b) {
+      var a = document.createElement("a");
+      a.className = "pick" + (b.key === detectedKey ? " yours" : "");
+      a.href = tag ? url(b.key, tag) : LATEST;
+      var mine = b.key === detectedKey ? " · your system" : "";
+      a.innerHTML =
+        '<span class="os">' + b.os + '</span>' +
+        '<span class="sub">' + b.sub + mine + '</span>' +
+        (tag ? '<span class="file">' + fname(b.key, tag) + '</span>' : '');
+      grid.appendChild(a);
+    });
+    document.getElementById("sha-link").href = tag ? CDN + tag + "/SHA256SUMS" : LATEST;
+  }
+
+  function setNextSteps(key, tag) {
+    if (!key) return;
+    var s1 = document.getElementById("step1"), s2 = document.getElementById("step2");
+    if (key.indexOf("windows") === 0) {
+      s1.textContent = "Expand-Archive " + fname(key, tag) + " -DestinationPath .";
+      s2.textContent = ".\\opencrabs.exe";
+    } else {
+      s1.textContent = "tar xzf " + fname(key, tag);
+      s2.textContent = "./opencrabs";
+    }
+  }
+
+  (async function main() {
+    var ua = navigator.userAgent;
+    var tag = null;
+    try {
+      var res = await fetch(API);
+      if (res.ok) tag = (await res.json()).tag_name;
+    } catch (e) {}
+
+    if (!tag) {
+      setStatus('Could not reach GitHub to resolve the latest release. <a href="' + LATEST + '">Open the releases page</a> and pick a build below.');
+      buildList(null, null);
+      return;
+    }
+
+    var os = detectOs(ua);
+    var key = null;
+    if (os) {
+      var arch = await detectArch(os, ua);
+      if (os === "Windows") key = "windows-amd64";
+      else if (os === "macOS") key = "macos-" + arch;
+      else if (os === "Linux") key = "linux-" + arch;
+    }
+
+    if (!key || !BUILDS.some(function (b) { return b.key === key; })) {
+      setStatus("Detected <b>" + (os || "nothing recognizable") + "</b> but no matching build. Pick one below (latest release: <code>" + tag + "</code>).");
+      buildList(tag, null);
+      return;
+    }
+
+    var guess = os === "macOS" && key === "macos-arm64" && appleSilicon() === null;
+    var why = guess ? " (assumed Apple Silicon, switch below if you are on Intel)" : "";
+    setStatus("Detected <b>" + os + " · " + prettyArch(os, key.split("-")[1]) + "</b>" + why +
+      ". Downloading <code>" + fname(key, tag) + "</code>... if nothing starts, grab it below.");
+
+    buildList(tag, key);
+    setNextSteps(key, tag);
+    window.location.assign(url(key, tag));
+  })();
+})();
+</script>
+</body>
+</html>
