@@ -2,7 +2,7 @@
 
 **OpenCrabs** is a self-hosted, provider-agnostic AI orchestration agent that runs as a single Rust binary. It automates your terminal, browser, channels (Telegram/Discord/Slack/WhatsApp/Trello), and codebase, all while respecting your privacy and keeping you in control.
 
-**9,427 tests** across providers, tools, channels, TUI, self-healing, and browser automation.
+**10,366 tests** across providers, tools, channels, TUI, self-healing, and browser automation.
 
 ## What Makes OpenCrabs Different
 
@@ -100,6 +100,13 @@
 - **Decision cache (v0.5.4)** — `decide_cached` answers repeat decisions from an L1 reuse ring with shadow/live tiers and `[decisions]` config (#1648)
 - **Provider-reported costs and one timeout chain (v0.5.4)** — the usage ledger prefers the cost the provider actually reported over table estimates (#1707), and timeout flags resolve `[providers.<name>]` -> `[agent]` -> default across every provider (#1688)
 - **Compiled /architecture and /attach, opt-in audit trail (v0.5.4)** — both commands ship as compiled arms, and an opt-in audit trail records what ran with a `/audit` viewer (#933, #1705)
+- **Discord native surface (v0.5.5)**: polls via `send_poll`, TTS answers delivered as voice messages, and `commands.toml` projected onto native slash commands so your own commands show up in Discord's picker (#1848, #1849, #1850)
+- **Flow groups and write governors (v0.5.5)**: Discord and Slack open the flow group at turn start with a live clock covering thinking and activity text leading the line, and one outbound governor budgets every edit and parks on 429s (#1841, #1843, #1844, #1845, #1807, #1808, #1809, #1910, #1912, #2012)
+- **/respond_to and /cowork (v0.5.5)**: per-channel respond_to and open modes in config, plus the two commands to set them from inside the channel itself (#2014, #2015)
+- **Telegram rate discipline (v0.5.5)**: instrumented getUpdates polls and handler handoffs for stall triage, a cross-surface sub-second spacing floor with admission telemetry, a per-chat 429 pause behind one Cooldown accessor, and markdown links to local files delivered as documents (#1927, #1916, #1968)
+- **ACP v1 session lifecycle (v0.5.5)**: the five v1 session lifecycle methods are implemented and the plan is published as a native v1 plan update (#1815)
+- **TUI dialog footer, clickable URLs, onboarding timeline (v0.5.5)**: every dialog shares one command footer with direct a/r approval verbs, URLs and file paths are clickable, and onboarding is rebuilt as a left-side step timeline with direct setup commands (#1775, #1772, #1979, #1980, #1981, #1982)
+- **Cron one-shot retirement (v0.5.5)**: one-shot jobs retire on delivery instead of re-firing a year later, every delivered run carries its run id, and Discord cron reports arrive as one forum post (#544, #1703, #1851)
 
 - **doctor --fix repair mode (v0.3.83)** — stuck cron rows, stale markers and broken permissions are repaired on the spot instead of only reported
 - **Per-path write locks (v0.3.83)** — concurrent writes to the same file serialize; the last writer no longer silently wins
@@ -212,8 +219,8 @@ The index rebuilds when you `/cd` into a new directory, so directive files are a
 # Install (Linux/macOS)
 ARCH=$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/')
 OS=$(uname -s | tr A-Z a-z)
-TAG=$(command -v jq >/dev/null 2>&1 && curl -s https://api.github.com/repos/adolfousier/opencrabs/releases/latest | jq -r .tag_name || curl -s https://api.github.com/repos/adolfousier/opencrabs/releases/latest | grep -o '"tag_name":"[^"]*"' | cut -d'"' -f4)
-curl -fsSL "https://github.com/adolfousier/opencrabs/releases/download/${TAG}/opencrabs-${TAG}-${OS}-${ARCH}.tar.gz" | tar xz
+TAG=$(command -v jq >/dev/null 2>&1 && curl -s https://api.github.com/repos/opencrabs/opencrabs/releases/latest | jq -r .tag_name || curl -s https://api.github.com/repos/opencrabs/opencrabs/releases/latest | grep -o '"tag_name":"[^"]*"' | cut -d'"' -f4)
+curl -fsSL "https://github.com/opencrabs/opencrabs/releases/download/${TAG}/opencrabs-${TAG}-${OS}-${ARCH}.tar.gz" | tar xz
 ./opencrabs
 
 # Or via Cargo (requires Rust 1.94+)
@@ -283,4 +290,4 @@ Auto-update enabled by default. Disable with `[agent] auto_update = false` in `~
 - [Sponsor on GitHub](https://github.com/sponsors/adolfousier) — back the project and keep the crabs fed
 - [Buy Me a Coffee](https://buymeacoffee.com/opencrabs) — one-time support if OpenCrabs saved you an afternoon
 
-Found a bug or want a feature? Open an issue on [GitHub](https://github.com/adolfousier/opencrabs/issues).
+Found a bug or want a feature? Open an issue on [GitHub](https://github.com/opencrabs/opencrabs/issues).
