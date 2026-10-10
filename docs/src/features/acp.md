@@ -31,6 +31,10 @@ Sessions are first-class on the ACP surface:
 - **`session/compact`** pushes compaction to the client
 - The context meter is restored on load and rides usage updates, so the editor always shows a true context reading
 
+## Session Lifecycle v1 (v0.5.5)
+
+The ACP server now implements the five v1 session lifecycle methods (#1815): `session/list` pages your sessions with a cursor, `session/resume` reattaches without replaying history while still restoring the model pin, `session/set_config_option` is the write half of the model picker (F4 only displayed it before), `session/close` cancels in-flight work and frees live state, and `session/delete` removes the row after freeing it. `initialize` now advertises the list, resume, close, and delete session capabilities. The plan is also published as a native v1 plan update, and image prompt blocks sent by the client are decoded into `<<IMG>>` attachments the agent can actually see.
+
 ## Why it matters
 
 Before ACP mode, driving OpenCrabs from an editor meant copy-pasting between the editor and a channel. With ACP mode the editor is a first-class surface: same providers, same skill gating, same plan approvals, same memory. Configuration is shared with the rest of OpenCrabs; there is no separate ACP config section.

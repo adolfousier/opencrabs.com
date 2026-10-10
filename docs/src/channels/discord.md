@@ -109,6 +109,14 @@ The agent can add emoji reactions to messages. When a user reacts with an emoji,
 
 Long turns stream as a live reply that is traced and edited in place instead of staying silent until the end. Answers that belong together are auto-threaded, and markdown tables in agent output render as native Discord tables rather than raw pipes (#1608). A dedup guard on tool turns stops the final response from double-posting content a tool summary already showed (#1603).
 
+## Native Polls, Voice Replies, Slash Projection, Flow Groups (v0.5.5)
+
+`send_poll` posts a native Discord poll with each option as its own answer button, so follow-up option sets render as the platform's own poll UI (#1848). TTS replies are delivered as Discord voice messages instead of attachment links (#1849), and your `commands.toml` is projected onto native slash commands, so your custom commands appear in Discord's command picker (#1850).
+
+Flow groups now open at turn start with a live clock that keeps running while the agent thinks, and the activity text leads the line instead of hiding behind the tool count (#1841, #1843, #1844, #1845). Every outbound write, including the persistent plan card, rides one shared write governor that parks cleanly on 429s (#1910, #1912).
+
+Per-channel control arrived with `respond_to` and `open` modes in the channel config, enforced in the message filter, the ACL and the command gate (#2014). Two commands set them from inside the channel itself: `/respond_to` picks who the crab answers there, and `/cowork` opens the channel or thread to its members (#2014, #2015). Cron reports on Discord arrive as one edited forum post instead of a chain of messages (#1851).
+
 ## Sustained Typing Indicator (v0.3.76)
 
 Discord now shows a **sustained typing indicator** while the agent processes a request. Previously, Discord had no typing indicator at all (Telegram and Slack did). The indicator stays alive through background tasks and long tool executions, so users see "OpenCrabs is typing..." for the entire processing duration, not just the first few seconds.
