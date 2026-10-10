@@ -40,8 +40,8 @@ fn copy_terminal_code() {
 
     let commands: Vec<String> = match (tab_idx, os) {
         (0, "windows") => vec![
-            "Invoke-WebRequest -Uri https://github.com/opencrabs/opencrabs/releases/latest/download/opencrabs-windows-amd64.zip -OutFile opencrabs.zip".into(),
-            "Expand-Archive opencrabs.zip -DestinationPath . && .\\opencrabs.exe".into(),
+            "$t=((iwr -useb https://api.github.com/repos/opencrabs/opencrabs/releases/latest).Content|ConvertFrom-Json).tag_name; iwr \"https://github.com/opencrabs/opencrabs/releases/download/$t/opencrabs-$t-windows-amd64.zip\" -OutFile opencrabs.zip".into(),
+            "Expand-Archive opencrabs.zip -DestinationPath .; .\\opencrabs.exe".into(),
         ],
         (0, "macos") => vec![
             "TAG=$(curl -s https://api.github.com/repos/opencrabs/opencrabs/releases/latest | jq -r .tag_name)".into(),
