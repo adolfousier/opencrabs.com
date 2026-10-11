@@ -6,6 +6,7 @@
 
 - [Installation](./getting-started/installation.md)
 - [Onboarding](./getting-started/onboarding.md)
+- [Onboarding Videos](./getting-started/videos.md)
 - [Configuration](./getting-started/configuration.md)
 - [CLI Commands](./getting-started/cli-commands.md)
 - [Troubleshooting](./getting-started/troubleshooting.md)
