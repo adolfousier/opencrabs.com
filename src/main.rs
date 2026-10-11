@@ -10,7 +10,7 @@ use web_sys::{HtmlElement, window};
 
 leptos_i18n::load_locales!();
 
-use crate::i18n::{use_i18n, Locale};
+use crate::i18n::{Locale, use_i18n};
 use leptos_i18n::{t, t_string};
 
 fn copy_terminal_code() {
