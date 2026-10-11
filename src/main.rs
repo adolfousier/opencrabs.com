@@ -1044,4 +1044,39 @@ mod tests {
             "the 768px block must show the toggle through a 2-class selector"
         );
     }
+
+    #[test]
+    fn mobile_nav_panel_opens_anchored_right() {
+        for (name, css) in [
+            ("landing style.css", CSS),
+            (
+                "download page inline CSS",
+                include_str!("root-files/download/index.html"),
+            ),
+        ] {
+            let media_at = css
+                .find("@media (max-width: 768px)")
+                .unwrap_or_else(|| panic!("{name}: mobile media query"));
+            let block_at = css[media_at..]
+                .find(".nav-links {")
+                .unwrap_or_else(|| panic!("{name}: mobile .nav-links rule"));
+            let block = &css[media_at + block_at..];
+            let end = block
+                .find('}')
+                .unwrap_or_else(|| panic!("{name}: rule end"));
+            let block = &block[..end];
+            assert!(
+                block.contains("left: auto") && block.contains("right: 24px"),
+                "{name}: panel must anchor right under the hamburger"
+            );
+            assert!(
+                block.contains("width: max-content") && block.contains("min-width: 240px"),
+                "{name}: panel must size to content with a sane floor"
+            );
+            assert!(
+                !block.contains("border-bottom"),
+                "{name}: floating panel takes a full border, not a bottom-only edge"
+            );
+        }
+    }
 }
