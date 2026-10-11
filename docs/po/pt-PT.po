@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OpenCrabs\n"
-"POT-Creation-Date: 2026-10-11T21:07:24+01:00\n"
+"POT-Creation-Date: 2026-10-11T21:49:37+01:00\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -2126,7 +2126,7 @@ msgstr ""
 "\"https://github.com/opencrabs/opencrabs/releases/download/${TAG}/opencrabs-$"
 "{TAG}-macos-arm64.tar.gz\""
 
-#: src/getting-started/installation.md:45 src/getting-started/videos.md:9
+#: src/getting-started/installation.md:45 src/getting-started/videos.md:37
 msgid "Windows"
 msgstr "Windows"
 
@@ -2186,7 +2186,7 @@ msgstr ""
 "brain, config e ficheiros de projeto. A tua app de terminal precisa de "
 "acesso ao sistema de ficheiros ou o SO bloqueia as operações."
 
-#: src/getting-started/installation.md:64 src/getting-started/videos.md:5
+#: src/getting-started/installation.md:64
 msgid "OS"
 msgstr "SO"
 
@@ -2533,11 +2533,15 @@ msgstr ""
 msgid ""
 "When you launch OpenCrabs for the first time, the **onboarding wizard** "
 "walks you through setup."
-msgstr "Quando abres o OpenCrabs pela primeira vez, o **assistente de onboarding** guia-te na configuração."
+msgstr ""
+"Quando abres o OpenCrabs pela primeira vez, o **assistente de onboarding** "
+"guia-te na configuração."
 
 #: src/getting-started/onboarding.md:5
 msgid "Video walkthroughs are on the [Onboarding Videos](./videos.md) page."
-msgstr "Os vídeos com demonstrações estão na página [Vídeos de Onboarding](./videos.md)."
+msgstr ""
+"Os vídeos com demonstrações estão na página [Vídeos de Onboarding](./"
+"videos.md)."
 
 #: src/getting-started/onboarding.md:7
 msgid "Quick Start (3 minutes)"
@@ -2545,7 +2549,8 @@ msgstr "Início Rápido (3 minutos)"
 
 #: src/getting-started/onboarding.md:9
 msgid "The fast path gets you chatting with the agent in under 3 minutes."
-msgstr "O caminho rápido permite-te conversar com o agente em menos de 3 minutos."
+msgstr ""
+"O caminho rápido permite-te conversar com o agente em menos de 3 minutos."
 
 #: src/getting-started/onboarding.md:11 src/getting-started/onboarding.md:28
 #: src/getting-started/onboarding.md:49 src/getting-started/onboarding.md:75
@@ -2587,7 +2592,10 @@ msgstr "3. Provider"
 msgid ""
 "Arrow to your provider (e.g. z.ai), hit `Enter`. Arrow down to select a plan "
 "(e.g. Coding), hit `Enter`"
-msgstr "Usa as setas para escolher o teu provider (por exemplo, z.ai) e prime `Enter`. Usa a seta para baixo para escolher um plano (por exemplo, Coding) e prime `Enter`"
+msgstr ""
+"Usa as setas para escolher o teu provider (por exemplo, z.ai) e prime "
+"`Enter`. Usa a seta para baixo para escolher um plano (por exemplo, Coding) "
+"e prime `Enter`"
 
 #: src/getting-started/onboarding.md:16 src/getting-started/onboarding.md:33
 msgid "4. API Key"
@@ -2597,7 +2605,9 @@ msgstr "4. Chave de API"
 msgid ""
 "Paste your key (`Cmd+V` / `Ctrl+V` / `Cmd+Shift+V` / `Ctrl+Shift+V`), hit "
 "`Enter`. Model list loads live"
-msgstr "Cola a tua chave (`Cmd+V` / `Ctrl+V` / `Cmd+Shift+V` / `Ctrl+Shift+V`) e prime `Enter`. A lista de modelos carrega em tempo real"
+msgstr ""
+"Cola a tua chave (`Cmd+V` / `Ctrl+V` / `Cmd+Shift+V` / `Ctrl+Shift+V`) e "
+"prime `Enter`. A lista de modelos carrega em tempo real"
 
 #: src/getting-started/onboarding.md:17 src/getting-started/onboarding.md:34
 msgid "5. Model"
@@ -2605,7 +2615,9 @@ msgstr "5. Modelo"
 
 #: src/getting-started/onboarding.md:17
 msgid "Arrow to your model (e.g. gemini-2.5-pro), hit `Enter`"
-msgstr "Usa as setas para escolher o teu modelo (por exemplo, gemini-2.5-pro) e prime `Enter`"
+msgstr ""
+"Usa as setas para escolher o teu modelo (por exemplo, gemini-2.5-pro) e "
+"prime `Enter`"
 
 #: src/getting-started/onboarding.md:18
 msgid "6. Daemon"
@@ -2613,7 +2625,8 @@ msgstr "6. Daemon"
 
 #: src/getting-started/onboarding.md:18 src/getting-started/onboarding.md:39
 msgid "Arrow to select whether to run as background daemon, hit `Enter`"
-msgstr "Usa as setas para escolher se o daemon corre em segundo plano e prime `Enter`"
+msgstr ""
+"Usa as setas para escolher se o daemon corre em segundo plano e prime `Enter`"
 
 #: src/getting-started/onboarding.md:19
 msgid "7. Vibe Check"
@@ -2631,7 +2644,8 @@ msgstr "8. Sobre ti"
 msgid ""
 "Write something about yourself, the more the agent knows, the better. Hit "
 "`Enter`"
-msgstr "Escreve algo sobre ti. Quanto mais o agente souber, melhor. Prime `Enter`"
+msgstr ""
+"Escreve algo sobre ti. Quanto mais o agente souber, melhor. Prime `Enter`"
 
 #: src/getting-started/onboarding.md:21
 msgid "9. About Agent"
@@ -2655,17 +2669,21 @@ msgstr "Configuração Avançada (7 minutos)"
 
 #: src/getting-started/onboarding.md:26
 msgid "Full setup with Telegram, local voice, vision, and image generation."
-msgstr "Configuração completa com Telegram, voz local, visão e geração de imagens."
+msgstr ""
+"Configuração completa com Telegram, voz local, visão e geração de imagens."
 
 #: src/getting-started/onboarding.md:32
 msgid ""
 "Arrow to your provider (e.g. z.ai), hit `Enter`. Arrow down to select a "
 "plan, hit `Enter`"
-msgstr "Usa as setas para escolher o teu provider (por exemplo, z.ai) e prime `Enter`. Usa a seta para baixo para escolher um plano e prime `Enter`"
+msgstr ""
+"Usa as setas para escolher o teu provider (por exemplo, z.ai) e prime "
+"`Enter`. Usa a seta para baixo para escolher um plano e prime `Enter`"
 
 #: src/getting-started/onboarding.md:33
 msgid "Paste your key, hit `Enter`. Model list loads live"
-msgstr "Cola a tua chave e prime `Enter`. A lista de modelos carrega em tempo real"
+msgstr ""
+"Cola a tua chave e prime `Enter`. A lista de modelos carrega em tempo real"
 
 #: src/getting-started/onboarding.md:34
 msgid "Arrow to your model, hit `Enter`"
@@ -2681,7 +2699,12 @@ msgid ""
 "bot token, follow the instructions to get your chat ID, hit `Enter`. Select "
 "mention mode, hit `Enter`. Once it says **Connected**, hit `Enter` again. "
 "Arrow down to **Continue**, hit `Enter`"
-msgstr "Usa as setas para escolher **Other**, prime `Space` para selecionar Telegram e prime `Enter`. Cola o token do bot, segue as instruções para obter o teu chat ID e prime `Enter`. Escolhe o modo de menção e prime `Enter`. Quando aparecer **Connected**, prime `Enter` outra vez. Usa a seta para baixo para escolher **Continue** e prime `Enter`"
+msgstr ""
+"Usa as setas para escolher **Other**, prime `Space` para selecionar Telegram "
+"e prime `Enter`. Cola o token do bot, segue as instruções para obter o teu "
+"chat ID e prime `Enter`. Escolhe o modo de menção e prime `Enter`. Quando "
+"aparecer **Connected**, prime `Enter` outra vez. Usa a seta para baixo para "
+"escolher **Continue** e prime `Enter`"
 
 #: src/getting-started/onboarding.md:36
 msgid "7. STT"
@@ -2691,7 +2714,9 @@ msgstr "7. STT"
 msgid ""
 "Select **Local**, hit `Enter`. Pick model size (e.g. tiny for speed), hit "
 "`Enter`"
-msgstr "Escolhe **Local** e prime `Enter`. Escolhe o tamanho do modelo (por exemplo, tiny para mais rapidez) e prime `Enter`"
+msgstr ""
+"Escolhe **Local** e prime `Enter`. Escolhe o tamanho do modelo (por exemplo, "
+"tiny para mais rapidez) e prime `Enter`"
 
 #: src/getting-started/onboarding.md:37
 msgid "8. TTS"
@@ -2701,7 +2726,10 @@ msgstr "8. TTS"
 msgid ""
 "Select **Local** again, hit `Enter`. Pick a voice (e.g. Ryan), hit `Enter`. "
 "Wait for the model download, arrow down to **Continue**, hit `Enter`"
-msgstr "Escolhe **Local** outra vez e prime `Enter`. Escolhe uma voz (por exemplo, Ryan) e prime `Enter`. Espera que o modelo seja transferido, usa a seta para baixo para escolher **Continue** e prime `Enter`"
+msgstr ""
+"Escolhe **Local** outra vez e prime `Enter`. Escolhe uma voz (por exemplo, "
+"Ryan) e prime `Enter`. Espera que o modelo seja transferido, usa a seta para "
+"baixo para escolher **Continue** e prime `Enter`"
 
 #: src/getting-started/onboarding.md:38
 msgid "9. Image"
@@ -2711,7 +2739,9 @@ msgstr "9. Imagem"
 msgid ""
 "Hit `Space` to select Vision and Image Generation, hit `Enter`. Paste your "
 "Gemini API key, hit `Enter`"
-msgstr "Prime `Space` para selecionar Vision e Image Generation e prime `Enter`. Cola a tua chave de API do Gemini e prime `Enter`"
+msgstr ""
+"Prime `Space` para selecionar Vision e Image Generation e prime `Enter`. "
+"Cola a tua chave de API do Gemini e prime `Enter`"
 
 #: src/getting-started/onboarding.md:39
 msgid "10. Daemon"
@@ -2741,7 +2771,9 @@ msgstr "Fluxo de onboarding"
 msgid ""
 "The wizard is a keyboard-driven TUI with 8 steps. Navigate with arrow keys, "
 "`Tab` to advance, `Esc` to go back."
-msgstr "O assistente é uma TUI controlada pelo teclado, com 8 passos. Navega com as setas, usa `Tab` para avançar e `Esc` para voltar atrás."
+msgstr ""
+"O assistente é uma TUI controlada pelo teclado, com 8 passos. Navega com as "
+"setas, usa `Tab` para avançar e `Esc` para voltar atrás."
 
 #: src/getting-started/onboarding.md:49
 msgid "Screen"
@@ -2811,7 +2843,9 @@ msgstr "**Provider e autenticação**"
 
 #: src/getting-started/onboarding.md:53
 msgid "Select provider → paste API key → pick model (fetched live)"
-msgstr "Escolhe o provider → cola a chave de API → escolhe o modelo (obtido em tempo real)"
+msgstr ""
+"Escolhe o provider → cola a chave de API → escolhe o modelo (obtido em tempo "
+"real)"
 
 #: src/getting-started/onboarding.md:54 src/channels/overview.md:45
 #: src/development/testing.md:43 src/development/testing.md:44
@@ -2840,7 +2874,8 @@ msgstr "**Channels**"
 
 #: src/getting-started/onboarding.md:54
 msgid "Space to toggle channels on/off → Enter on each to configure"
-msgstr "Space para ativar ou desativar channels → Enter em cada um para configurar"
+msgstr ""
+"Space para ativar ou desativar channels → Enter em cada um para configurar"
 
 #: src/getting-started/onboarding.md:55 src/development/testing.md:56
 #: src/development/testing.md:57 src/development/testing.md:58
@@ -2954,7 +2989,9 @@ msgstr "Configuração de channels (passo 4)"
 msgid ""
 "The channels screen lists 5 integrations: Telegram, Discord, WhatsApp, "
 "Slack, Trello."
-msgstr "O ecrã de channels lista 5 integrações: Telegram, Discord, WhatsApp, Slack e Trello."
+msgstr ""
+"O ecrã de channels lista 5 integrações: Telegram, Discord, WhatsApp, Slack e "
+"Trello."
 
 #: src/getting-started/onboarding.md:64
 msgid "`Space` toggles a channel on/off"
@@ -2963,7 +3000,9 @@ msgstr "`Space` ativa ou desativa um channel"
 #: src/getting-started/onboarding.md:65
 msgid ""
 "`Enter` on an enabled channel opens its setup screen (token, IDs, allowlists)"
-msgstr "`Enter` num channel ativado abre o respetivo ecrã de configuração (token, IDs, listas de permissões)"
+msgstr ""
+"`Enter` num channel ativado abre o respetivo ecrã de configuração (token, "
+"IDs, listas de permissões)"
 
 #: src/getting-started/onboarding.md:66
 msgid "`Enter` on **Continue** or `Tab` skips to the next step"
@@ -2977,7 +3016,9 @@ msgstr "Cada ecrã de configuração de channel tem um botão **Test Connection*
 msgid ""
 "See [Channels Overview](../channels/overview.md) for the full navigation "
 "guide."
-msgstr "Consulta [Channels Overview](../channels/overview.md) para o guia completo de navegação."
+msgstr ""
+"Consulta [Channels Overview](../channels/overview.md) para o guia completo "
+"de navegação."
 
 #: src/getting-started/onboarding.md:71
 msgid "Re-running Setup"
@@ -2985,7 +3026,8 @@ msgstr "Voltar a executar a configuração"
 
 #: src/getting-started/onboarding.md:73
 msgid "You can jump to any step without re-running the full wizard:"
-msgstr "Podes saltar para qualquer passo sem voltar a executar o assistente completo:"
+msgstr ""
+"Podes saltar para qualquer passo sem voltar a executar o assistente completo:"
 
 #: src/getting-started/onboarding.md:75 src/getting-started/onboarding.md:138
 #: src/getting-started/cli-commands.md:13 src/brain/providers.md:97
@@ -3045,7 +3087,9 @@ msgstr "Geração de ficheiros brain"
 msgid ""
 "After onboarding, your agent boots up and introduces itself. It reads its "
 "brain files (`SOUL.md`, `AGENTS.md`, `TOOLS.md`) and starts a conversation."
-msgstr "Depois do onboarding, o agente arranca e apresenta-se. Lê os seus ficheiros brain (`SOUL.md`, `AGENTS.md`, `TOOLS.md`) e começa uma conversa."
+msgstr ""
+"Depois do onboarding, o agente arranca e apresenta-se. Lê os seus ficheiros "
+"brain (`SOUL.md`, `AGENTS.md`, `TOOLS.md`) e começa uma conversa."
 
 #: src/getting-started/onboarding.md:86
 msgid "Bootstrap"
@@ -3085,7 +3129,11 @@ msgid ""
 "Your agent can migrate your existing data (memory, skills, custom commands, "
 "preferences) into its own brain files using natural language. No manual file "
 "shuffling needed."
-msgstr "Já usas ClaudeCode, OpenClaw, Hermes ou outro harness de agente de IA? O teu agente pode migrar os teus dados existentes (memória, skills, comandos personalizados, preferências) para os seus próprios ficheiros brain, em linguagem natural. Não é preciso mover ficheiros manualmente."
+msgstr ""
+"Já usas ClaudeCode, OpenClaw, Hermes ou outro harness de agente de IA? O teu "
+"agente pode migrar os teus dados existentes (memória, skills, comandos "
+"personalizados, preferências) para os seus próprios ficheiros brain, em "
+"linguagem natural. Não é preciso mover ficheiros manualmente."
 
 #: src/getting-started/onboarding.md:101
 msgid ""
@@ -3094,7 +3142,12 @@ msgid ""
 "directories, reads their contents, and maps them into OpenCrabs' own brain "
 "file format (`SOUL.md`, `USER.md`, `TOOLS.md`, `MEMORY.md`, `AGENTS.md`, "
 "`CODE.md`)."
-msgstr "Funciona com **qualquer** agente ou harness de programação que guarde a configuração localmente. A migração procura no teu sistema de ficheiros as pastas de configuração da outra ferramenta, lê o conteúdo e converte-o para o formato de ficheiros brain do OpenCrabs (`SOUL.md`, `USER.md`, `TOOLS.md`, `MEMORY.md`, `AGENTS.md`, `CODE.md`)."
+msgstr ""
+"Funciona com **qualquer** agente ou harness de programação que guarde a "
+"configuração localmente. A migração procura no teu sistema de ficheiros as "
+"pastas de configuração da outra ferramenta, lê o conteúdo e converte-o para "
+"o formato de ficheiros brain do OpenCrabs (`SOUL.md`, `USER.md`, `TOOLS.md`, "
+"`MEMORY.md`, `AGENTS.md`, `CODE.md`)."
 
 #: src/getting-started/onboarding.md:103
 msgid "Hand-Held Migration"
@@ -3109,7 +3162,11 @@ msgid ""
 "Search for my ClaudeCode/OpenClaw/Hermes data locally (or any other agent "
 "harness I was using) and audit a migration to our own brain files, report "
 "back once its done, execute when I confirm and approve."
-msgstr "Procura localmente os meus dados do ClaudeCode/OpenClaw/Hermes (ou de qualquer outro harness de agente que eu usasse), faz uma auditoria de uma migração para os nossos próprios ficheiros brain, informa-me quando terminares e executa só quando eu confirmar e aprovar."
+msgstr ""
+"Procura localmente os meus dados do ClaudeCode/OpenClaw/Hermes (ou de "
+"qualquer outro harness de agente que eu usasse), faz uma auditoria de uma "
+"migração para os nossos próprios ficheiros brain, informa-me quando "
+"terminares e executa só quando eu confirmar e aprovar."
 
 #: src/getting-started/onboarding.md:109
 msgid "The agent will:"
@@ -3117,12 +3174,16 @@ msgstr "O agente vai:"
 
 #: src/getting-started/onboarding.md:110
 msgid "Search your filesystem for the other tool's config directories"
-msgstr "Procurar no teu sistema de ficheiros as pastas de configuração da outra ferramenta"
+msgstr ""
+"Procurar no teu sistema de ficheiros as pastas de configuração da outra "
+"ferramenta"
 
 #: src/getting-started/onboarding.md:111
 msgid ""
 "Read and parse all relevant files (memory, commands, skills, preferences)"
-msgstr "Ler e analisar todos os ficheiros relevantes (memória, comandos, skills, preferências)"
+msgstr ""
+"Ler e analisar todos os ficheiros relevantes (memória, comandos, skills, "
+"preferências)"
 
 #: src/getting-started/onboarding.md:112
 msgid "Produce an audit showing exactly what maps where"
@@ -3149,13 +3210,19 @@ msgid ""
 "Search for my existing agent/harness data locally and migrate anything to "
 "our own brain files, no need my approval, just go, plan and execute, report "
 "back once its done with a full breakdown."
-msgstr "Procura localmente os meus dados existentes de agentes ou harness e migra tudo para os nossos próprios ficheiros brain, sem precisar da minha aprovação. Avança, planeia e executa, e informa-me quando terminares, com um resumo completo."
+msgstr ""
+"Procura localmente os meus dados existentes de agentes ou harness e migra "
+"tudo para os nossos próprios ficheiros brain, sem precisar da minha "
+"aprovação. Avança, planeia e executa, e informa-me quando terminares, com um "
+"resumo completo."
 
 #: src/getting-started/onboarding.md:122
 msgid ""
 "The agent skips the audit step, plans the migration internally, executes it, "
 "and gives you a summary of everything that moved."
-msgstr "O agente salta a etapa de auditoria, planeia a migração internamente, executa-a e dá-te um resumo de tudo o que foi movido."
+msgstr ""
+"O agente salta a etapa de auditoria, planeia a migração internamente, "
+"executa-a e dá-te um resumo de tudo o que foi movido."
 
 #: src/getting-started/onboarding.md:124
 msgid "What Gets Mapped"
@@ -3235,7 +3302,11 @@ msgid ""
 "**Tip:** Run migration right after onboarding while the context is fresh. "
 "The agent already has your `USER.md` and `SOUL.md` from the wizard, so it "
 "can merge intelligently instead of overwriting."
-msgstr "**Dica:** Executa a migração logo a seguir ao onboarding, enquanto o contexto está fresco. O agente já tem o teu `USER.md` e o `SOUL.md` do assistente, por isso pode fazer a fusão de forma inteligente em vez de substituir."
+msgstr ""
+"**Dica:** Executa a migração logo a seguir ao onboarding, enquanto o "
+"contexto está fresco. O agente já tem o teu `USER.md` e o `SOUL.md` do "
+"assistente, por isso pode fazer a fusão de forma inteligente em vez de "
+"substituir."
 
 #: src/getting-started/onboarding.md:136
 msgid "Key Commands"
@@ -3396,7 +3467,9 @@ msgstr "Pasta de trabalho"
 msgid ""
 "The agent operates within a working directory for file operations. Change it "
 "with:"
-msgstr "O agente opera dentro de uma pasta de trabalho para as operações com ficheiros. Muda-a com:"
+msgstr ""
+"O agente opera dentro de uma pasta de trabalho para as operações com "
+"ficheiros. Muda-a com:"
 
 #: src/getting-started/onboarding.md:163
 msgid "`/cd` command in chat"
@@ -3414,7 +3487,9 @@ msgstr "Ferramenta `config_manager set_working_directory`"
 msgid ""
 "The working directory is persisted per-session. Switching sessions restores "
 "the directory automatically."
-msgstr "A pasta de trabalho é guardada por session. Ao mudar de session, a pasta é restaurada automaticamente."
+msgstr ""
+"A pasta de trabalho é guardada por session. Ao mudar de session, a pasta é "
+"restaurada automaticamente."
 
 #: src/getting-started/onboarding.md:169
 msgid "Model Filter Hint (v0.3.78)"
@@ -3428,64 +3503,45 @@ msgid ""
 "Additionally, an **exactly-typed model ID** now beats a substring match: if "
 "you type `claude-opus-4-8` exactly, it selects that model even if other "
 "models contain the same substring."
-msgstr "O seletor de modelos do onboarding passa agora a **mostrar sempre uma dica de filtro** acima da lista de modelos (\"Type to filter...\"). Antes, a dica só aparecia depois de começares a escrever, por isso os utilizadores não sabiam que existia filtragem. Além disso, um **ID de modelo escrito exatamente** tem agora prioridade sobre uma correspondência parcial: se escreveres `claude-opus-4-8` exatamente, seleciona esse modelo, mesmo que outros modelos contenham a mesma sequência de caracteres."
+msgstr ""
+"O seletor de modelos do onboarding passa agora a **mostrar sempre uma dica "
+"de filtro** acima da lista de modelos (\"Type to filter...\"). Antes, a dica "
+"só aparecia depois de começares a escrever, por isso os utilizadores não "
+"sabiam que existia filtragem. Além disso, um **ID de modelo escrito "
+"exatamente** tem agora prioridade sobre uma correspondência parcial: se "
+"escreveres `claude-opus-4-8` exatamente, seleciona esse modelo, mesmo que "
+"outros modelos contenham a mesma sequência de caracteres."
 
 #: src/getting-started/videos.md:3
 msgid ""
 "Video walkthroughs of OpenCrabs setup and onboarding are on the OpenCrabs "
-"YouTube channel. Each OS has a quick start and an advanced setup video."
-msgstr "Os vídeos de demonstração da configuração e do onboarding do OpenCrabs estão no canal do OpenCrabs no YouTube. Cada sistema operativo tem um vídeo de início rápido e um de configuração avançada."
+"YouTube channel. Each OS has a quick start and an advanced setup video. "
+"Click a thumbnail to play it here."
+msgstr ""
+"Os vídeos com demonstrações da configuração e do onboarding do OpenCrabs estão no canal do YouTube do OpenCrabs. Cada sistema operativo tem um vídeo de início rápido e um vídeo de configuração avançada. Clique numa miniatura para a reproduzir aqui."
 
-#: src/getting-started/videos.md:5
-msgid "Quick start"
-msgstr "Início rápido"
-
-#: src/getting-started/videos.md:5
-msgid "Advanced setup (Telegram, voice, images)"
-msgstr "Configuração avançada (Telegram, voz, imagens)"
-
-#: src/getting-started/videos.md:7 src/development/building.md:10
+#: src/getting-started/videos.md:5 src/development/building.md:10
 msgid "macOS"
 msgstr "macOS"
 
-#: src/getting-started/videos.md:7
-msgid "[Install in under 2 minutes (Homebrew)](https://youtu.be/1_Ta9BFxlSk)"
-msgstr "[Instalação em menos de 2 minutos (Homebrew)](https://youtu.be/1_Ta9BFxlSk)"
-
-#: src/getting-started/videos.md:7
-msgid "[Advanced setup on macOS](https://youtu.be/Lq891K2GFzU)"
-msgstr "[Configuração avançada no macOS](https://youtu.be/Lq891K2GFzU)"
-
-#: src/getting-started/videos.md:8
+#: src/getting-started/videos.md:21
 msgid "Ubuntu/Linux"
 msgstr "Ubuntu/Linux"
 
-#: src/getting-started/videos.md:8
-msgid "[Install in 3 minutes (one paste)](https://youtu.be/sXfaKfQiAxo)"
-msgstr "[Instalação em 3 minutos (uma colagem)](https://youtu.be/sXfaKfQiAxo)"
-
-#: src/getting-started/videos.md:8
-msgid "[Advanced setup on Linux](https://youtu.be/uZLwzerkQt0)"
-msgstr "[Configuração avançada no Linux](https://youtu.be/uZLwzerkQt0)"
-
-#: src/getting-started/videos.md:9
-msgid "[Install in 2 minutes (PowerShell)](https://youtu.be/kY8SW83obOc)"
-msgstr "[Instalação em 2 minutos (PowerShell)](https://youtu.be/kY8SW83obOc)"
-
-#: src/getting-started/videos.md:9
-msgid "[Advanced setup on Windows](https://youtu.be/TZn1aYgpRuI)"
-msgstr "[Configuração avançada no Windows](https://youtu.be/TZn1aYgpRuI)"
-
-#: src/getting-started/videos.md:11
+#: src/getting-started/videos.md:53
 msgid ""
 "All videos: **[youtube.com/@OpenCrabs](https://www.youtube.com/@OpenCrabs)**"
-msgstr "Todos os vídeos: **[youtube.com/@OpenCrabs](https://www.youtube.com/@OpenCrabs)**"
+msgstr ""
+"Todos os vídeos: **[youtube.com/@OpenCrabs](https://www.youtube.com/"
+"@OpenCrabs)**"
 
-#: src/getting-started/videos.md:13
+#: src/getting-started/videos.md:55
 msgid ""
 "The [Onboarding](./onboarding.md) page has the step-by-step Quick and "
 "Advanced paths in text."
-msgstr "A página [Onboarding](./onboarding.md) tem os caminhos Rápido e Avançado, passo a passo, em texto."
+msgstr ""
+"A página [Onboarding](./onboarding.md) tem os caminhos Rápido e Avançado, "
+"passo a passo, em texto."
 
 #: src/getting-started/configuration.md:3
 msgid "OpenCrabs uses two config files stored at `~/.opencrabs/`:"
@@ -28600,3 +28656,32 @@ msgid ""
 "stranger who reaches a channel, or a prompt injection that reaches a tool, "
 "meets code that refuses, not prose that asks politely."
 msgstr ""
+
+#~ msgid "Quick start"
+#~ msgstr "Início rápido"
+
+#~ msgid "Advanced setup (Telegram, voice, images)"
+#~ msgstr "Configuração avançada (Telegram, voz, imagens)"
+
+#~ msgid ""
+#~ "[Install in under 2 minutes (Homebrew)](https://youtu.be/1_Ta9BFxlSk)"
+#~ msgstr ""
+#~ "[Instalação em menos de 2 minutos (Homebrew)](https://youtu.be/"
+#~ "1_Ta9BFxlSk)"
+
+#~ msgid "[Advanced setup on macOS](https://youtu.be/Lq891K2GFzU)"
+#~ msgstr "[Configuração avançada no macOS](https://youtu.be/Lq891K2GFzU)"
+
+#~ msgid "[Install in 3 minutes (one paste)](https://youtu.be/sXfaKfQiAxo)"
+#~ msgstr ""
+#~ "[Instalação em 3 minutos (uma colagem)](https://youtu.be/sXfaKfQiAxo)"
+
+#~ msgid "[Advanced setup on Linux](https://youtu.be/uZLwzerkQt0)"
+#~ msgstr "[Configuração avançada no Linux](https://youtu.be/uZLwzerkQt0)"
+
+#~ msgid "[Install in 2 minutes (PowerShell)](https://youtu.be/kY8SW83obOc)"
+#~ msgstr ""
+#~ "[Instalação em 2 minutos (PowerShell)](https://youtu.be/kY8SW83obOc)"
+
+#~ msgid "[Advanced setup on Windows](https://youtu.be/TZn1aYgpRuI)"
+#~ msgstr "[Configuração avançada no Windows](https://youtu.be/TZn1aYgpRuI)"

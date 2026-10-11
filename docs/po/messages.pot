@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OpenCrabs\n"
-"POT-Creation-Date: 2026-10-11T21:07:24+01:00\n"
+"POT-Creation-Date: 2026-10-11T21:49:37+01:00\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -1629,7 +1629,7 @@ msgid ""
 "\"https://github.com/opencrabs/opencrabs/releases/download/${TAG}/opencrabs-${TAG}-macos-arm64.tar.gz\""
 msgstr ""
 
-#: src/getting-started/installation.md:45 src/getting-started/videos.md:9
+#: src/getting-started/installation.md:45 src/getting-started/videos.md:37
 msgid "Windows"
 msgstr ""
 
@@ -1671,7 +1671,7 @@ msgid ""
 "OS will block operations."
 msgstr ""
 
-#: src/getting-started/installation.md:64 src/getting-started/videos.md:5
+#: src/getting-started/installation.md:64
 msgid "OS"
 msgstr ""
 
@@ -2864,55 +2864,24 @@ msgstr ""
 #: src/getting-started/videos.md:3
 msgid ""
 "Video walkthroughs of OpenCrabs setup and onboarding are on the OpenCrabs "
-"YouTube channel. Each OS has a quick start and an advanced setup video."
+"YouTube channel. Each OS has a quick start and an advanced setup video. "
+"Click a thumbnail to play it here."
 msgstr ""
 
-#: src/getting-started/videos.md:5
-msgid "Quick start"
-msgstr ""
-
-#: src/getting-started/videos.md:5
-msgid "Advanced setup (Telegram, voice, images)"
-msgstr ""
-
-#: src/getting-started/videos.md:7 src/development/building.md:10
+#: src/getting-started/videos.md:5 src/development/building.md:10
 msgid "macOS"
 msgstr ""
 
-#: src/getting-started/videos.md:7
-msgid "[Install in under 2 minutes (Homebrew)](https://youtu.be/1_Ta9BFxlSk)"
-msgstr ""
-
-#: src/getting-started/videos.md:7
-msgid "[Advanced setup on macOS](https://youtu.be/Lq891K2GFzU)"
-msgstr ""
-
-#: src/getting-started/videos.md:8
+#: src/getting-started/videos.md:21
 msgid "Ubuntu/Linux"
 msgstr ""
 
-#: src/getting-started/videos.md:8
-msgid "[Install in 3 minutes (one paste)](https://youtu.be/sXfaKfQiAxo)"
-msgstr ""
-
-#: src/getting-started/videos.md:8
-msgid "[Advanced setup on Linux](https://youtu.be/uZLwzerkQt0)"
-msgstr ""
-
-#: src/getting-started/videos.md:9
-msgid "[Install in 2 minutes (PowerShell)](https://youtu.be/kY8SW83obOc)"
-msgstr ""
-
-#: src/getting-started/videos.md:9
-msgid "[Advanced setup on Windows](https://youtu.be/TZn1aYgpRuI)"
-msgstr ""
-
-#: src/getting-started/videos.md:11
+#: src/getting-started/videos.md:53
 msgid ""
 "All videos: **[youtube.com/@OpenCrabs](https://www.youtube.com/@OpenCrabs)**"
 msgstr ""
 
-#: src/getting-started/videos.md:13
+#: src/getting-started/videos.md:55
 msgid ""
 "The [Onboarding](./onboarding.md) page has the step-by-step Quick and "
 "Advanced paths in text."
