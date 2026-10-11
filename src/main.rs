@@ -1020,3 +1020,28 @@ fn Footer(stars: Signal<u32>) -> impl IntoView {
         </footer>
     }
 }
+
+#[cfg(test)]
+mod tests {
+    const CSS: &str = include_str!("../style.css");
+
+    // Regression pin for issue #35: the mobile hamburger rule has to win on
+    // specificity, not on source order. The base .nav-toggle { display: none }
+    // rule sits below the media queries in style.css, and media queries add no
+    // specificity, so an equally specific mobile rule loses at every width.
+    #[test]
+    fn mobile_hamburger_rule_beats_later_base_rule() {
+        let media_at = CSS
+            .find("@media (max-width: 768px)")
+            .expect("mobile media query");
+        let base_at = CSS.find("\n.nav-toggle {").expect("base .nav-toggle rule");
+        assert!(
+            base_at > media_at,
+            "expected the base .nav-toggle rule below the media block"
+        );
+        assert!(
+            CSS[media_at..base_at].contains(".nav-actions .nav-toggle { display: flex; }"),
+            "the 768px block must show the toggle through a 2-class selector"
+        );
+    }
+}

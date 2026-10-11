@@ -909,7 +909,7 @@ footer {
     .features-grid { grid-template-columns: 1fr; }
     .testimonials-grid { grid-template-columns: 1fr; }
     .community-grid { grid-template-columns: repeat(2, 1fr); }
-    .nav-toggle { display: flex; }
+    .nav-actions .nav-toggle { display: flex; }
     .nav-links {
         display: none;
         position: absolute;
