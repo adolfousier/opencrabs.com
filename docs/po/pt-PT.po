@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OpenCrabs\n"
-"POT-Creation-Date: 2026-10-10T03:26:39+01:00\n"
+"POT-Creation-Date: 2026-10-11T21:07:24+01:00\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -32,7 +32,11 @@ msgstr ""
 msgid "Onboarding"
 msgstr ""
 
-#: src/SUMMARY.md:9 src/getting-started/configuration.md:1
+#: src/SUMMARY.md:9 src/getting-started/videos.md:1
+msgid "Onboarding Videos"
+msgstr "Vídeos de onboarding"
+
+#: src/SUMMARY.md:10 src/getting-started/configuration.md:1
 #: src/channels/telegram.md:120 src/channels/discord.md:49
 #: src/channels/slack.md:51 src/channels/whatsapp.md:35
 #: src/channels/trello.md:44 src/brain/commands.md:5 src/features/browser.md:49
@@ -40,222 +44,222 @@ msgstr ""
 msgid "Configuration"
 msgstr ""
 
-#: src/SUMMARY.md:10 src/getting-started/cli-commands.md:1
+#: src/SUMMARY.md:11 src/getting-started/cli-commands.md:1
 msgid "CLI Commands"
 msgstr ""
 
-#: src/SUMMARY.md:11 src/getting-started/troubleshooting.md:1
+#: src/SUMMARY.md:12 src/getting-started/troubleshooting.md:1
 #: src/channels/whatsapp.md:130
 msgid "Troubleshooting"
 msgstr ""
 
-#: src/SUMMARY.md:13
+#: src/SUMMARY.md:14
 msgid "AI Providers"
 msgstr ""
 
-#: src/SUMMARY.md:15
+#: src/SUMMARY.md:16
 msgid "Supported Providers"
 msgstr ""
 
-#: src/SUMMARY.md:16
+#: src/SUMMARY.md:17
 msgid "Provider Setup"
 msgstr ""
 
-#: src/SUMMARY.md:17 src/brain/images.md:1
+#: src/SUMMARY.md:18 src/brain/images.md:1
 msgid "Image Generation & Vision"
 msgstr ""
 
-#: src/SUMMARY.md:19
+#: src/SUMMARY.md:20
 msgid "Channels & Integrations"
 msgstr ""
 
-#: src/SUMMARY.md:21 src/features/usage-dashboard.md:5
+#: src/SUMMARY.md:22 src/features/usage-dashboard.md:5
 msgid "Overview"
 msgstr ""
 
-#: src/SUMMARY.md:22 src/getting-started/configuration.md:135
+#: src/SUMMARY.md:23 src/getting-started/configuration.md:135
 #: src/getting-started/troubleshooting.md:196 src/channels/overview.md:41
 #: src/channels/overview.md:117 src/channels/telegram.md:1
 #: src/features/self-healing.md:165
 msgid "Telegram"
 msgstr ""
 
-#: src/SUMMARY.md:23 src/getting-started/configuration.md:162
+#: src/SUMMARY.md:24 src/getting-started/configuration.md:162
 #: src/getting-started/troubleshooting.md:270 src/channels/overview.md:42
 #: src/channels/overview.md:119 src/channels/discord.md:1
 #: src/features/self-healing.md:166
 msgid "Discord"
 msgstr ""
 
-#: src/SUMMARY.md:24 src/getting-started/configuration.md:183
+#: src/SUMMARY.md:25 src/getting-started/configuration.md:183
 #: src/getting-started/troubleshooting.md:279 src/channels/overview.md:44
 #: src/channels/overview.md:120 src/channels/slack.md:1
 #: src/features/self-healing.md:167
 msgid "Slack"
 msgstr ""
 
-#: src/SUMMARY.md:25 src/getting-started/configuration.md:206
+#: src/SUMMARY.md:26 src/getting-started/configuration.md:206
 #: src/getting-started/troubleshooting.md:226 src/channels/overview.md:43
 #: src/channels/overview.md:118 src/channels/whatsapp.md:1
 #: src/features/self-healing.md:168
 msgid "WhatsApp"
 msgstr ""
 
-#: src/SUMMARY.md:26 src/getting-started/configuration.md:221
+#: src/SUMMARY.md:27 src/getting-started/configuration.md:221
 #: src/getting-started/troubleshooting.md:289 src/channels/overview.md:45
 #: src/channels/overview.md:121 src/channels/trello.md:1
 #: src/features/self-healing.md:169
 msgid "Trello"
 msgstr ""
 
-#: src/SUMMARY.md:28
+#: src/SUMMARY.md:29
 msgid "Brain & Tools"
 msgstr ""
 
-#: src/SUMMARY.md:30 src/brain/tools.md:1
+#: src/SUMMARY.md:31 src/brain/tools.md:1
 msgid "Built-in Tools"
 msgstr ""
 
-#: src/SUMMARY.md:31 src/brain/commands.md:1
+#: src/SUMMARY.md:32 src/brain/commands.md:1
 msgid "Custom Commands"
 msgstr ""
 
-#: src/SUMMARY.md:32 src/brain/memory.md:1
+#: src/SUMMARY.md:33 src/brain/memory.md:1
 msgid "Memory System"
 msgstr ""
 
-#: src/SUMMARY.md:33 src/getting-started/configuration.md:307
+#: src/SUMMARY.md:34 src/getting-started/configuration.md:307
 #: src/brain/memory.md:176 src/brain/brain-files.md:1
 msgid "Brain Files"
 msgstr ""
 
-#: src/SUMMARY.md:35 src/channels/telegram.md:45 src/channels/discord.md:72
+#: src/SUMMARY.md:36 src/channels/telegram.md:45 src/channels/discord.md:72
 #: src/channels/slack.md:76 src/channels/whatsapp.md:113
 msgid "Features"
 msgstr ""
 
-#: src/SUMMARY.md:37 src/features/sessions.md:1
+#: src/SUMMARY.md:38 src/features/sessions.md:1
 msgid "Sessions"
 msgstr ""
 
-#: src/SUMMARY.md:38 src/features/sessions.md:151 src/features/split-panes.md:1
+#: src/SUMMARY.md:39 src/features/sessions.md:151 src/features/split-panes.md:1
 msgid "Split Panes"
 msgstr ""
 
-#: src/SUMMARY.md:39 src/brain/tools.md:117 src/features/dynamic-tools.md:1
+#: src/SUMMARY.md:40 src/brain/tools.md:117 src/features/dynamic-tools.md:1
 msgid "Dynamic Tools"
 msgstr ""
 
-#: src/SUMMARY.md:40 src/introduction.md:193 src/brain/tools.md:99
+#: src/SUMMARY.md:41 src/introduction.md:193 src/brain/tools.md:99
 #: src/features/browser.md:1
 msgid "Browser Automation"
 msgstr ""
 
-#: src/SUMMARY.md:41 src/features/cron-jobs.md:1
+#: src/SUMMARY.md:42 src/features/cron-jobs.md:1
 msgid "Cron Jobs"
 msgstr ""
 
-#: src/SUMMARY.md:42 src/features/plans.md:1 src/features/goal.md:62
+#: src/SUMMARY.md:43 src/features/plans.md:1 src/features/goal.md:62
 msgid "Plans"
 msgstr ""
 
-#: src/SUMMARY.md:43 src/introduction.md:24 src/features/multi-agent.md:1
+#: src/SUMMARY.md:44 src/introduction.md:24 src/features/multi-agent.md:1
 msgid "Multi-Agent Orchestration"
 msgstr ""
 
-#: src/SUMMARY.md:44
+#: src/SUMMARY.md:45
 msgid "Agent-to-Agent (A2A)"
 msgstr ""
 
-#: src/SUMMARY.md:45 src/features/acp.md:1
+#: src/SUMMARY.md:46 src/features/acp.md:1
 msgid "ACP — Editor Integration"
 msgstr ""
 
-#: src/SUMMARY.md:46 src/features/self-healing.md:1
+#: src/SUMMARY.md:47 src/features/self-healing.md:1
 #: src/features/self-improvement.md:262
 msgid "Self-Healing"
 msgstr ""
 
-#: src/SUMMARY.md:47 src/features/self-improvement.md:1
+#: src/SUMMARY.md:48 src/features/self-improvement.md:1
 msgid "Self-Improvement (RSI)"
 msgstr ""
 
-#: src/SUMMARY.md:48 src/features/mission-control.md:1
+#: src/SUMMARY.md:49 src/features/mission-control.md:1
 msgid "Mission Control"
 msgstr ""
 
-#: src/SUMMARY.md:49
+#: src/SUMMARY.md:50
 msgid "Multi-Profile"
 msgstr ""
 
-#: src/SUMMARY.md:50 src/features/voice.md:1
+#: src/SUMMARY.md:51 src/features/voice.md:1
 msgid "Voice (TTS & STT)"
 msgstr ""
 
-#: src/SUMMARY.md:51 src/features/skills.md:1
+#: src/SUMMARY.md:52 src/features/skills.md:1
 msgid "Skills System"
 msgstr ""
 
-#: src/SUMMARY.md:52 src/features/themes.md:1
+#: src/SUMMARY.md:53 src/features/themes.md:1
 msgid "Themes"
 msgstr ""
 
-#: src/SUMMARY.md:53 src/features/usage-dashboard.md:1
+#: src/SUMMARY.md:54 src/features/usage-dashboard.md:1
 msgid "Usage Dashboard"
 msgstr ""
 
-#: src/SUMMARY.md:54
+#: src/SUMMARY.md:55
 msgid "RTK — Token Savings"
 msgstr ""
 
-#: src/SUMMARY.md:55
+#: src/SUMMARY.md:56
 msgid "/goal — Autonomous Goal Loop"
 msgstr ""
 
-#: src/SUMMARY.md:56 src/brain/tools.md:177 src/features/companion-tools.md:1
+#: src/SUMMARY.md:57 src/brain/tools.md:177 src/features/companion-tools.md:1
 msgid "Companion Tools"
 msgstr ""
 
-#: src/SUMMARY.md:57 src/features/web-scrape.md:1
+#: src/SUMMARY.md:58 src/features/web-scrape.md:1
 msgid "Web Scraping"
 msgstr ""
 
-#: src/SUMMARY.md:58 src/brain/tools.md:38
+#: src/SUMMARY.md:59 src/brain/tools.md:38
 #: src/features/document-generation.md:1
 msgid "Document Generation"
 msgstr ""
 
-#: src/SUMMARY.md:60 src/SUMMARY.md:62 src/user-stories.md:1
+#: src/SUMMARY.md:61 src/SUMMARY.md:63 src/user-stories.md:1
 msgid "User Stories"
 msgstr ""
 
-#: src/SUMMARY.md:64
+#: src/SUMMARY.md:65
 msgid "Development"
 msgstr ""
 
-#: src/SUMMARY.md:66 src/getting-started/troubleshooting.md:482
+#: src/SUMMARY.md:67 src/getting-started/troubleshooting.md:482
 #: src/development/building.md:1
 msgid "Building from Source"
 msgstr ""
 
-#: src/SUMMARY.md:67 src/introduction.md:232 src/features/mission-control.md:71
+#: src/SUMMARY.md:68 src/introduction.md:232 src/features/mission-control.md:71
 #: src/features/mission-control.md:107 src/development/architecture.md:1
 msgid "Architecture"
 msgstr ""
 
-#: src/SUMMARY.md:68 src/features/multi-agent.md:272
+#: src/SUMMARY.md:69 src/features/multi-agent.md:272
 msgid "Testing"
 msgstr ""
 
-#: src/SUMMARY.md:69 src/development/contributing.md:1
+#: src/SUMMARY.md:70 src/development/contributing.md:1
 msgid "Contributing"
 msgstr ""
 
-#: src/SUMMARY.md:70 src/features/a2a.md:157 src/development/security.md:1
+#: src/SUMMARY.md:71 src/features/a2a.md:157 src/development/security.md:1
 msgid "Security"
 msgstr ""
 
-#: src/SUMMARY.md:74 src/changelog.md:1
+#: src/SUMMARY.md:75 src/changelog.md:1
 msgid "Changelog"
 msgstr ""
 
@@ -1828,7 +1832,7 @@ msgstr ""
 "Windsurf, Cline, Gemini CLI, GitHub Copilot, OpenCode e o standard entre "
 "ferramentas `AGENTS.md`. Sem config, sem passo de importação."
 
-#: src/introduction.md:203 src/getting-started/onboarding.md:134
+#: src/introduction.md:203 src/getting-started/onboarding.md:126
 #: src/features/themes.md:56
 msgid "Source"
 msgstr "Origem"
@@ -2122,7 +2126,7 @@ msgstr ""
 "\"https://github.com/opencrabs/opencrabs/releases/download/${TAG}/opencrabs-$"
 "{TAG}-macos-arm64.tar.gz\""
 
-#: src/getting-started/installation.md:45
+#: src/getting-started/installation.md:45 src/getting-started/videos.md:9
 msgid "Windows"
 msgstr "Windows"
 
@@ -2182,7 +2186,7 @@ msgstr ""
 "brain, config e ficheiros de projeto. A tua app de terminal precisa de "
 "acesso ao sistema de ficheiros ou o SO bloqueia as operações."
 
-#: src/getting-started/installation.md:64
+#: src/getting-started/installation.md:64 src/getting-started/videos.md:5
 msgid "OS"
 msgstr "SO"
 
@@ -2529,30 +2533,26 @@ msgstr ""
 msgid ""
 "When you launch OpenCrabs for the first time, the **onboarding wizard** "
 "walks you through setup."
-msgstr ""
+msgstr "Quando abres o OpenCrabs pela primeira vez, o **assistente de onboarding** guia-te na configuração."
 
 #: src/getting-started/onboarding.md:5
-msgid "🎬 Full Onboarding Walkthrough"
-msgstr ""
+msgid "Video walkthroughs are on the [Onboarding Videos](./videos.md) page."
+msgstr "Os vídeos com demonstrações estão na página [Vídeos de Onboarding](./videos.md)."
 
-#: src/getting-started/onboarding.md:13
-msgid "Narrated step-by-step covering both the Quick and Advanced paths below."
-msgstr ""
-
-#: src/getting-started/onboarding.md:15
+#: src/getting-started/onboarding.md:7
 msgid "Quick Start (3 minutes)"
-msgstr ""
+msgstr "Início Rápido (3 minutos)"
 
-#: src/getting-started/onboarding.md:17
+#: src/getting-started/onboarding.md:9
 msgid "The fast path gets you chatting with the agent in under 3 minutes."
-msgstr ""
+msgstr "O caminho rápido permite-te conversar com o agente em menos de 3 minutos."
 
-#: src/getting-started/onboarding.md:19 src/getting-started/onboarding.md:36
-#: src/getting-started/onboarding.md:57 src/getting-started/onboarding.md:83
+#: src/getting-started/onboarding.md:11 src/getting-started/onboarding.md:28
+#: src/getting-started/onboarding.md:49 src/getting-started/onboarding.md:75
 msgid "Step"
-msgstr ""
+msgstr "Passo"
 
-#: src/getting-started/onboarding.md:19 src/getting-started/onboarding.md:36
+#: src/getting-started/onboarding.md:11 src/getting-started/onboarding.md:28
 #: src/getting-started/cli-commands.md:56
 #: src/getting-started/cli-commands.md:258 src/brain/providers.md:11
 #: src/channels/overview.md:19 src/channels/telegram.md:195
@@ -2563,208 +2563,208 @@ msgstr ""
 msgid "Action"
 msgstr "Ação"
 
-#: src/getting-started/onboarding.md:21 src/getting-started/onboarding.md:38
+#: src/getting-started/onboarding.md:13 src/getting-started/onboarding.md:30
 msgid "1. Mode"
-msgstr ""
+msgstr "1. Modo"
 
-#: src/getting-started/onboarding.md:21 src/getting-started/onboarding.md:38
+#: src/getting-started/onboarding.md:13 src/getting-started/onboarding.md:30
 msgid "Hit `Enter` on **QuickStart**"
-msgstr ""
+msgstr "Prime `Enter` em **QuickStart**"
 
-#: src/getting-started/onboarding.md:22 src/getting-started/onboarding.md:39
+#: src/getting-started/onboarding.md:14 src/getting-started/onboarding.md:31
 msgid "2. Workspace"
-msgstr ""
+msgstr "2. Espaço de trabalho"
 
-#: src/getting-started/onboarding.md:22 src/getting-started/onboarding.md:39
+#: src/getting-started/onboarding.md:14 src/getting-started/onboarding.md:31
 msgid "Hit `Enter` to accept the default path"
-msgstr ""
+msgstr "Prime `Enter` para aceitar o caminho predefinido"
 
-#: src/getting-started/onboarding.md:23 src/getting-started/onboarding.md:40
+#: src/getting-started/onboarding.md:15 src/getting-started/onboarding.md:32
 msgid "3. Provider"
-msgstr ""
+msgstr "3. Provider"
 
-#: src/getting-started/onboarding.md:23
+#: src/getting-started/onboarding.md:15
 msgid ""
 "Arrow to your provider (e.g. z.ai), hit `Enter`. Arrow down to select a plan "
 "(e.g. Coding), hit `Enter`"
-msgstr ""
+msgstr "Usa as setas para escolher o teu provider (por exemplo, z.ai) e prime `Enter`. Usa a seta para baixo para escolher um plano (por exemplo, Coding) e prime `Enter`"
 
-#: src/getting-started/onboarding.md:24 src/getting-started/onboarding.md:41
+#: src/getting-started/onboarding.md:16 src/getting-started/onboarding.md:33
 msgid "4. API Key"
-msgstr ""
+msgstr "4. Chave de API"
 
-#: src/getting-started/onboarding.md:24
+#: src/getting-started/onboarding.md:16
 msgid ""
 "Paste your key (`Cmd+V` / `Ctrl+V` / `Cmd+Shift+V` / `Ctrl+Shift+V`), hit "
 "`Enter`. Model list loads live"
-msgstr ""
+msgstr "Cola a tua chave (`Cmd+V` / `Ctrl+V` / `Cmd+Shift+V` / `Ctrl+Shift+V`) e prime `Enter`. A lista de modelos carrega em tempo real"
 
-#: src/getting-started/onboarding.md:25 src/getting-started/onboarding.md:42
+#: src/getting-started/onboarding.md:17 src/getting-started/onboarding.md:34
 msgid "5. Model"
-msgstr ""
+msgstr "5. Modelo"
 
-#: src/getting-started/onboarding.md:25
+#: src/getting-started/onboarding.md:17
 msgid "Arrow to your model (e.g. gemini-2.5-pro), hit `Enter`"
-msgstr ""
+msgstr "Usa as setas para escolher o teu modelo (por exemplo, gemini-2.5-pro) e prime `Enter`"
 
-#: src/getting-started/onboarding.md:26
+#: src/getting-started/onboarding.md:18
 msgid "6. Daemon"
-msgstr ""
+msgstr "6. Daemon"
 
-#: src/getting-started/onboarding.md:26 src/getting-started/onboarding.md:47
+#: src/getting-started/onboarding.md:18 src/getting-started/onboarding.md:39
 msgid "Arrow to select whether to run as background daemon, hit `Enter`"
-msgstr ""
+msgstr "Usa as setas para escolher se o daemon corre em segundo plano e prime `Enter`"
 
-#: src/getting-started/onboarding.md:27
+#: src/getting-started/onboarding.md:19
 msgid "7. Vibe Check"
-msgstr ""
+msgstr "7. Vibe Check"
 
-#: src/getting-started/onboarding.md:27 src/getting-started/onboarding.md:48
+#: src/getting-started/onboarding.md:19 src/getting-started/onboarding.md:40
 msgid "All checks should show ✅. Hit `Enter`"
-msgstr ""
+msgstr "Todas as verificações devem mostrar ✅. Prime `Enter`"
 
-#: src/getting-started/onboarding.md:28
+#: src/getting-started/onboarding.md:20
 msgid "8. About You"
-msgstr ""
+msgstr "8. Sobre ti"
 
-#: src/getting-started/onboarding.md:28 src/getting-started/onboarding.md:49
+#: src/getting-started/onboarding.md:20 src/getting-started/onboarding.md:41
 msgid ""
 "Write something about yourself, the more the agent knows, the better. Hit "
 "`Enter`"
-msgstr ""
+msgstr "Escreve algo sobre ti. Quanto mais o agente souber, melhor. Prime `Enter`"
 
-#: src/getting-started/onboarding.md:29
+#: src/getting-started/onboarding.md:21
 msgid "9. About Agent"
-msgstr ""
+msgstr "9. Sobre o agente"
 
-#: src/getting-started/onboarding.md:29 src/getting-started/onboarding.md:50
+#: src/getting-started/onboarding.md:21 src/getting-started/onboarding.md:42
 msgid "Write something about the agent's personality. Hit `Enter`"
-msgstr ""
+msgstr "Escreve algo sobre a personalidade do agente. Prime `Enter`"
 
-#: src/getting-started/onboarding.md:30
+#: src/getting-started/onboarding.md:22
 msgid "10. Chat"
-msgstr ""
+msgstr "10. Chat"
 
-#: src/getting-started/onboarding.md:30 src/getting-started/onboarding.md:51
+#: src/getting-started/onboarding.md:22 src/getting-started/onboarding.md:43
 msgid "You're in. Start talking to your agent"
-msgstr ""
+msgstr "Está tudo pronto. Começa a falar com o teu agente"
+
+#: src/getting-started/onboarding.md:24
+msgid "Advanced Setup (7 minutes)"
+msgstr "Configuração Avançada (7 minutos)"
+
+#: src/getting-started/onboarding.md:26
+msgid "Full setup with Telegram, local voice, vision, and image generation."
+msgstr "Configuração completa com Telegram, voz local, visão e geração de imagens."
 
 #: src/getting-started/onboarding.md:32
-msgid "Advanced Setup (7 minutes)"
-msgstr ""
-
-#: src/getting-started/onboarding.md:34
-msgid "Full setup with Telegram, local voice, vision, and image generation."
-msgstr ""
-
-#: src/getting-started/onboarding.md:40
 msgid ""
 "Arrow to your provider (e.g. z.ai), hit `Enter`. Arrow down to select a "
 "plan, hit `Enter`"
-msgstr ""
+msgstr "Usa as setas para escolher o teu provider (por exemplo, z.ai) e prime `Enter`. Usa a seta para baixo para escolher um plano e prime `Enter`"
 
-#: src/getting-started/onboarding.md:41
+#: src/getting-started/onboarding.md:33
 msgid "Paste your key, hit `Enter`. Model list loads live"
-msgstr ""
+msgstr "Cola a tua chave e prime `Enter`. A lista de modelos carrega em tempo real"
 
-#: src/getting-started/onboarding.md:42
+#: src/getting-started/onboarding.md:34
 msgid "Arrow to your model, hit `Enter`"
-msgstr ""
+msgstr "Usa as setas para escolher o teu modelo e prime `Enter`"
 
-#: src/getting-started/onboarding.md:43
+#: src/getting-started/onboarding.md:35
 msgid "6. Channels"
-msgstr ""
+msgstr "6. Channels"
 
-#: src/getting-started/onboarding.md:43
+#: src/getting-started/onboarding.md:35
 msgid ""
 "Arrow to **Other**, hit `Space` to select Telegram, hit `Enter`. Paste your "
 "bot token, follow the instructions to get your chat ID, hit `Enter`. Select "
 "mention mode, hit `Enter`. Once it says **Connected**, hit `Enter` again. "
 "Arrow down to **Continue**, hit `Enter`"
-msgstr ""
+msgstr "Usa as setas para escolher **Other**, prime `Space` para selecionar Telegram e prime `Enter`. Cola o token do bot, segue as instruções para obter o teu chat ID e prime `Enter`. Escolhe o modo de menção e prime `Enter`. Quando aparecer **Connected**, prime `Enter` outra vez. Usa a seta para baixo para escolher **Continue** e prime `Enter`"
 
-#: src/getting-started/onboarding.md:44
+#: src/getting-started/onboarding.md:36
 msgid "7. STT"
-msgstr ""
+msgstr "7. STT"
 
-#: src/getting-started/onboarding.md:44
+#: src/getting-started/onboarding.md:36
 msgid ""
 "Select **Local**, hit `Enter`. Pick model size (e.g. tiny for speed), hit "
 "`Enter`"
-msgstr ""
+msgstr "Escolhe **Local** e prime `Enter`. Escolhe o tamanho do modelo (por exemplo, tiny para mais rapidez) e prime `Enter`"
 
-#: src/getting-started/onboarding.md:45
+#: src/getting-started/onboarding.md:37
 msgid "8. TTS"
-msgstr ""
+msgstr "8. TTS"
 
-#: src/getting-started/onboarding.md:45
+#: src/getting-started/onboarding.md:37
 msgid ""
 "Select **Local** again, hit `Enter`. Pick a voice (e.g. Ryan), hit `Enter`. "
 "Wait for the model download, arrow down to **Continue**, hit `Enter`"
-msgstr ""
+msgstr "Escolhe **Local** outra vez e prime `Enter`. Escolhe uma voz (por exemplo, Ryan) e prime `Enter`. Espera que o modelo seja transferido, usa a seta para baixo para escolher **Continue** e prime `Enter`"
 
-#: src/getting-started/onboarding.md:46
+#: src/getting-started/onboarding.md:38
 msgid "9. Image"
-msgstr ""
+msgstr "9. Imagem"
 
-#: src/getting-started/onboarding.md:46
+#: src/getting-started/onboarding.md:38
 msgid ""
 "Hit `Space` to select Vision and Image Generation, hit `Enter`. Paste your "
 "Gemini API key, hit `Enter`"
-msgstr ""
+msgstr "Prime `Space` para selecionar Vision e Image Generation e prime `Enter`. Cola a tua chave de API do Gemini e prime `Enter`"
+
+#: src/getting-started/onboarding.md:39
+msgid "10. Daemon"
+msgstr "10. Daemon"
+
+#: src/getting-started/onboarding.md:40
+msgid "11. Vibe Check"
+msgstr "11. Vibe Check"
+
+#: src/getting-started/onboarding.md:41
+msgid "12. About You"
+msgstr "12. Sobre ti"
+
+#: src/getting-started/onboarding.md:42
+msgid "13. About Agent"
+msgstr "13. Sobre o agente"
+
+#: src/getting-started/onboarding.md:43
+msgid "14. Chat"
+msgstr "14. Chat"
+
+#: src/getting-started/onboarding.md:45
+msgid "Onboarding Flow"
+msgstr "Fluxo de onboarding"
 
 #: src/getting-started/onboarding.md:47
-msgid "10. Daemon"
-msgstr ""
-
-#: src/getting-started/onboarding.md:48
-msgid "11. Vibe Check"
-msgstr ""
-
-#: src/getting-started/onboarding.md:49
-msgid "12. About You"
-msgstr ""
-
-#: src/getting-started/onboarding.md:50
-msgid "13. About Agent"
-msgstr ""
-
-#: src/getting-started/onboarding.md:51
-msgid "14. Chat"
-msgstr ""
-
-#: src/getting-started/onboarding.md:53
-msgid "Onboarding Flow"
-msgstr ""
-
-#: src/getting-started/onboarding.md:55
 msgid ""
 "The wizard is a keyboard-driven TUI with 8 steps. Navigate with arrow keys, "
 "`Tab` to advance, `Esc` to go back."
-msgstr ""
+msgstr "O assistente é uma TUI controlada pelo teclado, com 8 passos. Navega com as setas, usa `Tab` para avançar e `Esc` para voltar atrás."
 
-#: src/getting-started/onboarding.md:57
+#: src/getting-started/onboarding.md:49
 msgid "Screen"
-msgstr ""
+msgstr "Ecrã"
 
-#: src/getting-started/onboarding.md:57
+#: src/getting-started/onboarding.md:49
 msgid "What you do"
-msgstr ""
+msgstr "O que fazes"
 
-#: src/getting-started/onboarding.md:59 src/channels/overview.md:42
+#: src/getting-started/onboarding.md:51 src/channels/overview.md:42
 #: src/development/testing.md:174 src/development/testing.md:229
 msgid "1"
-msgstr ""
+msgstr "1"
 
-#: src/getting-started/onboarding.md:59
+#: src/getting-started/onboarding.md:51
 msgid "**Mode Select**"
-msgstr ""
+msgstr "**Seleção de modo**"
 
-#: src/getting-started/onboarding.md:59
+#: src/getting-started/onboarding.md:51
 msgid "Choose QuickStart (skip channels) or Advanced"
-msgstr ""
+msgstr "Escolhe QuickStart (sem channels) ou Advanced"
 
-#: src/getting-started/onboarding.md:60 src/channels/overview.md:43
+#: src/getting-started/onboarding.md:52 src/channels/overview.md:43
 #: src/development/testing.md:13 src/development/testing.md:14
 #: src/development/testing.md:15 src/development/testing.md:16
 #: src/development/testing.md:17 src/development/testing.md:18
@@ -2778,17 +2778,17 @@ msgstr ""
 #: src/development/testing.md:304 src/development/testing.md:330
 #: src/development/testing.md:362
 msgid "2"
-msgstr ""
+msgstr "2"
 
-#: src/getting-started/onboarding.md:60
+#: src/getting-started/onboarding.md:52
 msgid "**Workspace**"
-msgstr ""
+msgstr "**Espaço de trabalho**"
 
-#: src/getting-started/onboarding.md:60
+#: src/getting-started/onboarding.md:52
 msgid "Pick a working directory for file operations"
-msgstr ""
+msgstr "Escolhe uma pasta de trabalho para as operações com ficheiros"
 
-#: src/getting-started/onboarding.md:61 src/channels/overview.md:44
+#: src/getting-started/onboarding.md:53 src/channels/overview.md:44
 #: src/development/testing.md:26 src/development/testing.md:27
 #: src/development/testing.md:28 src/development/testing.md:29
 #: src/development/testing.md:30 src/development/testing.md:31
@@ -2803,17 +2803,17 @@ msgstr ""
 #: src/development/testing.md:363 src/development/testing.md:372
 #: src/development/testing.md:388
 msgid "3"
-msgstr ""
+msgstr "3"
 
-#: src/getting-started/onboarding.md:61
+#: src/getting-started/onboarding.md:53
 msgid "**Provider & Auth**"
-msgstr ""
+msgstr "**Provider e autenticação**"
 
-#: src/getting-started/onboarding.md:61
+#: src/getting-started/onboarding.md:53
 msgid "Select provider → paste API key → pick model (fetched live)"
-msgstr ""
+msgstr "Escolhe o provider → cola a chave de API → escolhe o modelo (obtido em tempo real)"
 
-#: src/getting-started/onboarding.md:62 src/channels/overview.md:45
+#: src/getting-started/onboarding.md:54 src/channels/overview.md:45
 #: src/development/testing.md:43 src/development/testing.md:44
 #: src/development/testing.md:45 src/development/testing.md:46
 #: src/development/testing.md:47 src/development/testing.md:48
@@ -2832,17 +2832,17 @@ msgstr ""
 #: src/development/testing.md:360 src/development/testing.md:361
 #: src/development/testing.md:365 src/development/testing.md:367
 msgid "4"
-msgstr ""
+msgstr "4"
 
-#: src/getting-started/onboarding.md:62
+#: src/getting-started/onboarding.md:54
 msgid "**Channels**"
-msgstr ""
+msgstr "**Channels**"
 
-#: src/getting-started/onboarding.md:62
+#: src/getting-started/onboarding.md:54
 msgid "Space to toggle channels on/off → Enter on each to configure"
-msgstr ""
+msgstr "Space para ativar ou desativar channels → Enter em cada um para configurar"
 
-#: src/getting-started/onboarding.md:63 src/development/testing.md:56
+#: src/getting-started/onboarding.md:55 src/development/testing.md:56
 #: src/development/testing.md:57 src/development/testing.md:58
 #: src/development/testing.md:59 src/development/testing.md:60
 #: src/development/testing.md:61 src/development/testing.md:62
@@ -2858,17 +2858,17 @@ msgstr ""
 #: src/development/testing.md:356 src/development/testing.md:357
 #: src/development/testing.md:366 src/development/testing.md:376
 msgid "5"
-msgstr ""
+msgstr "5"
 
-#: src/getting-started/onboarding.md:63
+#: src/getting-started/onboarding.md:55
 msgid "**Voice**"
-msgstr ""
+msgstr "**Voz**"
 
-#: src/getting-started/onboarding.md:63
+#: src/getting-started/onboarding.md:55
 msgid "STT provider (Groq, local Whisper, or off) + TTS voice"
-msgstr ""
+msgstr "Provider de STT (Groq, Whisper local ou desativado) + voz de TTS"
 
-#: src/getting-started/onboarding.md:64 src/development/testing.md:67
+#: src/getting-started/onboarding.md:56 src/development/testing.md:67
 #: src/development/testing.md:68 src/development/testing.md:69
 #: src/development/testing.md:70 src/development/testing.md:71
 #: src/development/testing.md:72 src/development/testing.md:73
@@ -2886,17 +2886,17 @@ msgstr ""
 #: src/development/testing.md:368 src/development/testing.md:375
 #: src/development/testing.md:378 src/development/testing.md:382
 msgid "6"
-msgstr ""
+msgstr "6"
 
-#: src/getting-started/onboarding.md:64
+#: src/getting-started/onboarding.md:56
 msgid "**Image**"
-msgstr ""
+msgstr "**Imagem**"
 
-#: src/getting-started/onboarding.md:64
+#: src/getting-started/onboarding.md:56
 msgid "Vision toggle + generation model + API key"
-msgstr ""
+msgstr "Interruptor de visão + modelo de geração + chave de API"
 
-#: src/getting-started/onboarding.md:65 src/development/testing.md:78
+#: src/getting-started/onboarding.md:57 src/development/testing.md:78
 #: src/development/testing.md:79 src/development/testing.md:80
 #: src/development/testing.md:81 src/development/testing.md:82
 #: src/development/testing.md:83 src/development/testing.md:84
@@ -2910,17 +2910,17 @@ msgstr ""
 #: src/development/testing.md:369 src/development/testing.md:381
 #: src/development/testing.md:387
 msgid "7"
-msgstr ""
+msgstr "7"
 
-#: src/getting-started/onboarding.md:65
+#: src/getting-started/onboarding.md:57
 msgid "**Daemon**"
-msgstr ""
+msgstr "**Daemon**"
 
-#: src/getting-started/onboarding.md:65
+#: src/getting-started/onboarding.md:57
 msgid "Install background daemon (optional)"
-msgstr ""
+msgstr "Instala o daemon em segundo plano (opcional)"
 
-#: src/getting-started/onboarding.md:66 src/development/testing.md:87
+#: src/getting-started/onboarding.md:58 src/development/testing.md:87
 #: src/development/testing.md:88 src/development/testing.md:89
 #: src/development/testing.md:90 src/development/testing.md:91
 #: src/development/testing.md:92 src/development/testing.md:93
@@ -2936,312 +2936,312 @@ msgstr ""
 #: src/development/testing.md:347 src/development/testing.md:348
 #: src/development/testing.md:383
 msgid "8"
-msgstr ""
+msgstr "8"
 
-#: src/getting-started/onboarding.md:66
+#: src/getting-started/onboarding.md:58
 msgid "**Brain Setup**"
-msgstr ""
+msgstr "**Configuração do brain**"
 
-#: src/getting-started/onboarding.md:66
+#: src/getting-started/onboarding.md:58
 msgid "Auto-generate SOUL.md from your profile"
-msgstr ""
+msgstr "Gera automaticamente o SOUL.md a partir do teu perfil"
 
-#: src/getting-started/onboarding.md:68
+#: src/getting-started/onboarding.md:60
 msgid "Channel Setup (Step 4)"
-msgstr ""
+msgstr "Configuração de channels (passo 4)"
 
-#: src/getting-started/onboarding.md:70
+#: src/getting-started/onboarding.md:62
 msgid ""
 "The channels screen lists 5 integrations: Telegram, Discord, WhatsApp, "
 "Slack, Trello."
-msgstr ""
+msgstr "O ecrã de channels lista 5 integrações: Telegram, Discord, WhatsApp, Slack e Trello."
 
-#: src/getting-started/onboarding.md:72
+#: src/getting-started/onboarding.md:64
 msgid "`Space` toggles a channel on/off"
-msgstr ""
+msgstr "`Space` ativa ou desativa um channel"
 
-#: src/getting-started/onboarding.md:73
+#: src/getting-started/onboarding.md:65
 msgid ""
 "`Enter` on an enabled channel opens its setup screen (token, IDs, allowlists)"
-msgstr ""
+msgstr "`Enter` num channel ativado abre o respetivo ecrã de configuração (token, IDs, listas de permissões)"
 
-#: src/getting-started/onboarding.md:74
+#: src/getting-started/onboarding.md:66
 msgid "`Enter` on **Continue** or `Tab` skips to the next step"
-msgstr ""
+msgstr "`Enter` em **Continue** ou `Tab` avança para o passo seguinte"
 
-#: src/getting-started/onboarding.md:75
+#: src/getting-started/onboarding.md:67
 msgid "Each channel setup screen has a **Test Connection** button"
-msgstr ""
+msgstr "Cada ecrã de configuração de channel tem um botão **Test Connection**"
 
-#: src/getting-started/onboarding.md:77
+#: src/getting-started/onboarding.md:69
 msgid ""
 "See [Channels Overview](../channels/overview.md) for the full navigation "
 "guide."
-msgstr ""
+msgstr "Consulta [Channels Overview](../channels/overview.md) para o guia completo de navegação."
 
-#: src/getting-started/onboarding.md:79
+#: src/getting-started/onboarding.md:71
 msgid "Re-running Setup"
-msgstr ""
+msgstr "Voltar a executar a configuração"
 
-#: src/getting-started/onboarding.md:81
+#: src/getting-started/onboarding.md:73
 msgid "You can jump to any step without re-running the full wizard:"
-msgstr ""
+msgstr "Podes saltar para qualquer passo sem voltar a executar o assistente completo:"
 
-#: src/getting-started/onboarding.md:83 src/getting-started/onboarding.md:146
+#: src/getting-started/onboarding.md:75 src/getting-started/onboarding.md:138
 #: src/getting-started/cli-commands.md:13 src/brain/providers.md:97
 #: src/features/themes.md:9 src/features/rtk.md:31
 msgid "Command"
 msgstr "Comando"
 
-#: src/getting-started/onboarding.md:85 src/brain/providers.md:101
+#: src/getting-started/onboarding.md:77 src/brain/providers.md:101
 msgid "`/onboard`"
-msgstr ""
+msgstr "`/onboard`"
 
-#: src/getting-started/onboarding.md:85
+#: src/getting-started/onboarding.md:77
 msgid "Full wizard"
-msgstr ""
+msgstr "Assistente completo"
 
-#: src/getting-started/onboarding.md:86 src/brain/providers.md:99
+#: src/getting-started/onboarding.md:78 src/brain/providers.md:99
 msgid "`/onboard:provider`"
-msgstr ""
+msgstr "`/onboard:provider`"
 
-#: src/getting-started/onboarding.md:86
+#: src/getting-started/onboarding.md:78
 msgid "Provider & model selection"
-msgstr ""
+msgstr "Seleção de provider e modelo"
 
-#: src/getting-started/onboarding.md:87
+#: src/getting-started/onboarding.md:79
 msgid "`/onboard:channels`"
-msgstr ""
+msgstr "`/onboard:channels`"
 
-#: src/getting-started/onboarding.md:87
+#: src/getting-started/onboarding.md:79
 msgid "Channel picker"
-msgstr ""
+msgstr "Seletor de channels"
 
-#: src/getting-started/onboarding.md:88
+#: src/getting-started/onboarding.md:80
 msgid "`/onboard:voice`"
-msgstr ""
+msgstr "`/onboard:voice`"
 
-#: src/getting-started/onboarding.md:88
+#: src/getting-started/onboarding.md:80
 msgid "Voice setup"
-msgstr ""
+msgstr "Configuração de voz"
 
-#: src/getting-started/onboarding.md:89
+#: src/getting-started/onboarding.md:81
 msgid "`/onboard:image`"
-msgstr ""
+msgstr "`/onboard:image`"
 
-#: src/getting-started/onboarding.md:89
+#: src/getting-started/onboarding.md:81
 msgid "Image setup"
-msgstr ""
+msgstr "Configuração de imagem"
 
-#: src/getting-started/onboarding.md:90
+#: src/getting-started/onboarding.md:82
 msgid "`/onboard:brain`"
-msgstr ""
+msgstr "`/onboard:brain`"
 
-#: src/getting-started/onboarding.md:90
+#: src/getting-started/onboarding.md:82
 msgid "Brain file generation"
-msgstr ""
+msgstr "Geração de ficheiros brain"
 
-#: src/getting-started/onboarding.md:92
+#: src/getting-started/onboarding.md:84
 msgid ""
 "After onboarding, your agent boots up and introduces itself. It reads its "
 "brain files (`SOUL.md`, `AGENTS.md`, `TOOLS.md`) and starts a conversation."
-msgstr ""
+msgstr "Depois do onboarding, o agente arranca e apresenta-se. Lê os seus ficheiros brain (`SOUL.md`, `AGENTS.md`, `TOOLS.md`) e começa uma conversa."
 
-#: src/getting-started/onboarding.md:94
+#: src/getting-started/onboarding.md:86
 msgid "Bootstrap"
-msgstr ""
+msgstr "Bootstrap"
 
-#: src/getting-started/onboarding.md:96
+#: src/getting-started/onboarding.md:88
 msgid "On the very first run, the agent goes through a **bootstrap** phase:"
-msgstr ""
+msgstr "Na primeira execução, o agente passa por uma fase de **bootstrap**:"
 
-#: src/getting-started/onboarding.md:98
+#: src/getting-started/onboarding.md:90
 msgid "Gets to know you (name, preferences, work style)"
-msgstr ""
+msgstr "Fica a conhecer-te (nome, preferências, forma de trabalhar)"
+
+#: src/getting-started/onboarding.md:91
+msgid "Establishes its identity (name, personality, emoji)"
+msgstr "Define a sua identidade (nome, personalidade, emoji)"
+
+#: src/getting-started/onboarding.md:92
+msgid "Opens `SOUL.md` together to discuss values"
+msgstr "Abre o `SOUL.md` contigo para discutir valores"
+
+#: src/getting-started/onboarding.md:93
+msgid "Sets up `USER.md` with your profile"
+msgstr "Configura o `USER.md` com o teu perfil"
+
+#: src/getting-started/onboarding.md:95
+msgid "The bootstrap file (`BOOTSTRAP.md`) deletes itself when complete."
+msgstr "O ficheiro de bootstrap (`BOOTSTRAP.md`) apaga-se quando termina."
+
+#: src/getting-started/onboarding.md:97
+msgid "Migrating From Another Tool"
+msgstr "Migrar a partir de outra ferramenta"
 
 #: src/getting-started/onboarding.md:99
-msgid "Establishes its identity (name, personality, emoji)"
-msgstr ""
-
-#: src/getting-started/onboarding.md:100
-msgid "Opens `SOUL.md` together to discuss values"
-msgstr ""
-
-#: src/getting-started/onboarding.md:101
-msgid "Sets up `USER.md` with your profile"
-msgstr ""
-
-#: src/getting-started/onboarding.md:103
-msgid "The bootstrap file (`BOOTSTRAP.md`) deletes itself when complete."
-msgstr ""
-
-#: src/getting-started/onboarding.md:105
-msgid "Migrating From Another Tool"
-msgstr ""
-
-#: src/getting-started/onboarding.md:107
 msgid ""
 "Already using ClaudeCode, OpenClaw, Hermes, or any other AI agent harness? "
 "Your agent can migrate your existing data (memory, skills, custom commands, "
 "preferences) into its own brain files using natural language. No manual file "
 "shuffling needed."
-msgstr ""
+msgstr "Já usas ClaudeCode, OpenClaw, Hermes ou outro harness de agente de IA? O teu agente pode migrar os teus dados existentes (memória, skills, comandos personalizados, preferências) para os seus próprios ficheiros brain, em linguagem natural. Não é preciso mover ficheiros manualmente."
 
-#: src/getting-started/onboarding.md:109
+#: src/getting-started/onboarding.md:101
 msgid ""
 "This works with **any** agent or coding harness that stores config locally. "
 "The migration searches your filesystem for the other tool's config "
 "directories, reads their contents, and maps them into OpenCrabs' own brain "
 "file format (`SOUL.md`, `USER.md`, `TOOLS.md`, `MEMORY.md`, `AGENTS.md`, "
 "`CODE.md`)."
-msgstr ""
+msgstr "Funciona com **qualquer** agente ou harness de programação que guarde a configuração localmente. A migração procura no teu sistema de ficheiros as pastas de configuração da outra ferramenta, lê o conteúdo e converte-o para o formato de ficheiros brain do OpenCrabs (`SOUL.md`, `USER.md`, `TOOLS.md`, `MEMORY.md`, `AGENTS.md`, `CODE.md`)."
 
-#: src/getting-started/onboarding.md:111
+#: src/getting-started/onboarding.md:103
 msgid "Hand-Held Migration"
-msgstr ""
+msgstr "Migração guiada"
 
-#: src/getting-started/onboarding.md:113
+#: src/getting-started/onboarding.md:105
 msgid "If you want to review what gets migrated before it happens:"
-msgstr ""
+msgstr "Se quiseres rever o que é migrado antes de a migração acontecer:"
 
-#: src/getting-started/onboarding.md:115
+#: src/getting-started/onboarding.md:107
 msgid ""
 "Search for my ClaudeCode/OpenClaw/Hermes data locally (or any other agent "
 "harness I was using) and audit a migration to our own brain files, report "
 "back once its done, execute when I confirm and approve."
-msgstr ""
+msgstr "Procura localmente os meus dados do ClaudeCode/OpenClaw/Hermes (ou de qualquer outro harness de agente que eu usasse), faz uma auditoria de uma migração para os nossos próprios ficheiros brain, informa-me quando terminares e executa só quando eu confirmar e aprovar."
 
-#: src/getting-started/onboarding.md:117
+#: src/getting-started/onboarding.md:109
 msgid "The agent will:"
-msgstr ""
+msgstr "O agente vai:"
 
-#: src/getting-started/onboarding.md:118
+#: src/getting-started/onboarding.md:110
 msgid "Search your filesystem for the other tool's config directories"
-msgstr ""
+msgstr "Procurar no teu sistema de ficheiros as pastas de configuração da outra ferramenta"
 
-#: src/getting-started/onboarding.md:119
+#: src/getting-started/onboarding.md:111
 msgid ""
 "Read and parse all relevant files (memory, commands, skills, preferences)"
-msgstr ""
+msgstr "Ler e analisar todos os ficheiros relevantes (memória, comandos, skills, preferências)"
+
+#: src/getting-started/onboarding.md:112
+msgid "Produce an audit showing exactly what maps where"
+msgstr "Produzir uma auditoria que mostra exatamente o que vai para onde"
+
+#: src/getting-started/onboarding.md:113
+msgid "Wait for your confirmation"
+msgstr "Esperar pela tua confirmação"
+
+#: src/getting-started/onboarding.md:114
+msgid "Execute the migration and report a full breakdown"
+msgstr "Executar a migração e apresentar um resumo completo"
+
+#: src/getting-started/onboarding.md:116
+msgid "Autonomous Migration"
+msgstr "Migração autónoma"
+
+#: src/getting-started/onboarding.md:118
+msgid "If you just want it done:"
+msgstr "Se só queres que fique feito:"
 
 #: src/getting-started/onboarding.md:120
-msgid "Produce an audit showing exactly what maps where"
-msgstr ""
-
-#: src/getting-started/onboarding.md:121
-msgid "Wait for your confirmation"
-msgstr ""
-
-#: src/getting-started/onboarding.md:122
-msgid "Execute the migration and report a full breakdown"
-msgstr ""
-
-#: src/getting-started/onboarding.md:124
-msgid "Autonomous Migration"
-msgstr ""
-
-#: src/getting-started/onboarding.md:126
-msgid "If you just want it done:"
-msgstr ""
-
-#: src/getting-started/onboarding.md:128
 msgid ""
 "Search for my existing agent/harness data locally and migrate anything to "
 "our own brain files, no need my approval, just go, plan and execute, report "
 "back once its done with a full breakdown."
-msgstr ""
+msgstr "Procura localmente os meus dados existentes de agentes ou harness e migra tudo para os nossos próprios ficheiros brain, sem precisar da minha aprovação. Avança, planeia e executa, e informa-me quando terminares, com um resumo completo."
 
-#: src/getting-started/onboarding.md:130
+#: src/getting-started/onboarding.md:122
 msgid ""
 "The agent skips the audit step, plans the migration internally, executes it, "
 "and gives you a summary of everything that moved."
-msgstr ""
+msgstr "O agente salta a etapa de auditoria, planeia a migração internamente, executa-a e dá-te um resumo de tudo o que foi movido."
 
-#: src/getting-started/onboarding.md:132
+#: src/getting-started/onboarding.md:124
 msgid "What Gets Mapped"
-msgstr ""
+msgstr "O que é mapeado"
 
-#: src/getting-started/onboarding.md:134
+#: src/getting-started/onboarding.md:126
 msgid "Destination"
-msgstr ""
+msgstr "Destino"
 
-#: src/getting-started/onboarding.md:134 src/features/browser.md:31
+#: src/getting-started/onboarding.md:126 src/features/browser.md:31
 #: src/features/self-improvement.md:37
 msgid "Example"
-msgstr ""
+msgstr "Exemplo"
 
-#: src/getting-started/onboarding.md:136
+#: src/getting-started/onboarding.md:128
 msgid "Memory / CLAUDE.md / context files"
-msgstr ""
+msgstr "Memória / CLAUDE.md / ficheiros de contexto"
 
-#: src/getting-started/onboarding.md:136 src/features/self-improvement.md:92
+#: src/getting-started/onboarding.md:128 src/features/self-improvement.md:92
 msgid "`MEMORY.md`"
-msgstr ""
+msgstr "`MEMORY.md`"
 
-#: src/getting-started/onboarding.md:136
+#: src/getting-started/onboarding.md:128
 msgid "Project decisions, past context"
-msgstr ""
+msgstr "Decisões do projeto, contexto anterior"
 
-#: src/getting-started/onboarding.md:137
+#: src/getting-started/onboarding.md:129
 msgid "Custom commands"
-msgstr ""
+msgstr "Comandos personalizados"
 
-#: src/getting-started/onboarding.md:137
+#: src/getting-started/onboarding.md:129
 msgid "`commands.toml`"
-msgstr ""
+msgstr "`commands.toml`"
 
-#: src/getting-started/onboarding.md:137
+#: src/getting-started/onboarding.md:129
 msgid "Slash commands and their definitions"
-msgstr ""
+msgstr "Comandos slash e as respetivas definições"
 
-#: src/getting-started/onboarding.md:138
+#: src/getting-started/onboarding.md:130
 msgid "Skills / agent instructions"
-msgstr ""
+msgstr "Skills / instruções do agente"
 
-#: src/getting-started/onboarding.md:138
+#: src/getting-started/onboarding.md:130
 msgid "`AGENTS.md`, `TOOLS.md`"
-msgstr ""
+msgstr "`AGENTS.md`, `TOOLS.md`"
 
-#: src/getting-started/onboarding.md:138
+#: src/getting-started/onboarding.md:130
 msgid "Workflow rules, tool configs"
-msgstr ""
+msgstr "Regras de fluxo de trabalho, configurações das ferramentas"
 
-#: src/getting-started/onboarding.md:139
+#: src/getting-started/onboarding.md:131
 msgid "User preferences / profile"
-msgstr ""
+msgstr "Preferências / perfil do utilizador"
 
-#: src/getting-started/onboarding.md:139 src/features/self-improvement.md:91
+#: src/getting-started/onboarding.md:131 src/features/self-improvement.md:91
 msgid "`USER.md`"
-msgstr ""
+msgstr "`USER.md`"
 
-#: src/getting-started/onboarding.md:139
+#: src/getting-started/onboarding.md:131
 msgid "Name, timezone, coding style"
-msgstr ""
+msgstr "Nome, fuso horário, estilo de programação"
 
-#: src/getting-started/onboarding.md:140
+#: src/getting-started/onboarding.md:132
 msgid "Coding standards / linting rules"
-msgstr ""
+msgstr "Normas de programação / regras de linting"
 
-#: src/getting-started/onboarding.md:140 src/features/self-improvement.md:94
+#: src/getting-started/onboarding.md:132 src/features/self-improvement.md:94
 msgid "`CODE.md`"
-msgstr ""
+msgstr "`CODE.md`"
 
-#: src/getting-started/onboarding.md:140
+#: src/getting-started/onboarding.md:132
 msgid "Style guides, conventions"
-msgstr ""
+msgstr "Guias de estilo, convenções"
 
-#: src/getting-started/onboarding.md:142
+#: src/getting-started/onboarding.md:134
 msgid ""
 "**Tip:** Run migration right after onboarding while the context is fresh. "
 "The agent already has your `USER.md` and `SOUL.md` from the wizard, so it "
 "can merge intelligently instead of overwriting."
-msgstr ""
+msgstr "**Dica:** Executa a migração logo a seguir ao onboarding, enquanto o contexto está fresco. O agente já tem o teu `USER.md` e o `SOUL.md` do assistente, por isso pode fazer a fusão de forma inteligente em vez de substituir."
 
-#: src/getting-started/onboarding.md:144
+#: src/getting-started/onboarding.md:136
 msgid "Key Commands"
-msgstr ""
+msgstr "Comandos principais"
 
-#: src/getting-started/onboarding.md:146
+#: src/getting-started/onboarding.md:138
 #: src/getting-started/configuration.md:95
 #: src/getting-started/configuration.md:126
 #: src/getting-started/configuration.md:150
@@ -3277,150 +3277,150 @@ msgstr ""
 msgid "Description"
 msgstr "Descrição"
 
-#: src/getting-started/onboarding.md:148
+#: src/getting-started/onboarding.md:140
 msgid "`/help`"
-msgstr ""
+msgstr "`/help`"
+
+#: src/getting-started/onboarding.md:140
+msgid "Show all available commands"
+msgstr "Mostra todos os comandos disponíveis"
+
+#: src/getting-started/onboarding.md:141 src/brain/providers.md:100
+msgid "`/models`"
+msgstr "`/models`"
+
+#: src/getting-started/onboarding.md:141
+msgid "Switch provider or model"
+msgstr "Muda de provider ou de modelo"
+
+#: src/getting-started/onboarding.md:142 src/features/sessions.md:116
+msgid "`/new`"
+msgstr "`/new`"
+
+#: src/getting-started/onboarding.md:142
+msgid "Create a new session"
+msgstr "Cria uma nova session"
+
+#: src/getting-started/onboarding.md:143 src/features/sessions.md:117
+msgid "`/sessions`"
+msgstr "`/sessions`"
+
+#: src/getting-started/onboarding.md:143
+msgid "Switch between sessions"
+msgstr "Muda entre sessions"
+
+#: src/getting-started/onboarding.md:144
+msgid "`/cd`"
+msgstr "`/cd`"
+
+#: src/getting-started/onboarding.md:144
+msgid "Change working directory"
+msgstr "Muda a pasta de trabalho"
+
+#: src/getting-started/onboarding.md:145
+msgid "`/compact`"
+msgstr "`/compact`"
+
+#: src/getting-started/onboarding.md:145
+msgid "Manually compact context"
+msgstr "Compacta o contexto manualmente"
+
+#: src/getting-started/onboarding.md:146 src/getting-started/cli-commands.md:32
+msgid "`/evolve`"
+msgstr "`/evolve`"
+
+#: src/getting-started/onboarding.md:146
+msgid "Download latest version"
+msgstr "Transfere a versão mais recente"
+
+#: src/getting-started/onboarding.md:147
+msgid "`/rebuild`"
+msgstr "`/rebuild`"
+
+#: src/getting-started/onboarding.md:147
+msgid "Build from source"
+msgstr "Compila a partir do código-fonte"
+
+#: src/getting-started/onboarding.md:148 src/getting-started/onboarding.md:156
+msgid "`/approve`"
+msgstr "`/approve`"
 
 #: src/getting-started/onboarding.md:148
-msgid "Show all available commands"
-msgstr ""
-
-#: src/getting-started/onboarding.md:149 src/brain/providers.md:100
-msgid "`/models`"
-msgstr ""
-
-#: src/getting-started/onboarding.md:149
-msgid "Switch provider or model"
-msgstr ""
-
-#: src/getting-started/onboarding.md:150 src/features/sessions.md:116
-msgid "`/new`"
-msgstr ""
+msgid "Set approval policy"
+msgstr "Define a política de aprovação"
 
 #: src/getting-started/onboarding.md:150
-msgid "Create a new session"
-msgstr ""
-
-#: src/getting-started/onboarding.md:151 src/features/sessions.md:117
-msgid "`/sessions`"
-msgstr ""
-
-#: src/getting-started/onboarding.md:151
-msgid "Switch between sessions"
-msgstr ""
+msgid "Approval Modes"
+msgstr "Modos de aprovação"
 
 #: src/getting-started/onboarding.md:152
-msgid "`/cd`"
-msgstr ""
-
-#: src/getting-started/onboarding.md:152
-msgid "Change working directory"
-msgstr ""
-
-#: src/getting-started/onboarding.md:153
-msgid "`/compact`"
-msgstr ""
-
-#: src/getting-started/onboarding.md:153
-msgid "Manually compact context"
-msgstr ""
-
-#: src/getting-started/onboarding.md:154 src/getting-started/cli-commands.md:32
-msgid "`/evolve`"
-msgstr ""
+msgid "Control how much autonomy the agent has:"
+msgstr "Controla o grau de autonomia do agente:"
 
 #: src/getting-started/onboarding.md:154
-msgid "Download latest version"
-msgstr ""
-
-#: src/getting-started/onboarding.md:155
-msgid "`/rebuild`"
-msgstr ""
-
-#: src/getting-started/onboarding.md:155
-msgid "Build from source"
-msgstr ""
-
-#: src/getting-started/onboarding.md:156 src/getting-started/onboarding.md:164
-msgid "`/approve`"
-msgstr ""
-
-#: src/getting-started/onboarding.md:156
-msgid "Set approval policy"
-msgstr ""
-
-#: src/getting-started/onboarding.md:158
-msgid "Approval Modes"
-msgstr ""
-
-#: src/getting-started/onboarding.md:160
-msgid "Control how much autonomy the agent has:"
-msgstr ""
-
-#: src/getting-started/onboarding.md:162
 #: src/getting-started/cli-commands.md:102
 msgid "Mode"
 msgstr "Modo"
 
-#: src/getting-started/onboarding.md:162 src/channels/whatsapp.md:89
+#: src/getting-started/onboarding.md:154 src/channels/whatsapp.md:89
 #: src/channels/trello.md:98 src/brain/commands.md:28
 #: src/development/testing.md:483
 msgid "Behavior"
-msgstr ""
+msgstr "Comportamento"
 
-#: src/getting-started/onboarding.md:164
+#: src/getting-started/onboarding.md:156
 msgid "Ask before every tool use (default)"
-msgstr ""
+msgstr "Pergunta antes de cada uso de ferramenta (predefinido)"
 
-#: src/getting-started/onboarding.md:165
+#: src/getting-started/onboarding.md:157
 msgid "`/approve auto`"
-msgstr ""
+msgstr "`/approve auto`"
 
-#: src/getting-started/onboarding.md:165
+#: src/getting-started/onboarding.md:157
 msgid "Auto-approve for this session"
-msgstr ""
+msgstr "Aprova automaticamente nesta session"
 
-#: src/getting-started/onboarding.md:166
+#: src/getting-started/onboarding.md:158
 msgid "`/approve yolo`"
-msgstr ""
+msgstr "`/approve yolo`"
 
-#: src/getting-started/onboarding.md:166
+#: src/getting-started/onboarding.md:158
 msgid "Auto-approve always (persists)"
-msgstr ""
+msgstr "Aprova sempre automaticamente (mantém-se)"
 
-#: src/getting-started/onboarding.md:168
+#: src/getting-started/onboarding.md:160
 msgid "Working Directory"
-msgstr ""
+msgstr "Pasta de trabalho"
 
-#: src/getting-started/onboarding.md:170
+#: src/getting-started/onboarding.md:162
 msgid ""
 "The agent operates within a working directory for file operations. Change it "
 "with:"
-msgstr ""
+msgstr "O agente opera dentro de uma pasta de trabalho para as operações com ficheiros. Muda-a com:"
 
-#: src/getting-started/onboarding.md:171
+#: src/getting-started/onboarding.md:163
 msgid "`/cd` command in chat"
-msgstr ""
+msgstr "Comando `/cd` no chat"
 
-#: src/getting-started/onboarding.md:172
+#: src/getting-started/onboarding.md:164
 msgid "Directory picker in the TUI (Tab to select)"
-msgstr ""
+msgstr "Seletor de pastas na TUI (Tab para selecionar)"
 
-#: src/getting-started/onboarding.md:173
+#: src/getting-started/onboarding.md:165
 msgid "`config_manager set_working_directory` tool"
-msgstr ""
+msgstr "Ferramenta `config_manager set_working_directory`"
 
-#: src/getting-started/onboarding.md:175
+#: src/getting-started/onboarding.md:167
 msgid ""
 "The working directory is persisted per-session. Switching sessions restores "
 "the directory automatically."
-msgstr ""
+msgstr "A pasta de trabalho é guardada por session. Ao mudar de session, a pasta é restaurada automaticamente."
 
-#: src/getting-started/onboarding.md:177
+#: src/getting-started/onboarding.md:169
 msgid "Model Filter Hint (v0.3.78)"
-msgstr ""
+msgstr "Dica de filtro de modelos (v0.3.78)"
 
-#: src/getting-started/onboarding.md:179
+#: src/getting-started/onboarding.md:171
 msgid ""
 "The onboarding model picker now **always renders a filter hint** above the "
 "model list (\"Type to filter...\"). Previously, the hint only appeared after "
@@ -3428,7 +3428,64 @@ msgid ""
 "Additionally, an **exactly-typed model ID** now beats a substring match: if "
 "you type `claude-opus-4-8` exactly, it selects that model even if other "
 "models contain the same substring."
-msgstr ""
+msgstr "O seletor de modelos do onboarding passa agora a **mostrar sempre uma dica de filtro** acima da lista de modelos (\"Type to filter...\"). Antes, a dica só aparecia depois de começares a escrever, por isso os utilizadores não sabiam que existia filtragem. Além disso, um **ID de modelo escrito exatamente** tem agora prioridade sobre uma correspondência parcial: se escreveres `claude-opus-4-8` exatamente, seleciona esse modelo, mesmo que outros modelos contenham a mesma sequência de caracteres."
+
+#: src/getting-started/videos.md:3
+msgid ""
+"Video walkthroughs of OpenCrabs setup and onboarding are on the OpenCrabs "
+"YouTube channel. Each OS has a quick start and an advanced setup video."
+msgstr "Os vídeos de demonstração da configuração e do onboarding do OpenCrabs estão no canal do OpenCrabs no YouTube. Cada sistema operativo tem um vídeo de início rápido e um de configuração avançada."
+
+#: src/getting-started/videos.md:5
+msgid "Quick start"
+msgstr "Início rápido"
+
+#: src/getting-started/videos.md:5
+msgid "Advanced setup (Telegram, voice, images)"
+msgstr "Configuração avançada (Telegram, voz, imagens)"
+
+#: src/getting-started/videos.md:7 src/development/building.md:10
+msgid "macOS"
+msgstr "macOS"
+
+#: src/getting-started/videos.md:7
+msgid "[Install in under 2 minutes (Homebrew)](https://youtu.be/1_Ta9BFxlSk)"
+msgstr "[Instalação em menos de 2 minutos (Homebrew)](https://youtu.be/1_Ta9BFxlSk)"
+
+#: src/getting-started/videos.md:7
+msgid "[Advanced setup on macOS](https://youtu.be/Lq891K2GFzU)"
+msgstr "[Configuração avançada no macOS](https://youtu.be/Lq891K2GFzU)"
+
+#: src/getting-started/videos.md:8
+msgid "Ubuntu/Linux"
+msgstr "Ubuntu/Linux"
+
+#: src/getting-started/videos.md:8
+msgid "[Install in 3 minutes (one paste)](https://youtu.be/sXfaKfQiAxo)"
+msgstr "[Instalação em 3 minutos (uma colagem)](https://youtu.be/sXfaKfQiAxo)"
+
+#: src/getting-started/videos.md:8
+msgid "[Advanced setup on Linux](https://youtu.be/uZLwzerkQt0)"
+msgstr "[Configuração avançada no Linux](https://youtu.be/uZLwzerkQt0)"
+
+#: src/getting-started/videos.md:9
+msgid "[Install in 2 minutes (PowerShell)](https://youtu.be/kY8SW83obOc)"
+msgstr "[Instalação em 2 minutos (PowerShell)](https://youtu.be/kY8SW83obOc)"
+
+#: src/getting-started/videos.md:9
+msgid "[Advanced setup on Windows](https://youtu.be/TZn1aYgpRuI)"
+msgstr "[Configuração avançada no Windows](https://youtu.be/TZn1aYgpRuI)"
+
+#: src/getting-started/videos.md:11
+msgid ""
+"All videos: **[youtube.com/@OpenCrabs](https://www.youtube.com/@OpenCrabs)**"
+msgstr "Todos os vídeos: **[youtube.com/@OpenCrabs](https://www.youtube.com/@OpenCrabs)**"
+
+#: src/getting-started/videos.md:13
+msgid ""
+"The [Onboarding](./onboarding.md) page has the step-by-step Quick and "
+"Advanced paths in text."
+msgstr "A página [Onboarding](./onboarding.md) tem os caminhos Rápido e Avançado, passo a passo, em texto."
 
 #: src/getting-started/configuration.md:3
 msgid "OpenCrabs uses two config files stored at `~/.opencrabs/`:"
@@ -24087,10 +24144,6 @@ msgstr ""
 
 #: src/development/building.md:8
 msgid "**pkg-config** (Linux/macOS)"
-msgstr ""
-
-#: src/development/building.md:10
-msgid "macOS"
 msgstr ""
 
 #: src/development/building.md:16
