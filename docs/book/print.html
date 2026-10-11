@@ -66,7 +66,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-6aeeb183.js";
+            window.path_to_searchindex_js = "searchindex-9ceeb1f2.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-9efdca0d.js"></script>
@@ -1062,19 +1062,34 @@ Register-ScheduledTask -TaskName "OpenCrabs" -Action $action -Trigger $trigger -
 <p>The onboarding model picker now <strong>always renders a filter hint</strong> above the model list (“Type to filter…”). Previously, the hint only appeared after you started typing, so users did not know filtering was available. Additionally, an <strong>exactly-typed model ID</strong> now beats a substring match: if you type <code>claude-opus-4-8</code> exactly, it selects that model even if other models contain the same substring.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="onboarding-videos"><a class="header" href="#onboarding-videos">Onboarding Videos</a></h1>
-<p>Video walkthroughs of OpenCrabs setup and onboarding are on the OpenCrabs YouTube channel. Each OS has a quick start and an advanced setup video.</p>
-<div class="table-wrapper">
-<table>
-<thead>
-<tr><th>OS</th><th>Quick start</th><th>Advanced setup (Telegram, voice, images)</th></tr>
-</thead>
-<tbody>
-<tr><td>macOS</td><td><a href="https://youtu.be/1_Ta9BFxlSk">Install in under 2 minutes (Homebrew)</a></td><td><a href="https://youtu.be/Lq891K2GFzU">Advanced setup on macOS</a></td></tr>
-<tr><td>Ubuntu/Linux</td><td><a href="https://youtu.be/sXfaKfQiAxo">Install in 3 minutes (one paste)</a></td><td><a href="https://youtu.be/uZLwzerkQt0">Advanced setup on Linux</a></td></tr>
-<tr><td>Windows</td><td><a href="https://youtu.be/kY8SW83obOc">Install in 2 minutes (PowerShell)</a></td><td><a href="https://youtu.be/TZn1aYgpRuI">Advanced setup on Windows</a></td></tr>
-</tbody>
-</table>
-</div>
+<p>Video walkthroughs of OpenCrabs setup and onboarding are on the OpenCrabs YouTube channel. Each OS has a quick start and an advanced setup video. Click a thumbnail to play it here.</p>
+<h2 id="macos"><a class="header" href="#macos">macOS</a></h2>
+<details>
+<summary><img src="https://img.youtube.com/vi/1_Ta9BFxlSk/hqdefault.jpg" alt="Install OpenCrabs on macOS in under 2 minutes (Homebrew)" width="480"> Install in under 2 minutes (Homebrew)</summary>
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/1_Ta9BFxlSk" title="Install OpenCrabs on macOS" loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+</details>
+<details>
+<summary><img src="https://img.youtube.com/vi/Lq891K2GFzU/hqdefault.jpg" alt="OpenCrabs advanced setup on macOS" width="480"> Advanced setup on macOS (Telegram, voice, images)</summary>
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/Lq891K2GFzU" title="OpenCrabs advanced setup on macOS" loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+</details>
+<h2 id="ubuntulinux"><a class="header" href="#ubuntulinux">Ubuntu/Linux</a></h2>
+<details>
+<summary><img src="https://img.youtube.com/vi/sXfaKfQiAxo/hqdefault.jpg" alt="Install OpenCrabs on Ubuntu/Linux in 3 minutes" width="480"> Install in 3 minutes (one paste)</summary>
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/sXfaKfQiAxo" title="Install OpenCrabs on Ubuntu/Linux" loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+</details>
+<details>
+<summary><img src="https://img.youtube.com/vi/uZLwzerkQt0/hqdefault.jpg" alt="OpenCrabs advanced setup on Linux" width="480"> Advanced setup on Linux (Telegram, voice, images)</summary>
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/uZLwzerkQt0" title="OpenCrabs advanced setup on Linux" loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+</details>
+<h2 id="windows-1"><a class="header" href="#windows-1">Windows</a></h2>
+<details>
+<summary><img src="https://img.youtube.com/vi/kY8SW83obOc/hqdefault.jpg" alt="Install OpenCrabs on Windows in 2 minutes" width="480"> Install in 2 minutes (PowerShell)</summary>
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/kY8SW83obOc" title="Install OpenCrabs on Windows" loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+</details>
+<details>
+<summary><img src="https://img.youtube.com/vi/TZn1aYgpRuI/hqdefault.jpg" alt="OpenCrabs advanced setup on Windows" width="480"> Advanced setup on Windows (Telegram, voice, images)</summary>
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/TZn1aYgpRuI" title="OpenCrabs advanced setup on Windows" loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+</details>
 <p>All videos: <strong><a href="https://www.youtube.com/@OpenCrabs">youtube.com/@OpenCrabs</a></strong></p>
 <p>The <a href="#onboarding">Onboarding</a> page has the step-by-step Quick and Advanced paths in text.</p>
 <div style="break-before: page; page-break-before: always;"></div>
@@ -8202,7 +8217,7 @@ node dist/cli.js linkedin comment &lt;post-url&gt; "text" # Comment on post
 <li><strong>OpenSSL</strong> development headers (vendored by default)</li>
 <li><strong>pkg-config</strong> (Linux/macOS)</li>
 </ul>
-<h3 id="macos"><a class="header" href="#macos">macOS</a></h3>
+<h3 id="macos-1"><a class="header" href="#macos-1">macOS</a></h3>
 <pre><code class="language-bash">brew install sqlite3 pkg-config
 </code></pre>
 <h3 id="ubuntu--debian"><a class="header" href="#ubuntu--debian">Ubuntu / Debian</a></h3>
