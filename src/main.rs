@@ -297,7 +297,7 @@ fn Nav(stars: Signal<u32>, tag: Signal<String>) -> impl IntoView {
                                     </span>
                                 }.into_any()
                             } else {
-                                view! { <a href=url class="nav-download">{move || t!(i18n, nav_download)}</a> }.into_any()
+                                view! { <a href="/download/" class="nav-download">{move || t!(i18n, nav_download)}</a> }.into_any()
                             }
                         }}
                     </li>
