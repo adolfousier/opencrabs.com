@@ -1,0 +1,28 @@
+{
+ "diff": [
+  "**10,366 tests** across providers, tools, channels, TUI, self-healing, and browser automation.",
+  "**Discord native surface (v0.5.5)**: polls via `send_poll`, TTS answers delivered as voice messages, and `commands.toml` projected onto native slash commands so your own commands show up in Discord's picker (#1848, #1849, #1850)",
+  "**Flow groups and write governors (v0.5.5)**: Discord and Slack open the flow group at turn start with a live clock covering thinking and activity text leading the line, and one outbound governor budgets every edit and parks on 429s (#1841, #1843, #1844, #1845, #1807, #1808, #1809, #1910, #1912, #2012)",
+  "**/respond_to and /cowork (v0.5.5)**: per-channel respond_to and open modes in config, plus the two commands to set them from inside the channel itself (#2014, #2015)",
+  "**Telegram rate discipline (v0.5.5)**: instrumented getUpdates polls and handler handoffs for stall triage, a cross-surface sub-second spacing floor with admission telemetry, a per-chat 429 pause behind one Cooldown accessor, and markdown links to local files delivered as documents (#1927, #1916, #1968)",
+  "**ACP v1 session lifecycle (v0.5.5)**: the five v1 session lifecycle methods are implemented and the plan is published as a native v1 plan update (#1815)",
+  "**TUI dialog footer, clickable URLs, onboarding timeline (v0.5.5)**: every dialog shares one command footer with direct a/r approval verbs, URLs and file paths are clickable, and onboarding is rebuilt as a left-side step timeline with direct setup commands (#1775, #1772, #1979, #1980, #1981, #1982)",
+  "**Cron one-shot retirement (v0.5.5)**: one-shot jobs retire on delivery instead of re-firing a year later, every delivered run carries its run id, and Discord cron reports arrive as one forum post (#544, #1703, #1851)",
+  "$(command -v jq >/dev/null 2>&1 && curl -s https://api.github.com/repos/opencrabs/opencrabs/releases/latest | jq -r .tag_name || curl -s https://api.github.com/repos/opencrabs/opencrabs/releases/latest | grep -o '\"tag_name\":\"[^\"]*\"' | cut -d'\"' -f4)",
+  "\"https://github.com/opencrabs/opencrabs/releases/download/${TAG}/opencrabs-${TAG}-${OS}-${ARCH}.tar.gz\"",
+  "Found a bug or want a feature? Open an issue on [GitHub](https://github.com/opencrabs/opencrabs/issues).",
+  "Grab a pre-built binary from [GitHub Releases](https://github.com/opencrabs/opencrabs/releases).",
+  "$(curl -s https://api.github.com/repos/opencrabs/opencrabs/releases/latest | jq -r .tag_name)",
+  "\"https://github.com/opencrabs/opencrabs/releases/download/${TAG}/opencrabs-${TAG}-linux-amd64.tar.gz\"",
+  "\"https://github.com/opencrabs/opencrabs/releases/download/${TAG}/opencrabs-${TAG}-linux-arm64.tar.gz\"",
+  "\"https://github.com/opencrabs/opencrabs/releases/download/${TAG}/opencrabs-${TAG}-macos-arm64.tar.gz\"",
+  "```powershell\n$tag = (Invoke-RestMethod https://api.github.com/repos/opencrabs/opencrabs/releases/latest).tag_name\n$ProgressPreference = 'SilentlyContinue'\nInvoke-WebRequest \"https://github.com/opencrabs/opencrabs/releases/download/$tag/opencrabs-$tag-windows-amd64.zip\" -OutFile opencrabs.zip -UseBasicParsing\nExpand-Archive opencrabs.zip -DestinationPath . -Force\n.\\opencrabs.exe\n```"
+ ],
+ "old_fuzzy_msgstr": {
+  "**10,366 tests** across providers, tools, channels, TUI, self-healing, and browser automation.": "**9,427 testes** em providers, ferramentas, channels, TUI, self-healing e automação de browser.",
+  "Found a bug or want a feature? Open an issue on [GitHub](https://github.com/opencrabs/opencrabs/issues).": "Encontraste um bug ou queres uma funcionalidade? Abre uma issue no [GitHub](https://github.com/adolfousier/opencrabs/issues).",
+  "Grab a pre-built binary from [GitHub Releases](https://github.com/opencrabs/opencrabs/releases).": "Vai buscar um binário pré-compilado ao [GitHub Releases](https://github.com/adolfousier/opencrabs/releases)."
+ },
+ "baseline": 32,
+ "now": 42
+}
