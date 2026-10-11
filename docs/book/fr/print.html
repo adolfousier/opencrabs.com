@@ -66,10 +66,10 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-8766c153.js";
+            window.path_to_searchindex_js = "searchindex-78f61682.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-bfb94109.js"></script>
+        <script src="toc-2be1a05c.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -873,198 +873,209 @@ Register-ScheduledTask -TaskName "OpenCrabs" -Action $action -Trigger $trigger -
 </ul>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="onboarding"><a class="header" href="#onboarding">Onboarding</a></h1>
-<p>When you launch OpenCrabs for the first time, the <strong>onboarding wizard</strong> walks you through setup.</p>
-<h2 id="-full-onboarding-walkthrough"><a class="header" href="#-full-onboarding-walkthrough">🎬 Full Onboarding Walkthrough</a></h2>
-<video controls="" width="100%" preload="metadata" playsinline="">
-  <source src="https://github.com/user-attachments/assets/833dd5e9-3bcc-432a-96ac-3a5bb97b5966" type="video/mp4">
-  <track kind="subtitles" src="../assets/advanced-onboard.vtt" srclang="en" label="English" default="">
-  Your browser does not support the video tag. <a href="https://github.com/user-attachments/assets/833dd5e9-3bcc-432a-96ac-3a5bb97b5966">Watch the video</a>.
-</video>
-<p>Narrated step-by-step covering both the Quick and Advanced paths below.</p>
-<h2 id="quick-start-3-minutes"><a class="header" href="#quick-start-3-minutes">Quick Start (3 minutes)</a></h2>
-<p>The fast path gets you chatting with the agent in under 3 minutes.</p>
+<p>Au premier lancement d’OpenCrabs, l’<strong>assistant d’onboarding</strong> vous guide tout au long de la configuration.</p>
+<p>Les vidéos pas à pas se trouvent sur la page <a href="#vidéos-donboarding">Vidéos d’onboarding</a>.</p>
+<h2 id="démarrage-rapide-3-minutes"><a class="header" href="#démarrage-rapide-3-minutes">Démarrage rapide (3 minutes)</a></h2>
+<p>La voie rapide vous permet de discuter avec l’agent en moins de 3 minutes.</p>
 <div class="table-wrapper">
 <table>
 <thead>
-<tr><th>Step</th><th>Action</th></tr>
+<tr><th>Étape</th><th>Action</th></tr>
 </thead>
 <tbody>
-<tr><td>1. Mode</td><td>Hit <code>Enter</code> on <strong>QuickStart</strong></td></tr>
-<tr><td>2. Workspace</td><td>Hit <code>Enter</code> to accept the default path</td></tr>
-<tr><td>3. Provider</td><td>Arrow to your provider (e.g. z.ai), hit <code>Enter</code>. Arrow down to select a plan (e.g. Coding), hit <code>Enter</code></td></tr>
-<tr><td>4. API Key</td><td>Paste your key (<code>Cmd+V</code> / <code>Ctrl+V</code> / <code>Cmd+Shift+V</code> / <code>Ctrl+Shift+V</code>), hit <code>Enter</code>. Model list loads live</td></tr>
-<tr><td>5. Model</td><td>Arrow to your model (e.g. gemini-2.5-pro), hit <code>Enter</code></td></tr>
-<tr><td>6. Daemon</td><td>Arrow to select whether to run as background daemon, hit <code>Enter</code></td></tr>
-<tr><td>7. Vibe Check</td><td>All checks should show ✅. Hit <code>Enter</code></td></tr>
-<tr><td>8. About You</td><td>Write something about yourself, the more the agent knows, the better. Hit <code>Enter</code></td></tr>
-<tr><td>9. About Agent</td><td>Write something about the agent’s personality. Hit <code>Enter</code></td></tr>
-<tr><td>10. Chat</td><td>You’re in. Start talking to your agent</td></tr>
+<tr><td>1. Mode</td><td>Appuyez sur <code>Enter</code> sur <strong>QuickStart</strong></td></tr>
+<tr><td>2. Espace de travail</td><td>Appuyez sur <code>Enter</code> pour accepter le chemin par défaut</td></tr>
+<tr><td>3. Provider</td><td>Utilisez les flèches pour aller à votre provider (par ex. z.ai), puis appuyez sur <code>Enter</code>. Utilisez la flèche bas pour choisir un forfait (par ex. Coding), puis appuyez sur <code>Enter</code></td></tr>
+<tr><td>4. Clé API</td><td>Collez votre clé (<code>Cmd+V</code> / <code>Ctrl+V</code> / <code>Cmd+Shift+V</code> / <code>Ctrl+Shift+V</code>), puis appuyez sur <code>Enter</code>. La liste des models se charge en direct</td></tr>
+<tr><td>5. Model</td><td>Utilisez les flèches pour aller à votre model (par ex. gemini-2.5-pro), puis appuyez sur <code>Enter</code></td></tr>
+<tr><td>6. Daemon</td><td>Utilisez les flèches pour choisir si OpenCrabs doit tourner en daemon en arrière-plan, puis appuyez sur <code>Enter</code></td></tr>
+<tr><td>7. Vibe Check</td><td>Toutes les vérifications doivent afficher ✅. Appuyez sur <code>Enter</code></td></tr>
+<tr><td>8. À propos de vous</td><td>Écrivez quelques lignes sur vous. Plus l’agent en sait, mieux c’est. Appuyez sur <code>Enter</code></td></tr>
+<tr><td>9. À propos de l’agent</td><td>Décrivez la personnalité de l’agent. Appuyez sur <code>Enter</code></td></tr>
+<tr><td>10. Chat</td><td>Vous êtes prêt. Commencez à parler à votre agent</td></tr>
 </tbody>
 </table>
 </div>
-<h2 id="advanced-setup-7-minutes"><a class="header" href="#advanced-setup-7-minutes">Advanced Setup (7 minutes)</a></h2>
-<p>Full setup with Telegram, local voice, vision, and image generation.</p>
+<h2 id="configuration-avancée-7-minutes"><a class="header" href="#configuration-avancée-7-minutes">Configuration avancée (7 minutes)</a></h2>
+<p>Configuration complète avec Telegram, la voix locale, la vision et la génération d’images.</p>
 <div class="table-wrapper">
 <table>
 <thead>
-<tr><th>Step</th><th>Action</th></tr>
+<tr><th>Étape</th><th>Action</th></tr>
 </thead>
 <tbody>
-<tr><td>1. Mode</td><td>Hit <code>Enter</code> on <strong>QuickStart</strong></td></tr>
-<tr><td>2. Workspace</td><td>Hit <code>Enter</code> to accept the default path</td></tr>
-<tr><td>3. Provider</td><td>Arrow to your provider (e.g. z.ai), hit <code>Enter</code>. Arrow down to select a plan, hit <code>Enter</code></td></tr>
-<tr><td>4. API Key</td><td>Paste your key, hit <code>Enter</code>. Model list loads live</td></tr>
-<tr><td>5. Model</td><td>Arrow to your model, hit <code>Enter</code></td></tr>
-<tr><td>6. Channels</td><td>Arrow to <strong>Other</strong>, hit <code>Space</code> to select Telegram, hit <code>Enter</code>. Paste your bot token, follow the instructions to get your chat ID, hit <code>Enter</code>. Select mention mode, hit <code>Enter</code>. Once it says <strong>Connected</strong>, hit <code>Enter</code> again. Arrow down to <strong>Continue</strong>, hit <code>Enter</code></td></tr>
-<tr><td>7. STT</td><td>Select <strong>Local</strong>, hit <code>Enter</code>. Pick model size (e.g. tiny for speed), hit <code>Enter</code></td></tr>
-<tr><td>8. TTS</td><td>Select <strong>Local</strong> again, hit <code>Enter</code>. Pick a voice (e.g. Ryan), hit <code>Enter</code>. Wait for the model download, arrow down to <strong>Continue</strong>, hit <code>Enter</code></td></tr>
-<tr><td>9. Image</td><td>Hit <code>Space</code> to select Vision and Image Generation, hit <code>Enter</code>. Paste your Gemini API key, hit <code>Enter</code></td></tr>
-<tr><td>10. Daemon</td><td>Arrow to select whether to run as background daemon, hit <code>Enter</code></td></tr>
-<tr><td>11. Vibe Check</td><td>All checks should show ✅. Hit <code>Enter</code></td></tr>
-<tr><td>12. About You</td><td>Write something about yourself, the more the agent knows, the better. Hit <code>Enter</code></td></tr>
-<tr><td>13. About Agent</td><td>Write something about the agent’s personality. Hit <code>Enter</code></td></tr>
-<tr><td>14. Chat</td><td>You’re in. Start talking to your agent</td></tr>
+<tr><td>1. Mode</td><td>Appuyez sur <code>Enter</code> sur <strong>QuickStart</strong></td></tr>
+<tr><td>2. Espace de travail</td><td>Appuyez sur <code>Enter</code> pour accepter le chemin par défaut</td></tr>
+<tr><td>3. Provider</td><td>Utilisez les flèches pour aller à votre provider (par ex. z.ai), puis appuyez sur <code>Enter</code>. Utilisez la flèche bas pour choisir un forfait, puis appuyez sur <code>Enter</code></td></tr>
+<tr><td>4. Clé API</td><td>Collez votre clé, puis appuyez sur <code>Enter</code>. La liste des models se charge en direct</td></tr>
+<tr><td>5. Model</td><td>Utilisez les flèches pour aller à votre model, puis appuyez sur <code>Enter</code></td></tr>
+<tr><td>6. Channels</td><td>Utilisez les flèches pour aller à <strong>Other</strong>, appuyez sur <code>Space</code> pour sélectionner Telegram, puis sur <code>Enter</code>. Collez votre token de bot, suivez les instructions pour obtenir votre chat ID, puis appuyez sur <code>Enter</code>. Choisissez le mode mention, puis appuyez sur <code>Enter</code>. Une fois que <strong>Connected</strong> s’affiche, appuyez de nouveau sur <code>Enter</code>. Utilisez la flèche bas pour aller à <strong>Continue</strong>, puis appuyez sur <code>Enter</code></td></tr>
+<tr><td>7. STT</td><td>Sélectionnez <strong>Local</strong>, puis appuyez sur <code>Enter</code>. Choisissez la taille du model (par ex. tiny pour la vitesse), puis appuyez sur <code>Enter</code></td></tr>
+<tr><td>8. TTS</td><td>Sélectionnez de nouveau <strong>Local</strong>, puis appuyez sur <code>Enter</code>. Choisissez une voix (par ex. Ryan), puis appuyez sur <code>Enter</code>. Attendez la fin du téléchargement du model, utilisez la flèche bas pour aller à <strong>Continue</strong>, puis appuyez sur <code>Enter</code></td></tr>
+<tr><td>9. Image</td><td>Appuyez sur <code>Space</code> pour sélectionner Vision et Génération d’images, puis appuyez sur <code>Enter</code>. Collez votre clé API Gemini, puis appuyez sur <code>Enter</code></td></tr>
+<tr><td>10. Daemon</td><td>Utilisez les flèches pour choisir si OpenCrabs doit tourner en daemon en arrière-plan, puis appuyez sur <code>Enter</code></td></tr>
+<tr><td>11. Vibe Check</td><td>Toutes les vérifications doivent afficher ✅. Appuyez sur <code>Enter</code></td></tr>
+<tr><td>12. À propos de vous</td><td>Écrivez quelques lignes sur vous. Plus l’agent en sait, mieux c’est. Appuyez sur <code>Enter</code></td></tr>
+<tr><td>13. À propos de l’agent</td><td>Décrivez la personnalité de l’agent. Appuyez sur <code>Enter</code></td></tr>
+<tr><td>14. Chat</td><td>Vous êtes prêt. Commencez à parler à votre agent</td></tr>
 </tbody>
 </table>
 </div>
-<h2 id="onboarding-flow"><a class="header" href="#onboarding-flow">Onboarding Flow</a></h2>
-<p>The wizard is a keyboard-driven TUI with 8 steps. Navigate with arrow keys, <code>Tab</code> to advance, <code>Esc</code> to go back.</p>
+<h2 id="déroulement-de-lonboarding"><a class="header" href="#déroulement-de-lonboarding">Déroulement de l’onboarding</a></h2>
+<p>L’assistant est une interface TUI pilotée au clavier, en 8 étapes. Naviguez avec les flèches, <code>Tab</code> pour avancer et <code>Esc</code> pour revenir en arrière.</p>
 <div class="table-wrapper">
 <table>
 <thead>
-<tr><th>Step</th><th>Screen</th><th>What you do</th></tr>
+<tr><th>Étape</th><th>Écran</th><th>Ce que vous faites</th></tr>
 </thead>
 <tbody>
-<tr><td>1</td><td><strong>Mode Select</strong></td><td>Choose QuickStart (skip channels) or Advanced</td></tr>
-<tr><td>2</td><td><strong>Workspace</strong></td><td>Pick a working directory for file operations</td></tr>
-<tr><td>3</td><td><strong>Provider &amp; Auth</strong></td><td>Select provider → paste API key → pick model (fetched live)</td></tr>
-<tr><td>4</td><td><strong>Channels</strong></td><td>Space to toggle channels on/off → Enter on each to configure</td></tr>
-<tr><td>5</td><td><strong>Voice</strong></td><td>STT provider (Groq, local Whisper, or off) + TTS voice</td></tr>
-<tr><td>6</td><td><strong>Image</strong></td><td>Vision toggle + generation model + API key</td></tr>
-<tr><td>7</td><td><strong>Daemon</strong></td><td>Install background daemon (optional)</td></tr>
-<tr><td>8</td><td><strong>Brain Setup</strong></td><td>Auto-generate SOUL.md from your profile</td></tr>
+<tr><td>1</td><td><strong>Choix du mode</strong></td><td>Choisissez QuickStart (sans les channels) ou Advanced</td></tr>
+<tr><td>2</td><td><strong>Espace de travail</strong></td><td>Choisissez un répertoire de travail pour les opérations sur les fichiers</td></tr>
+<tr><td>3</td><td><strong>Provider et authentification</strong></td><td>Choisissez le provider → collez la clé API → choisissez le model (récupéré en direct)</td></tr>
+<tr><td>4</td><td><strong>Channels</strong></td><td>Space pour activer ou désactiver les channels → Enter sur chacun pour le configurer</td></tr>
+<tr><td>5</td><td><strong>Voix</strong></td><td>Provider STT (Groq, Whisper local ou désactivé) + voix TTS</td></tr>
+<tr><td>6</td><td><strong>Image</strong></td><td>Activation de la vision + model de génération + clé API</td></tr>
+<tr><td>7</td><td><strong>Daemon</strong></td><td>Installer le daemon en arrière-plan (facultatif)</td></tr>
+<tr><td>8</td><td><strong>Configuration du brain</strong></td><td>Générer automatiquement SOUL.md à partir de votre profil</td></tr>
 </tbody>
 </table>
 </div>
-<h3 id="channel-setup-step-4"><a class="header" href="#channel-setup-step-4">Channel Setup (Step 4)</a></h3>
-<p>The channels screen lists 5 integrations: Telegram, Discord, WhatsApp, Slack, Trello.</p>
+<h3 id="configuration-des-channels-étape-4"><a class="header" href="#configuration-des-channels-étape-4">Configuration des channels (étape 4)</a></h3>
+<p>L’écran des channels liste 5 intégrations : Telegram, Discord, WhatsApp, Slack, Trello.</p>
 <ul>
-<li><code>Space</code> toggles a channel on/off</li>
-<li><code>Enter</code> on an enabled channel opens its setup screen (token, IDs, allowlists)</li>
-<li><code>Enter</code> on <strong>Continue</strong> or <code>Tab</code> skips to the next step</li>
-<li>Each channel setup screen has a <strong>Test Connection</strong> button</li>
+<li><code>Space</code> active ou désactive un channel</li>
+<li><code>Enter</code> sur un channel activé ouvre son écran de configuration (token, identifiants, listes d’autorisation)</li>
+<li><code>Enter</code> sur <strong>Continue</strong> ou <code>Tab</code> passe à l’étape suivante</li>
+<li>Chaque écran de configuration de channel possède un bouton <strong>Test Connection</strong></li>
 </ul>
-<p>See <a href="#channel-integrations">Channels Overview</a> for the full navigation guide.</p>
-<h3 id="re-running-setup"><a class="header" href="#re-running-setup">Re-running Setup</a></h3>
-<p>You can jump to any step without re-running the full wizard:</p>
+<p>Consultez <a href="#channel-integrations">Vue d’ensemble des channels</a> pour le guide de navigation complet.</p>
+<h3 id="relancer-la-configuration"><a class="header" href="#relancer-la-configuration">Relancer la configuration</a></h3>
+<p>Vous pouvez accéder directement à n’importe quelle étape sans relancer tout l’assistant :</p>
 <div class="table-wrapper">
 <table>
 <thead>
-<tr><th>Commande</th><th>Step</th></tr>
+<tr><th>Commande</th><th>Étape</th></tr>
 </thead>
 <tbody>
-<tr><td><code>/onboard</code></td><td>Full wizard</td></tr>
-<tr><td><code>/onboard:provider</code></td><td>Provider &amp; model selection</td></tr>
-<tr><td><code>/onboard:channels</code></td><td>Channel picker</td></tr>
-<tr><td><code>/onboard:voice</code></td><td>Voice setup</td></tr>
-<tr><td><code>/onboard:image</code></td><td>Image setup</td></tr>
-<tr><td><code>/onboard:brain</code></td><td>Brain file generation</td></tr>
+<tr><td><code>/onboard</code></td><td>Assistant complet</td></tr>
+<tr><td><code>/onboard:provider</code></td><td>Choix du provider et du model</td></tr>
+<tr><td><code>/onboard:channels</code></td><td>Sélection des channels</td></tr>
+<tr><td><code>/onboard:voice</code></td><td>Configuration de la voix</td></tr>
+<tr><td><code>/onboard:image</code></td><td>Configuration de l’image</td></tr>
+<tr><td><code>/onboard:brain</code></td><td>Génération des brain files</td></tr>
 </tbody>
 </table>
 </div>
-<p>After onboarding, your agent boots up and introduces itself. It reads its brain files (<code>SOUL.md</code>, <code>AGENTS.md</code>, <code>TOOLS.md</code>) and starts a conversation.</p>
-<h2 id="bootstrap"><a class="header" href="#bootstrap">Bootstrap</a></h2>
-<p>On the very first run, the agent goes through a <strong>bootstrap</strong> phase:</p>
+<p>Après l’onboarding, votre agent démarre et se présente. Il lit ses brain files (<code>SOUL.md</code>, <code>AGENTS.md</code>, <code>TOOLS.md</code>) et lance une conversation.</p>
+<h2 id="amorçage"><a class="header" href="#amorçage">Amorçage</a></h2>
+<p>Au tout premier lancement, l’agent passe par une phase d’<strong>amorçage</strong> :</p>
 <ul>
-<li>Gets to know you (name, preferences, work style)</li>
-<li>Establishes its identity (name, personality, emoji)</li>
-<li>Opens <code>SOUL.md</code> together to discuss values</li>
-<li>Sets up <code>USER.md</code> with your profile</li>
+<li>Apprend à vous connaître (nom, préférences, manière de travailler)</li>
+<li>Définit son identité (nom, personnalité, emoji)</li>
+<li>Ouvre <code>SOUL.md</code> avec vous pour discuter des valeurs</li>
+<li>Met en place <code>USER.md</code> avec votre profil</li>
 </ul>
-<p>The bootstrap file (<code>BOOTSTRAP.md</code>) deletes itself when complete.</p>
-<h2 id="migrating-from-another-tool"><a class="header" href="#migrating-from-another-tool">Migrating From Another Tool</a></h2>
-<p>Already using ClaudeCode, OpenClaw, Hermes, or any other AI agent harness? Your agent can migrate your existing data (memory, skills, custom commands, preferences) into its own brain files using natural language. No manual file shuffling needed.</p>
-<p>This works with <strong>any</strong> agent or coding harness that stores config locally. The migration searches your filesystem for the other tool’s config directories, reads their contents, and maps them into OpenCrabs’ own brain file format (<code>SOUL.md</code>, <code>USER.md</code>, <code>TOOLS.md</code>, <code>MEMORY.md</code>, <code>AGENTS.md</code>, <code>CODE.md</code>).</p>
-<h3 id="hand-held-migration"><a class="header" href="#hand-held-migration">Hand-Held Migration</a></h3>
-<p>If you want to review what gets migrated before it happens:</p>
+<p>Le fichier d’amorçage (<code>BOOTSTRAP.md</code>) se supprime automatiquement une fois terminé.</p>
+<h2 id="migration-depuis-un-autre-outil"><a class="header" href="#migration-depuis-un-autre-outil">Migration depuis un autre outil</a></h2>
+<p>Vous utilisez déjà ClaudeCode, OpenClaw, Hermes ou un autre harness d’agent IA ? Votre agent peut migrer vos données existantes (mémoire, skills, commandes personnalisées, préférences) vers ses propres brain files, en langage naturel. Aucune manipulation manuelle de fichiers n’est nécessaire.</p>
+<p>Cela fonctionne avec <strong>tout</strong> agent ou harness de code qui stocke sa configuration en local. La migration recherche dans votre système de fichiers les répertoires de configuration de l’autre outil, lit leur contenu et le transpose dans le format de brain files d’OpenCrabs (<code>SOUL.md</code>, <code>USER.md</code>, <code>TOOLS.md</code>, <code>MEMORY.md</code>, <code>AGENTS.md</code>, <code>CODE.md</code>).</p>
+<h3 id="migration-guidée"><a class="header" href="#migration-guidée">Migration guidée</a></h3>
+<p>Si vous souhaitez vérifier ce qui sera migré avant que cela n’ait lieu :</p>
 <blockquote>
-<p>Search for my ClaudeCode/OpenClaw/Hermes data locally (or any other agent harness I was using) and audit a migration to our own brain files, report back once its done, execute when I confirm and approve.</p>
+<p>Recherchez mes données ClaudeCode/OpenClaw/Hermes en local (ou tout autre harness d’agent que j’utilisais), auditez une migration vers nos propres brain files, faites-moi un rapport une fois terminé, et exécutez-la quand je confirme et approuve.</p>
 </blockquote>
-<p>The agent will:</p>
+<p>L’agent va :</p>
 <ol>
-<li>Search your filesystem for the other tool’s config directories</li>
-<li>Read and parse all relevant files (memory, commands, skills, preferences)</li>
-<li>Produce an audit showing exactly what maps where</li>
-<li>Wait for your confirmation</li>
-<li>Execute the migration and report a full breakdown</li>
+<li>Rechercher dans votre système de fichiers les répertoires de configuration de l’autre outil</li>
+<li>Lire et analyser tous les fichiers pertinents (mémoire, commandes, skills, préférences)</li>
+<li>Produire un audit indiquant exactement ce qui correspond à quoi</li>
+<li>Attendre votre confirmation</li>
+<li>Exécuter la migration et fournir un bilan complet</li>
 </ol>
-<h3 id="autonomous-migration"><a class="header" href="#autonomous-migration">Autonomous Migration</a></h3>
-<p>If you just want it done:</p>
+<h3 id="migration-autonome"><a class="header" href="#migration-autonome">Migration autonome</a></h3>
+<p>Si vous voulez simplement que ce soit fait :</p>
 <blockquote>
-<p>Search for my existing agent/harness data locally and migrate anything to our own brain files, no need my approval, just go, plan and execute, report back once its done with a full breakdown.</p>
+<p>Recherchez mes données d’agent ou de harness existantes en local et migrez tout vers nos propres brain files, sans attendre mon approbation. Lancez-vous, planifiez et exécutez, puis faites-moi un bilan complet une fois terminé.</p>
 </blockquote>
-<p>The agent skips the audit step, plans the migration internally, executes it, and gives you a summary of everything that moved.</p>
-<h3 id="what-gets-mapped"><a class="header" href="#what-gets-mapped">What Gets Mapped</a></h3>
+<p>L’agent saute l’étape d’audit, planifie la migration en interne, l’exécute et vous donne un résumé de tout ce qui a été déplacé.</p>
+<h3 id="ce-qui-est-transposé"><a class="header" href="#ce-qui-est-transposé">Ce qui est transposé</a></h3>
 <div class="table-wrapper">
 <table>
 <thead>
-<tr><th>Source</th><th>Destination</th><th>Example</th></tr>
+<tr><th>Source</th><th>Destination</th><th>Exemple</th></tr>
 </thead>
 <tbody>
-<tr><td>Memory / CLAUDE.md / context files</td><td><code>MEMORY.md</code></td><td>Project decisions, past context</td></tr>
-<tr><td>Custom commands</td><td><code>commands.toml</code></td><td>Slash commands and their definitions</td></tr>
-<tr><td>Skills / agent instructions</td><td><code>AGENTS.md</code>, <code>TOOLS.md</code></td><td>Workflow rules, tool configs</td></tr>
-<tr><td>User preferences / profile</td><td><code>USER.md</code></td><td>Name, timezone, coding style</td></tr>
-<tr><td>Coding standards / linting rules</td><td><code>CODE.md</code></td><td>Style guides, conventions</td></tr>
+<tr><td>Mémoire / CLAUDE.md / fichiers de contexte</td><td><code>MEMORY.md</code></td><td>Décisions de projet, contexte passé</td></tr>
+<tr><td>Commandes personnalisées</td><td><code>commands.toml</code></td><td>Commandes slash et leurs définitions</td></tr>
+<tr><td>Skills / instructions de l’agent</td><td><code>AGENTS.md</code>, <code>TOOLS.md</code></td><td>Règles de workflow, configurations d’outils</td></tr>
+<tr><td>Préférences / profil de l’utilisateur</td><td><code>USER.md</code></td><td>Nom, fuseau horaire, style de code</td></tr>
+<tr><td>Standards de code / règles de linting</td><td><code>CODE.md</code></td><td>Guides de style, conventions</td></tr>
 </tbody>
 </table>
 </div>
 <blockquote>
-<p><strong>Tip:</strong> Run migration right after onboarding while the context is fresh. The agent already has your <code>USER.md</code> and <code>SOUL.md</code> from the wizard, so it can merge intelligently instead of overwriting.</p>
+<p><strong>Astuce :</strong> Lancez la migration juste après l’onboarding, tant que le contexte est frais. L’agent dispose déjà de votre <code>USER.md</code> et de votre <code>SOUL.md</code> issus de l’assistant : il peut donc fusionner intelligemment au lieu d’écraser.</p>
 </blockquote>
-<h2 id="key-commands"><a class="header" href="#key-commands">Key Commands</a></h2>
+<h2 id="commandes-principales"><a class="header" href="#commandes-principales">Commandes principales</a></h2>
 <div class="table-wrapper">
 <table>
 <thead>
 <tr><th>Commande</th><th>Description</th></tr>
 </thead>
 <tbody>
-<tr><td><code>/help</code></td><td>Show all available commands</td></tr>
-<tr><td><code>/models</code></td><td>Switch provider or model</td></tr>
-<tr><td><code>/new</code></td><td>Create a new session</td></tr>
-<tr><td><code>/sessions</code></td><td>Switch between sessions</td></tr>
-<tr><td><code>/cd</code></td><td>Change working directory</td></tr>
-<tr><td><code>/compact</code></td><td>Manually compact context</td></tr>
-<tr><td><code>/evolve</code></td><td>Download latest version</td></tr>
-<tr><td><code>/rebuild</code></td><td>Build from source</td></tr>
-<tr><td><code>/approve</code></td><td>Set approval policy</td></tr>
+<tr><td><code>/help</code></td><td>Afficher toutes les commandes disponibles</td></tr>
+<tr><td><code>/models</code></td><td>Changer de provider ou de model</td></tr>
+<tr><td><code>/new</code></td><td>Créer une nouvelle session</td></tr>
+<tr><td><code>/sessions</code></td><td>Passer d’une session à l’autre</td></tr>
+<tr><td><code>/cd</code></td><td>Changer de répertoire de travail</td></tr>
+<tr><td><code>/compact</code></td><td>Compacter manuellement le contexte</td></tr>
+<tr><td><code>/evolve</code></td><td>Télécharger la dernière version</td></tr>
+<tr><td><code>/rebuild</code></td><td>Compiler depuis les sources</td></tr>
+<tr><td><code>/approve</code></td><td>Définir la politique d’approbation</td></tr>
 </tbody>
 </table>
 </div>
-<h2 id="approval-modes"><a class="header" href="#approval-modes">Approval Modes</a></h2>
-<p>Control how much autonomy the agent has:</p>
+<h2 id="modes-dapprobation"><a class="header" href="#modes-dapprobation">Modes d’approbation</a></h2>
+<p>Contrôlez le niveau d’autonomie de l’agent :</p>
 <div class="table-wrapper">
 <table>
 <thead>
-<tr><th>Mode</th><th>Behavior</th></tr>
+<tr><th>Mode</th><th>Comportement</th></tr>
 </thead>
 <tbody>
-<tr><td><code>/approve</code></td><td>Ask before every tool use (default)</td></tr>
-<tr><td><code>/approve auto</code></td><td>Auto-approve for this session</td></tr>
-<tr><td><code>/approve yolo</code></td><td>Auto-approve always (persists)</td></tr>
+<tr><td><code>/approve</code></td><td>Demander avant chaque utilisation d’outil (par défaut)</td></tr>
+<tr><td><code>/approve auto</code></td><td>Approbation automatique pour cette session</td></tr>
+<tr><td><code>/approve yolo</code></td><td>Approbation automatique permanente (conservée)</td></tr>
 </tbody>
 </table>
 </div>
-<h2 id="working-directory"><a class="header" href="#working-directory">Working Directory</a></h2>
-<p>The agent operates within a working directory for file operations. Change it with:</p>
+<h2 id="répertoire-de-travail"><a class="header" href="#répertoire-de-travail">Répertoire de travail</a></h2>
+<p>L’agent travaille dans un répertoire de travail pour ses opérations sur les fichiers. Modifiez-le avec :</p>
 <ul>
-<li><code>/cd</code> command in chat</li>
-<li>Directory picker in the TUI (Tab to select)</li>
-<li><code>config_manager set_working_directory</code> tool</li>
+<li>La commande <code>/cd</code> dans le chat</li>
+<li>Le sélecteur de répertoire dans le TUI (Tab pour sélectionner)</li>
+<li>L’outil <code>config_manager set_working_directory</code></li>
 </ul>
-<p>The working directory is persisted per-session. Switching sessions restores the directory automatically.</p>
-<h2 id="model-filter-hint-v0378"><a class="header" href="#model-filter-hint-v0378">Model Filter Hint (v0.3.78)</a></h2>
-<p>The onboarding model picker now <strong>always renders a filter hint</strong> above the model list (“Type to filter…”). Previously, the hint only appeared after you started typing, so users did not know filtering was available. Additionally, an <strong>exactly-typed model ID</strong> now beats a substring match: if you type <code>claude-opus-4-8</code> exactly, it selects that model even if other models contain the same substring.</p>
+<p>Le répertoire de travail est conservé par session. Changer de session restaure automatiquement le répertoire.</p>
+<h2 id="indication-de-filtre-des-models-v0378"><a class="header" href="#indication-de-filtre-des-models-v0378">Indication de filtre des models (v0.3.78)</a></h2>
+<p>Le sélecteur de model de l’onboarding affiche désormais <strong>toujours une indication de filtre</strong> au-dessus de la liste des models (“Tapez pour filtrer…”). Auparavant, cette indication n’apparaissait qu’après la saisie, et les utilisateurs ne savaient pas que le filtrage était disponible. De plus, un <strong>ID de model saisi exactement</strong> l’emporte désormais sur une correspondance partielle : si vous tapez <code>claude-opus-4-8</code> exactement, ce model est sélectionné même si d’autres models contiennent la même sous-chaîne.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="vidéos-donboarding"><a class="header" href="#vidéos-donboarding">Vidéos d’onboarding</a></h1>
+<p>Les vidéos pas à pas de la configuration et de l’onboarding d’OpenCrabs sont sur la chaîne YouTube d’OpenCrabs. Chaque OS dispose d’une vidéo de démarrage rapide et d’une vidéo de configuration avancée.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>OS</th><th>Démarrage rapide</th><th>Configuration avancée (Telegram, voix, images)</th></tr>
+</thead>
+<tbody>
+<tr><td>macOS</td><td><a href="https://youtu.be/1_Ta9BFxlSk">Installation en moins de 2 minutes (Homebrew)</a></td><td><a href="https://youtu.be/Lq891K2GFzU">Configuration avancée sur macOS</a></td></tr>
+<tr><td>Ubuntu/Linux</td><td><a href="https://youtu.be/sXfaKfQiAxo">Installation en 3 minutes (un seul collage)</a></td><td><a href="https://youtu.be/uZLwzerkQt0">Configuration avancée sur Linux</a></td></tr>
+<tr><td>Windows</td><td><a href="https://youtu.be/kY8SW83obOc">Installation en 2 minutes (PowerShell)</a></td><td><a href="https://youtu.be/TZn1aYgpRuI">Configuration avancée sur Windows</a></td></tr>
+</tbody>
+</table>
+</div>
+<p>Toutes les vidéos : <strong><a href="https://www.youtube.com/@OpenCrabs">youtube.com/@OpenCrabs</a></strong></p>
+<p>La page <a href="#onboarding">Onboarding</a> présente en texte les parcours pas à pas Démarrage rapide et Avancé.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="configuration"><a class="header" href="#configuration">Configuration</a></h1>
 <p>OpenCrabs uses two config files stored at <code>~/.opencrabs/</code>:</p>
@@ -3404,7 +3415,7 @@ daily_cap = 800            # rolling 24h hard cap
 <div class="table-wrapper">
 <table>
 <thead>
-<tr><th>Mechanism</th><th>Behavior</th></tr>
+<tr><th>Mechanism</th><th>Comportement</th></tr>
 </thead>
 <tbody>
 <tr><td><strong>Per-minute pacing</strong></td><td>A token bucket sized to <code>messages_per_minute</code> (default 30) refills continuously. An over-budget send is <strong>paced</strong>, not dropped: the caller sleeps for the refill gap and then sends. Set <code>0</code> to disable pacing.</td></tr>
@@ -3572,7 +3583,7 @@ session_idle_hours = 24.0               # idle timeout for non-owner sessions
 </tbody>
 </table>
 </div>
-<h2 id="behavior"><a class="header" href="#behavior">Behavior</a></h2>
+<h2 id="comportement"><a class="header" href="#comportement">Comportement</a></h2>
 <ul>
 <li><strong>Tool-only by default</strong> — The agent acts on Trello only when explicitly asked</li>
 <li><strong>Optional polling</strong> — Set <code>poll_interval_secs</code> to enable monitoring for <code>@bot_username</code> mentions</li>
@@ -3843,7 +3854,7 @@ value = "System is operational. All channels connected."
 <div class="table-wrapper">
 <table>
 <thead>
-<tr><th>Action</th><th>Behavior</th></tr>
+<tr><th>Action</th><th>Comportement</th></tr>
 </thead>
 <tbody>
 <tr><td><code>prompt</code></td><td>Sends the <code>value</code> as a message to the agent — the agent processes it like any user message</td></tr>
@@ -4390,7 +4401,7 @@ coerce_empty_to = "--quiet"
 <h2 id="how-it-works-3"><a class="header" href="#how-it-works-3">How It Works</a></h2>
 <p>The browser is lazy-initialized as a singleton — it only launches when the agent first needs it. It runs in stealth mode with a persistent profile directory, so cookies and sessions survive across tool calls.</p>
 <p>On macOS, display auto-detection enables headed mode when a display is available, falling back to headless in CI or daemon environments.</p>
-<h2 id="example"><a class="header" href="#example">Example</a></h2>
+<h2 id="exemple"><a class="header" href="#exemple">Exemple</a></h2>
 <p>Ask the agent:</p>
 <blockquote>
 <p>“Go to our staging site, log in with the test account, navigate to the dashboard, and take a screenshot”</p>
@@ -5498,7 +5509,7 @@ providers = ["openrouter", "anthropic"]  # tried in order
 <li>Rationale (which feedback event triggered it)</li>
 </ul>
 <p>Old improvements are archived to <code>~/.opencrabs/rsi/history/</code> to keep the active file lean.</p>
-<h2 id="example-1"><a class="header" href="#example-1">Example</a></h2>
+<h2 id="exemple-1"><a class="header" href="#exemple-1">Exemple</a></h2>
 <pre><code>User: "stop including testing steps in your output"
   → feedback_record(event_type="user_correction", dimension="output_hygiene")
   
@@ -8772,7 +8783,7 @@ cargo test --all-features -p opencrabs -- profile_test
 </tbody>
 </table>
 </div>
-<h3 id="behavior-1"><a class="header" href="#behavior-1">Behavior</a></h3>
+<h3 id="comportement-1"><a class="header" href="#comportement-1">Comportement</a></h3>
 <p>When the agent outputs one of these phrases with zero tool calls, the phantom detector:</p>
 <ol>
 <li>Catches the mismatch between intent and action</li>

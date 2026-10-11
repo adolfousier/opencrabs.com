@@ -66,10 +66,10 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-7475517f.js";
+            window.path_to_searchindex_js = "searchindex-6aeeb183.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-bfb94109.js"></script>
+        <script src="toc-9efdca0d.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -875,13 +875,7 @@ Register-ScheduledTask -TaskName "OpenCrabs" -Action $action -Trigger $trigger -
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="onboarding"><a class="header" href="#onboarding">Onboarding</a></h1>
 <p>When you launch OpenCrabs for the first time, the <strong>onboarding wizard</strong> walks you through setup.</p>
-<h2 id="-full-onboarding-walkthrough"><a class="header" href="#-full-onboarding-walkthrough">🎬 Full Onboarding Walkthrough</a></h2>
-<video controls="" width="100%" preload="metadata" playsinline="">
-  <source src="https://github.com/user-attachments/assets/833dd5e9-3bcc-432a-96ac-3a5bb97b5966" type="video/mp4">
-  <track kind="subtitles" src="../assets/advanced-onboard.vtt" srclang="en" label="English" default="">
-  Your browser does not support the video tag. <a href="https://github.com/user-attachments/assets/833dd5e9-3bcc-432a-96ac-3a5bb97b5966">Watch the video</a>.
-</video>
-<p>Narrated step-by-step covering both the Quick and Advanced paths below.</p>
+<p>Video walkthroughs are on the <a href="#onboarding-videos">Onboarding Videos</a> page.</p>
 <h2 id="quick-start-3-minutes"><a class="header" href="#quick-start-3-minutes">Quick Start (3 minutes)</a></h2>
 <p>The fast path gets you chatting with the agent in under 3 minutes.</p>
 <div class="table-wrapper">
@@ -1066,6 +1060,23 @@ Register-ScheduledTask -TaskName "OpenCrabs" -Action $action -Trigger $trigger -
 <p>The working directory is persisted per-session. Switching sessions restores the directory automatically.</p>
 <h2 id="model-filter-hint-v0378"><a class="header" href="#model-filter-hint-v0378">Model Filter Hint (v0.3.78)</a></h2>
 <p>The onboarding model picker now <strong>always renders a filter hint</strong> above the model list (“Type to filter…”). Previously, the hint only appeared after you started typing, so users did not know filtering was available. Additionally, an <strong>exactly-typed model ID</strong> now beats a substring match: if you type <code>claude-opus-4-8</code> exactly, it selects that model even if other models contain the same substring.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="onboarding-videos"><a class="header" href="#onboarding-videos">Onboarding Videos</a></h1>
+<p>Video walkthroughs of OpenCrabs setup and onboarding are on the OpenCrabs YouTube channel. Each OS has a quick start and an advanced setup video.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>OS</th><th>Quick start</th><th>Advanced setup (Telegram, voice, images)</th></tr>
+</thead>
+<tbody>
+<tr><td>macOS</td><td><a href="https://youtu.be/1_Ta9BFxlSk">Install in under 2 minutes (Homebrew)</a></td><td><a href="https://youtu.be/Lq891K2GFzU">Advanced setup on macOS</a></td></tr>
+<tr><td>Ubuntu/Linux</td><td><a href="https://youtu.be/sXfaKfQiAxo">Install in 3 minutes (one paste)</a></td><td><a href="https://youtu.be/uZLwzerkQt0">Advanced setup on Linux</a></td></tr>
+<tr><td>Windows</td><td><a href="https://youtu.be/kY8SW83obOc">Install in 2 minutes (PowerShell)</a></td><td><a href="https://youtu.be/TZn1aYgpRuI">Advanced setup on Windows</a></td></tr>
+</tbody>
+</table>
+</div>
+<p>All videos: <strong><a href="https://www.youtube.com/@OpenCrabs">youtube.com/@OpenCrabs</a></strong></p>
+<p>The <a href="#onboarding">Onboarding</a> page has the step-by-step Quick and Advanced paths in text.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="configuration"><a class="header" href="#configuration">Configuration</a></h1>
 <p>OpenCrabs uses two config files stored at <code>~/.opencrabs/</code>:</p>
