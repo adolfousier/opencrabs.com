@@ -66,7 +66,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-7ff9050f.js";
+            window.path_to_searchindex_js = "searchindex-7ec7e1b3.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-ac1382d2.js"></script>
@@ -225,7 +225,7 @@
 <li><strong>Integrasi CLI natif</strong> — gunakan Claude Code CLI, OpenCode CLI, Codex CLI, dan Command Code CLI sebagai provider tanpa kunci API</li>
 <li><strong>Rantai fallback lengket</strong> — failover otomatis saat rate limit atau error, persistensi sadar-kesehatan bertahan melewati restart</li>
 <li><strong>Prompt caching</strong> di Anthropic, OpenRouter, Gemini, Qwen DashScope memangkas biaya hingga 95%</li>
-<li><strong>Override jendela konteks</strong> — batasi atau perluas konteks model apa pun lewat konfigurasi</li>
+<li><strong>Context window override</strong> — cap or expand context for any model via config (the built-in OpenCrabs provider is the exception: its window is fixed at 200k)</li>
 <li><strong>Xiaomi MiMo</strong> — 30+ model termasuk seri reasoning MiMo, provider berkunci</li>
 <li><strong>Moonshot AI (Kimi)</strong> — endpoint API plan (api.moonshot.ai) dan Coding plan (api.kimi.com), konfigurasi reasoning-effort, jendela konteks sesuai tier paket</li>
 </ul>
@@ -2570,7 +2570,7 @@ provider = "openrouter"
 <tr><td><code>force_default</code></td><td>bool</td><td><code>false</code></td><td>Push this provider’s default pair to all sessions on reload (see <a href="#force-default-provider">Force Default Provider</a>)</td></tr>
 <tr><td><code>vision_model</code></td><td>string</td><td><code>None</code></td><td>Vision-capable model override (swaps in when images are present)</td></tr>
 <tr><td><code>generation_model</code></td><td>string</td><td><code>None</code></td><td>Image generation model override (wins over global <code>image.generation.model</code>)</td></tr>
-<tr><td><code>context_window</code></td><td>u32</td><td><code>None</code></td><td>Context window size in tokens (for auto-compaction)</td></tr>
+<tr><td><code>context_window</code></td><td>u32</td><td><code>None</code></td><td>Context window size in tokens (for auto-compaction). Ignored on the built-in OpenCrabs provider, whose window is fixed at 200k</td></tr>
 <tr><td><code>endpoint_type</code></td><td>string</td><td><code>None</code></td><td>Endpoint type for providers with multiple API modes (e.g. z.ai: <code>"api"</code> or <code>"coding"</code>)</td></tr>
 <tr><td><code>plan</code></td><td>string</td><td><code>None</code></td><td>Subscription tier (Kimi Code: <code>"moderato"</code>, <code>"allegretto"</code>, <code>"allegro"</code>, <code>"vivace"</code>)</td></tr>
 <tr><td><code>reasoning_effort</code></td><td>string</td><td><code>None</code></td><td>Reasoning control (e.g. <code>"max"</code> for Kimi K3, <code>"on"</code>/<code>"off"</code> for K2.x)</td></tr>

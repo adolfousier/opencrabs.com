@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OpenCrabs\n"
-"POT-Creation-Date: 2026-10-11T21:49:37+01:00\n"
+"POT-Creation-Date: 2026-10-15T23:56:24+01:00\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -342,7 +342,9 @@ msgstr ""
 
 #: src/introduction.md:20
 msgid ""
-"**Context window override** — cap or expand context for any model via config"
+"**Context window override** — cap or expand context for any model via config "
+"(the built-in OpenCrabs provider is the exception: its window is fixed at "
+"200k)"
 msgstr ""
 
 #: src/introduction.md:21
@@ -7977,7 +7979,9 @@ msgid "u32"
 msgstr ""
 
 #: src/brain/providers.md:440
-msgid "Context window size in tokens (for auto-compaction)"
+msgid ""
+"Context window size in tokens (for auto-compaction). Ignored on the built-in "
+"OpenCrabs provider, whose window is fixed at 200k"
 msgstr ""
 
 #: src/brain/providers.md:441
