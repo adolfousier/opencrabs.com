@@ -17,7 +17,7 @@
 - **Native CLI integration** — use Claude Code CLI, OpenCode CLI, Codex CLI, and Command Code CLI as providers without API keys
 - **Sticky fallback chain** — auto-failover on rate limits or errors, health-aware persistence survives restarts
 - **Prompt caching** across Anthropic, OpenRouter, Gemini, Qwen DashScope reduces costs up to 95%
-- **Context window override** — cap or expand context for any model via config
+- **Context window override** — cap or expand context for any model via config (the built-in OpenCrabs provider is the exception: its window is fixed at 200k)
 - **Xiaomi MiMo** — 30+ models including the MiMo reasoning series, keyed provider
 - **Moonshot AI (Kimi)** — API plan (api.moonshot.ai) and Coding plan (api.kimi.com) endpoints, reasoning-effort config, plan-tier context window
 

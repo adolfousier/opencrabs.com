@@ -437,7 +437,7 @@ Every provider section (`[providers.<name>]`) supports these fields:
 | `force_default` | bool | `false` | Push this provider's default pair to all sessions on reload (see [Force Default Provider](#force-default-provider)) |
 | `vision_model` | string | `None` | Vision-capable model override (swaps in when images are present) |
 | `generation_model` | string | `None` | Image generation model override (wins over global `image.generation.model`) |
-| `context_window` | u32 | `None` | Context window size in tokens (for auto-compaction) |
+| `context_window` | u32 | `None` | Context window size in tokens (for auto-compaction). Ignored on the built-in OpenCrabs provider, whose window is fixed at 200k |
 | `endpoint_type` | string | `None` | Endpoint type for providers with multiple API modes (e.g. z.ai: `"api"` or `"coding"`) |
 | `plan` | string | `None` | Subscription tier (Kimi Code: `"moderato"`, `"allegretto"`, `"allegro"`, `"vivace"`) |
 | `reasoning_effort` | string | `None` | Reasoning control (e.g. `"max"` for Kimi K3, `"on"`/`"off"` for K2.x) |
