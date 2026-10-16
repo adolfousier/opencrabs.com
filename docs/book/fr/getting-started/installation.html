@@ -65,7 +65,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-d36c8da3.js";
+            window.path_to_searchindex_js = "../searchindex-ddc5c24e.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-2be1a05c.js"></script>
@@ -213,7 +213,7 @@
 <pre><code class="language-bash">brew install opencrabs
 </code></pre>
 <p>OpenCrabs is in <a href="https://github.com/Homebrew/homebrew-core/blob/HEAD/Formula/o/opencrabs.rb">homebrew-core</a>. Homebrew ships prebuilt bottles for Apple Silicon Macs (macOS 15 and newer) and for Linux amd64 and arm64, so no Rust toolchain is needed there. On an Intel Mac, Homebrew builds it from source instead; use the <code>macos-amd64</code> release binary if you’d rather skip the build.</p>
-<p>Lancez <code>opencrabs</code> après l’installation — l’assistant d’onboarding gère tout au premier lancement.</p>
+<p>Lancez <code>opencrabs</code> après l’installation. Il va directement dans le chat avec son provider intégré déjà actif, donc le crab vous salue et vous pouvez commencer à parler. Lancez <code>opencrabs --onboard</code> quand vous voulez l’assistant de configuration.</p>
 <h2 id="option-2--télécharger-le-binaire-toutes-plateformes"><a class="header" href="#option-2--télécharger-le-binaire-toutes-plateformes">Option 2 : Télécharger le binaire (toutes plateformes)</a></h2>
 <p>Récupérez un binaire précompilé sur <a href="https://github.com/opencrabs/opencrabs/releases">GitHub Releases</a>.</p>
 <h3 id="linux-amd64"><a class="header" href="#linux-amd64">Linux (amd64)</a></h3>
@@ -240,7 +240,7 @@ Invoke-WebRequest "https://github.com/opencrabs/opencrabs/releases/download/$tag
 Expand-Archive opencrabs.zip -DestinationPath . -Force
 .\opencrabs.exe
 </code></pre>
-<p>L’assistant d’onboarding gère tout au premier lancement.</p>
+<p>Il va directement dans le chat avec son provider intégré déjà actif. Lancez <code>opencrabs --onboard</code> quand vous voulez l’assistant de configuration.</p>
 <blockquote>
 <p><strong>Windows est une plateforme native (v0.5.3) :</strong> gestion du shell consciente de la plateforme, lecture BOM/UTF-16 et fallbacks tilde/cwd intégrés, et la CI compile Windows à chaque PR (#627).</p>
 </blockquote>

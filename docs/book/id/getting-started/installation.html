@@ -65,7 +65,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-7ec7e1b3.js";
+            window.path_to_searchindex_js = "../searchindex-ba588bb4.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-ac1382d2.js"></script>
@@ -213,7 +213,7 @@
 <pre><code class="language-bash">brew install opencrabs
 </code></pre>
 <p>OpenCrabs is in <a href="https://github.com/Homebrew/homebrew-core/blob/HEAD/Formula/o/opencrabs.rb">homebrew-core</a>. Homebrew ships prebuilt bottles for Apple Silicon Macs (macOS 15 and newer) and for Linux amd64 and arm64, so no Rust toolchain is needed there. On an Intel Mac, Homebrew builds it from source instead; use the <code>macos-amd64</code> release binary if you’d rather skip the build.</p>
-<p>Jalankan <code>opencrabs</code> setelah instal — wizard onboarding menangani semuanya saat menjalankan pertama.</p>
+<p>Jalankan <code>opencrabs</code> setelah instalasi. Langsung masuk ke chat dengan provider bawaannya sudah aktif, jadi crab menyapa Anda dan Anda bisa mulai bicara. Jalankan <code>opencrabs --onboard</code> kalau Anda mau wizard penyiapan.</p>
 <h2 id="cara-2-unduh-biner-semua-platform"><a class="header" href="#cara-2-unduh-biner-semua-platform">Cara 2: Unduh Biner (semua platform)</a></h2>
 <p>Ambil biner siap pakai dari <a href="https://github.com/opencrabs/opencrabs/releases">GitHub Releases</a>.</p>
 <h3 id="linux-amd64"><a class="header" href="#linux-amd64">Linux (amd64)</a></h3>
@@ -240,7 +240,7 @@ Invoke-WebRequest "https://github.com/opencrabs/opencrabs/releases/download/$tag
 Expand-Archive opencrabs.zip -DestinationPath . -Force
 .\opencrabs.exe
 </code></pre>
-<p>Wizard onboarding menangani semuanya saat menjalankan pertama.</p>
+<p>Ia langsung masuk ke chat dengan provider bawaannya sudah aktif. Jalankan <code>opencrabs --onboard</code> kalau Anda mau wizard penyiapan.</p>
 <blockquote>
 <p><strong>Windows adalah platform kelas satu (v0.5.3):</strong> penanganan shell yang sadar platform, pembacaan BOM/UTF-16 dan fallback tilde/cwd bawaan, dan CI membangun Windows di setiap PR (#627).</p>
 </blockquote>

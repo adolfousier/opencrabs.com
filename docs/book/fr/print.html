@@ -66,7 +66,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-d36c8da3.js";
+            window.path_to_searchindex_js = "searchindex-ddc5c24e.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-2be1a05c.js"></script>
@@ -210,7 +210,7 @@
                     <main>
                         <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
 <p><strong>OpenCrabs</strong> est un agent d’orchestration IA auto-hébergé et agnostique du provider qui s’exécute comme un unique binaire Rust. Il automatise votre terminal, votre navigateur, vos channels (Telegram/Discord/Slack/WhatsApp/Trello) et votre codebase, tout en respectant votre vie privée et en vous gardant aux commandes.</p>
-<p><strong>10,366 tests</strong> sur les providers, les outils, les channels, le TUI, le self-healing et l’automatisation de browser.</p>
+<p><strong>10,782 tests</strong> sur les providers, les outils, les channels, le TUI, le self-healing et l’automatisation de browser.</p>
 <h2 id="ce-qui-distingue-opencrabs"><a class="header" href="#ce-qui-distingue-opencrabs">Ce qui distingue OpenCrabs</a></h2>
 <h3 id="zéro-télémétrie-même-pas-en-opt-in"><a class="header" href="#zéro-télémétrie-même-pas-en-opt-in">Zéro télémétrie, même pas en opt-in</a></h3>
 <ul>
@@ -225,7 +225,7 @@
 <li><strong>Intégration CLI native</strong> — utilisez Claude Code CLI, OpenCode CLI, Codex CLI et Command Code CLI comme providers sans clés API</li>
 <li><strong>Chaîne de fallback persistante</strong> — failover automatique sur rate limits ou erreurs, persistance sensible à l’état de santé qui survit aux redémarrages</li>
 <li><strong>Prompt caching</strong> sur Anthropic, OpenRouter, Gemini et Qwen DashScope réduit les coûts jusqu’à 95 %</li>
-<li><strong>Context window override</strong> — cap or expand context for any model via config (the built-in OpenCrabs provider is the exception: its window is fixed at 200k)</li>
+<li><strong>Override de la fenêtre de contexte</strong> — plafonnez ou étendez le contexte de n’importe quel model via la config (le provider OpenCrabs intégré est l’exception : sa fenêtre est fixée à 200k)</li>
 <li><strong>Xiaomi MiMo</strong> — plus de 30 models dont la série de reasoning MiMo, provider à clé</li>
 <li><strong>Moonshot AI (Kimi)</strong> — endpoints du plan API (api.moonshot.ai) et du plan Coding (api.kimi.com), config de reasoning-effort, fenêtre de contexte selon le palier de plan</li>
 </ul>
@@ -433,6 +433,18 @@
 </li>
 <li>
 <p><strong>Retraite des cron one-shot (v0.5.5)</strong> : les jobs one-shot se retirent à la livraison au lieu de se redéclencher un an plus tard, chaque exécution livrée porte son run id, et les rapports cron de Discord arrivent en un seul post de forum (#544, #1703, #1851)</p>
+</li>
+<li>
+<p><strong>Premier lancement sans configuration (v0.5.11)</strong> : une installation neuve arrive directement dans le chat avec le provider intégré déjà provisionné, <code>config.toml</code> et <code>keys.toml</code> créés, et l’agent qui vous salue. L’assistant est optionnel via <code>/onboard</code> ou <code>--onboard</code> (#2079)</p>
+</li>
+<li>
+<p><strong>Un premier tour qui ne peut plus interrompre le processus (v0.5.11)</strong> : les threads worker de l’agent tournent sur une pile de 16 MiB, donc le premier tour ne déborde plus la pile par défaut (#2080)</p>
+</li>
+<li>
+<p><strong>Tags de release conditionnés à un CI vert (v0.5.11)</strong> : le workflow de release lit la conclusion du run CI du commit lui-même avant de publier. Un run rouge fait échouer la release, un run encore en cours est attendu, et un commit sans run échoue aussi (#2078)</p>
+</li>
+<li>
+<p><strong>Evolve redémarre les bonnes unités (v0.5.11)</strong> : le redémarrage planifié cible des noms d’unités résolus au lieu du glob de découverte <code>opencrabs*.service</code>, qui correspondait aussi à l’unité transitoire qui exécute le redémarrage et faisait que systemd arrêtait son propre exécuteur (#2081)</p>
 </li>
 <li>
 <p><strong>Mode de réparation doctor –fix (v0.3.83)</strong> — lignes cron bloquées, markers périmés et permissions cassées sont réparées sur-le-champ au lieu d’être seulement signalées</p>
@@ -707,7 +719,7 @@ cargo install opencrabs --locked
 <pre><code class="language-bash">brew install opencrabs
 </code></pre>
 <p>OpenCrabs is in <a href="https://github.com/Homebrew/homebrew-core/blob/HEAD/Formula/o/opencrabs.rb">homebrew-core</a>. Homebrew ships prebuilt bottles for Apple Silicon Macs (macOS 15 and newer) and for Linux amd64 and arm64, so no Rust toolchain is needed there. On an Intel Mac, Homebrew builds it from source instead; use the <code>macos-amd64</code> release binary if you’d rather skip the build.</p>
-<p>Lancez <code>opencrabs</code> après l’installation — l’assistant d’onboarding gère tout au premier lancement.</p>
+<p>Lancez <code>opencrabs</code> après l’installation. Il va directement dans le chat avec son provider intégré déjà actif, donc le crab vous salue et vous pouvez commencer à parler. Lancez <code>opencrabs --onboard</code> quand vous voulez l’assistant de configuration.</p>
 <h2 id="option-2--télécharger-le-binaire-toutes-plateformes"><a class="header" href="#option-2--télécharger-le-binaire-toutes-plateformes">Option 2 : Télécharger le binaire (toutes plateformes)</a></h2>
 <p>Récupérez un binaire précompilé sur <a href="https://github.com/opencrabs/opencrabs/releases">GitHub Releases</a>.</p>
 <h3 id="linux-amd64"><a class="header" href="#linux-amd64">Linux (amd64)</a></h3>
@@ -734,7 +746,7 @@ Invoke-WebRequest "https://github.com/opencrabs/opencrabs/releases/download/$tag
 Expand-Archive opencrabs.zip -DestinationPath . -Force
 .\opencrabs.exe
 </code></pre>
-<p>L’assistant d’onboarding gère tout au premier lancement.</p>
+<p>Il va directement dans le chat avec son provider intégré déjà actif. Lancez <code>opencrabs --onboard</code> quand vous voulez l’assistant de configuration.</p>
 <blockquote>
 <p><strong>Windows est une plateforme native (v0.5.3) :</strong> gestion du shell consciente de la plateforme, lecture BOM/UTF-16 et fallbacks tilde/cwd intégrés, et la CI compile Windows à chaque PR (#627).</p>
 </blockquote>
@@ -873,7 +885,7 @@ Register-ScheduledTask -TaskName "OpenCrabs" -Action $action -Trigger $trigger -
 </ul>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="onboarding"><a class="header" href="#onboarding">Onboarding</a></h1>
-<p>Au premier lancement d’OpenCrabs, l’<strong>assistant d’onboarding</strong> vous guide tout au long de la configuration.</p>
+<p>A first run does <strong>not</strong> open the wizard. OpenCrabs goes straight to the chat, with its built-in provider already provisioned and the agent greeting you. The <strong>onboarding wizard</strong> is opt-in: run <code>opencrabs --onboard</code>, or <code>/onboard</code> from inside a session.</p>
 <p>Les vidéos pas à pas se trouvent sur la page <a href="#vidéos-donboarding">Vidéos d’onboarding</a>.</p>
 <h2 id="démarrage-rapide-3-minutes"><a class="header" href="#démarrage-rapide-3-minutes">Démarrage rapide (3 minutes)</a></h2>
 <p>La voie rapide vous permet de discuter avec l’agent en moins de 3 minutes.</p>

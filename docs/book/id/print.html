@@ -66,7 +66,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-7ec7e1b3.js";
+            window.path_to_searchindex_js = "searchindex-ba588bb4.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-ac1382d2.js"></script>
@@ -210,7 +210,7 @@
                     <main>
                         <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
 <p><strong>OpenCrabs</strong> adalah agen orkestrasi AI yang di-hosting sendiri dan tidak terikat provider, berjalan sebagai satu biner Rust. Ia mengotomatiskan terminal, browser, channels (Telegram/Discord/Slack/WhatsApp/Trello), dan codebase Anda, sambil menghormati privasi Anda dan menjaga kendali tetap di tangan Anda.</p>
-<p><strong>10,366 test</strong> mencakup provider, tools, channels, TUI, self-healing, dan otomatisasi browser.</p>
+<p><strong>10,782 test</strong> mencakup provider, tools, channels, TUI, self-healing, dan otomatisasi browser.</p>
 <h2 id="apa-yang-membedakan-opencrabs"><a class="header" href="#apa-yang-membedakan-opencrabs">Apa yang Membedakan OpenCrabs</a></h2>
 <h3 id="nol-telemetri-bahkan-tanpa-opt-in"><a class="header" href="#nol-telemetri-bahkan-tanpa-opt-in">Nol Telemetri, Bahkan Tanpa Opt-In</a></h3>
 <ul>
@@ -225,7 +225,7 @@
 <li><strong>Integrasi CLI natif</strong> — gunakan Claude Code CLI, OpenCode CLI, Codex CLI, dan Command Code CLI sebagai provider tanpa kunci API</li>
 <li><strong>Rantai fallback lengket</strong> — failover otomatis saat rate limit atau error, persistensi sadar-kesehatan bertahan melewati restart</li>
 <li><strong>Prompt caching</strong> di Anthropic, OpenRouter, Gemini, Qwen DashScope memangkas biaya hingga 95%</li>
-<li><strong>Context window override</strong> — cap or expand context for any model via config (the built-in OpenCrabs provider is the exception: its window is fixed at 200k)</li>
+<li><strong>Override jendela konteks</strong> — batasi atau perluas konteks model apa pun lewat konfigurasi (provider OpenCrabs bawaan adalah pengecualian: jendelanya tetap 200k)</li>
 <li><strong>Xiaomi MiMo</strong> — 30+ model termasuk seri reasoning MiMo, provider berkunci</li>
 <li><strong>Moonshot AI (Kimi)</strong> — endpoint API plan (api.moonshot.ai) dan Coding plan (api.kimi.com), konfigurasi reasoning-effort, jendela konteks sesuai tier paket</li>
 </ul>
@@ -433,6 +433,18 @@
 </li>
 <li>
 <p><strong>Retirement cron one-shot (v0.5.5)</strong>: job one-shot pensi saat terkirim alih-alih menyala lagi setahun kemudian, setiap run yang terkirim membawa run id-nya, dan laporan cron Discord tiba sebagai satu post forum (#544, #1703, #1851)</p>
+</li>
+<li>
+<p><strong>Percobaan pertama tanpa penyiapan (v0.5.11)</strong>: instalasi baru langsung masuk ke chat dengan provider bawaan sudah disiapkan, <code>config.toml</code> dan <code>keys.toml</code> sudah dibuat, dan agen menyapa Anda. Wizard bersifat opsional lewat <code>/onboard</code> atau <code>--onboard</code> (#2079)</p>
+</li>
+<li>
+<p><strong>Turn pertama yang tidak bisa menggagalkan proses (v0.5.11)</strong>: thread worker agen berjalan di stack 16 MiB, jadi turn pertama tidak lagi meluap di stack bawaan (#2080)</p>
+</li>
+<li>
+<p><strong>Tag rilis hanya dengan CI hijau (v0.5.11)</strong>: workflow rilis membaca kesimpulan run CI milik commit itu sendiri sebelum menerbitkan. Run merah menggagalkan rilis, run yang masih berjalan akan ditunggu, dan commit tanpa run juga gagal (#2078)</p>
+</li>
+<li>
+<p><strong>Evolve me-restart unit yang benar (v0.5.11)</strong>: restart terjadwal menyasar nama unit yang sudah diresolusi alih-alih glob penemuan <code>opencrabs*.service</code>, yang juga cocok dengan unit sementara yang menjalankan restart itu sendiri dan membuat systemd menghentikan eksekutornya sendiri (#2081)</p>
 </li>
 <li>
 <p><strong>Mode perbaikan doctor –fix (v0.3.83)</strong> — baris cron macet, marker basi, dan izin rusak diperbaiki di tempat alih-alih sekadar dilaporkan</p>
@@ -707,7 +719,7 @@ cargo install opencrabs --locked
 <pre><code class="language-bash">brew install opencrabs
 </code></pre>
 <p>OpenCrabs is in <a href="https://github.com/Homebrew/homebrew-core/blob/HEAD/Formula/o/opencrabs.rb">homebrew-core</a>. Homebrew ships prebuilt bottles for Apple Silicon Macs (macOS 15 and newer) and for Linux amd64 and arm64, so no Rust toolchain is needed there. On an Intel Mac, Homebrew builds it from source instead; use the <code>macos-amd64</code> release binary if you’d rather skip the build.</p>
-<p>Jalankan <code>opencrabs</code> setelah instal — wizard onboarding menangani semuanya saat menjalankan pertama.</p>
+<p>Jalankan <code>opencrabs</code> setelah instalasi. Langsung masuk ke chat dengan provider bawaannya sudah aktif, jadi crab menyapa Anda dan Anda bisa mulai bicara. Jalankan <code>opencrabs --onboard</code> kalau Anda mau wizard penyiapan.</p>
 <h2 id="cara-2-unduh-biner-semua-platform"><a class="header" href="#cara-2-unduh-biner-semua-platform">Cara 2: Unduh Biner (semua platform)</a></h2>
 <p>Ambil biner siap pakai dari <a href="https://github.com/opencrabs/opencrabs/releases">GitHub Releases</a>.</p>
 <h3 id="linux-amd64"><a class="header" href="#linux-amd64">Linux (amd64)</a></h3>
@@ -734,7 +746,7 @@ Invoke-WebRequest "https://github.com/opencrabs/opencrabs/releases/download/$tag
 Expand-Archive opencrabs.zip -DestinationPath . -Force
 .\opencrabs.exe
 </code></pre>
-<p>Wizard onboarding menangani semuanya saat menjalankan pertama.</p>
+<p>Ia langsung masuk ke chat dengan provider bawaannya sudah aktif. Jalankan <code>opencrabs --onboard</code> kalau Anda mau wizard penyiapan.</p>
 <blockquote>
 <p><strong>Windows adalah platform kelas satu (v0.5.3):</strong> penanganan shell yang sadar platform, pembacaan BOM/UTF-16 dan fallback tilde/cwd bawaan, dan CI membangun Windows di setiap PR (#627).</p>
 </blockquote>
@@ -873,7 +885,7 @@ Register-ScheduledTask -TaskName "OpenCrabs" -Action $action -Trigger $trigger -
 </ul>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="onboarding"><a class="header" href="#onboarding">Onboarding</a></h1>
-<p>Saat pertama kali menjalankan OpenCrabs, <strong>wizard onboarding</strong> akan memandu Anda melakukan pengaturan.</p>
+<p>A first run does <strong>not</strong> open the wizard. OpenCrabs goes straight to the chat, with its built-in provider already provisioned and the agent greeting you. The <strong>onboarding wizard</strong> is opt-in: run <code>opencrabs --onboard</code>, or <code>/onboard</code> from inside a session.</p>
 <p>Panduan video ada di halaman <a href="#video-onboarding">Video Onboarding</a>.</p>
 <h2 id="mulai-cepat-3-menit"><a class="header" href="#mulai-cepat-3-menit">Mulai Cepat (3 menit)</a></h2>
 <p>Jalur cepat ini membuat Anda bisa mengobrol dengan agent dalam waktu kurang dari 3 menit.</p>

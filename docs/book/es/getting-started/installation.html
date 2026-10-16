@@ -65,7 +65,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-45aa478a.js";
+            window.path_to_searchindex_js = "../searchindex-b7e7343b.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-56a333ae.js"></script>
@@ -213,7 +213,7 @@
 <pre><code class="language-bash">brew install opencrabs
 </code></pre>
 <p>OpenCrabs is in <a href="https://github.com/Homebrew/homebrew-core/blob/HEAD/Formula/o/opencrabs.rb">homebrew-core</a>. Homebrew ships prebuilt bottles for Apple Silicon Macs (macOS 15 and newer) and for Linux amd64 and arm64, so no Rust toolchain is needed there. On an Intel Mac, Homebrew builds it from source instead; use the <code>macos-amd64</code> release binary if you’d rather skip the build.</p>
-<p>Ejecuta <code>opencrabs</code> tras la instalación — el asistente de onboarding se encarga de todo en la primera ejecución.</p>
+<p>Ejecuta <code>opencrabs</code> tras instalar. Va directo al chat con su provider incorporado ya activo, así que el crab te saluda y puedes empezar a hablar. Ejecuta <code>opencrabs --onboard</code> cuando quieras el asistente de configuración.</p>
 <h2 id="opción-2-descargar-binario-todas-las-plataformas"><a class="header" href="#opción-2-descargar-binario-todas-las-plataformas">Opción 2: Descargar Binario (todas las plataformas)</a></h2>
 <p>Descarga un binario precompilado desde <a href="https://github.com/opencrabs/opencrabs/releases">GitHub Releases</a>.</p>
 <h3 id="linux-amd64"><a class="header" href="#linux-amd64">Linux (amd64)</a></h3>
@@ -240,7 +240,7 @@ Invoke-WebRequest "https://github.com/opencrabs/opencrabs/releases/download/$tag
 Expand-Archive opencrabs.zip -DestinationPath . -Force
 .\opencrabs.exe
 </code></pre>
-<p>El asistente de onboarding se encarga de todo en la primera ejecución.</p>
+<p>Va directo al chat con su provider incorporado ya activo. Ejecuta <code>opencrabs --onboard</code> cuando quieras el asistente de configuración.</p>
 <blockquote>
 <p><strong>Windows es una plataforma de primera clase (v0.5.3):</strong> manejo de shell consciente de la plataforma, lectura BOM/UTF-16 y fallbacks de tilde/cwd integrados, y CI compila Windows en cada PR (#627).</p>
 </blockquote>

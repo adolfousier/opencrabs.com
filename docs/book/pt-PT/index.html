@@ -65,7 +65,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-e42a03d5.js";
+            window.path_to_searchindex_js = "searchindex-c3821729.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-56a333ae.js"></script>
@@ -209,7 +209,7 @@
                     <main>
                         <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
 <p><strong>O OpenCrabs</strong> é um agente de orquestração de IA auto-hospedado e agnóstico de provider que corre como um único binário Rust. Automatiza o teu terminal, browser, channels (Telegram/Discord/Slack/WhatsApp/Trello) e codebase, respeitando a tua privacidade e mantendo-te no controlo.</p>
-<p><strong>10,366 testes</strong> em providers, ferramentas, channels, TUI, self-healing e automação de browser.</p>
+<p><strong>10,782 testes</strong> em providers, ferramentas, channels, TUI, self-healing e automação de browser.</p>
 <h2 id="o-que-distingue-o-opencrabs"><a class="header" href="#o-que-distingue-o-opencrabs">O Que Distingue o OpenCrabs</a></h2>
 <h3 id="zero-telemetria-nem-por-opção"><a class="header" href="#zero-telemetria-nem-por-opção">Zero Telemetria, Nem por Opção</a></h3>
 <ul>
@@ -224,7 +224,7 @@
 <li><strong>Integração CLI nativa</strong> — usa o Claude Code CLI, OpenCode CLI, Codex CLI e Command Code CLI como providers sem chaves de API</li>
 <li><strong>Cadeia de fallback persistente</strong> — failover automático em rate limits ou erros, persistência com noção de estado que sobrevive a reinícios</li>
 <li><strong>Prompt caching</strong> em Anthropic, OpenRouter, Gemini e Qwen DashScope reduz custos até 95%</li>
-<li><strong>Context window override</strong> — cap or expand context for any model via config (the built-in OpenCrabs provider is the exception: its window is fixed at 200k)</li>
+<li><strong>Override da janela de contexto</strong> — limita ou expande o contexto de qualquer model via config (o provider OpenCrabs incorporado é a exceção: a sua janela está fixada em 200k)</li>
 <li><strong>Xiaomi MiMo</strong> — mais de 30 models incluindo a série de reasoning MiMo, provider com chave</li>
 <li><strong>Moonshot AI (Kimi)</strong> — endpoints do plano API (api.moonshot.ai) e do plano Coding (api.kimi.com), config de reasoning-effort, janela de contexto por nível de plano</li>
 </ul>
@@ -432,6 +432,18 @@
 </li>
 <li>
 <p><strong>Reforma de cron one-shot (v0.5.5)</strong>: os jobs one-shot reformam-se na entrega em vez de voltarem a disparar um ano depois, cada execução entregue leva o seu run id, e os reports de cron do Discord chegam como um único post no fórum (#544, #1703, #1851)</p>
+</li>
+<li>
+<p><strong>Primeira execução sem configuração (v0.5.11)</strong>: uma instalação nova cai direto no chat com o provider incorporado já provisionado, <code>config.toml</code> e <code>keys.toml</code> criados, e o agente a cumprimentar-te. O assistente é opcional através de <code>/onboard</code> ou <code>--onboard</code> (#2079)</p>
+</li>
+<li>
+<p><strong>Um primeiro turno que não pode abortar o processo (v0.5.11)</strong>: as threads worker do agente correm numa stack de 16 MiB, por isso o primeiro turno já não transborda a stack predefinida (#2080)</p>
+</li>
+<li>
+<p><strong>Tags de release só com CI verde (v0.5.11)</strong>: o workflow de release lê a conclusão da run de CI do próprio commit antes de publicar. Uma run vermelha falha a release, uma run ainda em curso é aguardada, e um commit sem run também falha (#2078)</p>
+</li>
+<li>
+<p><strong>O evolve reinicia as unidades certas (v0.5.11)</strong>: o reinício agendado aponta para nomes de unidades resolvidos em vez do glob de descoberta <code>opencrabs*.service</code>, que também apanhava a unidade transitória que corre o reinício e fazia o systemd parar o seu próprio executor (#2081)</p>
 </li>
 <li>
 <p><strong>Modo de reparação doctor –fix (v0.3.83)</strong> — linhas de cron presas, markers obsoletos e permissões partidas são reparados no momento em vez de apenas reportados</p>

@@ -65,7 +65,7 @@
             const path_to_root = "../";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "../searchindex-a841e671.js";
+            window.path_to_searchindex_js = "../searchindex-92f16e1d.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="../toc-a8056158.js"></script>
@@ -213,7 +213,7 @@
 <pre><code class="language-bash">brew install opencrabs
 </code></pre>
 <p>OpenCrabs is in <a href="https://github.com/Homebrew/homebrew-core/blob/HEAD/Formula/o/opencrabs.rb">homebrew-core</a>. Homebrew ships prebuilt bottles for Apple Silicon Macs (macOS 15 and newer) and for Linux amd64 and arm64, so no Rust toolchain is needed there. On an Intel Mac, Homebrew builds it from source instead; use the <code>macos-amd64</code> release binary if you’d rather skip the build.</p>
-<p>Запустите <code>opencrabs</code> после установки — мастер первоначальной настройки всё сделает при первом запуске.</p>
+<p>Запустите <code>opencrabs</code> после установки. Он попадает прямо в чат со встроенным provider уже активным, поэтому crab вас приветствует и можно начинать общение. Запустите <code>opencrabs --onboard</code>, когда нужен мастер настройки.</p>
 <h2 id="способ-2-скачать-бинарник-все-платформы"><a class="header" href="#способ-2-скачать-бинарник-все-платформы">Способ 2: скачать бинарник (все платформы)</a></h2>
 <p>Возьмите готовый бинарник из <a href="https://github.com/opencrabs/opencrabs/releases">GitHub Releases</a>.</p>
 <h3 id="linux-amd64"><a class="header" href="#linux-amd64">Linux (amd64)</a></h3>
@@ -240,7 +240,7 @@ Invoke-WebRequest "https://github.com/opencrabs/opencrabs/releases/download/$tag
 Expand-Archive opencrabs.zip -DestinationPath . -Force
 .\opencrabs.exe
 </code></pre>
-<p>Мастер первоначальной настройки всё сделает при первом запуске.</p>
+<p>Он попадает прямо в чат со встроенным provider уже активным. Запустите <code>opencrabs --onboard</code>, когда нужен мастер настройки.</p>
 <blockquote>
 <p><strong>Windows — платформа первого класса (v0.5.3):</strong> платформенная обработка shell, чтение BOM/UTF-16 и fallback tilde/cwd встроены, CI собирает Windows на каждый PR (#627).</p>
 </blockquote>

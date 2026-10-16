@@ -66,7 +66,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-a841e671.js";
+            window.path_to_searchindex_js = "searchindex-92f16e1d.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a8056158.js"></script>
@@ -210,7 +210,7 @@
                     <main>
                         <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
 <p><strong>OpenCrabs</strong> — автономный агент оркестрации ИИ, не привязанный к провайдеру, работающий как единый бинарный файл на Rust. Он автоматизирует ваш терминал, браузер, channels (Telegram/Discord/Slack/WhatsApp/Trello) и кодовую базу, уважая вашу приватность и оставляя контроль у вас.</p>
-<p><strong>10,366 тестов</strong> по providers, инструментам, channels, TUI, self-healing и автоматизации browser.</p>
+<p><strong>10,782 тестов</strong> по providers, инструментам, channels, TUI, self-healing и автоматизации browser.</p>
 <h2 id="что-отличает-opencrabs"><a class="header" href="#что-отличает-opencrabs">Что отличает OpenCrabs</a></h2>
 <h3 id="ноль-телеметрии--даже-опции-включения-нет"><a class="header" href="#ноль-телеметрии--даже-опции-включения-нет">Ноль телеметрии — даже опции включения нет</a></h3>
 <ul>
@@ -225,7 +225,7 @@
 <li><strong>Нативная интеграция CLI</strong> — используйте Claude Code CLI, OpenCode CLI, Codex CLI и Command Code CLI как провайдеров без API-кл��чей</li>
 <li><strong>Липкая цепочка fallback</strong> — автоматическое переключение при лимитах запросов или ошибках, данные о здоровье провайдеров переживают перезапуски</li>
 <li><strong>Кэширование промптов</strong> в Anthropic, OpenRouter, Gemini, Qwen DashScope снижает расходы до 95%</li>
-<li><strong>Context window override</strong> — cap or expand context for any model via config (the built-in OpenCrabs provider is the exception: its window is fixed at 200k)</li>
+<li><strong>Переопределение окна контекста</strong> — ограничьте или расширьте контекст любой модели через конфигурацию (встроенный provider OpenCrabs это исключение: его окно зафиксировано на 200k)</li>
 <li><strong>Xiaomi MiMo</strong> — более 30 моделей, включая рассуждающую серию MiMo, провайдер с API-ключом</li>
 <li><strong>Moonshot AI (Kimi)</strong> — эндпоинты API plan (api.moonshot.ai) и Coding plan (api.kimi.com), настройка reasoning-effort, окно контекста по тарифному плану</li>
 </ul>
@@ -433,6 +433,18 @@
 </li>
 <li>
 <p><strong>Ретайрмент cron one-shot (v0.5.5)</strong>: one-shot jobs уходят на пенсию при доставке вместо повторного срабатывания через год, каждый доставленный run несет свой run id, а cron-отчеты Discord приходят как один пост форума (#544, #1703, #1851)</p>
+</li>
+<li>
+<p><strong>Первый запуск без настройки (v0.5.11)</strong>: свежая установка попадает прямо в чат со встроенным provider уже настроенным, <code>config.toml</code> и <code>keys.toml</code> созданы, а агент вас приветствует. Мастер настройки включается опционально через <code>/onboard</code> или <code>--onboard</code> (#2079)</p>
+</li>
+<li>
+<p><strong>Первый ход, который не может обрушить процесс (v0.5.11)</strong>: рабочие потоки агента работают на стеке в 16 MiB, поэтому первый ход больше не переполняет стек по умолчанию (#2080)</p>
+</li>
+<li>
+<p><strong>Теги релиза только при зелёном CI (v0.5.11)</strong>: workflow релиза читает заключение CI-запуска самого коммита до публикации. Красный запуск проваливает релиз, ещё идущий запуск ожидается, а коммит без запуска тоже проваливается (#2078)</p>
+</li>
+<li>
+<p><strong>Evolve перезапускает нужные юниты (v0.5.11)</strong>: плановый перезапуск нацелен на разрешённые имена юнитов вместо glob-шаблона обнаружения <code>opencrabs*.service</code>, который также совпадал с временным юнитом, выполняющим перезапуск, и заставлял systemd останавливать собственный исполнитель (#2081)</p>
 </li>
 <li>
 <p><strong>Режим починки doctor –fix (v0.3.83)</strong> — застрявшие строки cron, устаревшие маркеры и сломанные права чинятся на месте, а не только отображаются в отчёте</p>
@@ -707,7 +719,7 @@ cargo install opencrabs --locked
 <pre><code class="language-bash">brew install opencrabs
 </code></pre>
 <p>OpenCrabs is in <a href="https://github.com/Homebrew/homebrew-core/blob/HEAD/Formula/o/opencrabs.rb">homebrew-core</a>. Homebrew ships prebuilt bottles for Apple Silicon Macs (macOS 15 and newer) and for Linux amd64 and arm64, so no Rust toolchain is needed there. On an Intel Mac, Homebrew builds it from source instead; use the <code>macos-amd64</code> release binary if you’d rather skip the build.</p>
-<p>Запустите <code>opencrabs</code> после установки — мастер первоначальной настройки всё сделает при первом запуске.</p>
+<p>Запустите <code>opencrabs</code> после установки. Он попадает прямо в чат со встроенным provider уже активным, поэтому crab вас приветствует и можно начинать общение. Запустите <code>opencrabs --onboard</code>, когда нужен мастер настройки.</p>
 <h2 id="способ-2-скачать-бинарник-все-платформы"><a class="header" href="#способ-2-скачать-бинарник-все-платформы">Способ 2: скачать бинарник (все платформы)</a></h2>
 <p>Возьмите готовый бинарник из <a href="https://github.com/opencrabs/opencrabs/releases">GitHub Releases</a>.</p>
 <h3 id="linux-amd64"><a class="header" href="#linux-amd64">Linux (amd64)</a></h3>
@@ -734,7 +746,7 @@ Invoke-WebRequest "https://github.com/opencrabs/opencrabs/releases/download/$tag
 Expand-Archive opencrabs.zip -DestinationPath . -Force
 .\opencrabs.exe
 </code></pre>
-<p>Мастер первоначальной настройки всё сделает при первом запуске.</p>
+<p>Он попадает прямо в чат со встроенным provider уже активным. Запустите <code>opencrabs --onboard</code>, когда нужен мастер настройки.</p>
 <blockquote>
 <p><strong>Windows — платформа первого класса (v0.5.3):</strong> платформенная обработка shell, чтение BOM/UTF-16 и fallback tilde/cwd встроены, CI собирает Windows на каждый PR (#627).</p>
 </blockquote>
@@ -873,7 +885,7 @@ Register-ScheduledTask -TaskName "OpenCrabs" -Action $action -Trigger $trigger -
 </ul>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="onboarding"><a class="header" href="#onboarding">Onboarding</a></h1>
-<p>Когда вы запускаете OpenCrabs в первый раз, <strong>мастер онбординга</strong> проведёт вас через настройку.</p>
+<p>A first run does <strong>not</strong> open the wizard. OpenCrabs goes straight to the chat, with its built-in provider already provisioned and the agent greeting you. The <strong>onboarding wizard</strong> is opt-in: run <code>opencrabs --onboard</code>, or <code>/onboard</code> from inside a session.</p>
 <p>Видеоинструкции есть на странице <a href="#видео-по-онбордингу">Видео по онбордингу</a>.</p>
 <h2 id="быстрый-старт-3-минуты"><a class="header" href="#быстрый-старт-3-минуты">Быстрый старт (3 минуты)</a></h2>
 <p>Быстрый путь позволяет начать разговор с агентом меньше чем за 3 минуты.</p>

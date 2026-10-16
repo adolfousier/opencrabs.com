@@ -65,7 +65,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-4314e1c7.js";
+            window.path_to_searchindex_js = "searchindex-626e2356.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-9efdca0d.js"></script>
@@ -209,7 +209,7 @@
                     <main>
                         <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
 <p><strong>OpenCrabs</strong> is a self-hosted, provider-agnostic AI orchestration agent that runs as a single Rust binary. It automates your terminal, browser, channels (Telegram/Discord/Slack/WhatsApp/Trello), and codebase, all while respecting your privacy and keeping you in control.</p>
-<p><strong>10,366 tests</strong> across providers, tools, channels, TUI, self-healing, and browser automation.</p>
+<p><strong>10,782 tests</strong> across providers, tools, channels, TUI, self-healing, and browser automation.</p>
 <h2 id="what-makes-opencrabs-different"><a class="header" href="#what-makes-opencrabs-different">What Makes OpenCrabs Different</a></h2>
 <h3 id="zero-telemetry-not-even-opt-in"><a class="header" href="#zero-telemetry-not-even-opt-in">Zero Telemetry, Not Even Opt-In</a></h3>
 <ul>
@@ -432,6 +432,18 @@
 </li>
 <li>
 <p><strong>Cron one-shot retirement (v0.5.5)</strong>: one-shot jobs retire on delivery instead of re-firing a year later, every delivered run carries its run id, and Discord cron reports arrive as one forum post (#544, #1703, #1851)</p>
+</li>
+<li>
+<p><strong>Zero-setup first run (v0.5.11)</strong>: a fresh install lands in the chat with the built-in provider already provisioned, <code>config.toml</code> and <code>keys.toml</code> seeded, and the agent greeting you. The wizard is opt-in through <code>/onboard</code> or <code>--onboard</code> (#2079)</p>
+</li>
+<li>
+<p><strong>A first turn that cannot abort the process (v0.5.11)</strong>: agent worker threads run on a 16 MiB stack, so the first turn no longer overflows the default one (#2080)</p>
+</li>
+<li>
+<p><strong>Release tags gated on green CI (v0.5.11)</strong>: the release workflow reads the conclusion of the commit’s own CI run before publishing. A red run fails the release, a run still in flight is waited for, and a commit with no run fails too (#2078)</p>
+</li>
+<li>
+<p><strong>Evolve restarts the right units (v0.5.11)</strong>: the scheduled restart targets resolved unit names instead of the <code>opencrabs*.service</code> discovery glob, which also matched the transient unit running the restart and made systemd stop its own executor (#2081)</p>
 </li>
 <li>
 <p><strong>doctor –fix repair mode (v0.3.83)</strong> — stuck cron rows, stale markers and broken permissions are repaired on the spot instead of only reported</p>

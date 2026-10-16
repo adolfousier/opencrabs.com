@@ -66,7 +66,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-4314e1c7.js";
+            window.path_to_searchindex_js = "searchindex-626e2356.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-9efdca0d.js"></script>
@@ -210,7 +210,7 @@
                     <main>
                         <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
 <p><strong>OpenCrabs</strong> is a self-hosted, provider-agnostic AI orchestration agent that runs as a single Rust binary. It automates your terminal, browser, channels (Telegram/Discord/Slack/WhatsApp/Trello), and codebase, all while respecting your privacy and keeping you in control.</p>
-<p><strong>10,366 tests</strong> across providers, tools, channels, TUI, self-healing, and browser automation.</p>
+<p><strong>10,782 tests</strong> across providers, tools, channels, TUI, self-healing, and browser automation.</p>
 <h2 id="what-makes-opencrabs-different"><a class="header" href="#what-makes-opencrabs-different">What Makes OpenCrabs Different</a></h2>
 <h3 id="zero-telemetry-not-even-opt-in"><a class="header" href="#zero-telemetry-not-even-opt-in">Zero Telemetry, Not Even Opt-In</a></h3>
 <ul>
@@ -433,6 +433,18 @@
 </li>
 <li>
 <p><strong>Cron one-shot retirement (v0.5.5)</strong>: one-shot jobs retire on delivery instead of re-firing a year later, every delivered run carries its run id, and Discord cron reports arrive as one forum post (#544, #1703, #1851)</p>
+</li>
+<li>
+<p><strong>Zero-setup first run (v0.5.11)</strong>: a fresh install lands in the chat with the built-in provider already provisioned, <code>config.toml</code> and <code>keys.toml</code> seeded, and the agent greeting you. The wizard is opt-in through <code>/onboard</code> or <code>--onboard</code> (#2079)</p>
+</li>
+<li>
+<p><strong>A first turn that cannot abort the process (v0.5.11)</strong>: agent worker threads run on a 16 MiB stack, so the first turn no longer overflows the default one (#2080)</p>
+</li>
+<li>
+<p><strong>Release tags gated on green CI (v0.5.11)</strong>: the release workflow reads the conclusion of the commit’s own CI run before publishing. A red run fails the release, a run still in flight is waited for, and a commit with no run fails too (#2078)</p>
+</li>
+<li>
+<p><strong>Evolve restarts the right units (v0.5.11)</strong>: the scheduled restart targets resolved unit names instead of the <code>opencrabs*.service</code> discovery glob, which also matched the transient unit running the restart and made systemd stop its own executor (#2081)</p>
 </li>
 <li>
 <p><strong>doctor –fix repair mode (v0.3.83)</strong> — stuck cron rows, stale markers and broken permissions are repaired on the spot instead of only reported</p>
@@ -707,7 +719,7 @@ cargo install opencrabs --locked
 <pre><code class="language-bash">brew install opencrabs
 </code></pre>
 <p>OpenCrabs is in <a href="https://github.com/Homebrew/homebrew-core/blob/HEAD/Formula/o/opencrabs.rb">homebrew-core</a>. Homebrew ships prebuilt bottles for Apple Silicon Macs (macOS 15 and newer) and for Linux amd64 and arm64, so no Rust toolchain is needed there. On an Intel Mac, Homebrew builds it from source instead; use the <code>macos-amd64</code> release binary if you’d rather skip the build.</p>
-<p>Run <code>opencrabs</code> after install — the onboarding wizard handles everything on first run.</p>
+<p>Run <code>opencrabs</code> after install. It goes straight to the chat with its built-in provider already live, so the crab greets you and you can start talking. Run <code>opencrabs --onboard</code> when you want the setup wizard.</p>
 <h2 id="option-2-download-binary-all-platforms"><a class="header" href="#option-2-download-binary-all-platforms">Option 2: Download Binary (all platforms)</a></h2>
 <p>Grab a pre-built binary from <a href="https://github.com/opencrabs/opencrabs/releases">GitHub Releases</a>.</p>
 <h3 id="linux-amd64"><a class="header" href="#linux-amd64">Linux (amd64)</a></h3>
@@ -734,7 +746,7 @@ Invoke-WebRequest "https://github.com/opencrabs/opencrabs/releases/download/$tag
 Expand-Archive opencrabs.zip -DestinationPath . -Force
 .\opencrabs.exe
 </code></pre>
-<p>The onboarding wizard handles everything on first run.</p>
+<p>It goes straight to the chat with its built-in provider already live. Run <code>opencrabs --onboard</code> when you want the setup wizard.</p>
 <blockquote>
 <p><strong>Windows is a first-class platform (v0.5.3):</strong> platform-aware shell handling, BOM/UTF-16
 file reads, and tilde/cwd fallbacks are built in, and CI builds Windows on every PR (#627).</p>
@@ -874,7 +886,7 @@ Register-ScheduledTask -TaskName "OpenCrabs" -Action $action -Trigger $trigger -
 </ul>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="onboarding"><a class="header" href="#onboarding">Onboarding</a></h1>
-<p>When you launch OpenCrabs for the first time, the <strong>onboarding wizard</strong> walks you through setup.</p>
+<p>A first run does <strong>not</strong> open the wizard. OpenCrabs goes straight to the chat, with its built-in provider already provisioned and the agent greeting you. The <strong>onboarding wizard</strong> is opt-in: run <code>opencrabs --onboard</code>, or <code>/onboard</code> from inside a session.</p>
 <p>Video walkthroughs are on the <a href="#onboarding-videos">Onboarding Videos</a> page.</p>
 <h2 id="quick-start-3-minutes"><a class="header" href="#quick-start-3-minutes">Quick Start (3 minutes)</a></h2>
 <p>The fast path gets you chatting with the agent in under 3 minutes.</p>

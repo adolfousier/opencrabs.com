@@ -65,7 +65,7 @@
             const path_to_root = "";
             const default_light_theme = "ayu";
             const default_dark_theme = "ayu";
-            window.path_to_searchindex_js = "searchindex-a841e671.js";
+            window.path_to_searchindex_js = "searchindex-92f16e1d.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-a8056158.js"></script>
@@ -209,7 +209,7 @@
                     <main>
                         <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
 <p><strong>OpenCrabs</strong> — автономный агент оркестрации ИИ, не привязанный к провайдеру, работающий как единый бинарный файл на Rust. Он автоматизирует ваш терминал, браузер, channels (Telegram/Discord/Slack/WhatsApp/Trello) и кодовую базу, уважая вашу приватность и оставляя контроль у вас.</p>
-<p><strong>10,366 тестов</strong> по providers, инструментам, channels, TUI, self-healing и автоматизации browser.</p>
+<p><strong>10,782 тестов</strong> по providers, инструментам, channels, TUI, self-healing и автоматизации browser.</p>
 <h2 id="что-отличает-opencrabs"><a class="header" href="#что-отличает-opencrabs">Что отличает OpenCrabs</a></h2>
 <h3 id="ноль-телеметрии--даже-опции-включения-нет"><a class="header" href="#ноль-телеметрии--даже-опции-включения-нет">Ноль телеметрии — даже опции включения нет</a></h3>
 <ul>
@@ -224,7 +224,7 @@
 <li><strong>Нативная интеграция CLI</strong> — используйте Claude Code CLI, OpenCode CLI, Codex CLI и Command Code CLI как провайдеров без API-кл��чей</li>
 <li><strong>Липкая цепочка fallback</strong> — автоматическое переключение при лимитах запросов или ошибках, данные о здоровье провайдеров переживают перезапуски</li>
 <li><strong>Кэширование промптов</strong> в Anthropic, OpenRouter, Gemini, Qwen DashScope снижает расходы до 95%</li>
-<li><strong>Context window override</strong> — cap or expand context for any model via config (the built-in OpenCrabs provider is the exception: its window is fixed at 200k)</li>
+<li><strong>Переопределение окна контекста</strong> — ограничьте или расширьте контекст любой модели через конфигурацию (встроенный provider OpenCrabs это исключение: его окно зафиксировано на 200k)</li>
 <li><strong>Xiaomi MiMo</strong> — более 30 моделей, включая рассуждающую серию MiMo, провайдер с API-ключом</li>
 <li><strong>Moonshot AI (Kimi)</strong> — эндпоинты API plan (api.moonshot.ai) и Coding plan (api.kimi.com), настройка reasoning-effort, окно контекста по тарифному плану</li>
 </ul>
@@ -432,6 +432,18 @@
 </li>
 <li>
 <p><strong>Ретайрмент cron one-shot (v0.5.5)</strong>: one-shot jobs уходят на пенсию при доставке вместо повторного срабатывания через год, каждый доставленный run несет свой run id, а cron-отчеты Discord приходят как один пост форума (#544, #1703, #1851)</p>
+</li>
+<li>
+<p><strong>Первый запуск без настройки (v0.5.11)</strong>: свежая установка попадает прямо в чат со встроенным provider уже настроенным, <code>config.toml</code> и <code>keys.toml</code> созданы, а агент вас приветствует. Мастер настройки включается опционально через <code>/onboard</code> или <code>--onboard</code> (#2079)</p>
+</li>
+<li>
+<p><strong>Первый ход, который не может обрушить процесс (v0.5.11)</strong>: рабочие потоки агента работают на стеке в 16 MiB, поэтому первый ход больше не переполняет стек по умолчанию (#2080)</p>
+</li>
+<li>
+<p><strong>Теги релиза только при зелёном CI (v0.5.11)</strong>: workflow релиза читает заключение CI-запуска самого коммита до публикации. Красный запуск проваливает релиз, ещё идущий запуск ожидается, а коммит без запуска тоже проваливается (#2078)</p>
+</li>
+<li>
+<p><strong>Evolve перезапускает нужные юниты (v0.5.11)</strong>: плановый перезапуск нацелен на разрешённые имена юнитов вместо glob-шаблона обнаружения <code>opencrabs*.service</code>, который также совпадал с временным юнитом, выполняющим перезапуск, и заставлял systemd останавливать собственный исполнитель (#2081)</p>
 </li>
 <li>
 <p><strong>Режим починки doctor –fix (v0.3.83)</strong> — застрявшие строки cron, устаревшие маркеры и сломанные права чинятся на месте, а не только отображаются в отчёте</p>
