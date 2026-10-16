@@ -59,5 +59,5 @@
   "footer_license": "Lisensi MIT",
   "footer_built_by": "Dibangun dengan 🦀 oleh ",
   "footer_and_community": " & komunitas OpenCrabs.",
-  "latest_release_note": "v0.5.5: rilis native per kanal. Polls, balasan suara, dan slash commands native di Discord, flow groups dengan clock live di Discord dan Slack, /respond_to dan /cowork per kanal, disiplin rate limit Telegram, session lifecycle ACP v1, dan onboarding TUI yang dibangun ulang."
+  "latest_release_note": "v0.5.11: pass pembersihan. Instalasi baru langsung masuk ke chat dengan provider bawaan yang sudah aktif, stack 16 MiB untuk worker thread sehingga turn pertama tidak bisa membatalkan proses, tag release yang menunggu eksekusi CI hijau, dan restart evolve yang tidak lagi menghentikan dirinya sendiri."
 }
