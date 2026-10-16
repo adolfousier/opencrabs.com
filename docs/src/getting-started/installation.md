@@ -10,7 +10,7 @@ brew install opencrabs
 
 OpenCrabs is in [homebrew-core](https://github.com/Homebrew/homebrew-core/blob/HEAD/Formula/o/opencrabs.rb). Homebrew ships prebuilt bottles for Apple Silicon Macs (macOS 15 and newer) and for Linux amd64 and arm64, so no Rust toolchain is needed there. On an Intel Mac, Homebrew builds it from source instead; use the `macos-amd64` release binary if you'd rather skip the build.
 
-Run `opencrabs` after install — the onboarding wizard handles everything on first run.
+Run `opencrabs` after install. It goes straight to the chat with its built-in provider already live, so the crab greets you and you can start talking. Run `opencrabs --onboard` when you want the setup wizard.
 
 ## Option 2: Download Binary (all platforms)
 
@@ -52,7 +52,7 @@ Expand-Archive opencrabs.zip -DestinationPath . -Force
 .\opencrabs.exe
 ```
 
-The onboarding wizard handles everything on first run.
+It goes straight to the chat with its built-in provider already live. Run `opencrabs --onboard` when you want the setup wizard.
 
 > **Windows is a first-class platform (v0.5.3):** platform-aware shell handling, BOM/UTF-16
 > file reads, and tilde/cwd fallbacks are built in, and CI builds Windows on every PR (#627).

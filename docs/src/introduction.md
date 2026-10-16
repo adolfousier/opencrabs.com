@@ -2,7 +2,7 @@
 
 **OpenCrabs** is a self-hosted, provider-agnostic AI orchestration agent that runs as a single Rust binary. It automates your terminal, browser, channels (Telegram/Discord/Slack/WhatsApp/Trello), and codebase, all while respecting your privacy and keeping you in control.
 
-**10,366 tests** across providers, tools, channels, TUI, self-healing, and browser automation.
+**10,782 tests** across providers, tools, channels, TUI, self-healing, and browser automation.
 
 ## What Makes OpenCrabs Different
 
@@ -107,6 +107,10 @@
 - **ACP v1 session lifecycle (v0.5.5)**: the five v1 session lifecycle methods are implemented and the plan is published as a native v1 plan update (#1815)
 - **TUI dialog footer, clickable URLs, onboarding timeline (v0.5.5)**: every dialog shares one command footer with direct a/r approval verbs, URLs and file paths are clickable, and onboarding is rebuilt as a left-side step timeline with direct setup commands (#1775, #1772, #1979, #1980, #1981, #1982)
 - **Cron one-shot retirement (v0.5.5)**: one-shot jobs retire on delivery instead of re-firing a year later, every delivered run carries its run id, and Discord cron reports arrive as one forum post (#544, #1703, #1851)
+- **Zero-setup first run (v0.5.11)**: a fresh install lands in the chat with the built-in provider already provisioned, `config.toml` and `keys.toml` seeded, and the agent greeting you. The wizard is opt-in through `/onboard` or `--onboard` (#2079)
+- **A first turn that cannot abort the process (v0.5.11)**: agent worker threads run on a 16 MiB stack, so the first turn no longer overflows the default one (#2080)
+- **Release tags gated on green CI (v0.5.11)**: the release workflow reads the conclusion of the commit's own CI run before publishing. A red run fails the release, a run still in flight is waited for, and a commit with no run fails too (#2078)
+- **Evolve restarts the right units (v0.5.11)**: the scheduled restart targets resolved unit names instead of the `opencrabs*.service` discovery glob, which also matched the transient unit running the restart and made systemd stop its own executor (#2081)
 
 - **doctor --fix repair mode (v0.3.83)** — stuck cron rows, stale markers and broken permissions are repaired on the spot instead of only reported
 - **Per-path write locks (v0.3.83)** — concurrent writes to the same file serialize; the last writer no longer silently wins

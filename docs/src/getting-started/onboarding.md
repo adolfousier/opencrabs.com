@@ -1,6 +1,6 @@
 # Onboarding
 
-When you launch OpenCrabs for the first time, the **onboarding wizard** walks you through setup.
+A first run does **not** open the wizard. OpenCrabs goes straight to the chat, with its built-in provider already provisioned and the agent greeting you. The **onboarding wizard** is opt-in: run `opencrabs --onboard`, or `/onboard` from inside a session.
 
 Video walkthroughs are on the [Onboarding Videos](./videos.md) page.
 
