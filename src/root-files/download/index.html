@@ -221,6 +221,23 @@
   }
   .next h2 { font-size: 13px; color: #9aa3b2; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 10px; }
   .next code { display: block; background: #0b0e14; border-radius: 6px; padding: 8px 10px; margin: 6px 0; color: #ffb26b; font-size: 13px; overflow-x: auto; white-space: pre; }
+  .req {
+    width: 100%; max-width: 780px; margin-top: 28px;
+    background: #121722; border: 1px solid #1f2735; border-radius: 10px; padding: 16px 18px;
+  }
+  .req h2 { font-size: 13px; color: #9aa3b2; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 10px; }
+  .req-lead { color: #9aa3b2; font-size: 13px; margin-bottom: 12px; }
+  .req-list { display: flex; flex-direction: column; gap: 10px; }
+  .req-item { border: 1px solid #1f2735; border-radius: 8px; padding: 10px 12px; }
+  .req-item.yours { border-color: #ff7a1a; }
+  .req.detected .req-item:not(.yours) { display: none; }
+  .req-os { display: inline-block; font-weight: 600; font-size: 13px; color: #e6e8ee; margin-bottom: 6px; }
+  .req-item.yours .req-os::after { content: " \00b7 your system"; color: #ff9a3d; font-weight: 500; }
+  .req-item ul { list-style: disc; padding-left: 18px; }
+  .req-item li { color: #9aa3b2; font-size: 13px; margin-top: 6px; }
+  .req-item code { background: #0b0e14; border-radius: 4px; padding: 2px 5px; color: #ffb26b; font-size: 12px; word-break: break-all; }
+  .req-item b { color: #e6e8ee; }
+  .req-item a { color: #ff9a3d; }
   footer {
     width: 100%;
     margin-top: 36px;
@@ -379,6 +396,32 @@
   <div id="status">Detecting your system...</div>
   <div class="grid" id="picks"></div>
   <p class="muted">Every release also ships a <a id="sha-link" href="#">SHA256SUMS</a> file for verification.</p>
+  <div class="req" id="req">
+    <h2>Requirements</h2>
+    <p class="req-lead">The binary is self-contained, but it links a few system libraries. Install these first or the first run fails with a missing-library error.</p>
+    <div class="req-list">
+      <div class="req-item" data-os="Linux">
+        <span class="req-os">Linux</span>
+        <ul>
+          <li>OpenMP and OpenSSL: <code>sudo apt update &amp;&amp; sudo apt install -y libgomp1 libssl3</code> on Debian and Ubuntu. On Fedora and RHEL: <code>sudo dnf install -y libgomp openssl-libs</code>.</li>
+          <li>glibc <b>2.38 or newer</b>, which means Ubuntu 24.04+, Debian 13+ or Fedora 39+. Ubuntu 22.04 and Debian 12 are too old for this build.</li>
+        </ul>
+      </div>
+      <div class="req-item" data-os="macOS">
+        <span class="req-os">macOS</span>
+        <ul>
+          <li>macOS <b>11.0 or newer</b>. No extra libraries, everything it needs ships with the system.</li>
+          <li>The binary is not notarized, so Gatekeeper blocks the first launch. Allow it in <b>System Settings &gt; Privacy &amp; Security</b> (click <b>Open Anyway</b>), or clear the flag yourself: <code>xattr -d com.apple.quarantine ./opencrabs</code></li>
+        </ul>
+      </div>
+      <div class="req-item" data-os="Windows">
+        <span class="req-os">Windows</span>
+        <ul>
+          <li>Microsoft Visual C++ 2015-2022 Redistributable, <a href="https://aka.ms/vs/17/release/vc_redist.x64.exe" target="_blank" rel="noopener noreferrer">x64 build</a>. Windows 10 and 11 usually ship it already.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
   <div class="next">
     <h2>After download</h2>
     <code id="step1">tar xzf opencrabs-*.tar.gz</code>
@@ -477,6 +520,23 @@
 
   function setStatus(html) { document.getElementById("status").innerHTML = html; }
 
+  // Mark the detected platform and fold away the other two. With JS off, or
+  // when detection fails, all three stay visible.
+  function markRequirements(os) {
+    if (!os) return;
+    var req = document.getElementById("req");
+    if (!req) return;
+    var items = req.querySelectorAll(".req-item");
+    var matched = false;
+    for (var i = 0; i < items.length; i++) {
+      if (items[i].getAttribute("data-os") === os) {
+        items[i].classList.add("yours");
+        matched = true;
+      }
+    }
+    if (matched) req.classList.add("detected");
+  }
+
   function buildList(tag, detectedKey) {
     var grid = document.getElementById("picks");
     BUILDS.forEach(function (b) {
@@ -507,6 +567,8 @@
 
   (async function main() {
     var ua = navigator.userAgent;
+    var os = detectOs(ua);
+    markRequirements(os);
     var tag = null;
     try {
       var res = await fetch(API);
@@ -519,7 +581,6 @@
       return;
     }
 
-    var os = detectOs(ua);
     var key = null;
     if (os) {
       var arch = await detectArch(os, ua);
