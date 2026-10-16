@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: OpenCrabs\n"
-"POT-Creation-Date: 2026-10-11T21:49:37+01:00\n"
+"POT-Creation-Date: 2026-10-16T16:07:52+01:00\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -150,7 +150,7 @@ msgstr ""
 msgid "Dynamic Tools"
 msgstr ""
 
-#: src/SUMMARY.md:41 src/introduction.md:193 src/brain/tools.md:99
+#: src/SUMMARY.md:41 src/introduction.md:197 src/brain/tools.md:99
 #: src/features/browser.md:1
 msgid "Browser Automation"
 msgstr ""
@@ -242,7 +242,7 @@ msgstr ""
 msgid "Building from Source"
 msgstr ""
 
-#: src/SUMMARY.md:68 src/introduction.md:232 src/features/mission-control.md:71
+#: src/SUMMARY.md:68 src/introduction.md:236 src/features/mission-control.md:71
 #: src/features/mission-control.md:107 src/development/architecture.md:1
 msgid "Architecture"
 msgstr ""
@@ -277,11 +277,10 @@ msgstr ""
 
 #: src/introduction.md:5
 msgid ""
-"**10,366 tests** across providers, tools, channels, TUI, self-healing, and "
+"**10,782 tests** across providers, tools, channels, TUI, self-healing, and "
 "browser automation."
 msgstr ""
-"**10,366 тестов** по providers, инструментам, channels, TUI, self-healing и "
-"автоматизации browser."
+"**10,782 тестов** по providers, инструментам, channels, TUI, self-healing и автоматизации browser."
 
 #: src/introduction.md:7
 msgid "What Makes OpenCrabs Different"
@@ -367,10 +366,11 @@ msgstr ""
 
 #: src/introduction.md:20
 msgid ""
-"**Context window override** — cap or expand context for any model via config"
+"**Context window override** — cap or expand context for any model via config "
+"(the built-in OpenCrabs provider is the exception: its window is fixed at "
+"200k)"
 msgstr ""
-"**Переопределение окна контекста** — ограничьте или расширьте контекст любой "
-"модели через конфигурацию"
+"**Переопределение окна контекста** — ограничьте или расширьте контекст любой модели через конфигурацию (встроенный provider OpenCrabs это исключение: его окно зафиксировано на 200k)"
 
 #: src/introduction.md:21
 msgid ""
@@ -1151,7 +1151,42 @@ msgstr ""
 "несет свой run id, а cron-отчеты Discord приходят как один пост форума "
 "(#544, #1703, #1851)"
 
+#: src/introduction.md:110
+msgid ""
+"**Zero-setup first run (v0.5.11)**: a fresh install lands in the chat with "
+"the built-in provider already provisioned, `config.toml` and `keys.toml` "
+"seeded, and the agent greeting you. The wizard is opt-in through `/onboard` "
+"or `--onboard` (#2079)"
+msgstr ""
+"**Первый запуск без настройки (v0.5.11)**: свежая установка попадает прямо в чат со встроенным provider уже настроенным, `config.toml` и `keys.toml` созданы, а агент вас приветствует. Мастер настройки включается опционально через `/onboard` или `--onboard` (#2079)"
+
 #: src/introduction.md:111
+msgid ""
+"**A first turn that cannot abort the process (v0.5.11)**: agent worker "
+"threads run on a 16 MiB stack, so the first turn no longer overflows the "
+"default one (#2080)"
+msgstr ""
+"**Первый ход, который не может обрушить процесс (v0.5.11)**: рабочие потоки агента работают на стеке в 16 MiB, поэтому первый ход больше не переполняет стек по умолчанию (#2080)"
+
+#: src/introduction.md:112
+msgid ""
+"**Release tags gated on green CI (v0.5.11)**: the release workflow reads the "
+"conclusion of the commit's own CI run before publishing. A red run fails the "
+"release, a run still in flight is waited for, and a commit with no run fails "
+"too (#2078)"
+msgstr ""
+"**Теги релиза только при зелёном CI (v0.5.11)**: workflow релиза читает заключение CI-запуска самого коммита до публикации. Красный запуск проваливает релиз, ещё идущий запуск ожидается, а коммит без запуска тоже проваливается (#2078)"
+
+#: src/introduction.md:113
+msgid ""
+"**Evolve restarts the right units (v0.5.11)**: the scheduled restart targets "
+"resolved unit names instead of the `opencrabs*.service` discovery glob, "
+"which also matched the transient unit running the restart and made systemd "
+"stop its own executor (#2081)"
+msgstr ""
+"**Evolve перезапускает нужные юниты (v0.5.11)**: плановый перезапуск нацелен на разрешённые имена юнитов вместо glob-шаблона обнаружения `opencrabs*.service`, который также совпадал с временным юнитом, выполняющим перезапуск, и заставлял systemd останавливать собственный исполнитель (#2081)"
+
+#: src/introduction.md:115
 msgid ""
 "**doctor --fix repair mode (v0.3.83)** — stuck cron rows, stale markers and "
 "broken permissions are repaired on the spot instead of only reported"
@@ -1160,7 +1195,7 @@ msgstr ""
 "устаревшие маркеры и сломанные права чинятся на месте, а не только "
 "отображаются в отчёте"
 
-#: src/introduction.md:112
+#: src/introduction.md:116
 msgid ""
 "**Per-path write locks (v0.3.83)** — concurrent writes to the same file "
 "serialize; the last writer no longer silently wins"
@@ -1168,7 +1203,7 @@ msgstr ""
 "**Блокировки записи на каждый путь (v0.3.83)** — одновременные записи в один "
 "файл выстраиваются в очередь; последний писатель больше молча не побеждает"
 
-#: src/introduction.md:113
+#: src/introduction.md:117
 msgid ""
 "**Sub-agent worktree isolation (v0.3.83)** — each child agent gets its own "
 "worktree and branch, so a fan-out cannot clobber the shared tree"
@@ -1176,7 +1211,7 @@ msgstr ""
 "**Изоляция worktree суб-агентов (v0.3.83)** — каждый дочерний агент получает "
 "свой worktree и ветку, так что веерный запуск не затирает общее дерево"
 
-#: src/introduction.md:114
+#: src/introduction.md:118
 msgid ""
 "**Type-aware acceptance criteria (v0.3.83)** — plan criteria are enforced "
 "against the toolchain the project actually uses (#1133)"
@@ -1184,7 +1219,7 @@ msgstr ""
 "**Критерии приёмки с учётом типа проекта (v0.3.83)** — критерии плана "
 "применяются к тулчейну, который проект реально использует (#1133)"
 
-#: src/introduction.md:115
+#: src/introduction.md:119
 msgid ""
 "**Project-aware plan verification (v0.3.83)** — plans verify with the "
 "project's own commands, not always cargo, and find the project from the "
@@ -1194,7 +1229,7 @@ msgstr ""
 "командами самого проекта, а не всегда cargo, и проект находится из папки "
 "session"
 
-#: src/introduction.md:116
+#: src/introduction.md:120
 msgid ""
 "**/stop cancels immediately (v0.3.83)** — interrupts during provider "
 "handshake and retry backoffs (#1148)"
@@ -1202,7 +1237,7 @@ msgstr ""
 "**/stop отменяет немедленно (v0.3.83)** — прерывает даже во время "
 "рукопожатия с провайдером и пауз между повторами (#1148)"
 
-#: src/introduction.md:117
+#: src/introduction.md:121
 msgid ""
 "**A2A session resume (v0.3.83)** — sessions resume by context id, the "
 "gateway is profile-addressed (#1159, #1161)"
@@ -1210,7 +1245,7 @@ msgstr ""
 "**Возобновление session через A2A (v0.3.83)** — sessions возобновляются по "
 "id контекста, шлюз адресуется по профилю (#1159, #1161)"
 
-#: src/introduction.md:118
+#: src/introduction.md:122
 msgid ""
 "**DeepSeek thinking knobs (v0.3.83)** — DeepSeek gets the thinking "
 "parameters it actually reads, plus tool-call-only turn handling"
@@ -1219,7 +1254,7 @@ msgstr ""
 "thinking, которые он реально читает, плюс обработку ходов только с вызовами "
 "инструментов"
 
-#: src/introduction.md:119
+#: src/introduction.md:123
 msgid ""
 "**session_id log correlation (v0.3.82)** — every turn opens a tracing span "
 "carrying its session id, and cron jobs and the RSI engine get their own, so "
@@ -1229,7 +1264,7 @@ msgstr ""
 "трассировки со своим session id, у задач cron и движка RSI свои span, так "
 "что один grep восстанавливает весь ход из общего дневного лога"
 
-#: src/introduction.md:120
+#: src/introduction.md:124
 msgid ""
 "**Logger reliability (v0.3.82)** — the logger stops dropping events and "
 "stops writing to the TUI's terminal; a stalled write can no longer silence "
@@ -1239,7 +1274,7 @@ msgstr ""
 "в терминал TUI; зависшая запись больше не глушит логирование остальных "
 "потоков"
 
-#: src/introduction.md:121
+#: src/introduction.md:125
 msgid ""
 "**User-owned brain files protected (v0.3.82)** — SOUL.md, USER.md and "
 "MEMORY.md are never merged into from upstream, and directives route to "
@@ -1249,7 +1284,7 @@ msgstr ""
 "MEMORY.md никогда не пополняются из upstream, а директивы направляются в "
 "AGENTS.md, который загружается всегда"
 
-#: src/introduction.md:122
+#: src/introduction.md:126
 msgid ""
 "**Config section unification (v0.3.82)** — the legacy `[gateway]` spelling "
 "is migrated on disk to `[a2a]`, so one name survives a reload round trip"
@@ -1258,7 +1293,7 @@ msgstr ""
 "`[gateway]` мигрирует на диске в `[a2a]`, так что одно имя переживает цикл "
 "перезагрузки"
 
-#: src/introduction.md:123
+#: src/introduction.md:127
 msgid ""
 "**Chunk-hash caching (v0.3.82)** — memory skips re-embedding chunks whose "
 "content has not changed"
@@ -1266,7 +1301,7 @@ msgstr ""
 "**Кэширование по хэшу чанков (v0.3.82)** — память пропускает повторное "
 "встраивание чанков, чьё содержимое не менялось"
 
-#: src/introduction.md:124
+#: src/introduction.md:128
 msgid ""
 "**Pre-release binaries (v0.3.82)** — five platform targets plus SHA256SUMS, "
 "published as a rolling pre-release so contributors can test unreleased code "
@@ -1277,7 +1312,7 @@ msgstr ""
 "тестировали невышедший код, не дожидаясь тега. Запуск по требованию, не на "
 "каждый push"
 
-#: src/introduction.md:125
+#: src/introduction.md:129
 msgid ""
 "**Rate-limit bail (v0.3.82)** — a long Telegram rate-limit window returns "
 "immediately instead of parking the send inline"
@@ -1285,7 +1320,7 @@ msgstr ""
 "**Выход по rate-limit (v0.3.82)** — при длинном окне ограничений Telegram "
 "возврат происходит немедленно, вместо того чтобы парковать отправку в очереди"
 
-#: src/introduction.md:126
+#: src/introduction.md:130
 msgid ""
 "**In-tree memory store (v0.3.81)** — the qmd dependency is dropped; SQLite "
 "FTS5 + vector search owned in-tree"
@@ -1293,7 +1328,7 @@ msgstr ""
 "**Собственное хранилище памяти (v0.3.81)** — зависимость qmd убрана; поиск "
 "на SQLite FTS5 + векторный живёт в самом коде"
 
-#: src/introduction.md:127
+#: src/introduction.md:131
 msgid ""
 "**External index paths (v0.3.81)** — memory search reads indexes outside the "
 "profile directory, default-deny in shared sessions"
@@ -1301,7 +1336,7 @@ msgstr ""
 "**Внешние пути индексов (v0.3.81)** — поиск по памяти читает индексы вне "
 "директории профиля; по умолчанию запрет в общих sessions"
 
-#: src/introduction.md:128
+#: src/introduction.md:132
 msgid ""
 "**Mermaid as images on Telegram (v0.3.81)** — diagrams render as images "
 "while tables stay native formatting"
@@ -1309,7 +1344,7 @@ msgstr ""
 "**Mermaid картинками в Telegram (v0.3.81)** — диаграммы рендерятся "
 "картинками, а таблицы остаются в нативном форматировании"
 
-#: src/introduction.md:129
+#: src/introduction.md:133
 msgid ""
 "**Qwen reasoning across turns (v0.3.81)** — preserve_thinking, family-gated "
 "thinking knobs, recommended effort tier by default, hosted Qwen reachable "
@@ -1319,7 +1354,7 @@ msgstr ""
 "thinking по семейству, рекомендуемый уровень усилий по умолчанию, хостуемый "
 "Qwen доступен отовсюду"
 
-#: src/introduction.md:130
+#: src/introduction.md:134
 msgid ""
 "**keys.toml key-loss fix (v0.3.81)** — provider API keys no longer dropped "
 "at runtime; poisoned keys self-heal"
@@ -1327,7 +1362,7 @@ msgstr ""
 "**Фикс потери ключей в keys.toml (v0.3.81)** — API-ключи провайдеров больше "
 "не теряются во время работы; ��овреждённые ключи самолечатся"
 
-#: src/introduction.md:131
+#: src/introduction.md:135
 msgid ""
 "**Early loop detection (v0.3.81)** — repeating tool rounds caught before the "
 "provider rejects the turn"
@@ -1335,7 +1370,7 @@ msgstr ""
 "**Раннее обнаружение циклов (v0.3.81)** — повторяющиеся раунды инструментов "
 "ловятся до того, как провайдер отклонит ход"
 
-#: src/introduction.md:132
+#: src/introduction.md:136
 msgid ""
 "**RSI engine gate (v0.3.81)** — autonomous RSI off by default for headless "
 "daemons, opt in with `rsi_enabled`"
@@ -1343,7 +1378,7 @@ msgstr ""
 "**Ворота движка RSI (v0.3.81)** — автономный RSI по умолчанию выключен для "
 "headless-демонов, включается через `rsi_enabled`"
 
-#: src/introduction.md:133
+#: src/introduction.md:137
 msgid ""
 "**memory_search scope (v0.3.80)** — search daily logs (`memory`), brain "
 "files (`brain`), or both (`all`); brain files are indexed on write"
@@ -1352,7 +1387,7 @@ msgstr ""
 "(`memory`), brain files (`brain`) или по обоим сразу (`all`); brain files "
 "индексируются при записи"
 
-#: src/introduction.md:134
+#: src/introduction.md:138
 msgid ""
 "**Chunked memory retrieval (v0.3.80)** — documents chunked before embedding "
 "so later chunks are searchable; recall ranked with BM25"
@@ -1361,7 +1396,7 @@ msgstr ""
 "перед встраиванием, поэтому поздние чанки тоже находятся; релевантность "
 "ранжируется BM25"
 
-#: src/introduction.md:135
+#: src/introduction.md:139
 msgid ""
 "**Slack-native rendering (v0.3.80)** — tables and headings arrive in Slack's "
 "own shape instead of raw markdown"
@@ -1369,7 +1404,7 @@ msgstr ""
 "**Нативный рендеринг Slack (v0.3.80)** — таблицы и заголовки приходят в "
 "собственном формате Slack вместо сырого markdown"
 
-#: src/introduction.md:136
+#: src/introduction.md:140
 msgid ""
 "**Owner-gated channel commands (v0.3.80)** — custom commands and skills are "
 "owner-only on the channel catch-all arm in groups"
@@ -1377,7 +1412,7 @@ msgstr ""
 "**Команды channel только для owner (v0.3.80)** — пользовательские команды и "
 "skills в группах доступны только owner на catch-all-ветке channel"
 
-#: src/introduction.md:137
+#: src/introduction.md:141
 msgid ""
 "**RSI convergence gates (v0.3.80)** — self-improvement pauses on "
 "convergence, backs off on zero-improvement streaks, hashes findings by "
@@ -1387,7 +1422,7 @@ msgstr ""
 "сходимости, откатывается при сериях без улучшений, хэширует находки по "
 "стабильной идентичности"
 
-#: src/introduction.md:138
+#: src/introduction.md:142
 msgid ""
 "**Loop guards (v0.3.80)** — announcement and near-match repetition guards on "
 "all tools; loop-detector kills reach the fallback chain"
@@ -1396,7 +1431,7 @@ msgstr ""
 "одинаковых повторов на всех инструментах; срабатывания детектора циклов "
 "доходят до цепочки fallback"
 
-#: src/introduction.md:139
+#: src/introduction.md:143
 msgid ""
 "**Browser inventory mode (v0.3.80)** — bare `browser_find` enumerates every "
 "clickable element on the page"
@@ -1404,7 +1439,7 @@ msgstr ""
 "**Режим инвентаризации браузера (v0.3.80)** — голый `browser_find` "
 "перечисляет каждый кликабельный элемент на странице"
 
-#: src/introduction.md:140
+#: src/introduction.md:144
 msgid ""
 "**Brain-file template updates (v0.3.80)** — AGENTS.md, BOOT.md, and SOUL.md "
 "templates changed; seeding never overwrites existing files, so diff against "
@@ -1416,7 +1451,7 @@ msgstr ""
 "поэтому сверьте с `src/docs/reference/templates/` и смёржите вручную, если "
 "хотите новые дефолты"
 
-#: src/introduction.md:141
+#: src/introduction.md:145
 msgid ""
 "**System brain rebuild** — brain files rebuilt from disk when changed, no "
 "restart needed"
@@ -1424,7 +1459,7 @@ msgstr ""
 "**Пересборка системного brain** — brain files пересобираются с диска при "
 "изменении, перезапуск не нужен"
 
-#: src/introduction.md:142
+#: src/introduction.md:146
 msgid ""
 "**Proactive tool discovery** — searches for available tools before claiming "
 "inability"
@@ -1432,7 +1467,7 @@ msgstr ""
 "**Проактивный поиск инструментов** — сначала ищет доступные инструменты, и "
 "только потом признаёт бессилие"
 
-#: src/introduction.md:143
+#: src/introduction.md:147
 msgid ""
 "**Multilanguage prompt analyzer (v0.3.67)** — shared PromptAnalyzer with "
 "soft-nudge on TUI and Telegram, 6 language packs (EN/ES/FR/ID/PT/RU)"
@@ -1440,7 +1475,7 @@ msgstr ""
 "**Многоязычный анализатор промптов (v0.3.67)** — общий PromptAnalyzer с "
 "мягкими подсказками в TUI и Telegram, 6 языковых пакетов (EN/ES/FR/ID/PT/RU)"
 
-#: src/introduction.md:144
+#: src/introduction.md:148
 msgid ""
 "**Plan mode (v0.3.67-v0.3.68)** — design/checklist tracks, persistent plan "
 "card, `/plan <query>` command, agent self-approval when user grants autonomy"
@@ -1449,7 +1484,7 @@ msgstr ""
 "карточка плана, команда `/plan <query>`, самосогласование агентом при "
 "выданной пользователем автономии"
 
-#: src/introduction.md:145
+#: src/introduction.md:149
 msgid ""
 "**Click-to-expand (v0.3.69)** — left-click a tool-call or reasoning block to "
 "expand just that block, complementing Ctrl+O"
@@ -1457,7 +1492,7 @@ msgstr ""
 "**Разворачивание кликом (v0.3.69)** — левый клик по блоку вызова инструмента "
 "или размышлений разворачивает только его, в дополнение к Ctrl+O"
 
-#: src/introduction.md:146
+#: src/introduction.md:150
 msgid ""
 "**Skills review_gate (v0.3.70)** — frontmatter declaration for high-stakes "
 "skills that require user approval before side effects"
@@ -1466,7 +1501,7 @@ msgstr ""
 "рискованных skills, требующих одоб��ения пользователя перед побочными "
 "эффектами"
 
-#: src/introduction.md:147
+#: src/introduction.md:151
 msgid ""
 "**JIT tool activation** — extended tools activated on-demand, no pre-"
 "registration needed"
@@ -1474,7 +1509,7 @@ msgstr ""
 "**JIT-активация инструментов** — расширенные инструменты активируются по "
 "запросу, предварительная регистрация не нужна"
 
-#: src/introduction.md:148
+#: src/introduction.md:152
 msgid ""
 "**Config auto-repair** — auto-repair broken config.toml, never poison last-"
 "good config"
@@ -1482,7 +1517,7 @@ msgstr ""
 "**Автопочинка конфигурации** — сломанный config.toml чинится автоматически, "
 "последняя рабочая конфигурация никогда не портится"
 
-#: src/introduction.md:149
+#: src/introduction.md:153
 msgid ""
 "**Context budget management** — 65% soft / 90% hard compaction thresholds "
 "with LLM fallback"
@@ -1490,7 +1525,7 @@ msgstr ""
 "**Управление бюджетом контекста** — пороги компакции 65% мягкий / 90% "
 "жёсткий с fallback на LLM"
 
-#: src/introduction.md:150
+#: src/introduction.md:154
 msgid ""
 "**Stuck stream detection** — 2048-byte rolling window catches repeating "
 "patterns"
@@ -1498,13 +1533,13 @@ msgstr ""
 "**Обнаружение зависшего стрима** — скользящее окно в 2048 байт ловит "
 "повторяющиеся паттерны"
 
-#: src/introduction.md:151
+#: src/introduction.md:155
 msgid "**Gaslighting defense** — strips tool-refusal preambles mid-turn"
 msgstr ""
 "**Защита от газлайтинга** — вырезает преамбулы с отказом от инструментов "
 "посреди хода"
 
-#: src/introduction.md:152
+#: src/introduction.md:156
 msgid ""
 "**Deliver build outcomes (v0.3.61)** — rebuild/evolve results reach whoever "
 "asked, across channels and TUI"
@@ -1512,11 +1547,11 @@ msgstr ""
 "**Доставка результатов сборки (v0.3.61)** — результаты rebuild/evolve "
 "доходят до того, кто просил, во всех channels и TUI"
 
-#: src/introduction.md:154
+#: src/introduction.md:158
 msgid "Terminal UI"
 msgstr "Терминальный UI"
 
-#: src/introduction.md:155
+#: src/introduction.md:159
 msgid ""
 "**Native markdown rendering** — emphasis, lists, links, and task items "
 "render directly in the terminal"
@@ -1524,7 +1559,7 @@ msgstr ""
 "**Нативный рендеринг markdown** — выделение, списки, ссылки и чекбоксы задач "
 "рендерятся прямо в терминале"
 
-#: src/introduction.md:156
+#: src/introduction.md:160
 msgid ""
 "**Real-time tok/s throughput meter** — live tokens-per-second during "
 "streaming"
@@ -1532,7 +1567,7 @@ msgstr ""
 "**Счётчик скорости в реальном времени** — живые токены в секунду во время "
 "стриминга"
 
-#: src/introduction.md:157
+#: src/introduction.md:161
 msgid ""
 "**Version display (v0.3.73)** — show the running version on the TUI header "
 "and in channel /help + /usage"
@@ -1540,7 +1575,7 @@ msgstr ""
 "**Отображение версии (v0.3.73)** — работающая версия показывается в шапке "
 "TUI и в /help + /usage в channels"
 
-#: src/introduction.md:158
+#: src/introduction.md:162
 msgid ""
 "**3-state reasoning expand (v0.3.74)** — click or Ctrl+O cycles a reasoning "
 "block collapsed → capped → full, so it never floods the view"
@@ -1549,7 +1584,7 @@ msgstr ""
 "переключает блок размышлений свёрнут → ограничен → полностью, так что он "
 "никогда не заливает экран"
 
-#: src/introduction.md:159
+#: src/introduction.md:163
 msgid ""
 "**Per-turn headers (v0.3.75)** — every turn gets a one-line summary header, "
 "its working-out folds into it, and turns fold by default so the view stays "
@@ -1559,7 +1594,7 @@ msgstr ""
 "заголовок-сводку, его рассуждения сворачиваются в него, и ходы по умолчанию "
 "свёрнуты, поэтому обзор остаётся чистым"
 
-#: src/introduction.md:160
+#: src/introduction.md:164
 msgid ""
 "**Group tool calls (v0.3.61)** — consecutive tool calls collapse into one "
 "expandable block, keeping the TUI clean during multi-step operations"
@@ -1568,7 +1603,7 @@ msgstr ""
 "инструментов сворачиваются в один разворачиваемый блок, сохраняя TUI чистым "
 "во время многошаговых операций"
 
-#: src/introduction.md:161
+#: src/introduction.md:165
 msgid ""
 "**Fold intermediate text (v0.3.61)** — intermediate processing text folds "
 "into the same in-place log as tool calls, so only the final answer stays "
@@ -1578,20 +1613,20 @@ msgstr ""
 "обработки сворачивается в тот же журнал на месте, что и вызовы инструментов, "
 "поэтому виден только финальный ответ"
 
-#: src/introduction.md:162
+#: src/introduction.md:166
 msgid ""
 "**Session search** — search filter + viewport scroll across all sessions"
 msgstr ""
 "**Поиск по sessions** — поисковый фильтр + прокрутка вьюпорта по всем "
 "sessions"
 
-#: src/introduction.md:163
+#: src/introduction.md:167
 msgid "**Split panes** — tmux-style parallel sessions with layout persistence"
 msgstr ""
 "**Разделённые панели** — параллельные sessions в стиле tmux с сохранением "
 "раскладки"
 
-#: src/introduction.md:164
+#: src/introduction.md:168
 msgid ""
 "**Clipboard image paste** — paste images from browser or any app directly "
 "into TUI"
@@ -1599,20 +1634,20 @@ msgstr ""
 "**Вставка картинок из буфера** — вставляйте картинки из браузера или любого "
 "приложения прямо в TUI"
 
-#: src/introduction.md:165
+#: src/introduction.md:169
 msgid "**Plan pinning** — active plan pinned at end of prompt each turn"
 msgstr ""
 "**Закрепление плана** — активный план прикалывается в конец промпта на "
 "каждый ход"
 
-#: src/introduction.md:166
+#: src/introduction.md:170
 msgid ""
 "**Agent-driven onboarding** — personalized first-time setup with guided flow"
 msgstr ""
 "**Онбординг под руководством агента** — персонализированная первичная "
 "настройка с ведением по шагам"
 
-#: src/introduction.md:167
+#: src/introduction.md:171
 msgid ""
 "**`/goal` autonomous loop** — set a goal and the agent loops until an LLM "
 "judge says it's done, with pause/resume/status controls"
@@ -1620,7 +1655,7 @@ msgstr ""
 "**Автономный цикл `/goal`** — поставьте цель, и агент крутится, пока LLM-"
 "судья не скажет «готово», с управлением пауза/продолжить/статус"
 
-#: src/introduction.md:168
+#: src/introduction.md:172
 msgid ""
 "**Self-goaling (v0.3.61)** — agent can set and drive its own multi-turn "
 "goals via `goal_manage` tool without user invoking `/goal`"
@@ -1629,11 +1664,11 @@ msgstr ""
 "многоходовые цели через инструмент `goal_manage`, без команды `/goal` от "
 "пользователя"
 
-#: src/introduction.md:170
+#: src/introduction.md:174
 msgid "Developer Experience"
 msgstr "Опыт разработчика"
 
-#: src/introduction.md:171
+#: src/introduction.md:175
 msgid ""
 "**50+ built-in tools** — file ops, bash, web search, code execution, browser "
 "automation, image gen, voice, PDF rendering"
@@ -1642,7 +1677,7 @@ msgstr ""
 "исполнение кода, автоматизация браузера, генерация картинок, голос, "
 "рендеринг PDF"
 
-#: src/introduction.md:172
+#: src/introduction.md:176
 msgid ""
 "**Unified parallel web search (v0.3.73)** — web_search, exa_search, and "
 "brave_search fan out in parallel under a single web_search tool"
@@ -1650,7 +1685,7 @@ msgstr ""
 "**Единый параллельный веб-поиск (v0.3.73)** — web_search, exa_search и "
 "brave_search работают параллельно под одним инструментом web_search"
 
-#: src/introduction.md:173
+#: src/introduction.md:177
 msgid ""
 "**web_scrape** — native URL-to-markdown scraping with SSRF protection, "
 "sitemap crawling, JS-shell detection, and profile-aware export"
@@ -1658,7 +1693,7 @@ msgstr ""
 "**web_scrape** — нативное превращение URL в markdown с защитой от SSRF, "
 "обходом sitemap, обнаружением JS-заглушек и экспортом с учётом профиля"
 
-#: src/introduction.md:174
+#: src/introduction.md:178
 msgid ""
 "**DDG captcha detection (v0.3.73)** — detect DuckDuckGo captcha via HTTP 202 "
 "+ structural form check"
@@ -1666,7 +1701,7 @@ msgstr ""
 "**Обнаружение ��апчи DDG (v0.3.73)** — капча DuckDuckGo детектируется по "
 "HTTP 202 + структурной проверке формы"
 
-#: src/introduction.md:175
+#: src/introduction.md:179
 msgid ""
 "**Built-in /github skill** — full gh CLI control for issues, PRs, code "
 "reviews, repo management"
@@ -1674,14 +1709,14 @@ msgstr ""
 "**Встроенный skill /github** — полное управление gh CLI для issues, PR, код-"
 "ревью и управления репозиториями"
 
-#: src/introduction.md:176
+#: src/introduction.md:180
 msgid ""
 "**Proactive tool discovery** — agent finds tools before saying \"I can't\""
 msgstr ""
 "**Проактивный поиск инструментов** — агент находит инструменты, прежде чем "
 "сказать «не могу»"
 
-#: src/introduction.md:177
+#: src/introduction.md:181
 msgid ""
 "**Skills system** — workflow templates with fuzzy-finding, auto-registered "
 "as slash commands"
@@ -1689,13 +1724,13 @@ msgstr ""
 "**Система skills** — шаблоны рабочих процессов с нечётким поиском, "
 "автоматически регистрируются как slash-команды"
 
-#: src/introduction.md:178
+#: src/introduction.md:182
 msgid "**Dynamic tools** — runtime-defined via TOML (HTTP + shell executors)"
 msgstr ""
 "**Динамические инструменты** — определяются на лету через TOML (исполнители "
 "HTTP + shell)"
 
-#: src/introduction.md:179
+#: src/introduction.md:183
 msgid ""
 "**Projects system** — dedicated sessions with per-project brain overlays, "
 "file archiving, and color badges"
@@ -1703,7 +1738,7 @@ msgstr ""
 "**Система проектов** — выделенные sessions с брейн-оверлеями на каждый "
 "проект, архивацией файлов и цветными значками"
 
-#: src/introduction.md:180
+#: src/introduction.md:184
 msgid ""
 "**Hashline editing** — hash-anchored file editing with batch support and "
 "collision detection"
@@ -1711,7 +1746,7 @@ msgstr ""
 "**Hashline-редактирование** — редактирование файлов с привязкой к хэшам "
 "строк, пакетными правками и обнаружением коллизий"
 
-#: src/introduction.md:181
+#: src/introduction.md:185
 msgid ""
 "**Mission Control** — full-screen dashboard with RSI inbox, activity log, "
 "and cron schedule"
@@ -1719,7 +1754,7 @@ msgstr ""
 "**Mission Control** — полноэкранная панель с входящими RSI, журналом "
 "активности и расписанием cron"
 
-#: src/introduction.md:182
+#: src/introduction.md:186
 msgid ""
 "**RTK auto-download** — bundled 4MB proxy for 53.5% token savings on 100+ "
 "commands"
@@ -1727,7 +1762,7 @@ msgstr ""
 "**Автозагрузка RTK** — встроенный прокси в 4 МБ для экономии 53,5% токенов "
 "на 100+ командах"
 
-#: src/introduction.md:183
+#: src/introduction.md:187
 msgid ""
 "**Confidential file protection** — SSH keys, .env, credentials protected by "
 "default"
@@ -1735,14 +1770,14 @@ msgstr ""
 "**Защита конфиденциальных файлов** — SSH-ключи, .env, креды защищены по "
 "умолчанию"
 
-#: src/introduction.md:184
+#: src/introduction.md:188
 msgid ""
 "**AGENTS always-loaded** — hard rules and governance enforced every turn"
 msgstr ""
 "**AGENTS загружается всегда** — жёсткие правил�� и управление применяются на "
 "каждом ходу"
 
-#: src/introduction.md:185 src/introduction.md:188
+#: src/introduction.md:189 src/introduction.md:192
 msgid ""
 "**Config-driven debug_logs (v0.3.71)** — toggle debug logs with hot-reload, "
 "no restart needed"
@@ -1750,7 +1785,7 @@ msgstr ""
 "**debug_logs из конфигурации (v0.3.71)** — переключение дебаг-логов с hot-"
 "reload, без перезапуска"
 
-#: src/introduction.md:186 src/introduction.md:187
+#: src/introduction.md:190 src/introduction.md:191
 msgid ""
 "**Secret redaction scope (v0.3.71)** — scope redaction to global/group/DM "
 "with `/redact` command"
@@ -1758,14 +1793,14 @@ msgstr ""
 "**Область маскирования секретов (v0.3.71)** — маскирование в рамках "
 "глобально/группа/личка командой `/redact`"
 
-#: src/introduction.md:189
+#: src/introduction.md:193
 msgid ""
 "**Tmux watchdog (v0.3.71)** — pane-only kill, 30s warning, auto-reattach"
 msgstr ""
 "**Сторож Tmux (v0.3.71)** — прибивает только панель, предупреждение за 30 с, "
 "автоматический повторный attach"
 
-#: src/introduction.md:190
+#: src/introduction.md:194
 msgid ""
 "**Plan-gate three-state (v0.3.71)** — GateDecision with bash going to "
 "approval in post-init Editing"
@@ -1773,7 +1808,7 @@ msgstr ""
 "**Трёхпозиционный шлюз планов (v0.3.71)** — GateDecision, bash уходит на "
 "одобрение в Editing после инициализации"
 
-#: src/introduction.md:191
+#: src/introduction.md:195
 msgid ""
 "**MCP-style ToolHints (v0.3.71)** — risk model for tool classification, "
 "drives plan gate"
@@ -1781,7 +1816,7 @@ msgstr ""
 "**ToolHints в стиле MCP (v0.3.71)** — модель рисков для классификации "
 "инструментов, питает шлюз планов"
 
-#: src/introduction.md:194
+#: src/introduction.md:198
 msgid ""
 "**Full CDP support** — navigate, click, type, screenshot, JS eval, find "
 "elements"
@@ -1789,25 +1824,25 @@ msgstr ""
 "**Полная поддержка CDP** — навигация, клики, ввод, скриншоты, JS eval, поиск "
 "элементов"
 
-#: src/introduction.md:195
+#: src/introduction.md:199
 msgid "**Headless or headed** mode with element-specific screenshots"
 msgstr "Режим **headless или headed** со скриншотами отдельных элементов"
 
-#: src/introduction.md:196
+#: src/introduction.md:200
 msgid "**Cookie/session persistence** across browser sessions"
 msgstr "**Сохранение cookies/session** между сессиями браузера"
 
-#: src/introduction.md:197
+#: src/introduction.md:201
 msgid "**Per-session tab isolation** — no cross-session DOM stomping"
 msgstr ""
 "**Изоляция вкладок на каждую session** — никакого затаптывания DOM между "
 "sessions"
 
-#: src/introduction.md:199
+#: src/introduction.md:203
 msgid "Project Directive Discovery (v0.3.59)"
 msgstr "Обнаружение директив проекта (v0.3.59)"
 
-#: src/introduction.md:201
+#: src/introduction.md:205
 msgid ""
 "OpenCrabs auto-discovers rule files that other AI coding tools drop in a "
 "repo. Point the agent at any repository (via `/cd`, a channel workspace, or "
@@ -1822,81 +1857,81 @@ msgstr ""
 "GitHub Copilot, OpenCode и межинструментального стандарта `AGENTS.md`. Без "
 "конфигурации, без шага импорта."
 
-#: src/introduction.md:203 src/getting-started/onboarding.md:126
+#: src/introduction.md:207 src/getting-started/onboarding.md:126
 #: src/features/themes.md:56
 msgid "Source"
 msgstr "Источник"
 
-#: src/introduction.md:203
+#: src/introduction.md:207
 msgid "Files"
 msgstr "Файлы"
 
-#: src/introduction.md:205
+#: src/introduction.md:209
 msgid "Cross-tool standard"
 msgstr "Межинструментальный стандарт"
 
-#: src/introduction.md:205 src/features/self-improvement.md:93
+#: src/introduction.md:209 src/features/self-improvement.md:93
 msgid "`AGENTS.md`"
 msgstr ""
 
-#: src/introduction.md:206
+#: src/introduction.md:210
 msgid "Claude Code"
 msgstr ""
 
-#: src/introduction.md:206
+#: src/introduction.md:210
 msgid ""
 "`CLAUDE.md`, `CLAUDE.local.md`, `.claude/CLAUDE.md`, `.claude/rules/**/*.md`"
 msgstr ""
 
-#: src/introduction.md:207
+#: src/introduction.md:211
 msgid "Cursor"
 msgstr ""
 
-#: src/introduction.md:207
+#: src/introduction.md:211
 msgid "`.cursorrules`, `.cursor/rules/**/*.mdc`"
 msgstr ""
 
-#: src/introduction.md:208
+#: src/introduction.md:212
 msgid "Windsurf"
 msgstr ""
 
-#: src/introduction.md:208
+#: src/introduction.md:212
 msgid "`.windsurfrules`"
 msgstr ""
 
-#: src/introduction.md:209
+#: src/introduction.md:213
 msgid "Cline"
 msgstr ""
 
-#: src/introduction.md:209
+#: src/introduction.md:213
 msgid "`.clinerules` (file or `.clinerules/**/*.{md,txt}`)"
 msgstr ""
 
-#: src/introduction.md:210
+#: src/introduction.md:214
 msgid "Gemini CLI"
 msgstr ""
 
-#: src/introduction.md:210
+#: src/introduction.md:214
 msgid "`GEMINI.md`"
 msgstr ""
 
-#: src/introduction.md:211 src/brain/providers.md:175
+#: src/introduction.md:215 src/brain/providers.md:175
 msgid "GitHub Copilot"
 msgstr ""
 
-#: src/introduction.md:211
+#: src/introduction.md:215
 msgid "`.github/copilot-instructions.md`"
 msgstr ""
 
-#: src/introduction.md:212
+#: src/introduction.md:216
 msgid "OpenCode"
 msgstr ""
 
-#: src/introduction.md:212
+#: src/introduction.md:216
 msgid "`.opencode/AGENTS.md`"
 msgstr ""
 
-#: src/introduction.md:214
+#: src/introduction.md:218
 msgid ""
 "The index rebuilds when you `/cd` into a new directory, so directive files "
 "are always current."
@@ -1904,23 +1939,23 @@ msgstr ""
 "Индекс пересобирается, когда вы делаете `/cd` в новую директорию, поэтому "
 "файлы директив всегда актуальны."
 
-#: src/introduction.md:216
+#: src/introduction.md:220
 msgid "Quick Start"
 msgstr "Быстрый старт"
 
-#: src/introduction.md:219
+#: src/introduction.md:223
 msgid "# Install (Linux/macOS)\n"
 msgstr ""
 
-#: src/introduction.md:220
+#: src/introduction.md:224
 msgid "$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/')"
 msgstr ""
 
-#: src/introduction.md:221
+#: src/introduction.md:225
 msgid "$(uname -s | tr A-Z a-z)"
 msgstr ""
 
-#: src/introduction.md:222
+#: src/introduction.md:226
 msgid ""
 "$(command -v jq >/dev/null 2>&1 && curl -s https://api.github.com/repos/"
 "opencrabs/opencrabs/releases/latest | jq -r .tag_name || curl -s https://"
@@ -1932,7 +1967,7 @@ msgstr ""
 "api.github.com/repos/opencrabs/opencrabs/releases/latest | grep -o "
 "'\"tag_name\":\"[^\"]*\"' | cut -d'\"' -f4)"
 
-#: src/introduction.md:223
+#: src/introduction.md:227
 msgid ""
 "\"https://github.com/opencrabs/opencrabs/releases/download/${TAG}/opencrabs-$"
 "{TAG}-${OS}-${ARCH}.tar.gz\""
@@ -1940,11 +1975,11 @@ msgstr ""
 "\"https://github.com/opencrabs/opencrabs/releases/download/${TAG}/opencrabs-$"
 "{TAG}-${OS}-${ARCH}.tar.gz\""
 
-#: src/introduction.md:225
+#: src/introduction.md:229
 msgid "# Or via Cargo (requires Rust 1.94+)\n"
 msgstr ""
 
-#: src/introduction.md:230
+#: src/introduction.md:234
 msgid ""
 "Auto-update enabled by default. Disable with `[agent] auto_update = false` "
 "in `~/.opencrabs/config.toml`."
@@ -1952,49 +1987,49 @@ msgstr ""
 "Автообновление включено по умолчанию. Отключите через `[agent] auto_update = "
 "false` в `~/.opencrabs/config.toml`."
 
-#: src/introduction.md:277
+#: src/introduction.md:281
 msgid "Next Steps"
 msgstr "Следующие шаги"
 
-#: src/introduction.md:279
+#: src/introduction.md:283
 msgid "[Installation](getting-started/installation.md) — Install and configure"
 msgstr "[Установка](getting-started/installation.md) — установка и настройка"
 
-#: src/introduction.md:280
+#: src/introduction.md:284
 msgid "[Configuration](getting-started/configuration.md) — All config options"
 msgstr ""
 "[Конфигурация](getting-started/configuration.md) — все параметры конфигурации"
 
-#: src/introduction.md:281
+#: src/introduction.md:285
 msgid "[Providers](brain/providers-overview.md) — Connect your LLM backends"
 msgstr ""
 "[Провайдеры](brain/providers-overview.md) — подключите ваши LLM-бэкенды"
 
-#: src/introduction.md:282
+#: src/introduction.md:286
 msgid "[Channels](channels/overview.md) — Connect Telegram, Discord, etc."
 msgstr ""
 "[Channels](channels/overview.md) — подключите Telegram, Discord и другие"
 
-#: src/introduction.md:283
+#: src/introduction.md:287
 msgid "[Tools](brain/tools.md) — Explore 50+ built-in capabilities"
 msgstr "[Инструменты](brain/tools.md) — изучите 50+ встроенных возможностей"
 
-#: src/introduction.md:284
+#: src/introduction.md:288
 msgid "[Self-Healing](features/self-healing.md) — Resilience features"
 msgstr "[Самовосстановление](features/self-healing.md) — устойчивость к сбоям"
 
-#: src/introduction.md:285
+#: src/introduction.md:289
 msgid ""
 "[Multi-Agent](features/multi-agent.md) — Orchestrate sub-agents and teams"
 msgstr ""
 "[Мультиагентность](features/multi-agent.md) — оркестрация суб-агентов и "
 "команд"
 
-#: src/introduction.md:287
+#: src/introduction.md:291
 msgid "Community & Support"
 msgstr "Сообщество и поддержка"
 
-#: src/introduction.md:289
+#: src/introduction.md:293
 msgid ""
 "[Telegram community](https://t.me/opencrabs) — join the OpenCrabs group for "
 "questions, tips, and release chatter"
@@ -2002,7 +2037,7 @@ msgstr ""
 "[Сообщество в Telegram](https://t.me/opencrabs) — присоединяйтесь к группе "
 "OpenCrabs: вопросы, советы и новости релизов"
 
-#: src/introduction.md:290
+#: src/introduction.md:294
 msgid ""
 "[Sponsor on GitHub](https://github.com/sponsors/adolfousier) — back the "
 "project and keep the crabs fed"
@@ -2010,7 +2045,7 @@ msgstr ""
 "[��понсировать на GitHub](https://github.com/sponsors/adolfousier) — "
 "поддержите проект, чтобы крабы были сыты"
 
-#: src/introduction.md:291
+#: src/introduction.md:295
 msgid ""
 "[Buy Me a Coffee](https://buymeacoffee.com/opencrabs) — one-time support if "
 "OpenCrabs saved you an afternoon"
@@ -2018,7 +2053,7 @@ msgstr ""
 "[Buy Me A Coffee](https://buymeacoffee.com/opencrabs) — разовая поддержка, "
 "если OpenCrabs сэкономил вам полдня"
 
-#: src/introduction.md:293
+#: src/introduction.md:297
 msgid ""
 "Found a bug or want a feature? Open an issue on [GitHub](https://github.com/"
 "opencrabs/opencrabs/issues)."
@@ -2051,11 +2086,11 @@ msgstr ""
 
 #: src/getting-started/installation.md:13
 msgid ""
-"Run `opencrabs` after install — the onboarding wizard handles everything on "
-"first run."
+"Run `opencrabs` after install. It goes straight to the chat with its built-"
+"in provider already live, so the crab greets you and you can start talking. "
+"Run `opencrabs --onboard` when you want the setup wizard."
 msgstr ""
-"Запустите `opencrabs` после установки — мастер первоначальной настройки всё "
-"сделает при первом запуске."
+"Запустите `opencrabs` после установки. Он попадает прямо в чат со встроенным provider уже активным, поэтому crab вас приветствует и можно начинать общение. Запустите `opencrabs --onboard`, когда нужен мастер настройки."
 
 #: src/getting-started/installation.md:15
 msgid "Option 2: Download Binary (all platforms)"
@@ -2145,8 +2180,11 @@ msgstr ""
 "```"
 
 #: src/getting-started/installation.md:55
-msgid "The onboarding wizard handles everything on first run."
-msgstr "Мастер первоначальной настройки всё сделает при первом запуске."
+msgid ""
+"It goes straight to the chat with its built-in provider already live. Run "
+"`opencrabs --onboard` when you want the setup wizard."
+msgstr ""
+"Он попадает прямо в чат со встроенным provider уже активным. Запустите `opencrabs --onboard`, когда нужен мастер настройки."
 
 #: src/getting-started/installation.md:57
 msgid ""
@@ -2510,11 +2548,11 @@ msgstr "**Пользователи Docker:** `docker compose pull && docker comp
 
 #: src/getting-started/onboarding.md:3
 msgid ""
-"When you launch OpenCrabs for the first time, the **onboarding wizard** "
-"walks you through setup."
+"A first run does **not** open the wizard. OpenCrabs goes straight to the "
+"chat, with its built-in provider already provisioned and the agent greeting "
+"you. The **onboarding wizard** is opt-in: run `opencrabs --onboard`, or `/"
+"onboard` from inside a session."
 msgstr ""
-"Когда вы запускаете OpenCrabs в первый раз, **мастер онбординга** проведёт "
-"вас через настройку."
 
 #: src/getting-started/onboarding.md:5
 msgid "Video walkthroughs are on the [Onboarding Videos](./videos.md) page."
@@ -3485,7 +3523,10 @@ msgid ""
 "YouTube channel. Each OS has a quick start and an advanced setup video. "
 "Click a thumbnail to play it here."
 msgstr ""
-"Видеоинструкции по установке и первоначальной настройке OpenCrabs доступны на YouTube-канале OpenCrabs. Для каждой ОС есть видео с быстрым стартом и видео с расширенной настройкой. Нажмите на миниатюру, чтобы воспроизвести видео здесь."
+"Видеоинструкции по установке и первоначальной настройке OpenCrabs доступны "
+"на YouTube-канале OpenCrabs. Для каждой ОС есть видео с быстрым стартом и "
+"видео с расширенной настройкой. Нажмите на миниатюру, чтобы воспроизвести "
+"видео здесь."
 
 #: src/getting-started/videos.md:5 src/development/building.md:10
 msgid "macOS"
@@ -8751,7 +8792,9 @@ msgid "u32"
 msgstr ""
 
 #: src/brain/providers.md:440
-msgid "Context window size in tokens (for auto-compaction)"
+msgid ""
+"Context window size in tokens (for auto-compaction). Ignored on the built-in "
+"OpenCrabs provider, whose window is fixed at 200k"
 msgstr ""
 
 #: src/brain/providers.md:441
@@ -28615,6 +28658,23 @@ msgid ""
 "stranger who reaches a channel, or a prompt injection that reaches a tool, "
 "meets code that refuses, not prose that asks politely."
 msgstr ""
+
+#~ msgid ""
+#~ "Run `opencrabs` after install — the onboarding wizard handles everything "
+#~ "on first run."
+#~ msgstr ""
+#~ "Запустите `opencrabs` после установки — мастер первоначальной настройки "
+#~ "всё сделает при первом запуске."
+
+#~ msgid "The onboarding wizard handles everything on first run."
+#~ msgstr "Мастер первоначальной настройки всё сделает при первом запуске."
+
+#~ msgid ""
+#~ "When you launch OpenCrabs for the first time, the **onboarding wizard** "
+#~ "walks you through setup."
+#~ msgstr ""
+#~ "Когда вы запускаете OpenCrabs в первый раз, **мастер онбординга** "
+#~ "проведёт вас через настройку."
 
 #~ msgid "Quick start"
 #~ msgstr "Быстрый старт"
