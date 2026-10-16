@@ -24,3 +24,10 @@ done
 
 echo "==> All books built:"
 ls -d book book/* 2>/dev/null | grep -v '^book/$' || true
+
+echo "==> Generating per-page Open Graph previews"
+if [ "${SKIP_OG:-0}" = "1" ]; then
+    echo "==> Skipped (SKIP_OG=1)"
+else
+    python3 scripts/og_previews.py
+fi
